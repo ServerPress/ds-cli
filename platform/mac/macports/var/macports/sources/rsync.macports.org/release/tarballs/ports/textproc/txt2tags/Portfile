@@ -1,0 +1,49 @@
+# $Id: Portfile 90137 2012-02-23 19:10:15Z ryandesign@macports.org $
+
+PortSystem 1.0
+
+name            txt2tags
+version         2.6
+categories      textproc
+maintainers     gmail.com:aguynamedryan+txt2tags
+license         GPL-2
+supported_archs noarch
+
+description     A document generator: ONE source, MULTI targets
+long_description \
+    Txt2tags is a document generator. It reads a text file with minimal \
+    markup as **bold** and //italic// and converts it to the following \
+    formats: HTML, XHTML, SGML, LaTeX, Lout, Man page, MoinMoin, MagicPoint, \
+    PageMaker...
+
+homepage        http://txt2tags.org/
+platforms       darwin
+master_sites    googlecode:txt2tags
+extract.suffix  .tgz
+
+checksums       rmd160  2b8b3fdc29b898a46c011801a92b6872cf17d70e \
+                sha256  601467d7860f3cfb3d48050707c6277ff3ceb22fa7be4f5bd968de540ac5b05c
+
+use_configure   no
+depends_lib     port:python26
+
+build {
+    copy ${worksrcpath}/doc/manpage.man ${worksrcpath}/txt2tags.1
+}
+
+destroot {
+    xinstall -d ${destroot}${prefix}/share/doc/txt2tags
+    xinstall -m 0755 ${worksrcpath}/txt2tags ${destroot}${prefix}/bin/
+    fs-traverse file ${worksrcpath}/doc/ {
+        if {[file isfile ${file}]} {
+            copy ${file} ${destroot}${prefix}/share/doc/txt2tags/
+        }
+    }
+    xinstall -d ${destroot}${prefix}/share/txt2tags/
+    copy ${worksrcpath}/extras ${destroot}${prefix}/share/txt2tags/
+    copy ${worksrcpath}/samples ${destroot}${prefix}/share/txt2tags/
+    xinstall -m 0644 ${worksrcpath}/txt2tags.1 ${destroot}${prefix}/share/man/man1/
+    reinplace "s|#!/usr/bin/env python|#!${prefix}/bin/python2.6|" \
+        ${destroot}${prefix}/bin/txt2tags \
+        ${destroot}${prefix}/share/txt2tags/extras/gensite
+}

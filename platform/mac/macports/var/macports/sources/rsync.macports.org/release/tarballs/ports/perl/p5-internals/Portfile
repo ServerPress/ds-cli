@@ -1,0 +1,17 @@
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem		1.0
+PortGroup		perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup		Internals 1.1 ../../authors/id/S/ST/STBEY/
+revision        3
+maintainers		geeklair.net:dluke openmaintainer
+description		This is a Perl extension for write protecting variables and manipulating refcounts.
+license			{Artistic-1 GPL}
+long_description	${description}
+
+checksums		md5 b064d542f696e2bfa88a634dcde3ca6e \
+			sha1 b3c0567f00fee3a72ecf52ea11ba3a362b407eb6 \
+			rmd160 5d3cdbac2d9d282f7842b93128ca917b15d23942
+platforms		darwin

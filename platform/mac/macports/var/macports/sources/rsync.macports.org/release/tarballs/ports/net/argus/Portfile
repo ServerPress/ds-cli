@@ -1,0 +1,32 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130493 2014-12-31 02:57:53Z khindenburg@macports.org $
+
+PortSystem      1.0
+
+name            argus
+version         3.0.6
+categories      net
+maintainers     ncircle.com:tk
+description     the network Audit Record Generation and Utilization System
+long_description \
+    Argus is a real-time Flow Monitor that is designed to perform \
+    comprehensive IP network traffic auditing.
+platforms       darwin
+homepage        http://www.qosient.com/argus/
+master_sites    http://qosient.com/argus/src/ \
+                ftp://qosient.com/pub/argus/src/
+checksums       md5 dbdf8f0c4807fa33dc02b3708987fb10 \
+                sha1 6f8eeafc50afccff53b6d149ffcb51e30f7f35ba \
+                rmd160 7c3dcf820f16409a393e568b68430b2d935dd2c0
+depends_build   port:bison
+depends_lib     port:libpcap
+configure.args  --with-libpcap=${prefix}
+default_variants +sasl
+
+variant sasl description {Enable SASL support} {
+    depends_lib-append       port:cyrus-sasl2
+    configure.args-append    --with-sasl=${prefix}
+}
+
+livecheck.url   [lindex ${master_sites} 0]
+livecheck.regex argus-(\[0-9.\]+)${extract.suffix}

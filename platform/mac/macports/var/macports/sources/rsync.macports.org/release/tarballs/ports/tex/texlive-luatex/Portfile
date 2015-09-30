@@ -1,0 +1,32 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 121682 2014-07-04 04:51:53Z dports@macports.org $
+
+PortSystem          1.0
+PortGroup           texlive 1.0
+
+name                texlive-luatex
+version             34131
+revision            0
+
+categories          tex
+maintainers         dports
+license             Copyleft Permissive
+description         TeX Live: LuaTeX packages
+long_description    Packages for LuaTeX, a Unicode-aware extension of pdfTeX, using Lua as an embedded scripting and extension language. http://luatex.org/
+
+checksums           texlive-luatex-34131-run.tar.xz \
+                    rmd160  e2c4fd087050a9eeef37ff225d6638b6b032b448 \
+                    sha256  69dfe030eafcbe2b917da61e8795bb8587ff790f13e2904c8b05369354d6e828 \
+                    texlive-luatex-34131-doc.tar.xz \
+                    rmd160  c4890e813d05849acf04c023dd858d0955bae27a \
+                    sha256  9daaea2a7b6f80e811fc115622f0a8f33d456fd6f8153c56266b0a02d19ccb43 \
+                    texlive-luatex-34131-src.tar.xz \
+                    rmd160  144eab741ab9ce6b7c51477b2127660512935f48 \
+                    sha256  994afd5bf51f097c2b6ee7c97bc2b969f28a232ed5cdb5f43b74dcb84c1176d0
+
+depends_lib         port:texlive-basic
+
+texlive.binaries    checkcites lua2dox_filter luaotfload-tool mkluatexfontdb
+
+
+texlive.texmfport

@@ -1,0 +1,31 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135209 2015-04-19 04:56:54Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           php 1.1
+
+name                php-amqp
+version             1.6.0beta3
+categories          php net
+platforms           darwin
+maintainers         ryandesign openmaintainer
+license             PHP-3.01
+
+php.branches        5.3 5.4 5.5 5.6
+php.pecl            yes
+php.pecl.prerelease yes
+
+description         AMQP interface for PHP
+
+long_description    This extension can communicate with any AMQP spec 0-9-1 \
+                    compatible server, such as RabbitMQ, OpenAMQP and Qpid, \
+                    giving you the ability to create and delete exchanges \
+                    and queues, as well as publish to any exchange and \
+                    consume from any queue.
+
+checksums           rmd160  7e83085be007d326a3f43676b8a8a6d6ee13a8a9 \
+                    sha256  4209dbd96355a0610b42a636621b0b2b34169ef64f8067197a1a5a78a5784ac7
+
+depends_lib-append  port:rabbitmq-c
+
+configure.args-append --with-amqp --with-librabbitmq-dir=${prefix}

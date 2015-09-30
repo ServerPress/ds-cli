@@ -1,0 +1,22 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134279 2015-03-21 04:09:27Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Lexical-SealRequireHints 0.009
+license             {Artistic-1 GPL}
+maintainers         devans openmaintainer
+description         Lexical::SealRequireHints - prevent leakage of lexical hints
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  abdd91b4a51030495ab4106843955d839bc5ec38 \
+                    sha256  dc8925fedce4647473aa6e3ed51e23e024f50fc090173b9771ff03e8e2f2a064
+
+if {${perl5.major} != ""} {
+    perl5.use_module_build
+}
+

@@ -1,0 +1,18 @@
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem           1.0
+PortGroup            perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup          Pod-Tests 1.19
+revision             3
+license             {Artistic-1 GPL}
+maintainers	     nomaintainer
+platforms            darwin
+description          Extracts embedded tests and code examples from POD
+long_description     ${description}
+
+checksums           sha1    53ed2833ed06e8132ca0158a0038701ec72c29d2 \
+                    rmd160  aeb4d5c44ccf8a99ab4f622aa30f450600ac79bf
+
+supported_archs noarch

@@ -1,0 +1,19 @@
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         String-Format 1.17
+license             GPL-2
+maintainers         nomaintainer
+description         sprintf-like string formatting capabilities with arbitrary format definitions
+long_description    ${description}
+
+platforms           darwin
+
+checksums           md5 5635b975740122bab326ff2186cc97fb \
+                    sha1 bbfa7aff13c0aefbb4b24cb12ddbba4a54936c99 \
+                    rmd160 baf50111f08559b92b4b53f68eba474e32999700
+
+supported_archs noarch

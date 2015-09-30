@@ -1,0 +1,51 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134330 2015-03-23 03:47:25Z ionic@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        github hub 2.2.0 v
+revision            0
+categories          devel
+platforms           darwin
+supported_archs     noarch
+license             MIT
+maintainers         eitanadler.com:lists
+
+description         git-wrapper for GitHub specific functionality
+long_description    \
+    hub is a command line utility which adds GitHub knowledge to git. \
+    It can be used on its own or as a git wrapper.
+
+homepage            http://defunkt.io/hub/
+
+checksums           rmd160  6be45d60ef775c7833214427dc3723cde2fc9528 \
+                    sha256  cd1fb034c7793fd0f4fe1419eb253602accf0f9c051544112cc5d6fa6b449f26
+
+build.cmd           ./script/build
+build.target
+
+depends_lib         port:git \
+                    port:go
+
+use_configure       no
+
+installs_libs       no
+
+destroot {
+    xinstall -W ${worksrcpath} -m 0755 hub ${destroot}${prefix}/bin
+    set bash-completions ${destroot}${prefix}/share/bash-completion/completions
+    xinstall -d ${bash-completions}
+    xinstall -W ${worksrcpath} etc/hub.bash_completion.sh ${bash-completions}/hub
+    set site-functions ${destroot}${prefix}/share/zsh/site-functions
+    xinstall -d ${site-functions}
+    xinstall -W ${worksrcpath} etc/hub.zsh_completion ${site-functions}/
+}
+
+notes "
+To use 'hub' as a true git wrapper add the following line to your .zshrc or .bashrc
+
+alias git=hub
+
+or use 'hub' as standalone command
+"

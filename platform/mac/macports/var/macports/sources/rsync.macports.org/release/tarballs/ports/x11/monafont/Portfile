@@ -1,0 +1,44 @@
+# $Id: Portfile 136119 2015-05-11 19:45:31Z mf2k@macports.org $
+
+PortSystem 1.0
+
+name            monafont
+version         2.90
+revision        1
+categories      x11 fonts
+platforms       darwin
+maintainers     nomaintainer
+description     Japanese proportional font to show Japanese text arts correctly
+long_description \
+   Mona Font is a Japanese proportional font which allows you to view Japanese \
+   text arts correctly. Mona Font is based on Shinonome Font, a Japanese font \
+   developed by /efont/ Project.
+homepage        http://monafont.sourceforge.net/
+master_sites    sourceforge
+use_bzip2       yes
+checksums       md5 2b914878b19b1550757cea5d8a771612
+depends_build   port:mkfontscale port:mkfontdir
+post-patch {
+    reinplace "s|/usr/X11R6|${prefix}|" ${worksrcpath}/Makefile \
+                                        ${worksrcpath}/ttfsrc/Makefile
+}
+use_configure   no
+build.target    {}
+set myfontdir   ${prefix}/share/fonts/${name}
+destroot.destdir X11FONTDIR=${destroot}${myfontdir}
+pre-destroot {
+  xinstall -d -m 755 ${destroot}${myfontdir} \
+    ${destroot}${prefix}/share/doc/monafont
+  eval xinstall -m 644 [glob ${worksrcpath}/README*] \
+    ${destroot}${prefix}/share/doc/monafont
+}
+
+post-activate {
+   system "mkfontscale ${myfontdir}"
+   system "mkfontdir ${myfontdir}"
+}
+
+post-deactivate {
+   system "mkfontscale ${myfontdir}"
+   system "mkfontdir ${myfontdir}"
+}

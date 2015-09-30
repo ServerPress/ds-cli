@@ -1,0 +1,36 @@
+# $Id: Portfile 114723 2013-12-14 11:23:15Z mww@macports.org $
+
+PortSystem 1.0
+
+name                ocrad
+version             0.22
+categories          graphics
+platforms           darwin
+maintainers         mww
+license             GPL-3
+description         ocrad is an optical character recognition program
+long_description    GNU Ocrad is an OCR (Optical Character Recognition) \
+                    program implemented as a filter and based on a feature \
+                    extraction method. It reads a bitmap image in pbm \
+                    format and produces text in byte (8-bit) or UTF-8 \
+                    formats.
+
+homepage            http://www.gnu.org/software/ocrad/ocrad.html
+master_sites        gnu
+checksums           rmd160  610cd6361b633a1c28b3a5bde252402773483008 \
+                    sha256  d6c9dcbcf4c9cc643edfe5a03cb6125d6c39abe59e83719effb056d63c5198fd
+patchfiles          patch-track.cc.diff patch-profile.cc.diff patch-feats_test0.cc.diff patch-character_r11.cc.diff
+
+depends_extract     bin:lzip:lzip
+
+extract.suffix      .tar.lz
+extract.cmd         lzip
+extract.pre_args    "-dc"
+
+configure.args      CC=${configure.cc} CXX=${configure.cxx} CPPFLAGS=${configure.cppflags} CFLAGS=${configure.cflags} CXXFLAGS=${configure.cxxflags} LDFLAGS=${configure.ldflags}
+
+test.run            yes
+test.target         check
+
+destroot.target     install install-man
+

@@ -1,0 +1,84 @@
+Grep 2.21-2
+------------------------------------------
+GNU Grep searches one or more input files for lines containing a match
+to a specified pattern.  By default, Grep outputs the matching lines.
+The GNU implementation includes several useful extensions over POSIX.
+
+Runtime requirements (these or newer):
+  bash-4.1.17-9
+  cygwin-1.7.33-1
+  libgcc1-4.9.2-1 [only needed on 32-bit]
+  libiconv2-1.14-2
+  libintl8-0.19.3-1
+  libpcre1-8.36-1
+
+Additional build conditions (these or newer):
+  autoconf2.5-2.69-2
+  automake1.14-1.14.1-1
+  binutils-2.25-1
+  coreutils-8.23-4
+  cygport-0.17.1-1
+  gcc-4.7.3-1
+  gcc-core-4.9.2-1
+  gettext-devel-0.19.3-1
+  gnupg-1.4.18-1
+  libiconv2-1.14-2
+  libpcre-devel-8.36-1
+  windows-default-manifest-6.4-1
+  xz-5.0.5-1
+
+Canonical homepage:
+  https://gnu.org/software/grep
+
+Canonical download:
+  ftp://ftp.gnu.org/pub/gnu/grep/
+
+License:
+  GPLv3+
+
+Language:
+  C
+
+------------------------------------
+
+Build instructions:
+  unpack grep-2.21-2-src.tar.xz
+    if you use setup to install this src package, it will be
+    unpacked under /usr/src automatically
+  cd /usr/src
+  cygport grep.cygport all
+
+This will create:
+  /usr/src/grep-2.21-2.tar.xz
+  /usr/src/grep-2.21-2-src.tar.xz
+  /usr/src/grep-debuginfo-2.21-2.tar.xz
+
+Or use 'cygport grep.cygport prep' to get a patched source directory
+
+To find out the files included in the binary distribution, you can use
+"cygcheck -l grep", or browse the listing for the appropriate
+version at <http://cygwin.com/packages/>.
+
+------------------
+
+Port Notes:
+
+----------  grep-2.21-2 -- 2015-01-23 ---------
+Fix CVE-2015-1345.
+
+----------  grep-2.21-1 -- 2014-11-26 ---------
+New upstream release.
+
+----------  grep-2.20-1 -- 2014-10-15 ---------
+New upstream release. New maintainer, Eric Blake.
+
+----- version 2.16-1 and earlier -----
+No per-build changelog was maintained; see the cygwin-announce archives
+for a history.
+
+----------------------
+For more information about this package, see the upstream documentation in
+/usr/share/doc/grep/.
+
+Cygwin port maintained by: Eric Blake <eblake@redhat.com>.
+Please address all questions to the Cygwin mailing list at <cygwin@cygwin.com>

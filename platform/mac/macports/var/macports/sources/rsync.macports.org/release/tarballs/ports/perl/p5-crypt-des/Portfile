@@ -1,0 +1,15 @@
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem		1.0
+PortGroup		perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Crypt-DES 2.07
+license			SSLeay
+maintainers		nomaintainer
+description		Perl DES encryption module
+long_description	Crypt::DES - an XS-based DES implimentation for Perl.
+platforms		darwin
+
+checksums           rmd160  85b93aae8fbf30501ba5ed418c9c5ec054e4030a \
+                    sha256  2db1ebb5837b4cb20051c0ee5b733b4453e3137df0a92306034c867621edd7e7

@@ -1,0 +1,44 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 112053 2013-10-10 17:02:15Z snc@macports.org $
+
+PortSystem 1.0
+PortGroup       xcode 1.0
+PortGroup           github 1.0
+
+github.setup        mikepj XRG 1.7.3 XRG_
+name                xrg
+categories-append   sysutils
+maintainers     snc openmaintainer
+license             GPL-2+
+description     XRG is an open source system monitor for Mac OS X.
+long_description \
+    XRG allows you to monitor CPU activity, memory \
+    usage, battery status, machine temperature, network \
+    activity, disk I/O, current weather, and stock \
+    market data. The goal of XRG is to be a functional \
+    system monitor that has a clean and flexible \
+    interface, so it doesn't intrude on the rest of your \
+    Mac experience. XRG is designed to take as little \
+    CPU time as possible while still showing detailed \
+    graphs on system usage.
+homepage        http://www.gauchosoft.com/Products/XRG/
+
+pre-fetch {
+    platform darwin {
+        if {${os.major} < 10} {
+            ui_error "${name} requires OS X 10.6 or newer."
+            return -code error "incompatible OS X version"
+        }
+        if {${os.major} > 13} {
+            ui_error "${name} requires OS X 10.9 or older."
+            return -code error "incompatible OS X version"
+        }
+    }
+}
+
+checksums           rmd160  6f09896039659da02a5a90e7e6ad80e65ba3f314 \
+                    sha256  7f8f2ac32c0024228dfb7d3cec37e76c4f106fde909d61027660e72183642da7
+
+livecheck.type      regex
+livecheck.url       ${homepage}
+livecheck.regex     [string toupper ${name}]-\\w+-(\\d+(\\.\\d+)+)

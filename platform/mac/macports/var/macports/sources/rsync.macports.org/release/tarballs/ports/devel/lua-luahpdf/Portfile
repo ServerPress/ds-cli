@@ -1,0 +1,49 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 118205 2014-03-25 17:09:44Z and.damore@macports.org $
+PortSystem 1.0
+
+name                lua-luahpdf
+version             1.5
+license             MIT
+categories          devel
+platforms           darwin
+maintainers         nomaintainer
+description         Lua module that lets you programmatically create PDF files
+long_description    \
+        LuaHPDF is a Lua module that lets you programmatically create PDF files using \
+        Lua. It does this by binding to the Haru Free PDF Library, an open-source \
+        library that manages the details of PDF generation. \
+        With this module, you can write Lua programs that will produce PDF files that \
+        include lines, text and graphics, PNG and JPEG images, compression, \
+        encryption, Type1 and TrueType fonts, various character sets, outlines, \
+        links.
+
+homepage            http://code.google.com/p/luahpdf/
+master_sites        http://luahpdf.googlecode.com/files/
+checksums           md5     7e16e4d6d962318aa39844de070dbead \
+                    sha1    cf148468c54c32fae69e5038581a09d6f7403d48 \
+                    rmd160  4754375932bf6da7772f3b3953066a6a5357de9a
+
+distname            luahpdf-${version}
+depends_lib         port:lua \
+                    port:libharu
+
+patchfiles          patch-Makefile.diff
+
+use_configure       no
+
+build.args-append   CC=${configure.cc} \
+                    LUAINC="${configure.cppflags}" \
+                    CFLAGS="${configure.cflags} [get_canonical_archflags cc]" \
+                    LDFLAGS="${configure.ldflags} [get_canonical_archflags ld]" \
+                    PLATFORM=macosx \
+                    PREFIX=${prefix}
+
+destroot.args-append    PREFIX=${prefix}
+
+post-destroot {
+    xinstall -d -m 755                                 ${destroot}${prefix}/share/examples
+    file copy   ${worksrcpath}/demo                    ${destroot}${prefix}/share/examples/${name}
+    file rename ${destroot}${prefix}/share/doc/luahpdf ${destroot}${prefix}/share/doc/${name}
+}
+

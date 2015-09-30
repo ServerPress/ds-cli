@@ -1,0 +1,22 @@
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Perl-Tidy 20140711
+license             GPL-2+
+maintainers         nomaintainer
+description         Parses and beautifies perl source
+long_description    Perltidy reads a perl script and writes an indented, \
+                    reformatted script. \
+                    Perltidy can produce output on either of two modes, \
+                    depending on the existence of an -html flag. Without \
+                    this flag, the output is passed through a formatter.
+
+platforms           darwin
+
+checksums           sha1    40ab9efd98c732c6f4f43a60f74ca0af8f15ed6f \
+                    rmd160  fdcf2981a45a4e701428ebd1a316f1b227cf4790
+
+supported_archs noarch

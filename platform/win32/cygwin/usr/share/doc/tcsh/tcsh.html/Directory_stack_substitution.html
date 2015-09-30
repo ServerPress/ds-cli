@@ -1,0 +1,49 @@
+<HEAD>
+<TITLE>Directory stack substitution (+)</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Other_substitutions.html">Next</A>
+<A HREF="Filename_substitution.html">Previous</A>
+<H2>Directory stack substitution (+)</H2>
+The directory stack is a list of directories, numbered from zero, used by the
+<I><A HREF="Builtin_commands.html#pushd">pushd</A></I>, <I><A HREF="Builtin_commands.html#popd">popd</A></I> and <I><A HREF="Builtin_commands.html#dirs">dirs</A></I> builtin commands (q.v.).
+<I><A HREF="Builtin_commands.html#dirs">dirs</A></I> can print, store in a file, restore and clear the directory stack
+at any time, and the <B><A HREF="Special_shell_variables.html#savedirs">savedirs</A></B> and <B><A HREF="Special_shell_variables.html#dirsfile">dirsfile</A></B> shell variables can be set to
+store the directory stack automatically on logout and restore it on login.
+The <B><A HREF="Special_shell_variables.html#dirstack">dirstack</A></B> shell variable can be examined to see the directory stack and
+set to put arbitrary directories into the directory stack.
+<P>
+The character `=' followed by one or more digits expands to an entry in
+the directory stack.  The special case `=-' expands to the last directory in
+the stack.  For example,
+<P>
+<menu>
+&gt; dirs -v
+<BR>
+0       /usr/bin
+<BR>
+1       /usr/spool/uucp
+<BR>
+2       /usr/accts/sys
+<BR>
+&gt; echo =1
+<BR>
+/usr/spool/uucp
+<BR>
+&gt; echo =0/calendar
+<BR>
+/usr/bin/calendar
+<BR>
+&gt; echo =-
+<BR>
+/usr/accts/sys
+</menu>
+<P>
+The <B><A HREF="Special_shell_variables.html#noglob">noglob</A></B> and <B><A HREF="Special_shell_variables.html#nonomatch">nonomatch</A></B> shell variables and the <I><A HREF="Editor_commands.html#expand-glob">expand-glob</A></I>
+editor command apply to directory stack as well as filename substitutions.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Other_substitutions.html">Next</A>
+<A HREF="Filename_substitution.html">Previous</A>
+</BODY>

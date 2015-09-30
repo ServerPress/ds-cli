@@ -1,0 +1,24 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136861 2015-05-28 16:31:25Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Math-Derivative 0.03
+
+platforms           darwin
+maintainers         nomaintainer
+license             {Artistic-1 GPL}
+
+description         1st and 2nd order differentiation of data
+
+long_description    ${description}
+
+checksums           rmd160  f985ad08c0e2988cbae118bf57a9aae858bb18fa \
+                    sha256  5d5fb19ae282a73be185da19638ed21ff53a448098650f23212f2c19d05c34bf
+
+if {${perl5.major} != ""} {
+    supported_archs noarch
+    perl5.use_module_build
+}

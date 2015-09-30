@@ -1,0 +1,26 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134360 2015-03-23 17:27:21Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Test-Warnings 0.021
+license             {Artistic-1 GPL}
+maintainers         devans openmaintainer
+description         Test for warnings and the lack of them
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  2a2ce80bb39b1ffa542b4e3876c0308bcad7f836 \
+                    sha256  d98a182e333d58bd7fc68fdc6d9f548624df07d73bdb124bd1af5087e1cc2c44
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-cpan-meta \
+                    port:p${perl5.major}-cpan-meta-check \
+                    port:p${perl5.major}-test-simple
+
+    supported_archs noarch
+}

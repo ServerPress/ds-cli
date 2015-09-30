@@ -1,0 +1,31 @@
+# $Id: Portfile 117693 2014-03-08 11:13:32Z g5pw@macports.org $
+
+PortSystem      1.0
+PortGroup       python 1.0
+PortGroup       github 1.0
+
+github.setup    gorakhargosh watchdog 0.7.1 v
+name            py-${name}
+maintainers     nomaintainer
+platforms       darwin
+description     Python API and shell utilities to monitor file system events.
+license         MIT
+
+long_description \
+    ${description}
+
+checksums           rmd160  6fcd5b70149ac8784a364e5099e2eafbdffc83a7 \
+                    sha256  ff21b479b4ccd109a356b9b8632d79f81112f1565f50eb7d21f7f787d52d5d51
+
+# watchdog supports Python 2.5+, but at the moment,
+# Macports only packages dependencies for Python 2.7
+python.versions 27 33 34
+python.default_version 27
+
+if {${name} ne ${subport}} {
+    depends_build-append    port:py${python.version}-setuptools
+    depends_lib-append \
+        port:py${python.version}-yaml \
+        port:py${python.version}-argh \
+        port:py${python.version}-pathtools \
+}

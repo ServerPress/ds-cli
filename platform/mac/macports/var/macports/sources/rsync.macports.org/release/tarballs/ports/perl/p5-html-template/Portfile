@@ -1,0 +1,22 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         HTML-Template 2.95
+revision            1
+categories          perl textproc
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Perl module to use HTML Templates from CGI scripts
+long_description    HTML::Template - Perl module to use HTML Templates \
+                    from CGI scripts
+
+platforms           darwin
+
+checksums           rmd160  0f793b13716af729366df089970b3f15e3aa34d4 \
+                    sha256  78100adaea7a56ae65826220fcb0c18a188df25a27227f96175cf7169fbb501d
+
+supported_archs     noarch

@@ -1,0 +1,27 @@
+# $Id: Portfile 132879 2015-02-12 02:19:14Z jeremyhu@macports.org $
+
+PortSystem          1.0
+PortGroup           xcodeversion 1.0
+
+name                liboglappth
+version             0.98
+categories          science
+license             GPL-2+
+platforms           darwin
+maintainers         nomaintainer
+description         Library for the ghemical port.
+long_description    $description
+
+homepage            http://www.bioinformatics.org/
+master_sites        ${homepage}ghemical/download/current/
+checksums           md5 dd280286a51fcba6a47264a383a2f1fe \
+                    sha1 bf532427bfa97ef01c3161a9a13418ee7134229c \
+                    rmd160 72f10fb085275485ac30cd56e931b29693f7d445
+
+depends_lib         port:mesa port:libGLU
+
+minimum_xcodeversions   {9 3.1}
+
+livecheck.type      regex
+livecheck.url       "${master_sites}?C=M;O=D"
+livecheck.regex     "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

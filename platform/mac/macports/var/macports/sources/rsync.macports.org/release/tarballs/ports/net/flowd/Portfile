@@ -1,0 +1,33 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 117192 2014-02-19 06:34:50Z jmr@macports.org $
+
+PortSystem          1.0
+
+name                flowd
+version             0.9.1
+categories          net
+license             Permissive BSD
+platforms           darwin
+maintainers         nomaintainer
+
+description         flowd is a small, fast and secure NetFlow collector.
+
+long_description    ${description}
+
+homepage            http://code.google.com/p/flowd/
+master_sites        googlecode
+
+checksums           sha1    3e9a19ea9203c875cedb23c8205a23f7b493a5eb \
+                    rmd160  fb6f9042ff4018e758191b5649577393c0af77e4
+
+depends_build       port:byacc
+
+patchfiles          patch-flowd.conf.diff
+
+post-patch {
+    reinplace "s|@PREFIX@|${prefix}|g" ${worksrcpath}/flowd.conf
+}
+
+post-destroot {
+    move ${destroot}${prefix}/etc/flowd.conf ${destroot}${prefix}/etc/flowd.conf.default
+}

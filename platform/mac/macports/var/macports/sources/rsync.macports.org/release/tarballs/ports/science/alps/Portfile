@@ -1,0 +1,101 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136416 2015-05-16 16:52:31Z mmoll@macports.org $
+
+PortSystem              1.0
+PortGroup               cmake 1.0
+PortGroup               conflicts_build 1.0
+
+name                    alps
+version                 2.1.1
+revision                8
+categories              science
+platforms               darwin
+maintainers             gmail.com:gamperl
+
+description             Parallel Algorithms for Lattice Models
+
+long_description        Libraries for generic parallel algorithms for \
+                        classical and quantum lattice models
+
+homepage                http://alps.comp-phys.org/
+master_sites            ${homepage}static/software/releases
+distname                ${name}-${version}-r6176-src-with-boost
+
+checksums               rmd160 f2ab3938a364a026be8557406427521901091a51                             \
+                        sha256 554841986ad5a9d5d5a89941e5665c249fe1b8eba537078001bb6c5c21a1f335
+
+depends_lib             port:hdf5
+
+# alps has its own internal boost it wants to use, and fails if MacPorts' newer boost is active.
+conflicts_build         boost
+
+patchfiles              patch-CMakeLists.txt.diff
+
+configure.args-delete   -DCMAKE_SYSTEM_PREFIX_PATH=\"${prefix}\;/usr\"
+configure.args-append   -DCMAKE_SYSTEM_PREFIX_PATH=\"/usr\;${prefix}\"                              \
+                        -DBoost_ROOT_DIR:PATH=${worksrcpath}/boost                                  \
+                        -DALPS_BUILD_TESTS=OFF                                                      \
+                        -DALPS_INCLUDE_TUTORIALS=OFF                                                \
+                        -DALPS_BOOST_LIBRARY_NAME=alps-boost                                        \
+                        -DALPS_BUILD_APPLICATIONS=OFF                                               \
+                        -DALPS_ENABLE_MPI=OFF                                                       \
+                        ./alps
+
+use_parallel_build      yes
+
+variant applications    description {compile ALPS with appliations} {
+    # alps/applications/dmrg/dmrg/dmrg.h:610:49: error: expected expression
+    #     std::string name = simplify_name(it->get<1>());
+    #                                                 ^
+    compiler.blacklist  *clang*
+    
+    configure.args-delete -DALPS_BUILD_APPLICATIONS=OFF
+}
+
+variant openmpi         description {Build with MPI support} {
+    depends_lib-append  port:openmpi
+    
+    configure.args-delete -DALPS_ENABLE_MPI=OFF
+}
+
+set pythons_suffixes {26 27}
+set pythons_ports {}
+foreach s ${pythons_suffixes} {
+    lappend pythons_ports python${s}
+}
+foreach s ${pythons_suffixes} {
+    set p python${s}
+    set v [string index ${s} 0].[string index ${s} 1]
+    set i [lsearch -exact ${pythons_ports} ${p}]
+    set c [lreplace ${pythons_ports} ${i} ${i}]
+    eval [subst {
+        variant ${p} description "Build ALPS for Python ${v}" conflicts ${c} {
+            depends_lib-append port:${p}                                                            \
+                               port:py${s}-numpy                                                    \
+                               port:py${s}-matplotlib                                               \
+                               port:py${s}-scipy
+            
+            patchfiles-append   patch-config-FindPython.cmake.diff
+            
+            post-patch {
+                reinplace "s|@PYTHON@|python[regsub {(.)(.+)} ${s} {\1.\2}]|g" ${worksrcpath}/alps/config/FindPython.cmake
+            }
+        }
+    }]
+}
+
+set selected_version python27
+foreach s ${pythons_suffixes} {
+    if {[variant_isset python${s}]} {
+        set selected_version python${s}
+    }
+}
+
+default_variants        +${selected_version} +applications
+
+# py-scipy and openmpi are not universal
+universal_variant       no
+
+livecheck.type          regex
+livecheck.url           [lindex ${master_sites} 0]
+livecheck.regex         ${name}-(\[0-9.\]+)-r

@@ -1,0 +1,22 @@
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem			1.0
+PortGroup			perl5 1.0
+perl5.branches      5.16 5.18 5.20
+perl5.setup         warnings-unused 0.06 ../by-authors/id/G/GF/GFUJI/
+revision            1
+license				{Artistic-1 GPL}
+maintainers			nomaintainer
+description			Produces warnings when unused variables are detected
+long_description \
+	This pragmatic module extends lexical warnings to complain about \
+	unused variables.  It produces warnings when a my variable or state \
+	variable is unused aside from its declaration.
+
+platforms			darwin
+
+checksums           rmd160  5a7433cea62253bf89b0875003f5369442a9ffb4 \
+                    sha256  6f719898a63560d4324c1e95549f441cec429d90cf5b57bf016085334f4bf01f
+
+
+## vi:set noai ts=4:

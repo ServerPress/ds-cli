@@ -1,0 +1,25 @@
+<HEAD>
+<TITLE>Other substitutions (+)</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Commands.html">Next</A>
+<A HREF="Directory_stack_substitution.html">Previous</A>
+<H2>Other substitutions (+)</H2>
+There are several more transformations involving filenames, not strictly
+related to the above but mentioned here for completeness.
+<I>Any</I> filename may be expanded to a full path when the
+<B><A HREF="Special_shell_variables.html#symlinks">symlinks</A></B> variable (q.v.) is set to `expand'.
+Quoting prevents this expansion, and
+the <I><A HREF="Editor_commands.html#normalize-path">normalize-path</A></I> editor command does it on demand.
+The <I><A HREF="Editor_commands.html#normalize-command">normalize-command</A></I> editor command expands commands in PATH into
+full paths on demand.
+Finally, <I><A HREF="Builtin_commands.html#cd">cd</A></I> and <I><A HREF="Builtin_commands.html#pushd">pushd</A></I> interpret `-' as the old working directory
+(equivalent to the shell variable <B><A HREF="Special_shell_variables.html#owd">owd</A></B>).
+This is not a substitution at all, but an abbreviation recognized by only
+those commands.  Nonetheless, it too can be prevented by quoting.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Commands.html">Next</A>
+<A HREF="Directory_stack_substitution.html">Previous</A>
+</BODY>

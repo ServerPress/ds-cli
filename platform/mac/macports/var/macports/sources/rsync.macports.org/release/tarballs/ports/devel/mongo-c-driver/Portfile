@@ -1,0 +1,30 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138131 2015-06-30 01:06:38Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        mongodb mongo-c-driver 1.1.9
+categories          devel databases
+platforms           darwin
+maintainers         ryandesign openmaintainer
+license             Apache-2
+
+description         library for using mongodb from C code
+
+long_description    ${name} is a ${description}.
+
+github.tarball_from releases
+
+checksums           rmd160  f05b91e75a42733042fef708cdb680711d58e629 \
+                    sha256  78273e7850f0e75ba6f56516de9e840f63f566e537cd39ad6ce40520152c8628
+
+depends_build       port:pkgconfig
+
+depends_lib         port:cyrus-sasl2 \
+                    port:libbson \
+                    port:openssl
+
+configure.args      --disable-silent-rules \
+                    --enable-sasl \
+                    --enable-ssl

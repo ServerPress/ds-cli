@@ -1,0 +1,68 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 122614 2014-07-24 22:39:23Z ecronin@macports.org $
+
+PortSystem          1.0
+
+name                p0f
+version             3.07b
+set major           [lindex [split ${version} .] 0]
+categories          net security
+platforms           darwin
+maintainers         nomaintainer
+license             LGPL-2.1
+
+description         versatile passive OS fingerprinting, masquerade detection tool
+
+long_description    p0f is a versatile passive OS fingerprinting and \
+                    masquerade detection utility, to be used for evidence or \
+                    information gathering on servers, firewalls, IDSes, and \
+                    honeypots, for pen-testing, or just for the fun of it.
+
+homepage            http://lcamtuf.coredump.cx/p0f3/
+master_sites        ${homepage}releases/ \
+                    ${homepage}releases/old/${major}.x/
+extract.suffix      .tgz
+
+checksums           rmd160  b940811a1fbd7854784dab4eb1f3788ebf48b522 \
+                    sha256  5cfc9a4b32e0e789d6ae3240e22c531e7dfb7906d833a026e45a5504379f0ba2
+
+depends_build       port:gmake
+
+depends_lib         port:libpcap
+
+set datadir         ${prefix}/share/${name}
+
+post-patch  {
+    reinplace "s|\"p0f.fp\"|\"${datadir}/p0f.fp\"|g" ${worksrcpath}/config.h
+}
+
+use_configure       no
+
+variant universal {}
+
+build.args          CC="${configure.cc} [get_canonical_archflags cc]"
+
+post-build {
+    # build tools not handled by the build.sh script separately
+    system -W ${worksrcpath}/tools "${build.cmd} [join ${build.args}]"
+}
+
+destroot {
+    xinstall -m 755 -s -W ${worksrcpath} \
+        ${name} \
+        tools/${name}-client \
+        tools/${name}-sendsyn \
+        tools/${name}-sendsyn6 \
+        ${destroot}${prefix}/bin
+    # the manpage is unavailable in version 3.05b, uncomment when provided again
+    #xinstall -m 644 ${worksrcpath}/p0f.1 ${destroot}${prefix}/share/man/man1
+    xinstall -m 755 -d ${destroot}${datadir} ${destroot}${prefix}/share/doc
+    xinstall -m 644 ${worksrcpath}/p0f.fp ${destroot}${datadir}
+    copy ${worksrcpath}/docs ${destroot}${prefix}/share/doc/${name}
+    xinstall -m 644 -W ${worksrcpath}/tools README-TOOLS \
+        ${destroot}${prefix}/share/doc/${name}
+}
+
+livecheck.regex     ${name}-(\[0-9.\]+b?)${extract.suffix}
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]

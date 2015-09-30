@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136866 2015-05-28 16:36:21Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Email-Sender 1.300018
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Email::Sender - a library for sending email
+long_description    Email::Sender replaces the old and sometimes problematic \
+                    Email::Send library, which did a decent job at handling \
+                    very simple email sending tasks, but was not suitable for \
+                    serious use, for a variety of reasons.
+
+platforms           darwin
+supported_archs     noarch
+
+checksums           rmd160  7248112d5e94ac2bd52c23c68779d9c0c1680454 \
+                    sha256  9c859c2ef34776dc6a64171437c8e8e0973b482e97d69ca6919518a8b8b12362
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                        port:p${perl5.major}-capture-tiny \
+                        port:p${perl5.major}-sub-override \
+                        port:p${perl5.major}-test-mockobject
+
+    depends_lib-append  port:p${perl5.major}-email-abstract \
+                        port:p${perl5.major}-email-address \
+                        port:p${perl5.major}-email-simple \
+                        port:p${perl5.major}-list-moreutils \
+                        port:p${perl5.major}-module-runtime \
+                        port:p${perl5.major}-moo \
+                        port:p${perl5.major}-moox-types-mooselike \
+                        port:p${perl5.major}-sub-exporter \
+                        port:p${perl5.major}-throwable \
+                        port:p${perl5.major}-try-tiny
+}

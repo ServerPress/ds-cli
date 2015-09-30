@@ -1,0 +1,11 @@
+--- gildas-src-may15a/admin/Makefile.python.orig	2014-10-13 14:48:33.000000000 +0200
++++ gildas-src-may15a/admin/Makefile.python	2015-05-26 10:06:21.000000000 +0200
+@@ -41,7 +41,7 @@
+ ifneq ($(MOD_IDENTITY),)
+ 
+ $(MOD_NAME): $(MOD_SOURCES) $(MOD_INCLUDES) $(MOD_EXTRAS) $(builddir)/setup.py
+-	$(GAG_PYTHON_DISTFLAGS) python $(builddir)/setup.py build --build-base $(builddir) --build-lib $(builddir)
++	$(GAG_PYTHON_DISTFLAGS) @PYTHON@ $(builddir)/setup.py build --build-base $(builddir) --build-lib $(builddir)
+ 	$(MV) $(builddir)/*.$(SO_EXT) $(pythondir)
+ 
+ $(builddir)/setup.py: $(gagsrcdir)/kernel/python/binding/setup.py.src Makefile

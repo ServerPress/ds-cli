@@ -1,0 +1,34 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138144 2015-06-30 13:03:16Z ciserlohn@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        elixir-lang elixir 1.0.5 v
+epoch               1
+categories          lang
+platforms           darwin
+supported_archs     noarch
+license             Apache-2
+maintainers         milmazz.uno:me
+
+description         The Elixir Programming language
+
+long_description    Elixir is a functional, meta-programming aware language \
+                    built on top of the Erlang VM. It is a dynamic language \
+                    that focuses on tooling to leverage Erlang's abilities to \
+                    build concurrent, distributed and fault-tolerant \
+                    applications with hot code upgrades.
+
+homepage            http://elixir-lang.org/
+
+depends_lib         port:erlang
+
+checksums           rmd160 575f4f841b6b7937c118fd3004d5cf75ea2140ec\
+                    sha256 3e6458bbd3e09c0724e651e35eaf804fd564626ec0e8eba1b02ab6d9be45a482
+
+use_configure       no
+
+build.target        compile
+
+destroot.args       PREFIX=${prefix}

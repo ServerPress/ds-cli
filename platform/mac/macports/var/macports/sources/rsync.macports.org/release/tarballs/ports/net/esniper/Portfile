@@ -1,0 +1,25 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=portfile:et:sw=4:ts=4:sts=4
+# $Id: Portfile 120610 2014-06-03 12:58:20Z g5pw@macports.org $
+
+PortSystem          1.0
+
+name                esniper
+version             2.31.0
+categories          net
+license             BSD
+platforms           darwin
+maintainers         g5pw openmaintainer
+description         esniper is a simple, lightweight tool for sniping ebay auctions.
+long_description    ${description}
+
+homepage            http://esniper.sourceforge.net/
+master_sites        sourceforge:project/${name}/${name}/${version}
+distname            esniper-[strsed ${version} {g/[.]/-/}]
+extract.suffix      .tgz
+
+checksums           rmd160  1297ffa0e5e905016b00a0ca4806ba2b95716fd1 \
+                    sha256  30d2378c700b72b5363c8af59e7566564d9ec8cd4b44cd389c2830907d7bc676
+                    
+depends_lib	    port:curl port:zlib port:openssl
+
+configure.args	    --with-curl-config=${prefix}/bin/curl-config

@@ -1,0 +1,70 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136823 2015-05-28 04:25:51Z larryv@macports.org $
+
+PortSystem              1.0
+PortGroup               python 1.0
+PortGroup               select 1.0
+
+name                    py-bpython
+version                 0.13.1
+revision                1
+platforms               darwin
+supported_archs         noarch
+maintainers             aronnax openmaintainer
+license                 MIT
+description             fancy interface to the Python interpreter
+long_description        a fancy interface to the Python interpreter for \
+                        Unix-like operating systems
+
+homepage                http://www.bpython-interpreter.org/
+master_sites            ${homepage}releases/
+distname                bpython-${version}
+checksums               md5     47b2ae18ee39d519752218b938024a85 \
+                        rmd160  432d75b5d16ef9c73878c7258793972ed364e379 \
+                        sha256  ee208a60a54f902a8c827f4a80fda8a6235790d59cc1fc089943df50936accae
+
+python.versions         26 27 33 34
+
+if {${name} ne ${subport}} {
+    livecheck.type          none
+
+    depends_lib-append      port:py${python.version}-parsing \
+                            port:py${python.version}-pygments \
+                            port:py${python.version}-setuptools
+
+    # py-babel is only available for Python 2.x
+    if {${python.branch} < 3} {
+        depends_build-append \
+                            port:py${python.version}-babel
+    }
+
+    depends_build-append    port:py${python.version}-sphinx
+
+    depends_run-append      port:py${python.version}-urwid \
+                            port:bpython_select
+
+    select.group            bpython
+    select.file             ${filespath}/bpython${python.version}
+    
+    post-destroot {
+        set pyetc ${destroot}${python.prefix}/etc
+        xinstall -d ${pyetc}
+        set themedir ${destroot}${python.prefix}/share/themes
+        xinstall -d ${themedir}
+
+        xinstall -W ${worksrcpath} sample-config ${pyetc}
+        xinstall -W ${worksrcpath} sample.theme light.theme \
+            ${themedir}
+    }
+
+    notes "
+To make the Python ${python.branch} version of bpython the one that is run\
+when you execute the commands without a version suffix, e.g. 'bpython', run:
+
+port select --set ${select.group} [file tail ${select.file}]
+"
+} else {
+    livecheck.type          regex
+    livecheck.url           [lindex ${master_sites} 0]
+    livecheck.regex         bpython-(\\d+(\\.\\d+)*)[quotemeta ${extract.suffix}]
+}

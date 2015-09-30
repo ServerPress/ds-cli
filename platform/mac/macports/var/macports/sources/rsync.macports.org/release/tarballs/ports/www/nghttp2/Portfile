@@ -1,0 +1,46 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138078 2015-06-28 01:11:12Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           cxx11 1.0
+PortGroup           github 1.0
+
+github.setup        tatsuhiro-t nghttp2 1.0.5 v
+categories          www
+platforms           darwin
+maintainers         gmail.com:mschamschula openmaintainer
+license             MIT
+
+description         nghttp2 is an implementation of HTTP/2 in C.
+
+long_description    ${description} Included are a HTTP/2 client, server and proxy. The \
+                    package also provides a load test and benchmarking tool for HTTP/2.
+
+github.tarball_from releases
+use_xz              yes
+
+checksums           rmd160 922af016d3aed334cc9d8ab731e5cf3d28fa7b76 \
+                    sha256 8515822015016008ac536de92a7e3652c7dd4f67315ee415f26a30a505f8c821
+
+depends_build       port:pkgconfig
+
+depends_lib         port:jansson \
+                    port:libev \
+                    port:libevent \
+                    port:libxml2 \
+                    port:openssl \
+                    port:py27-cython \
+                    port:py27-setuptools \
+                    port:python27 \
+                    port:zlib
+
+configure.args      --disable-silent-rules \
+                    --disable-threads
+
+configure.env       PYTHON=${prefix}/bin/python2.7 CYTHON=${prefix}/bin/cython-2.7 \
+                    JANSSON_CFLAGS=-I${prefix}/include JANSSON_LIBS="-L${prefix}/lib -ljansson" \
+                    LIBEVENT_OPENSSL_CFLAGS=-I${prefix}/include/event2 \
+                    LIBEVENT_OPENSSL_LIBS="-L${prefix}/lib -levent -levent_openssl" \
+                    OPENSSL_CFLAGS=-I${prefix}/include/openssl \
+                    OPENSSL_LIBS="-L${prefix}/lib -lcrypto -lssl" \
+                    PYTHON_EXTRA_LDFLAGS="-u _PyMac_Error ${prefix}/Library/Frameworks/Python.framework/Versions/2.7/Python"

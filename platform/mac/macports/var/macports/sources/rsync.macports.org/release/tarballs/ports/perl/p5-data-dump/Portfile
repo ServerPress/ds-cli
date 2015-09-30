@@ -1,0 +1,25 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137421 2015-06-11 05:27:18Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Data-Dump 1.23
+maintainers         nomaintainer
+license             {Artistic-1 GPL}
+description         Pretty printing of data structures
+long_description    This module provides a single function called dump() \
+                    that takes a list of values as its argument and produces \
+                    a string as its result. The string contains Perl code \
+                    that, when evaled, produces a deep copy of the original \
+                    arguments. The string is formatted for easy reading. If \
+                    dump() is called in a void context, then the dump is \
+                    printed on STDERR instead of being returned.
+
+platforms           darwin
+
+checksums           rmd160  8312001d8aa36563a43267650c59fc17af2af76c \
+                    sha256  af53b05ef1387b4cab4427e6789179283e4f0da8cf036e8db516ddb344512b65
+
+supported_archs     noarch

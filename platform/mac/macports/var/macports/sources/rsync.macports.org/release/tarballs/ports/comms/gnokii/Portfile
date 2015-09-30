@@ -1,0 +1,83 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 119751 2014-05-05 15:15:53Z mojca@macports.org $
+
+PortSystem          1.0
+
+name                gnokii
+version             0.6.31
+categories          comms
+platforms           darwin
+maintainers         mpal1+bugzilla@ieee.org
+description         Tools to manipulate Nokia and other mobile phones.
+long_description    gnokii provides tools and a user space driver for use \
+                    with mobile phones under Linux, various unices and \
+                    Win32. With gnokii you can do such things as make data \
+                    calls, update your address book, change calendar \
+                    entires, send and receive SMS messages and load ring \
+                    tones depending on the phone you have.
+
+homepage            http://www.gnokii.org/
+
+use_bzip2           yes
+master_sites        http://gnokii.org/download/gnokii/ \
+                    http://gnokii.org/download/gnokii/0.6.x/ \
+                    ftp://ftp.gnokii.org/pub/gnokii/ \
+                    ftp://ftp.gnokii.org/pub/gnokii/0.6.x/ \
+                    http://ftp.slackware.pl/pub/gnokii/gnokii/ \
+                    http://ftp.slackware.pl/pub/gnokii/gnokii/0.6.x/
+
+checksums           rmd160  a828dab090c8f6decd28ca2f7c9923df0df28c32 \
+                    sha256  8f5a083b05c1a66a3402ca5cd80084e14c2c0632c991bb53b03c78e9adb02501
+
+depends_build       port:intltool \
+                    port:pkgconfig
+depends_lib         port:gettext \
+                    port:iso-codes \
+                    port:libical \
+                    port:libusb-compat \
+                    port:readline
+
+post-patch {
+    reinplace "s|/etc/gnokiirc|${prefix}/etc/gnokiirc|" ${worksrcpath}/common/cfgreader.c
+    reinplace "s|/usr/local|${prefix}|" ${worksrcpath}/Docs/sample/gnokiirc
+}
+
+configure.ldflags-append \
+                    -lintl -lglib-2.0
+configure.args      --enable-security \
+                    --disable-smsd \
+                    --with-libiconv-prefix=${prefix} \
+                    --with-readline=${prefix} \
+                    --disable-bluetooth \
+                    --without-x
+
+post-activate {
+    if {![file exists ${prefix}/etc/gnokiirc]} {
+        copy ${prefix}/share/doc/gnokii/sample/gnokiirc ${prefix}/etc/gnokiirc
+    }
+}
+
+# bluetooth does not work anymore on recent versions of Mac OS X, see #34162
+variant bluetooth description {Enable support for bluetooth (broken on Mac OS X >=10.7)} {
+    configure.args-replace --disable-bluetooth --enable-bluetooth
+    platform macosx {
+        configure.ldflags-append -framework IOBluetooth
+    }
+}
+
+# legacy variant - remove after May 2015
+variant no_x11 conflicts x11 description {legacy compatibility variant} {}
+variant x11 conflicts no_x11 {
+    depends_lib-append      port:gtk2
+    configure.args-delete   --without-x
+}
+
+if {[variant_isset no_x11]} {
+    default_variants -x11
+} else { 
+    default_variants +x11
+}
+
+platform macosx {
+    configure.ldflags-append -framework CoreFoundation
+}

@@ -1,0 +1,51 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136804 2015-05-27 15:58:16Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+PortGroup           gobject_introspection 1.0
+
+github.setup        hughsie appstream-glib 0_4_0 appstream_glib_
+version             [string map {_ .} ${version}]
+license             LGPL-2+
+categories          devel
+maintainers         devans openmaintainer
+platforms           darwin
+homepage            http://people.freedesktop.org/~hughsient/appdata/
+
+description         This library provides objects and helper methods to help \
+                    reading and writing AppStream metadata.
+
+long_description    ${description}
+
+checksums           rmd160  963f0cf6d0af5b680a750c28c642fbf7fa65b8fd \
+                    sha256  568fffad494651710a13cd5131495ecdeb8c0e4332f38bac6050751c794e36a5
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:gcab \
+                    port:gtk-doc \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                    port:libarchive \
+                    port:libsoup \
+                    port:libyaml \
+                    port:gtk3 \
+                    port:gdk-pixbuf2 \
+                    port:sqlite3 \
+                    port:freetype
+
+patchfiles          patch-configure.ac.diff \
+                    patch-data-tests-Makefile.am.diff
+
+gobject_introspection yes
+
+configure.cmd       ./autogen.sh
+
+configure.args      --with-xml-catalog=${prefix}/etc/xml/catalog \
+                    --disable-ostree \
+                    --disable-rpm \
+                    --disable-silent-rules

@@ -1,0 +1,28 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134365 2015-03-23 17:30:39Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         JSON-MaybeXS 1.003005
+
+platforms           darwin
+maintainers         nomaintainer
+license             {Artistic-1 GPL}
+
+supported_archs     noarch
+
+description         Use Cpanel::JSON::XS with a fallback to JSON::XS and JSON::PP
+long_description    ${description}
+
+checksums           rmd160  e69139ba24024d043d466fd9a0a34e669e1f0726 \
+                    sha256  bdb4694b564f10459d49b9658693ceb8b91b66db0fc5e9f19cf15f3ce46cc80a
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-test-without-module
+    
+    depends_lib-append \
+                    port:p${perl5.major}-cpanel-json-xs
+}

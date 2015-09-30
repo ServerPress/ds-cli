@@ -1,0 +1,69 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137001 2015-06-02 09:07:11Z ryandesign@macports.org $
+
+PortSystem              1.0
+
+name                    dcraw
+version                 9.26.0
+categories              graphics
+maintainers             ryandesign openmaintainer
+license                 GPL-2+
+platforms               darwin
+homepage                http://www.cybercom.net/~dcoffin/dcraw/
+master_sites            ${homepage}archive/
+worksrcdir              ${name}
+use_configure           no
+use_parallel_build      yes
+
+description             Digital camera raw photo decoding software supporting \
+                        hundreds of cameras
+
+long_description        ${name} is a small program for processing raw, \
+                        unprocessed CCD data files from any of hundreds of \
+                        digital cameras with better quality output than the \
+                        tools provided by camera vendors.
+
+checksums               rmd160  ee3ff85aaa8fc3860450723aece31ea997ad4371 \
+                        sha256  85791d529e037ad5ca09770900ae975e2e4cc1587ca1da4192ca072cbbfafba3
+
+depends_lib             port:gettext \
+                        port:libiconv \
+                        port:jpeg \
+                        port:jasper \
+                        port:lcms2
+
+post-extract {
+    xinstall -W ${filespath} Makefile.in ${worksrcpath}/Makefile
+}
+
+patchfiles              patch-dcraw.c.diff
+
+variant universal {}
+
+build.args              CC="${configure.cc} [get_canonical_archflags]" \
+                        CFLAGS="${configure.cflags}" \
+                        CPPFLAGS="${configure.cppflags}" \
+                        LDFLAGS="${configure.ldflags}" \
+                        PREFIX=${prefix}
+
+destroot.args           PREFIX=${prefix}
+
+set my_locales          {ca cs da de eo es fr hu it nl pl pt ru sv zh_CN zh_TW}
+
+post-destroot {
+    xinstall -m 644 -W ${worksrcpath} dcraw.1 ${destroot}${prefix}/share/man/man1
+    foreach locale ${my_locales} {
+        if {[file exist ${worksrcpath}/dcraw_${locale}.1]} {
+            xinstall -m 755 -d ${destroot}${prefix}/share/man/${locale}/man1
+            xinstall -m 644 -W ${worksrcpath} dcraw_${locale}.1 ${destroot}${prefix}/share/man/${locale}/man1/dcraw.1
+        }
+        if {[file exist ${worksrcpath}/build/dcraw_${locale}.mo]} {
+            xinstall -m 755 -d ${destroot}${prefix}/share/locale/${locale}/LC_MESSAGES
+            xinstall -m 644 -W ${worksrcpath}/build dcraw_${locale}.mo ${destroot}${prefix}/share/locale/${locale}/LC_MESSAGES/dcraw.mo
+        }
+    }
+}
+
+livecheck.type          regex
+livecheck.url           [lindex ${master_sites} 0]
+livecheck.regex         ${name}-(\[0-9.\]+)${extract.suffix}

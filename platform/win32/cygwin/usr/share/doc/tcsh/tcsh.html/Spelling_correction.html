@@ -1,0 +1,52 @@
+<HEAD>
+<TITLE>Spelling correction (+)</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Editor_commands.html">Next</A>
+<A HREF="Completion_and_listing.html">Previous</A>
+<H2>Spelling correction (+)</H2>
+The shell can sometimes correct the spelling of filenames, commands and variable names
+as well as completing and listing them.
+<P>
+Individual words can be spelling-corrected with the <I><A HREF="Editor_commands.html#spell-word">spell-word</A></I>
+editor command (usually bound to M-s and M-S)
+and the entire input buffer with <I><A HREF="Editor_commands.html#spell-line">spell-line</A></I> (usually bound to M-$).
+The <B><A HREF="Special_shell_variables.html#correct">correct</A></B> shell variable can be set to `cmd' to correct the
+command name or `all' to correct the entire line each time return is typed,
+and <B><A HREF="Special_shell_variables.html#autocorrect">autocorrect</A></B> can be set to correct the word to be completed
+before each completion attempt.
+<P>
+When spelling correction is invoked in any of these ways and
+the shell thinks that any part of the command line is misspelled,
+it prompts with the corrected line:
+<P>
+<menu>
+&gt; set correct = cmd
+<BR>
+&gt; lz /usr/bin
+<BR>
+CORRECT&gt;ls /usr/bin (y|n|e|a)?
+</menu>
+<P>
+One can answer `y' or space to execute the corrected line,
+`e' to leave the uncorrected command in the input buffer,
+`a' to abort the command as if `^C' had been hit, and
+anything else to execute the original line unchanged.
+<P>
+Spelling correction recognizes user-defined completions (see the
+<I><A HREF="Builtin_commands.html#complete">complete</A></I> builtin command).  If an input word in a position for
+which a completion is defined resembles a word in the completion list,
+spelling correction registers a misspelling and suggests the latter
+word as a correction.  However, if the input word does not match any of
+the possible completions for that position, spelling correction does
+not register a misspelling.
+<P>
+Like completion, spelling correction works anywhere in the line,
+pushing the rest of the line to the right and possibly leaving
+extra characters to the right of the cursor.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Editor_commands.html">Next</A>
+<A HREF="Completion_and_listing.html">Previous</A>
+</BODY>

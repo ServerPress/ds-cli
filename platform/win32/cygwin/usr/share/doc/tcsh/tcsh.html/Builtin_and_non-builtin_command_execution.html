@@ -1,0 +1,81 @@
+<HEAD>
+<TITLE>Builtin and non-builtin command execution</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Input_output.html">Next</A>
+<A HREF="Simple_commands,_pipelines_and_sequences.html">Previous</A>
+<H2>Builtin and non-builtin command execution</H2>
+Builtin commands are executed within the shell.  If any component of a
+pipeline except the last is a builtin command, the pipeline is executed
+in a subshell.
+<P>
+Parenthesized commands are always executed in a subshell.
+<P>
+<menu>
+(cd; pwd); pwd
+</menu>
+<P>
+thus prints the <B><A HREF="Special_shell_variables.html#home">home</A></B> directory, leaving you where you were
+(printing this after the home directory), while
+<P>
+<menu>
+cd; pwd
+</menu>
+<P>
+leaves you in the <B><A HREF="Special_shell_variables.html#home">home</A></B> directory.  Parenthesized commands are most often
+used to prevent <I><A HREF="Builtin_commands.html#cd">cd</A></I> from affecting the current shell.
+<P>
+When a command to be executed is found not to be a builtin command the shell
+attempts to execute the command via <I>execve</I>(2).  Each word in the variable
+<B><A HREF="Special_shell_variables.html#path">path</A></B> names a directory in which the shell will look for the
+command.  If the shell is not given a <B>-f</B> option, the shell
+hashes the names in these directories into an internal table so that it will
+try an <I>execve</I>(2) in only a directory where there is a possibility that the
+command resides there.  This greatly speeds command location when a large
+number of directories are present in the search path. This hashing mechanism is
+not used:
+<P>
+<DL compact>
+<DT>
+<B>1.</B>
+<DD>
+If hashing is turned explicitly off via <I><A HREF="Builtin_commands.html#unhash">unhash</A></I>.
+<P>
+<DT>
+<B>2.</B>
+<DD>
+If the shell was given a <B>-f</B> argument.
+<P>
+<DT>
+<B>3.</B>
+<DD>
+For each directory component of <B><A HREF="Special_shell_variables.html#path">path</A></B> which does not begin with a `/'.
+<P>
+<DT>
+<B>4.</B>
+<DD>
+If the command contains a `/'.
+</DL>
+<P>
+In the above four cases the shell concatenates each component of the path
+vector with the given command name to form a path name of a file which it
+then attempts to execute it. If execution is successful, the search stops.
+<P>
+If the file has execute permissions but is not an executable to the system
+(i.e., it is neither an executable binary nor a script that specifies its
+interpreter), then it is assumed to be a file containing shell commands and
+a new shell is spawned to read it.  The <I><A HREF="Special_aliases.html#shell">shell</A></I> special alias may be set
+to specify an interpreter other than the shell itself.
+<P>
+On systems which do not understand the `#!' script interpreter convention
+the shell may be compiled to emulate it; see the <B><A HREF="Special_shell_variables.html#version">version</A></B> shell
+variable.  If so, the shell checks the first line of the file to
+see if it is of the form `#!<I>interpreter</I> <I>arg</I> ...'.  If it is,
+the shell starts <I>interpreter</I> with the given <I>arg</I>s and feeds the
+file to it on standard input.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Input_output.html">Next</A>
+<A HREF="Simple_commands,_pipelines_and_sequences.html">Previous</A>
+</BODY>

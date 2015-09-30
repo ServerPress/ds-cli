@@ -1,0 +1,42 @@
+# $Id: Portfile 121544 2014-06-29 18:32:16Z and.damore@macports.org $
+
+PortSystem			1.0
+PortGroup			app 1.0
+
+name				electric
+version				9.05
+categories			graphics electronics science
+maintainers			nomaintainer
+supported_archs		noarch
+license				GPL-3
+
+description			CAD system for VLSI circuit design
+long_description \
+	Electric designs MOS and bipolar integrated circuits, printed-circuit \
+	boards, or any type of circuit you choose. It has many editing styles \
+	including layout, schematics, artwork, and architectural specifications.
+
+platforms			darwin
+
+homepage			http://www.staticfreesoft.com/
+master_sites		gnu
+set jar				electricBinary-${version}.jar
+distfiles			${jar}
+extract.only
+
+checksums           rmd160  f7abaf1cdb0c44dc8ee86f98a7f9c3fb6033b4af \
+                    sha256  65ddf04afb1884f0e681223266ef4badbdbc9f85332d70b3269e1dd85a8bc932
+
+depends_run			bin:java:kaffe
+
+use_configure		no
+
+build				{}
+
+destroot {
+	set javadir ${prefix}/share/java
+	xinstall -d ${destroot}${javadir}
+	xinstall -m 644 ${distpath}/${jar} ${destroot}${javadir}/${name}.jar
+	xinstall ${filespath}/${name} ${destroot}${prefix}/bin
+	reinplace "s|@JAR@|${javadir}/${name}.jar|g" ${destroot}${prefix}/bin/${name}
+}

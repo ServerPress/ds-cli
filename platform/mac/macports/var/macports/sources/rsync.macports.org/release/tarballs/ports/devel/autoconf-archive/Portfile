@@ -1,0 +1,32 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134853 2015-04-08 20:11:54Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                autoconf-archive
+version             2015.02.24
+categories          devel
+platforms           darwin
+license             Permissive
+maintainers         nomaintainer
+
+supported_archs     noarch
+installs_libs       no
+
+conflicts           gnome-common
+
+description         A collection of more than 450 macros for GNU Autoconf
+long_description    The GNU Autoconf Archive is a collection of more \
+                    than 450 macros for GNU Autoconf that have been \
+                    contributed as free software by friendly supporters \
+                    of the cause from all over the Internet. Every \
+                    single one of those macros can be re-used without \
+                    imposing any restrictions whatsoever on the \
+                    licensing of the generated configure script.
+
+homepage            http://www.gnu.org/software/autoconf-archive/
+master_sites        gnu
+use_xz              yes
+
+checksums           rmd160  dc234daf67003d1e27cfe81d61b51942a3c1d49e \
+                    sha256  69715bdd078f552ca85e498a94543e11cb8bcdf0359e659b84d84d19372b0dc5

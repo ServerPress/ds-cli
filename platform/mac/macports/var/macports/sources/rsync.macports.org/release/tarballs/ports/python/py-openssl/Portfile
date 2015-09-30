@@ -1,0 +1,83 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 125566 2014-09-21 12:26:53Z petr@macports.org $
+
+PortSystem          1.0
+PortGroup python    1.0
+
+name                py-openssl
+version             0.14
+categories-append   devel security
+license             Apache-2
+maintainers         mcalhoun openmaintainer
+platforms           darwin freebsd
+
+description         python wrapper around the OpenSSL library
+long_description    \
+    This python module is a rather thin wrapper around (a subset of) the \
+    OpenSSL library. With thin wrapper a lot of the object methods do \
+    nothing more than calling a corresponding function in the OpenSSL library.
+
+homepage            https://github.com/pyca/pyopenssl
+master_sites        http://pypi.python.org/packages/source/p/pyOpenSSL/
+distname            pyOpenSSL-${version}
+
+checksums           md5     8579ff3a1d858858acfba5f046a4ddf7 \
+                    sha1    eb51f23f29703b647b0f194beaa9b2412c05e0f6 \
+                    rmd160  19169cb1d5969a130173174e1fdd90311bd35fc7
+
+python.versions     26 27 33 34
+
+if {${name} ne ${subport}} {
+    depends_build-append    port:py${python.version}-setuptools
+
+    depends_lib-append      port:openssl \
+                            port:py${python.version}-cryptography \
+                            port:py${python.version}-six
+
+    post-patch {
+        reinplace "s|#!/usr/bin/env python|#!${python.bin}|" ${worksrcpath}/examples/proxy.py
+    }
+
+    post-destroot {
+        xinstall -m 644 -W ${worksrcpath} \
+            ChangeLog \
+            INSTALL \
+            LICENSE \
+            README \
+            TODO \
+                ${destroot}${prefix}/share/doc/${subport}
+
+        file delete ${destroot}${prefix}/share/doc/${subport}/examples
+        file copy ${worksrcpath}/examples ${destroot}${prefix}/share/doc/${subport}
+    }
+
+    variant doc description {build html documentation} {
+        depends_build-append port:latex2html
+
+        post-patch {
+            # Ensure that the correct binaries are used.
+            # Some are not actually invoked because only the html documentation is created.
+            foreach bin {bibtex dvips latex latex2html lynx makeindex pdflatex perl python} {
+                reinplace "s| = \"${bin}\"| = \"${prefix}/bin/${bin}\"|" ${worksrcpath}/doc/tools/mkhowto
+            }
+
+            # Ensure that the correct python is used.
+            reinplace "s|${prefix}/bin/python|${python.bin}|" ${worksrcpath}/doc/tools/mkhowto
+            reinplace "s| python | ${python.bin} |" ${worksrcpath}/doc/Makefile
+        }
+
+        post-build {
+            system "cd ${worksrcpath}/doc && /usr/bin/make html"
+        }
+
+        post-destroot {
+            file copy ${worksrcpath}/doc/html ${destroot}${prefix}/share/doc/${subport}
+        }
+    }
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       ${master_sites}
+    livecheck.regex     "pyOpenSSL-(\\d+(?:\\.\\d+)*)${extract.suffix}"
+}

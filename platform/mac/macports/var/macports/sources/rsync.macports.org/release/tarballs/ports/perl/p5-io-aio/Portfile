@@ -1,0 +1,23 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 132872 2015-02-12 00:30:59Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+epoch               1
+perl5.branches      5.16 5.18 5.20
+perl5.setup         IO-AIO 4.32 ../by-authors/id/M/ML/MLEHMANN
+license             {Artistic-1 GPL} BSD
+platforms           darwin
+maintainers         nomaintainer
+
+description         Asynchronous Input/Output
+long_description    ${description}
+
+checksums           rmd160  d3490145a4ec9688fa93d5acbe42579c911554e4 \
+                    sha256  1cee61f494a6390c43e5768818d80e3aee65151df4a1fdda16ca52e6260e2f75
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-common-sense
+}

@@ -1,0 +1,23 @@
+--- makefile.orig	2013-03-29 08:31:31.000000000 +0100
++++ makefile	2013-03-29 08:32:58.000000000 +0100
+@@ -22,16 +22,16 @@
+ 	#  -Wunreachable-code \
+ 
+ 
+-CFLAGS = $(CWARNS) $(COPT) -ansi -I$(LUADIR) -fPIC
++CFLAGS = $(CWARNS) $(COPT) -ansi -I$(LUADIR) -fPIC %%CFLAGS%%
+ CC = gcc
+ 
+ # For Linux
+-DLLFLAGS = -shared -fPIC
+-ENV = 
++#DLLFLAGS = -shared -fPIC
++#ENV = 
+ 
+ # For Mac OS
+ # ENV = MACOSX_DEPLOYMENT_TARGET=10.4
+-# DLLFLAGS = -bundle -undefined dynamic_lookup
++ DLLFLAGS = -bundle -undefined dynamic_lookup %%LDFLAGS%%
+ 
+ 
+ FILES = lpvm.o lpcap.o lptree.o lpcode.o lpprint.o

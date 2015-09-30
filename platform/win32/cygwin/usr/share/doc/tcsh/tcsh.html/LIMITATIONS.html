@@ -1,0 +1,23 @@
+<HEAD>
+<TITLE>LIMITATIONS</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="SEE_ALSO.html">Next</A>
+<A HREF="THE_T_IN_TCSH.html">Previous</A>
+<H2>LIMITATIONS</H2>
+The system limits argument lists to ARG_MAX characters.
+<P>
+The number of arguments to a command which involves filename expansion is
+limited to 1/6th the number of characters allowed in an argument list.
+<P>
+Command substitutions may substitute no more characters than are allowed in
+an argument list.
+<P>
+To detect looping, the shell restricts the number of <I><A HREF="Builtin_commands.html#alias">alias</A></I>
+substitutions on a single line to 20.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="SEE_ALSO.html">Next</A>
+<A HREF="THE_T_IN_TCSH.html">Previous</A>
+</BODY>

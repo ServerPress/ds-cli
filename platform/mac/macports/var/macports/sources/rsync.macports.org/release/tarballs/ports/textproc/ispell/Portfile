@@ -1,0 +1,40 @@
+# $Id: Portfile 96282 2012-08-07 03:12:46Z jmr@macports.org $
+
+PortSystem 1.0
+
+name            ispell
+version         3.3.02
+revision        2
+categories      textproc spelling
+license         Restrictive/Distributable
+platforms       darwin freebsd
+conflicts       aspell
+maintainers     nomaintainer
+description     An interactive spelling checker for multiple languages
+long_description    International Ispell is an interactive spell-checking program for Unix which supports a large number of European languages.
+homepage        http://ficus-www.cs.ucla.edu/geoff/ispell.html
+master_sites    http://fmg-www.cs.ucla.edu/geoff/tars/
+checksums       md5 12087d7555fc2b746425cd167af480fe
+build.env       TMPDIR=${workpath}
+
+depends_lib     port:ncurses
+
+post-patch {
+            # ispell's getline is not the POSIX getline
+            reinplace "s|getline|_ispell_getline|g" ${worksrcpath}/correct.c
+}
+
+configure {
+            xinstall -c -m 0744 -W ${worksrcpath} local.h.macos local.h
+            reinplace s|/man/|/share/man/|g ${worksrcpath}/local.h
+            reinplace s|\"-lcurses\"|\"-L${prefix}/lib\ -lncurses\"| ${worksrcpath}/local.h
+            reinplace s|\"cc\"|\"${configure.cc}\"| ${worksrcpath}/config.X
+            reinplace "s|/usr/local|${prefix}|g" ${worksrcpath}/local.h
+}
+
+use_parallel_build   no
+
+pre-destroot {
+            reinplace "s|${prefix}|${destroot}${prefix}|g" ${worksrcpath}/config.sh
+            reinplace "s|-L${destroot}${prefix}|-L${prefix}|g" ${worksrcpath}/config.sh
+}

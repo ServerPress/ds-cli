@@ -1,0 +1,67 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 118805 2014-04-11 07:02:47Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                lua
+conflicts           lua50
+version             5.2.3
+set branch          [join [lrange [split ${version} .] 0 1] .]
+categories          lang
+license             MIT
+platforms           darwin
+maintainers         nomaintainer
+description         powerful, lightweight programming language
+long_description    \
+    Lua is a powerful, light-weight programming language designed for \
+    extending applications. Lua is also frequently used as a general-purpose, \
+    standalone language.
+
+homepage            http://www.lua.org/
+master_sites        ${homepage}ftp/
+
+checksums           rmd160  b8714669c8c0f8272104effd8a9675921ddb2fa5 \
+                    sha256  13c2fb97961381f7d06d5b5cea55b743c163800896fd5c5e2356201d3619002d
+
+depends_lib         port:readline
+build.target        macosx
+
+test.run            yes
+test.env            DYLD_LIBRARY_PATH=./lib
+
+post-extract {
+    xinstall -m 0644 -W ${filespath} COPYRIGHT lua.pc ${worksrcpath}
+}
+
+patchfiles          patch-Makefile.diff \
+                    patch-src-Makefile.diff \
+                    patch-src-luaconf.h.diff
+
+post-patch {
+    reinplace "s|@PREFIX@|${prefix}|g" ${worksrcpath}/Makefile ${worksrcpath}/lua.pc ${worksrcpath}/src/Makefile ${worksrcpath}/src/luaconf.h
+    reinplace "s|@VERSION@|${version}|g" ${worksrcpath}/Makefile ${worksrcpath}/lua.pc ${worksrcpath}/src/Makefile
+    reinplace "s|@BRANCH@|${branch}|g" ${worksrcpath}/Makefile ${worksrcpath}/lua.pc ${worksrcpath}/src/Makefile
+}
+
+configure {
+    reinplace -E "/^MYLDFLAGS=/s|\$| ${configure.ldflags} [get_canonical_archflags]|" ${worksrcpath}/src/Makefile
+    reinplace -E "/^CFLAGS=/s|\$| ${configure.cflags} ${configure.cppflags} [get_canonical_archflags]|" ${worksrcpath}/src/Makefile
+    reinplace "s|CC= .*\$|CC= ${configure.cc}|" ${worksrcpath}/src/Makefile
+}
+
+use_parallel_build  no
+
+destroot.target install INSTALL_TOP=${destroot}${prefix}
+post-destroot {
+    set docdir ${prefix}/share/doc/${subport}
+    xinstall -d -m 0755 ${destroot}${docdir}/html
+    xinstall -m 0644 -W ${worksrcpath} COPYRIGHT README ${destroot}${docdir}
+    foreach html [glob ${worksrcpath}/doc/*.html ${worksrcpath}/doc/*.gif] {
+        xinstall -m 0644 ${html} ${destroot}${docdir}/html
+    }
+    xinstall -W ${worksrcpath} -m 0644 lua.pc ${destroot}${prefix}/lib/pkgconfig/
+}
+
+livecheck.type  regex
+livecheck.url   ${master_sites}
+livecheck.regex {lua-(\d+(?:\.\d+)*)}

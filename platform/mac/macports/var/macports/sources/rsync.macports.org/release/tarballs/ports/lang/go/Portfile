@@ -1,0 +1,109 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134659 2015-04-02 13:26:18Z ciserlohn@macports.org $
+
+PortSystem          1.0
+
+name                go
+epoch               2
+version             1.4.2
+categories          lang
+platforms           darwin freebsd linux
+license             BSD
+maintainers         ciserlohn
+description         compiled, garbage-collected, concurrent programming \
+                    language developed by Google Inc.
+long_description    \
+    The Go programming language is an open source project to make programmers \
+    more productive. Go is expressive, concise, clean, and efficient. Its \
+    concurrency mechanisms make it easy to write programs that get the most \
+    out of multicore and networked machines, while its novel type system \
+    enables flexible and modular program construction. Go compiles quickly \
+    to machine code yet has the convenience of garbage collection and the \
+    power of run-time reflection. It's a fast, statically typed, compiled \
+    language that feels like a dynamically typed, interpreted language. Go \
+    is developed by Google Inc.
+
+homepage            https://golang.org/
+master_sites        https://storage.googleapis.com/golang/
+distfiles           ${name}${version}.src.tar.gz
+worksrcdir          ${name}
+
+checksums           rmd160  dea15b3b4c31554a47b40799f4b9a926ea760e70 \
+                    sha256  299a6fd8f8adfdce15bc06bde926e7b252ae8e24dd5b16b7d8791ed79e7b5e9b
+
+set GOROOT          ${worksrcpath}
+set GOROOT_FINAL    ${prefix}/go
+
+switch ${build_arch} {
+    i386 {
+        set GOARCH 386
+        set cmd_prefix 8
+    }
+    x86_64 {
+        set GOARCH amd64
+        set cmd_prefix 6
+    }
+    default {
+        # unsupported arch, but GOARCH needs to be set to something to prevent errors
+        set GOARCH x
+        set cmd_prefix 6
+    }
+}
+
+pre-fetch {
+    if {"big" == ${os.endian}} {
+        ui_error "${name} can only be used on an Intel Mac or other computer with a little-endian processor."
+        return -code error "incompatible processor"
+    }
+}
+
+use_configure       no
+
+build.dir           ${worksrcpath}/src
+build.cmd           ./make.bash
+build.target
+build.env           GOROOT=${GOROOT} GOBIN= GOARCH=${GOARCH} \
+                    GOROOT_FINAL=${GOROOT_FINAL} \
+                    CC=${configure.cc} \
+                    GCC=${configure.cc}
+
+use_parallel_build  no
+post-build {
+    # remove mercurial extras
+    system "find ${worksrcpath} -type d -name .hg -print0 | xargs -0 rm -rf"
+}
+
+test.run            yes
+test.dir            ${worksrcpath}/src
+test.cmd            ./run.bash
+test.target
+test.env            ${build.env}
+
+destroot {
+    # standard distribution
+    file copy ${worksrcpath} ${destroot}${GOROOT_FINAL}
+
+    # binary symlinks
+    foreach f [list go gofmt] {
+        system "cd ${destroot}${prefix}/bin/ && ln -s ../go/bin/$f ./$f"
+    }
+}
+
+destroot.violate_mtree     yes
+
+platform darwin {
+    build.env-append GOOS=darwin
+    test.env-append GOOS=darwin
+}
+platform freebsd {
+    build.env-append GOOS=freebsd
+    test.env-append GOOS=freebsd
+}
+platform linux {
+    build.env-append GOOS=linux
+    test.env-append GOOS=linux
+}
+
+livecheck.type      regex
+livecheck.url       ${homepage}/dl/
+livecheck.regex     {go([0-9.]+).src.tar.gz}

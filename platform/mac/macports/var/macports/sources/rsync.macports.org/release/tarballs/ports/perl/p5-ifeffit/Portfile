@@ -1,0 +1,51 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130742 2015-01-02 09:32:53Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Ifeffit 2
+set ifeffit_version 1.2.13
+revision            1
+
+platforms           darwin
+license             Permissive
+maintainers         nomaintainer
+
+description         perl interface to ifeffit
+
+long_description    ${description}
+
+master_sites        https://github.com/newville/ifeffit/archive/
+
+checksums           rmd160  dedd8b9f6be0d0b0bce67e5f53c18faddf7b0912 \
+                    sha256  72a7f5bd6e6e1ff2b41761cfe726f79f2da8e71606399d3c3307451496a1c0ef
+
+dist_subdir         ifeffit
+distname            1.2.final
+worksrcdir          ifeffit-${distname}/wrappers/perl
+
+if {${perl5.major} != ""} {
+    depends_lib-append  port:ifeffit
+
+    post-extract {
+        # Copy ifeffit Makefile.PL because it is closer to correct than the default one
+        file copy -force ${prefix}/share/ifeffit/config/Makefile.PL \
+            ${worksrcpath}/Makefile.PL
+    }
+
+    post-patch {
+        # Fix the location of the ifeffit library
+        #             -lifeffit /opt/local/var/macports/build/_opt_mports_trunk_dports_science_ifeffit/ifeffit/work/ifeffit-1.2.11c/src/pgstub/libnopgplot.a
+        reinplace -E "s|-lifeffit .+libnopgplot\.a|-lifeffit -lnopgplot|g" ${worksrcpath}/Makefile.PL
+    }
+    
+    post-configure {
+        # Need to patch the generated Makefile due to strange bug
+        reinplace "s|^PERL_ARCHIVE *= *$|PERL_ARCHIVE = \$(PERL_INC)/libperl.dylib|" ${worksrcpath}/Makefile
+    }
+}
+
+# disable irrelevant CPAN livecheck provided by perl5 portgroup
+livecheck.type      none

@@ -1,0 +1,61 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 120565 2014-06-01 16:53:49Z cal@macports.org $
+
+PortSystem              1.0
+PortGroup               cmake 1.0
+PortGroup               conflicts_build 1.0
+
+name                    tigervnc
+conflicts               vnc tightvnc
+version                 1.2.0
+revision                1
+categories              x11 vnc
+maintainers             nomaintainer
+platforms               darwin
+license                 GPL-2+
+
+description             Advanced VNC implementation.
+
+long_description        TigerVNC is an advanced VNC implementation. \
+                        It is based on the fourth generation of VNC. TigerVNC \
+                        also includes features from the TightVNC and TurboVNC \
+                        projects. This includes accelerated JPEG compression. \
+                        TigerVNC supports the latest X.Org X server.
+
+homepage                http://www.tigervnc.com/
+master_sites            sourceforge:project/${name}/${name}/${version}
+
+checksums               rmd160  c8f498c6812407bb1383b94234dcae8053a7d4f1 \
+                        sha256  6e0910f1ff1681bc8b52e7ea805e586b88b352c88f66e4c2cc31aa39c4a32f53
+
+depends_lib             port:gettext \
+                        port:gnutls \
+                        port:jpeg \
+                        port:Xft2 \
+                        port:xorg-libX11 \
+                        port:xorg-libXcursor \
+                        port:xorg-libXext \
+                        port:xorg-libXfixes \
+                        port:xorg-libXinerama \
+                        port:zlib
+
+patchfiles              patch-common-fltk-FL-mac.H.diff \
+                        patch-common-fltk-src-filename_list.cxx.diff \
+                        patch-common-fltk-src-Makefile.diff \
+                        patch-gnutls-3.diff
+
+# tigervnc includes its own copy of fltk and gets confused when the MacPorts
+# version is installed. Future versions of the tigervnc port will need the
+# MacPorts version fltk since the custom version has already been removed from
+# the tigervnc sources: http://sourceforge.net/p/tigervnc/code/4951/
+conflicts_build         fltk fltk-devel
+
+configure.args-append   -DUSE_INCLUDED_FLTK=ON
+
+post-destroot {
+    xinstall -d ${destroot}${prefix}/share/doc
+    move ${destroot}${prefix}/doc ${destroot}${prefix}/share/doc/${name}
+
+    delete ${destroot}${prefix}/share/man
+    move ${destroot}${prefix}/man ${destroot}${prefix}/share
+}

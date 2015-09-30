@@ -1,0 +1,40 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137283 2015-06-08 02:21:01Z ryandesign@macports.org $
+
+PortSystem 1.0
+
+name                pstree
+version             2.39
+categories          sysutils
+maintainers         mww
+license             GPL-2
+description         pstree shows the output of the ps command as a tree
+platforms           darwin freebsd
+long_description    ${description}
+
+homepage            http://www.thp.uni-duisburg.de/pstree/
+master_sites        ftp://ftp.thp.uni-duisburg.de/pub/source/
+
+checksums           rmd160  74bd6cd2fa22e0bde2f3e4936c1b6ed4d767b6df \
+                    sha256  7c9bc3b43ee6f93a9bc054eeff1e79d30a01cac13df810e2953e3fc24ad8479f
+
+installs_libs       no
+
+extract.mkdir       yes
+
+post-extract {
+    xinstall -m 755 ${filespath}/configure ${worksrcpath}
+}
+
+destroot {
+    xinstall -s ${worksrcpath}/pstree ${destroot}${prefix}/bin
+    xinstall -m 644 ${worksrcpath}/pstree.1 ${destroot}${prefix}/share/man/man1
+    set docdir ${prefix}/share/doc/${subport}
+    xinstall -d ${destroot}${docdir}
+    xinstall -m 0644 ${worksrcpath}/README \
+        ${destroot}${docdir}
+}
+
+livecheck.type      regex
+livecheck.url       ftp://ftp.thp.uni-duisburg.de/pub/source/
+livecheck.regex     pstree.tar.gz -> pstree-(\[0-9\]+\\.\[0-9\]+)

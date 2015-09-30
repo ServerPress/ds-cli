@@ -1,0 +1,351 @@
+<HEAD>
+<TITLE>History substitution</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Alias_substitution.html">Next</A>
+<A HREF="Substitutions.html">Previous</A>
+<H2>History substitution</H2>
+Each command, or ``event'', input from the terminal is saved in the history
+list.  The previous command is always saved, and the <B><A HREF="Special_shell_variables.html#history">history</A></B> shell
+variable can be set to a number to save that many commands.  The <B><A HREF="Special_shell_variables.html#histdup">histdup</A></B>
+shell variable can be set to not save duplicate events or consecutive duplicate
+events.
+<P>
+Saved commands are numbered sequentially from 1 and stamped with the time.
+It is not usually necessary to use event numbers, but the current event number
+can be made part of the prompt by placing an `!' in the <B><A HREF="Special_shell_variables.html#prompt">prompt</A></B> shell variable.
+<P>
+The shell actually saves history in expanded and literal (unexpanded) forms.
+If the <B><A HREF="Special_shell_variables.html#histlit">histlit</A></B> shell variable is set, commands that display and store
+history use the literal form.
+<P>
+The <I><A HREF="Builtin_commands.html#history">history</A></I> builtin command can print, store in a file, restore
+and clear the history list at any time,
+and the <B><A HREF="Special_shell_variables.html#savehist">savehist</A></B> and <B><A HREF="Special_shell_variables.html#histfile">histfile</A></B> shell variables can be set to
+store the history list automatically on logout and restore it on login.
+<P>
+History substitutions introduce words from the history list into the input
+stream, making it easy to repeat commands, repeat arguments of a previous
+command in the current command, or fix spelling mistakes in the previous
+command with little typing and a high degree of confidence.
+<P>
+History substitutions begin with the character `!'.  They may begin anywhere in
+the input stream, but they do not nest.  The `!' may be preceded by a `\' to
+prevent its special meaning; for convenience, a `!' is passed unchanged when it
+is followed by a blank, tab, newline, `=' or `('.  History substitutions also
+occur when an input line begins with `^'.  This special abbreviation will be
+described later.  The characters used to signal history substitution (`!' and
+`^') can be changed by setting the <B><A HREF="Special_shell_variables.html#histchars">histchars</A></B> shell variable.  Any input
+line which contains a history substitution is printed before it is executed.
+<P>
+A history substitution may have an ``event specification'', which indicates
+the event from which words are to be taken, a ``word designator'',
+which selects particular words from the chosen event, and/or a ``modifier'',
+which manipulates the selected words.
+<P>
+An event specification can be
+<P>
+<P>
+<menu>
+<DL compact>
+<DT>
+<I>n</I>
+<DD>
+A number, referring to a particular event
+<P>
+<DT>
+-<I>n</I>
+<DD>
+An offset, referring to the event <I>n</I> before the current event
+<P>
+<DT>
+#
+<DD>
+The current event.
+This should be used carefully in <I>csh</I>(1), where there is no check for
+recursion.  <I>tcsh</I> allows 10 levels of recursion.  (+)
+<P>
+<DT>
+!
+<DD>
+The previous event (equivalent to `-1')
+<P>
+<DT>
+<I>s</I>
+<DD>
+The most recent event whose first word begins with the string <I>s</I>
+<P>
+<DT>
+?<I>s</I>?
+<DD>
+The most recent event which contains the string <I>s</I>.
+The second `?' can be omitted if it is immediately followed by a newline.
+</DL>
+<P>
+</menu>
+For example, consider this bit of someone's history list:
+<P>
+<menu>
+ 9  8:30    nroff -man wumpus.man
+<BR>
+10  8:31    cp wumpus.man wumpus.man.old
+<BR>
+11  8:36    vi wumpus.man
+<BR>
+12  8:37    diff wumpus.man.old wumpus.man
+</menu>
+<P>
+The commands are shown with their event numbers and time stamps.
+The current event, which we haven't typed in yet, is event 13.
+`!11' and `!-2' refer to event 11.
+`!!' refers to the previous event, 12.  `!!' can be abbreviated `!' if it is
+followed by `:' (`:' is described below).
+`!n' refers to event 9, which begins with `n'.
+`!?old?' also refers to event 12, which contains `old'.
+Without word designators or modifiers history references simply expand to the
+entire event, so we might type `!cp' to redo the copy command or `!!|more'
+if the `diff' output scrolled off the top of the screen.
+<P>
+History references may be insulated from the surrounding text with braces if
+necessary.  For example, `!vdoc' would look for a command beginning with
+`vdoc', and, in this example, not find one, but `!{v}doc' would expand
+unambiguously to `vi wumpus.mandoc'.
+Even in braces, history substitutions do not nest.
+<P>
+(+) While <I>csh</I>(1) expands, for example, `!3d' to event 3 with the
+letter `d' appended to it, <I>tcsh</I> expands it to the last event beginning
+with `3d'; only completely numeric arguments are treated as event numbers.
+This makes it possible to recall events beginning with numbers.
+To expand `!3d' as in <I>csh</I>(1) say `!{3}d'.
+<P>
+To select words from an event we can follow the event specification by a `:'
+and a designator for the desired words.  The words of an input line are
+numbered from 0, the first (usually command) word being 0, the second word
+(first argument) being 1, etc.  The basic word designators are:
+<P>
+<P>
+<menu>
+<DL compact>
+<DT>
+0
+<DD>
+The first (command) word
+<P>
+<DT>
+<I>n</I>
+<DD>
+The <I>n</I>th argument
+<P>
+<DT>
+^
+<DD>
+The first argument, equivalent to `1'
+<P>
+<DT>
+$
+<DD>
+The last argument
+<P>
+<DT>
+%
+<DD>
+The word matched by an ?<I>s</I>? search
+<P>
+<DT>
+<I>x-y</I>
+<DD>
+A range of words
+<P>
+<DT>
+<I>-y</I>
+<DD>
+Equivalent to <I>`0-y'</I>
+<P>
+<DT>
+*
+<DD>
+Equivalent to `^-$', but returns nothing if the event contains only 1 word
+<P>
+<DT>
+<I>x*</I>
+<DD>
+Equivalent to <I>`x-$'</I>
+<P>
+<DT>
+<I>x-</I>
+<DD>
+Equivalent to <I>`x*'</I>, but omitting the last word (`$')
+</DL>
+<P>
+</menu>
+Selected words are inserted into the command line separated by single blanks.
+For example, the `diff' command in the previous example might have been
+typed as `diff !!:1.old !!:1' (using `:1' to select the first argument
+from the previous event) or `diff !-2:2 !-2:1' to select and swap the
+arguments from the `cp' command.  If we didn't care about the order of the
+`diff' we might have said `diff !-2:1-2' or simply `diff !-2:*'.
+The `cp' command might have been written `cp wumpus.man !#:1.old', using `#'
+to refer to the current event.
+`!n:- hurkle.man' would reuse the first two words from the `nroff' command
+to say `nroff -man hurkle.man'.
+<P>
+The `:' separating the event specification from the word designator can be
+omitted if the argument selector begins with a `^', `$', `*', `%' or `-'.
+For example, our `diff' command might have been `diff !!^.old !!^' or,
+equivalently, `diff !!$.old !!$'.  However, if `!!' is abbreviated `!',
+an argument selector beginning with `-' will be interpreted as an event
+specification.
+<P>
+A history reference may have a word designator but no event specification.
+It then references the previous command.
+Continuing our `diff' example, we could have said simply `diff
+!^.old !^' or, to get the arguments in the opposite order, just `diff !*'.
+<P>
+The word or words in a history reference can be edited, or ``modified'',
+by following it with one or more modifiers, each preceded by a `:':
+<P>
+<P>
+<menu>
+<DL compact>
+<DT>
+h
+<DD>
+Remove a trailing pathname component, leaving the head.
+<P>
+<DT>
+t
+<DD>
+Remove all leading pathname components, leaving the tail.
+<P>
+<DT>
+r
+<DD>
+Remove a filename extension `.xxx', leaving the root name.
+<P>
+<DT>
+e
+<DD>
+Remove all but the extension.
+<P>
+<DT>
+u
+<DD>
+Uppercase the first lowercase letter.
+<P>
+<DT>
+l
+<DD>
+Lowercase the first uppercase letter.
+<P>
+<DT>
+s<I>/l/r/</I>
+<DD>
+Substitute <I>l</I> for <I>r</I>.
+<I>l</I> is simply a string like <I>r</I>, not a regular expression as in
+the eponymous <I>ed</I>(1) command.
+Any character may be used as the delimiter in place of `/';
+a `\' can be used to quote the delimiter inside <I>l</I> and <I>r</I>.
+The character `&amp;' in the <I>r</I> is replaced by <I>l</I>; `\' also quotes `&amp;'.
+If <I>l</I> is empty (``''), the <I>l</I> from a previous substitution or the
+<I>s</I> from a previous search or event number in event specification is used.
+The trailing delimiter may be omitted if it is immediately followed by a newline.
+<P>
+<DT>
+&amp;
+<DD>
+Repeat the previous substitution.
+<P>
+<DT>
+g
+<DD>
+Apply the following modifier once to each word.
+<P>
+<DT>
+a (+)
+<DD>
+Apply the following modifier as many times as possible to a single word.
+`a' and `g' can be used together to apply a modifier globally.
+With the `s' modifier, only the patterns contained in the original word are
+substituted, not patterns that contain any substitution result.
+<P>
+<DT>
+p
+<DD>
+Print the new command line but do not execute it.
+<P>
+<DT>
+q
+<DD>
+Quote the substituted words, preventing further substitutions.
+<P>
+<DT>
+x
+<DD>
+Like q, but break into words at blanks, tabs and newlines.
+</DL>
+<P>
+</menu>
+Modifiers are applied to only the first modifiable word (unless `g' is used).
+It is an error for no word to be modifiable.
+<P>
+For example, the `diff' command might have been written as `diff wumpus.man.old
+!#^:r', using `:r' to remove `.old' from the first argument on the same line
+(`!#^').  We could say `echo hello out there', then `echo !*:u' to capitalize
+`hello', `echo !*:au' to say it out loud, or `echo !*:agu' to really shout.
+We might follow `mail -s "I forgot my password" rot' with `!:s/rot/root' to
+correct the spelling of `root' (but see <B><A HREF="Spelling_correction.html">Spelling correction</A></B> for a
+different approach).
+<P>
+There is a special abbreviation for substitutions.
+`^', when it is the first character on an input line, is equivalent to `!:s^'.
+Thus we might have said `^rot^root' to make the spelling correction in the
+previous example.
+This is the only history substitution which does not explicitly begin with `!'.
+<P>
+(+) In <I>csh</I> as such, only one modifier may be applied to each history
+or variable expansion.  In <I>tcsh</I>, more than one may be used, for example
+<P>
+<menu>
+% mv wumpus.man /usr/man/man1/wumpus.1
+<BR>
+% man !$:t:r
+<BR>
+man wumpus
+</menu>
+<P>
+In <I>csh</I>, the result would be `wumpus.1:r'.  A substitution followed by a
+colon may need to be insulated from it with braces:
+<P>
+<menu>
+&gt; mv a.out /usr/games/wumpus
+<BR>
+&gt; setenv PATH !$:h:$PATH
+<BR>
+Bad ! modifier: $.
+<BR>
+&gt; setenv PATH !{-2$:h}:$PATH
+<BR>
+setenv PATH /usr/games:/bin:/usr/bin:.
+</menu>
+<P>
+The first attempt would succeed in <I>csh</I> but fails in <I>tcsh</I>,
+because <I>tcsh</I> expects another modifier after the second colon
+rather than `$'.
+<P>
+Finally, history can be accessed through the editor as well as through
+the substitutions just described.
+The <I>up-</I> and <I><A HREF="Editor_commands.html#down-history">down-history</A></I>, <I><A HREF="Editor_commands.html#history-search-backward">history-search-backward</A></I> and
+<I>-forward</I>, <I><A HREF="Editor_commands.html#i-search-back">i-search-back</A></I> and <I>-fwd</I>,
+<I><A HREF="Editor_commands.html#vi-search-back">vi-search-back</A></I> and <I>-fwd</I>, <I><A HREF="Editor_commands.html#copy-prev-word">copy-prev-word</A></I>
+and <I><A HREF="Editor_commands.html#insert-last-word">insert-last-word</A></I> editor commands search for
+events in the history list and copy them into the input buffer.
+The <I><A HREF="Editor_commands.html#toggle-literal-history">toggle-literal-history</A></I> editor command switches between the
+expanded and literal forms of history lines in the input buffer.
+<I><A HREF="Editor_commands.html#expand-history">expand-history</A></I> and <I><A HREF="Editor_commands.html#expand-line">expand-line</A></I> expand history substitutions
+in the current word and in the entire input buffer respectively.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Alias_substitution.html">Next</A>
+<A HREF="Substitutions.html">Previous</A>
+</BODY>

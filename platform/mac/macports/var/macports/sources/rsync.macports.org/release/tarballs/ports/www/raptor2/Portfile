@@ -1,0 +1,35 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 98728 2012-10-13 19:56:59Z pixilla@macports.org $
+
+PortSystem          1.0
+
+name                raptor2
+version             2.0.8
+set major           [lindex [split ${version} .] 0]
+description         Raptor RDF Parser Toolkit
+long_description    Raptor is an open source C library that provides a set of \
+                    parsers and serializers that generate Resource Description \
+                    Framework (RDF) triples by parsing syntaxes or serializing \
+                    the triples into a syntax.
+maintainers         pixilla openmaintainer
+license             {LGPL-2.1+ GPL-2+ Apache-2+}
+categories          www
+platforms           darwin
+homepage            http://librdf.org/raptor/
+master_sites        http://download.librdf.org/source/
+
+checksums           rmd160  ebd45699cd9716683832dbbd40be7fabd27cdd65 \
+                    sha256  6031083c9c7ce02ae4f1fb186bb3b05bd32aac012e26468e537a1cee6c67e7d7
+
+depends_lib         port:curl \
+                    port:libiconv \
+                    port:libxml2 \
+                    port:libxslt \
+                    port:openssl \
+                    port:zlib
+
+test.run            yes
+test.target         check
+livecheck.type      regex
+livecheck.url       ${master_sites}
+livecheck.regex     "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

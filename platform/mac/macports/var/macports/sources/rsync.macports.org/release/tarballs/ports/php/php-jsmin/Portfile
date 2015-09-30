@@ -1,0 +1,23 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 132891 2015-02-12 09:52:34Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           php 1.1
+
+name                php-jsmin
+version             1.1.0
+categories-append   devel
+platforms           darwin
+maintainers         ryandesign openmaintainer
+license             PHP-3.01
+
+php.branches        5.3 5.4 5.5 5.6
+php.pecl            yes
+
+description         PHP API for minifying and uglifying JavaScript
+
+long_description    This extension provides a PHP API to Douglas Crockford’s \
+                    jsmin method for minifying and uglifying JavaScript.
+
+checksums           rmd160  fc477b1a38f2b30b841a7c061c2a1b989b31ff95 \
+                    sha256  9cf4180a816bac08300c45083410ca536200bd4940db0174026b9a825161f159

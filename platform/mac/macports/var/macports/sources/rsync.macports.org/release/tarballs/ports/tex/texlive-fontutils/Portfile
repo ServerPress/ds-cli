@@ -1,0 +1,36 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 121682 2014-07-04 04:51:53Z dports@macports.org $
+
+PortSystem          1.0
+PortGroup           texlive 1.0
+
+name                texlive-fontutils
+version             34201
+revision            0
+
+categories          tex
+maintainers         dports
+license             Copyleft Permissive
+description         TeX Live: Graphics and font utilities
+long_description    Programs for conversion between font formats, testing fonts, virtual fonts, .gf and .pk manipulation, mft, fontinst, etc. Manipulating OpenType, TrueType, Type 1,and for manipulation of PostScript and other image formats.
+
+checksums           texlive-fontutils-34201-run.tar.xz \
+                    rmd160  21d07315818b16fa6a5bae4a9cabfbf34c27bed3 \
+                    sha256  b8f562848cb7bd5c6ebb8e5dccc00310de2f9334a559e919e406f1391f4826ee \
+                    texlive-fontutils-34201-doc.tar.xz \
+                    rmd160  055460651d7120af0821b313dbf9714ad3a4ac64 \
+                    sha256  7943150306d217c55a950eedfbd41e8c8ea1687cd8e3d5f7803769139c82d69e \
+                    texlive-fontutils-34201-src.tar.xz \
+                    rmd160  236cadac14c3203606c2acf0ed4aab9cc571b8c4 \
+                    sha256  8e2f16580a7d6fa809eca0508696da52d798d14df00dec8563f58f8848af9ae2
+
+depends_lib         port:texlive-basic
+
+texlive.binaries    afm2afm afm2pl autoinst dosepsbin epstopdf fontinst mag mf2pt1 mkt1font ot2kpx pfb2pfa pk2bm pltotf ps2pk repstopdf tftopl ttf2afm ttf2pk ttf2tfm ttfdump vftovp vpl2ovp vpl2vpl vptovf
+
+depends_run-append  port:lcdf-typetools \
+                    port:ps2eps \
+                    port:psutils \
+                    port:t1utils
+
+texlive.texmfport

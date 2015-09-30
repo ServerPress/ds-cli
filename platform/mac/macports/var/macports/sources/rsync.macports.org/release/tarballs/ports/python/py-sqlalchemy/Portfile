@@ -1,0 +1,51 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138402 2015-07-07 14:37:58Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-sqlalchemy
+version             1.0.6
+revision            0
+categories-append   databases
+platforms           darwin
+license             MIT
+
+python.versions     26 27 33 34
+
+maintainers         landonf openmaintainer
+
+description         Python SQL ORM
+
+long_description    SQLAlchemy is the Python SQL toolkit and Object \
+                    Relational Mapper that gives application developers \
+                    the full power and flexibility of SQL.
+
+homepage            http://www.sqlalchemy.org/
+master_sites        https://pypi.python.org/packages/source/S/SQLAlchemy/
+
+distname            SQLAlchemy-${version}
+
+checksums           rmd160  f9c610d0c255ee91c7d1c2d26b02e53a4062efc0 \
+                    sha256  99a8a54bec4988f704c54ee9f769aa196db43a5ef7ed655b78a80a129c9c65f3
+
+if {${name} ne ${subport}} {
+    depends_build-append    port:py${python.version}-setuptools
+
+    post-destroot {
+        # Install example files not installed by the Makefile
+        xinstall -m 755 -d ${destroot}${python.prefix}/share/doc/sqlalchemy/examples
+        foreach f [glob -directory ${worksrcpath}/doc *] {
+            copy $f ${destroot}${python.prefix}/share/doc/sqlalchemy/[file tail $f]
+        }
+        foreach f [glob -directory ${worksrcpath}/examples *] {
+            copy $f ${destroot}${python.prefix}/share/doc/sqlalchemy/examples/[file tail $f]
+        }
+    }
+
+    livecheck.type          none
+} else {
+    livecheck.type          regex
+    livecheck.url           https://pypi.python.org/pypi/SQLAlchemy/json
+    livecheck.regex         {SQLAlchemy-(\d+(?:\.\d+)*)\.[tz]}
+}

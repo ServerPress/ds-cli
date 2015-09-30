@@ -1,0 +1,33 @@
+# $Id: Portfile 108585 2013-07-27 02:06:15Z jmr@macports.org $
+
+PortSystem	1.0
+PortGroup	xcode 1.0
+
+name			pixen
+version			2v2
+set my_version	r${version}
+categories		aqua graphics
+license			MIT Permissive
+maintainers		nomaintainer
+description		A mature pixelart drawing tool for Mac OS X
+
+long_description	Pixen is a mature pixelart drawing tool for Mac OS X \
+			under the MIT License. \
+			It can be mainly used to create pixelart in \
+			Atari-Style.
+
+homepage		http://opensword.org/Pixen/
+master_sites	http://opensword.org/Downloads/
+distname		Pixen-r${version}
+
+checksums		md5 0c1c0fc53aa085c5d53cdbe0aa3eda1c \
+				sha1 0bc101c5390a2be2f921114ed64788f0398fb6b1 \
+				rmd160 62155331f4afbf903a7ba0d23da1cbb74a3b698a
+
+worksrcdir      Sources
+
+# Can't enable universal variant yet, Pixen must depends on libungif instead of using
+# its own internal precompiled ungif lib.
+universal_variant no
+
+livecheck.version ${my_version}

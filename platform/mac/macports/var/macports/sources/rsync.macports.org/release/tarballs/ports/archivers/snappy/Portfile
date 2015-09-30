@@ -1,0 +1,33 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 119140 2014-04-18 04:14:02Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                snappy
+version             1.1.1
+categories          archivers
+platforms           darwin
+maintainers         perlhacker.org:sepp
+license             BSD
+
+description         a fast compressor/decompressor
+
+long_description    Snappy is a compression/decompression library. It does \
+                    not aim for maximum compression, or compatibility with \
+                    any other compression library. Instead it aims for very \
+                    high speeds and reasonable compression. For instance, \
+                    compared to the fastest mode of zlib, Snappy is an order \
+                    of magnitude faster for most inputs, but the resulting \
+                    compressed files are anywhere from 20% to 100% bigger. \
+                    On a single core of a Core i7 processor in 64-bit mode, \
+                    Snappy compresses at about 250 MB/sec or more and \
+                    decompresses at about 500 MB/sec or more.
+
+homepage            http://code.google.com/p/snappy/
+master_sites        googlecode
+
+depends_lib         port:lzo2 \
+                    port:zlib
+
+checksums           rmd160  be2c24d1e1da3cb554bfcb9834fe307845feeeaf \
+                    sha256  d79f04a41b0b513a014042a4365ec999a1ad5575e10d5e5578720010cb62fab3

@@ -1,0 +1,52 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 98732 2012-10-13 22:08:25Z takeshi@macports.org $
+
+PortSystem 1.0
+
+name            udunits2
+version         2.1.24
+distname        udunits-${version}
+maintainers     takeshi
+license         UCAR-Unidata
+platforms       darwin
+categories      science
+
+description     Improved Unidata unit conversion libraray
+long_description \
+    The UDUNITS package supports units of physical quantities           \
+    (e.g., meters, seconds).  Specifically, it supports conversion      \
+    between string and binary representations of units,                 \
+    arithmetic manipulation of units, and conversion of numeric values  \
+    between compatible units. The UDUNIT-2 package differs from         \
+    the original UDUNITS package in the following ways:                 \
+    support for non-ASCII characters, support for logarithmic units,    \
+    persistent value converters, improved API, XML unit database,       \
+    and no Fortran or Perl API.
+
+homepage        http://www.unidata.ucar.edu/software/udunits/
+
+master_sites    ftp://ftp.unidata.ucar.edu/pub/udunits/ \
+                http://www.gfd-dennou.org/arch-large1/ucar/unidata/pub/udunits
+checksums           md5     6986545721747a51285c765644dcd9d8 \
+                    sha1    64bbb4b852146fb5d476baf4d37c9d673cfa42f9 \
+                    rmd160  141d765332818c06b6a4bcbda17473fde5cd1853
+
+depends_lib     port:expat
+
+patch {
+    reinplace "s|SUBDIRS = expat|SUBDIRS = |" ${worksrcpath}/Makefile.in
+    reinplace "s|../expat/libexpat.la|${prefix}/lib/libexpat.la|" ${worksrcpath}/lib/Makefile.in
+}
+
+pre-destroot {
+    reinplace "s|install-data-hook||" ${worksrcpath}/lib/Makefile
+}
+
+use_autoreconf      yes
+
+configure.args-append   --includedir=${prefix}/include/${name} \
+                        --disable-dependency-tracking
+
+livecheck.type  regex
+livecheck.url   http://www.unidata.ucar.edu/downloads/udunits/index.jsp
+livecheck.regex {Current release[ ]+\(([0-9]+\.[0-9]+\.[0-9]+)\)} 

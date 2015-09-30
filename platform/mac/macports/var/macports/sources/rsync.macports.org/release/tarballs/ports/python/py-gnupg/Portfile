@@ -1,0 +1,31 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130492 2014-12-31 02:51:43Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-gnupg
+# never remove/decrement an epoch
+epoch               1
+version             0.3.5
+python.versions     26 27 33 34
+python.default_version 27
+platforms           darwin
+maintainers         snc openmaintainer
+license             BSD
+
+description         a Python wrapper for GPG
+long_description    gnupg.py is a Python API which wraps the GNU Privacy Guard.
+
+homepage            http://code.google.com/p/python-gnupg/
+master_sites        googlecode:python-gnupg
+distname            python-gnupg-${version}
+
+checksums           rmd160  93c8c1dc808874e887ff0fce6ba718b345b3872a \
+                    sha256  4ce2922a03f07dbd13838a9fe9611b6dabe88966c369f8daa2cd86b896520f43
+
+if {${name} ne ${subport}} {
+    livecheck.type      none
+} else {
+    livecheck.regex     python-gnupg-(\\d+(\\.\\d+)+)
+}

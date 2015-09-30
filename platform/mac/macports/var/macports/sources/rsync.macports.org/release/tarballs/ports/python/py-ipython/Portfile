@@ -1,0 +1,121 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137986 2015-06-24 07:32:30Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           select 1.0
+
+set realname        ipython
+
+name                py-${realname}
+version             3.2.0
+revision            0
+platforms           darwin
+license             BSD
+supported_archs     noarch
+
+python.versions     27 34
+
+maintainers         aronnax sean openmaintainer
+
+description         An enhanced Interactive Python shell
+long_description    Provide an interactive shell superior to the Python default. \
+                    Serve as an embeddable, ready to use interpreter for your own programs. \
+                    Offer a flexible framework which can be used as the base environment for \
+                    other systems with Python as the underlying language.  \
+                    Allow interactive testing of threaded graphical toolkits.
+
+homepage            http://ipython.org
+master_sites        https://pypi.python.org/packages/source/i/ipython/
+
+distname            ${realname}-${version}
+
+checksums           rmd160  a960c40d35b0d6f57897266e5dce38bba70c7f15 \
+                    sha256  8e64b441e16298c08025b826126b2d7bc5c1776d2d2f071672166f615f327887
+
+if {${name} ne ${subport} && ${python.version} == 27} {
+    variant scientific description "Use ScientificPython to provide physical quantities support" {
+        depends_lib-append      port:py${python.version}-scientific
+    }
+    default_variants        +scientific
+}
+
+if {${name} ne ${subport}} {
+    variant parallel description "Support for parallel computing" {
+        depends_lib-append      port:py${python.version}-zmq
+    }
+
+    variant pyqt4 conflicts pyside requires parallel description "Support for the Qt console using pyqt4" {
+        # Can use either py*-pyqt4 or py*-pyqt4-devel.
+        depends_lib-append      path:share/py${python.version}-sip/PyQt4:py${python.version}-pyqt4 \
+                                port:py${python.version}-pygments
+    }
+
+    variant pyside conflicts pyqt4 requires parallel description "Support for the Qt console using pyside" {
+        depends_lib-append      port:py${python.version}-pyside \
+                                port:py${python.version}-pygments
+    }
+
+    variant terminal requires notebook description "Support for the terminal emulation" {
+        depends_lib-append      port:py${python.version}-terminado
+    }
+
+    variant notebook requires parallel description "Support for IPython HTML notebook" {
+        depends_lib-append      port:py${python.version}-jinja2 \
+                                port:py${python.version}-requests \
+                                port:py${python.version}-sphinx \
+                                port:py${python.version}-tornado \
+                                port:py${python.version}-jsonschema \
+                                port:py${python.version}-mistune
+
+        notes-append "
+Exporting notebooks as HTML or other formats requires pandoc. If you wish to\
+use this feature, then to install pandoc, run:
+
+port install pandoc
+
+
+"
+    }
+
+    default_variants-append +notebook
+    depends_lib-append      port:py${python.version}-readline
+    depends_run             port:ipython_select
+
+    if {${python.version} >= 30} {
+        depends_build-append    port:py${python.version}-setuptools
+    }
+
+    depends_build-append    port:gzip
+
+    post-destroot {
+        # Since IPython 0.13, the man pages are no longer gzipped, so to ensure
+        # that ipython_select works correctly, we gzip the man pages.
+        set gzip [findBinary gzip ${portutil::autoconf::gzip_path}]
+        foreach f {ipcluster ipcontroller ipengine ipython} {
+            system "$gzip -9vf ${destroot}${python.prefix}/share/man/man1/${f}.1"
+            file attributes ${destroot}${python.prefix}/share/man/man1/${f}.1.gz -permissions 00444
+            ln -s ${python.prefix}/share/man/man1/${f}.1.gz ${destroot}${prefix}/share/man/man1/${f}-${python.branch}.1.gz
+        }
+    }
+
+    test.run                no
+
+    select.group            ${realname}
+    select.file             ${filespath}/${realname}${python.version}
+
+    notes-append "
+To make the Python ${python.branch} version of IPython the one that is run\
+when you execute the commands without a version suffix, e.g. 'ipython', run:
+
+port select --set ${select.group} [file tail ${select.file}]
+
+
+"
+
+    livecheck.type          none
+} else {
+    livecheck.type          regex
+    livecheck.url           https://pypi.python.org/pypi/ipython/json
+    livecheck.regex         {ipython-(\d+(?:\.\d+)*)\.[tz]}
+}

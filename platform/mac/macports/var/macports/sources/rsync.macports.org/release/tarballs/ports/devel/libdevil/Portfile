@@ -1,0 +1,95 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 115019 2013-12-22 09:29:46Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup muniversal 1.0
+
+name                libdevil
+conflicts           ResIL
+version             1.7.8
+revision            6
+categories          devel multimedia
+platforms           darwin
+license             LGPL-2.1
+maintainers         ryandesign openmaintainer
+
+description         Library to develop applications with powerful image \
+                    loading capabilities
+
+long_description    Developer's Image Library (DevIL) is a programmer's \
+                    library to develop applications with very powerful image \
+                    loading capabilities, yet is easy for a developer to \
+                    learn and use. Ultimate control of images is left to the \
+                    developer, so unnecessary conversions, etc. are not \
+                    performed. DevIL utilizes a simple, yet powerful, \
+                    syntax. DevIL can load, save, convert, manipulate, \
+                    filter and display a wide variety of image formats. \
+                    Formerly known as OpenIL, but the name was changed due \
+                    to SGI's request.
+
+homepage            http://openil.sourceforge.net/
+master_sites        sourceforge:project/openil/DevIL/${version}
+distname            DevIL-${version}
+checksums           md5     7918f215524589435e5ec2e8736d5e1d \
+                    sha1    bc27e3e830ba666a3af03548789700d10561fcb1 \
+                    rmd160  a3cdb14fcca5e75ada240a53cbdc3e749a759da5
+worksrcdir          devil-${version}
+
+depends_lib         port:lcms \
+                    port:libmng \
+                    port:libpng \
+                    port:jpeg \
+                    port:tiff \
+                    port:jasper \
+                    port:xrender \
+                    port:mesa
+
+patchfiles          patch-ilur.c \
+                    patch-devil_internal_exports.h.diff \
+                    patch-src-IL-include-il_endian.h.diff \
+                    patch-src_IL-src-il_png.c.diff \
+                    patch-src_IL-src-il_icon.c.diff \
+                    patch-CXXFLAGS.diff \
+                    patch-include_IL_il.h
+
+configure.args      --enable-ILU \
+                    --enable-ILUT \
+                    --enable-x11 \
+                    --enable-render \
+                    --enable-shm \
+                    --disable-allegro \
+                    --disable-exr \
+                    --disable-sdl \
+                    --disable-xpm
+if {![variant_isset universal]} {
+    if {${configure.build_arch} eq "i386"} {
+        configure.args-append   --enable-x86
+    } elseif {${configure.build_arch} eq "x86_64"} {
+        configure.args-append   --enable-x86_64
+    } else {
+        configure.args-append   --enable-ppc
+    }
+}
+set merger_configure_args(i386) --enable-x86
+set merger_configure_args(x86_64) --enable-x86_64
+set merger_configure_args(ppc) --enable-ppc
+set merger_configure_args(ppc64) --enable-ppc
+
+# https://sourceforge.net/p/resil/tickets/6/
+if {[string match *clang* ${configure.compiler}]} {
+    configure.cflags-append -std=gnu89
+}
+
+post-destroot {
+    xinstall -m 755 -d ${destroot}${prefix}/share/doc/${name}
+    xinstall -m 644 -W ${worksrcpath} AUTHORS COPYING CREDITS ChangeLog \
+        NEWS README TODO ${destroot}${prefix}/share/doc/${name}
+    file copy ${worksrcpath}/docs/html ${destroot}${prefix}/share/doc/${name}
+}
+
+variant sdl description {Enable libSDL renderer} {
+    depends_lib-append port:libsdl
+    configure.args-delete --disable-sdl
+}
+
+livecheck.regex     /DevIL-(\[0-9.\]+)${extract.suffix}

@@ -1,0 +1,40 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 121682 2014-07-04 04:51:53Z dports@macports.org $
+
+PortSystem          1.0
+PortGroup           texlive 1.0
+
+name                texlive-omega
+version             34201
+revision            0
+
+categories          tex
+maintainers         dports
+license             Copyleft Permissive
+description         TeX Live: Omega packages
+long_description    Omega, a 16-bit extended TeX by John Plaice and Yannis Haralambous, now updated to Aleph.
+
+checksums           texlive-omega-34201-run.tar.xz \
+                    rmd160  0b63350b9f7023ad83e2d97fad36c93ad2c2faec \
+                    sha256  20e242999dab27e7ce393a8f34bc9d0ae3895a6296ed735b8b0bea7c16e1a709 \
+                    texlive-omega-34201-doc.tar.xz \
+                    rmd160  dc7be3a934648d626c81a4e340c52d83455f885d \
+                    sha256  b6cc7a8682f7c10c1ebcc2929f1f9b599a714d37025fa7adc075383d1a4e9f8d \
+                    texlive-omega-34201-src.tar.xz \
+                    rmd160  749c88372eac7ad17d1ebb458cd6da02999dfc92 \
+                    sha256  7100024603c7acebde6c40fe003a55e5ec539811e0bdc53960534bf1d74c984c
+
+depends_lib         port:texlive-basic port:texlive-latex
+
+texlive.formats      \
+    {1 aleph aleph - {*aleph.ini}} \
+    {1 lamed aleph language.dat {*lambda.ini}}
+
+texlive.maps      \
+    {Map mxedruli.map} \
+    {Map omega.map}
+
+texlive.binaries    aleph lamed odvicopy odvitype ofm2opl omfonts opl2ofm otangle otp2ocp outocp ovf2ovp ovp2ovf wofm2opl wopl2ofm wovf2ovp
+
+
+texlive.texmfport

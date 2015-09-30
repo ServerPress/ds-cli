@@ -1,0 +1,44 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135232 2015-04-20 00:15:39Z ryandesign@macports.org $
+
+PortSystem 1.0
+
+name                yaz
+version             5.4.0
+revision            2
+categories          net databases devel
+platforms           darwin
+license             BSD
+maintainers         coateconnection.com:dlc
+description         toolkit for Z39.50/SRW/SRU clients and servers
+long_description    YAZ is a compact toolkit that provides access to the \
+                    Z39.50 and SRW/SRU protocols, as well as a set of \
+                    higher-level tools for implementing the server and \
+                    client roles, respectively.
+
+homepage            http://www.indexdata.com/yaz/
+master_sites        http://ftp.indexdata.com/pub/yaz/
+
+checksums           sha1    d994270f8cd2241fd462aa3b2bd5ef88e08abe11 \
+                    rmd160  4df095df3ca41bcfd7dfc3bdb63a415343b855a1
+
+depends_build       port:pkgconfig
+depends_lib         port:gnutls \
+                    port:icu \
+                    port:libiconv \
+                    port:libxml2 \
+                    port:libxslt \
+                    port:ncurses \
+                    port:readline \
+                    port:zlib
+
+configure.args      --with-gnutls=${prefix} \
+                    --with-iconv=${prefix} \
+                    --with-icu=${prefix} \
+                    --with-xml2=${prefix} \
+                    --with-xslt=${prefix}
+use_parallel_build  yes
+
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     "${name}-(\[0-9\]+(\\.\[0-9\]+)+)${extract.suffix}"

@@ -1,0 +1,35 @@
+<HEAD>
+<TITLE>Alias substitution</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Variable_substitution.html">Next</A>
+<A HREF="History_substitution.html">Previous</A>
+<H2>Alias substitution</H2>
+The shell maintains a list of aliases which can be set, unset and printed by
+the <I><A HREF="Builtin_commands.html#alias">alias</A></I> and <I><A HREF="Builtin_commands.html#unalias">unalias</A></I> commands.  After a command line is parsed
+into simple commands (see <B><A HREF="Commands.html">Commands</A></B>) the first word of each command,
+left-to-right, is checked to see if it has an alias.  If so, the first word is
+replaced by the alias.  If the alias contains a history reference, it undergoes
+<B><A HREF="History_substitution.html">History substitution</A></B> (q.v.) as though the original command were the
+previous input line.  If the alias does not contain a history reference, the
+argument list is left untouched.
+<P>
+Thus if the alias for `ls' were `ls -l' the command `ls /usr' would become `ls
+-l /usr', the argument list here being undisturbed.  If the alias for `lookup'
+were `grep !^ /etc/passwd' then `lookup bill' would become `grep bill
+/etc/passwd'.  Aliases can be used to introduce parser metasyntax.  For
+example, `alias print 'pr \!* | lpr'' defines a ``command'' (`print') which
+<I>pr</I>(1)s its arguments to the line printer.
+<P>
+Alias substitution is repeated until the first word of the command has no
+alias.  If an alias substitution does not change the first word (as in the
+previous example) it is flagged to prevent a loop.  Other loops are detected and
+cause an error.
+<P>
+Some aliases are referred to by the shell; see <B><A HREF="Special_aliases.html">Special aliases</A></B>.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Variable_substitution.html">Next</A>
+<A HREF="History_substitution.html">Previous</A>
+</BODY>

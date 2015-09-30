@@ -1,0 +1,98 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130949 2015-01-04 06:00:49Z sean@macports.org $
+
+PortSystem          1.0
+PortGroup           muniversal 1.0
+PortGroup           mpi 1.0
+
+name                arpack
+version             3.1.5
+categories          math
+license             BSD
+platforms           darwin
+maintainers         openmaintainer mmoll
+description         Package for solving large-scale eigenvalue problems
+long_description    ARPACK is a collection of Fortran77 subroutines designed to \
+                    solve large scale eigenvalue problems. Parallel ARPACK (PARPACK) \
+                    is included if built with an MPI variant.
+homepage            http://forge.scilab.org/index.php/p/arpack-ng
+master_sites        ${homepage}/downloads/get
+distfiles           arpack-ng_${version}.tar.gz
+worksrcdir          ${name}-ng-${version}
+
+checksums           rmd160  ef27775099bb5aecc99ccf8190c1136eaa907982 \
+                    sha256  a269ce7806bc77ced31ef794d23c3e3aff8543b65550fd7e3e24660f2a79d515
+
+mpi.setup           require_fortran
+
+configure.args      home=${worksrcpath} --disable-mpi
+
+if {${build_arch} eq "x86_64" || ${build_arch} eq "ppc64"} {
+    configure.args-append FFLAGS='-O2 -m64'
+} else {
+    configure.args-append FFLAGS='-O2 -m32'
+}
+
+# LDFLAGS needs to be cleared to avoid it having a "-arch" option, considered illegal by gfortran
+# also, if it has ${prefix}/lib it will prevent +accelerate from working if atlas is present.
+configure.args-append LDFLAGS=''
+
+pre-configure {
+    if {${os.platform} eq "darwin" && ${os.major} < 9} {
+        ui_error "${name} ${version} requires Mac OS X 10.5 or greater"
+        return -code error "incompatible Mac OS X version"
+    }
+
+    if {[mpi_variant_isset]} {
+        configure.args-delete  --disable-mpi
+        configure.args-append  --enable-mpi
+        configure.args-append  F77=${mpi.f77} \
+                               MPIF77=${mpi.f77}
+    }
+}
+
+# Fortran compilers can not cross-compile
+if {${os.arch} eq "i386"} {
+    set universal_archs_supported "i386 x86_64"
+} else {
+    set universal_archs_supported "ppc ppc64"
+}
+
+variant accelerate conflicts atlas description {build with Accelerate framework} {
+    # the change of LDFLAGS is required to avoid linking against the ATLAS ones
+    # if they are present; if we specify /usr/lib/libblas.dylib directly, the
+    # linking fails. http://forge.scilab.org/index.php/p/arpack-ng/issues/1220/
+    configure.args-delete  LDFLAGS=''
+    configure.args-append  LDFLAGS='/usr/lib/libblas.dylib /usr/lib/liblapack.dylib' --with-blas="-lblas -llapack"
+    patchfiles-append      patch-ARPACK-cdot-and-zdot.diff
+    if {[mpi_variant_isset]} {
+        patchfiles-append patch-PARPACK-cdot-and-zdot.diff
+    }
+}
+
+variant atlas description {build with atlas} {
+    depends_lib-append port:atlas
+    configure.args-append --with-blas="-L${prefix}/lib -lsatlas"
+}
+
+if {![variant_isset atlas]} {
+    default_variants +accelerate
+}
+
+post-destroot {
+    reinplace "s|/usr|${prefix}|g" ${destroot}${prefix}/lib/pkgconfig/arpack.pc
+
+    if {[variant_isset openmpi] || [variant_isset mpich]} {
+       delete ${destroot}${prefix}/bin/pcndrv1
+       delete ${destroot}${prefix}/bin/pdndrv1
+       delete ${destroot}${prefix}/bin/pdndrv3
+       delete ${destroot}${prefix}/bin/pdsdrv1
+       delete ${destroot}${prefix}/bin/psndrv3
+       delete ${destroot}${prefix}/bin/pssdrv1
+       delete ${destroot}${prefix}/bin/pzndrv1
+    }
+}
+
+livecheck.type  regex
+livecheck.url   http://forge.scilab.org/index.php/p/arpack-ng/downloads/
+livecheck.regex ${name}-ng (\[0-9.\]+\[0-9\])

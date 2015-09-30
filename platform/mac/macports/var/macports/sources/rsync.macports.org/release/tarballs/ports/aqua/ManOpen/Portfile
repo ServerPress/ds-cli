@@ -1,0 +1,34 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 121799 2014-07-08 09:55:46Z g5pw@macports.org $
+
+PortSystem          1.0
+PortGroup           xcode 1.0
+
+name                ManOpen
+version             2.6
+revision            1
+categories          aqua textproc
+license             BSD
+maintainers         nomaintainer
+description         GUI application for viewing Unix manual pages,
+long_description    \
+    It can open files directly or be given titles, in which case     \
+    it will display the output from the `man' command-line program. \
+    An apropos interface is also provided, which is basically a     \
+    quick-and-dirty search of the man page databases. Services are     \
+    provided to other applications to open selected files/titles     \
+    or do apropos searches using the selected text.
+homepage            http://www.clindberg.org/projects/ManOpen.html
+master_sites        http://www.clindberg.org/projects
+distname            ${name}-${version}.s
+worksrcdir          ${name}-${version}
+checksums           rmd160 2c789a7f9d618fc5ad92909d23dbe522d4a53965 \
+                    sha256 80e02a66840bd410a55f04e3c53eeae45027afce6e57a2d0d014671a0fb0550b
+
+post-destroot     {
+    move ${destroot}${applications_dir}/openman ${destroot}${prefix}/bin
+    move ${destroot}${applications_dir}/cat2html ${destroot}${prefix}/bin
+    move ${destroot}${applications_dir}/cat2rtf ${destroot}${prefix}/bin
+    move ${destroot}${applications_dir}/openman.1            \
+        ${destroot}${prefix}/share/man/man1
+}

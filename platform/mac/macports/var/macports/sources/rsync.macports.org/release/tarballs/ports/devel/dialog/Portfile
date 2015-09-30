@@ -1,0 +1,78 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137825 2015-06-20 22:56:36Z khindenburg@macports.org $
+
+PortSystem          1.0
+
+name                dialog
+version             1.2-20150528
+epoch               20150528
+categories          devel
+license             LGPL-2.1
+maintainers         nomaintainer
+
+description         a utility to create nice user interfaces for command-line scripts
+
+long_description    ${name} is ${description}. It is non-graphical (it uses \
+                    curses) so it can be run in the console or an xterm.
+
+platforms           darwin
+homepage            http://www.invisible-island.net/dialog/
+master_sites        ftp://invisible-island.net/dialog/
+
+#distname   ${name}
+#dist_subdir    ${name}/${version}
+#worksrcdir ${name}-${version}
+extract.suffix      .tgz
+
+checksums           rmd160  5f52fbc69d95948f2a5e6ddb732a4c329ec3257a \
+                    sha256  a8cd7a66bdb41e53a3145cbb0eb370c5ce7300fe0e9ad6d3e8d3b9e16ff16418
+
+depends_lib         port:ncurses
+
+configure.args      --mandir=${prefix}/share/man \
+                    --with-ncursesw
+
+if {${name} == ${subport}} {
+
+    installs_libs   no
+
+post-destroot   {
+    file delete -force ${destroot}${prefix}/lib/libdialog.a
+
+    xinstall -m 755 -d ${destroot}${prefix}/share/doc/${name}/examples
+    xinstall -m 644 -W ${worksrcpath} CHANGES COPYING README VERSION \
+        ${destroot}${prefix}/share/doc/${name}
+    xinstall -m 644 -W ${worksrcpath}/samples README calendar calendar-stdout \
+        calendar2 calendar2-stdout calendar3 calendar3-stdout checklist \
+        checklist-utf8 checklist1 checklist10 checklist2 checklist3 checklist4 \
+        checklist5 checklist6 checklist7 checklist8 checklist9 checklist9.txt \
+        form1 form2 form3 form4 form5 fselect \
+        fselect-stdout fselect1 fselect1-stdout fselect2 fselect2-stdout gauge \
+        gauge0 gauge0-input-fd gauge2 infobox infobox2 infobox3 \
+        infobox4 infobox5 infobox6 inputbox inputbox1 inputbox2 inputbox3 \
+        inputbox4 inputbox5 inputbox6-utf8 inputbox7 inputmenu \
+        inputmenu-stdout inputmenu1 inputmenu2 inputmenu3 inputmenu4 killall \
+        listing menubox menubox-utf8 menubox1 menubox10 menubox2 menubox3 \
+        menubox4 menubox5 menubox6 menubox7 menubox8 menubox9 msgbox msgbox1 \
+        msgbox2 msgbox3 msgbox4-eucjp msgbox4-utf8 msgbox5 password password1 \
+        password2 radiolist radiolist10 radiolist2 radiolist3 radiolist4 \
+        tailbox tailboxbg tailboxbg1 tailboxbg2 textbox textbox2 timebox \
+        timebox-stdout timebox2 timebox2-stdout wheel yesno yesno2 yesno3 \
+            ${destroot}${prefix}/share/doc/${name}/examples
+}
+
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} end]
+livecheck.regex     ${name}-(\[0-9.-\]+)${extract.suffix}
+} else {
+    livecheck.type  none
+}
+
+subport libdialog {
+    description         a library to create nice user interfaces for command-line programs
+
+    long_description    ${name} is ${description}. It is non-graphical (it uses \
+                        curses) so it can be used in console or xterm programs.
+
+    destroot.target     install-lib
+}

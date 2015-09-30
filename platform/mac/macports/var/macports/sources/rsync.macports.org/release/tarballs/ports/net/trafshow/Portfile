@@ -1,0 +1,43 @@
+# $Id: Portfile 135118 2015-04-15 19:54:00Z ryandesign@macports.org $
+
+PortSystem 1.0
+name			trafshow
+version			5.2.3
+revision		1
+categories		net
+maintainers		noses.com:noses
+description		continuous network traffic display
+long_description	TrafShow continuously displays the information regarding \
+			packet traffic on the configured network interface that \
+			matches the boolean  expression. It periodically sorts \
+			and updates this information. It may be useful for locating \
+			suspicious network traffic on the net. 
+homepage		http://soft.risp.ru/trafshow/index_en.shtml
+platforms		darwin
+master_sites		ftp://ftp.nsk.su/pub/RinetSoftware/
+checksums               md5 0b2f0bb23b7832138b7d841437b9e182 \
+						sha1 1c68f603f12357e932c83de850366c9b46e53d89 \
+						rmd160 f1ae068f898160f16ae9b3cb5f9d73ae3aece6cb
+depends_lib		port:libtool \
+			port:libpcap \
+					port:ncurses
+extract.suffix		.tgz
+patchfiles		patch-domain_resolver.c patch-colormask.c patch-trafshow.c patch-trafshow.1 \
+			patch-configure
+build.target            trafshow
+
+fetch.user      anonymous
+fetch.password  -macports@
+
+pre-configure {
+	xinstall -m 644 -W ${prefix}/share/libtool/build-aux config.guess config.sub ${worksrcpath}
+}
+
+configure.cflags-append   "-I${prefix}/include"
+post-configure		{	reinplace "s;%%PREFIX%%;${prefix};g" ${worksrcpath}/colormask.c
+				reinplace "s;%%PREFIX%%;${prefix};g" ${worksrcpath}/trafshow.c
+				reinplace "s;%%PREFIX%%;${prefix};g" ${worksrcpath}/trafshow.1 }
+
+destroot		{	xinstall -W ${worksrcpath} -m 755 -s -c trafshow ${destroot}${prefix}/bin
+				xinstall -W ${worksrcpath} -m 755 -s -c trafshow.1 ${destroot}${prefix}/share/man/man1
+				xinstall -W ${worksrcpath} -b -m 755 -s -c .trafshow ${destroot}${prefix}/etc/trafshow.default }

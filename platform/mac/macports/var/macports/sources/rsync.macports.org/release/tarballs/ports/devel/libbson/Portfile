@@ -1,0 +1,23 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138130 2015-06-30 01:02:30Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        mongodb libbson 1.1.9
+categories          devel
+platforms           darwin
+maintainers         ryandesign openmaintainer
+license             Apache-2
+
+description         library for using BSON documents
+
+long_description    ${name} is a library providing useful routines related to \
+                    building, parsing, and iterating BSON documents.
+
+github.tarball_from releases
+
+checksums           rmd160  69a3c38bd11f793f2441ef3845b2ed936dc781d7 \
+                    sha256  9e5f9bf140db8ef9cc5c97ca16e0cdb4513cd9cc85e7fe25a79679541eb0ca72
+
+configure.args      --disable-silent-rules

@@ -1,0 +1,18 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135783 2015-05-03 00:08:48Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           octave 1.0
+
+octave.setup        generate_html 0.1.8
+platforms           darwin
+license             GPL-2+
+maintainers         gmail.com:mschamschula openmaintainer
+description         This package provides functions for generating HTML pages \
+                    that contain the help texts for a set of functions.
+long_description    ${description} The package is designed to be as general as possible, \
+                    but also contains convenience functions for generating a set of \
+                    pages for entire packages.
+
+checksums           rmd160 8a69439bc128f3f5c643546ffc2ea8125a0a64b1 \
+                    sha256 46f80754a46bcbd5fc036855d60e03e041a0d7aacc864f883929bbba9a9edf2a

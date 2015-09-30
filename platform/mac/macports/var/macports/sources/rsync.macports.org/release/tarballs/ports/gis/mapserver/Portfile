@@ -1,0 +1,158 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 128674 2014-11-25 06:27:01Z larryv@macports.org $
+
+PortSystem          1.0
+
+name                mapserver
+version             6.2.1
+revision            3
+maintainers         hbaspecto.com:jea openmaintainer
+categories          gis
+license             permissive
+platforms           darwin
+
+description         mapserver
+long_description    MapServer is an Open Source development environment for \
+                    building spatially-enabled internet applications.
+
+homepage            http://mapserver.org
+master_sites        http://download.osgeo.org/mapserver
+
+checksums           md5     8c48991dc54a307076b1fb670bc59ef9 \
+                    rmd160  4914dd5c5d400bc4f5d4cbdb40277b0b21967f24 \
+                    sha256  77087306246451df2cea3711e601f56ebf8a55f29ede4ca8e5f0433dfad743d5
+
+depends_lib         port:gd2 \
+                    port:jpeg \
+                    port:libpng \
+                    port:freetype \
+                    port:giflib
+
+# fix gd version check
+patchfiles-append   patch-configure.diff
+
+configure.args      --with-gd=${prefix} \
+                    --with-png=${prefix} \
+                    --with-zlib=${prefix} \
+                    --with-jpeg=${prefix} \
+                    --with-gif=${prefix} \
+
+default_variants    +wms +gdal +ogr +proj +cairo +wfs +proj \
+                    +geos +postgis +wmsclient +wfsclient \
+                    +wcs +sos +kml +fastcgi
+
+if {[variant_isset postgis]} {
+    # check for most recent version of postgresql installed
+    set HAVE_PGCONFIG [llength [glob -nocomplain -d ${prefix}/lib postgresql*/bin/pg_config]]
+    # if not found, intall the postgresql port
+    if {$HAVE_PGCONFIG == 0} {
+        depends_lib-append  port:postgresql90
+    }
+}
+
+variant postgis description {Add support for postgis sources} {
+    set PGSQL_DIR [lindex [lsort -dec [glob -nocomplain -d ${prefix}/lib postgresql*]] 0]
+    configure.args-append   "--with-postgis=${PGSQL_DIR}/bin/pg_config"
+}
+
+variant wms description {Add WMS server support} {
+    default_variants-append +proj
+}
+
+variant wfs description {Add WFS server support} {
+    depends_lib-append      port:libxml2
+    default_variants-append +proj +ogr +geos
+    configure.args-append   --with-wfs
+}
+
+variant sos description {Add SOS server support} {
+    depends_lib-append      port:libxml2
+    default_variants-append +proj +ogr
+    configure.args-append   --with-sos
+}
+
+variant wcs description {Add WCS server support} {
+    default_variants-append +proj +gdal
+    configure.args-append   --with-wcs
+}
+
+variant wmsclient description {Add WMS client support} {
+    depends_lib-append      port:curl
+    default_variants-append +proj +gdal
+    configure.args-append   --with-wmsclient
+}
+
+variant kml description {Add KML output support} {
+    configure.args-append   --with-kml
+}
+
+variant wfsclient description {Add WFS client support} {
+    depends_lib-append      port:libxml2 \
+                            port:curl
+    default_variants-append +proj +ogr +geos
+    configure.args-append   --with-wfsclient
+}
+
+variant cairo description {Add SVG and PDF support through cairo} {
+    depends_lib-append      path:lib/pkgconfig/cairo.pc:cairo
+    configure.args-append   --with-cairo
+}
+
+variant gdal description {Add GDAL input format support} {
+    depends_lib-append      port:gdal
+    configure.args-append   --with-gdal
+}
+
+variant ogr description {Add OGR input format support} {
+    depends_lib-append      port:gdal
+    configure.args-append   --with-ogr
+}
+
+variant proj description {Proj.4 reprojection support} {
+    depends_lib-append      port:proj
+    configure.args-append   --with-proj=${prefix}
+}
+
+variant fastcgi description {FastCGI support} {
+    depends_lib-append      port:fcgi
+    configure.args-append   --with-fastcgi=${prefix}
+}
+
+variant geos description {Add GEOS operations support} {
+    depends_lib-append      port:geos
+    configure.args-append   --with-geos
+}
+
+variant apache conflicts apache2 apache_apple description {Use MacPorts Apache 1} {
+    depends_run-append      port:apache
+    global cgi_path
+    set cgi_path "${prefix}/www/cgi-bin/"
+}
+
+variant apache2 conflicts apache apache_apple description {Use MacPorts Apache 2} {
+    depends_run-append      port:apache2
+    global cgi_path
+    set cgi_path "${prefix}/apache2/cgi-bin/"
+}
+
+variant apache_apple conflicts apache apache2 description {Use Apple Apache} {
+    global cgi_path
+    set cgi_path "/Library/WebServer/CGI-Executables/"
+}
+
+if {![variant_isset apache] && ![variant_isset apache2] && ![variant_isset apache_apple]} {
+    # default to the apple apache version if none specified
+    default_variants +apache_apple
+}
+
+destroot.violate_mtree yes
+
+post-destroot {
+    file mkdir ${destroot}${cgi_path}
+    # There's no good reason to keep the executable in ${prefix}/bin.
+    move ${destroot}${prefix}/bin/mapserv ${destroot}${cgi_path}
+}
+
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     ${name}-(\[0-9.\]+)${extract.suffix}

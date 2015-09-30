@@ -1,0 +1,36 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136758 2015-05-26 03:52:27Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+PortGroup           compiler_blacklist_versions 1.0
+
+github.setup        emcrisostomo fswatch 1.4.7
+github.tarball_from releases
+
+categories          sysutils
+platforms           darwin
+license             GPL-3
+
+maintainers         gmail.com:enrico.m.crisostomo \
+                    openmaintainer
+description         File change monitor
+long_description    A cross-platform file change monitor with multiple \
+                    backends: Apple OS X File System Events API, *BSD kqueue, \
+                    Linux inotify and a stat-based backend.
+
+homepage            http://emcrisostomo.github.io/fswatch/
+
+checksums           rmd160 dd8e268e75e567cbdfd5bada6d99a3b086147840 \
+                    sha256 1601e91393c943eb168371f710cfbb54511900d92ace0e829dcd335a2c6da61d
+
+# Blacklist compilers not supporting C++11.
+compiler.blacklist-append \
+                    *gcc-4.0 *gcc-4.2 {clang < 137}
+
+# Blacklist compilers crashing on Snow Leopard.
+# http://trac.macports.org/ticket/44726
+compiler.blacklist-append \
+                    macports-clang-3.3 macports-clang-3.4
+compiler.fallback-append \
+                    macports-clang-3.5

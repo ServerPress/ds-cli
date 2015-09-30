@@ -1,0 +1,10 @@
+# $Id: Makefile.in 58792 2009-10-05 12:35:02Z ryandesign@macports.org $
+
+SUBDIRS = @SUBDIRS@
+
+.PHONY: all $(SUBDIRS)
+
+all: $(SUBDIRS)
+
+$(SUBDIRS):
+	$(MAKE) -C "$@"

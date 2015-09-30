@@ -1,0 +1,48 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137040 2015-06-03 18:01:28Z larryv@macports.org $
+
+PortSystem          1.0
+
+name                jbig2dec
+version             0.11
+revision            2
+categories          graphics
+platforms           darwin
+# COPYING is GPL 3, but LICENSE says it's GPL 2+
+license             GPL-2+
+maintainers         nomaintainer
+
+description         A decoder implementation of the JBIG2 image \
+                    compression format
+long_description    JBIG2 is designed for lossy or lossless encoding \
+                    of 'bilevel' (1-bit monochrome) images at \
+                    moderately high resolution, and in particular \
+                    scanned paper documents. In this domain it can be \
+                    very efficient, offering compression ratios on the \
+                    order of 100:1. This is a decoder only \
+                    implementation, and its primary use is in \
+                    Ghostscript and MuPDF for decoding JBIG2 streams \
+                    in PDF files. Thus its primary focus is the set of \
+                    JBIG2 features supported in PDF.
+
+homepage            http://www.ghostscript.com/jbig2dec.html
+master_sites        http://ghostscript.com/~giles/jbig2/jbig2dec/ \
+                    sourceforge:project/jbig2dec/jbig2dec/${version}
+
+use_xz              yes
+checksums           rmd160  7c94cb5409371beff8f289beded40b02e0f55e89 \
+                    sha256  016bf8148c850736c19e5e0336c43912d98d68f90c9171912c4f67f5c060adf5
+
+# Don't accidentally create flat-namespace dylibs on Yosemite (#44596).
+patchfiles          yosemite-libtool.patch
+
+post-destroot {
+    set docdir ${destroot}${prefix}/share/doc/${name}
+    xinstall -d ${docdir}
+    xinstall -m 644 -W ${worksrcpath} \
+            CHANGES \
+            COPYING \
+            LICENSE \
+            README \
+            ${docdir}
+}

@@ -1,0 +1,1598 @@
+<HEAD>
+<TITLE>Special shell variables</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="ENVIRONMENT.html">Next</A>
+<A HREF="Special_aliases.html">Previous</A>
+<H2>Special shell variables</H2>
+The variables described in this section have special meaning to the shell.
+<P>
+The shell sets <B><A HREF="Special_shell_variables.html#addsuffix">addsuffix</A></B>, <B><A HREF="Special_shell_variables.html#argv">argv</A></B>, <B><A HREF="Special_shell_variables.html#autologout">autologout</A></B>, <B><A HREF="Special_shell_variables.html#csubstnonl">csubstnonl</A></B>, <B><A HREF="Special_shell_variables.html#command">command</A></B>, <B><A HREF="Special_shell_variables.html#echo_style">echo_style</A></B>,
+<B><A HREF="Special_shell_variables.html#edit">edit</A></B>, <B><A HREF="Special_shell_variables.html#gid">gid</A></B>, <B><A HREF="Special_shell_variables.html#group">group</A></B>, <B><A HREF="Special_shell_variables.html#home">home</A></B>, <B><A HREF="Special_shell_variables.html#loginsh">loginsh</A></B>, <B><A HREF="Special_shell_variables.html#oid">oid</A></B>, <B><A HREF="Special_shell_variables.html#path">path</A></B>,
+<B><A HREF="Special_shell_variables.html#prompt">prompt</A></B>, <B><A HREF="Special_shell_variables.html#prompt2">prompt2</A></B>, <B><A HREF="Special_shell_variables.html#prompt3">prompt3</A></B>, <B><A HREF="Special_shell_variables.html#shell">shell</A></B>, <B><A HREF="Special_shell_variables.html#shlvl">shlvl</A></B>,
+<B><A HREF="Special_shell_variables.html#tcsh">tcsh</A></B>, <B><A HREF="Special_shell_variables.html#term">term</A></B>, <B><A HREF="Special_shell_variables.html#tty">tty</A></B>, <B><A HREF="Special_shell_variables.html#uid">uid</A></B>, <B><A HREF="Special_shell_variables.html#user">user</A></B> and <B><A HREF="Special_shell_variables.html#version">version</A></B> at
+startup; they do not change thereafter unless changed by the user.  The shell
+updates <B><A HREF="Special_shell_variables.html#cwd">cwd</A></B>, <B><A HREF="Special_shell_variables.html#dirstack">dirstack</A></B>, <B><A HREF="Special_shell_variables.html#owd">owd</A></B> and <B><A HREF="Special_shell_variables.html#status">status</A></B> when necessary,
+and sets <B><A HREF="Special_shell_variables.html#logout">logout</A></B> on logout.
+<P>
+The shell synchronizes <B><A HREF="Special_shell_variables.html#group">group</A></B>, <B><A HREF="Special_shell_variables.html#home">home</A></B>, <B><A HREF="Special_shell_variables.html#path">path</A></B>, <B><A HREF="Special_shell_variables.html#shlvl">shlvl</A></B>,
+<B><A HREF="Special_shell_variables.html#term">term</A></B> and <B><A HREF="Special_shell_variables.html#user">user</A></B> with the environment variables of the same names:
+whenever the environment variable changes the shell changes the corresponding
+shell variable to match (unless the shell variable is read-only) and vice
+versa.  Note that although <B><A HREF="Special_shell_variables.html#cwd">cwd</A></B> and <B><A HREF="ENVIRONMENT.html#PWD">PWD</A></B> have identical meanings, they
+are not synchronized in this manner, and that the shell automatically
+converts between the different formats of <B><A HREF="Special_shell_variables.html#path">path</A></B> and <B><A HREF="ENVIRONMENT.html#PATH">PATH</A></B>.
+<P>
+<DL compact>
+<DT>
+<B><A NAME="addsuffix">addsuffix</A> </B>(+)
+<DD>
+If set, filename completion adds `/' to the end of directories and a space
+to the end of normal files when they are matched exactly.
+Set by default.
+<P>
+<DT>
+<B><A NAME="afsuser">afsuser</A> </B>(+)
+<DD>
+If set, <B><A HREF="Special_shell_variables.html#autologout">autologout</A></B>'s autolock feature uses its value instead of
+the local username for kerberos authentication.
+<P>
+<DT>
+<B><A NAME="ampm">ampm</A> </B>(+)
+<DD>
+If set, all times are shown in 12-hour AM/PM format.
+<P>
+<DT>
+<B><A NAME="anyerror">anyerror</A> </B>(+)
+<DD>
+This variable selects what is propagated to the value of the
+<B><A HREF="Special_shell_variables.html#status">status</A></B> variable. For more information see the description of the
+<B><A HREF="Special_shell_variables.html#status">status</A></B> variable below.
+<P>
+<DT>
+<B><A NAME="argv">argv</A></B>
+<DD>
+The arguments to the shell.  Positional parameters are taken from <B><A HREF="Special_shell_variables.html#argv">argv</A></B>,
+i.e., `$1' is replaced by `$argv[1]', etc.
+Set by default, but usually empty in interactive shells.
+<P>
+<DT>
+<B><A NAME="autocorrect">autocorrect</A> </B>(+)
+<DD>
+If set, the <I><A HREF="Editor_commands.html#spell-word">spell-word</A></I> editor command is invoked automatically before
+each completion attempt.
+<P>
+<DT>
+<B><A NAME="autoexpand">autoexpand</A> </B>(+)
+<DD>
+If set, the <I><A HREF="Editor_commands.html#expand-history">expand-history</A></I> editor command is invoked automatically
+before each completion attempt. If this is set to <I>onlyhistory</I>, then
+only history will be expanded and a second completion will expand filenames.
+<P>
+<DT>
+<B><A NAME="autolist">autolist</A> </B>(+)
+<DD>
+If set, possibilities are listed after an ambiguous completion.
+If set to `ambiguous', possibilities are listed only when no new
+characters are added by completion.
+<P>
+<DT>
+<B><A NAME="autologout">autologout</A> </B>(+)
+<DD>
+The first word is the number of minutes of inactivity before automatic
+logout.  The optional second word is the number of minutes of inactivity
+before automatic locking.
+When the shell automatically logs out, it prints `auto-logout', sets the
+variable <B><A HREF="Special_shell_variables.html#logout">logout</A></B> to `automatic' and exits.
+When the shell automatically locks, the user is required to enter his password
+to continue working.  Five incorrect attempts result in automatic logout.
+Set to `60' (automatic logout after 60 minutes, and no locking) by default
+in login and superuser shells, but not if the shell thinks it is running
+under a window system (i.e., the <B><A HREF="ENVIRONMENT.html#DISPLAY">DISPLAY</A></B> environment variable is set),
+the tty is a pseudo-tty (pty) or the shell was not so compiled (see the
+<B><A HREF="Special_shell_variables.html#version">version</A></B> shell variable).
+See also the <B><A HREF="Special_shell_variables.html#afsuser">afsuser</A></B> and <B><A HREF="Special_shell_variables.html#logout">logout</A></B> shell variables.
+<P>
+<DT>
+<B><A NAME="autorehash">autorehash</A> </B>(+)
+<DD>
+If set, the internal hash table of the contents of the directories in the
+<B><A HREF="Special_shell_variables.html#path">path</A></B> variable will be recomputed if a command is not found in the hash
+table.  In addition, the list of available commands will be rebuilt for each
+command completion or spelling correction attempt if set to `complete' or
+`correct' respectively; if set to `always', this will be done for both
+cases.
+<P>
+<DT>
+<B><A NAME="backslash_quote">backslash_quote</A> </B>(+)
+<DD>
+<!--
+ TODO
+-->
+If set, backslashes (`\') always quote `\', `'', and `"'.  This may make
+complex quoting tasks easier, but it can cause syntax errors in <I>csh</I>(1)
+scripts.
+<P>
+<DT>
+<B><A NAME="catalog">catalog</A></B>
+<DD>
+The file name of the message catalog.
+If set, tcsh use `tcsh.${catalog}' as a message catalog instead of
+default `tcsh'.
+<P>
+<DT>
+<B><A NAME="cdpath">cdpath</A></B>
+<DD>
+A list of directories in which <I><A HREF="Builtin_commands.html#cd">cd</A></I> should search for
+subdirectories if they aren't found in the current directory.
+<P>
+<DT>
+<B><A NAME="cdtohome">cdtohome</A> </B>(+)
+<DD>
+If not set, <I><A HREF="Builtin_commands.html#cd">cd</A></I> requires a directory <I>name</I>, and will not go to the
+<B><A HREF="Special_shell_variables.html#home">home</A></B> directory if it's omitted.
+This is set by default.
+<P>
+<DT>
+<B><A NAME="color">color</A></B>
+<DD>
+If set, it enables color display for the builtin <B>ls-F</B> and it passes
+<B>--color=auto</B> to <B>ls</B>.  Alternatively, it can be set to only
+<B>ls-F</B> or only <B>ls</B> to enable color to only one command.  Setting
+it to nothing is equivalent to setting it to <B>(ls-F ls)</B>.
+<P>
+<DT>
+<B><A NAME="colorcat">colorcat</A></B>
+<DD>
+If set, it enables color escape sequence for NLS message files.
+And display colorful NLS messages.
+<P>
+<DT>
+<B><A NAME="command">command</A> </B>(+)
+<DD>
+If set, the command which was passed to the shell with the <B>-c</B> flag (q.v.).
+<P>
+<DT>
+<B><A NAME="compat_expr">compat_expr</A> </B>(+)
+<DD>
+If set, the shell will evaluate expressions right to left, like the original
+<I>csh</I>.
+<P>
+<DT>
+<B><A NAME="complete">complete</A> </B>(+)
+<DD>
+If set to `igncase', the completion becomes case insensitive.
+If set to `enhance', completion ignores case and considers
+hyphens and underscores to be equivalent; it will also treat
+periods, hyphens and underscores (`.', `-' and `_') as word
+separators.
+If set to `Enhance', completion matches uppercase and underscore
+characters explicitly and matches lowercase and hyphens in a
+case-insensivite manner; it will treat periods, hypens and underscores
+as word separators.
+<P>
+<DT>
+<B><A NAME="continue">continue</A> </B>(+)
+<DD>
+If set to a list of commands, the shell will continue the listed
+commands, instead of starting a new one.
+<P>
+<DT>
+<B><A NAME="continue_args">continue_args</A> </B>(+)
+<DD>
+Same as continue, but the shell will execute:
+</DL>
+<P>
+<menu>
+<menu>
+echo \`pwd\` $argv &gt; ~/.&lt;cmd&gt;_pause; %&lt;cmd&gt;
+</menu>
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="correct">correct</A> </B>(+)
+<DD>
+If set to `cmd', commands are automatically spelling-corrected.
+If set to `complete', commands are automatically completed.
+If set to `all', the entire command line is corrected.
+<P>
+<DT>
+<B><A NAME="csubstnonl">csubstnonl</A> </B>(+)
+<DD>
+If set, newlines and carriage returns in command substitution are
+replaced by spaces.  Set by default.
+<P>
+<DT>
+<B><A NAME="cwd">cwd</A></B>
+<DD>
+The full pathname of the current directory.
+See also the <B><A HREF="Special_shell_variables.html#dirstack">dirstack</A></B> and <B><A HREF="Special_shell_variables.html#owd">owd</A></B> shell variables.
+<P>
+<DT>
+<B><A NAME="dextract">dextract</A> </B>(+)
+<DD>
+If set, `pushd +<I>n</I>' extracts the <I>n</I>th directory from the directory
+stack rather than rotating it to the top.
+<P>
+<DT>
+<B><A NAME="dirsfile">dirsfile</A> </B>(+)
+<DD>
+The default location in which `dirs -S' and `dirs -L' look for
+a history file.  If unset, <I><A HREF="FILES.html#~/.cshdirs">~/.cshdirs</A></I> is used.
+Because only <I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I> is normally sourced before <I><A HREF="FILES.html#~/.cshdirs">~/.cshdirs</A></I>,
+<B><A HREF="Special_shell_variables.html#dirsfile">dirsfile</A></B> should be set in <I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I> rather than <I><A HREF="FILES.html#~/.login">~/.login</A></I>.
+<P>
+<DT>
+<B><A NAME="dirstack">dirstack</A> </B>(+)
+<DD>
+An array of all the directories on the directory stack.
+`$dirstack[1]' is the current working directory, `$dirstack[2]'
+the first directory on the stack, etc.
+Note that the current working directory is `$dirstack[1]' but `=0' in
+directory stack substitutions, etc.
+One can change the stack arbitrarily by setting <B><A HREF="Special_shell_variables.html#dirstack">dirstack</A></B>,
+but the first element (the current working directory) is always correct.
+See also the <B><A HREF="Special_shell_variables.html#cwd">cwd</A></B> and <B><A HREF="Special_shell_variables.html#owd">owd</A></B> shell variables.
+<P>
+<DT>
+<B><A NAME="dspmbyte">dspmbyte</A> </B>(+)
+<DD>
+Has an effect iff 'dspm' is listed as part of the <B><A HREF="Special_shell_variables.html#version">version</A></B> shell variable.
+If set to `euc', it enables display and editing EUC-kanji(Japanese) code.
+If set to `sjis', it enables display and editing Shift-JIS(Japanese) code.
+If set to `big5', it enables display and editing Big5(Chinese) code.
+If set to `utf8', it enables display and editing Utf8(Unicode) code.
+If set to the following format, it enables display and editing of original
+multi-byte code format:
+</DL>
+<P>
+<menu>
+<menu>
+&gt; set dspmbyte = 0000....(256 bytes)....0000
+</menu>
+<P>
+The table requires <B>just</B> 256 bytes.  Each character of 256 characters
+corresponds (from left to right) to the ASCII codes 0x00, 0x01, ... 0xff.  Each
+character
+<!--
+ (position in this table?)
+-->
+is set to number 0,1,2 and 3.  Each number has the following meaning:
+<BR>
+  0 ... not used for multi-byte characters.
+<BR>
+  1 ... used for the first byte of a multi-byte character.
+<BR>
+  2 ... used for the second byte of a multi-byte character.
+<BR>
+  3 ... used for both the first byte and second byte of a multi-byte character.
+<!--
+ SHK: I tried my best to get the following to be grammatically correct.
+ However, I still don't understand what's going on here.  In the
+ following example, there are three bytes, but the text seems to refer to
+ each nybble as a character.  What's going on here?  It this 3-byte code
+ in the table?  The text above seems to imply that there are 256
+ characters/bytes in the table.  If I get some more info on this (perhaps
+ a complete example), I could fix the text to be grammatically correct.
+ (steve.kelem@xilinx.com 1999/09/13)
+-->
+<P>
+  Example:
+<BR>
+If set to `001322', the first character (means 0x00 of the ASCII code) and
+second character (means 0x01 of ASCII code) are set to `0'.  Then, it is not
+used for multi-byte characters.  The 3rd character (0x02) is set to '1',
+indicating that it is used for the first byte of a multi-byte character.
+The 4th character(0x03) is set '3'.  It is used for both the first byte and
+the second byte of a multi-byte character.  The 5th and 6th characters
+(0x04,0x05) are set to '2', indicating that they are used for the second
+byte of a multi-byte character.
+<P>
+The GNU fileutils version of ls cannot display multi-byte
+filenames without the -N ( --literal ) option.   If you are using
+this version, set the second word of dspmbyte to "ls".  If not, for
+example, "ls-F -l" cannot display multi-byte filenames.
+<P>
+  Note:
+<BR>
+This variable can only be used if KANJI and DSPMBYTE has been defined at
+compile time.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="dunique">dunique</A> </B>(+)
+<DD>
+If set, <I><A HREF="Builtin_commands.html#pushd">pushd</A></I> removes any instances of <I>name</I>
+from the stack before pushing it onto the stack.
+<P>
+<DT>
+<B><A NAME="echo">echo</A></B>
+<DD>
+If set, each command with its arguments is echoed just before it is
+executed.  For non-builtin commands all expansions occur before
+echoing.  Builtin commands are echoed before command and filename
+substitution, because these substitutions are then done selectively.
+Set by the <B>-x</B> command line option.
+<P>
+<DT>
+<B><A NAME="echo_style">echo_style</A> </B>(+)
+<DD>
+The style of the <I><A HREF="Builtin_commands.html#echo">echo</A></I> builtin.  May be set to
+</DL>
+<P>
+<P>
+<menu>
+<DL compact>
+<DT>
+bsd
+<DD>
+Don't echo a newline if the first argument is `-n'; the default for <I>csh</I>.
+<P>
+<DT>
+sysv
+<DD>
+Recognize backslashed escape sequences in echo strings.
+<P>
+<DT>
+both
+<DD>
+Recognize both the `-n' flag and backslashed escape sequences; the default
+for <I>tcsh</I>.
+<P>
+<DT>
+none
+<DD>
+Recognize neither.
+</DL>
+<P>
+Set by default to the local system default.  The BSD and System V
+options are described in the <I>echo</I>(1) man pages on the appropriate
+systems.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="edit">edit</A> </B>(+)
+<DD>
+If set, the command-line editor is used.  Set by default in interactive
+shells.
+<P>
+<DT>
+<B><A NAME="ellipsis">ellipsis</A> </B>(+)
+<DD>
+If set, the `%c'/`%.' and `%C' prompt sequences (see the <B><A HREF="Special_shell_variables.html#prompt">prompt</A></B>
+shell variable) indicate skipped directories with an ellipsis (`...')
+instead of `/&lt;skipped&gt;'.
+<P>
+<DT>
+<B><A NAME="euid">euid</A> </B>(+)
+<DD>
+The user's effective user ID.
+<P>
+<DT>
+<B><A NAME="euser">euser</A> </B>(+)
+<DD>
+The first matching passwd entry name corresponding to the effective user ID.
+<P>
+<DT>
+<B><A NAME="fignore">fignore</A> </B>(+)
+<DD>
+Lists file name suffixes to be ignored by completion.
+<P>
+<DT>
+<B><A NAME="filec">filec</A></B>
+<DD>
+In <I>tcsh</I>, completion is always used and this variable is ignored
+by default. If 
+<B>edit</B>
+is unset, then the traditional <I>csh</I> completion is used.
+If set in <I>csh</I>, filename completion is used.
+<P>
+<DT>
+<B><A NAME="gid">gid</A> </B>(+)
+<DD>
+The user's real group ID.
+<P>
+<DT>
+<B><A NAME="globdot">globdot</A> </B>(+)
+<DD>
+If set, wild-card glob patterns will match files and directories beginning
+with `.' except for `.' and `..'
+<P>
+<DT>
+<B><A NAME="globstar">globstar</A> </B>(+)
+<DD>
+If set, the `**' and `***' file glob patterns will match any string of 
+characters including `/' traversing any existing sub-directories.  (e.g. 
+`ls **.c' will list all the .c files in the current directory tree).
+If used by itself, it will match zero or more sub-directories
+(e.g. `ls /usr/include/**/time.h' will list any file named `time.h'
+in the /usr/include directory tree; whereas `ls /usr/include/**time.h'
+will match any file in the /usr/include directory tree ending in `time.h').
+To prevent problems with recursion, the `**' glob-pattern will not 
+descend into a symbolic link containing a directory.  To override this,
+use `***'
+<P>
+<DT>
+<B><A NAME="group">group</A> </B>(+)
+<DD>
+The user's group name.
+<P>
+<DT>
+<B><A NAME="highlight">highlight</A></B>
+<DD>
+If set, the incremental search match (in <I><A HREF="Editor_commands.html#i-search-back">i-search-back</A></I> and
+<I><A HREF="Editor_commands.html#i-search-fwd">i-search-fwd</A></I>) and the region between the mark and the cursor are
+highlighted in reverse video.
+</DL>
+<P>
+<menu>
+Highlighting requires more frequent terminal writes, which introduces extra
+overhead. If you care about terminal performance, you may want to leave this
+unset.
+</menu>
+<P>
+<DL compact>
+<DT>
+<B><A NAME="histchars">histchars</A></B>
+<DD>
+A string value determining the characters used in <B>History
+substitution</B> (q.v.).  The first character of its value is used as
+the history substitution character, replacing the default character
+`!'.  The second character of its value replaces the character `^' in
+quick substitutions.
+<P>
+<DT>
+<B><A NAME="histdup">histdup</A> </B>(+)
+<DD>
+Controls handling of duplicate entries in the history list.  If set to
+`all' only unique history events are entered in the history list.  If
+set to `prev' and the last history event is the same as the current
+command, then the current command is not entered in the history.  If
+set to `erase' and the same event is found in the history list, that
+old event gets erased and the current one gets inserted.  Note that the
+`prev' and `all' options renumber history events so there are no gaps.
+<P>
+<DT>
+<B><A NAME="histfile">histfile</A> </B>(+)
+<DD>
+The default location in which `history -S' and `history -L' look for
+a history file.  If unset, <I><A HREF="FILES.html#~/.history">~/.history</A></I> is used.  <B><A HREF="Special_shell_variables.html#histfile">histfile</A></B> is
+useful when sharing the same home directory between different machines,
+or when saving separate histories on different terminals.  Because only
+<I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I> is normally sourced before <I><A HREF="FILES.html#~/.history">~/.history</A></I>,
+<B><A HREF="Special_shell_variables.html#histfile">histfile</A></B> should be set in <I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I> rather than
+<I><A HREF="FILES.html#~/.login">~/.login</A></I>.
+<P>
+<DT>
+<B><A NAME="histlit">histlit</A> </B>(+)
+<DD>
+If set, builtin and editor commands and the <B><A HREF="Special_shell_variables.html#savehist">savehist</A></B> mechanism
+use the literal (unexpanded) form of lines in the history list.  See
+also the <I><A HREF="Editor_commands.html#toggle-literal-history">toggle-literal-history</A></I> editor command.
+<P>
+<DT>
+<B><A NAME="history">history</A></B>
+<DD>
+The first word indicates the number of history events to save.  The
+optional second word (+) indicates the format in which history is
+printed; if not given, `%h\t%T\t%R\n' is used.  The format sequences
+are described below under <B><A HREF="Special_shell_variables.html#prompt">prompt</A></B>; note the variable meaning of
+`%R'.  Set to `100' by default.
+<P>
+<DT>
+<B><A NAME="home">home</A></B>
+<DD>
+Initialized to the home directory of the invoker.  The filename
+expansion of `<I>~</I>' refers to this variable.
+<P>
+<DT>
+<B><A NAME="ignoreeof">ignoreeof</A></B>
+<DD>
+If set to the empty string or `0' and the input device is a terminal,
+the <I><A HREF="Editor_commands.html#end-of-file">end-of-file</A></I> command (usually generated by the user by typing
+`^D' on an empty line) causes the shell to print `Use "exit" to leave
+tcsh.' instead of exiting.  This prevents the shell from accidentally
+being killed.  Historically this setting exited after 26 successive
+EOF's to avoid infinite loops.  If set to a number <I>n</I>, the shell
+ignores <I>n - 1</I> consecutive <I><A HREF="Editor_commands.html#end-of-file">end-of-file</A></I>s and exits on the
+<I>n</I>th.  (+) If unset, `1' is used, i.e., the shell exits on a
+single `^D'.
+<P>
+<DT>
+<B><A NAME="implicitcd">implicitcd</A> </B>(+)
+<DD>
+If set, the shell treats a directory name typed as a command as though
+it were a request to change to that directory.  If set to <I>verbose</I>,
+the change of directory is echoed to the standard output.  This behavior
+is inhibited in non-interactive shell scripts, or for command strings
+with more than one word.  Changing directory takes precedence over
+executing a like-named command, but it is done after alias
+substitutions.  Tilde and variable expansions work as expected.
+<P>
+<DT>
+<B><A NAME="inputmode">inputmode</A> </B>(+)
+<DD>
+If set to `insert' or `overwrite', puts the editor into that input mode
+at the beginning of each line.
+<P>
+<DT>
+<B><A NAME="killdup">killdup</A> </B>(+)
+<DD>
+Controls handling of duplicate entries in the kill ring.  If set to
+`all' only unique strings are entered in the kill ring.  If set to
+`prev' and the last killed string is the same as the current killed
+string, then the current string is not entered in the ring.  If set
+to `erase' and the same string is found in the kill ring, the old
+string is erased and the current one is inserted.
+<P>
+<DT>
+<B><A NAME="killring">killring</A> </B>(+)
+<DD>
+Indicates the number of killed strings to keep in memory.  Set to `30'
+by default.  If unset or set to less than `2', the shell will only
+keep the most recently killed string.
+Strings are put in the killring by the editor commands that delete
+(kill) strings of text, e.g. <I>backward-delete-word</I>,
+<I>kill-line</I>, etc, as well as the <I>copy-region-as-kill</I> command.
+The <I>yank</I> editor command will yank the most recently killed string
+into the command-line, while <I><A HREF="Editor_commands.html#yank-pop">yank-pop</A></I> (see <B><A HREF="Editor_commands.html">Editor commands</A></B>)
+can be used to yank earlier killed strings.
+<P>
+<DT>
+<B><A NAME="listflags">listflags</A> </B>(+)
+<DD>
+If set to `x', `a' or `A', or any combination thereof (e.g., `xA'), they
+are used as flags to <I><A HREF="Builtin_commands.html#ls-F">ls-F</A></I>, making it act like `ls -xF', `ls
+-Fa', `ls -FA' or a combination (e.g., `ls -FxA'): `a' shows all
+files (even if they start with a `.'), `A' shows all files but `.' and
+`..', and `x' sorts across instead of down.  If the second word of
+<B><A HREF="Special_shell_variables.html#listflags">listflags</A></B> is set, it is used as the path to `ls(1)'.
+<P>
+<DT>
+<B><A NAME="listjobs">listjobs</A> </B>(+)
+<DD>
+If set, all jobs are listed when a job is suspended.  If set to `long',
+the listing is in long format.
+<P>
+<DT>
+<B><A NAME="listlinks">listlinks</A> </B>(+)
+<DD>
+If set, the <I><A HREF="Builtin_commands.html#ls-F">ls-F</A></I> builtin command shows the type of file to which
+each symbolic link points.
+<P>
+<DT>
+<B><A NAME="listmax">listmax</A> </B>(+)
+<DD>
+The maximum number of items which the <I><A HREF="Editor_commands.html#list-choices">list-choices</A></I> editor command
+will list without asking first.
+<P>
+<DT>
+<B><A NAME="listmaxrows">listmaxrows</A> </B>(+)
+<DD>
+The maximum number of rows of items which the <I><A HREF="Editor_commands.html#list-choices">list-choices</A></I> editor
+command will list without asking first.
+<P>
+<DT>
+<B><A NAME="loginsh">loginsh</A> </B>(+)
+<DD>
+Set by the shell if it is a login shell.  Setting or unsetting it
+within a shell has no effect.  See also <B><A HREF="Special_shell_variables.html#shlvl">shlvl</A></B>.
+<P>
+<DT>
+<B><A NAME="logout">logout</A> </B>(+)
+<DD>
+Set by the shell to `normal' before a normal logout, `automatic' before
+an automatic logout, and `hangup' if the shell was killed by a hangup
+signal (see <B><A HREF="Signal_handling.html">Signal handling</A></B>).  See also the <B><A HREF="Special_shell_variables.html#autologout">autologout</A></B>
+shell variable.
+<P>
+<DT>
+<B><A NAME="mail">mail</A></B>
+<DD>
+A list of files and directories to check for incoming mail, optionally
+preceded by a numeric word.  Before each prompt, if 10 minutes have
+passed since the last check, the shell checks each file and says `You
+have new mail.' (or, if <B><A HREF="Special_shell_variables.html#mail">mail</A></B> contains multiple files, `You have
+new mail in <I>name</I>.') if the filesize is greater than zero in size
+and has a modification time greater than its access time.
+</DL>
+<P>
+<P>
+<menu>
+If you are in a login shell, then no mail file is reported unless it has
+been modified after the time the shell has started up, to prevent
+redundant notifications.  Most login programs will tell you whether or not
+you have mail when you log in.
+<P>
+If a file specified in <B><A HREF="Special_shell_variables.html#mail">mail</A></B> is a directory, the shell will count each
+file within that directory as a separate message, and will report `You have
+<I>n</I> mails.' or `You have <I>n</I> mails in <I>name</I>.' as appropriate.
+This functionality is provided primarily for those systems which store mail
+in this manner, such as the Andrew Mail System.
+<P>
+If the first word of <B><A HREF="Special_shell_variables.html#mail">mail</A></B> is numeric it is taken as a different mail
+checking interval, in seconds.
+<P>
+Under very rare circumstances, the shell may report `You have mail.' instead
+of `You have new mail.'
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="matchbeep">matchbeep</A> </B>(+)
+<DD>
+If set to `never', completion never beeps.
+If set to `nomatch', it beeps only when there is no match.
+If set to `ambiguous', it beeps when there are multiple matches.
+If set to `notunique', it beeps when there is one exact and other longer matches.
+If unset, `ambiguous' is used.
+<P>
+<DT>
+<B><A NAME="nobeep">nobeep</A> </B>(+)
+<DD>
+If set, beeping is completely disabled.
+See also <B><A HREF="Special_shell_variables.html#visiblebell">visiblebell</A></B>.
+<P>
+<DT>
+<B><A NAME="noclobber">noclobber</A></B>
+<DD>
+If set, restrictions are placed on output redirection to insure that files
+are not accidentally destroyed and that `&gt;&gt;' redirections refer to existing
+files, as described in the <B><A HREF="Input_output.html">Input/output</A></B> section.
+<P>
+<DT>
+<B><A NAME="noding">noding</A></B>
+<DD>
+If set, disable the printing of `DING!' in the <B><A HREF="Special_shell_variables.html#prompt">prompt</A></B> time
+specifiers at the change of hour.
+<P>
+<DT>
+<B><A NAME="noglob">noglob</A></B>
+<DD>
+If set, <B><A HREF="Filename_substitution.html">Filename substitution</A></B> and <B><A HREF="Directory_stack_substitution.html">Directory stack substitution</A></B>
+(q.v.) are inhibited.  This is most useful in shell scripts which do not deal
+with filenames, or after a list of filenames has been obtained and further
+expansions are not desirable.
+<P>
+<DT>
+<B><A NAME="nokanji">nokanji</A> </B>(+)
+<DD>
+If set and the shell supports Kanji (see the <B><A HREF="Special_shell_variables.html#version">version</A></B> shell variable),
+it is disabled so that the meta key can be used.
+<P>
+<DT>
+<B><A NAME="nonomatch">nonomatch</A></B>
+<DD>
+If set, a <B><A HREF="Filename_substitution.html">Filename substitution</A></B> or <B><A HREF="Directory_stack_substitution.html">Directory stack substitution</A></B>
+(q.v.) which does not match any
+existing files is left untouched rather than causing an error.
+It is still an error for the substitution to be
+malformed, e.g., `echo [' still gives an error.
+<P>
+<DT>
+<B><A NAME="nostat">nostat</A> </B>(+)
+<DD>
+A list of directories (or glob-patterns which match directories; see
+<B><A HREF="Filename_substitution.html">Filename substitution</A></B>) that should not be <I>stat</I>(2)ed during a
+completion operation.  This is usually used to exclude directories which
+take too much time to <I>stat</I>(2), for example <I>/afs</I>.
+<P>
+<DT>
+<B><A NAME="notify">notify</A></B>
+<DD>
+If set, the shell announces job completions asynchronously.
+The default is to present job completions just before printing a prompt.
+<P>
+<DT>
+<B><A NAME="oid">oid</A> </B>(+)
+<DD>
+The user's real organization ID.  (Domain/OS only)
+<P>
+<DT>
+<B><A NAME="owd">owd</A> </B>(+)
+<DD>
+The old working directory, equivalent to the `-' used by <I><A HREF="Builtin_commands.html#cd">cd</A></I> and <I><A HREF="Builtin_commands.html#pushd">pushd</A></I>.
+See also the <B><A HREF="Special_shell_variables.html#cwd">cwd</A></B> and <B><A HREF="Special_shell_variables.html#dirstack">dirstack</A></B> shell variables.
+<P>
+<DT>
+<B><A NAME="padhour">padhour</A></B>
+<DD>
+If set, enable the printing of padding '0' for hours, in 24 and 12 hour
+formats.  E.G.: 07:45:42 vs. 7:45:42.
+<P>
+<DT>
+<B><A NAME="parseoctal">parseoctal</A></B>
+<DD>
+To retain compatibily with older versions numeric variables starting with
+0 are not interpreted as octal. Setting this variable enables proper octal
+parsing.
+<P>
+<DT>
+<B><A NAME="path">path</A></B>
+<DD>
+A list of directories in which to look for executable commands.
+A null word specifies the current directory.
+If there is no <B><A HREF="Special_shell_variables.html#path">path</A></B> variable then only full path names will execute.
+<B><A HREF="Special_shell_variables.html#path">path</A></B> is set by the shell at startup from the <B><A HREF="ENVIRONMENT.html#PATH">PATH</A></B> environment
+variable or, if <B><A HREF="ENVIRONMENT.html#PATH">PATH</A></B> does not exist, to a system-dependent default
+something like `(/usr/local/bin /usr/bsd /bin /usr/bin .)'.
+The shell may put `.' first or last in <B><A HREF="Special_shell_variables.html#path">path</A></B> or omit it entirely
+depending on how it was compiled; see the <B><A HREF="Special_shell_variables.html#version">version</A></B> shell variable.
+A shell which is given neither the <B>-c</B> nor the <B>-t</B> option
+hashes the contents of the directories in <B><A HREF="Special_shell_variables.html#path">path</A></B> after
+reading <I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I> and each time <B><A HREF="Special_shell_variables.html#path">path</A></B> is reset.
+If one adds a new command to a directory in <B><A HREF="Special_shell_variables.html#path">path</A></B> while the shell
+is active, one may need to do a <I><A HREF="Builtin_commands.html#rehash">rehash</A></I> for the shell to find it.
+<P>
+<DT>
+<B><A NAME="printexitvalue">printexitvalue</A> </B>(+)
+<DD>
+If set and an interactive program exits with a non-zero status, the shell
+prints `Exit <B><A HREF="Special_shell_variables.html#status">status</A></B>'.
+<P>
+<DT>
+<B><A NAME="prompt">prompt</A></B>
+<DD>
+The string which is printed before reading each command from the terminal.
+<B><A HREF="Special_shell_variables.html#prompt">prompt</A></B> may include any of the following formatting sequences (+), which
+are replaced by the given information:
+</DL>
+<P>
+<P>
+<menu>
+<DL compact>
+<DT>
+%/
+<DD>
+The current working directory.
+<P>
+<DT>
+%~
+<DD>
+The current working directory, but with one's home directory
+represented by `~' and other users' home directories represented by
+`~user' as per <B><A HREF="Filename_substitution.html">Filename substitution</A></B>.  `~user' substitution
+happens only if the shell has already used `~<I>user</I>' in a pathname
+in the current session.
+<P>
+<DT>
+%c[[0]<I>n</I>], %.[[0]<I>n</I>]
+<DD>
+The trailing component of the current working directory, or <I>n</I>
+trailing components if a digit <I>n</I> is given.
+If <I>n</I> begins with `0', the number of skipped components precede
+the trailing component(s) in the format `/&lt;<I>skipped</I>&gt;trailing'.
+If the <B><A HREF="Special_shell_variables.html#ellipsis">ellipsis</A></B> shell variable is set, skipped components
+are represented by an ellipsis so the whole becomes `...trailing'.
+`~' substitution is done as in `%~' above, but the `~' component
+is ignored when counting trailing components.
+<P>
+<DT>
+%C
+<DD>
+Like %c, but without `~' substitution.
+<P>
+<DT>
+%h, %!, !
+<DD>
+The current history event number.
+<P>
+<DT>
+%M
+<DD>
+The full hostname.
+<P>
+<DT>
+%m
+<DD>
+The hostname up to the first `.'.
+<P>
+<DT>
+%S (%s)
+<DD>
+Start (stop) standout mode.
+<P>
+<DT>
+%B (%b)
+<DD>
+Start (stop) boldfacing mode.
+<P>
+<DT>
+%U (%u)
+<DD>
+Start (stop) underline mode.
+<P>
+<DT>
+%t, %@
+<DD>
+The time of day in 12-hour AM/PM format.
+<P>
+<DT>
+%T
+<DD>
+Like `%t', but in 24-hour format (but see the <B><A HREF="Special_shell_variables.html#ampm">ampm</A></B> shell variable).
+<P>
+<DT>
+%p
+<DD>
+The `precise' time of day in 12-hour AM/PM format, with seconds.
+<P>
+<DT>
+%P
+<DD>
+Like `%p', but in 24-hour format (but see the <B><A HREF="Special_shell_variables.html#ampm">ampm</A></B> shell variable).
+<P>
+<DT>
+\<I>c</I>
+<DD>
+<I>c</I> is parsed as in <I><A HREF="Builtin_commands.html#bindkey">bindkey</A></I>.
+<P>
+<DT>
+^<I>c</I>
+<DD>
+<I>c</I> is parsed as in <I><A HREF="Builtin_commands.html#bindkey">bindkey</A></I>.
+<P>
+<DT>
+%%
+<DD>
+A single `%'.
+<P>
+<DT>
+%n
+<DD>
+The user name.
+<P>
+<DT>
+%N
+<DD>
+The effective user name.
+<P>
+<DT>
+%j
+<DD>
+The number of jobs.
+<P>
+<DT>
+%d
+<DD>
+The weekday in `Day' format.
+<P>
+<DT>
+%D
+<DD>
+The day in `dd' format.
+<P>
+<DT>
+%w
+<DD>
+The month in `Mon' format.
+<P>
+<DT>
+%W
+<DD>
+The month in `mm' format.
+<P>
+<DT>
+%y
+<DD>
+The year in `yy' format.
+<P>
+<DT>
+%Y
+<DD>
+The year in `yyyy' format.
+<P>
+<DT>
+%l
+<DD>
+The shell's tty.
+<P>
+<DT>
+%L
+<DD>
+Clears from the end of the prompt to end of the display or the end of the line.
+<P>
+<DT>
+%$
+<DD>
+Expands the shell or environment variable name immediately after the `$'.
+<P>
+<DT>
+%#
+<DD>
+`&gt;' (or the first character of the <B><A HREF="Special_shell_variables.html#promptchars">promptchars</A></B> shell variable)
+for normal users, `#' (or the second character of <B><A HREF="Special_shell_variables.html#promptchars">promptchars</A></B>)
+for the superuser.
+<P>
+<DT>
+%{<I>string</I>%}
+<DD>
+Includes <I>string</I> as a literal escape sequence.
+It should be used only to change terminal attributes and
+should not move the cursor location.  This
+cannot be the last sequence in <B><A HREF="Special_shell_variables.html#prompt">prompt</A></B>.
+<P>
+<DT>
+%?
+<DD>
+The return code of the command executed just before the prompt.
+<P>
+<DT>
+%R
+<DD>
+In <B><A HREF="Special_shell_variables.html#prompt2">prompt2</A></B>, the status of the parser.
+In <B><A HREF="Special_shell_variables.html#prompt3">prompt3</A></B>, the corrected string.
+In <B><A HREF="Special_shell_variables.html#history">history</A></B>, the history string.
+</DL>
+<P>
+`%B', `%S', `%U' and `%{<I>string</I>%}' are available in only
+eight-bit-clean shells; see the <B><A HREF="Special_shell_variables.html#version">version</A></B> shell variable.
+<P>
+The bold, standout and underline sequences are often used to distinguish a
+superuser shell.  For example,
+<P>
+<menu>
+&gt; set prompt = "%m [%h] %B[%@]%b [%/] you rang? "
+<BR>
+tut [37] <B>[2:54pm]</B> [/usr/accts/sys] you rang? _
+</menu>
+<P>
+If `%t', `%@', `%T', `%p', or `%P' is used, and <B><A HREF="Special_shell_variables.html#noding">noding</A></B> is not set,
+then print `DING!' on the change of hour (i.e, `:00' minutes) instead of
+the actual time.
+<P>
+Set by default to `%# ' in interactive shells.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="prompt2">prompt2</A> </B>(+)
+<DD>
+The string with which to prompt in <I><A HREF="Builtin_commands.html#while">while</A></I> and <I><A HREF="Builtin_commands.html#foreach">foreach</A></I> loops and
+after lines ending in `\'.
+The same format sequences may be used as in <B><A HREF="Special_shell_variables.html#prompt">prompt</A></B> (q.v.);
+note the variable meaning of `%R'.
+Set by default to `%R? ' in interactive shells.
+<P>
+<DT>
+<B><A NAME="prompt3">prompt3</A> </B>(+)
+<DD>
+The string with which to prompt when confirming automatic spelling correction.
+The same format sequences may be used as in <B><A HREF="Special_shell_variables.html#prompt">prompt</A></B> (q.v.);
+note the variable meaning of `%R'.
+Set by default to `CORRECT&gt;%R (y|n|e|a)? ' in interactive shells.
+<P>
+<DT>
+<B><A NAME="promptchars">promptchars</A> </B>(+)
+<DD>
+If set (to a two-character string), the `%#' formatting sequence in the
+<B><A HREF="Special_shell_variables.html#prompt">prompt</A></B> shell variable is replaced with the first character for
+normal users and the second character for the superuser.
+<P>
+<DT>
+<B><A NAME="pushdtohome">pushdtohome</A> </B>(+)
+<DD>
+If set, <I><A HREF="Builtin_commands.html#pushd">pushd</A></I> without arguments does `pushd ~', like <I><A HREF="Builtin_commands.html#cd">cd</A></I>.
+<P>
+<DT>
+<B><A NAME="pushdsilent">pushdsilent</A> </B>(+)
+<DD>
+If set, <I><A HREF="Builtin_commands.html#pushd">pushd</A></I> and <I><A HREF="Builtin_commands.html#popd">popd</A></I> do not print the directory stack.
+<P>
+<DT>
+<B><A NAME="recexact">recexact</A> </B>(+)
+<DD>
+If set, completion completes on an exact match even if a longer match is
+possible.
+<P>
+<DT>
+<B><A NAME="recognize_only_executables">recognize_only_executables</A> </B>(+)
+<DD>
+If set, command listing displays only files in the path that are
+executable.  Slow.
+<P>
+<DT>
+<B><A NAME="rmstar">rmstar</A> </B>(+)
+<DD>
+If set, the user is prompted before `rm *' is executed.
+<P>
+<DT>
+<B><A NAME="rprompt">rprompt</A> </B>(+)
+<DD>
+The string to print on the right-hand side of the screen (after
+the command input) when the prompt is being displayed on the left.
+It recognizes the same formatting characters as <B><A HREF="Special_shell_variables.html#prompt">prompt</A></B>.
+It will automatically disappear and reappear as necessary, to ensure that
+command input isn't obscured, and will appear only if the prompt,
+command input, and itself will fit together on the first line.
+If <B><A HREF="Special_shell_variables.html#edit">edit</A></B> isn't set, then <B><A HREF="Special_shell_variables.html#rprompt">rprompt</A></B> will be printed after
+the prompt and before the command input.
+<P>
+<DT>
+<B><A NAME="savedirs">savedirs</A> </B>(+)
+<DD>
+If set, the shell does `dirs -S' before exiting.
+If the first word is set to a number, at most that many directory stack
+entries are saved.
+<P>
+<DT>
+<B><A NAME="savehist">savehist</A></B>
+<DD>
+If set, the shell does `history -S' before exiting.
+If the first word is set to a number, at most that many lines are saved.
+(The number should be less than or equal to the number <B><A HREF="Special_shell_variables.html#history">history</A></B> entries;
+if it is set to greater than the number of <B><A HREF="Special_shell_variables.html#history">history</A></B> settings, only
+<B><A HREF="Special_shell_variables.html#history">history</A></B> entries will be saved)
+If the second word is set to `merge', the history list is merged with
+the existing history file instead of replacing it (if there is one) and
+sorted by time stamp and the most recent events are retained.
+If the second word of <B><A HREF="Special_shell_variables.html#savehist">savehist</A></B> is `merge' and the third word is set to
+`lock', the history file update will be serialized with other shell sessions
+that would possibly like to merge history at exactly the same time. (+)
+<P>
+<DT>
+<B><A NAME="sched">sched</A> </B>(+)
+<DD>
+The format in which the <I><A HREF="Builtin_commands.html#sched">sched</A></I> builtin command prints scheduled events;
+if not given, `%h\t%T\t%R\n' is used.
+The format sequences are described above under <B><A HREF="Special_shell_variables.html#prompt">prompt</A></B>;
+note the variable meaning of `%R'.
+<P>
+<DT>
+<B><A NAME="shell">shell</A></B>
+<DD>
+The file in which the shell resides.  This is used in forking
+shells to interpret files which have execute bits set, but
+which are not executable by the system.  (See the description
+of <B><A HREF="Builtin_and_non-builtin_command_execution.html">Builtin and non-builtin command execution</A></B>.)  Initialized to the
+(system-dependent) home of the shell.
+<P>
+<DT>
+<B><A NAME="shlvl">shlvl</A> </B>(+)
+<DD>
+The number of nested shells.
+Reset to 1 in login shells.
+See also <B><A HREF="Special_shell_variables.html#loginsh">loginsh</A></B>.
+<P>
+<DT>
+<B><A NAME="status">status</A></B>
+<DD>
+The exit status from the last command or backquote expansion, or any
+command in a pipeline is propagated to <B><A HREF="Special_shell_variables.html#status">status</A></B>.  (This is also the
+default <B>csh</B> behavior.)
+This default does not match what POSIX mandates (to return the
+status of the last command only). To match the POSIX behavior, you need
+to unset <B><A HREF="Special_shell_variables.html#anyerror">anyerror</A></B>.
+</DL>
+<P>
+<menu>
+If the <B><A HREF="Special_shell_variables.html#anyerror">anyerror</A></B> variable is unset, the exit status of a pipeline
+is determined only from the last command in the pipeline, and the exit
+status of a backquote expansion is <I>not</I> propagated to <B><A HREF="Special_shell_variables.html#status">status</A></B>.
+<P>
+If a command terminated abnormally, then 0200 is added to the status.
+Builtin commands which fail return exit status `1', all other builtin
+commands return status `0'.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="symlinks">symlinks</A> </B>(+)
+<DD>
+Can be set to several different values to control symbolic link (`symlink')
+resolution:
+</DL>
+<P>
+<menu>
+If set to `chase', whenever the current directory changes to a directory
+containing a symbolic link, it is expanded to the real name of the directory
+to which the link points.  This does not work for the user's home directory;
+this is a bug.
+<P>
+If set to `ignore', the shell tries to construct a current directory
+relative to the current directory before the link was crossed.
+This means that <I><A HREF="Builtin_commands.html#cd">cd</A></I>ing through a symbolic link and then `cd ..'ing
+returns one to the original directory.  This affects only builtin commands
+and filename completion.
+<P>
+If set to `expand', the shell tries to fix symbolic links by actually expanding
+arguments which look like path names.  This affects any command, not just
+builtins.  Unfortunately, this does not work for hard-to-recognize filenames,
+such as those embedded in command options.  Expansion may be prevented by
+quoting.  While this setting is usually the most convenient, it is sometimes
+misleading and sometimes confusing when it fails to recognize an argument
+which should be expanded.  A compromise is to use `ignore' and use the
+editor command <I><A HREF="Editor_commands.html#normalize-path">normalize-path</A></I> (bound by default to ^X-n) when necessary.
+<P>
+Some examples are in order.  First, let's set up some play directories:
+<P>
+<menu>
+&gt; cd /tmp
+<BR>
+&gt; mkdir from from/src to
+<BR>
+&gt; ln -s from/src to/dst
+</menu>
+<P>
+Here's the behavior with <B><A HREF="Special_shell_variables.html#symlinks">symlinks</A></B> unset,
+<P>
+<menu>
+&gt; cd /tmp/to/dst; echo $cwd
+<BR>
+/tmp/to/dst
+<BR>
+&gt; cd ..; echo $cwd
+<BR>
+/tmp/from
+</menu>
+<P>
+here's the behavior with <B><A HREF="Special_shell_variables.html#symlinks">symlinks</A></B> set to `chase',
+<P>
+<menu>
+&gt; cd /tmp/to/dst; echo $cwd
+<BR>
+/tmp/from/src
+<BR>
+&gt; cd ..; echo $cwd
+<BR>
+/tmp/from
+</menu>
+<P>
+here's the behavior with <B><A HREF="Special_shell_variables.html#symlinks">symlinks</A></B> set to `ignore',
+<P>
+<menu>
+&gt; cd /tmp/to/dst; echo $cwd
+<BR>
+/tmp/to/dst
+<BR>
+&gt; cd ..; echo $cwd
+<BR>
+/tmp/to
+</menu>
+<P>
+and here's the behavior with <B><A HREF="Special_shell_variables.html#symlinks">symlinks</A></B> set to `expand'.
+<P>
+<menu>
+&gt; cd /tmp/to/dst; echo $cwd
+<BR>
+/tmp/to/dst
+<BR>
+&gt; cd ..; echo $cwd
+<BR>
+/tmp/to
+<BR>
+&gt; cd /tmp/to/dst; echo $cwd
+<BR>
+/tmp/to/dst
+<BR>
+&gt; cd ".."; echo $cwd
+<BR>
+/tmp/from
+<BR>
+&gt; /bin/echo ..
+<BR>
+/tmp/to
+<BR>
+&gt; /bin/echo ".."
+<BR>
+..
+</menu>
+<P>
+Note that `expand' expansion 1) works just like `ignore' for builtins
+like <I><A HREF="Builtin_commands.html#cd">cd</A></I>, 2) is prevented by quoting, and 3) happens before
+filenames are passed to non-builtin commands.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="tcsh">tcsh</A> </B>(+)
+<DD>
+The version number of the shell in the format `R.VV.PP',
+where `R' is the major release number, `VV' the current version
+and `PP' the patchlevel.
+<P>
+<DT>
+<B><A NAME="term">term</A></B>
+<DD>
+The terminal type.  Usually set in <I><A HREF="FILES.html#~/.login">~/.login</A></I> as described under
+<B><A HREF="Startup_and_shutdown.html">Startup and shutdown</A></B>.
+<P>
+<DT>
+<B><A NAME="time">time</A></B>
+<DD>
+If set to a number, then the <I><A HREF="Builtin_commands.html#time">time</A></I> builtin (q.v.) executes automatically
+after each command which takes more than that many CPU seconds.
+If there is a second word, it is used as a format string for the output
+of the <I><A HREF="Builtin_commands.html#time">time</A></I> builtin.  (u) The following sequences may be used in the
+format string:
+</DL>
+<P>
+<P>
+<menu>
+<DL compact>
+<DT>
+%U
+<DD>
+The time the process spent in user mode in cpu seconds.
+<P>
+<DT>
+%S
+<DD>
+The time the process spent in kernel mode in cpu seconds.
+<P>
+<DT>
+%E
+<DD>
+The elapsed (wall clock) time in seconds.
+<P>
+<DT>
+%P
+<DD>
+The CPU percentage computed as (%U + %S) / %E.
+<P>
+<DT>
+%W
+<DD>
+Number of times the process was swapped.
+<P>
+<DT>
+%X
+<DD>
+The average amount in (shared) text space used in Kbytes.
+<P>
+<DT>
+%D
+<DD>
+The average amount in (unshared) data/stack space used in Kbytes.
+<P>
+<DT>
+%K
+<DD>
+The total space used (%X + %D) in Kbytes.
+<P>
+<DT>
+%M
+<DD>
+The maximum memory the process had in use at any time in Kbytes.
+<P>
+<DT>
+%F
+<DD>
+The number of major page faults (page needed to be brought from disk).
+<P>
+<DT>
+%R
+<DD>
+The number of minor page faults.
+<P>
+<DT>
+%I
+<DD>
+The number of input operations.
+<P>
+<DT>
+%O
+<DD>
+The number of output operations.
+<P>
+<DT>
+%r
+<DD>
+The number of socket messages received.
+<P>
+<DT>
+%s
+<DD>
+The number of socket messages sent.
+<P>
+<DT>
+%k
+<DD>
+The number of signals received.
+<P>
+<DT>
+%w
+<DD>
+The number of voluntary context switches (waits).
+<P>
+<DT>
+%c
+<DD>
+The number of involuntary context switches.
+</DL>
+<P>
+Only the first four sequences are supported on systems without BSD resource
+limit functions.
+The default time format is `%Uu %Ss %E %P %X+%Dk %I+%Oio %Fpf+%Ww' for
+systems that support resource usage reporting and `%Uu %Ss %E %P' for
+systems that do not.
+<P>
+Under Sequent's DYNIX/ptx, %X, %D, %K, %r and %s are not
+available, but the following additional sequences are:
+<P>
+<P>
+<DL compact>
+<DT>
+%Y
+<DD>
+The number of system calls performed.
+<P>
+<DT>
+%Z
+<DD>
+The number of pages which are zero-filled on demand.
+<P>
+<DT>
+%i
+<DD>
+The number of times a process's resident set size was increased by the kernel.
+<P>
+<DT>
+%d
+<DD>
+The number of times a process's resident set size was decreased by the kernel.
+<P>
+<DT>
+%l
+<DD>
+The number of read system calls performed.
+<P>
+<DT>
+%m
+<DD>
+The number of write system calls performed.
+<P>
+<DT>
+%p
+<DD>
+The number of reads from raw disk devices.
+<P>
+<DT>
+%q
+<DD>
+The number of writes to raw disk devices.
+</DL>
+<P>
+and the default time format is `%Uu %Ss %E %P %I+%Oio %Fpf+%Ww'.
+Note that the CPU percentage can be higher than 100% on multi-processors.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="tperiod">tperiod</A> </B>(+)
+<DD>
+The period, in minutes, between executions of the <I><A HREF="Special_aliases.html#periodic">periodic</A></I> special alias.
+<P>
+<DT>
+<B><A NAME="tty">tty</A> </B>(+)
+<DD>
+The name of the tty, or empty if not attached to one.
+<P>
+<DT>
+<B><A NAME="uid">uid</A> </B>(+)
+<DD>
+The user's real user ID.
+<P>
+<DT>
+<B><A NAME="user">user</A></B>
+<DD>
+The user's login name.
+<P>
+<DT>
+<B><A NAME="verbose">verbose</A></B>
+<DD>
+If set, causes the words of each
+command to be printed, after history substitution (if any).
+Set by the <B>-v</B> command line option.
+<P>
+<DT>
+<B><A NAME="version">version</A> </B>(+)
+<DD>
+The version ID stamp.  It contains the shell's version number (see <B><A HREF="Special_shell_variables.html#tcsh">tcsh</A></B>),
+origin, release date, vendor, operating system and machine (see <B><A HREF="ENVIRONMENT.html#VENDOR">VENDOR</A></B>,
+<B><A HREF="ENVIRONMENT.html#OSTYPE">OSTYPE</A></B> and <B><A HREF="ENVIRONMENT.html#MACHTYPE">MACHTYPE</A></B>) and a comma-separated
+list of options which were set at compile time.
+Options which are set by default in the distribution are noted.
+</DL>
+<P>
+<P>
+<menu>
+<DL compact>
+<DT>
+8b
+<DD>
+The shell is eight bit clean; default
+<P>
+<DT>
+7b
+<DD>
+The shell is not eight bit clean
+<P>
+<DT>
+wide
+<DD>
+The shell is multibyte encoding clean (like UTF-8)
+<P>
+<DT>
+nls
+<DD>
+The system's NLS is used; default for systems with NLS
+<P>
+<DT>
+lf
+<DD>
+Login shells execute <I><A HREF="FILES.html#/etc/csh.login">/etc/csh.login</A></I> before instead of after
+<I><A HREF="FILES.html#/etc/csh.cshrc">/etc/csh.cshrc</A></I> and <I><A HREF="FILES.html#~/.login">~/.login</A></I> before instead of after
+<I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I> and <I><A HREF="FILES.html#~/.history">~/.history</A></I>.
+<P>
+<DT>
+dl
+<DD>
+`.' is put last in <B><A HREF="Special_shell_variables.html#path">path</A></B> for security; default
+<P>
+<DT>
+nd
+<DD>
+`.' is omitted from <B><A HREF="Special_shell_variables.html#path">path</A></B> for security
+<P>
+<DT>
+vi
+<DD>
+<I>vi</I>-style editing is the default rather than <I>emacs</I>
+<P>
+<DT>
+dtr
+<DD>
+Login shells drop DTR when exiting
+<P>
+<DT>
+bye
+<DD>
+<I><A HREF="Builtin_commands.html#bye">bye</A></I> is a synonym for <I><A HREF="Builtin_commands.html#logout">logout</A></I> and <I><A HREF="Builtin_commands.html#log">log</A></I>
+is an alternate name for <I><A HREF="Builtin_commands.html#watchlog">watchlog</A></I>
+<P>
+<DT>
+al
+<DD>
+<B><A HREF="Special_shell_variables.html#autologout">autologout</A></B> is enabled; default
+<P>
+<DT>
+kan
+<DD>
+Kanji is used if appropriate according to locale settings,
+unless the <B><A HREF="Special_shell_variables.html#nokanji">nokanji</A></B> shell variable is set
+<P>
+<DT>
+sm
+<DD>
+The system's <I>malloc</I>(3) is used
+<P>
+<DT>
+hb
+<DD>
+The `#!&lt;program&gt; &lt;args&gt;' convention is emulated when executing shell scripts
+<P>
+<DT>
+ng
+<DD>
+The <I><A HREF="Builtin_commands.html#newgrp">newgrp</A></I> builtin is available
+<P>
+<DT>
+rh
+<DD>
+The shell attempts to set the <B><A HREF="ENVIRONMENT.html#REMOTEHOST">REMOTEHOST</A></B> environment variable
+<P>
+<DT>
+afs
+<DD>
+The shell verifies your password with the kerberos server if local
+authentication fails.  The <B><A HREF="Special_shell_variables.html#afsuser">afsuser</A></B> shell variable or the
+<B><A HREF="ENVIRONMENT.html#AFSUSER">AFSUSER</A></B> environment variable override your local username if set.
+</DL>
+<P>
+An administrator may enter additional strings to indicate differences
+in the local version.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="visiblebell">visiblebell</A> </B>(+)
+<DD>
+If set, a screen flash is used rather than the audible bell.
+See also <B><A HREF="Special_shell_variables.html#nobeep">nobeep</A></B>.
+<P>
+<DT>
+<B><A NAME="watch">watch</A> </B>(+)
+<DD>
+A list of user/terminal pairs to watch for logins and logouts.
+If either the user is `any' all terminals are watched for the given user
+and vice versa.
+Setting <B><A HREF="Special_shell_variables.html#watch">watch</A></B> to `(any any)' watches all users and terminals.
+For example,
+</DL>
+<P>
+<menu>
+<menu>
+set watch = (george ttyd1 any console $user any)
+</menu>
+<P>
+reports activity of the user `george' on ttyd1, any user on the console, and
+oneself (or a trespasser) on any terminal.
+<P>
+Logins and logouts are checked every 10 minutes by default, but the first
+word of <B><A HREF="Special_shell_variables.html#watch">watch</A></B> can be set to a number to check every so many minutes.
+For example,
+<P>
+<menu>
+set watch = (1 any any)
+</menu>
+<P>
+reports any login/logout once every minute.  For the impatient, the <I><A HREF="Builtin_commands.html#log">log</A></I>
+builtin command triggers a <B><A HREF="Special_shell_variables.html#watch">watch</A></B> report at any time.  All current logins
+are reported (as with the <I><A HREF="Builtin_commands.html#log">log</A></I> builtin) when <B><A HREF="Special_shell_variables.html#watch">watch</A></B> is first set.
+<P>
+The <B><A HREF="Special_shell_variables.html#who">who</A></B> shell variable controls the format of <B><A HREF="Special_shell_variables.html#watch">watch</A></B> reports.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="who">who</A> </B>(+)
+<DD>
+The format string for <B><A HREF="Special_shell_variables.html#watch">watch</A></B> messages.  The following sequences
+are replaced by the given information:
+</DL>
+<P>
+<P>
+<menu>
+<DL compact>
+<DT>
+%n
+<DD>
+The name of the user who logged in/out.
+<P>
+<DT>
+%a
+<DD>
+The observed action, i.e., `logged on', `logged off' or `replaced <I>olduser</I> on'.
+<P>
+<DT>
+%l
+<DD>
+The terminal (tty) on which the user logged in/out.
+<P>
+<DT>
+%M
+<DD>
+The full hostname of the remote host, or `local' if the login/logout was
+from the local host.
+<P>
+<DT>
+%m
+<DD>
+The hostname of the remote host up to the first `.'.
+The full name is printed if it is an IP address or an X Window System display.
+</DL>
+<P>
+%M and %m are available on only systems that store the remote hostname in
+<I>/etc/utmp</I>.
+If unset, `%n has %a %l from %m.' is used, or `%n has %a %l.' on systems
+which don't store the remote hostname.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="wordchars">wordchars</A> </B>(+)
+<DD>
+A list of non-alphanumeric characters to be considered part of a word by the
+<I>forward-word</I>, <I>backward-word</I> etc., editor commands.
+If unset, `*?_-.[]~=' is used.
+</DL>
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="ENVIRONMENT.html">Next</A>
+<A HREF="Special_aliases.html">Previous</A>
+</BODY>

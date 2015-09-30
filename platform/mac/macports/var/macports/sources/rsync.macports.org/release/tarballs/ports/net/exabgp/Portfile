@@ -1,0 +1,30 @@
+# $Id: Portfile 118596 2014-04-05 16:19:32Z yeled@macports.org $
+
+PortSystem 1.0
+PortGroup python 1.0
+
+name                exabgp
+version             3.1.6
+categories          net
+license             BSD
+platforms           darwin
+supported_archs     noarch
+maintainers         nomaintainer
+description         BGP swiss army knife
+long_description    Control your network using BGP from any commodity servers and reap \
+                    the benefit of software defined networking without OpenFlow. Receive \
+                    parsed BGP updates in friendly form (plain text or JSON) and \
+                    manipulate them with simple scripts.
+
+homepage        https://code.google.com/p/exabgp/
+master_sites    https://exabgp.googlecode.com/files/
+checksums           md5     1d09588425dc32221217fcf5ec8ed22c \
+                    rmd160  1e91a89252bf3de9787a46f5fe139e4cad53a9cc \
+                    sha1    11a0f89b8d1b0b97181375cc9c98c49c236ba2f4
+
+extract.suffix  .tgz
+
+python.versions         27
+python.default_version  27
+python.move_binaries    no
+

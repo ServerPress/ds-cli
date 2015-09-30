@@ -1,0 +1,50 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 132417 2015-01-31 21:30:47Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-rtree
+version             0.8.2
+revision            0
+categories-append   devel
+platforms           darwin
+license             LGPL
+supported_archs     noarch
+
+python.versions     27 34
+
+maintainers         stromnov openmaintainer
+
+description         R-Tree spatial index for Python GIS
+
+long_description    Rtree is a Python library that uses ctypes and an  \
+                    internally built C API to wrap libspatialindex and \
+                    provide very flexible spatial indexing.
+
+homepage            http://trac.gispython.org/lab/wiki/Rtree
+master_sites        https://pypi.python.org/packages/source/R/Rtree/
+
+distname            Rtree-${version}
+
+checksums           rmd160  48852349c92ac97e85fc2586969584fc540e819c \
+                    sha256  064ecd9791fe170a8492f4ae75b0cbe8e62b5392f136a159a24d1b70c86d3c3f
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:spatialindex
+
+    depends_build-append \
+                        port:py${python.version}-setuptools
+
+    patchfiles          patch-rtree_core.py.diff
+
+    post-patch {
+        reinplace "s|@PREFIX@|${prefix}|g" ${worksrcpath}/rtree/core.py
+    }
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/rtree/json
+    livecheck.regex     {Rtree-(\d+(?:\.\d+)*).[tz]}
+}

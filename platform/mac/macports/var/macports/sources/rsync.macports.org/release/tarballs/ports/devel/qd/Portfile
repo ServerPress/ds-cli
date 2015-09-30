@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 69115 2010-06-24 01:09:39Z ryandesign@macports.org $
+
+PortSystem 1.0
+
+name                qd
+version             2.3.11
+categories          devel math
+platforms           darwin
+maintainers         gmail.com:brad.froehle
+
+description     C++/Fortran-90 double-double and quad-double package
+long_description \
+    This package supports both a double-double datatype (approx. 32 decimal \
+    digits) and a quad-double datatype (approx. 64 decimal digits). The \
+    computational library is written in C++. Both C++ and Fortran-90 \
+    high-level language interfaces are provided to permit one to use \
+    convert an existing C++ or Fortran-90 program to use the library with \
+    only minor changes to the source code. In most cases only a few type \
+    statements and (for Fortran-90 programs) read/write statements need to \
+    be changed. PSLQ and numerical quadrature programs are included.
+
+homepage        http://crd.lbl.gov/~dhbailey/mpdist/
+master_sites    ${homepage}
+
+checksums \
+        md5     4623b3b103897d7fb12c729e8c206969 \
+        sha1    9f66ceb4a0d5373e8f02c783ceaa2d653114c6eb \
+        rmd160  44d858feba1190845ff17e1f2e54afc4c0643c62
+
+post-build {
+    reinplace -E {s|-arch [a-z0-9_]+||g} \
+        ${worksrcpath}/qd-config
+}
+
+livecheck.type      regex
+livecheck.url       ${homepage}
+livecheck.regex     {qd-(\d+(?:\.\d+)*).tar.gz}
+

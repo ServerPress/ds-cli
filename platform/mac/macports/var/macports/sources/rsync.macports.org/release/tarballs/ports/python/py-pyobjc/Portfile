@@ -1,0 +1,71 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130123 2014-12-27 07:45:15Z larryv@macports.org $
+
+PortSystem 1.0
+PortGroup python 1.0
+
+name            py-pyobjc
+version         3.0.1
+categories-append     devel
+license         MIT
+maintainers     nomaintainer
+platforms       darwin
+description     bidirectional bridge between python and Objective C
+long_description    The PyObjC project aims to provide a bridge between \
+                the Python and Objective-C programming languages. The \
+                bridge is intended to be fully bidirectional, allowing \
+                the Python programmer to take full advantage of the \
+                power provided by various Objective-C based toolkits \
+                and the Objective-C programmer transparent access to \
+                Python based functionality.
+
+homepage        http://pyobjc.sourceforge.net/
+master_sites    https://pypi.python.org/packages/source/p/pyobjc-core/
+distname        pyobjc-core-${version}
+checksums       md5     f40f96460eac67554751a9e3e8bbdcef \
+                rmd160  2603015771686d6e2c4056bb51784b2b74e9c421 \
+                sha256  713cafd1a0aea24f50a2c47496e596cf2eadd0386da1529a3c05d6638a679198
+
+python.versions 26 27 33 34
+
+if {${name} ne ${subport}} {
+    depends_lib     port:py${python.version}-setuptools \
+                    port:py${python.version}-py2app
+
+    # See https://trac.macports.org/ticket/45310
+    # FIXME: remove when version 3.0.2 comes out
+    patchfiles      patch-setup.py.diff patch-Tools-pyobjc_setup.py.diff
+
+    set readme_name README.txt
+
+    # Note: see upstream ticket https://bitbucket.org/ronaldoussoren/pyobjc/issue/100/cannot-find-interface-declaration-for
+    platform darwin 11 {
+        patchfiles-append 		patch-Modules-${version}.diff
+    }
+    platform darwin 12 {
+        patchfiles-append 		patch-Modules-${version}.diff
+    }
+
+    platform darwin 8 {
+        depends_lib
+        pre-fetch {
+            return -code error "PyObjC 2 requires Mac OS X 10.5 or later"
+        }
+    }
+
+    post-destroot {
+        xinstall -m 644 -W ${worksrcpath} HISTORIC.txt Install.txt \
+            License.txt NEWS.txt $readme_name \
+            ${destroot}${prefix}/share/doc/${subport}
+        copy ${worksrcpath}/Doc ${destroot}${prefix}/share/doc/${subport}/html
+        delete ${destroot}${prefix}/share/doc/${subport}/examples
+        copy ${worksrcpath}/Examples \
+            ${destroot}${prefix}/share/doc/${subport}/examples
+    }
+
+    livecheck.type  none
+} else {
+    livecheck.type  regex
+    livecheck.url   https://pypi.python.org/pypi/pyobjc-core/
+    livecheck.regex {pyobjc-core ([0-9.]+)}
+}

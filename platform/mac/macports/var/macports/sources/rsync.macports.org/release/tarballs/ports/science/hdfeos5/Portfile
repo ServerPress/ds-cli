@@ -1,0 +1,85 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136416 2015-05-16 16:52:31Z mmoll@macports.org $
+
+PortSystem          1.0
+PortGroup           active_variants 1.1
+PortGroup           mpi 1.0
+
+name                hdfeos5
+version             1.15
+revision            6
+categories          science
+platforms           darwin
+license             public-domain
+maintainers         takeshi
+description         HDF-EOS library built on HDF5
+long_description \
+    library designed built on HDF5 to support the same Grid/Point/Swath \
+    functionality in HDF-EOS 2 and to the extent possible it will be    \
+    built with the same calling sequences as the original HDF-EOS 2 library.
+homepage            http://hdfeos.org/
+master_sites        ftp://edhs1.gsfc.nasa.gov/edhs/${name}/latest_release/ \
+                    ftp://edhs1.gsfc.nasa.gov/edhs/${name}/previous_releases/
+
+distname            HDF-EOS5.${version}
+
+checksums           md5     5d607a13dd42e559bfc90e278a8ec919 \
+                    sha1    35a288cd1bfdde92a4ef9d68f8ee55b536b0f8c3 \
+                    rmd160  34df5cdb6bdc4d06a7658d38aae6fed0b5671557
+
+compilers.choose    cc cxx
+mpi.setup           -clang -dragonegg -llvm
+mpi.enforce_variant hdf5
+
+depends_build       port:libtool
+depends_lib         port:hdf5
+worksrcdir          ${name}
+extract.suffix      .tar.Z
+fetch.use_epsv      no
+
+set v [mpi_active_variant_name bin:h5pcc:hdf5]
+if {${v} != "" } {
+    set h5cc h5pcc
+    default_variants +${v}
+} else {
+    set h5cc h5cc
+}
+if {![catch {set result [active_variants port:hdf5 szip]}]} {
+    if {$result} {
+        default_variants-append +szip
+    }
+}
+configure.cflags-append -DH5_USE_16_API
+configure.cc_archflags ""
+configure.ld_archflags ""
+configure.args      --prefix=${prefix}/lib/${name} \
+                    --enable-shared \
+                    --with-hdf5=${prefix} \
+                    --with-zlib=${prefix} \
+                    --disable-dependency-tracking
+
+pre-configure {
+    configure.cc    ${prefix}/bin/${h5cc}
+}
+
+post-configure {
+    file copy -force ${prefix}/bin/glibtool ${worksrcpath}/libtool
+    reinplace "s|\\\\\$CC|${prefix}/bin/${h5cc}|" ${worksrcpath}/libtool
+}
+
+variant szip description {enables szip support} {
+    require_active_variants     hdf5 szip
+    depends_lib-append          port:szip
+    configure.args-append       --with-szlib=${prefix} \
+}
+
+post-destroot {
+    set incdir ${destroot}${prefix}/lib/${name}/include
+    xinstall -d -m 755 ${incdir}
+    xinstall -m 644 ${worksrcpath}/include/HE5_GctpFunc.h ${incdir}
+    xinstall -m 644 ${worksrcpath}/include/HE5_HdfEosDef.h ${incdir}
+}
+
+livecheck.type      regex
+livecheck.url       ${homepage}/software/hdfeos.php
+livecheck.regex     {HDF-EOS 5.([0-9]+.[0-9]+) is the latest version}

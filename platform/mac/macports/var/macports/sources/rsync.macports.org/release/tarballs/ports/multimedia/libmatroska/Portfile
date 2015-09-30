@@ -1,0 +1,37 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135612 2015-04-28 03:24:15Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                libmatroska
+version             1.4.2
+categories          multimedia
+maintainers         ryandesign openmaintainer
+license             LGPL-2.1+
+
+description         Matroska is an extensible open standard audio/video container format.
+long_description    \
+                    Matroska is an extensible open standard audio/video container \
+                    format. This library is there to support this format and has \
+                    been written by the Matroska project team.
+                
+homepage            http://www.matroska.org/
+platforms           darwin
+master_sites        http://dl.matroska.org/downloads/${name}/
+use_bzip2           yes
+
+checksums           rmd160  5db92e3c4a32cc5772cabfc85e4d3ecbf8870bdf \
+                    sha256  bea10320f1f1fd121bbd7db9ffc77b2518e8269f00903549c5425478bbf8393f
+
+depends_build       port:pkgconfig
+
+depends_lib         port:libebml
+
+patchfiles          patch-Makefile.in.diff
+
+test.run            yes
+test.target         check
+
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     >${name}-(\[0-9.\]+)${extract.suffix}

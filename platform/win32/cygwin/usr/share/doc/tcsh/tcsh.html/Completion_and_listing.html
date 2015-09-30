@@ -1,0 +1,232 @@
+<HEAD>
+<TITLE>Completion and listing (+)</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Spelling_correction.html">Next</A>
+<A HREF="The_command-line_editor.html">Previous</A>
+<H2>Completion and listing (+)</H2>
+The shell is often able to complete words when given a unique abbreviation.
+Type part of a word (for example `ls /usr/lost') and hit the tab key to
+run the <I><A HREF="Editor_commands.html#complete-word">complete-word</A></I> editor command.
+The shell completes the filename `/usr/lost' to `/usr/lost+found/',
+replacing the incomplete word with the complete word in the input buffer.
+(Note the terminal `/'; completion adds a `/' to the
+end of completed directories and a space to the end of other completed words,
+to speed typing and provide a visual indicator of successful completion.
+The <B><A HREF="Special_shell_variables.html#addsuffix">addsuffix</A></B> shell variable can be unset to prevent this.)
+If no match is found (perhaps `/usr/lost+found' doesn't exist),
+the terminal bell rings.
+If the word is already complete (perhaps there is a `/usr/lost' on your
+system, or perhaps you were thinking too far ahead and typed the whole thing)
+a `/' or space is added to the end if it isn't already there.
+<P>
+Completion works anywhere in the line, not at just the end; completed
+text pushes the rest of the line to the right.  Completion in the middle of a word
+often results in leftover characters to the right of the cursor that need
+to be deleted.
+<P>
+Commands and variables can be completed in much the same way.
+For example, typing `em[tab]' would complete `em' to
+`emacs' if <I>emacs</I> were the only command on your system beginning with `em'.
+Completion can find a command in any directory in <B><A HREF="Special_shell_variables.html#path">path</A></B> or if
+given a full pathname.
+Typing `echo $ar[tab]' would complete `$ar' to `$argv'
+if no other variable began with `ar'.
+<P>
+The shell parses the input buffer to determine whether the word you want to
+complete should be completed as a filename, command or variable.
+The first word in the buffer and the first word following
+`;', `|', `|&amp;', `&amp;&amp;' or `||' is considered to be a command.
+A word beginning with `$' is considered to be a variable.
+Anything else is a filename.  An empty line is `completed' as a filename.
+<P>
+You can list the possible completions of a word at any time by typing `^D'
+to run the <I><A HREF="Editor_commands.html#delete-char-or-list-or-eof">delete-char-or-list-or-eof</A></I> editor command.
+The shell lists the possible completions using the <I><A HREF="Builtin_commands.html#ls-F">ls-F</A></I> builtin (q.v.)
+and reprints the prompt and unfinished command line, for example:
+<P>
+<menu>
+&gt; ls /usr/l[^D]
+<BR>
+lbin/       lib/        local/      lost+found/
+<BR>
+&gt; ls /usr/l
+</menu>
+<P>
+If the <B><A HREF="Special_shell_variables.html#autolist">autolist</A></B> shell variable is set, the shell lists the remaining
+choices (if any) whenever completion fails:
+<P>
+<menu>
+&gt; set autolist
+<BR>
+&gt; nm /usr/lib/libt[tab]
+<BR>
+libtermcap.a@ libtermlib.a@
+<BR>
+&gt; nm /usr/lib/libterm
+</menu>
+<P>
+If <B><A HREF="Special_shell_variables.html#autolist">autolist</A></B> is set to `ambiguous', choices are listed only when
+completion fails and adds no new characters to the word being completed.
+<P>
+A filename to be completed can contain variables, your own or others' home
+directories abbreviated with `~' (see <B><A HREF="Filename_substitution.html">Filename substitution</A></B>) and
+directory stack entries abbreviated with `='
+(see <B><A HREF="Directory_stack_substitution.html">Directory stack substitution</A></B>).  For example,
+<P>
+<menu>
+&gt; ls ~k[^D]
+<BR>
+kahn    kas     kellogg
+<BR>
+&gt; ls ~ke[tab]
+<BR>
+&gt; ls ~kellogg/
+</menu>
+<P>
+or
+<P>
+<menu>
+&gt; set local = /usr/local
+<BR>
+&gt; ls $lo[tab]
+<BR>
+&gt; ls $local/[^D]
+<BR>
+bin/ etc/ lib/ man/ src/
+<BR>
+&gt; ls $local/
+</menu>
+<P>
+Note that variables can also be expanded explicitly with the
+<I><A HREF="Editor_commands.html#expand-variables">expand-variables</A></I> editor command.
+<P>
+<I><A HREF="Editor_commands.html#delete-char-or-list-or-eof">delete-char-or-list-or-eof</A></I> lists at only the end of the line;
+in the middle of a line it deletes the character under the cursor and
+on an empty line it logs one out or, if <B><A HREF="Special_shell_variables.html#ignoreeof">ignoreeof</A></B> is set, does nothing.
+`M-^D', bound to the editor command <I><A HREF="Editor_commands.html#list-choices">list-choices</A></I>, lists completion
+possibilities anywhere on a line, and <I><A HREF="Editor_commands.html#list-choices">list-choices</A></I> (or any one of the
+related editor commands that do or don't delete, list and/or log out,
+listed under <I><A HREF="Editor_commands.html#delete-char-or-list-or-eof">delete-char-or-list-or-eof</A></I>) can be bound to `^D' with
+the <I><A HREF="Builtin_commands.html#bindkey">bindkey</A></I> builtin command if so desired.
+<P>
+The <I><A HREF="Editor_commands.html#complete-word-fwd">complete-word-fwd</A></I> and <I><A HREF="Editor_commands.html#complete-word-back">complete-word-back</A></I> editor commands
+(not bound to any keys by default) can be used to cycle up and down through
+the list of possible completions, replacing the current word with the next or
+previous word in the list.
+<P>
+The shell variable <B><A HREF="Special_shell_variables.html#fignore">fignore</A></B> can be set to a list of suffixes to be
+ignored by completion.  Consider the following:
+<P>
+<menu>
+&gt; ls
+<BR>
+Makefile        condiments.h~   main.o          side.c
+<BR>
+README          main.c          meal            side.o
+<BR>
+condiments.h    main.c~
+<BR>
+&gt; set fignore = (.o \~)
+<BR>
+&gt; emacs ma[^D]
+<BR>
+main.c   main.c~  main.o
+<BR>
+&gt; emacs ma[tab]
+<BR>
+&gt; emacs main.c
+</menu>
+<P>
+`main.c~' and `main.o' are ignored by completion (but not listing),
+because they end in suffixes in <B><A HREF="Special_shell_variables.html#fignore">fignore</A></B>.
+Note that a `\' was needed in front of `~' to prevent it from being
+expanded to <B><A HREF="Special_shell_variables.html#home">home</A></B> as described under <B><A HREF="Filename_substitution.html">Filename substitution</A></B>.
+<B><A HREF="Special_shell_variables.html#fignore">fignore</A></B> is ignored if only one completion is possible.
+<P>
+If the <B><A HREF="Special_shell_variables.html#complete">complete</A></B> shell variable is set to `enhance', completion
+1) ignores case and 2) considers periods, hyphens and underscores
+(`.', `-' and `_') to be word separators and hyphens and underscores to
+be equivalent.  If you had the following files
+<P>
+<menu>
+comp.lang.c      comp.lang.perl   comp.std.c++
+<BR>
+comp.lang.c++    comp.std.c
+</menu>
+<P>
+and typed `mail -f c.l.c[tab]', it would be completed to
+`mail -f comp.lang.c', and ^D would list `comp.lang.c' and `comp.lang.c++'.
+`mail -f c..c++[^D]' would list `comp.lang.c++' and `comp.std.c++'.  Typing
+`rm a--file[^D]' in the following directory
+<P>
+<menu>
+A_silly_file    a-hyphenated-file    another_silly_file
+</menu>
+<P>
+would list all three files, because case is ignored and hyphens and
+underscores are equivalent.  Periods, however, are not equivalent to
+hyphens or underscores.
+<P>
+If the <B><A HREF="Special_shell_variables.html#complete">complete</A></B> shell variable is set to `Enhance', completion
+ignores case and differences between a hyphen and an underscore word
+separator only when the user types a lowercase character or a hyphen.
+Entering an uppercase character or an underscore will not match the 
+corresponding lowercase character or hyphen word separator.  
+Typing `rm a--file[^D]' in the directory of the previous example would 
+still list all three files, but typing `rm A--file' would match only 
+`A_silly_file' and typing `rm a__file[^D]' would match just `A_silly_file' 
+and `another_silly_file' because the user explicitly used an uppercase 
+or an underscore character.  
+<P>
+Completion and listing are affected by several other shell variables:
+<B><A HREF="Special_shell_variables.html#recexact">recexact</A></B> can be set to complete on the shortest possible unique
+match, even if more typing might result in a longer match:
+<P>
+<menu>
+&gt; ls
+<BR>
+fodder   foo      food     foonly
+<BR>
+&gt; set recexact
+<BR>
+&gt; rm fo[tab]
+</menu>
+<P>
+just beeps, because `fo' could expand to `fod' or `foo', but if we type
+another `o',
+<P>
+<menu>
+&gt; rm foo[tab]
+<BR>
+&gt; rm foo
+</menu>
+<P>
+the completion completes on `foo', even though `food' and `foonly'
+also match.
+<B><A HREF="Special_shell_variables.html#autoexpand">autoexpand</A></B> can be set to run the <I><A HREF="Editor_commands.html#expand-history">expand-history</A></I> editor command
+before each completion attempt, <B><A HREF="Special_shell_variables.html#autocorrect">autocorrect</A></B> can be set to
+spelling-correct the word to be completed (see <B><A HREF="Spelling_correction.html">Spelling correction</A></B>)
+before each completion attempt and <B><A HREF="Special_shell_variables.html#correct">correct</A></B> can be set to complete
+commands automatically after one hits `return'.
+<B><A HREF="Special_shell_variables.html#matchbeep">matchbeep</A></B> can be set to make completion beep or not beep in a variety
+of situations, and <B><A HREF="Special_shell_variables.html#nobeep">nobeep</A></B> can be set to never beep at all.
+<B><A HREF="Special_shell_variables.html#nostat">nostat</A></B> can be set to a list of directories and/or patterns that
+match directories to prevent the completion mechanism from <I>stat</I>(2)ing
+those directories.
+<B><A HREF="Special_shell_variables.html#listmax">listmax</A></B> and <B><A HREF="Special_shell_variables.html#listmaxrows">listmaxrows</A></B> can be set to limit the number of items
+and rows (respectively) that are listed without asking first.
+<B><A HREF="Special_shell_variables.html#recognize_only_executables">recognize_only_executables</A></B> can be set to make the shell list only
+executables when listing commands, but it is quite slow.
+<P>
+Finally, the <I><A HREF="Builtin_commands.html#complete">complete</A></I> builtin command can be used to tell the shell how
+to complete words other than filenames, commands and variables.
+Completion and listing do not work on glob-patterns (see <B><A HREF="Filename_substitution.html">Filename substitution</A></B>),
+but the <I><A HREF="Editor_commands.html#list-glob">list-glob</A></I> and <I><A HREF="Editor_commands.html#expand-glob">expand-glob</A></I> editor commands perform
+equivalent functions for glob-patterns.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Spelling_correction.html">Next</A>
+<A HREF="The_command-line_editor.html">Previous</A>
+</BODY>

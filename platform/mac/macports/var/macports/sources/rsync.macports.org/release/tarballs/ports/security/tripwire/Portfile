@@ -1,0 +1,121 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 128249 2014-11-17 11:09:34Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                tripwire
+version             2.4.2.2
+categories          security
+license             GPL-2+
+platforms           darwin
+maintainers         nomaintainer
+
+description         integrity assurance and intrusion detection tool
+
+long_description    Tripwire software is a tool that checks to see what \
+                    has changed on your system. The program monitors key \
+                    attributes of files that should not change, \
+                    including binary signature, size, expected change of \
+                    size, etc.  Tripwire is originally known as an \
+                    intrusion detection tool, but can be used for many \
+                    other purposes such as integrity assurance, change \
+                    management, policy compliance and more.
+
+homepage            http://sourceforge.net/projects/tripwire/
+master_sites        sourceforge:tripwire/tripwire-src/tripwire-${version}
+use_bzip2           yes
+distname            ${distname}-src
+
+checksums           rmd160  00a307f7efae7c441a7f62e38850ead053158f6a \
+                    sha256  e09a7bdca9302e704cc62067399e0b584488f825b0e58c82ad6d54cd2e899fad
+
+depends_lib         port:openssl
+
+use_autoreconf      yes
+
+pre-patch {
+    move ${worksrcpath}/configure.in ${worksrcpath}/configure.ac
+}
+
+patchfiles          patch-Makefile.am    \
+                    patch-platform.h     \
+                    patch-aclocal.m4     \
+                    patch-configure.ac.diff \
+                    patch-install.cfg    \
+                    patch-install.sh     \
+                    patch-src_cryptlib_algebra.h \
+                    patch-src_core_archive.cpp \
+                    patch-src_fco_fcospec.cpp
+
+pre-configure {
+    system -W ${worksrcpath} aclocal
+}
+
+configure.args      --sysconfdir="${prefix}/etc/${name}"
+
+# https://github.com/steakknife/tripwire/issues/1
+configure.cxx_stdlib libstdc++
+
+# Installation locations
+set bindir          "${prefix}/sbin"
+set sysconfdir      "${prefix}/etc/${name}"
+set vardbdir        "${prefix}/var/db/${name}"
+set docdir          "${prefix}/share/doc/${name}"
+if {[variant_exists anacron] && [variant_isset anacron]} {
+    set crondir     "${prefix}/etc/cron.daily"
+} else {
+    set crondir     "${docdir}"
+}
+
+destroot.keepdirs   ${destroot}${vardbdir}/report
+
+post-destroot {
+    # Install setup script for post installation configuration
+    xinstall -m 0744 ${filespath}/twsetup.sh.in \
+        ${destroot}${sysconfdir}/twsetup.sh
+    # Install quickstart guide
+    xinstall -d -m 0755 ${destroot}${docdir}
+    xinstall -m 0644 ${filespath}/quickstart.gif \
+        ${destroot}${docdir}/quickstart.gif
+    xinstall -m 0644 ${filespath}/quickstart.txt.in \
+        ${destroot}${docdir}/quickstart.txt
+    # Install daily cron job entry (requires anacron)
+    xinstall -d -m 0755 ${destroot}${crondir}
+    xinstall -m 0744 ${filespath}/${name}-check.in \
+        ${destroot}${crondir}/${name}-check
+    # Configure paths in various files
+    reinplace "s|@PREFIX@|${prefix}|g" \
+        ${destroot}${sysconfdir}/twsetup.sh \
+        ${destroot}${crondir}/${name}-check \
+        ${destroot}${docdir}/quickstart.txt
+    reinplace "s|@BINDIR@|${bindir}|g" \
+        ${destroot}${sysconfdir}/twsetup.sh \
+        ${destroot}${crondir}/${name}-check \
+        ${destroot}${docdir}/quickstart.txt
+    reinplace "s|@SYSCONFDIR@|${sysconfdir}|g" \
+        ${destroot}${sysconfdir}/twsetup.sh \
+        ${destroot}${crondir}/${name}-check \
+        ${destroot}${docdir}/quickstart.txt
+    reinplace "s|@VARDBDIR@|${vardbdir}|g" \
+        ${destroot}${sysconfdir}/twsetup.sh \
+        ${destroot}${crondir}/${name}-check \
+        ${destroot}${docdir}/quickstart.txt
+    reinplace "s|@DOCDIR@|${docdir}|g" \
+        ${destroot}${sysconfdir}/twsetup.sh \
+        ${destroot}${crondir}/${name}-check \
+        ${destroot}${docdir}/quickstart.txt
+}
+
+#variant anacron {
+#    depends_run     bin:anacron:anacron
+#}
+
+notes "
+Please read the quick start guide located at:
+
+${prefix}/share/doc/${name}/quickstart.txt
+
+for post installation configuration instructions and general usage information.
+"
+
+livecheck.regex     ${name}-(\[0-9.\]+)-src${extract.suffix}

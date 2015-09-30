@@ -1,0 +1,36 @@
+_autorebase
+===========
+
+This package provides scripts to keep the Cygwin system properly
+rebased.  By default this happens incrementally, which means after
+each run of setup.exe it is determined which packages have been newly
+installed and only the dynamic objects provided by those packages are
+rebased, taking the rebase map of the existing installation into
+account.
+
+Since over time the rebase map can become fragmented, it is possible
+to trigger a full rebase.  In this case all packages on the system are
+treated as newly installed and the existing rebase map is cleared
+before doing the rebase.
+
+Some programs allow the user to create or install dynamic objects.
+Since these are not part of a packge, they wouldn't be rebased.
+Packages can make the potential locations of such dynamic objects
+known by dropping a file (named after the package) in
+/var/lib/rebase/dynpath.d/.  If any dynamic objects are installed by
+users, these locations should be advertised in /var/lib/rebase/user.d/
+(the file name should be identical to the user name).  The format of
+these files is one absolute path per line.  Those directory paths
+should not include locations of packaged dynamic objects.
+
+
+The incremental rebase is controlled by the script /usr/bin/rebaselst.
+Except for debuggin purposes this script should not be run directly by
+users, as (like any other attempt at rebasing) it doesn't work
+correctly on a live Cygwin system.
+
+To perform a full rebase, execute "rebase-trigger fullrebase".  Then
+shut down Cygwin and simply run setup.exe.  The rebase will be
+performed even when the installation did not get modified in any way.
+Any subsequent runs of setup.exe will again rebase in incremental
+mode.

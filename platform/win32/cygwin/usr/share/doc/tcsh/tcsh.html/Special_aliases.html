@@ -1,0 +1,148 @@
+<HEAD>
+<TITLE>Special aliases (+)</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Special_shell_variables.html">Next</A>
+<A HREF="Builtin_commands.html">Previous</A>
+<H2>Special aliases (+)</H2>
+If set, each of these aliases executes automatically at the indicated time.
+They are all initially undefined.
+<P>
+<DL compact>
+<DT>
+<B><A NAME="beepcmd">beepcmd</A></B>
+<DD>
+Runs when the shell wants to ring the terminal bell.
+<P>
+<DT>
+<B><A NAME="cwdcmd">cwdcmd</A></B>
+<DD>
+Runs after every change of working directory.  For example, if the user is
+working on an X window system using <I>xterm</I>(1) and a re-parenting window
+manager that supports title bars such as <I>twm</I>(1) and does
+</DL>
+<P>
+<menu>
+<menu>
+&gt; alias cwdcmd  'echo -n "^[]2;${HOST}:$cwd ^G"'
+</menu>
+<P>
+then the shell will change the title of the running <I>xterm</I>(1)
+to be the name of the host, a colon, and the full current working directory.
+A fancier way to do that is
+<P>
+<menu>
+&gt; alias cwdcmd 'echo -n "^[]2;${HOST}:$cwd^G^[]1;${HOST}^G"'
+</menu>
+<P>
+This will put the hostname and working directory on the title bar but
+only the hostname in the icon manager menu.
+<P>
+Note that putting a <I><A HREF="Builtin_commands.html#cd">cd</A></I>, <I><A HREF="Builtin_commands.html#pushd">pushd</A></I> or <I><A HREF="Builtin_commands.html#popd">popd</A></I> in <I><A HREF="Special_aliases.html#cwdcmd">cwdcmd</A></I>
+may cause an infinite loop.  It is the author's opinion that anyone doing
+so will get what they deserve.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="jobcmd">jobcmd</A></B>
+<DD>
+Runs before each command gets executed, or when the command changes state.
+This is similar to <I><A HREF="Special_aliases.html#postcmd">postcmd</A></I>, but it does not print builtins.
+</DL>
+<P>
+<menu>
+<menu>
+&gt; alias jobcmd  'echo -n "^[]2\;\!#:q^G"'
+</menu>
+<P>
+then executing <I>vi foo.c</I> will put the command string in the xterm title bar.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="helpcommand">helpcommand</A></B>
+<DD>
+Invoked by the <B>run-help</B> editor command.  The command name for which help
+is sought is passed as sole argument.
+For example, if one does
+</DL>
+<P>
+<menu>
+<menu>
+&gt; alias helpcommand '\!:1 --help'
+</menu>
+<P>
+then the help display of the command itself will be invoked, using the GNU
+help calling convention.
+Currently there is no easy way to account for various calling conventions (e.g.,
+the customary Unix `-h'), except by using a table of many commands.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="periodic">periodic</A></B>
+<DD>
+Runs every <B><A HREF="Special_shell_variables.html#tperiod">tperiod</A></B> minutes.  This provides a convenient means for
+checking on common but infrequent changes such as new mail.  For example,
+if one does
+</DL>
+<P>
+<menu>
+<menu>
+&gt; set tperiod = 30
+<BR>
+&gt; alias periodic checknews
+</menu>
+<P>
+then the <I>checknews</I>(1) program runs every 30 minutes.
+If <I><A HREF="Special_aliases.html#periodic">periodic</A></I> is set but <B><A HREF="Special_shell_variables.html#tperiod">tperiod</A></B> is unset or set to 0,
+<I><A HREF="Special_aliases.html#periodic">periodic</A></I> behaves like <I><A HREF="Special_aliases.html#precmd">precmd</A></I>.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="precmd">precmd</A></B>
+<DD>
+Runs just before each prompt is printed.  For example, if one does
+</DL>
+<P>
+<menu>
+<menu>
+&gt; alias precmd date
+</menu>
+<P>
+then <I>date</I>(1) runs just before the shell prompts for each command.
+There are no limits on what <I><A HREF="Special_aliases.html#precmd">precmd</A></I> can be set to do, but discretion
+should be used.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="postcmd">postcmd</A></B>
+<DD>
+Runs before each command gets executed.
+</DL>
+<P>
+<menu>
+<menu>
+&gt; alias postcmd  'echo -n "^[]2\;\!#:q^G"'
+</menu>
+<P>
+then executing <I>vi foo.c</I> will put the command string in the xterm title bar.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="shell">shell</A></B>
+<DD>
+Specifies the interpreter for executable scripts which do not themselves
+specify an interpreter.  The first word should be a full path name to the
+desired interpreter (e.g., `/bin/csh' or `/usr/local/bin/tcsh').
+</DL>
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Special_shell_variables.html">Next</A>
+<A HREF="Builtin_commands.html">Previous</A>
+</BODY>

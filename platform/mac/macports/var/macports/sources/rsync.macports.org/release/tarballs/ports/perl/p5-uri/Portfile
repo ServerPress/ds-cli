@@ -1,0 +1,32 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138073 2015-06-27 22:40:05Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         URI 1.68
+platforms           darwin
+maintainers         nomaintainer
+license             {Artistic-1 GPL}
+supported_archs     noarch
+
+description         Uniform Resource Identifiers (absolute and relative)
+
+long_description    This package contains the URI.pm module with friends. The module \
+                    implements the URI class. Objects of this class represent Uniform Resource \
+                    Identifier references as specified in RFC 2396 and updated by RFC 2732.
+
+checksums           rmd160  637278f49cb15f83aa18cfd1fe74ec5c6aa3d72b \
+                    sha256  c840d30f7657bfd4b2acbb311bd764232911cd3dc97e92415fbd0a242185c358
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                     port:p${perl5.major}-mime-base64
+
+    post-destroot {
+        set docdir ${prefix}/share/doc/${subport}
+        xinstall -d ${destroot}${docdir}
+        xinstall -m 644 -W ${worksrcpath} Changes README ${destroot}${docdir}
+    }
+}

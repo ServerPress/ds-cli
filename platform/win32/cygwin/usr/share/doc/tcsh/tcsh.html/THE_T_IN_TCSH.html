@@ -1,0 +1,38 @@
+<HEAD>
+<TITLE>THE T IN TCSH</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="LIMITATIONS.html">Next</A>
+<A HREF="BUGS.html">Previous</A>
+<H2>THE T IN TCSH</H2>
+In 1964, DEC produced the PDP-6.  The PDP-10 was a later re-implementation.  It
+was re-christened the DECsystem-10 in 1970 or so when DEC brought out the
+second model, the KI10.
+<P>
+TENEX was created at Bolt, Beranek &amp; Newman (a Cambridge, Massachusetts
+think tank) in
+1972 as an experiment in demand-paged virtual memory operating systems.  They
+built a new pager for the DEC PDP-10 and created the OS to go with it.  It was
+extremely successful in academia.
+<P>
+In 1975, DEC brought out a new model of the PDP-10, the KL10; they intended to
+have only a version of TENEX, which they had licensed from BBN, for the new
+box.  They called their version TOPS-20 (their capitalization is trademarked).
+A lot of TOPS-10 users (`The OPerating System for PDP-10') objected; thus DEC
+found themselves supporting two incompatible systems on the same hardware--but
+then there were 6 on the PDP-11!
+<P>
+TENEX, and TOPS-20 to version 3, had command completion
+via a user-code-level subroutine library called ULTCMD.  With version 3, DEC
+moved all that capability and more into the monitor (`kernel' for you Unix
+types), accessed by the COMND% JSYS (`Jump to SYStem' instruction, the
+supervisor call mechanism [are my IBM roots also showing?]).
+<P>
+The creator of tcsh was impressed by this feature and several others of TENEX
+and TOPS-20, and created a version of csh which mimicked them.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="LIMITATIONS.html">Next</A>
+<A HREF="BUGS.html">Previous</A>
+</BODY>

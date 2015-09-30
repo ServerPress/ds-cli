@@ -1,0 +1,38 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 114315 2013-12-05 06:35:31Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           cmake 1.0
+
+name                bullet
+version             2.82-2704
+revision            0
+set base_version    [lindex [split ${version} -] 0]
+categories          devel
+platforms           darwin
+license             zlib
+supported_archs     i386 x86_64
+
+maintainers         stromnov openmaintainer
+
+description         Bullet Physics Engine
+long_description    ${description}
+
+homepage            http://bulletphysics.org/
+master_sites        googlecode:bullet
+
+extract.suffix      .tgz
+
+distname            ${name}-${base_version}-r[lindex [split ${version} -] 1]
+dist_subdir         ${name}/${version}
+
+checksums           rmd160  e474f915b0d0bc8dc7d8d137eced9291732cc7fc \
+                    sha256  67e4c9eb76f7adf99501d726d8ad5e9b525dfd0843fbce9ca73aaca4ba9eced2
+
+configure.args-append \
+                    -DBUILD_SHARED_LIBS=ON \
+                    -DBUILD_DEMOS=OFF \
+                    -DINSTALL_LIBS=ON
+
+livecheck.version   ${base_version}
+livecheck.regex     {bullet-(\d+(?:\.\d+)*)(?:-r(?:ev)?\d+)?\.[tz]}

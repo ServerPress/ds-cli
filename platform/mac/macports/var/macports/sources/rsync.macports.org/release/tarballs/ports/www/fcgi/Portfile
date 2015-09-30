@@ -1,0 +1,51 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 113161 2013-11-11 06:40:09Z jeremyhu@macports.org $
+
+PortSystem          1.0
+
+name                fcgi
+version             2.4.0
+revision            3
+categories          www
+platforms           darwin
+maintainers         nomaintainer
+license             Permissive
+
+description         The FastCGI development kit in C
+
+long_description    FastCGI is a language independent, scalable, open \
+                    extension to CGI that provides high performance without \
+                    the limitations of server specific APIs. This is the C \
+                    development kit.
+
+homepage            http://www.fastcgi.com/
+master_sites        ${homepage}dist/ \
+                    ${homepage}dist/old/
+
+checksums           md5 d15060a813b91383a9f3c66faf84867e
+
+patchfiles          patch-acinclude.m4.diff \
+                    patch-configure.in.diff \
+                    patch-libfcgi-Makefile.am.diff \
+                    patch-libfcgi-fcgi_stdio.c.diff \
+                    patch-cgi-fcgi-cgi-fcgi.c.diff
+
+use_autoreconf      yes
+autoreconf.args     -fvi
+
+use_parallel_build  no
+
+post-destroot {
+    xinstall -m 644 -W ${worksrcpath}/doc cgi-fcgi.1 \
+        ${destroot}${prefix}/share/man/man1
+    xinstall -m 644 -W ${worksrcpath}/doc FCGI_Accept.3 FCGI_Finish.3 \
+        FCGI_SetExitStatus.3 FCGI_StartFilterData.3 \
+        ${destroot}${prefix}/share/man/man3
+    xinstall -d -m 0755 ${destroot}${prefix}/share/doc
+    copy ${worksrcpath}/doc ${destroot}${prefix}/share/doc/${name}
+    eval delete [glob ${destroot}${prefix}/share/doc/${name}/*.\[13\]]
+}
+
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     ${name}-(\[0-9.\]+)\\.tar

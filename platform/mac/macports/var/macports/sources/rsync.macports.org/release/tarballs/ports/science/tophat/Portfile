@@ -1,0 +1,43 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 125156 2014-09-08 03:10:09Z khindenburg@macports.org $
+
+PortSystem          1.0
+
+name                tophat
+version             1.2.0
+categories          science biology
+license             LGPL-3+
+platforms           darwin
+maintainers         gmail.com:haroldpimentel openmaintainer
+
+description         a fast splice junction mapper for RNA-Seq reads
+
+long_description    TopHat is ${description}. It aligns RNA-Seq reads to \
+                    mammalian-sized genomes using the ultra high-throughput \
+                    short read aligner Bowtie, and then analyzes the mapping \
+                    results to identify splice junctions between exons.
+
+homepage            http://ccb.jhu.edu/software/tophat/
+master_sites        ${homepage}downloads/
+
+checksums           sha1        0e697b16c64fa12180b93ecf87fdf25f722973a5 \
+                    rmd160      da62ddc6b2bf8deeda19a95965b1ff2cfd4b95b2
+
+use_parallel_build  no
+
+depends_lib         port:zlib \
+                    port:samtools \
+                    port:bowtie
+
+# samtools and bowtie are not universal
+universal_variant   no
+
+patchfiles          src_GList.hh.patch
+
+# defines _POSIX_SOURCE which by itself means 1003.1-1988, but uses fseeko
+# which is from 1003.1-2001, and strsep which is a BSD extension
+configure.cppflags-append -D_DARWIN_C_SOURCE
+
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     ${name}-(\[0-9.\]+)${extract.suffix}

@@ -1,0 +1,64 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 132444 2015-02-01 16:04:01Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-mako
+version             1.0.1
+revision            0
+categories-append   www
+platforms           darwin
+license             MIT
+supported_archs     noarch
+
+python.versions     26 27 33 34
+
+maintainers         dh stromnov openmaintainer
+
+description         A super-fast templating language that borrows \
+                    the best ideas from the existing templating \
+                    languages.
+
+long_description    Mako is a template library written in Python. \
+                    It provides a familiar, non-XML syntax which \
+                    compiles into Python modules for maximum \
+                    performance. Mako's syntax and API borrows from \
+                    the best ideas of many others, including Django \
+                    templates, Cheetah, Myghty, and Genshi. Conceptually, \
+                    Mako is an embedded Python (i.e. Python Server Page) \
+                    language, which refines the familiar ideas of \
+                    componentized layout and inheritance to produce one \
+                    of the most straightforward and flexible models \
+                    available, while also maintaining close ties to \
+                    Python calling and scoping semantics.
+
+homepage            http://www.makotemplates.org/
+master_sites        https://pypi.python.org/packages/source/M/Mako/
+
+distname            Mako-${version}
+
+checksums           rmd160  b4ce15a2a64694b7555e10ed0a00d1a688c90c32 \
+                    sha256  45f0869febea59dab7efd256fb451c377cbb7947bef386ff0bb44627c31a8d1c
+
+if {${name} ne ${subport}} {
+
+    if {[lsearch {26} ${python.version}] != -1} {
+        version             0.9.1
+        revision            0
+        distname            Mako-${version}
+        checksums           rmd160  e5f239c395a08d95fa330459e941fff87c5990f8 \
+                            sha256  ed74d72b720a97a51590dfa839f2048ceeb76cc80d1d9ea5731a5262384316ae
+    }
+
+    # Mako depends on pkg_resources from setuptools
+    depends_lib-append  port:py${python.version}-setuptools \
+                        port:py${python.version}-beaker \
+                        port:py${python.version}-markupsafe
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/mako/json
+    livecheck.regex     {Mako-(\d+(?:\.\d+)*)\.[tz]}
+}

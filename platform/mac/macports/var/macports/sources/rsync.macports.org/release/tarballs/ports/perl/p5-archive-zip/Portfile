@@ -1,0 +1,26 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137888 2015-06-22 20:22:24Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Archive-Zip 1.48
+
+platforms           darwin
+maintainers         nomaintainer
+license             {Artistic-1 GPL}
+
+supported_archs     noarch
+
+description         Interface to zip archive files
+long_description    Allows a Perl program to create, manipulate, read, \
+                    and write Zip archive files.
+
+checksums           rmd160  90dc150054b9240bac150ff621b57bc0c86b346b \
+                    sha256  01cb4fbc491f9890ceabc33e9888f85261f3d17f884d2b9d8e54564befd9e09f
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-compress-raw-zlib
+}

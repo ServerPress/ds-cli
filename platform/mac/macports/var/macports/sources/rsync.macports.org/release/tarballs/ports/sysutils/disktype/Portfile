@@ -1,0 +1,47 @@
+# $Id: Portfile 122229 2014-07-18 02:24:03Z jmr@macports.org $
+
+PortSystem          1.0
+
+name                disktype
+version             9
+revision            1
+categories          sysutils
+license             MIT
+platforms           darwin
+maintainers         nomaintainer
+description         Detects the content format of a disk or disk image
+long_description \
+   Detects the content format of a disk or disk image by checking for \
+   signatures of file systems, partition tables, and boot codes.
+
+homepage            http://disktype.sourceforge.net/
+master_sites        sourceforge:project/disktype/disktype/${version}
+
+checksums           sha1 5ccc55d1c47f9a37becce7336c4aa3a7a43cc89c
+
+patchfiles          patch-Makefile.diff
+post-patch {
+   if {[variant_isset universal]} {
+      reinplace "s|@@UNIVERSAL_CPPFLAGS@@|${configure.universal_cppflags}|" \
+         ${worksrcpath}/Makefile
+      reinplace "s|@@UNIVERSAL_CFLAGS@@|${configure.universal_cflags}|" \
+         ${worksrcpath}/Makefile
+      reinplace "s|@@UNIVERSAL_LDFLAGS@@|${configure.universal_ldflags}|" \
+         ${worksrcpath}/Makefile
+   } else {
+      reinplace "s|@@UNIVERSAL_CPPFLAGS@@||" ${worksrcpath}/Makefile
+      reinplace "s|@@UNIVERSAL_CFLAGS@@||" ${worksrcpath}/Makefile
+      reinplace "s|@@UNIVERSAL_LDFLAGS@@||" ${worksrcpath}/Makefile
+   }
+}
+
+use_configure       no
+
+destroot {
+   xinstall -m 755 -s ${worksrcpath}/disktype ${destroot}${prefix}/sbin
+   xinstall -m 644 ${worksrcpath}/disktype.1 \
+      ${destroot}${prefix}/share/man/man1
+}
+
+variant universal {
+}

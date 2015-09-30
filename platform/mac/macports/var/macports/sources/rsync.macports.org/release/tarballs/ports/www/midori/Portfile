@@ -1,0 +1,85 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136321 2015-05-14 22:46:54Z devans@macports.org $
+
+PortSystem          1.0
+
+name                midori
+version             0.5.10
+
+categories          www
+platforms           darwin
+license             MIT
+maintainers         afb openmaintainer
+
+description         Midori is a lightweight, Webkit-Gtk based web browser
+long_description    ${description}
+
+homepage            http://midori-browser.org
+master_sites        http://midori-browser.org/downloads
+use_bzip2           yes
+
+distname            midori_${version}_all_
+worksrcdir          midori-${version}
+extract.mkdir       yes
+
+checksums           rmd160  9aff6f7bb4e373594300bd5d75f81f1be727e74b \
+                    sha256  702344f68d7f034866a46398e35b3c16a5a5f3e431a5d916ea5efc3eaaa3e46f
+
+depends_build       port:cmake \
+                    port:pkgconfig \
+                    port:intltool
+
+depends_lib         port:desktop-file-utils \
+                    port:gtk2 \
+                    path:include/gio/gio.h:glib2 \
+                    port:gcr \
+                    port:librsvg \
+                    port:libsoup \
+                    port:libxml2 \
+                    port:sqlite3 \
+                    port:vala \
+                    port:xorg-libXScrnSaver \
+                    port:zeitgeist
+
+if {${configure.cxx_stdlib} eq "libstdc++"} {
+    depends_lib-append path:lib/pkgconfig/webkit-1.0.pc:webkit-gtk-2.0
+} else {
+    depends_lib-append path:lib/pkgconfig/webkit-1.0.pc:webkit-gtk
+}
+
+# apply post-release upstream patches
+# avoiding gtk 2.22 deprecated API (http://bazaar.launchpad.net/~midori/midori/trunk/revision/6943)
+# zeitgeist 2.0 compatibility (http://bazaar.launchpad.net/~midori/midori/trunk/revision/6945)
+
+patchfiles          patch-gtk2.22-bzr6943.diff \
+                    patch-zeitgeist-2.0-bzr6945.diff \
+                    patch-midori-midori-privatedata.c.diff
+
+# Not autoconf
+configure.universal_args-delete --disable-dependency-tracking
+
+platform darwin {
+    if {${configure.cxx_stdlib} eq "libstdc++"} {
+       depends_lib-delete path:lib/pkgconfig/webkit-1.0.pc:webkit-gtk
+       depends_lib-append path:lib/pkgconfig/webkit-1.0.pc:webkit-gtk-2.0
+    }
+
+    post-destroot {
+        # TODO: Fix the build system
+        system "install_name_tool -id ${prefix}/lib/libmidori-core.1.dylib ${destroot}${prefix}/lib/libmidori-core.1.dylib"
+        system "install_name_tool -change libmidori-core.1.dylib ${prefix}/lib/libmidori-core.1.dylib ${destroot}${prefix}/bin/midori" 
+
+        foreach file [glob ${destroot}${prefix}/lib/midori/*.so] {
+            system "install_name_tool -change libmidori-core.1.dylib ${prefix}/lib/libmidori-core.1.dylib ${file}" 
+        }
+    }
+}
+
+post-activate {
+    system "${prefix}/bin/update-desktop-database ${prefix}/share/applications"
+    system "${prefix}/bin/gtk-update-icon-cache -f -t ${prefix}/share/icons/hicolor"
+}
+
+livecheck.url       ${homepage}/download/source/
+livecheck.regex     ${name}_(\[0-9.\]*)_all_\.tar\.bz2
+livecheck.type      regex

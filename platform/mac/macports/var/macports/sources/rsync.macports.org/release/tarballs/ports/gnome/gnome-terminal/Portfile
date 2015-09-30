@@ -1,0 +1,82 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136376 2015-05-15 10:54:46Z devans@macports.org $
+
+PortSystem          1.0
+
+name                gnome-terminal
+version             3.16.2
+set branch          [join [lrange [split ${version} .] 0 1] .]
+description         Terminal component for the GNOME 3 Desktop
+long_description    ${description}
+maintainers         devans openmaintainer
+categories          gnome
+license             GPL-3+
+platforms           darwin
+homepage            https://wiki.gnome.org/Apps/Terminal
+master_sites        gnome:sources/${name}/${branch}/
+
+use_xz              yes
+
+checksums           rmd160  ad97e4612587c53e291bba895837406d44f84610 \
+                    sha256  9df7bab7bfd15ca9a3c60612e425baaf5c8b32ba181619f740b7129a0768f4e0
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:itstool \
+                    port:yelp-tools \
+                    port:appstream-glib \
+                    port:libxml2 \
+                    port:gnome-common \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         port:desktop-file-utils \
+                    port:gsettings-desktop-schemas \
+                    port:gtk3 \
+                    port:vte \
+                    port:dbus \
+                    port:dconf \
+                    port:ossp-uuid \
+                    port:xorg-libX11
+
+depends_run         port:gnome-settings-daemon \
+                    port:yelp
+
+patchfiles          patch-uuid.diff \
+                    no-dupfd_cloexec.patch \
+                    patch-src-Makefile.am.diff \
+                    patch-src-server.c.diff
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+}
+
+configure.cmd       ./autogen.sh
+
+configure.args      --with-gtk=3.0 \
+                    --with-nautilus-extension=no \
+                    --enable-debug \
+                    --disable-migration \
+                    --disable-search-provider \
+                    --disable-silent-rules \
+                    --disable-schemas-compile
+
+variant nautilus description {Build optional nautilus extension} {
+    configure.args-replace  --with-nautilus-extension=no --with-nautilus-extension=yes
+    depends_lib-append      port:nautilus
+}
+
+variant migration description {Enable prefs migration from GConf to GSettings} {
+    configure.args-delete   --disable-migration
+    depends_lib-append      port:gconf
+}
+
+post-activate   {
+    system "${prefix}/bin/update-desktop-database ${prefix}/share/applications"
+    system "${prefix}/bin/glib-compile-schemas ${prefix}/share/glib-2.0/schemas"
+}
+
+livecheck.type      gnome

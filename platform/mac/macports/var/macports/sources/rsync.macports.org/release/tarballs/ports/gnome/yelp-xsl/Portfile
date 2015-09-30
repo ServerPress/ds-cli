@@ -1,0 +1,46 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136091 2015-05-11 19:14:47Z devans@macports.org $
+
+PortSystem          1.0
+
+name                yelp-xsl
+version             3.16.1
+license             GPL-2 LGPL-2.1
+set branch          [join [lrange [split ${version} .] 0 1] .]
+description         A collection of XSLT and other data files required by Yelp.
+long_description    yelp-xsl contains various XSLT files for transforming DocBook, Mallard, \
+                    and other formats as required by Yelp.
+maintainers         devans openmaintainer
+categories          gnome
+platforms           darwin
+homepage            https://wiki.gnome.org/Apps/Yelp
+master_sites        gnome:sources/${name}/${branch}/
+
+use_xz              yes
+
+checksums           rmd160  591769a985bb2a92e5044868376b865be53c378f \
+                    sha256  3295eecc4b03d2a239f7a1bdf4a1311d34c46c3055e6535c1f72bb5a49b4174a
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:itstool \
+                    port:autoconf \
+                    port:automake
+
+depends_lib         port:gtk3 \
+                    port:libxslt \
+                    port:libxml2
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+}
+
+configure.cmd       ./autogen.sh
+
+post-activate   {
+    system "${prefix}/bin/gtk-update-icon-cache-3.0 -f -t ${prefix}/share/icons/hicolor"
+}
+
+livecheck.type      gnome

@@ -1,0 +1,47 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138407 2015-07-07 14:56:28Z hum@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+set real_name       gensim
+name                py-${real_name}
+version             0.12.0
+categories-append   textproc
+maintainers         hum openmaintainer
+supported_archs     noarch
+
+description         Python framework for fast Vector Space Modelling
+
+long_description    Gensim is a Python library for topic modelling, document \
+                    indexing and similarity retrieval with large corpora. \
+                    Target audience is the natural language processing (NLP) and \
+                    information retrieval (IR) community.
+
+homepage            http://radimrehurek.com/gensim/
+platforms           darwin
+license             LGPL
+
+master_sites        https://pypi.python.org/packages/source/g/${real_name}/
+distname            ${real_name}-${version}
+
+python.versions     27 34
+
+if {${name} ne ${subport}} {
+    checksums           rmd160  fa96be17860d013d7524a082be5a3e929f46858a \
+                        sha256  40bd792d01f411ee2a26288a09564c65cd9400f85382df98192015507860e22f
+    depends_lib-append  port:py${python.version}-numpy \
+                        port:py${python.version}-scipy
+    post-destroot {
+        set docdir ${prefix}/share/doc/${subport}
+        xinstall -d ${destroot}${docdir}
+        xinstall -m 644 -W ${worksrcpath} \
+            CHANGELOG.txt COPYING COPYING.LESSER README.rst \
+            ${destroot}${docdir}
+    }
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/${real_name}/json
+    livecheck.regex     "${real_name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"
+}

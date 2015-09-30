@@ -1,0 +1,31 @@
+# $Id: Portfile 130615 2015-01-02 01:32:08Z larryv@macports.org $
+
+PortSystem			1.0
+PortGroup			python 1.0
+
+name				py-myghtyutils
+version				0.52
+revision			1
+categories-append		www
+license				MIT
+maintainers			nomaintainer
+supported_archs			noarch
+
+description			Container and Utility Functions from the \
+				Myghty Template Framework.
+long_description		${description}
+
+platforms			darwin
+
+homepage			http://www.myghty.org
+master_sites			http://cheeseshop.python.org/packages/source/M/MyghtyUtils/
+distname			MyghtyUtils-${version}
+
+checksums			md5 a15cda5919509024245802f4028b1560
+
+python.versions		27
+
+if {${name} ne ${subport}} {
+    use_zip				yes
+    depends_build		port:py${python.version}-setuptools
+}

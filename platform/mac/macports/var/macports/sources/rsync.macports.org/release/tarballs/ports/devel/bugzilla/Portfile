@@ -1,0 +1,157 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 122731 2014-07-28 06:40:06Z devans@macports.org $
+
+PortSystem          1.0
+
+name                bugzilla
+version             4.4.5
+license             MPL-2
+categories          devel www databases
+maintainers         nomaintainer
+platforms           darwin
+description         popular and extensive bug-tracking system
+long_description    Bugzilla is a Defect Tracking System or \
+                    Bug-Tracking System. Defect Tracking Systems allow \
+                    individual or groups of developers to keep track of \
+                    outstanding bugs in their product effectively. Most \
+                    commercial defect-tracking software vendors charge \
+                    enormous licensing fees. Despite being free, \
+                    Bugzilla has many features its expensive \
+                    counterparts lack. Consequently, Bugzilla has \
+                    quickly become a favorite of hundreds of \
+                    organizations across the globe.
+
+homepage            http://www.bugzilla.org/
+master_sites        http://ftp.mozilla.org/pub/mozilla.org/webtools/
+
+checksums           rmd160  af53b39d035de36f636f615e3e3dabef6d051772 \
+                    sha256  70609fa5bbe55a3b802afcf749a098824d7a96dc87b91ce07b000cfdd7987da5
+
+depends_lib         port:apache2 \
+                    port:perl5.16 \
+                    port:p5.16-cgi \
+                    port:p5.16-timedate \
+                    port:p5.16-datetime \
+                    port:p5.16-datetime-timezone \
+                    port:p5.16-dbi \
+                    port:p5.16-template-toolkit \
+                    port:p5.16-digest-sha \
+                    port:p5.16-email-send \
+                    port:p5.16-email-mime \
+                    port:p5.16-uri \
+                    port:p5.16-list-moreutils \
+                    port:p5.16-math-random-isaac \
+                    port:p5.16-dbd-mysql \
+                    port:p5.16-gd \
+                    port:p5.16-chart \
+                    port:p5.16-template-gd \
+                    port:p5.16-gdtextutil \
+                    port:p5.16-gdgraph \
+                    port:p5.16-mime-tools \
+                    port:p5.16-xml-twig \
+                    port:p5.16-libwww-perl \
+                    port:p5.16-patchreader \
+                    port:p5.16-perl-ldap \
+                    port:p5.16-authen-sasl \
+                    port:p5.16-net-smtp-ssl \
+                    port:p5.16-soap-lite \
+                    port:p5.16-json-xs \
+                    port:p5.16-test-taint \
+                    port:p5.16-html-parser \
+                    port:p5.16-html-scrubber \
+                    port:p5.16-encode \
+                    port:p5.16-encode-detect \
+                    port:p5.16-file-mimeinfo \
+                    port:p5.16-io-stringy \
+                    port:patchutils
+
+variant mysql5 description "Use mysql5 database" {
+    depends_lib-append  path:bin/mysql_config5:mysql5
+}
+
+default_variants    +mysql5
+
+post-patch {
+    foreach item [glob ${worksrcpath}/*.cgi ${worksrcpath}/*.pl \
+                       ${worksrcpath}/contrib/*.pl ${worksrcpath}/docs/*.pl] {
+        reinplace -locale C "s%^#!.*perl%#!${prefix}/bin/perl5.16%" ${item}
+    }
+    foreach item [glob ${worksrcpath}/*.pl ${worksrcpath}/contrib/*.pl \
+                       ${worksrcpath}/Bugzilla/*.pm ${worksrcpath}/docs/html/*.html \
+                       ${worksrcpath}/docs/txt/*.txt ${worksrcpath}/docs/xml/*.xml] {
+        reinplace -locale C "s%/usr/lib/sendmail%/usr/sbin/sendmail%g" ${item}
+    }
+}
+
+configure.cmd       ./checksetup.pl
+configure.pre_args  --check-modules
+
+build.cmd           ./checksetup.pl
+build.target
+
+destroot {
+    # Warn user if not running as root
+    if {[geteuid] != 0} {
+        ui_msg "-----------------------------------------------------------"
+        ui_msg "Note that you are not running as root, so files installed"
+        ui_msg "by this port will not end up with proper ownership and"
+        ui_msg "likely not work correctly with Apache."
+        ui_msg "-----------------------------------------------------------"
+    }
+
+    set wwwRoot "${prefix}/www"
+    xinstall -d -m 0755 ${destroot}${wwwRoot}
+    ui_info "copying ${worksrcpath}\n     to ${destroot}${wwwRoot}/${name}"
+    system "cp -R ${worksrcpath}/. ${destroot}${wwwRoot}/${name}"
+    # Fix owner and group on installed data
+    if {[geteuid] == 0} {
+        foreach item [exec find ${destroot}${wwwRoot}/${name} -type f] {
+            file attributes ${item} -permissions go+r -owner www -group www
+        }
+        foreach item [exec find ${destroot}${wwwRoot}/${name} -type d] {
+            file attributes ${item} -permissions go+rx -owner www -group www
+        }
+    } else {
+        foreach item [exec find ${destroot}${wwwRoot}/${name} -type f] {
+            file attributes ${item} -permissions go+r
+        }
+        foreach item [exec find ${destroot}${wwwRoot}/${name} -type d] {
+            file attributes ${item} -permissions go+rx
+        }
+    }
+
+    set docPath "${prefix}/share/doc/${name}"
+    xinstall -d -m 0755 ${destroot}${docPath}
+    xinstall -m 0644 \
+        ${worksrcpath}/README \
+        ${destroot}${docPath}/
+    ui_info "copying docs\n     to ${destroot}${docPath}/guide"
+    system "cp -R ${worksrcpath}/docs ${destroot}${docPath}/guide"
+    foreach item [exec find ${destroot}${docPath}/guide -type f] {
+        file attributes ${item} -permissions go+r
+    }
+    foreach item [exec find ${destroot}${docPath}/guide -type d] {
+        file attributes ${item} -permissions go+rx
+    }
+}
+
+notes "
+To complete the installation of ${name}, you should read the Bugzilla Quick Start Guide
+section of the README document found here:
+
+    ${prefix}/share/doc/${name}/README
+
+For step 4, the ${name} configuration file can be found here:
+
+    ${prefix}/www/${name}/localconfig
+
+For the rest of the steps, the main ${name} directory can be found here\
+(needed for step 7):
+
+    ${prefix}/www/${name}
+"
+
+livecheck.type  regex
+livecheck.url   ${master_sites}
+livecheck.regex ${name}-(\[0-9\]+\\.\[0-9\]*\[02468\](\\.\[0-9\]+)*)${extract.suffix}
+

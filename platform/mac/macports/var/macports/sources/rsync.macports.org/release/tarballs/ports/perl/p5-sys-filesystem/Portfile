@@ -1,0 +1,32 @@
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Sys-Filesystem 1.406
+revision            3
+maintainers         nomaintainer
+description         Retrieve list of filesystems and their properties
+long_description    Sys::Filesystem is intended to be a \
+    portable interface to list and query filesystem names and their \
+    properties. At the time of writing there were only Solaris and \
+    Win32 modules available on CPAN to perform this kind of \
+    operation. This module hopes to provide a consistant API to list \
+    all, mounted, unmounted and special filesystems on a system, and \
+    query as many properties as possible with common aliases wherever \
+    possible.
+
+homepage            http://search.cpan.org/~nicolaw/Sys-Filesystem
+
+platforms           darwin
+
+checksums           rmd160  df77a845f2b12595168ec3931c8b1d3031775df4 \
+                    sha256  9a1d43326226f8aea3359849383784840ef930e5c4efafa4cbd5764d2c7a6afb
+
+supported_archs noarch
+
+if {${perl5.major} != ""} {
+depends_lib-append  port:p${perl5.major}-test-simple \
+                    port:p${perl5.major}-params-util
+}

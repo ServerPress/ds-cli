@@ -1,0 +1,27 @@
+<HEAD>
+<TITLE>Status reporting</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Automatic,_periodic_and_timed_events.html">Next</A>
+<A HREF="Jobs.html">Previous</A>
+<H2>Status reporting</H2>
+The shell learns immediately whenever a process changes state.  It normally
+informs you whenever a job becomes blocked so that no further progress is
+possible, but only right before it prints a prompt.  This is done so that it
+does not otherwise disturb your work.  If, however, you set the shell variable
+<B><A HREF="Special_shell_variables.html#notify">notify</A></B>, the shell will notify you immediately of changes of status in
+background jobs.  There is also a shell command <I><A HREF="Builtin_commands.html#notify">notify</A></I> which marks a
+single process so that its status changes will be immediately reported.  By
+default <I><A HREF="Builtin_commands.html#notify">notify</A></I> marks the current process; simply say `notify' after
+starting a background job to mark it.
+<P>
+When you try to leave the shell while jobs are stopped, you will be
+warned that `There are suspended jobs.' You may use the <I><A HREF="Builtin_commands.html#jobs">jobs</A></I> command to
+see what they are.  If you do this or immediately try to exit again, the shell
+will not warn you a second time, and the suspended jobs will be terminated.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Automatic,_periodic_and_timed_events.html">Next</A>
+<A HREF="Jobs.html">Previous</A>
+</BODY>

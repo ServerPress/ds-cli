@@ -1,0 +1,29 @@
+# $Id: Portfile 133034 2015-02-18 13:16:10Z mmoll@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           github 1.0
+
+github.setup        gccxml pygccxml 1.6.2 v
+name                py-pygccxml
+
+python.versions     27 34
+categories-append   devel
+maintainers         mmoll openmaintainer
+license             Boost-1
+description         pygccxml is a specialized XML reader that reads the output from GCCXML.
+long_description    ${description} It provides a simple framework to navigate C++ \
+                    declarations, using Python classes.
+platforms           darwin
+supported_archs     noarch
+checksums           rmd160  f965f8ab23f3047aaf8225164aceb195788d29f8 \
+                    sha256  78f40da77fdae852f99e5df581132edf979d3ec45aa6e1e7e410e24773df6985
+
+if {${name} ne ${subport}} {
+    depends_build-append   port:py${python.version}-setuptools
+    depends_lib-append     port:gccxml-devel
+
+    test.run        yes
+    test.cmd        python${python.branch}
+    test.target     unittests/test_all.py
+}

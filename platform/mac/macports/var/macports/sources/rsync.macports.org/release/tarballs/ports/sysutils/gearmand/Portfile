@@ -1,0 +1,123 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137017 2015-06-02 21:35:24Z mf2k@macports.org $
+
+PortSystem          1.0
+
+# configure: error: unable to determine endian
+PortGroup           muniversal 1.0
+
+name                gearmand
+version             1.1.12
+set branch          1.2
+categories          sysutils net devel
+maintainers         nomaintainer
+platforms           darwin
+license             BSD
+
+description         Framework for distributed computation
+long_description    \
+        Gearman provides a generic application framework  to  farm  out  work \
+        to other machines or processes that are better suited to do the work. \
+        It allows you to do work in parallel,  to  load  balance  processing, \
+        and to call functions between languages.  It can be used in a variety \
+        of applications, from high-availability web sites to the transport of \
+        database replication events. In other words, it is the nervous system \
+        for how distributed processing communicates.
+
+homepage            http://gearman.org/
+master_sites        https://launchpad.net/gearmand/${branch}/${version}/+download/
+
+checksums           rmd160  a5be8f7d7f4ec3897f70b55c3f6acebe47af66fa \
+                    sha256  973d7a3523141a84c7b757c6f243febbc89a3631e919b532c056c814d8738acb
+
+depends_lib         port:boost \
+                    port:libevent
+
+patchfiles-append   patch-libgearman-byteorder.cc.diff
+patchfiles-append   patch-libgearman-client.cc.diff
+
+if {${configure.cxx_stdlib} eq "libstdc++"} {
+    patchfiles-append   patch-libgearman-1.0-gearman.h.diff
+}
+
+configure.args      --disable-silent-rules \
+                    --disable-libdrizzle \
+                    --disable-libpq \
+                    --disable-libmemcached \
+                    --disable-libtokyocabinet \
+                    --enable-jobserver=${build.jobs} \
+                    --without-mysql \
+                    --without-sqlite3
+
+# gearmand handles parallel building using the --enable-jobserver arg above.
+use_parallel_build  no
+
+merger_arch_compiler yes
+if {![variant_isset universal]} {
+    configure.cc-append " ${configure.cc_archflags}"
+    configure.cxx-append " ${configure.cxx_archflags}"
+}
+
+post-destroot {
+    set docdir ${prefix}/share/doc/${subport}
+    xinstall -d ${destroot}${docdir}
+    xinstall -m 644 -W ${worksrcpath} \
+        AUTHORS \
+        COPYING \
+        ChangeLog \
+        HACKING \
+        README \
+        THANKS \
+        ${destroot}${docdir}
+}
+
+platform darwin {
+    if {${os.major} >= 14} {
+        configure.cxxflags-append -DHAVE_HTONLL
+    }
+}
+
+variant dtrace description {Enable DTrace probes} {
+    configure.args-append   --enable-dtrace
+}
+
+variant sqlite description {Build with sqlite3 support} {
+    depends_lib-append      port:sqlite3
+    configure.args-delete   --without-sqlite3
+}
+default_variants +sqlite
+
+variant drizzle description {Build with libdrizzle support} {
+    depends_lib-append      port:libdrizzle
+    configure.args-delete   --disable-libdrizzle
+    configure.args-append   --enable-libdrizzle
+}
+
+variant postgres description {Build with postgresql support} {
+    depends_lib-append      port:libpqxx
+    configure.args-delete   --disable-libpq
+    configure.args-append   --enable-libpq
+}
+
+variant memcached description {Build with memcached support} {
+    depends_lib-append      port:libmemcached
+    configure.args-delete   --disable-libmemcached
+    configure.args-append   --enable-libmemcached
+}
+
+variant tokyocabinet description {Build with tokyocabinet support} {
+    depends_lib-append      port:tokyocabinet
+    configure.args-delete   --disable-libtokyocabinet
+    configure.args-append   --enable-libtokyocabinet
+}
+
+startupitem.create  yes
+startupitem.executable  ${prefix}/sbin/gearmand -vv \
+                        --port=4730 \
+                        -u root \
+                        --pid-file=${prefix}/var/run/gearmand.pid \
+                        --log-file=${prefix}/var/log/gearmand.log
+
+livecheck.type      regexm
+livecheck.url       https://launchpad.net/${name}/+download
+livecheck.regex     (\[0-9.\]+) release</a>\\s+from the\\s+<a href="/gearmand/${branch}">${branch}</a> series

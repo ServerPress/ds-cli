@@ -1,0 +1,26 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 132873 2015-02-12 00:33:01Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Test-Inter 1.06
+platforms           darwin
+maintainers         nomaintainer
+license             {Artistic-1 GPL}
+
+description         Test::Inter - framework for more readable interactive \
+                    test scripts
+
+long_description    ${description}
+
+checksums           rmd160  949994261136946851e67d18d42d6ac59d651400 \
+                    sha256  5c7de54fec00d2e874550ea83da15b817f82724142904d260590fcebfb5b8f84
+
+if {${perl5.major} != ""} {
+    patchfiles      patch-lib-Test-Inter.pod.diff
+
+    perl5.use_module_build
+    supported_archs noarch
+}

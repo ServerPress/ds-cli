@@ -1,0 +1,57 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135991 2015-05-09 07:07:09Z ryandesign@macports.org $
+
+PortSystem 1.0
+
+name            GiNaC
+version         1.6.4
+categories      math
+platforms       darwin
+license         GPL-2
+maintainers     gmail.com:mschamschula openmaintainer
+description     GiNaC is Not a Computer algebra system
+long_description \
+    Currently, GiNaC's capabilities include: \
+        1. Very fast manipulation of large integers and \
+           rationals owing to the CLN library (for instance, \
+           it uses Karatsuba multiplication and \
+           Schoenhage-Strassen multiplication for very large \
+           integers). \
+        2. Efficient handling of multivariate polynomials and \
+           rational functions. \
+        3. Support for linear algebra includes symbolic \
+           matrices, vectors and solving equations. \
+        4. Very fast heuristic polynomial GCD. \
+        5. Many built in functions (sin, cos, atan, sinh, \
+           factorial, etc.) \
+        6. Symbolic differentiation and series expansion of \
+           all built-in functions. \
+        7. Several forms of output (also as optimized C++, \
+           for numerical postprocessing). \
+        8. Memory-efficiency and -safety through the internal \
+           use of reference counting for all expressions.
+
+use_bzip2       yes
+distname        ginac-${version}
+
+homepage        http://www.ginac.de/
+master_sites    ${homepage}
+
+checksums       rmd160  5777307b3b8b29a4b59657be7addac5e47ba696e \
+                sha256  6241158216b4f68c625ce7d843d5b6b070304f87e7fc8f4075b76501ca0f3c60
+
+depends_build   port:pkgconfig
+depends_lib     port:readline \
+                port:cln
+
+#patches for clang++/libc++; do not seem to hurt on g++/libstdc++
+
+patchfiles      patch-check_exam_clifford.cpp.diff \
+                patch-check_exam_inifcns_nstdsums.cpp.diff
+
+test.run        yes
+test.target     check
+
+livecheck.type      regex
+livecheck.url       ${homepage}News.html
+livecheck.regex     "Version (\[0-9.\]+)"

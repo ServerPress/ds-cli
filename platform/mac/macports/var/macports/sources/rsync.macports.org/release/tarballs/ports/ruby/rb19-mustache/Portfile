@@ -1,0 +1,30 @@
+# $Id: Portfile 115108 2013-12-25 07:18:41Z ryandesign@macports.org $
+PortSystem          1.0
+PortGroup           ruby 1.0
+
+ruby.setup          mustache 0.12.1 gem {} rubygems ruby19
+conflicts           rb-mustache
+description         Logic-less templates, implemented in Ruby.
+long_description    \
+    Inspired by ctemplate and et, Mustache is a framework-agnostic way to \
+    render logic-free views.
+license             MIT
+maintainers         nomaintainer
+homepage            http://mustache.github.com/
+categories-append   www
+checksums           rmd160  d02fc0c7f108afb9d4ed0c4fe4c1d151aff9f103 \
+                    sha256  539f8613cf6154aefd290256ad2d5ff09b1c7f6529aca74b2941973bf56a2c52
+
+post-destroot {
+    set gemdir ${destroot}${ruby.gemdir}/gems/${worksrcdir}
+    set mandir ${destroot}${prefix}/share/man/
+    set docdir ${destroot}${prefix}/share/doc/${ruby.module}
+    xinstall -d ${docdir}
+    
+    xinstall ${gemdir}/man/${ruby.module}.1 ${mandir}/man1/
+    xinstall ${gemdir}/man/${ruby.module}.5 ${mandir}/man5/
+    xinstall -W ${gemdir} README.md LICENSE ${docdir}
+    eval xinstall [glob  ${gemdir}/man/*.html] ${docdir}
+}
+
+

@@ -1,0 +1,26 @@
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem           1.0
+PortGroup            perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup          Net-Telnet 3.04
+license              {Artistic-1 GPL}
+maintainers          nomaintainer
+description          Interact with TELNET port or other TCP ports
+long_description     Net::Telnet allows you to make client connections to a \
+                     TCP port and do network I/O, especially to a port using \
+                     the TELNET protocol.  Simple I/O methods such as print, \
+                     get, and getline are provided.  More sophisticated \
+                     interactive features are provided because connecting to \
+                     a TELNET port ultimately means communicating with a \
+                     program designed for human interaction.  These \
+                     interactive features include the ability to specify a \
+                     time-out and to wait for patterns to appear in the input \
+                     stream, such as the prompt from a shell.
+platforms            darwin
+
+checksums            rmd160  bd7d460db657ec96ca23b546a4410374f76c6dda \
+                     sha256  e64d567a4e16295ecba949368e7a6b8b5ae2a16b3ad682121d9b007dc5d2a37a
+
+supported_archs noarch

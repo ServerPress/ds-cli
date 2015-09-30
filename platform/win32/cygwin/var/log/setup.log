@@ -1,0 +1,443 @@
+2015/07/08 14:18:32 Starting cygwin install, version 2.871
+2015/07/08 14:18:32 User has backup/restore rights
+2015/07/08 14:18:32 io_stream_cygfile: fopen(/etc/setup/setup.rc) failed 2 No such file or directory
+2015/07/08 14:18:32 Current Directory: C:\Users\scarroll\Downloads
+2015/07/08 14:18:32 Could not open service McShield for query, start and stop. McAfee may not be installed, or we don't have access.
+2015/07/08 14:19:00 source: network install
+2015/07/08 14:20:06 root: C:\cygwin system
+2015/07/08 14:20:09 Selected local directory: C:\Users\scarroll\Downloads
+2015/07/08 14:20:12 net: Direct
+2015/07/08 14:20:59 site: http://mirrors.163.com/cygwin/
+2015/07/08 14:22:12 io_stream_cygfile: fopen(/etc/setup/setup.rc) failed 2 No such file or directory
+2015/07/08 14:22:12 Ending cygwin install
+2015/07/08 14:22:23 Starting cygwin install, version 2.871
+2015/07/08 14:22:23 User has backup/restore rights
+2015/07/08 14:22:23 io_stream_cygfile: fopen(/etc/setup/setup.rc) failed 2 No such file or directory
+2015/07/08 14:22:23 Current Directory: C:\Users\scarroll\Downloads
+2015/07/08 14:22:23 Could not open service McShield for query, start and stop. McAfee may not be installed, or we don't have access.
+2015/07/08 14:22:26 source: network install
+2015/07/08 14:22:28 root: C:\cygwin system
+2015/07/08 14:22:31 Selected local directory: C:\Users\scarroll\Downloads
+2015/07/08 14:22:35 net: Direct
+2015/07/08 14:23:32 site: http://mirrors.kernel.org/sourceware/cygwin/
+2015/07/08 14:23:33 io_stream_cygfile: fopen(/etc/setup/installed.db) failed 2 No such file or directory
+2015/07/08 14:23:34 io_stream_cygfile: fopen(/etc/setup/timestamp) failed 2 No such file or directory
+2015/07/08 14:45:06 Adding required dependency bzip2: Selecting version 1.0.6-2 for installation.
+2015/07/08 14:45:06 Adding required dependency compface: Selecting version 1.5.2-12 for installation.
+2015/07/08 14:45:06 Adding required dependency crypt: Selecting version 1.2-1 for installation.
+2015/07/08 14:45:06 Adding required dependency csih: Selecting version 0.9.8-6 for installation.
+2015/07/08 14:45:06 Adding required dependency cygrunsrv: Selecting version 1.62-1 for installation.
+2015/07/08 14:45:06 Adding required dependency cyrus-sasl: Selecting version 2.1.26-9 for installation.
+2015/07/08 14:45:06 Adding required dependency diffutils: Selecting version 3.3-2 for installation.
+2015/07/08 14:45:06 Adding required dependency groff: Selecting version 1.22.3-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libargp: Selecting version 20110921-2 for installation.
+2015/07/08 14:45:06 Adding required dependency libattr1: Selecting version 2.4.46-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libblkid1: Selecting version 2.25.2-2 for installation.
+2015/07/08 14:45:06 Adding required dependency libbz2_1: Selecting version 1.0.6-2 for installation.
+2015/07/08 14:45:06 Adding required dependency libcatgets1: Selecting version 1.1-2 for installation.
+2015/07/08 14:45:06 Adding required dependency libcompface0: Selecting version 1.5.2-12 for installation.
+2015/07/08 14:45:06 Adding required dependency libcom_err2: Selecting version 1.42.12-2 for installation.
+2015/07/08 14:45:06 Adding required dependency libcurl4: Selecting version 7.43.0-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libdb4.8: Selecting version 4.8.30-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libedit0: Selecting version 20130712-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libexpat1: Selecting version 2.1.0-3 for installation.
+2015/07/08 14:45:06 Adding required dependency libffi6: Selecting version 3.2.1-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libgc1: Selecting version 7.2d-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libgcc1: Selecting version 4.9.3-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libgdbm4: Selecting version 1.8.3-20 for installation.
+2015/07/08 14:45:06 Adding required dependency libgmp10: Selecting version 6.0.0a-2 for installation.
+2015/07/08 14:45:06 Adding required dependency libgnutls28: Selecting version 3.2.21-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libgssapi_krb5_2: Selecting version 1.13.2-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libhogweed2: Selecting version 2.7-2 for installation.
+2015/07/08 14:45:06 Adding required dependency libiconv: Selecting version 1.14-3 for installation.
+2015/07/08 14:45:06 Adding required dependency libiconv2: Selecting version 1.14-3 for installation.
+2015/07/08 14:45:06 Adding required dependency libidn11: Selecting version 1.29-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libintl8: Selecting version 0.19.4-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libk5crypto3: Selecting version 1.13.2-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libkrb5support0: Selecting version 1.13.2-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libkrb5_3: Selecting version 1.13.2-1 for installation.
+2015/07/08 14:45:06 Adding required dependency liblzma5: Selecting version 5.2.1-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libmetalink3: Selecting version 0.1.2-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libmpfr4: Selecting version 3.1.3-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libncursesw10: Selecting version 5.9-20150530-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libnettle4: Selecting version 2.7-2 for installation.
+2015/07/08 14:45:06 Adding required dependency libopenldap2_4_2: Selecting version 2.4.40-2 for installation.
+2015/07/08 14:45:06 Adding required dependency libp11-kit0: Selecting version 0.22.1-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libpcre1: Selecting version 8.37-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libpipeline1: Selecting version 1.4.0-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libpopt0: Selecting version 1.16-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libsasl2_3: Selecting version 2.1.26-9 for installation.
+2015/07/08 14:45:06 Adding required dependency libsigsegv2: Selecting version 2.10-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libsmartcols1: Selecting version 2.25.2-2 for installation.
+2015/07/08 14:45:06 Adding required dependency libssh2_1: Selecting version 1.5.0-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libssp0: Selecting version 4.9.3-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libstdc++6: Selecting version 4.9.3-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libtasn1_6: Selecting version 4.4-1 for installation.
+2015/07/08 14:45:06 Adding required dependency libuuid1: Selecting version 2.25.2-2 for installation.
+2015/07/08 14:45:06 Adding required dependency libwrap0: Selecting version 7.6-22 for installation.
+2015/07/08 14:45:06 Adding required dependency lynx: Selecting version 2.8.7-1 for installation.
+2015/07/08 14:45:06 Adding required dependency m4: Selecting version 1.4.17-1 for installation.
+2015/07/08 14:45:06 Adding required dependency p11-kit: Selecting version 0.22.1-1 for installation.
+2015/07/08 14:45:06 Adding required dependency p11-kit-trust: Selecting version 0.22.1-1 for installation.
+2015/07/08 14:45:06 Adding required dependency perl: Selecting version 5.14.4-3 for installation.
+2015/07/08 14:45:06 Adding required dependency perl_autorebase: Selecting version 5.14.4-3 for installation.
+2015/07/08 14:45:06 Adding required dependency perl_base: Selecting version 5.14.4-3 for installation.
+2015/07/08 14:45:06 Adding required dependency popt: Selecting version 1.16-1 for installation.
+2015/07/08 14:45:06 Adding required dependency procmail: Selecting version 3.22-15 for installation.
+2015/07/08 14:45:06 Adding required dependency procps: Selecting version 3.2.8-4 for installation.
+2015/07/08 14:45:06 Adding required dependency tcp_wrappers: Selecting version 7.6-22 for installation.
+2015/07/08 14:45:06 Adding required dependency tcsh: Selecting version 6.19.00-1 for installation.
+2015/07/08 14:45:06 Adding required dependency xxd: Selecting version 7.4.752-1 for installation.
+2015/07/08 14:45:06 Adding required dependency xz: Selecting version 5.2.1-1 for installation.
+2015/07/08 14:45:06 Adding required dependency zlib0: Selecting version 1.2.8-3 for installation.
+2015/07/08 14:45:06 Adding required dependency _update-info-dir: Selecting version 01407-1 for installation.
+2015/07/08 14:45:06 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/_autorebase/_autorebase-001002-1.tar.xz
+2015/07/08 14:45:06 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/_update-info-dir/_update-info-dir-01407-1.tar.bz2
+2015/07/08 14:45:06 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/alternatives/alternatives-1.3.30c-10.tar.bz2
+2015/07/08 14:45:06 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/base-cygwin/base-cygwin-3.8-1.tar.xz
+2015/07/08 14:45:07 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/base-files/base-files-4.2-3.tar.xz
+2015/07/08 14:45:07 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/bash/bash-4.3.39-2.tar.xz
+2015/07/08 14:45:08 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/bash-completion/bash-completion-1.3-1.tar.bz2
+2015/07/08 14:45:08 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/bzip2/bzip2-1.0.6-2.tar.bz2
+2015/07/08 14:45:09 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/ca-certificates/ca-certificates-2.4-2.tar.xz
+2015/07/08 14:45:09 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/compface/compface-1.5.2-12.tar.bz2
+2015/07/08 14:45:10 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/coreutils/coreutils-8.23-4.tar.xz
+2015/07/08 14:45:10 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/crypt/crypt-1.2-1.tar.bz2
+2015/07/08 14:45:11 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/csih/csih-0.9.8-6.tar.xz
+2015/07/08 14:45:11 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/curl/curl-7.43.0-1.tar.xz
+2015/07/08 14:45:11 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/cygrunsrv/cygrunsrv-1.62-1.tar.xz
+2015/07/08 14:45:11 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/cygutils/cygutils-1.4.14-1.tar.bz2
+2015/07/08 14:45:13 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/cygwin/cygwin-2.0.4-1.tar.xz
+2015/07/08 14:45:13 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/cyrus-sasl/cyrus-sasl-2.1.26-9.tar.xz
+2015/07/08 14:45:13 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/dash/dash-0.5.8-3.tar.xz
+2015/07/08 14:45:13 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/diffutils/diffutils-3.3-2.tar.xz
+2015/07/08 14:45:14 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/editrights/editrights-1.03-1.tar.xz
+2015/07/08 14:45:14 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/file/file-5.22-2.tar.xz
+2015/07/08 14:45:15 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/findutils/findutils-4.5.12-1.tar.xz
+2015/07/08 14:45:15 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/gawk/gawk-4.1.3-1.tar.xz
+2015/07/08 14:45:15 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/getent/getent-2.18.90-4.tar.xz
+2015/07/08 14:45:16 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/grep/grep-2.21-2.tar.xz
+2015/07/08 14:45:17 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/groff/groff-1.22.3-1.tar.xz
+2015/07/08 14:45:17 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/gzip/gzip-1.6-1.tar.xz
+2015/07/08 14:45:17 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/hostname/hostname-3.13-1.tar.bz2
+2015/07/08 14:45:18 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/texinfo/info/info-6.0-1.tar.xz
+2015/07/08 14:45:18 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/ipc-utils/ipc-utils-1.0-1.tar.bz2
+2015/07/08 14:45:19 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/less/less-471-1.tar.xz
+2015/07/08 14:45:19 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/lftp/lftp-4.6.2-1.tar.xz
+2015/07/08 14:45:19 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libargp/libargp-20110921-2.tar.bz2
+2015/07/08 14:45:20 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/attr/libattr1/libattr1-2.4.46-1.tar.bz2
+2015/07/08 14:45:20 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/util-linux/libblkid1/libblkid1-2.25.2-2.tar.xz
+2015/07/08 14:45:20 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/bzip2/libbz2_1/libbz2_1-1.0.6-2.tar.bz2
+2015/07/08 14:45:20 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/catgets/libcatgets1/libcatgets1-1.1-2.tar.bz2
+2015/07/08 14:45:20 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/e2fsprogs/libcom_err2/libcom_err2-1.42.12-2.tar.xz
+2015/07/08 14:45:21 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/curl/libcurl4/libcurl4-7.43.0-1.tar.xz
+2015/07/08 14:45:21 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/expat/libexpat1/libexpat1-2.1.0-3.tar.bz2
+2015/07/08 14:45:21 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libgc/libgc1/libgc1-7.2d-1.tar.bz2
+2015/07/08 14:45:22 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/gdbm/libgdbm4/libgdbm4-1.8.3-20.tar.bz2
+2015/07/08 14:45:22 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/krb5/libgssapi_krb5_2/libgssapi_krb5_2-1.13.2-1.tar.xz
+2015/07/08 14:45:22 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/nettle/libhogweed2/libhogweed2-2.7-2.tar.xz
+2015/07/08 14:45:23 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libiconv/libiconv-1.14-3.tar.xz
+2015/07/08 14:45:23 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libidn/libidn11/libidn11-1.29-1.tar.xz
+2015/07/08 14:45:23 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/krb5/libk5crypto3/libk5crypto3-1.13.2-1.tar.xz
+2015/07/08 14:45:23 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/krb5/libkrb5support0/libkrb5support0-1.13.2-1.tar.xz
+2015/07/08 14:45:25 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libmetalink/libmetalink3/libmetalink3-0.1.2-1.tar.bz2
+2015/07/08 14:45:25 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/mpfr/libmpfr4/libmpfr4-3.1.3-1.tar.xz
+2015/07/08 14:45:26 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/ncurses/libncursesw10/libncursesw10-5.9-20150530-1.tar.xz
+2015/07/08 14:45:26 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/nettle/libnettle4/libnettle4-2.7-2.tar.xz
+2015/07/08 14:45:26 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/openldap/libopenldap2_4_2/libopenldap2_4_2-2.4.40-2.tar.xz
+2015/07/08 14:45:27 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/openssl/libopenssl100/libopenssl100-1.0.2c-1.tar.xz
+2015/07/08 14:45:27 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/p11-kit/libp11-kit0/libp11-kit0-0.22.1-1.tar.xz
+2015/07/08 14:45:27 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/pcre/libpcre1/libpcre1-8.37-1.tar.xz
+2015/07/08 14:45:28 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libpipeline/libpipeline1/libpipeline1-1.4.0-1.tar.xz
+2015/07/08 14:45:28 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/popt/libpopt0/libpopt0-1.16-1.tar.xz
+2015/07/08 14:45:28 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/readline/libreadline7/libreadline7-6.3.8-1.tar.xz
+2015/07/08 14:45:28 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/cyrus-sasl/libsasl2_3/libsasl2_3-2.1.26-9.tar.xz
+2015/07/08 14:45:28 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libsigsegv/libsigsegv2/libsigsegv2-2.10-1.tar.bz2
+2015/07/08 14:45:29 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/util-linux/libsmartcols1/libsmartcols1-2.25.2-2.tar.xz
+2015/07/08 14:45:29 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/gcc/libstdc++6/libstdc++6-4.9.3-1.tar.xz
+2015/07/08 14:45:29 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/tcp_wrappers/libwrap0/libwrap0-7.6-22.tar.xz
+2015/07/08 14:45:30 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/md5deep/md5deep-4.1-1.tar.bz2
+2015/07/08 14:45:31 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/mintty/mintty-2.0.2-0.tar.xz
+2015/07/08 14:45:31 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/nano/nano-2.4.1-1.tar.xz
+2015/07/08 14:45:33 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/openssh/openssh-6.9p1-1.tar.xz
+2015/07/08 14:45:33 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/openssl/openssl-1.0.2c-1.tar.xz
+2015/07/08 14:45:34 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/p11-kit/p11-kit-0.22.1-1.tar.xz
+2015/07/08 14:45:34 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/p11-kit/p11-kit-trust/p11-kit-trust-0.22.1-1.tar.xz
+2015/07/08 14:45:34 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/patch/patch-2.7.4-1.tar.xz
+2015/07/08 14:45:36 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/perl/perl-5.14.4-3.tar.xz
+2015/07/08 14:45:36 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/perl/perl_autorebase/perl_autorebase-5.14.4-3.tar.xz
+2015/07/08 14:45:38 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/perl/perl_base/perl_base-5.14.4-3.tar.xz
+2015/07/08 14:45:38 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/popt/popt-1.16-1.tar.xz
+2015/07/08 14:45:38 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/procmail/procmail-3.22-15.tar.xz
+2015/07/08 14:45:39 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/procps/procps-3.2.8-4.tar.xz
+2015/07/08 14:45:39 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/rebase/rebase-4.4.1-1.tar.bz2
+2015/07/08 14:45:40 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/rsync/rsync-3.1.1-1.tar.xz
+2015/07/08 14:45:40 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/run/run-1.3.3-1.tar.xz
+2015/07/08 14:45:41 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/sed/sed-4.2.2-3.tar.bz2
+2015/07/08 14:45:42 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/sendmail/sendmail-8.14.9-1.tar.xz
+2015/07/08 14:45:43 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/tar/tar-1.28-1.tar.xz
+2015/07/08 14:45:43 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/tcp_wrappers/tcp_wrappers-7.6-22.tar.xz
+2015/07/08 14:45:44 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/tcsh/tcsh-6.19.00-1.tar.xz
+2015/07/08 14:45:44 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/ncurses/terminfo/terminfo-5.9-20150530-1.tar.xz
+2015/07/08 14:45:44 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/tzcode/tzcode-2014j-1.tar.xz
+2015/07/08 14:45:45 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/unzip/unzip-6.0-14.tar.xz
+2015/07/08 14:45:46 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/util-linux/util-linux-2.25.2-2.tar.xz
+2015/07/08 14:45:49 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/vim/vim-common/vim-common-7.4.752-1.tar.xz
+2015/07/08 14:45:50 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/vim/vim-minimal/vim-minimal-7.4.752-1.tar.xz
+2015/07/08 14:45:50 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/w3m/w3m-0.5.3-2.tar.bz2
+2015/07/08 14:45:51 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/wget/wget-1.16.3-1.tar.xz
+2015/07/08 14:45:51 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/which/which-2.20-2.tar.bz2
+2015/07/08 14:45:52 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/vim/xxd/xxd-7.4.752-1.tar.xz
+2015/07/08 14:45:52 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/xz/xz-5.2.1-1.tar.xz
+2015/07/08 14:45:52 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/zip/zip-3.0-12.tar.xz
+2015/07/08 14:45:53 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/zlib/zlib0/zlib0-1.2.8-3.tar.xz
+2015/07/08 14:45:53 mbox yesno: Download Incomplete.  Try again?
+2015/07/08 14:46:02 site: ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/
+2015/07/08 14:46:15 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/compface/libcompface0/libcompface0-1.5.2-12.tar.bz2
+2015/07/08 14:46:15 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/db4.8/libdb4.8/libdb4.8-4.8.30-1.tar.bz2
+2015/07/08 14:46:16 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libedit/libedit0/libedit0-20130712-1.tar.xz
+2015/07/08 14:46:16 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libffi/libffi6/libffi6-3.2.1-1.tar.xz
+2015/07/08 14:46:16 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/gcc/libgcc1/libgcc1-4.9.3-1.tar.xz
+2015/07/08 14:46:16 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/gmp/libgmp10/libgmp10-6.0.0a-2.tar.xz
+2015/07/08 14:46:17 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/gnutls/libgnutls28/libgnutls28-3.2.21-1.tar.xz
+2015/07/08 14:46:17 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libiconv/libiconv2/libiconv2-1.14-3.tar.xz
+2015/07/08 14:46:18 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/gettext/libintl8/libintl8-0.19.4-1.tar.xz
+2015/07/08 14:46:18 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/krb5/libkrb5_3/libkrb5_3-1.13.2-1.tar.xz
+2015/07/08 14:46:18 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/xz/liblzma5/liblzma5-5.2.1-1.tar.xz
+2015/07/08 14:46:18 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libssh2/libssh2_1/libssh2_1-1.5.0-1.tar.xz
+2015/07/08 14:46:19 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/gcc/libssp0/libssp0-4.9.3-1.tar.xz
+2015/07/08 14:46:19 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libtasn1/libtasn1_6/libtasn1_6-4.4-1.tar.xz
+2015/07/08 14:46:20 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/util-linux/libuuid1/libuuid1-2.25.2-2.tar.xz
+2015/07/08 14:46:20 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/login/login-1.11-1.tar.xz
+2015/07/08 14:46:22 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/lynx/lynx-2.8.7-1.tar.bz2
+2015/07/08 14:46:22 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/m4/m4-1.4.17-1.tar.xz
+2015/07/08 14:46:23 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/man-db/man-db-2.7.1-1.tar.xz
+2015/07/08 14:46:25 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/_autorebase/_autorebase-001002-1.tar.xz
+2015/07/08 14:46:25 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/_update-info-dir/_update-info-dir-01407-1.tar.bz2
+2015/07/08 14:46:25 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/alternatives/alternatives-1.3.30c-10.tar.bz2
+2015/07/08 14:46:25 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/base-cygwin/base-cygwin-3.8-1.tar.xz
+2015/07/08 14:46:25 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/base-files/base-files-4.2-3.tar.xz
+2015/07/08 14:46:26 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/bash/bash-4.3.39-2.tar.xz
+2015/07/08 14:46:26 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/bash-completion/bash-completion-1.3-1.tar.bz2
+2015/07/08 14:46:27 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/bzip2/bzip2-1.0.6-2.tar.bz2
+2015/07/08 14:46:27 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/ca-certificates/ca-certificates-2.4-2.tar.xz
+2015/07/08 14:46:27 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/compface/compface-1.5.2-12.tar.bz2
+2015/07/08 14:46:28 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/coreutils/coreutils-8.23-4.tar.xz
+2015/07/08 14:46:29 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/crypt/crypt-1.2-1.tar.bz2
+2015/07/08 14:46:30 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/csih/csih-0.9.8-6.tar.xz
+2015/07/08 14:46:30 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/curl/curl-7.43.0-1.tar.xz
+2015/07/08 14:46:30 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/cygrunsrv/cygrunsrv-1.62-1.tar.xz
+2015/07/08 14:46:30 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/cygutils/cygutils-1.4.14-1.tar.bz2
+2015/07/08 14:46:30 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/cygwin/cygwin-2.0.4-1.tar.xz
+2015/07/08 14:46:31 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/cyrus-sasl/cyrus-sasl-2.1.26-9.tar.xz
+2015/07/08 14:46:31 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/dash/dash-0.5.8-3.tar.xz
+2015/07/08 14:46:31 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/diffutils/diffutils-3.3-2.tar.xz
+2015/07/08 14:46:31 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/editrights/editrights-1.03-1.tar.xz
+2015/07/08 14:46:31 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/file/file-5.22-2.tar.xz
+2015/07/08 14:46:31 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/findutils/findutils-4.5.12-1.tar.xz
+2015/07/08 14:46:31 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/gawk/gawk-4.1.3-1.tar.xz
+2015/07/08 14:46:32 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/getent/getent-2.18.90-4.tar.xz
+2015/07/08 14:46:32 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/grep/grep-2.21-2.tar.xz
+2015/07/08 14:46:32 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/groff/groff-1.22.3-1.tar.xz
+2015/07/08 14:46:35 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/gzip/gzip-1.6-1.tar.xz
+2015/07/08 14:46:35 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/hostname/hostname-3.13-1.tar.bz2
+2015/07/08 14:46:35 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/texinfo/info/info-6.0-1.tar.xz
+2015/07/08 14:46:36 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/ipc-utils/ipc-utils-1.0-1.tar.bz2
+2015/07/08 14:46:36 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/less/less-471-1.tar.xz
+2015/07/08 14:46:36 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/lftp/lftp-4.6.2-1.tar.xz
+2015/07/08 14:46:36 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libargp/libargp-20110921-2.tar.bz2
+2015/07/08 14:46:36 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/attr/libattr1/libattr1-2.4.46-1.tar.bz2
+2015/07/08 14:46:36 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/util-linux/libblkid1/libblkid1-2.25.2-2.tar.xz
+2015/07/08 14:46:36 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/bzip2/libbz2_1/libbz2_1-1.0.6-2.tar.bz2
+2015/07/08 14:46:36 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/catgets/libcatgets1/libcatgets1-1.1-2.tar.bz2
+2015/07/08 14:46:36 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/e2fsprogs/libcom_err2/libcom_err2-1.42.12-2.tar.xz
+2015/07/08 14:46:36 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/compface/libcompface0/libcompface0-1.5.2-12.tar.bz2
+2015/07/08 14:46:36 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/curl/libcurl4/libcurl4-7.43.0-1.tar.xz
+2015/07/08 14:46:36 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/db4.8/libdb4.8/libdb4.8-4.8.30-1.tar.bz2
+2015/07/08 14:46:36 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libedit/libedit0/libedit0-20130712-1.tar.xz
+2015/07/08 14:46:36 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/expat/libexpat1/libexpat1-2.1.0-3.tar.bz2
+2015/07/08 14:46:36 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libffi/libffi6/libffi6-3.2.1-1.tar.xz
+2015/07/08 14:46:36 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libgc/libgc1/libgc1-7.2d-1.tar.bz2
+2015/07/08 14:46:37 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/gcc/libgcc1/libgcc1-4.9.3-1.tar.xz
+2015/07/08 14:46:37 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/gdbm/libgdbm4/libgdbm4-1.8.3-20.tar.bz2
+2015/07/08 14:46:37 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/gmp/libgmp10/libgmp10-6.0.0a-2.tar.xz
+2015/07/08 14:46:37 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/gnutls/libgnutls28/libgnutls28-3.2.21-1.tar.xz
+2015/07/08 14:46:37 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/krb5/libgssapi_krb5_2/libgssapi_krb5_2-1.13.2-1.tar.xz
+2015/07/08 14:46:37 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/nettle/libhogweed2/libhogweed2-2.7-2.tar.xz
+2015/07/08 14:46:37 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libiconv/libiconv-1.14-3.tar.xz
+2015/07/08 14:46:37 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libiconv/libiconv2/libiconv2-1.14-3.tar.xz
+2015/07/08 14:46:37 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libidn/libidn11/libidn11-1.29-1.tar.xz
+2015/07/08 14:46:37 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/gettext/libintl8/libintl8-0.19.4-1.tar.xz
+2015/07/08 14:46:37 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/krb5/libk5crypto3/libk5crypto3-1.13.2-1.tar.xz
+2015/07/08 14:46:37 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/krb5/libkrb5_3/libkrb5_3-1.13.2-1.tar.xz
+2015/07/08 14:46:37 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/krb5/libkrb5support0/libkrb5support0-1.13.2-1.tar.xz
+2015/07/08 14:46:37 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/xz/liblzma5/liblzma5-5.2.1-1.tar.xz
+2015/07/08 14:46:37 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libmetalink/libmetalink3/libmetalink3-0.1.2-1.tar.bz2
+2015/07/08 14:46:37 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/mpfr/libmpfr4/libmpfr4-3.1.3-1.tar.xz
+2015/07/08 14:46:37 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/ncurses/libncursesw10/libncursesw10-5.9-20150530-1.tar.xz
+2015/07/08 14:46:37 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/nettle/libnettle4/libnettle4-2.7-2.tar.xz
+2015/07/08 14:46:37 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/openldap/libopenldap2_4_2/libopenldap2_4_2-2.4.40-2.tar.xz
+2015/07/08 14:46:37 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/openssl/libopenssl100/libopenssl100-1.0.2c-1.tar.xz
+2015/07/08 14:46:38 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/p11-kit/libp11-kit0/libp11-kit0-0.22.1-1.tar.xz
+2015/07/08 14:46:38 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/pcre/libpcre1/libpcre1-8.37-1.tar.xz
+2015/07/08 14:46:38 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libpipeline/libpipeline1/libpipeline1-1.4.0-1.tar.xz
+2015/07/08 14:46:38 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/readline/libreadline7/libreadline7-6.3.8-1.tar.xz
+2015/07/08 14:46:38 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/cyrus-sasl/libsasl2_3/libsasl2_3-2.1.26-9.tar.xz
+2015/07/08 14:46:38 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libsigsegv/libsigsegv2/libsigsegv2-2.10-1.tar.bz2
+2015/07/08 14:46:38 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/util-linux/libsmartcols1/libsmartcols1-2.25.2-2.tar.xz
+2015/07/08 14:46:38 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libssh2/libssh2_1/libssh2_1-1.5.0-1.tar.xz
+2015/07/08 14:46:38 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/gcc/libssp0/libssp0-4.9.3-1.tar.xz
+2015/07/08 14:46:38 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/gcc/libstdc++6/libstdc++6-4.9.3-1.tar.xz
+2015/07/08 14:46:38 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/libtasn1/libtasn1_6/libtasn1_6-4.4-1.tar.xz
+2015/07/08 14:46:38 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/util-linux/libuuid1/libuuid1-2.25.2-2.tar.xz
+2015/07/08 14:46:38 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/tcp_wrappers/libwrap0/libwrap0-7.6-22.tar.xz
+2015/07/08 14:46:38 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/login/login-1.11-1.tar.xz
+2015/07/08 14:46:38 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/lynx/lynx-2.8.7-1.tar.bz2
+2015/07/08 14:46:39 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/m4/m4-1.4.17-1.tar.xz
+2015/07/08 14:46:39 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/man-db/man-db-2.7.1-1.tar.xz
+2015/07/08 14:46:40 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/md5deep/md5deep-4.1-1.tar.bz2
+2015/07/08 14:46:40 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/mintty/mintty-2.0.2-0.tar.xz
+2015/07/08 14:46:40 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/nano/nano-2.4.1-1.tar.xz
+2015/07/08 14:46:41 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/openssh/openssh-6.9p1-1.tar.xz
+2015/07/08 14:46:41 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/openssl/openssl-1.0.2c-1.tar.xz
+2015/07/08 14:46:42 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/p11-kit/p11-kit-0.22.1-1.tar.xz
+2015/07/08 14:46:42 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/p11-kit/p11-kit-trust/p11-kit-trust-0.22.1-1.tar.xz
+2015/07/08 14:46:42 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/patch/patch-2.7.4-1.tar.xz
+2015/07/08 14:46:42 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/perl/perl-5.14.4-3.tar.xz
+2015/07/08 14:46:49 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/perl/perl_autorebase/perl_autorebase-5.14.4-3.tar.xz
+2015/07/08 14:46:49 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/perl/perl_base/perl_base-5.14.4-3.tar.xz
+2015/07/08 14:46:50 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/popt/popt-1.16-1.tar.xz
+2015/07/08 14:46:50 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/procmail/procmail-3.22-15.tar.xz
+2015/07/08 14:46:51 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/procps/procps-3.2.8-4.tar.xz
+2015/07/08 14:46:51 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/rebase/rebase-4.4.1-1.tar.bz2
+2015/07/08 14:46:51 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/rsync/rsync-3.1.1-1.tar.xz
+2015/07/08 14:46:51 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/run/run-1.3.3-1.tar.xz
+2015/07/08 14:46:51 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/sed/sed-4.2.2-3.tar.bz2
+2015/07/08 14:46:51 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/sendmail/sendmail-8.14.9-1.tar.xz
+2015/07/08 14:46:52 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/tar/tar-1.28-1.tar.xz
+2015/07/08 14:46:53 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/tcp_wrappers/tcp_wrappers-7.6-22.tar.xz
+2015/07/08 14:46:53 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/tcsh/tcsh-6.19.00-1.tar.xz
+2015/07/08 14:46:53 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/ncurses/terminfo/terminfo-5.9-20150530-1.tar.xz
+2015/07/08 14:46:54 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/tzcode/tzcode-2014j-1.tar.xz
+2015/07/08 14:46:57 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/unzip/unzip-6.0-14.tar.xz
+2015/07/08 14:46:57 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/util-linux/util-linux-2.25.2-2.tar.xz
+2015/07/08 14:46:58 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/vim/vim-common/vim-common-7.4.752-1.tar.xz
+2015/07/08 14:47:05 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/vim/vim-minimal/vim-minimal-7.4.752-1.tar.xz
+2015/07/08 14:47:05 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/w3m/w3m-0.5.3-2.tar.bz2
+2015/07/08 14:47:05 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/wget/wget-1.16.3-1.tar.xz
+2015/07/08 14:47:05 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/which/which-2.20-2.tar.bz2
+2015/07/08 14:47:05 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/vim/xxd/xxd-7.4.752-1.tar.xz
+2015/07/08 14:47:05 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/xz/xz-5.2.1-1.tar.xz
+2015/07/08 14:47:06 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/zip/zip-3.0-12.tar.xz
+2015/07/08 14:47:06 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fmirrors.kernel.org%2fsourceware%2fcygwin%2f/x86/release/zlib/zlib0/zlib0-1.2.8-3.tar.xz
+2015/07/08 14:47:06 Changing gid back to original
+2015/07/08 14:47:06 running: C:\cygwin\bin\dash.exe "/etc/postinstall/0p_000_autorebase.dash"
+2015/07/08 14:47:11 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/000-cygwin-post-install.sh"
+2015/07/08 14:47:11 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/update-info-dir.sh"
+2015/07/08 14:47:12 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/coreutils.sh"
+2015/07/08 14:47:12 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/bash.sh"
+2015/07/08 14:47:12 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/base-files-mketc.sh"
+2015/07/08 14:47:12 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/base-files-profile.sh"
+2015/07/08 14:47:13 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/ca-certificates.sh"
+2015/07/08 14:47:14 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/libsasl2_3.sh"
+2015/07/08 14:47:14 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/lftp.sh"
+2015/07/08 14:47:14 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/lynx.sh"
+2015/07/08 14:47:14 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/man-db.sh"
+2015/07/08 14:47:14 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/openssh.sh"
+2015/07/08 14:47:14 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/procmail.sh"
+2015/07/08 14:47:14 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/tcp_wrappers.sh"
+2015/07/08 14:47:14 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/sendmail.sh"
+2015/07/08 14:47:15 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/tcsh.sh"
+2015/07/08 14:47:15 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/wget.sh"
+2015/07/08 14:47:15 Changing gid to Administrators
+2015/07/08 14:47:21 note: Installation Complete
+2015/07/08 14:47:21 Ending cygwin install
+2015/07/08 14:48:55 Starting cygwin install, version 2.871
+2015/07/08 14:48:55 User has backup/restore rights
+2015/07/08 14:48:55 Current Directory: C:\Users\scarroll\Downloads
+2015/07/08 14:48:55 Could not open service McShield for query, start and stop. McAfee may not be installed, or we don't have access.
+2015/07/08 14:49:08 source: network install
+2015/07/08 14:49:10 root: C:\cygwin system
+2015/07/08 14:49:12 Selected local directory: C:\Users\scarroll\Downloads
+2015/07/08 14:49:13 net: Direct
+2015/07/08 14:49:15 site: ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/
+2015/07/08 14:49:20 mbox yesno: This setup.ini is older than the one you used last time you installed cygwin.  Proceed anyway?
+2015/07/08 14:49:28 Ending cygwin install
+2015/07/08 14:49:33 Starting cygwin install, version 2.871
+2015/07/08 14:49:33 User has backup/restore rights
+2015/07/08 14:49:33 Current Directory: C:\Users\scarroll\Downloads
+2015/07/08 14:49:33 Could not open service McShield for query, start and stop. McAfee may not be installed, or we don't have access.
+2015/07/08 14:49:35 source: network install
+2015/07/08 14:49:36 root: C:\cygwin system
+2015/07/08 14:49:36 Selected local directory: C:\Users\scarroll\Downloads
+2015/07/08 14:49:37 net: Direct
+2015/07/08 14:49:38 site: ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/
+2015/07/08 14:49:59 Ending cygwin install
+2015/07/08 14:57:33 Starting cygwin install, version 2.871
+2015/07/08 14:57:33 User has backup/restore rights
+2015/07/08 14:57:33 Current Directory: C:\Users\scarroll\Downloads
+2015/07/08 14:57:33 Could not open service McShield for query, start and stop. McAfee may not be installed, or we don't have access.
+2015/07/08 14:57:35 source: network install
+2015/07/08 14:57:36 root: C:\cygwin system
+2015/07/08 14:57:36 Selected local directory: C:\Users\scarroll\Downloads
+2015/07/08 14:57:37 net: Direct
+2015/07/08 14:57:38 site: ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/
+2015/07/08 14:57:56 Ending cygwin install
+2015/07/08 15:12:51 Starting cygwin install, version 2.871
+2015/07/08 15:12:51 User has backup/restore rights
+2015/07/08 15:12:51 Current Directory: C:\Users\scarroll\Downloads
+2015/07/08 15:12:51 Could not open service McShield for query, start and stop. McAfee may not be installed, or we don't have access.
+2015/07/08 15:12:53 source: network install
+2015/07/08 15:12:53 root: C:\cygwin system
+2015/07/08 15:12:54 Selected local directory: C:\Users\scarroll\Downloads
+2015/07/08 15:12:55 net: Direct
+2015/07/08 15:12:56 site: ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/
+2015/07/08 15:13:31 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/ncurses/ncurses-5.9-20150530-1.tar.xz
+2015/07/08 15:13:31 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/ncurses/ncurses-5.9-20150530-1.tar.xz
+2015/07/08 15:13:31 Changing gid back to original
+2015/07/08 15:13:31 running: C:\cygwin\bin\dash.exe "/etc/postinstall/0p_000_autorebase.dash"
+2015/07/08 15:13:34 Changing gid to Administrators
+2015/07/08 15:43:05 note: Installation Complete
+2015/07/08 15:43:05 Ending cygwin install
+2015/07/09 19:27:51 Starting cygwin install, version 2.871
+2015/07/09 19:27:51 User has backup/restore rights
+2015/07/09 19:27:51 Current Directory: C:\Users\scarroll\Downloads
+2015/07/09 19:27:51 Could not open service McShield for query, start and stop. McAfee may not be installed, or we don't have access.
+2015/07/09 19:27:53 source: network install
+2015/07/09 19:27:54 root: C:\cygwin system
+2015/07/09 19:27:54 Selected local directory: C:\Users\scarroll\Downloads
+2015/07/09 19:27:55 net: Direct
+2015/07/09 19:27:55 Can't resolve `cygwin.com'
+2015/07/09 19:27:56 site: ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/
+2015/07/09 19:27:56 Can't resolve `ftp.mirrorservice.org'
+2015/07/09 19:27:56 Can't resolve `ftp.mirrorservice.org'
+2015/07/09 19:27:56 Can't resolve `ftp.mirrorservice.org'
+2015/07/09 19:27:56 Can't resolve `ftp.mirrorservice.org'
+2015/07/09 19:27:56 mbox note: Unable to get setup.ini from <ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/>
+2015/07/09 19:27:59 site: ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/
+2015/07/09 19:27:59 Can't resolve `ftp.mirrorservice.org'
+2015/07/09 19:27:59 Can't resolve `ftp.mirrorservice.org'
+2015/07/09 19:27:59 Can't resolve `ftp.mirrorservice.org'
+2015/07/09 19:27:59 Can't resolve `ftp.mirrorservice.org'
+2015/07/09 19:27:59 mbox note: Unable to get setup.ini from <ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/>
+2015/07/09 19:28:05 site: ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/
+2015/07/09 19:28:36 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/_update-info-dir/_update-info-dir-01408-1.tar.bz2
+2015/07/09 19:28:38 Running preremove script for  _update-info-dir
+2015/07/09 19:28:38 Uninstalling _update-info-dir
+2015/07/09 19:28:38 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/_update-info-dir/_update-info-dir-01408-1.tar.bz2
+2015/07/09 19:28:38 Changing gid back to original
+2015/07/09 19:28:38 running: C:\cygwin\bin\dash.exe "/etc/postinstall/0p_000_autorebase.dash"
+2015/07/09 19:28:39 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/update-info-dir.sh"
+2015/07/09 19:28:40 Changing gid to Administrators
+2015/07/09 19:29:49 note: Installation Complete
+2015/07/09 19:29:49 Ending cygwin install
+2015/07/09 19:33:35 Starting cygwin install, version 2.871
+2015/07/09 19:33:35 User has backup/restore rights
+2015/07/09 19:33:35 Current Directory: C:\Users\scarroll\Downloads
+2015/07/09 19:33:35 Could not open service McShield for query, start and stop. McAfee may not be installed, or we don't have access.
+2015/07/09 19:33:43 source: network install
+2015/07/09 19:33:44 root: C:\cygwin system
+2015/07/09 19:33:45 Selected local directory: C:\Users\scarroll\Downloads
+2015/07/09 19:33:46 net: Direct
+2015/07/09 19:33:47 site: ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/
+2015/07/10 00:09:37 Ending cygwin install

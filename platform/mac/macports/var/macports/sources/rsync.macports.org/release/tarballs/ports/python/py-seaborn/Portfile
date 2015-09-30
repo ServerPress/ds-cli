@@ -1,0 +1,51 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim: fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138141 2015-06-30 07:36:06Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-seaborn
+version             0.6.0
+revision            0
+categories-append   science
+license             BSD
+platforms           darwin
+
+python.versions     27 34
+
+maintainers         stromnov openmaintainer
+
+description         Statistical data visualization library
+
+long_description    Seaborn is a library for making attractive and \
+                    informative statistical graphics in Python. It is \
+                    built on top of matplotlib and tightly integrated \
+                    with the PyData stack, including support for numpy \
+                    and pandas data structures and statistical routines \
+                    from scipy and statsmodels.
+
+homepage            http://stanford.edu/~mwaskom/software/seaborn/
+master_sites        https://pypi.python.org/packages/source/s/seaborn/
+
+distname            seaborn-${version}
+
+checksums           rmd160  d6142f677e98daaee39ae198a48841a5a521ab6a \
+                    sha256  e078399b56ed0d53a4aa8bd4d6bd4a9a9deebc0b4acad259d0ef81830affdb68
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-setuptools
+
+    depends_lib-append  port:py${python.version}-numpy \
+                        port:py${python.version}-scipy \
+                        port:py${python.version}-matplotlib \
+                        port:py${python.version}-pandas \
+                        port:py${python.version}-statsmodels \
+                        port:py${python.version}-patsy
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/seaborn/json
+    livecheck.regex     {seaborn-(\d+(?:\.\d+)*)\.[tz]}
+}

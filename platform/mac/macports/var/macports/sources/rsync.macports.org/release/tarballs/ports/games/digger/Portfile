@@ -1,0 +1,60 @@
+# $Id: Portfile 114119 2013-11-29 22:31:11Z jmr@macports.org $
+
+PortSystem              1.0
+PortGroup               app 1.0
+
+name                    digger
+version                 20020314
+revision                2
+categories              games
+platforms               darwin
+maintainers             nomaintainer
+
+description             the Digger game
+long_description        ${description}
+
+homepage                http://www.digger.org/
+master_sites            ${homepage}
+checksums               md5 a16e90a49ed8ea90099b254d3ef5edfa
+patchfiles              patch-def.h.diff \
+                        patch-digger.c.diff \
+                        patch-input.c.diff \
+                        patch-scores.c.diff \
+                        patch-input.h.diff \
+                        patch-main.c.diff
+
+depends_lib             port:libsdl
+
+platform darwin {
+    patchfiles-append   patch-Makefile.sdl.diff
+}
+
+use_configure           no
+
+variant universal {}
+
+build.args              -f Makefile.sdl \
+                        CC="${configure.cc} [get_canonical_archflags]"
+
+destroot {
+    xinstall -d  ${destroot}${prefix}/share/doc/${name}
+    xinstall -m 644 ${worksrcpath}/digger.txt \
+        ${destroot}${prefix}/share/doc/${name}
+    xinstall -m 755 -s ${worksrcpath}/digger ${destroot}${prefix}/bin
+}
+
+app.executable          ${workpath}/${name}
+app.icon                ${filespath}/icon.png
+
+platform macosx {
+    post-extract {
+        xinstall ${filespath}/Digger.darwin ${workpath}/${name}
+    }
+    post-patch {
+        reinplace "s|_PREFIX_|${prefix}|g" ${workpath}/${name}
+    }
+}
+
+livecheck.type          regex
+livecheck.url           ${homepage}download.html
+livecheck.regex         ${name}-(\[0-9.\]+)\\.tar

@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 129831 2014-12-21 12:42:13Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+epoch               1
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Catalyst-Plugin-Authentication 0.10023
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Infrastructure plugin for the Catalyst authentication framework.
+long_description    The authentication plugin provides generic user \
+                    support. It is the basis for both authentication \
+                    (checking the user is who they claim to be), and \
+                    authorization (allowing the user to do what \
+                    the system authorises them to do).
+
+platforms           darwin
+supported_archs     noarch
+
+checksums           rmd160  cd6ee2378e435dd43fd3367f33f8a1fbc7668cbf \
+                    sha256  36039aabdacb07e6687a4d7a8bfac78fe9d0fbb04cda8d6d966d6c1e3259d06c
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-moose \
+                    port:p${perl5.major}-test-exception
+    depends_lib-append \
+                    port:p${perl5.major}-catalyst-plugin-session \
+                    port:p${perl5.major}-catalyst-runtime \
+                    port:p${perl5.major}-class-inspector \
+                    port:p${perl5.major}-moose \
+                    port:p${perl5.major}-moosex-emulate-class-accessor-fast \
+                    port:p${perl5.major}-mro-compat \
+                    port:p${perl5.major}-namespace-autoclean \
+                    port:p${perl5.major}-string-rewriteprefix \
+                    port:p${perl5.major}-try-tiny
+}

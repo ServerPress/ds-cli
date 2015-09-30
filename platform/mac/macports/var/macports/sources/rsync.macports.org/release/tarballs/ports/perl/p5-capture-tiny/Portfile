@@ -1,0 +1,21 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136434 2015-05-17 01:51:19Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Capture-Tiny 0.30 ../by-authors/id/D/DA/DAGOLDEN
+
+platforms           darwin
+maintainers         nomaintainer
+license             Apache-2
+supported_archs     noarch
+
+description         Capture::Tiny - Capture STDOUT and STDERR from Perl, XS \
+                    or external programs
+
+long_description    ${description}
+
+checksums           rmd160  f48781847db9e286d9066dcf099261412f932909 \
+                    sha256  a3b4e55278757e77d50df0b1a79f42e6e8354b7d41db806da39bf161bee63aea

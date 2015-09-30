@@ -1,0 +1,19 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Algorithm-C3 0.10
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+supported_archs     noarch
+
+description         A module for merging hierarchies using the C3 algorithm
+long_description    This module implements the C3 algorithm.
+
+platforms           darwin
+
+checksums           rmd160  b426dcf60628324a6b041bbdd2d4337661ae6ea3 \
+                    sha256  5acf3a074025e9be10da352adc6d1ccadde4b61b6d6691e83248d366bb621406

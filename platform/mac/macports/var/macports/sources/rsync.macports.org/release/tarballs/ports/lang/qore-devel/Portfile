@@ -1,0 +1,51 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138183 2015-07-01 15:24:33Z davidnichols@macports.org $
+
+PortSystem          1.0
+
+name                qore-devel
+svn.revision        7392
+version             0.8.11.0.99-${svn.revision}
+revision            0
+categories          lang
+license             {LGPL-2.1 MIT}
+maintainers         davidnichols pvanek
+
+description         dynamically-typed programming language - a SVN trunk version
+long_description    Qore is a multithreaded, embeddabble programming language designed for SMP scalability. \
+                    This package uses SVN trunk. Use the qore package for the latest stable release.
+homepage            http://qore.org
+platforms           darwin
+master_sites        sourceforge
+
+conflicts           qore
+livecheck.type      none
+worksrcdir          trunk
+
+fetch.type          svn
+svn.url             http://svn.code.sf.net/p/qore/code/qore/trunk/
+
+depends_build       port:flex \
+                    port:bison \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         port:openssl \
+                    port:pcre \
+                    port:zlib \
+                    port:bzip2 \
+                    port:gmp \
+                    port:mpfr
+
+pre-configure {
+    # reconf.sh is mandatory for svn builds. svn-revision.h is not created when in an exported directory, which is what MacPorts creates unless you request a working copy by setting "svn.method checkout".
+    system -W ${worksrcpath} "./reconf.sh && echo \"#define BUILD 0\" > ${worksrcpath}/include/qore/intern/svn-revision.h"
+}
+
+# --disable-dependency-tracking is safe here. The build is always done in one run.
+#                               It's required to prevent autotools from using -M* options for multiple -arch options
+configure.args      --disable-debug --disable-static --disable-dependency-tracking
+
+# the autoconf check for iconv() in libiconv fails with GNU iconv, but we need it, so we turn it on anyway
+configure.ldflags   -liconv

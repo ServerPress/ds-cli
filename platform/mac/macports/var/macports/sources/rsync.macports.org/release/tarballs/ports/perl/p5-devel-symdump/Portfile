@@ -1,0 +1,20 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137430 2015-06-11 05:34:09Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Devel-Symdump 2.15
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Inspect the symbol table and class hierarchy
+long_description    A convenient way to inspect perl's symbol table and \
+                    the class hierarchy within a running program.
+
+platforms           darwin
+
+checksums           rmd160  a80d1431caa53bf29d9e30a6c7939c3f38afc632 \
+                    sha256  76c2a90d31318204ecf1977f0217ce57b142e6681fe2b99fb8789efc5dd86f41
+
+supported_archs     noarch

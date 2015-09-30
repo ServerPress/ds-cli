@@ -1,0 +1,50 @@
+# $Id: Portfile 115589 2014-01-06 15:48:28Z jmr@macports.org $
+
+PortSystem          1.0
+
+name                ghemical
+version             2.99.2
+set release_date    20090911
+categories          science
+license             GPL-2+
+platforms           darwin
+maintainers         nomaintainer
+description         Ghemical is computational chemistry package
+long_description    Ghemical is a computational chemistry software package \
+                    written in C++ and released under the GNU GPL. The \
+                    program has GUI based on GTK+2 and supports quantum \
+                    mechanical and molecular mechanic models, with geometry \
+                    optimization, molecular dynamics, and a large set of \
+                    visualization tools. Ghemical relies on external code to \
+                    provide the quantum-mechanical calculations - MOPAC \
+                    provides the semi-empirical MNDO, MINDO, AM1, and PM3 \
+                    methods, and MPQC methods based on Hartree-Fock \
+                    calculations.
+
+homepage            http://www.bioinformatics.org/ghemical/${name}/
+master_sites        http://www.bioinformatics.org/ghemical/download/release${release_date}/
+
+checksums           sha1    b84b3f750ccd05a9cc0b1a8318abb3a24f2be9c1 \
+                    rmd160  2d8a4d4f3d38c6b2e8b70d14f1b748c40c760334
+
+depends_build       port:pkgconfig \
+                    port:intltool
+
+depends_lib         port:gtk2 \
+                    port:libglade2 \
+                    port:gtkglext \
+                    port:openbabel \
+                    port:libghemical \
+                    port:liboglappth
+
+configure.args      --enable-gamess \
+                    --enable-shortcuts \
+                    --enable-openbabel
+
+platform darwin 9 {
+    configure.ldflags-append   "-L${prefix}/lib -L/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries"
+}
+
+livecheck.type      regex
+livecheck.url       http://www.bioinformatics.org/ghemical/download/current
+livecheck.regex     "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

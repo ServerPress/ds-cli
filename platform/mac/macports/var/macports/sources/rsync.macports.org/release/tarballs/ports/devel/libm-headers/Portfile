@@ -1,0 +1,11 @@
+# $Id: Portfile 131732 2015-01-16 16:48:04Z jeremyhu@macports.org $
+
+PortSystem              1.0
+PortGroup               obsolete 1.0
+
+name                    libm-headers
+version                 2026
+revision                3
+categories              devel
+platforms               darwin
+license                 APSL-1.1 APSL-2

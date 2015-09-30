@@ -1,0 +1,24 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         CGI-Simple 1.115
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         A Simple totally OO CGI interface that is CGI.pm compliant
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  2a1ae38f0ee911cc35d2c68517fe8cb2e64a42d5 \
+                    sha256  4f873bc9d055afb7b213684b5bc22d305a456f43c651377d3f2497176a587eda
+
+if {${perl5.major} != ""} {
+	depends_lib-append \
+		            port:p${perl5.major}-io-stringy
+
+	supported_archs noarch
+}

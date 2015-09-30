@@ -1,0 +1,43 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 127733 2014-11-02 16:11:07Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-epsilon
+set gname           epsilon
+version             0.7.0
+license             MIT
+categories-append   databases
+platforms           darwin
+supported_archs     noarch
+
+maintainers         devans openmaintainer
+
+description         Epsilon is a set of Python utility modules
+
+long_description    ${description}
+
+homepage            https://pypi.python.org/pypi/Epsilon
+master_sites        debian:e/${gname}
+
+distname            ${gname}_${version}.orig
+
+checksums           rmd160  67a9476ee82335f3a3129afc4fd1564c355d4c4d \
+                    sha256  81419d50b17a20efd75440d43e4b07fe3c2a5e6d619f39318dab9031a0680032
+
+worksrcdir          Epsilon-${version}
+
+python.default_version  27
+python.versions     27
+
+
+if {${name} ne ${subport}} {
+    depends_build-append    port:py${python.version}-setuptools
+    depends_lib-append      port:py${python.version}-twisted \
+                            port:py${python.version}-openssl
+}
+
+livecheck.type      regex
+livecheck.url       http://ftp.us.debian.org/debian/pool/main/e/${gname}/
+livecheck.regex     "${gname}_(\\d+(?:\\.\\d+)*)\\.orig${extract.suffix}"

@@ -1,0 +1,56 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138404 2015-07-07 14:44:41Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-Pillow
+version             2.9.0
+revision            0
+categories-append   devel
+platforms           darwin
+license             BSD
+
+python.versions     26 27 33 34
+
+maintainers         stromnov openmaintainer
+
+description         Python Imaging Library (fork)
+
+long_description    ${description}
+
+homepage            http://github.com/python-imaging/Pillow
+master_sites        https://pypi.python.org/packages/source/P/Pillow/
+
+distname            Pillow-${version}
+
+checksums           rmd160  23913cd093a546d46fb2f7cf34f00305b89596b4 \
+                    sha256  d1db8dfed77547076037d589b598e04f2cbc1a7835d3d3f137bf20c8994854d5
+
+if {${name} ne ${subport}} {
+    use_zip             yes
+
+    conflicts           py${python.version}-pil
+
+    depends_build       port:py${python.version}-setuptools
+    depends_lib-append  port:py${python.version}-tkinter \
+                        port:zlib \
+                        port:jpeg \
+                        port:tiff \
+                        port:lcms \
+                        port:webp \
+                        port:openjpeg \
+                        port:freetype
+
+    patchfiles          patch-setup.py.diff
+
+    post-patch {
+        reinplace "s|@prefix@|${prefix}|g" ${worksrcpath}/setup.py
+    }
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/Pillow/json
+    livecheck.regex     {Pillow-(\d+(?:\.\d+)*)\.[tz]}
+}

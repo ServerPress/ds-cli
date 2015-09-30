@@ -1,0 +1,410 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136416 2015-05-16 16:52:31Z mmoll@macports.org $
+
+PortSystem          1.0
+PortGroup           mpi 1.0
+
+name                gdal
+version             1.11.2
+revision            2
+categories          gis
+license             MIT BSD
+platforms           darwin
+
+maintainers         vince openmaintainer
+
+description         GDAL - Geospatial Data Abstraction Library
+
+long_description    GDAL is a translator library for raster geospatial \
+                    data formats that is released under an X/MIT style \
+                    Open Source license. As a library, it presents a \
+                    single abstract data model to the calling application \
+                    for all supported formats. The related OGR library \
+                    (which lives within the GDAL source tree) provides a \
+                    similar capability for simple features vector data.
+
+homepage            http://www.gdal.org/
+master_sites        http://www.gdal.org/dl/ \
+                    http://download.osgeo.org/gdal/ \
+                    http://download.osgeo.org/gdal/CURRENT/
+
+checksums           rmd160  25e2f52e287d22830098fc45c7e8ac7023180de1 \
+                    sha256  66bc8192d24e314a66ed69285186d46e6999beb44fc97eeb9c76d82a117c0845
+
+compilers.choose    cc cxx
+mpi.setup
+
+depends_lib-append  port:zlib \
+                    port:libpng \
+                    port:tiff \
+                    port:libgeotiff \
+                    port:jpeg \
+                    port:giflib \
+                    port:proj
+
+set PYINST          ""
+set OPENCLBASE      "/System/Library/Frameworks/OpenCL.framework/"
+
+configure.args-append \
+                    --with-local=${prefix} \
+                    --with-libz=${prefix} \
+                    --without-liblzma \
+                    --with-png=${prefix} \
+                    --with-libtiff=${prefix} \
+                    --with-geotiff=${prefix} \
+                    --with-jpeg=${prefix}\
+                    --with-gif=${prefix} \
+                    --with-static-proj4=${prefix} \
+                    --without-pg \
+                    --without-grass \
+                    --without-libgrass \
+                    --without-cfitsio \
+                    --without-pcraster \
+                    --without-netcdf \
+                    --without-ogdi \
+                    --without-fme \
+                    --without-hdf4 \
+                    --without-hdf5 \
+                    --without-jasper \
+                    --without-openjpeg \
+                    --without-ecw \
+                    --without-kakadu \
+                    --without-mrsid \
+                    --without-jp2mrsid \
+                    --without-msg \
+                    --without-bsb \
+                    --without-oci \
+                    --without-grib \
+                    --without-mysql \
+                    --without-ingres \
+                    --without-xerces \
+                    --without-odbc \
+                    --without-curl \
+                    --without-sqlite3 \
+                    --without-spatialite \
+                    --without-dwgdirect \
+                    --without-idb \
+                    --without-sde \
+                    --without-geos \
+                    --without-opencl \
+                    --without-pam \
+                    --without-perl \
+                    --without-php \
+                    --without-ruby \
+                    --without-python \
+                    --without-xerces \
+                    --without-expat \
+                    --without-poppler \
+                    --mandir=${prefix}/share/man
+
+# Always choose internal libjson code (#44098)
+configure.args-append   --with-libjson-c=internal
+
+# Patch to ensure that the python installation respects DESTDIR
+patchfiles          patch-swig_python_GNUmakefile \
+                    patch-gdalwarpkernel_opencl_c.diff \
+                    patch-gdalwarpkernel_opencl_h.diff \
+                    patch-pdfcreatecopy_h.diff \
+                    patch-pdfcreatecopy_cpp.diff \
+                    patch-alg_GNUmakefile.diff \
+                    patch-apps_GNUmakefile.diff
+
+# Patches for universal build
+post-configure {
+    reinplace -E "s|(INST_PYMOD).*|\\1\t=\t${PYINST}|" \
+        ${worksrcpath}/GDALmake.opt
+    if {[variant_isset universal]} {
+        system "ed - ${worksrcpath}/port/cpl_config.h < ${filespath}/config.h.ed"
+    }
+}
+
+# Set target to none
+build.target
+
+variant lzma conflicts universal \
+    description {Enable LZMA (7Z) compression support} {
+    depends_lib-append      port:lzma
+    configure.args-delete   --without-liblzma
+    configure.args-append   --with-liblzma=yes
+}
+
+variant geos description {Enable GEOS geometry engine functionality} {
+    depends_lib-append      port:geos
+    configure.args-delete   --without-geos
+    configure.args-append   --with-geos=${prefix}/bin/geos-config
+}
+
+variant curl description {Enable curl support} {
+    depends_lib-append      port:curl
+    configure.args-delete   --without-curl
+    configure.args-append   --with-curl=${prefix}/bin/curl-config
+}
+
+variant mrsid description {Enable MrSID file format} {
+    depends_lib-append      port:geoexpress-sdk
+    configure.args-delete   --without-mrsid
+    configure.args-append       --with-mrsid=${prefix}/share/Geo_DSDK/Raster_DSDK
+}
+
+variant ecw description {Enable ECW file format} {
+    configure.args-delete   --without-ecw
+    configure.args-append   --with-ecw=${prefix}/lib/ECW
+
+    if {${configure.cxx_stdlib} == "libc++" } { 
+        patchfiles-append       patch-configure-ecw-libcxx.diff
+    } else {
+        patchfiles-append       patch-configure-ecw-libstdcxx.diff
+    }
+
+    pre-configure {
+        if {(![file exists ${prefix}/lib/ECW]) && \
+        (![file exists /Intergraph/ERDASEcwJpeg2000SDK5.1.1/Desktop_Read-Only])} {
+            ui_error "
+****
+* The Intergraph ECW SDK version 5.1.1 is needed to 
+* compile gdal with the ecw variant. It must be installed separately.
+* Please download the Mac OS X version of the SDK 
+* 'ERDAS ECW/JP2 SDK v5.1.1 (MacOSX)' from 
+* http://download.intergraph.com/
+* Choose to install it in ${prefix}/lib/ECW.
+* Then try to install GDAL again.
+****"       
+            return -code error "ECW SDK 5.1.1 not installed."
+        }
+        
+        if {(![file exists ${prefix}/lib/ECW]) && \
+            ([file exists /Intergraph/ERDASEcwJpeg2000SDK5.1.1/Desktop_Read-Only])} {
+
+          ui_error "
+****
+* Please create symbolic links from the /Intergraph directory to 
+* ${prefix}/lib/ECW, by executing at the prompt:
+* sudo ln -s /Intergraph/ERDASEcwJpeg2000SDK5.1.1/Desktop_Read-Only \
+                  ${prefix}/lib/ECW
+* Or reinstall the ECW SDK in ${prefix}/lib/ECW directly.
+* Then try again.
+****"
+            return -code error "Symlinks missing."
+        }
+    }
+}
+
+variant hdf4 description {Enable HDF4 file format} {
+    depends_lib-append      port:hdf4
+    configure.args-delete   --without-hdf4
+    configure.args-append   --with-hdf4=${prefix}
+}
+
+variant hdf5 description {Enable HDF5 file format} {
+    depends_lib-append      port:hdf5
+    configure.args-delete   --without-hdf5
+    configure.args-append   --with-hdf5=${prefix}
+    mpi.enforce_variant     hdf5
+}
+
+variant netcdf description {Enable NetCDF file format} {
+    depends_lib-append      port:netcdf
+    configure.args-delete   --without-netcdf
+    configure.args-append   --with-netcdf=${prefix}
+    mpi.enforce_variant     netcdf
+}
+
+variant grib description {Enable GRIB (weather) file format} {
+    configure.args-delete   --without-grib
+}
+
+#JPEG-2K
+variant jasper conflicts openjpeg \
+    description {Enable JasPer JPEG-2000 format support} {
+    depends_lib-append      port:jasper
+    configure.args-delete   --without-jasper
+    configure.args-append   --with-jasper=${prefix}
+}
+
+variant openjpeg conflicts jasper \
+    description {Enable OpenJPEG JPEG-2000 format support} {
+    depends_lib-append      port:openjpeg
+    configure.args-delete   --without-openjpeg
+    configure.args-append   --with-openjpeg=${prefix}
+}
+
+
+variant xerces description {Enable xerces XML support for GML file format} {
+    depends_lib-append      port:xercesc
+    configure.args-delete   --without-xerces
+    configure.args-append   --with-xerces=${prefix}
+}
+
+variant expat description {Enable expat XML support} {
+    depends_lib-append      port:expat
+    configure.args-delete   --without-expat
+    configure.args-append   --with-expat=${prefix}
+}
+
+# Database variants
+set postgresql_suffixes {92 93 94}
+
+set portsgresql_variants {}
+foreach s ${postgresql_suffixes} {
+    lappend portsgresql_variants postgresql${s}
+}
+
+foreach s ${postgresql_suffixes} {
+    set p postgresql${s}
+    set v [string index ${s} 0].[string index ${s} 1]
+    set i [lsearch -exact ${portsgresql_variants} ${p}]
+    set c [lreplace ${portsgresql_variants} ${i} ${i}]
+    eval [subst {
+        variant ${p} description "Enable PostgreSQL ${v} support" conflicts ${c} {
+            depends_lib-append      port:${p}
+            configure.args-delete   --without-pg
+            configure.args-append   --with-pg=${prefix}/lib/postgresql${s}/bin/pg_config
+        }
+    }]
+}
+
+variant mysql5 description {Enable MySQL 5 support} {
+    depends_lib-append      path:bin/mysql_config5:mysql5
+    configure.args-delete   --without-mysql
+    configure.args-append   --with-mysql=${prefix}/lib/mysql5/bin/mysql_config
+}
+
+variant sqlite3 description {Enable SQLite3 support} {
+    depends_lib-append      port:sqlite3
+    configure.args-delete   --without-sqlite3
+    configure.args-append   --with-sqlite3=${prefix}
+
+    post-configure {
+        reinplace -E "s|^LIBS(.*)\\\\$|LIBS\\1 -lsqlite3 \\\\|" ${worksrcpath}/GDALmake.opt
+    }
+}
+
+variant spatialite description {Enable SpartiaLite support} {
+    depends_lib-append      port:spatialite
+    configure.args-delete   --without-spatialite
+    configure.args-append   --with-spatialite=${prefix}
+}
+
+variant odbc description {Enable ODBC support} {
+    depends_lib-append      port:unixODBC
+    configure.args-delete   --without-odbc
+    configure.args-append   --with-odbc=${prefix}
+}
+
+variant poppler description {Enable poppler support} {
+    depends_lib-append      port:poppler
+    configure.args-delete   --without-popper
+    configure.args-append   --with-poppler=${prefix}
+}
+
+# OpenCL
+variant opencl description {Use OpenCL for parallel computations} {
+    configure.args-delete   --without-opencl
+    configure.args-append   --with-opencl
+    configure.args-append   --with-opencl-include=${OPENCLBASE}/Headers
+    configure.args-append   --with-opencl-lib='-framework OpenCL'
+}
+
+# OS X Framework
+variant framework description {Build as a Mac OS X framework} {
+    configure.args-append   --with-macosx-framework
+}
+
+# Perf variant to optimize code
+variant perf description {Optimize for speed} {
+    configure.cflags        -O3 -pipe -march=native
+    configure.cxxflags      -O3 -pipe -march=native
+}
+
+default_variants    +expat
+
+# Postconfigure hack to avoid read ${include} .h files before
+# GDAL own include directories
+post-configure {
+    set FRMT_PATH ${worksrcpath}/ogr/ogrsf_frmts
+    foreach makefile [glob -dir $FRMT_PATH */GNUmakefile] {
+        reinplace "s|\$\(EXPAT_INCLUDE\)||" $makefile
+    }
+    
+    reinplace -E "s|(GEOS_CFLAGS.*=).*|\\1|" ${worksrcpath}/GDALmake.opt
+    reinplace -E "s|^CPPFLAGS.*|CPPFLAGS = -I\$(GDAL_ROOT)/port -I${prefix} -I${prefix}/include|" ${worksrcpath}/GDALmake.opt
+}
+
+post-destroot {
+    xinstall -m 755 -d ${destroot}${prefix}/share/doc/${name}
+    xinstall -m 644 -W ${worksrcpath} HOWTO-RELEASE NEWS VERSION \
+        ${destroot}${prefix}/share/doc/${name}
+
+    if {[variant_isset mrsid]} {
+         foreach f [list \
+            bin/gdal_contour \
+            bin/gdal_grid \
+            bin/gdal_rasterize \
+            bin/gdal_translate \
+            bin/gdaladdo \
+            bin/gdalbuildvrt \
+            bin/gdaldem \
+            bin/gdalenhance \
+            bin/gdalinfo \
+            bin/gdallocationinfo \
+            bin/gdalmanage \
+            bin/gdalserver \
+            bin/gdalsrsinfo \
+            bin/gdaltindex \
+            bin/gdaltransform \
+            bin/gdalwarp \
+            bin/nearblack \
+            bin/ogr2ogr \
+            bin/ogrinfo \
+            bin/ogrlineref \
+            bin/ogrtindex \
+            bin/testepsg \
+            lib/libgdal.1.dylib] \
+            {
+                exec install_name_tool -change libltidsdk.9.dylib ${prefix}/share/Geo_DSDK/Raster_DSDK/lib/libltidsdk.9.dylib ${destroot}${prefix}/${f}
+            }
+    }
+
+    if {[variant_isset ecw]} {
+          foreach f [list \
+            bin/gdal_contour \
+            bin/gdal_grid \
+            bin/gdal_rasterize \
+            bin/gdal_translate \
+            bin/gdaladdo \
+            bin/gdalbuildvrt \
+            bin/gdaldem \
+            bin/gdalenhance \
+            bin/gdalinfo \
+            bin/gdallocationinfo \
+            bin/gdalmanage \
+            bin/gdalserver \
+            bin/gdalsrsinfo \
+            bin/gdaltindex \
+            bin/gdaltransform \
+            bin/gdalwarp \
+            bin/nearblack \
+            bin/ogr2ogr \
+            bin/ogrinfo \
+            bin/ogrlineref \
+            bin/ogrtindex \
+            bin/testepsg \
+            lib/libgdal.1.dylib] \
+            {
+                if {${configure.cxx_stdlib} == "libc++"} {
+                    exec install_name_tool -change \
+                        /Users/jenkins/hudson/workspace/RL_5.1.1_ECWJP2SDK_OSX/Master/libNCSEcw.dylib ${prefix}/lib/ECW/redistributable/libc++/libNCSEcw.dylib \
+                        ${destroot}${prefix}/${f}
+                } else {
+                    exec install_name_tool -change \
+                        /Users/jenkins/hudson/workspace/RL_5.1.1_ECWJP2SDK_OSX/Master/libNCSEcw.dylib ${prefix}/lib/ECW/redistributable/libstdc++/libNCSEcw.dylib \
+                        ${destroot}${prefix}/${f}
+                } 
+            }
+    }
+
+}
+
+livecheck.type  regex
+livecheck.url   http://download.osgeo.org/gdal/CURRENT
+livecheck.regex ${name}-(\\d+(?:\\.\\d+)*)\\.tar

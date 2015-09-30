@@ -1,0 +1,37 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim: fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137600 2015-06-15 10:59:19Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-six
+version             1.9.0
+categories-append   devel
+license             MIT
+platforms           darwin
+supported_archs     noarch
+
+maintainers         g5pw openmaintainer
+
+description         ${name} is a Python 2 and 3 compatibility library.
+long_description    ${description} It provides utility functions for smoothing\
+                    over the differences between the Python versions with the goal\
+                    of writing Python code that is compatible on both Python versions.
+
+homepage            http://pypi.python.org/pypi/six/
+master_sites        http://pypi.python.org/packages/source/s/six/
+
+distname            six-${version}
+
+checksums           rmd160  7692a13b40946de28978ecdcadaad3a5e842713b \
+                    sha256  e24052411fc4fbd1f672635537c3fc2330d9481b18c0317695b46259512c91d5
+
+python.versions     26 27 33 34
+
+if {${name} ne ${subport}} {
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/six/json
+    livecheck.regex     {six-(\d+(?:\.\d+)*)\.[tz]}
+}

@@ -1,0 +1,39 @@
+# $Id: Portfile 112156 2013-10-14 04:36:58Z jmr@macports.org $
+
+PortSystem 1.0
+
+name			ipcalc
+version			0.41
+categories		net
+license			GPL-2+
+platforms		darwin
+maintainers		nomaintainer
+supported_archs	noarch
+
+description		calculates various network masks etc. from given ip-address
+long_description	ipcalc takes an IP address and netmask and calculates the \
+				resulting broadcast, network, Cisco wildcard mask, and host \
+				range. By giving a second netmask, you can design sub- and \
+				supernetworks. It is also intended to be a teaching tool and \
+				presents the results as easy-to-understand binary values.
+
+homepage		http://jodies.de/ipcalc/
+master_sites	http://jodies.de/ipcalc-archive/
+checksums		md5     fb791e9a5220fc8e624d915e18fc4697 \
+				sha1    b75b498f2fa5ecfa30707a51da63c6a5775829f3 \
+				rmd160  aaa21c1804d7498e2604c907a336c20dc9b4511d
+
+depends_run		path:bin/perl:perl5
+
+configure	{
+	reinplace "s|/usr/bin/perl -w|${prefix}/bin/perl -w|g" ${worksrcpath}/ipcalc
+}
+
+build			{}
+
+destroot	{
+	xinstall -m 755 ${worksrcpath}/ipcalc ${destroot}${prefix}/bin
+	xinstall -m 755 -d ${destroot}${prefix}/share/doc/${name}
+	xinstall -m 644 ${worksrcpath}/changelog \
+		${destroot}${prefix}/share/doc/${name}
+}

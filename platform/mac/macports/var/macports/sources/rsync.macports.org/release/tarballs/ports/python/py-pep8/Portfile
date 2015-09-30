@@ -1,0 +1,48 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135342 2015-04-23 12:24:31Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           select 1.0
+
+name                py-pep8
+set realname        pep8
+version             1.6.2
+categories-append   devel
+platforms           darwin
+supported_archs     noarch
+license             MIT
+maintainers         gmail.com:patrik.hartlen openmaintainer
+
+description         Python style guide checker
+long_description    pep8 is a tool to check your Python code against \
+                    some of the style conventions in PEP 8 \
+                    (http://www.python.org/dev/peps/pep-0008/)
+
+homepage            https://pypi.python.org/pypi/${realname}/
+
+master_sites        https://pypi.python.org/packages/source/p/${realname}/
+distname            ${realname}-${version}
+checksums           rmd160  8f6d30def6a2e04386c4c8c310443966d7f63de2 \
+                    sha256  b8b7e35630b5539e26a197dfc6005be9e1e9a135496b377723a8ebc01b9bcbff
+
+python.versions     26 27 33 34
+
+if {${name} ne ${subport}} {
+    depends_lib-append      port:py${python.version}-setuptools
+    depends_run-append      port:${realname}_select
+    select.group            ${realname}
+    select.file             ${filespath}/${realname}${python.version}
+    notes "
+To make the Python ${python.branch} version of pep8 the one that is run\
+when you execute the commands without a version suffix, e.g. 'pep8', run:
+
+port select --set ${select.group} [file tail ${select.file}]
+"
+
+    livecheck.type  none
+} else {
+    livecheck.type  regex
+    livecheck.url   https://pypi.python.org/pypi/${realname}/json
+    livecheck.regex "${realname}-(\\d+(\\.\\d+)+)\\${extract.suffix}"
+}

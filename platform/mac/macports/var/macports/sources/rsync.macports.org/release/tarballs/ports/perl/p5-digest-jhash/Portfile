@@ -1,0 +1,17 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136936 2015-05-30 22:49:44Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Digest-JHash 0.09
+license             {Artistic-1 GPL}
+maintainers         devans openmaintainer
+description         Digest::JHash - Perl extension for 32 bit Jenkins Hashing Algorithm
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  fff4e8e58c3dd6f487159557013327e42e895768 \
+                    sha256  ba77919b7b7a1b6f222f1bb5a7a34d88b1a92093e40a2aec37352cb38926ada3

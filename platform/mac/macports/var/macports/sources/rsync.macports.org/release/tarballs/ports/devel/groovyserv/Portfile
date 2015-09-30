@@ -1,0 +1,50 @@
+# $Id: Portfile 125396 2014-09-16 20:06:28Z mf2k@macports.org $
+
+PortSystem 1.0
+
+name				groovyserv
+version				0.9
+categories			devel groovy
+maintainers			nomaintainer
+description			GroovyServ makes Groovy startup time quicker, by pre-invoking groovy as a TCP/IP server.
+long_description	In the case of scripting in dynamic-type languages, quick response about \
+					invocation is very important. Try-and-run cycles is repeated frequently \
+					than static-type languages, so sometimes 2 seconds or even a second might \
+					be intolerable. \
+					GroovyServ reduces the startup time of JVM and Groovy runtime significantly.
+homepage			http://kobo.github.com/groovyserv/index.html
+platforms			darwin
+distname			${name}-${version}-macosx-x86_64-bin
+master_sites		http://github.com/downloads/kobo/groovyserv
+checksums 			md5     99dc7505ba03fe4ed22353e492e20121 \
+                    sha1    8c3ee10527af0f390a15a3d75b5199b1fa05c90e \
+                    rmd160  24482827f878985361f8147b60901843a4f37d4b
+
+worksrcdir			${name}-${version}
+set workTarget		""
+
+use_zip	         	yes
+use_configure 		no
+
+build.cmd 			true
+
+pre-destroot {
+	# Remove extraneous bat files
+	foreach f [glob -directory ${worksrcpath}${workTarget}/bin *.bat] {
+		file delete $f
+	}
+}
+
+destroot	{
+	# Create the target java directory
+	xinstall -m 755 -d ${destroot}${prefix}/share/devel/${name}
+
+	# Copy over the needed elements of our directory tree
+	file copy ${worksrcpath}/lib     						\
+			  ${worksrcpath}/bin 							\
+			  ${destroot}${prefix}/share/devel/${name}
+
+	# Symlink groovyserv into the bin directory
+	system "cd ${destroot}${prefix}/bin && ln -s ${prefix}/share/devel/${name}/bin/groovyserver"
+	system "cd ${destroot}${prefix}/bin && ln -s ${prefix}/share/devel/${name}/bin/groovyclient"
+}

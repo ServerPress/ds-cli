@@ -1,0 +1,124 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 88191 2011-12-21 19:49:07Z pixilla@macports.org $
+
+PortSystem 1.0
+name                redland
+version             1.0.15
+description         Redland RDF Library
+long_description    Redland is a set of free software libraries that provide \
+                    support for the Resource Description Framework (RDF).
+maintainers         pixilla openmaintainer
+license             {LGPL-2.1+ GPL-2+ Apache-2+}
+categories          www
+platforms           darwin
+homepage            http://librdf.org/
+master_sites        http://download.librdf.org/source/
+
+checksums           rmd160  5cd4eca23faf05348c2327f356980aa2f18accea \
+                    sha256  0e1f5825b6357c9b490da866c95ae1d895dbb5f445013d2511c37df822ee9ec6
+
+patchfiles          patch-configure.diff
+patch.pre_args      -p1
+
+depends_lib         port:curl \
+                    port:libiconv \
+                    port:libtool \
+                    port:libxml2 \
+                    port:libxslt \
+                    port:openssl \
+                    port:raptor2 \
+                    port:rasqal \
+                    port:zlib
+
+# redland-config uses pkg-config
+depends_lib-append  port:pkgconfig
+
+configure.args      --with-bdb=no \
+                    --with-iodbc=no \
+                    --with-mysql=no \
+                    --with-postgresql=no \
+                    --with-sqlite=no \
+                    --with-threestore=no \
+                    --with-unixodbc=no \
+                    --with-virtuoso=no
+
+post-configure {
+    reinplace -E {s|-arch [a-z0-9_]+||g} \
+        ${worksrcpath}/redland-src-config \
+        ${worksrcpath}/redland.pc
+}
+
+test.run            yes
+test.target         check
+
+if {![variant_isset db44] && ![variant_isset db47]} {
+    default_variants +db46
+}
+
+variant db44 conflicts db46 db47 {
+    configure.args-delete   --with-bdb=no
+    configure.args-append   --with-bdb=${prefix} \
+                            --with-bdb-include=${prefix}/include/db44 \
+                            --with-bdb-lib=${prefix}/lib/db44
+    depends_lib-append      port:db44
+}
+
+variant db46 conflicts db44 db47 {
+    configure.args-delete   --with-bdb=no
+    configure.args-append   --with-bdb=${prefix} \
+                            --with-bdb-include=${prefix}/include/db46 \
+                            --with-bdb-lib=${prefix}/lib/db46
+    depends_lib-append      port:db46
+}
+
+variant db47 conflicts db44 db46 {
+    configure.args-delete   --with-bdb=no
+    configure.args-append   --with-bdb=${prefix} \
+                            --with-bdb-include=${prefix}/include/db47 \
+                            --with-bdb-lib=${prefix}/lib/db47
+    depends_lib-append      port:db47
+}
+
+variant mysql4 conflicts mysql5 {
+    configure.args-delete --with-mysql=no
+    depends_lib-append port:mysql4
+}
+
+variant mysql5 conflicts mysql4 {
+    configure.args-delete --with-mysql=no
+    configure.args-append --with-mysql=${prefix}/bin/mysql_config5
+    depends_lib-append path:bin/mysql_config5:mysql5
+}
+
+variant postgresql7 conflicts postgresql80 postgresql81 postgresql82 postgresql83 {
+    configure.args-delete --with-postgresql=no
+    depends_lib-append port:postgresql7
+}
+
+variant postgresql80 conflicts postgresql7 postgresql81 postgresql82 postgresql83 {
+    configure.args-delete --with-postgresql=no
+    depends_lib-append port:postgresql80
+}
+
+variant postgresql81 conflicts postgresql7 postgresql80 postgresql82 postgresql83 {
+    configure.args-delete --with-postgresql=no
+    depends_lib-append port:postgresql81
+}
+
+variant postgresql82 conflicts postgresql7 postgresql80 postgresql81 postgresql83 {
+    configure.args-delete --with-postgresql=no
+    depends_lib-append port:postgresql82
+}
+
+variant postgresql83 conflicts postgresql7 postgresql80 postgresql81 postgresql82 {
+    configure.args-delete --with-postgresql=no
+    depends_lib-append port:postgresql83
+}
+
+variant sqlite3 {
+    configure.args-delete --with-sqlite=no
+    depends_lib-append port:sqlite3
+}
+livecheck.type      regex
+livecheck.url       ${master_sites}
+livecheck.regex     "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

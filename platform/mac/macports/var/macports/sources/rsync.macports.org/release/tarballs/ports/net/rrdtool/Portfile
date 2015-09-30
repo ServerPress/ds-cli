@@ -1,0 +1,68 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 129018 2014-12-03 13:57:25Z devans@macports.org $
+
+PortSystem          1.0
+
+name                rrdtool
+version             1.4.9
+revision            1
+categories          net
+license             GPL-2+
+maintainers         nomaintainer
+description         Round Robin Database
+long_description    RRDtool is a system to store and display time-series data
+homepage            http://oss.oetiker.ch/rrdtool/
+platforms           darwin
+master_sites        ${homepage}pub/
+
+checksums           rmd160 8c067f0207bdfeb067be3c9b31c8e35009485200 \
+                    sha256 3e2826e0d60aaf85313da35b3c0d3a926748fe482b4ada766a325a83b60125cc
+
+depends_build       port:pkgconfig
+
+depends_lib         port:expat \
+                    path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                    port:libiconv \
+                    port:libffi \
+                    port:gettext \
+                    path:lib/pkgconfig/pango.pc:pango \
+                    port:perl5.16 \
+                    port:tcl \
+                    port:zlib \
+                    port:libpng \
+                    port:libxml2 \
+                    port:intltool \
+                    port:tcp_wrappers
+
+patchfiles          patch-bindings_lua_Makefile_in.diff
+
+configure.perl      ${prefix}/bin/perl5.16
+
+configure.args      --enable-perl-site-install \
+                    --with-perl-options="INSTALLDIRS=vendor" \
+                    --with-tcllib=${prefix}/lib \
+                    --disable-silent-rules \
+                    --disable-lua \
+                    --disable-python \
+                    --disable-ruby \
+                    --disable-tcl
+
+post-destroot {
+    fs-traverse f ${destroot}${prefix} {
+        if {[file isfile ${f}]} {
+            switch [file tail ${f}] {
+                .packlist -
+                perllocal.pod {
+                    delete ${f}
+                }
+            }
+        }
+    }
+}
+
+variant python27 description {Python 2.7 bindings for RRDtool} {
+    depends_lib-append      port:python27
+    configure.python        ${prefix}/bin/python2.7
+    configure.args-delete   --disable-python
+    configure.args-append   --enable-python
+}

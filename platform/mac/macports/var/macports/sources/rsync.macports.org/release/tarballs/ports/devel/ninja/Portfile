@@ -1,0 +1,51 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 121900 2014-07-11 05:39:46Z dh@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+epoch               1
+github.setup        martine ninja 1.5.1 v
+categories          devel
+platforms           darwin
+maintainers         uuid-mail.com:521E328E-2A13-4749-826A-E4EF4F22A0F1 openmaintainer
+license             Apache-2
+installs_libs       no
+
+description         Small build system with a focus on speed.
+
+long_description    Ninja is yet another build system. It takes as input    \
+                    the interdependencies of files (typically source code   \
+                    and output executables) and orchestrates building them, \
+                    quickly.                                                \
+                                                                            \
+                    Ninja joins a sea of other build systems. Its           \
+                    distinguishing goal is to be fast. It is born from my   \
+                    work on the Chromium browser project, which has over    \
+                    30,000 source files and whose other build systems       \
+                    (including one built from custom non-recursive          \
+                    Makefiles) can take ten seconds to start building       \
+                    after changing one file. Ninja is under a second.
+
+homepage            http://martine.github.com/ninja/
+
+checksums           rmd160  b4adf4b8bb120eda7e128db5eb1a843789cc2180 \
+                    sha256  945c1c3f5db1384c68b36b83f60f3ce21a60812467a7343b13c99c4f3e04ee26
+
+patchfiles          bootstrap.py-use-system-python.diff \
+                    configure.py-use-system-python.diff
+
+use_configure       no
+
+variant universal {}
+
+build.cmd           ./bootstrap.py
+build.target
+build.args          --verbose
+build.env           CXX="${configure.cxx} [get_canonical_archflags cxx]"
+
+destroot {
+    xinstall -m 755 ${worksrcpath}/${name} ${destroot}${prefix}/bin
+    xinstall -d ${destroot}${prefix}/etc/bash_completion.d
+    xinstall -m 644 ${worksrcpath}/misc/bash-completion ${destroot}${prefix}/etc/bash_completion.d/ninja
+}

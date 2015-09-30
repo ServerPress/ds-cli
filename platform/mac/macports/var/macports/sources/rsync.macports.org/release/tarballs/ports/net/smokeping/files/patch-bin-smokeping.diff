@@ -1,0 +1,41 @@
+--- bin/smokeping.orig	2011-10-05 02:51:46.000000000 -0700
++++ bin/smokeping	2013-01-16 12:12:20.000000000 -0800
+@@ -6,12 +6,12 @@
+ 
+ use FindBin;
+ # PERL5LIB
+-use lib "$FindBin::Bin/../thirdparty/lib/perl5";
+-use lib "$FindBin::Bin/../lib";
++use lib "__PERL5__ARCHLIB__/auto/RRDs";
++use lib "__PREFIX__/lib/smokeping";
+ 
+ use Smokeping;
+  
+-Smokeping::main("$FindBin::Bin/../etc/config");
++Smokeping::main("__PREFIX__/etc/smokeping/config");
+ 
+ =head1 NAME
+ 
+@@ -131,22 +131,7 @@
+ 
+ =head1 SETUP
+ 
+-When installing SmokePing, this file has to be adjusted to fit your
+-local system. Three paths have to be entered.
+ 
+-One pointing to your B<rrdtool> installation
+-
+- use lib qw(/usr/pack/rrdtool-1.0.33-to/lib/perl);
+-
+-One pointing to the place where you have installed the SmokePing libraries
+-
+- use lib qw(/home/oetiker/public_html/smokeping/lib);
+-
+-The third path is the argument to the Smokeping::main command. It points to
+-the SmokePing configuration file.
+-
+- use Smokeping;
+- Smokeping::main("/home/oetiker/.smokeping/config");
+ 
+ =head1 COPYRIGHT
+ 

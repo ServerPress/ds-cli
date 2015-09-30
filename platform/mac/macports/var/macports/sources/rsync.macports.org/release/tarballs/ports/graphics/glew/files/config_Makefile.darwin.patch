@@ -1,0 +1,14 @@
+--- config/Makefile.darwin.orig	2013-07-23 00:11:22.000000000 +1000
++++ config/Makefile.darwin	2013-07-23 12:48:15.000000000 +1000
+@@ -1,9 +1,9 @@
+ NAME = $(GLEW_NAME)
+ CC = cc
+ LD = cc
+-CFLAGS.EXTRA = -dynamic -fno-common
++CFLAGS.EXTRA = -dynamic -fno-common $(CFLAGS.ARCH)
+ #CFLAGS.EXTRA += -no-cpp-precomp
+-LDFLAGS.EXTRA =
++LDFLAGS.EXTRA = $(LDFLAGS.ARCH)
+ ifneq (undefined, $(origin GLEW_APPLE_GLX))
+ CFLAGS.EXTRA += -I/usr/X11R6/include -D'GLEW_APPLE_GLX'
+ LDFLAGS.GL = -L/usr/X11R6/lib -lGL -lX11

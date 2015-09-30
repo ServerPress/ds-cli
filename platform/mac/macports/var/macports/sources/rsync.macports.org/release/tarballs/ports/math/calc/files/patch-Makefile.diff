@@ -1,0 +1,74 @@
+--- Makefile.orig	2014-10-06 10:45:15.000000000 +0200
++++ Makefile	2015-02-24 21:16:31.000000000 +0100
+@@ -573,7 +573,7 @@
+ 
+ #INCDIR= /usr/local/include
+ #INCDIR= /dev/env/DJDIR/include
+-INCDIR= /usr/include
++INCDIR= ___PREFIX___/include
+ 
+ # Where to install calc related things
+ #
+@@ -612,15 +612,15 @@
+ #
+ #BINDIR= /usr/local/bin
+ #BINDIR= /dev/env/DJDIR/bin
+-BINDIR= /usr/bin
++BINDIR= ___PREFIX___/bin
+ 
+ #LIBDIR= /usr/local/lib
+ #LIBDIR= /dev/env/DJDIR/lib
+-LIBDIR= /usr/lib
++LIBDIR= ___PREFIX___/lib
+ 
+ #CALC_SHAREDIR= /usr/local/lib/calc
+ #CALC_SHAREDIR= /dev/env/DJDIR/share/calc
+-CALC_SHAREDIR= /usr/share/calc
++CALC_SHAREDIR= ___PREFIX___/share/calc
+ 
+ # NOTE: Do not set CALC_INCDIR to /usr/include or /usr/local/include!!!
+ #	Always be sure that the CALC_INCDIR path ends in /calc to avoid
+@@ -687,7 +687,7 @@
+ #
+ # If in doubt, use T=
+ #
+-T=
++T=___DESTROOT___
+ 
+ # where man pages are installed
+ #
+@@ -698,7 +698,7 @@
+ #MANDIR=
+ #MANDIR= /usr/local/man/man1
+ #MANDIR= /usr/man/man1
+-MANDIR= /usr/share/man/man1
++MANDIR= ___PREFIX___/share/man/man1
+ #MANDIR= /dev/env/DJDIR/man/man1
+ #MANDIR= /usr/man/u_man/man1
+ #MANDIR= /usr/contrib/man/man1
+@@ -825,11 +825,11 @@
+ #
+ # If in doubt, set USE_READLINE, READLINE_LIB and READLINE_INCLUDE to nothing.
+ #
+-USE_READLINE=
+-#USE_READLINE= -DUSE_READLINE
++#USE_READLINE=
++USE_READLINE= -DUSE_READLINE
+ #
+-READLINE_LIB=
+-READLINE_EXTRAS=
++#READLINE_LIB=
++#READLINE_EXTRAS=
+ #
+ #READLINE_LIB= -lreadline
+ #READLINE_EXTRAS= -lhistory -lncurses
+@@ -840,6 +840,9 @@
+ #READLINE_LIB= -L/usr/local/lib -lreadline
+ #READLINE_EXTRAS= -lhistory -lncurses
+ #
++READLINE_LIB= -L___PREFIX___/lib -lreadline
++READLINE_EXTRAS= -lhistory -lncurses
++#
+ # For Apple OS X: install fink from http://fink.sourceforge.net
+ #		  and then do a 'fink install readline' and then use:
+ #

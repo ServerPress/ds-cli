@@ -1,0 +1,47 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135589 2015-04-27 14:01:35Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+set my_name         ply
+name                py-${my_name}
+version             3.6
+revision            0
+categories-append   lang devel
+platforms           darwin
+license             BSD
+supported_archs     noarch
+
+python.versions     27 34
+
+maintainers         nomaintainer
+
+description         lex and yacc implementation for Python
+long_description    ${description}
+
+homepage            http://www.dabeaz.com/ply/
+master_sites        ${homepage}
+
+distname            ${my_name}-${version}
+
+checksums           rmd160  99a9ec4bb3fadd750e2a5b18517e06248770b25e \
+                    sha256  61367b9eb2f4b819f69ea116750305270f1df8859992c9e356d6a851f25a4b47
+
+if {${name} ne ${subport}} {
+    post-destroot {
+        set docdir ${prefix}/share/doc/${subport}
+        xinstall -d ${destroot}${docdir}/html
+
+        xinstall -m 644 -W $worksrcpath ANNOUNCE CHANGES \
+            TODO ${destroot}${docdir}
+
+        xinstall -m 644 $worksrcpath/doc/ply.html \
+            ${destroot}${docdir}/html
+    }
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.regex     ${my_name}-(\\d+(?:\\.\\d+)*)
+}

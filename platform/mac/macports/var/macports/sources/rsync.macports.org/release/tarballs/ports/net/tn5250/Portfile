@@ -1,0 +1,35 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 103851 2013-03-08 22:18:56Z jmr@macports.org $
+
+PortSystem          1.0
+
+name                tn5250
+version             0.17.4
+categories          net
+license             LGPL-2.1+
+platforms           darwin macosx freebsd
+maintainers         nomaintainer
+
+description         tn5250 terminal emulator
+
+long_description    tn5250 is a telnet client for the IBM iSeries and AS/400 \
+                    that emulates 5250 terminals and printers.
+
+homepage            http://tn5250.sourceforge.net/
+
+master_sites        sourceforge:project/tn5250/tn5250/${version}
+
+checksums           sha1    2c84f03f798fd5095009d6798d1e6c0b29e48a75 \
+                    rmd160  a2fd1d96fe89a521c53449174b0898574562ad7b
+
+configure.args      --enable-ssl
+
+#variant python {
+#    configure.args-append   --with-python
+#    depends_lib-append      port:python27
+#}
+
+variant curses description "add curses terminal support" {
+    configure.args-append   --with-curses
+    depends_lib-append      port:ncurses
+}

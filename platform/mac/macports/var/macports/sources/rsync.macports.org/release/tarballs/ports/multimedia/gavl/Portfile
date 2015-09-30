@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 115019 2013-12-22 09:29:46Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                gavl
+version             1.2.0
+revision            2
+license             GPL-2+
+categories          multimedia
+platforms           darwin
+maintainers         nomaintainer
+
+description         Gavl (Gmerlin Audio Video Library) is a low level library, upon which \
+                    multimedia APIs can be built.
+
+long_description    Gavl (Gmerlin Audio Video Library) is a low level library, upon which \
+                    multimedia APIs can be built. Gavl handles all the details of audio and \
+                    video formats like colorspaces, samplerates, multichannel configurations etc. \
+                    It provides standardized definitions for those formats as well as container \
+                    structures for carrying audio samples or video images inside an application. \
+                    \
+                    In addition, it handles the sometimes ugly task of  converting between all \
+                    these formats and provides some elementary operations (copying, scaling, \
+                    alpha blending, etc).
+
+homepage            http://gmerlin.sourceforge.net/gavl_frame.html
+master_sites        sourceforge:gmerlin
+
+checksums           sha1    a48ccb58aeb4cdd2e986b2fa432db39a95189366 \
+                    rmd160  f142dda518023504c68d69c0be1e50e4b60e9c8f
+
+depends_build       port:doxygen \
+                    port:libpng \
+                    port:pkgconfig
+
+compiler.blacklist  llvm-gcc-4.2 macports-llvm-gcc-4.2
+
+livecheck.distname  ${name}

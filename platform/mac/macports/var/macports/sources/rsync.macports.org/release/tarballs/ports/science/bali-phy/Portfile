@@ -1,0 +1,114 @@
+# $Id: Portfile 129494 2014-12-14 11:28:44Z jmr@macports.org $
+
+PortSystem 1.0
+
+name                bali-phy
+version             2.1.1
+revision            2
+description         Bayesian Alignment and Phylogeny estimation
+long_description    BAli-Phy can estimate phylogenetic trees from sequence data when the alignment \
+                    is uncertain. Instead of conditioning on a single alignment estimate, BAli-Phy \
+                    accounts for alignment uncertainty by integrating over all alignments. \
+                    BAli-Phy does not rely on a guide tree because the alignment and the tree are \
+                    co-estimated. Therefore it can construct phylogeny estimates of widely \
+                    divergent sequences without bias toward a guide tree.
+categories          science
+platforms           darwin
+maintainers         nomaintainer
+homepage            http://www.biomath.ucla.edu/msuchard/bali-phy/
+
+master_sites        ${homepage}
+checksums           sha1 e72073a1c5b05c797668e476bfd8517594f074e6
+
+patchfiles          configure.patch scripts.patch src-tools-draw-tree.patch
+
+depends_lib         port:gsl port:boost path:lib/pkgconfig/cairo.pc:cairo
+depends_build       port:pkgconfig
+
+configure.args      --with-system-boost --enable-cairo
+configure.env-append BOOST_SUFFIX=-mt
+
+variant no_cairo description {disable drawing routines} {
+    depends_lib-delete      path:lib/pkgconfig/cairo.pc:cairo
+    configure.args-delete   --enable-cairo
+    patchfiles-delete       src-tools-draw-tree.patch
+}
+
+variant openmpi description {enable OpenMPI parallelization} {
+    depends_lib-append      port:openmpi
+    configure.args-append   --with-mpi
+}
+
+set gcc_versions {4.3 4.4 4.5 4.6 4.7 4.8 4.9}
+set default_fortran_variant +gcc48
+
+foreach ver ${gcc_versions} {
+    set ver_no_dot [join [split ${ver} "."] ""]
+
+    set variant_line {variant gcc${ver_no_dot} description "build with gfortran from gcc${ver_no_dot}"}
+
+    foreach over ${gcc_versions} {
+        if {${ver} == ${over}} {
+            continue
+        }
+
+        set over_no_dot [join [split ${over} "."] ""]
+        append variant_line " conflicts gcc${over_no_dot}"
+    }
+    append variant_line { {}}
+
+    eval $variant_line
+
+    if {[variant_isset gcc${ver_no_dot}]} {
+        if {${default_fortran_variant} != "+gcc${ver_no_dot}"} {
+            set default_fortran_variant ""
+        }
+    }
+}
+
+if {${default_fortran_variant} != ""} {
+    default_variants-append "${default_fortran_variant}"
+}
+
+foreach ver ${gcc_versions} {
+    set ver_no_dot [join [split ${ver} "."] ""]
+
+    if {[variant_isset gcc${ver_no_dot}]} {
+        depends_lib-append path:lib/libgcc/libgcc_s.1.dylib:libgcc
+        depends_build-append port:gcc${ver_no_dot}
+
+        configure.fc  ${prefix}/bin/gfortran-mp-${ver}
+        configure.f77 ${prefix}/bin/gfortran-mp-${ver}
+        configure.f90 ${prefix}/bin/gfortran-mp-${ver}
+    }
+}
+
+# The project doesn't even configure with clang.  Based on how long it's
+# been broken, I doubt this project is even used much, so it may not be
+# worh the effort to fix
+#
+# conftest.cpp:60:11: error: no type named 'default_name_check' in 'boost::filesystem::path'
+# fs::path::default_name_check(fs::portable_posix_name);
+# ~~~~~~~~~~^
+# conftest.cpp:60:34: error: definition or redeclaration of 'portable_posix_name' not allowed inside a function
+# fs::path::default_name_check(fs::portable_posix_name);
+#                              ~~~~^
+# 2 errors generated.
+compiler.blacklist *clang*
+
+platform darwin {
+    if {${os.major} >= 13} {
+        # TODO: Test Mavericks once the clang build failures are addressed
+
+        depends_build
+        depends_lib
+        pre-fetch {
+            ui_error "$name does not build on Mavericks or later."
+            error "unsupported platform"
+        }
+    }
+}
+
+livecheck.type  regex
+livecheck.url   ${master_sites}
+livecheck.regex {BAli-Phy (\d+\.\d+\.\d+) released}

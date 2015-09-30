@@ -1,0 +1,97 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137258 2015-06-07 16:18:18Z khindenburg@macports.org $
+
+PortSystem              1.0
+PortGroup               github 1.0
+
+set realname            git-flow
+set description_common  {Git extensions for Vincent Driessen branching.}
+
+github.setup            nvie gitflow 0.4.1
+fetch.type              git
+name                    ${realname}
+revision                2
+categories              devel
+platforms               darwin
+maintainers             maiar.org:jason-macports openmaintainer
+license                 {BSD LGPL-2.1+}
+supported_archs         noarch
+
+description             ${description_common} (nvie)
+long_description        ${description_common} \
+                        This is the canonical nvie version, not maintained.
+conflicts               ${realname}-devel ${realname}-avh ${realname}-hf
+
+depends_run-append      port:git port:getopt
+
+if {${subport} eq ${name}} {
+
+    destroot.destdir      prefix=${destroot}${prefix}
+
+    post-fetch {
+        # Does the github portgroup support 'clone --recursive'?
+        # This will be removed once the python re-write is complete.
+        system -W ${worksrcpath} "git submodule update --init"
+    }
+}
+
+subport ${realname}-devel {
+    github.setup        nvie gitflow 15aab26490facf285acef56cb5d61025eacb3a69
+
+    version             20120925
+    revision            0
+    license             {BSD LGPL-2.1+}
+    description         ${description_common} (nvie devel)
+    long_description    ${description_common} \
+                        This is the nvie develop branch, not maintained.
+    conflicts           ${realname} ${realname}-avh ${realname}-hf
+
+    destroot.destdir    prefix=${destroot}${prefix}
+
+    post-fetch {
+        # Does the github portgroup support 'clone --recursive'?
+        # This will be removed once the python re-write is complete.
+        system -W ${worksrcpath} "git submodule update --init"
+    }
+}
+
+subport ${realname}-avh {
+    github.setup        petervanderdoes gitflow 1.8.0
+    fetch.type          standard
+
+    license             {BSD LGPL-2.1+}
+    description         ${description_common} (avh Edition)
+    long_description    ${description_common} \
+                        This is the AVH Edition, and is actively developed.
+    conflicts           ${realname} ${realname}-devel ${realname}-hf
+
+    distfiles           ${distname}${extract.suffix}
+    checksums           rmd160  80332b94697fefaa3055b47f181e584f8ce77cf7 \
+                        sha256  11bb69d7253b97404a86b9c803d3f4a9f610e8723e85aa3c3865dfa11416e48f
+
+    destroot.destdir    prefix=${destroot}${prefix}
+}
+
+subport ${realname}-hf {
+    github.setup        datasift gitflow 1.5.2
+
+    revision            1
+    license             {BSD LGPL-2.1+}
+    description         ${description_common} (HubFlow)
+    long_description    ${description_common} \
+                        This is the HubFlow version, and is actively developed.
+    conflicts           ${realname} ${realname}-devel ${realname}-avh
+
+    destroot.env        INSTALL_INTO="${destroot}${prefix}/bin"
+    destroot.cmd        ./install.sh
+    destroot.destdir
+
+    post-fetch {
+        # Does the github portgroup support 'clone --recursive'?
+        # This will be removed once the python re-write is complete.
+        system -W ${worksrcpath} "git submodule update --init"
+    }
+}
+
+use_configure           no
+build {}

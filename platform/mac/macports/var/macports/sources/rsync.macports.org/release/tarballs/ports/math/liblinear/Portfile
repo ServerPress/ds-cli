@@ -1,0 +1,94 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138173 2015-07-01 11:46:02Z hum@macports.org $
+
+PortSystem          1.0
+
+name                liblinear
+version             2.0
+categories          math
+maintainers         hum openmaintainer
+
+description         A simple package for solving large-scale regularized linear classification.
+
+long_description    LIBLINEAR is a simple package for solving large-scale regularized \
+                    linear classification. It currently supports L2-regularized logistic \
+                    regression/L2-loss support vector classification/L1-loss support vector \
+                    classification, and L1-regularized L2-loss support vector classification/ \
+                    logistic regression.
+
+homepage            http://www.csie.ntu.edu.tw/~cjlin/liblinear/
+platforms           darwin
+license             BSD
+
+master_sites        ${homepage}
+checksums           rmd160  f53c5f5557a4f3f174c55f5dcc8ee36ef5ccbce2 \
+                    sha256  3e028e89ee9573f3110745a3dbd2b62618c710ddc09db719db989d70604d682c
+
+patchfiles          patch-Makefile.diff
+
+use_configure       no
+
+variant universal {}
+
+build.target        all
+build.args          CC="${configure.cc}   ${configure.cflags}   [get_canonical_archflags]" \
+                    CXX="${configure.cxx} ${configure.cxxflags} [get_canonical_archflags cxx]" \
+                    PREFIX=${prefix}
+
+destroot {
+    xinstall -m 755 -W ${worksrcpath} train predict ${destroot}${prefix}/bin
+    xinstall -m 644 -W ${worksrcpath} liblinear.dylib ${destroot}${prefix}/lib
+    xinstall -m 644 -W ${worksrcpath} linear.h tron.h ${destroot}${prefix}/include
+
+    # Copy additional documents.
+    set dest_doc ${destroot}${prefix}/share/doc/${name}
+    xinstall -m 755 -d ${dest_doc}
+    xinstall -m 644 -W ${worksrcpath} COPYRIGHT README ${dest_doc}
+
+    # Copy sample data.
+    set dest_ex ${destroot}${prefix}/share/examples/${name}
+    xinstall -m 755 -d ${dest_ex}
+    xinstall -m 644 -W ${worksrcpath} heart_scale ${dest_ex}
+
+    # Copy python scripts.
+    set dest_py ${dest_ex}/python
+    xinstall -m 755 -d ${dest_py}
+    xinstall -m 644 -W ${worksrcpath}/python \
+        README liblinear.py liblinearutil.py \
+        ${dest_py}
+}
+
+# TODO: Remove after 2015-12-26.
+variant python24 requires python27 description {Legacy variant} {}
+variant python25 requires python27 description {Legacy variant} {}
+variant python31 requires python34 description {Legacy variant} {}
+variant python32 requires python34 description {Legacy variant} {}
+
+# TODO: Remove after 2016-05-14.
+variant python26 requires python27 description {Legacy variant} {}
+variant python33 requires python34 description {Legacy variant} {}
+
+variant python27 description {Install Python 2.7 interface} {
+    depends_lib-append  port:python27
+    post-destroot { install_py 2.7 }
+}
+
+variant python34 description {Install Python 3.4 interface} {
+    depends_lib-append  port:python34
+    post-destroot { install_py 3.4 }
+}
+
+proc install_py {branch} {
+    global frameworks_dir destroot worksrcpath
+    set py_prefix  ${frameworks_dir}/Python.framework/Versions/${branch}
+    set dir        ${destroot}${py_prefix}/lib/python${branch}/site-packages
+    xinstall -m 755 -d ${dir}
+    xinstall -m 644 -W ${worksrcpath}/python liblinear.py liblinearutil.py ${dir}
+}            
+
+if {![variant_isset python27] && ![variant_isset python34]} {
+    default_variants +python27
+}
+
+livecheck.type          regex
+livecheck.regex         {Version *([0-9.]+) *}

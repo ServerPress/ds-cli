@@ -1,0 +1,52 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136249 2015-05-13 11:22:41Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+PortGroup           python 1.0
+
+github.setup        PyMVPA PyMVPA 2.4.0 upstream/
+
+name                py-pymvpa
+revision            0
+categories-append   science math
+platforms           darwin
+license             MIT
+
+python.versions     27 33 34
+
+maintainers         stromnov openmaintainer
+
+description         MultiVariate Pattern Analysis (MVPA) in Python.
+
+long_description    PyMVPA is a Python package intended to ease statistical \
+                    learning analyses of large datasets. It offers \
+                    an extensible framework with a high-level interface \
+                    to a broad range of algorithms for classification, \
+                    regression, feature selection, data import and export. \
+                    While it is not limited to the neuroimaging domain, \
+                    it is eminently suited for such datasets.
+
+homepage            http://www.pymvpa.org
+
+checksums           rmd160  d31e659306339ea6a23a21a7dd5ceba6994fe888 \
+                    sha256  691a7cfe6797abb3430dbcff884d94b46a0f30235f8f2f03f9c6f1ae0fd5e9af
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-setuptools
+    depends_lib-append  port:py${python.version}-numpy \
+                        port:libsvm
+
+    patchfiles-append   patch-setup.py.diff
+
+    post-patch {
+        reinplace "s|@@PREFIX@@|${prefix}|g" ${worksrcpath}/setup.py
+    }
+
+    build.args-append   --with-system-libsvm
+
+    livecheck.type      none
+} else {
+    livecheck.regex     "archive/upstream/(\[^\"\]+)${extract.suffix}"
+}

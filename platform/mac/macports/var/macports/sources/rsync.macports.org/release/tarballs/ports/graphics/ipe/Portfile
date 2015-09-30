@@ -1,0 +1,98 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134525 2015-03-28 17:27:55Z khindenburg@macports.org $
+
+PortSystem 1.0
+PortGroup               qt4 1.0
+
+name                    ipe
+version                 7.1.7
+set branch              [join [lrange [split ${version} .] 0 1] .]
+categories              graphics
+maintainers             gmail.com:m7.thon openmaintainer
+description             The Ipe extensible drawing editor
+long_description        \
+                        Ipe is a drawing editor for creating figures in PDF or \
+                        (encapsulated) Postscript format. It supports making small \
+                        figures for inclusion into LaTeX-documents as well as making \
+                        multi-page PDF presentations that can be shown on-line with \
+                        Acrobat Reader.
+license                 GPL-3+
+homepage                http://ipe7.sourceforge.net/
+platforms               darwin
+master_sites            sourceforge:project/ipe7/ipe/${branch}
+distname                ${name}-${version}-src
+worksrcdir              ${name}-${version}/src
+
+checksums               sha1    ace0628f9e8a1d752f4a1837ac705e0457498a00 \
+                        rmd160  e77099d2d24d195d4ef541311b6114dc38580dc8
+
+
+depends_lib-append      port:freetype \
+                        path:lib/pkgconfig/cairo.pc:cairo \
+                        path:lib/pkgconfig/lua.pc:lua \
+                        port:lua \
+                        path:lib/libjpeg.dylib:jpeg \
+                        port:libpng \
+                        port:zlib
+
+patchfiles              patch-ipelib-ipebitmap.cpp.diff \
+                        patch-ipelets-qvoronoi-qvoronoi.cpp.diff \
+                        patch-ipelua-ipeluaipelet.cpp.diff
+
+use_configure           no
+
+variant universal {}
+
+variant qvoronoi description {Add qvoronoi ipelet} {
+    depends_lib-append  port:qhull
+    build.post_args     subdirs="ipelib ipelets/lua ipelets/qvoronoi ipetoipe ipe6upgrade \
+                            ipeextract ipescript ipecairo iperender ipecanvas ipeview ipelua ipeui ipe" \
+                        QHULL_CFLAGS=-I${prefix}/include/qhull
+    destroot.post_args  subdirs="ipelib ipelets/lua ipelets/qvoronoi ipetoipe ipe6upgrade \
+                            ipeextract ipescript ipecairo iperender ipecanvas ipeview ipelua ipeui ipe"
+}
+
+default_variants        +qvoronoi
+
+pre-build {
+    set    lua_pc       [lindex [split [glob ${prefix}/lib/pkgconfig/lua*] "/"] end]
+    set    lua_version  [join [lrange [split ${lua_pc} "."] 0 end-1] "."]
+    build.env           CXXFLAGS="[get_canonical_archflags cxx]" \
+                        LDFLAGS="[get_canonical_archflags ld]"
+
+    build.args          IPEPREFIX=${prefix} \
+                        ZLIB_CFLAGS="`pkg-config --cflags zlib`" \
+                        ZLIB_LIBS="`pkg-config --libs zlib`" \
+                        JPEG_LIBS="-ljpeg" \
+                        PNG_CFLAGS="`pkg-config --cflags libpng`" \
+                        PNG_LIBS="`pkg-config --libs libpng`" \
+                        FREETYPE_CFLAGS="`pkg-config --cflags freetype2`" \
+                        FREETYPE_LIBS="`pkg-config --libs freetype2`" \
+                        CAIRO_CFLAGS="`pkg-config --cflags cairo`" \
+                        CAIRO_LIBS="`pkg-config --libs cairo`" \
+                        LUA_CFLAGS="`pkg-config --cflags ${lua_version}`" \
+                        LUA_LIBS="`pkg-config --libs ${lua_version}`" \
+                        QT_CFLAGS="`pkg-config --cflags QtGui QtCore`" \
+                        QT_LIBS="`pkg-config --libs QtGui QtCore`" \
+                        MOC=${qt_moc_cmd} \
+                        CXX=${configure.cxx}
+}
+
+destroot.args-append    IPEPREFIX=${prefix}
+use_parallel_build      no
+
+platform macosx {
+    depends_build-append port:makeicns
+    post-destroot {
+        set app Ipe
+        xinstall -d ${destroot}${applications_dir}/${app}.app/Contents/MacOS \
+            ${destroot}${applications_dir}/${app}.app/Contents/Resources
+        xinstall -m 644 ${filespath}/Info.plist.in ${destroot}${applications_dir}/${app}.app/Contents/Info.plist
+        reinplace "s|@VERSION@|${version}|g" ${destroot}${applications_dir}/${app}.app/Contents/Info.plist
+        reinplace "s|@PREFIX@|${prefix}|g" ${destroot}${applications_dir}/${app}.app/Contents/Info.plist
+        ln -s ${prefix}/bin/ipe ${destroot}${applications_dir}/${app}.app/Contents/MacOS/${app}
+        system "${prefix}/bin/makeicns -in ${worksrcpath}/ipe/icons/ipe.png -out ${destroot}${applications_dir}/${app}.app/Contents/Resources/${name}.icns"
+    }
+}
+
+livecheck.regex         "/${name}-(\\d+(?:\\.\\d+)*)-src"

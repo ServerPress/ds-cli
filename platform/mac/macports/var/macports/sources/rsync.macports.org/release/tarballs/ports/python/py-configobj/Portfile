@@ -1,0 +1,49 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135781 2015-05-02 23:01:03Z khindenburg@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-configobj
+version             4.7.2
+platforms           darwin
+supported_archs     noarch
+license             BSD
+maintainers         nomaintainer
+
+description         Config file reading, writing and validation.
+long_description    ConfigObj is a simple but powerful config file \
+                    reader and writer: an ini file round tripper. \
+                    Its main feature is that it is very easy to use, \
+                    with a straightforward programmer's interface and \
+                    a simple syntax for config files.
+homepage            http://www.voidspace.org.uk/python/configobj.html
+
+master_sites        sourceforge:configobj
+distname            configobj-${version}
+use_zip             yes
+checksums           md5     51cee395cfbf831339b03f72706de18e \
+                    sha1    2e6e33a5f685926bea2d4745cf81403c2c974e81 \
+                    rmd160  a4301775b5bc7c893f8ee32df5160bc5559fd541
+
+python.versions     26 27 34
+
+if {${name} ne ${subport}} {
+	# Patch for Python3
+	post-extract {
+		if {[string match py3* ${subport}]} {
+			ui_msg "Patching for python 3.x"
+			reinplace -E "s|(except .*)\\, e|\\1 as e|" \
+				${worksrcpath}/configobj.py
+		}
+	}
+
+    post-destroot {
+        foreach f [glob -directory ${worksrcpath}/docs *] {
+            copy $f ${destroot}${prefix}/share/doc/${subport}/[file tail $f]
+        }
+    }
+    livecheck.type      none
+} else {
+    livecheck.regex     configobj-(\[0-9.\]+)${extract.suffix}
+}

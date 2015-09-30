@@ -1,0 +1,374 @@
+<HEAD>
+<TITLE>Editor commands (+)</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Lexical_structure.html">Next</A>
+<A HREF="Spelling_correction.html">Previous</A>
+<H2>Editor commands (+)</H2>
+`bindkey' lists key bindings and `bindkey -l' lists and briefly describes
+editor commands.
+Only new or especially interesting editor commands are described here.
+See <I>emacs</I>(1) and <I>vi</I>(1) for descriptions of each editor's
+key bindings.
+<P>
+The character or characters to which each command is bound by default is
+given in parentheses.  `^<I>character</I>' means a control character and
+`M-<I>character</I>' a meta character, typed as escape-<I>character</I>
+on terminals without a meta key.  Case counts, but commands that are bound
+to letters by default are bound to both lower- and uppercase letters for
+convenience.
+<P>
+<DL compact>
+<DT>
+<B><A NAME="complete-word">complete-word</A> </B>(tab)
+<DD>
+Completes a word as described under <B><A HREF="Completion_and_listing.html">Completion and listing</A></B>.
+<P>
+<DT>
+<B><A NAME="complete-word-back">complete-word-back</A> </B>(not bound)
+<DD>
+Like <I><A HREF="Editor_commands.html#complete-word-fwd">complete-word-fwd</A></I>, but steps up from the end of the list.
+<P>
+<DT>
+<B><A NAME="complete-word-fwd">complete-word-fwd</A> </B>(not bound)
+<DD>
+Replaces the current word with the first word in the list of possible
+completions.  May be repeated to step down through the list.
+At the end of the list, beeps and reverts to the incomplete word.
+<P>
+<DT>
+<B><A NAME="complete-word-raw">complete-word-raw</A> </B>(^X-tab)
+<DD>
+Like <I><A HREF="Editor_commands.html#complete-word">complete-word</A></I>, but ignores user-defined completions.
+<P>
+<DT>
+<B><A NAME="copy-prev-word">copy-prev-word</A> </B>(M-^_)
+<DD>
+Copies the previous word in the current line into the input buffer.
+See also <I><A HREF="Editor_commands.html#insert-last-word">insert-last-word</A></I>.
+<P>
+<DT>
+<B><A NAME="dabbrev-expand">dabbrev-expand</A> </B>(M-/)
+<DD>
+Expands the current word to the most recent preceding one for which
+the current is a leading substring, wrapping around the history list
+(once) if necessary.
+Repeating <I><A HREF="Editor_commands.html#dabbrev-expand">dabbrev-expand</A></I> without any intervening typing
+changes to the next previous word etc., skipping identical matches
+much like <I><A HREF="Editor_commands.html#history-search-backward">history-search-backward</A></I> does.
+<P>
+<DT>
+<B><A NAME="delete-char">delete-char</A> </B>(not bound)
+<DD>
+Deletes the character under the cursor.
+See also <I><A HREF="Editor_commands.html#delete-char-or-list-or-eof">delete-char-or-list-or-eof</A></I>.
+<P>
+<DT>
+<B><A NAME="delete-char-or-eof">delete-char-or-eof</A> </B>(not bound)
+<DD>
+Does <I><A HREF="Editor_commands.html#delete-char">delete-char</A></I> if there is a character under the cursor
+or <I><A HREF="Editor_commands.html#end-of-file">end-of-file</A></I> on an empty line.
+See also <I><A HREF="Editor_commands.html#delete-char-or-list-or-eof">delete-char-or-list-or-eof</A></I>.
+<P>
+<DT>
+<B><A NAME="delete-char-or-list">delete-char-or-list</A> </B>(not bound)
+<DD>
+Does <I><A HREF="Editor_commands.html#delete-char">delete-char</A></I> if there is a character under the cursor
+or <I><A HREF="Editor_commands.html#list-choices">list-choices</A></I> at the end of the line.
+See also <I><A HREF="Editor_commands.html#delete-char-or-list-or-eof">delete-char-or-list-or-eof</A></I>.
+<P>
+<DT>
+<B><A NAME="delete-char-or-list-or-eof">delete-char-or-list-or-eof</A> </B>(^D)
+<DD>
+Does <I><A HREF="Editor_commands.html#delete-char">delete-char</A></I> if there is a character under the cursor,
+<I><A HREF="Editor_commands.html#list-choices">list-choices</A></I> at the end of the line
+or <I><A HREF="Editor_commands.html#end-of-file">end-of-file</A></I> on an empty line.
+See also those three commands, each of which does only a single action, and
+<I><A HREF="Editor_commands.html#delete-char-or-eof">delete-char-or-eof</A></I>, <I><A HREF="Editor_commands.html#delete-char-or-list">delete-char-or-list</A></I> and <I><A HREF="Editor_commands.html#list-or-eof">list-or-eof</A></I>,
+each of which does a different two out of the three.
+<P>
+<DT>
+<B><A NAME="down-history">down-history</A> </B>(down-arrow, ^N)
+<DD>
+Like <I><A HREF="Editor_commands.html#up-history">up-history</A></I>, but steps down, stopping at the original input line.
+<P>
+<DT>
+<B><A NAME="end-of-file">end-of-file</A> </B>(not bound)
+<DD>
+Signals an end of file, causing the shell to exit unless the <B><A HREF="Special_shell_variables.html#ignoreeof">ignoreeof</A></B>
+shell variable (q.v.) is set to prevent this.
+See also <I><A HREF="Editor_commands.html#delete-char-or-list-or-eof">delete-char-or-list-or-eof</A></I>.
+<P>
+<DT>
+<B><A NAME="expand-history">expand-history</A> </B>(M-space)
+<DD>
+Expands history substitutions in the current word.
+See <B><A HREF="History_substitution.html">History substitution</A></B>.
+See also <I><A HREF="Editor_commands.html#magic-space">magic-space</A></I>, <I><A HREF="Editor_commands.html#toggle-literal-history">toggle-literal-history</A></I> and
+the <B><A HREF="Special_shell_variables.html#autoexpand">autoexpand</A></B> shell variable.
+<P>
+<DT>
+<B><A NAME="expand-glob">expand-glob</A> </B>(^X-*)
+<DD>
+Expands the glob-pattern to the left of the cursor.
+See <B><A HREF="Filename_substitution.html">Filename substitution</A></B>.
+<P>
+<DT>
+<B><A NAME="expand-line">expand-line</A> </B>(not bound)
+<DD>
+Like <I><A HREF="Editor_commands.html#expand-history">expand-history</A></I>, but
+expands history substitutions in each word in the input buffer.
+<P>
+<DT>
+<B><A NAME="expand-variables">expand-variables</A> </B>(^X-$)
+<DD>
+Expands the variable to the left of the cursor.
+See <B><A HREF="Variable_substitution.html">Variable substitution</A></B>.
+<P>
+<DT>
+<B><A NAME="history-search-backward">history-search-backward</A> </B>(M-p, M-P)
+<DD>
+Searches backwards through the history list for a command beginning with
+the current contents of the input buffer up to the cursor and copies it
+into the input buffer.
+The search string may be a glob-pattern (see <B><A HREF="Filename_substitution.html">Filename substitution</A></B>)
+containing `*', `?', `[]' or `{}'.
+<I><A HREF="Editor_commands.html#up-history">up-history</A></I> and <I><A HREF="Editor_commands.html#down-history">down-history</A></I> will proceed from the
+appropriate point in the history list.
+Emacs mode only.
+See also <I><A HREF="Editor_commands.html#history-search-forward">history-search-forward</A></I> and <I><A HREF="Editor_commands.html#i-search-back">i-search-back</A></I>.
+<P>
+<DT>
+<B><A NAME="history-search-forward">history-search-forward</A> </B>(M-n, M-N)
+<DD>
+Like <I><A HREF="Editor_commands.html#history-search-backward">history-search-backward</A></I>, but searches forward.
+<P>
+<DT>
+<B><A NAME="i-search-back">i-search-back</A> </B>(not bound)
+<DD>
+Searches backward like <I><A HREF="Editor_commands.html#history-search-backward">history-search-backward</A></I>, copies the first match
+into the input buffer with the cursor positioned at the end of the pattern,
+and prompts with `bck: ' and the first match.  Additional characters may be
+typed to extend the search, <I><A HREF="Editor_commands.html#i-search-back">i-search-back</A></I> may be typed to continue
+searching with the same pattern, wrapping around the history list if
+necessary, (<I><A HREF="Editor_commands.html#i-search-back">i-search-back</A></I> must be bound to a
+single character for this to work) or one of the following special characters
+may be typed:
+</DL>
+<P>
+<P>
+<menu>
+<menu>
+<DL compact>
+<DT>
+^W
+<DD>
+Appends the rest of the word under the cursor to the search pattern.
+<P>
+<DT>
+delete (or any character bound to <I>backward-delete-char</I>)
+<DD>
+Undoes the effect of the last character typed and deletes a character
+from the search pattern if appropriate.
+<P>
+<DT>
+^G
+<DD>
+If the previous search was successful, aborts the entire search.
+If not, goes back to the last successful search.
+<P>
+<DT>
+escape
+<DD>
+Ends the search, leaving the current line in the input buffer.
+</DL>
+<P>
+</menu>
+Any other character not bound to <I><A HREF="Editor_commands.html#self-insert-command">self-insert-command</A></I> terminates the
+search, leaving the current line in the input buffer, and
+is then interpreted as normal input.  In particular, a carriage return
+causes the current line to be executed.
+Emacs mode only.
+See also <I><A HREF="Editor_commands.html#i-search-fwd">i-search-fwd</A></I> and <I><A HREF="Editor_commands.html#history-search-backward">history-search-backward</A></I>.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="i-search-fwd">i-search-fwd</A> </B>(not bound)
+<DD>
+Like <I><A HREF="Editor_commands.html#i-search-back">i-search-back</A></I>, but searches forward.
+<P>
+<DT>
+<B><A NAME="insert-last-word">insert-last-word</A> </B>(M-_)
+<DD>
+Inserts the last word of the previous input line (`!$') into the input buffer.
+See also <I><A HREF="Editor_commands.html#copy-prev-word">copy-prev-word</A></I>.
+<P>
+<DT>
+<B><A NAME="list-choices">list-choices</A> </B>(M-^D)
+<DD>
+Lists completion possibilities as described under <B><A HREF="Completion_and_listing.html">Completion and listing</A></B>.
+See also <I><A HREF="Editor_commands.html#delete-char-or-list-or-eof">delete-char-or-list-or-eof</A></I> and <I><A HREF="Editor_commands.html#list-choices-raw">list-choices-raw</A></I>.
+<P>
+<DT>
+<B><A NAME="list-choices-raw">list-choices-raw</A> </B>(^X-^D)
+<DD>
+Like <I><A HREF="Editor_commands.html#list-choices">list-choices</A></I>, but ignores user-defined completions.
+<P>
+<DT>
+<B><A NAME="list-glob">list-glob</A> </B>(^X-g, ^X-G)
+<DD>
+Lists (via the <I><A HREF="Builtin_commands.html#ls-F">ls-F</A></I> builtin) matches to the glob-pattern
+(see <B><A HREF="Filename_substitution.html">Filename substitution</A></B>) to the left of the cursor.
+<P>
+<DT>
+<B><A NAME="list-or-eof">list-or-eof</A> </B>(not bound)
+<DD>
+Does <I><A HREF="Editor_commands.html#list-choices">list-choices</A></I>
+or <I><A HREF="Editor_commands.html#end-of-file">end-of-file</A></I> on an empty line.
+See also <I><A HREF="Editor_commands.html#delete-char-or-list-or-eof">delete-char-or-list-or-eof</A></I>.
+<P>
+<DT>
+<B><A NAME="magic-space">magic-space</A> </B>(not bound)
+<DD>
+Expands history substitutions in the current line,
+like <I><A HREF="Editor_commands.html#expand-history">expand-history</A></I>, and inserts a space.
+<I><A HREF="Editor_commands.html#magic-space">magic-space</A></I> is designed to be bound to the space bar,
+but is not bound by default.
+<P>
+<DT>
+<B><A NAME="normalize-command">normalize-command</A> </B>(^X-?)
+<DD>
+Searches for the current word in PATH and, if it is found, replaces it with
+the full path to the executable.  Special characters are quoted.  Aliases are
+expanded and quoted but commands within aliases are not.  This command is
+useful with commands that take commands as arguments, e.g., `dbx' and `sh -x'.
+<P>
+<DT>
+<B><A NAME="normalize-path">normalize-path</A> </B>(^X-n, ^X-N)
+<DD>
+Expands the current word as described under the `expand' setting
+of the <B><A HREF="Special_shell_variables.html#symlinks">symlinks</A></B> shell variable.
+<P>
+<DT>
+<B><A NAME="overwrite-mode">overwrite-mode</A> </B>(unbound)
+<DD>
+Toggles between input and overwrite modes.
+<P>
+<DT>
+<B><A NAME="run-fg-editor">run-fg-editor</A> </B>(M-^Z)
+<DD>
+Saves the current input line and
+looks for a stopped job with a name equal to the last component of the
+file name part of the <B><A HREF="ENVIRONMENT.html#EDITOR">EDITOR</A></B> or <B><A HREF="ENVIRONMENT.html#VISUAL">VISUAL</A></B> environment variables,
+or, if neither is set, `ed' or `vi'.
+If such a job is found, it is restarted as if `fg %<I>job</I>' had been
+typed.  This is used to toggle back and forth between an editor and
+the shell easily.  Some people bind this command to `^Z' so they
+can do this even more easily.
+<P>
+<DT>
+<B><A NAME="run-help">run-help</A> </B>(M-h, M-H)
+<DD>
+Searches for documentation on the current command, using the same notion of
+`current command' as the completion routines, and prints it.  There is no way
+to use a pager; <I><A HREF="Editor_commands.html#run-help">run-help</A></I> is designed for short help files.
+If the special alias <B>helpcommand</B> is defined, it is run with the
+command name as a sole argument.  Else,
+documentation should be in a file named <I>command</I>.help, <I>command</I>.1,
+<I>command</I>.6, <I>command</I>.8 or <I>command</I>, which should be in one
+of the directories listed in the <B><A HREF="ENVIRONMENT.html#HPATH">HPATH</A></B> environment variable.
+If there is more than one help file only the first is printed.
+<P>
+<DT>
+<B><A NAME="self-insert-command">self-insert-command</A> </B>(text characters)
+<DD>
+In insert mode (the default), inserts the typed character into the input line after the character under the cursor.
+In overwrite mode, replaces the character under the cursor with the typed character.
+The input mode is normally preserved between lines, but the
+<B><A HREF="Special_shell_variables.html#inputmode">inputmode</A></B> shell variable can be set to `insert' or `overwrite' to put the
+editor in that mode at the beginning of each line.
+See also <I><A HREF="Editor_commands.html#overwrite-mode">overwrite-mode</A></I>.
+<P>
+<DT>
+<B><A NAME="sequence-lead-in">sequence-lead-in</A> </B>(arrow prefix, meta prefix, ^X)
+<DD>
+Indicates that the following characters are part of a
+multi-key sequence.  Binding a command to a multi-key sequence really creates
+two bindings: the first character to <I><A HREF="Editor_commands.html#sequence-lead-in">sequence-lead-in</A></I> and the
+whole sequence to the command.  All sequences beginning with a character
+bound to <I><A HREF="Editor_commands.html#sequence-lead-in">sequence-lead-in</A></I> are effectively bound to <I><A HREF="Editor_commands.html#undefined-key">undefined-key</A></I>
+unless bound to another command.
+<P>
+<DT>
+<B><A NAME="spell-line">spell-line</A> </B>(M-$)
+<DD>
+Attempts to correct the spelling of each word in the input buffer, like
+<I><A HREF="Editor_commands.html#spell-word">spell-word</A></I>, but ignores words whose first character is one of
+`-', `!', `^' or `%', or which contain `\', `*' or `?', to avoid problems
+with switches, substitutions and the like.
+See <B><A HREF="Spelling_correction.html">Spelling correction</A></B>.
+<P>
+<DT>
+<B><A NAME="spell-word">spell-word</A> </B>(M-s, M-S)
+<DD>
+Attempts to correct the spelling of the current word as described
+under <B><A HREF="Spelling_correction.html">Spelling correction</A></B>.
+Checks each component of a word which appears to be a pathname.
+<P>
+<DT>
+<B><A NAME="toggle-literal-history">toggle-literal-history</A> </B>(M-r, M-R)
+<DD>
+Expands or `unexpands' history substitutions in the input buffer.
+See also <I><A HREF="Editor_commands.html#expand-history">expand-history</A></I> and the <B><A HREF="Special_shell_variables.html#autoexpand">autoexpand</A></B> shell variable.
+<P>
+<DT>
+<B><A NAME="undefined-key">undefined-key</A> </B>(any unbound key)
+<DD>
+Beeps.
+<P>
+<DT>
+<B><A NAME="up-history">up-history</A> </B>(up-arrow, ^P)
+<DD>
+Copies the previous entry in the history list into the input buffer.
+If <B><A HREF="Special_shell_variables.html#histlit">histlit</A></B> is set, uses the literal form of the entry.
+May be repeated to step up through the history list, stopping at the top.
+<P>
+<DT>
+<B><A NAME="vi-search-back">vi-search-back</A> </B>(?)
+<DD>
+Prompts with `?' for a search string (which may be a glob-pattern, as with
+<I><A HREF="Editor_commands.html#history-search-backward">history-search-backward</A></I>), searches for it and copies it into the
+input buffer.  The bell rings if no match is found.
+Hitting return ends the search and leaves the last match in the input
+buffer.
+Hitting escape ends the search and executes the match.
+<I>vi</I> mode only.
+<P>
+<DT>
+<B><A NAME="vi-search-fwd">vi-search-fwd</A> </B>(/)
+<DD>
+Like <I><A HREF="Editor_commands.html#vi-search-back">vi-search-back</A></I>, but searches forward.
+<P>
+<DT>
+<B><A NAME="which-command">which-command</A> </B>(M-?)
+<DD>
+Does a <I><A HREF="Builtin_commands.html#which">which</A></I> (see the description of the builtin command) on the
+first word of the input buffer.
+<P>
+<DT>
+<B><A NAME="yank-pop">yank-pop</A> </B>(M-y)
+<DD>
+When executed immediately after a <I>yank</I> or another <I><A HREF="Editor_commands.html#yank-pop">yank-pop</A></I>,
+replaces the yanked string with the next previous string from the
+killring. This also has the effect of rotating the killring, such that
+this string will be considered the most recently killed by a later
+<I>yank</I> command. Repeating <I><A HREF="Editor_commands.html#yank-pop">yank-pop</A></I> will cycle through the
+killring any number of times.
+</DL>
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Lexical_structure.html">Next</A>
+<A HREF="Spelling_correction.html">Previous</A>
+</BODY>

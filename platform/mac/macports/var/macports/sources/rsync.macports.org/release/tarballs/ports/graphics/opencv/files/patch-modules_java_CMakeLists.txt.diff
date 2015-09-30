@@ -1,0 +1,12 @@
+--- modules/java/CMakeLists.txt.orig	2015-06-16 00:07:26.000000000 +0300
++++ modules/java/CMakeLists.txt	2015-06-16 00:07:39.000000000 +0300
+@@ -1,6 +1,9 @@
+ # ----------------------------------------------------------------------------
+ #  CMake file for java support
+ # ----------------------------------------------------------------------------
++
++ocv_module_disable(java)
++
+ if(IOS OR WINRT OR NOT PYTHON_DEFAULT_AVAILABLE OR NOT ANT_EXECUTABLE OR NOT (JNI_FOUND OR (ANDROID AND ANDROID_NATIVE_API_LEVEL GREATER 7))
+     OR BUILD_opencv_world
+     )

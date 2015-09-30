@@ -1,0 +1,17 @@
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Time-HiRes 1.9726
+revision            1
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         perl5 module implementing High resolution time, sleep, and alarm
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  d0d9cdf5bcdfe97eb6ebff091fa05e2741c392e0 \
+                    sha256  ff662ad9b1f6c75a149db7fa1bfc7a161ac8b271e5f3980345e08b734769109e

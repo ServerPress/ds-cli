@@ -1,0 +1,48 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138136 2015-06-30 07:27:19Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-py
+version             1.4.30
+revision            0
+categories-append   devel
+platforms           darwin
+license             MIT
+supported_archs     noarch
+
+python.versions     27 34
+
+maintainers         stromnov openmaintainer
+
+description         py lib is a Python development support library
+
+long_description    The py lib is a Python development support library \
+                    featuring ad-hoc distributed execution, micro-threads \
+                    and svn abstractions.
+
+homepage            http://pylib.readthedocs.org/
+master_sites        https://pypi.python.org/packages/source/p/py/
+
+distname            py-${version}
+
+checksums           rmd160  c59248781f34f0061bd6431a3d990c86811ebb30 \
+                    sha256  b703e57685ed7c280b1a51c496a4984d83d89def2a930b5e9e5da5a6ca151514
+
+if {${name} ne ${subport}} {
+    depends_build-append    port:py${python.version}-setuptools
+
+    # Deactivate hack
+    if {![catch {set installed [lindex [registry_active py${python.version}-py] 0]}]} {
+        set py_version [lindex $installed 1]
+        if {[vercmp $py_version 1.4] < 0} {
+            registry_deactivate_composite py${python.version}-py "" [list ports_nodepcheck 1]
+        }
+    }
+
+    livecheck.type      none
+} else {
+    livecheck.url       https://pypi.python.org/pypi/py/json
+    livecheck.regex     {py-(\d+(?:\.\d+)*)\.[tz]}
+}

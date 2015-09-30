@@ -1,0 +1,11 @@
+# $Id: Portfile 131699 2015-01-16 02:47:18Z jeremyhu@macports.org $
+
+PortSystem              1.0
+PortGroup               obsolete 1.0
+
+name                    libc-headers
+version                 997.90.3
+revision                3
+categories              devel
+platforms               macosx
+license                 APSL-1.1 APSL-2 BSD MIT

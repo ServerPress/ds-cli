@@ -1,0 +1,82 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136692 2015-05-24 13:37:41Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           compiler_blacklist_versions 1.0
+
+name                gnome-keyring
+epoch               1
+version             3.16.0
+set branch          [join [lrange [split ${version} .] 0 1] .]
+maintainers         devans openmaintainer
+categories          gnome
+platforms           darwin
+license             GPL-2+ LGPL-2
+description         GNOME program for storing passwords.
+
+long_description    gnome-keyring is a program that keep passwords and other secrets for \
+                    users. It is run as a daemon in the session, similar to ssh-agent, and \
+                    other applications locate it via an environment variable or a dbus.
+
+homepage            https://wiki.gnome.org/Projects/GnomeKeyring
+master_sites        gnome:sources/${name}/${branch}/
+
+use_xz              yes
+
+checksums           rmd160  a88558a07672ca1256140633ebee465bea430e48 \
+                    sha256  15a3bb8c53855a4ff0dbbdfbe4ec3df206c32048f50bdc76a51f8e3e14ece1f5
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:gnome-common \
+                    port:gtk-doc \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                    port:dbus \
+                    port:gcr \
+                    port:libgcrypt
+
+# blacklist compilers that do not support C11 (redefinition of typedef 'GckSession' in daemon/login/gkd-login.h)
+compiler.blacklist  *gcc* {clang < 300}
+
+patchfiles          patch-egg-egg-asn1x.h.diff \
+                    patch-egg-egg-armor.c.diff \
+                    patch-egg-egg-spawn.h.diff \
+                    patch-pkcs11-wrap-layer-mock-secret-store.c.diff
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+}
+
+configure.cmd       ./autogen.sh
+
+configure.args      --without-libcap-ng \
+                    --disable-p11-tests \
+                    --disable-silent-rules \
+                    --disable-strict \
+                    --disable-schemas-compile
+
+platform darwin {
+    if {${os.major} < 10} {
+        configure.args-append --disable-pam
+    } else {
+        configure.args-append --with-pam-dir=/usr/lib/pam
+
+        destroot.violate_mtree yes
+
+        post-destroot {
+            file delete ${destroot}/usr/lib/pam/pam_gnome_keyring.la
+        }
+    }
+}
+
+post-activate {
+    system "${prefix}/bin/glib-compile-schemas ${prefix}/share/glib-2.0/schemas"
+}
+
+livecheck.type      gnome

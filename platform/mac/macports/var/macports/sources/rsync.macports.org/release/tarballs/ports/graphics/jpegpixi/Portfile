@@ -1,0 +1,37 @@
+# $Id: Portfile 112001 2013-10-09 02:55:32Z jmr@macports.org $
+
+PortSystem 1.0
+
+name			jpegpixi
+version			1.1.1
+revision        1
+categories		graphics
+license			GPL-2+
+platforms		darwin
+maintainers		nomaintainer
+description		JPEG Pixel Interpolator
+long_description	Jpegpixi is short for JPEG Pixel Interpolator. The intent \
+				of the program is to interpolate pixels (single pixels, dots, \
+				stripes) in JPEG images. This is useful to correct images from \
+				a digital camera with CCD defects. For example, if one pixel \
+				is always bright green, this pixel can be interpolated with \
+				jpegpixi.
+
+homepage		http://www.zero-based.org/software/jpegpixi/
+master_sites	${homepage}
+
+checksums		md5     c888abdb58ff63d634215d4d5b160d5d \
+				sha1    229ac209aa0722df18f11bc2d5d964101fba60b2 \
+				rmd160  15e14360eb6fedb553188f2c2f4bad8dfcb76a7e
+
+depends_lib		port:jpeg \
+				port:gettext
+
+configure.args	--with-jpeglib=${prefix} \
+				--mandir=${prefix}/share/man
+
+post-destroot	{
+	foreach locale {de fi fr} {
+		file delete -force ${destroot}${prefix}/share/man/${locale}
+	}
+}

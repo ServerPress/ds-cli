@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 132417 2015-01-31 21:30:47Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-amqp
+version             1.4.6
+revision            0
+categories-append   devel
+platforms           darwin
+license             LGPL-2.1+
+supported_archs     noarch
+
+python.versions     27 34
+
+maintainers         stromnov openmaintainer
+
+description         Low-level AMQP client for Python (fork of amqplib).
+long_description    ${description}
+
+homepage            http://github.com/celery/py-amqp
+master_sites        https://pypi.python.org/packages/source/a/amqp/
+
+distname            amqp-${version}
+
+checksums           rmd160  ac1d201e66ce801f37a61b09b8d51e56c70a63b7 \
+                    sha256  ebcfc867de5a68f9f5ba14d11dbad88e6aff8435a8d39339d5ceb0e5b06de640
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-setuptools
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/amqp/json
+    livecheck.regex     {amqp-(\d+(?:\.\d+)*)\.[tz]}
+}

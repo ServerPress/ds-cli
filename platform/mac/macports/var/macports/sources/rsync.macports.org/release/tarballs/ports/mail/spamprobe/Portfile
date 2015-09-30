@@ -1,0 +1,28 @@
+# $Id: Portfile 95899 2012-07-26 10:56:29Z jmr@macports.org $
+
+PortSystem 1.0
+name		spamprobe
+version		1.2a
+revision	1
+categories	mail
+license         QPL-1
+maintainers	nomaintainer
+description	Spam detector that uses Bayesian analysis
+homepage	http://sourceforge.net/projects/spamprobe/
+platforms	darwin
+
+long_description Spamprobe is a fast, intelligent, automatic spam \
+		 detector using Bayesian analysis of word counts in \
+		 spam and non-spam email.  It is intended for use with \
+		 procmail to filter inbound mail.  No manual rule \
+		 creation is required.
+
+master_sites	sourceforge
+
+checksums	md5 f42b36d8056841bb132bb5c8857896c1
+
+depends_lib	port:db44
+
+configure.args	--with-db=${prefix}/lib/db44 --mandir=${prefix}/share/man
+configure.cppflags	"-I${prefix}/include/db44"
+configure.ldflags	"-L${prefix}/lib/db44"

@@ -1,0 +1,29 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135047 2015-04-14 09:49:41Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         MIME-Charset 1.012
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Charset Information for MIME
+long_description    MIME::Charset provides information about character \
+                    sets used for MIME messages on the Internet.
+
+checksums           rmd160  a20419228ddca1480dfaf0b52ba00990ae593401 \
+                    sha256  cee5d1d4184ad46ca17d995335bc8d9b6d95e1e64584079d032cf5f0c82dcccd
+
+platforms           darwin
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-encode \
+                    port:p${perl5.major}-encode-eucjpascii \
+                    port:p${perl5.major}-encode-hanextra \
+                    port:p${perl5.major}-encode-jisx0213 \
+                    port:p${perl5.major}-pod2-base
+
+    supported_archs noarch
+}

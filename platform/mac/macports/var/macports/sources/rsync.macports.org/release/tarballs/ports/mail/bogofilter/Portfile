@@ -1,0 +1,32 @@
+# $Id: Portfile 95080 2012-07-05 07:11:05Z mww@macports.org $
+
+PortSystem 1.0
+name		bogofilter
+version		1.2.1
+categories	mail
+license		GPL-2
+maintainers	gmail.com:chenggao
+description	Fast Bayesian Spam Filter
+long_description 	Bogofilter is a mail filter that classifies mail as spam or\
+		 	ham (non-spam) by a statistical analysis of the message's\
+		 	header and content (body). The program is able to learn from\
+		 	the user's classifications and corrections.
+homepage	http://bogofilter.sourceforge.net/
+platforms	darwin
+master_sites	sourceforge
+checksums	md5 2eb802f4e271b99c3d8f68b14f8df9ef
+use_bzip2	yes
+depends_lib	port:sqlite3 port:libiconv port:gsl
+configure.args	--with-libsqlite3-prefix=${prefix} \
+		--with-libiconv-prefix=${prefix} \
+		--with-gsl-prefix=${prefix} \
+		--with-database=sqlite3 \
+		--without-libdb-prefix \
+		--without-libqdbm-prefix \
+		--mandir=${prefix}/share/man
+
+post-destroot	{
+	xinstall -m 755 -d ${destroot}${prefix}/share/doc/${name}
+	xinstall -m 644 -W ${worksrcpath} AUTHORS COPYING GETTING.STARTED INSTALL \
+		NEWS README RELEASE.NOTES TODO ${destroot}${prefix}/share/doc/${name}
+}

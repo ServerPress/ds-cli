@@ -1,0 +1,24 @@
+if [ ! -f /etc/csh.cshrc ]
+then
+    /usr/bin/mkdir -p /etc
+    /usr/bin/cp /etc/defaults/etc/csh.cshrc /etc/csh.cshrc
+fi
+
+if [ ! -f /etc/csh.login ]
+then
+    /usr/bin/mkdir -p /etc
+    /usr/bin/cp /etc/defaults/etc/csh.login /etc/csh.login
+fi
+
+if [ ! -f /etc/profile.d/bindkey.tcsh ]
+then
+    /usr/bin/mkdir -p /etc/profile.d
+    /usr/bin/cp /etc/defaults/etc/profile.d/bindkey.tcsh /etc/profile.d/bindkey.tcsh
+fi
+
+if [ ! -f /etc/profile.d/complete.tcsh ]
+then
+    /usr/bin/mkdir -p /etc/profile.d
+    /usr/bin/cp /etc/defaults/etc/profile.d/complete.tcsh /etc/profile.d/complete.tcsh
+fi
+

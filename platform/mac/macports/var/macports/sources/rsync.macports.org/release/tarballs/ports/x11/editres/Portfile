@@ -1,0 +1,36 @@
+# $Id: Portfile 101842 2013-01-20 19:24:03Z jeremyhu@macports.org $
+
+PortSystem          1.0
+
+name                editres
+version             1.0.6
+categories          x11 graphics
+maintainers         jeremyhu openmaintainer
+license             X11
+description         Dynamic resource editor for X11 Toolkit applications
+long_description \
+   Editres is a tool that allows users and application developers to view \
+   the full widget hierarchy of any X Toolkit application that speaks the \
+   Editres protocol.   In addition, editres will help the user construct \
+   resource specifications, allow the user to apply the resource to the \
+   application and view the results dynamically.  Once the user is happy \
+   with a resource specification editres will append the resource string to \
+   the user's X Resources file.
+
+platforms           darwin
+
+homepage            http://www.x.org/
+master_sites        xorg:individual/app/
+use_bzip2           yes
+
+checksums           md5     623322610e4040393e0ff2a69e6612cd \
+                    sha1    dfaecb0b038d5c8d7244c518cf8c0c48d10455f9 \
+                    rmd160  438b68b2654fdcaf9c9bcf2aabe5079fcd83b23a
+
+depends_build       port:pkgconfig
+
+depends_lib         port:xorg-libXaw
+
+livecheck.type      regex
+livecheck.regex     ${name}-(\[\\d.\]+)${extract.suffix}
+livecheck.url       http://xorg.freedesktop.org/archive/individual/app/?C=M&O=D

@@ -1,0 +1,21 @@
+#!/bin/sh
+
+function install_conf {
+	if ! [ -s "/$1" ]; then
+		cp -p "/etc/defaults/$1" "/$1"
+		chmod -x "/$1"
+	fi
+}
+function install_dir {
+	if ! [ -d "$1" ]; then
+		mkdir -p "$1"
+		chown SYSTEM "$1"
+	fi
+}
+
+install_dir /var/spool/mail
+install_conf etc/aliases
+
+chown SYSTEM /usr/bin/procmail.exe
+chown SYSTEM /usr/bin/lockfile.exe
+

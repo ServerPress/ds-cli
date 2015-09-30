@@ -1,0 +1,29 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 132435 2015-02-01 06:11:55Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         local-lib 2.000015 ../by-authors/id/H/HA/HAARG
+categories-append   devel
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+
+description         Create and use a local lib/ for perl modules with PERL5LIB
+long_description    ${description}
+
+checksums           rmd160  ebbeb468b5121be0dbe3ea8b8b3c97120f67c065 \
+                    sha256  3feca3f39ef55b86daa8a1b9a9157166158c21c7929816fc17af8d0c98f9d10f
+
+platforms           darwin
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-test-simple
+
+    depends_lib-append \
+                    port:p${perl5.major}-extutils-install \
+                    port:p${perl5.major}-extutils-makemaker \
+                    port:p${perl5.major}-module-build 
+}

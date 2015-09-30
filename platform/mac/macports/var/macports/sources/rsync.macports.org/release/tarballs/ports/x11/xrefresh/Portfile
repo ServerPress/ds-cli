@@ -1,0 +1,29 @@
+# $Id: Portfile 106388 2013-05-24 16:11:13Z jeremyhu@macports.org $
+
+PortSystem          1.0
+
+name                xrefresh
+version             1.0.5
+categories          x11
+license             X11
+maintainers         jeremyhu openmaintainer
+description         Refresh all or part of an X11 screen
+long_description    ${description}
+
+platforms           darwin
+
+homepage            http://www.x.org/
+master_sites        xorg:individual/app/
+use_bzip2           yes
+
+checksums           md5     a896382bc53ef3e149eaf9b13bc81d42 \
+                    sha1    f0372afb62f75ad29343abc96dbf80be12050b72 \
+                    rmd160  e29b2cd426805a31041029a55d1d2a3b2dbb65a1
+
+depends_build       port:pkgconfig
+
+depends_lib         port:xorg-libX11
+
+livecheck.type      regex
+livecheck.regex     ${name}-(\[\\d.\]+)${extract.suffix}
+livecheck.url       http://xorg.freedesktop.org/archive/individual/app/?C=M&O=D

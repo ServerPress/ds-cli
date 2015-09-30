@@ -1,0 +1,19 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id $
+
+PortSystem          1.0
+
+name                gputils
+version             1.4.0
+categories          devel
+maintainers         gmail.com:r.goyet openmaintainer
+license             GPL-2+
+installs_libs       no
+description         GNU PIC Utilities
+long_description    GPUTILS is a collection of tools for the Microchip (TM) PIC microcontrollers. It includes gpasm, gplink, and gplib.
+homepage            http://gputils.sourceforge.net/
+platforms           darwin
+master_sites        sourceforge:project/gputils/gputils/${version}/
+
+checksums           rmd160  94492df5ed4d99c6af2e6f0ad54c43e830488d2f \
+                    sha256  00279da588eee96a63aba586fe916359097b6db1e6768ce8940a5d18d37e11b1

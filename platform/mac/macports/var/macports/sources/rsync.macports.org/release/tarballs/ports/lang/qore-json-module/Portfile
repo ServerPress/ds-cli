@@ -1,0 +1,25 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 111897 2013-10-05 10:10:36Z davidnichols@macports.org $
+
+PortSystem          1.0
+
+name                qore-json-module
+version             1.4
+categories          lang
+license             {LGPL-2.1 MIT}
+maintainers         davidnichols
+description         json module for Qore
+long_description    Module providing json and json-rpc functionality to Qore
+homepage            http://qore.org
+use_bzip2           yes
+platforms           darwin
+master_sites        sourceforge:qore
+
+checksums           md5 744b84fe80b626d16301afde7233abe7 \
+                    sha1 390162afdda04297d8d2e2c23133727b952bc194 \
+                    rmd160 446416809cea1f3b745a787a6f8b70ded990d6dd
+
+depends_lib         port:qore \
+                    port:openssl
+
+configure.args      --disable-debug

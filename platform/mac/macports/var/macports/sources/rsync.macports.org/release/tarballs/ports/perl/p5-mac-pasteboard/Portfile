@@ -1,0 +1,18 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 131345 2015-01-10 10:48:15Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Mac-Pasteboard 0.007
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+
+description         Manipulate Mac OS X pasteboards/clipboards
+long_description    ${name} is a perl module to ${description}.
+
+checksums           rmd160  c5b7744e86a2e8f53d450817b3458bba05d45fdf \
+                    sha256  8ca9d755088f812e2a7301ed1c92f7fe93a9c6ad8fc138c8d212cc15111cde86
+
+platforms           darwin

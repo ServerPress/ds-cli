@@ -1,0 +1,108 @@
+# $Id: Portfile 136579 2015-05-22 03:26:57Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                nss
+version             3.14.3
+set NSS_VMAJOR      [lindex [split ${version} .] 0]
+set NSS_VMINOR      [lindex [split ${version} .] 1]
+set NSS_VPATCH      [lindex [split ${version} .] 2]
+categories          net
+maintainers         nomaintainer
+license             {MPL-1.1 GPL-2+ LGPL-2.1+}
+description         Network Security Service libraries.
+
+long_description    ${description}
+use_configure       no
+homepage            http://www.mozilla.org/projects/security/pki/nss/
+platforms           darwin
+
+set my_release      NSS_[strsed ${version} {g/\./_/}]_RTM
+
+use_bzip2           no
+master_sites        ftp://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/${my_release}/src/ \
+                    http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/${my_release}/src/
+
+checksums           rmd160  78ce247c6d649ac0624b087d7a947e8b3482d520 \
+                    sha256  d9d366be94d33395597ebf82363fcdedfa693a6d627cf7f6bec025f609d54cc0
+
+depends_lib     port:nspr \
+                port:sqlite3
+
+patchfiles      patch-UNIX.mk.diff \
+                patch-Darwin.mk.diff
+
+# This is all kinds of messed up for universal...
+universal_variant no
+
+post-patch {
+        reinplace "s|@executable_path|${prefix}/lib/nss|g" \
+        ${worksrcpath}/mozilla/security/coreconf/Darwin.mk \
+        ${worksrcpath}/mozilla/security/nss/lib/freebl/config.mk
+        reinplace "s|@@PREFIX@@|${prefix}|g" \
+        ${worksrcpath}/mozilla/security/coreconf/Darwin.mk \
+        ${worksrcpath}/mozilla/security/coreconf/UNIX.mk
+        reinplace "s|= cc\$|= ${configure.cc}|" \
+        ${worksrcpath}/mozilla/security/coreconf/Darwin.mk
+        reinplace "s|= c++\$|= ${configure.cxx}|" \
+        ${worksrcpath}/mozilla/security/coreconf/Darwin.mk
+        reinplace "s|= ranlib\$|= /usr/bin/ranlib|" \
+        ${worksrcpath}/mozilla/security/coreconf/Darwin.mk
+        reinplace "s|=gcc|=${configure.cc}|" \
+        ${worksrcpath}/mozilla/security/nss/Makefile
+        reinplace "s|=g++|=${configure.cxx}|" \
+        ${worksrcpath}/mozilla/security/nss/Makefile
+}
+
+build {
+    if {[info exists build_arch] && (${build_arch} eq "x86_64" || ${build_arch} eq "ppc64")} {
+        set use_64 " USE_64=1"
+    } else {
+        set use_64 ""
+    }
+    set make_args "NSPR_LIB_DIR=${prefix}/lib/nspr NSS_USE_SYSTEM_SQLITE=1${use_64} CC=\"${configure.cc} -arch ${build_arch}\" CXX=$\"{configure.cxx} -arch ${build_arch}\""
+    system "cd ${worksrcpath} && \
+            make -C mozilla/security/coreconf/nsinstall ${make_args} && \
+            make -C mozilla/security/dbm ${make_args} && \
+            make -C mozilla/security/nss ${make_args}"
+}
+
+destroot {
+    xinstall -m 755 -d ${destroot}${prefix}/include/nss
+    xinstall -m 755 {*}[glob -directory ${worksrcpath}/mozilla/dist/public/ nss/* dbm/*] ${destroot}${prefix}/include/nss
+    xinstall -m 755 -d ${destroot}${prefix}/bin
+    foreach f [glob ${worksrcpath}/mozilla/dist/Darwin*/bin/*] {
+        xinstall -m 755 $f ${destroot}${prefix}/bin/nss-[file tail $f]
+    }
+    xinstall -m 755 -d ${destroot}${prefix}/lib/nss
+    xinstall -m 755 {*}[glob ${worksrcpath}/mozilla/dist/Darwin*/lib/*.dylib] ${destroot}${prefix}/lib/nss
+    xinstall -m 644 {*}[glob ${worksrcpath}/mozilla/dist/Darwin*/lib/libcrmf.a] ${destroot}${prefix}/lib/nss
+
+    xinstall -m 755 -d ${destroot}${prefix}/lib/pkgconfig
+
+    xinstall ${filespath}/nss.pc.in ${destroot}${prefix}/lib/pkgconfig/nss.pc
+    xinstall -m 755 ${filespath}/nss-config.in ${destroot}${prefix}/bin/nss-config
+
+    reinplace "s,@libdir@,${prefix}/lib/nss,g" ${destroot}${prefix}/bin/nss-config
+    reinplace "s,@prefix@,${prefix},g" ${destroot}${prefix}/bin/nss-config
+    reinplace "s,@exec_prefix@,${prefix},g" ${destroot}${prefix}/bin/nss-config
+    reinplace "s,@includedir@,${prefix}/include/nss,g" ${destroot}${prefix}/bin/nss-config
+    reinplace "s,@MOD_MAJOR_VERSION@,${NSS_VMAJOR},g" ${destroot}${prefix}/bin/nss-config
+    reinplace "s,@MOD_MINOR_VERSION@,${NSS_VMINOR},g" ${destroot}${prefix}/bin/nss-config
+    reinplace "s,@MOD_PATCH_VERSION@,${NSS_VPATCH},g" ${destroot}${prefix}/bin/nss-config
+
+    set nspr_version [exec ${prefix}/bin/nspr-config --version]
+    set nss_version [exec ${destroot}${prefix}/bin/nss-config --version]
+
+    reinplace "s,@libdir@,${prefix}/lib/nss,g" ${destroot}${prefix}/lib/pkgconfig/nss.pc
+    reinplace "s,@prefix@,${prefix},g" ${destroot}${prefix}/lib/pkgconfig/nss.pc
+    reinplace "s,@exec_prefix@,${prefix},g" ${destroot}${prefix}/lib/pkgconfig/nss.pc
+    reinplace "s,@includedir@,${prefix}/include/nss," ${destroot}${prefix}/lib/pkgconfig/nss.pc
+    reinplace "s,@NSPR_VERSION@,${nspr_version},g"  ${destroot}${prefix}/lib/pkgconfig/nss.pc
+    reinplace "s,@NSS_VERSION@,${nss_version},g" ${destroot}${prefix}/lib/pkgconfig/nss.pc
+}
+
+livecheck.type    regex
+livecheck.url     http://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/
+livecheck.version "${NSS_VMAJOR}_${NSS_VMINOR}_${NSS_VPATCH}"
+livecheck.regex   {(\d+_\d+(?:_\d+)*)}

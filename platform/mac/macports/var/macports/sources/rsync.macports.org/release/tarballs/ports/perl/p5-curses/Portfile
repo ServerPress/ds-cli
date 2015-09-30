@@ -1,0 +1,27 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 131054 2015-01-05 13:06:29Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Curses 1.32
+checksums           rmd160  694b0d0fddadc2256d1f0eaf29c4f25549b5652d \
+                    sha256  5dba44fd7964806d9765e6692bc7eb8eb30aeced2740f28b9a4070a5d14ba650
+extract.suffix      .tgz
+
+maintainers         nomaintainer
+description         terminal screen handling and optimization
+long_description    \
+    Curses is the interface between Perl and your system's curses(3) library.\
+    For descriptions on the usage of a given function, variable, or constant,\
+    consult your system's documentation, as such information invariably varies\
+    (:-) between different curses(3) libraries and operating systems.
+
+platforms           darwin
+if {${perl5.major} != ""} {
+    depends_lib-append  port:ncurses
+    pre-configure { 
+        copy ${worksrcpath}/hints/c-freebsd.ncurses.h ${worksrcpath}/c-config.h
+    }
+}

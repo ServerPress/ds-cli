@@ -1,0 +1,25 @@
+# $Id: Portfile 80666 2011-07-16 12:10:29Z jmr@macports.org $
+
+PortSystem 1.0
+
+name		xorg-damageproto
+version		1.2.1
+categories	x11 devel
+license		X11
+maintainers	jeremyhu openmaintainer
+description	X.org damageproto
+homepage	http://www.x.org
+platforms	darwin
+supported_archs	noarch
+long_description Prototype headers for the Damage extension to X11
+master_sites 	xorg:individual/proto/
+
+distname	damageproto-${version}
+checksums           md5     998e5904764b82642cc63d97b4ba9e95 \
+                    sha1    bd0f0f4dc8f37eaabd9279d10fe2889710507358 \
+                    rmd160  3354e2f38d443818ff7cd40fd19d72e8fd183043
+use_bzip2	yes
+
+livecheck.type  regex
+livecheck.url   http://xorg.freedesktop.org/archive/individual/proto/?C=M&O=D
+livecheck.regex damageproto-(\\d+(?:\\.\\d+)*)

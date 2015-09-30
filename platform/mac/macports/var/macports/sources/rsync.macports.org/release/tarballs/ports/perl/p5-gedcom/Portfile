@@ -1,0 +1,25 @@
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem 1.0
+PortGroup perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup			Gedcom 1.19
+description			A module to manipulate Gedcom genealogy files
+long_description	Search, edit and validate a GEDCOM data \
+					file (an export/import format for genealogy).
+
+homepage			http://www.pjcj.net
+categories-append	genealogy
+maintainers			worldnet.att.net:james.toth
+platforms			darwin
+checksums           md5     15b223be3043d7e389fe82532fd0fc51
+if {${perl5.major} != ""} {
+	depends_lib-append \
+		    port:p${perl5.major}-datemanip \
+		    port:p${perl5.major}-parse-recdescent \
+                    port:p${perl5.major}-roman \
+		    port:p${perl5.major}-text-soundex
+
+	supported_archs noarch
+}

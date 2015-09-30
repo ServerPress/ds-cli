@@ -1,0 +1,7 @@
+[user]
+	name = Stephen Carnam
+	email = steve@steveorevo.com
+[core]
+	editor = nano
+[push]
+	default = simple

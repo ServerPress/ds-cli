@@ -1,0 +1,67 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 127615 2014-10-30 20:30:39Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+set realname        polygon
+
+name                py-${realname}
+version             3.0.7
+revision            0
+categories-append   devel math
+platforms           darwin
+license             LGPL Noncommercial
+
+python.versions     27 34
+
+maintainers         stromnov openmaintainer
+
+description         Python bindings for General Polygon Clipping Library
+
+long_description    \
+    Polygon is a python package that simplifies the handling of polygons \
+    in 2D. It contains Python bindings for gpc, the excellent General \
+    Polygon Clipping Library by Alan Murta and some extensions written \
+    in C and pure Python.
+
+homepage            http://www.j-raedler.de/projects/polygon
+master_sites        http://bitbucket.org/jraedler/polygon3/downloads
+
+distname            Polygon3-${version}
+
+checksums           rmd160  6516a9af67714c6fdf090e06c66edd1591b7ce3d \
+                    sha256  627852f50fd6002b9a59eef291bb38c075d95e67c47a8d3b32713426ee137744
+
+if {${name} ne ${subport}} {
+    if {${python.version} < 30} {
+        version             2.0.7
+        revision            0
+        master_sites        http://bitbucket.org/jraedler/polygon2/downloads
+        distname            Polygon2-${version}
+        checksums           rmd160  ded6437e2f97785b1bdbad22121aa35988d8b897 \
+                            sha256  a779378f2258a8586f1a5967896c419c4c6859d8a067677259dacd3146453f24
+    }
+
+    use_zip             yes
+
+    patchfiles-append   patch-setup.py.diff
+
+    variant numpy description {Build with NumPy support} {
+        depends_lib-append  port:py${python.version}-numpy
+        patchfiles-delete   patch-setup.py.diff
+    }
+
+    post-destroot {
+        xinstall -m 755 -d ${destroot}${prefix}/share/doc/${subport}
+        xinstall -m 644 -W ${worksrcpath}/doc \
+            Examples.py Polygon.txt Polygon.pdf testpoly.gpf \
+            ${destroot}${prefix}/share/doc/${subport}
+    }
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       ${master_sites}
+    livecheck.regex     {Polygon[23]?-([23]+(?:\.\d+)*).[tz]}
+}

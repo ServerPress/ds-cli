@@ -1,0 +1,36 @@
+# $Id: Portfile 91524 2012-04-04 01:19:43Z dports@macports.org $
+
+PortSystem      1.0
+
+name            ed
+version         1.2
+categories      editors
+license         GPL-3+
+maintainers     fastmail.fm:lutz.horn
+platforms       darwin
+description     ed is a line-oriented text editor.
+
+long_description \
+    ed is a line-oriented text editor. It is used to create, display, \
+    modify and otherwise manipulate text files, both interactively and via \
+    shell scripts. A restricted version of ed, red, can only edit files in \
+    the current directory and cannot execute shell commands. ed is the \
+    standard text editor in the sense that it is the original editor for \
+    Unix, and thus widely available. For most purposes, however, it is \
+    superseded by full-screen editors such as Emacs.
+
+homepage        http://www.gnu.org/software/ed/
+master_sites    gnu
+
+checksums       md5 3d42ac815b2dfd9c82a89dbd03151519\
+                sha1 6ebcbc76852a81886e2a85a973f375240bb3175e\
+                rmd160 98a46b8a3209476e824017102f200ed60525787d
+
+test.run        yes
+test.target     check
+
+destroot.target-append  install-man
+
+livecheck.type  regex
+livecheck.url   http://ftp.gnu.org/gnu/${name}/?C=M&O=D
+livecheck.regex ${name}-(\\d+\\.\\d+)

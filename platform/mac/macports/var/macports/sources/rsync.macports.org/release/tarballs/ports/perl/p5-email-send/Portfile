@@ -1,0 +1,36 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 133598 2015-03-06 04:44:12Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Email-Send 2.201
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         This module provides a very simple, specific \
+                    interface to multiple Email mailers.
+
+long_description    ${description} \
+                    However, it's officially considered to be 'out of favor'. \
+                    Please consider using Email::Sender instead.
+
+platforms           darwin
+
+checksums           rmd160  f6237cee821df85a365de5adbee5514295814f12 \
+                    sha256  4bbec933558d7cc9b8152bad86dd313de277a21a89b4ea83d84e61587e95dbc6
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-capture-tiny \
+                    port:p${perl5.major}-mime-tools
+
+    depends_lib-append \
+                    port:p${perl5.major}-email-abstract \
+                    port:p${perl5.major}-email-address  \
+                    port:p${perl5.major}-email-simple       \
+                    port:p${perl5.major}-module-pluggable   \
+                    port:p${perl5.major}-return-value
+
+    supported_archs noarch
+}

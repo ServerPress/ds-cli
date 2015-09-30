@@ -1,0 +1,44 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136087 2015-05-11 19:14:40Z devans@macports.org $
+
+PortSystem          1.0
+
+name                gnome-backgrounds
+version             3.16.0
+set branch          [join [lrange [split ${version} .] 0 1] .]
+maintainers         nomaintainer
+categories          gnome
+license             GPL-2
+installs_libs       no
+platforms           darwin
+supported_archs     noarch
+
+description         A collection of backgrounds for GNOME 2.
+long_description    $description
+
+homepage            http://www.gnome.org/
+master_sites        gnome:sources/$name/$branch/
+
+use_xz              yes
+
+checksums           rmd160  ccb1601e53b98e165b0343fe68853c9f15a364fc \
+                    sha256  76e3f9dd01d8335da8e3e7c20f64c51d4e2372fa43a5280ce1649b32bebca03b
+
+depends_build       port:intltool \
+                    port:gettext \
+                    port:gnome-common \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         path:lib/pkgconfig/glib-2.0.pc:glib2
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+}
+
+configure.cmd       ./autogen.sh
+
+livecheck.type      gnome

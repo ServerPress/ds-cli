@@ -1,0 +1,31 @@
+# $Id: Portfile 95577 2012-07-17 05:21:41Z jmr@macports.org $
+
+PortSystem          1.0
+
+name                libghemical
+version             2.99.1
+set release_date    20090911
+categories          science
+license             GPL-2+
+platforms           darwin
+maintainers         nomaintainer
+description         Library for the ghemical port.
+long_description    $description
+
+homepage            http://www.bioinformatics.org/ghemical/${name}/
+master_sites        http://www.bioinformatics.org/ghemical/download/release${release_date}/
+
+checksums           sha1    745adfda11bb58aee0f984ee30e649c5bf43b8ef \
+                    rmd160  cdcaa4967d3d1b824e6704092cd168592b9d8585
+
+depends_build       port:intltool \
+                    port:gettext
+depends_lib         port:mesa
+
+# TODO: add these ports which are useful for ghemical
+# depends_lib         port:mpqc \
+#                     port:mopac7
+
+livecheck.type      regex
+livecheck.url       http://www.bioinformatics.org/ghemical/download/current
+livecheck.regex     "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

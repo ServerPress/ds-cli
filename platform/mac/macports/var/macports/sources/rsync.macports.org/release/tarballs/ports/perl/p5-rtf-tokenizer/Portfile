@@ -1,0 +1,29 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 131745 2015-01-17 00:09:05Z devans@macports.org $
+
+PortSystem          1.0
+
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         RTF-Tokenizer 1.19
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+
+description         A tokenizer for RTF data
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  dfa454cec8e87b16c25426e273b271c3439467fa \
+                    sha256  2ae99b357936115fa5e7f4db0306ace41697fa8bed65227149447dde705ec1c2
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-test-warn
+    
+    depends_lib-append \
+                    port:p${perl5.major}-io-stringy
+
+    supported_archs noarch
+}

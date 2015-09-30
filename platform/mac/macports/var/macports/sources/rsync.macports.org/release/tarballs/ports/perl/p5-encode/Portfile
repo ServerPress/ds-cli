@@ -1,0 +1,20 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138320 2015-07-05 18:42:55Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Encode 2.75
+platforms           darwin
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Character encoding module
+long_description    The "Encode" module provides the interfaces between \
+                    Perl's strings and the rest of the system. Perl strings \
+                    are sequences of characters.
+
+checksums           rmd160  ca529fb060907e4400870383dc5cc2e292b04b94 \
+                    sha256  9686e9469b999923207383086324b90769f35191e5adbeb02269bd1b989534b9
+
+perl5.link_binaries no

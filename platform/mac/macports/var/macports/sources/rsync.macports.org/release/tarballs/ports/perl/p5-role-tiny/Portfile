@@ -1,0 +1,29 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135749 2015-05-01 17:57:40Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Role-Tiny 2.000001 ../by-authors/id/H/HA/HAARG
+
+platforms           darwin
+maintainers         nomaintainer
+license             {Artistic-1 GPL}
+
+supported_archs     noarch
+
+description         Role::Tiny - Roles. Like a nouvelle cuisine portion size slice of Moose.
+
+long_description    Role::Tiny is a minimalist role composition tool.
+
+checksums           rmd160  b59c870e69903f15de58793e3f40f8d7d86a976c \
+                    sha256  31883410a7c85d6dc7501c718b1f83edba013a7b9bbccf0338a1033c391f296d
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-test-fatal
+
+    depends_lib-append \
+                    port:p${perl5.major}-class-method-modifiers
+}

@@ -1,0 +1,47 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134673 2015-04-02 20:17:19Z ctreleaven@macports.org $
+
+PortSystem          1.0
+PortGroup           qt4 1.0
+PortGroup           app 1.0
+
+name                sqliteman
+version             1.2.2
+revision            4
+
+description         GUI tool for Sqlite3
+long_description	The best developer's and/or admin's GUI tool for Sqlite3 in the world. \
+                    No joking here (or just a bit only) - it contains the most complete \
+                    feature set of all tools available.
+maintainers	        nomaintainer
+categories	        databases
+license             GPL-2
+platforms	        darwin
+homepage	        http://www.sqliteman.com/
+master_sites        sourceforge:sqliteman
+
+checksums           md5     c8197428739bcd86deaafa8ef267e3cb \
+                    sha1    8ca90d44ad0eda9e67bdd675523a8786b8ef3818 \
+                    rmd160  6aa1002c53f7204d2172e88c4a335670f9103135
+
+patchfiles          patch-litemanwindow.cpp.diff
+
+use_bzip2           yes
+
+depends_build-append port:cmake
+
+depends_lib-append  port:qscintilla
+
+depends_run-append  port:sqlite3 \
+                    port:qt4-mac-sqlite3-plugin
+
+# qscintilla is not universal
+universal_variant   no
+
+configure.cmd       cmake
+configure.pre_args  \
+    -DCMAKE_INSTALL_PREFIX=${prefix} \
+    -DQSCINTILLA_INCLUDE_DIR:PATH=${qt_includes_dir}/Qsci
+configure.args      ${qt_cmake_defines}
+
+app.icon            sqliteman/icons/sqliteman.png

@@ -1,0 +1,45 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130122 2014-12-27 07:45:11Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-pyobjc-quartz
+version             2.5.1
+categories-append   devel
+license             MIT
+maintainers         gmail.com:lkraider+ports openmaintainer
+platforms           darwin
+description         Quartz wrappers for PyObjC
+long_description    This port provides the CoreGraphics, ImageIO, \
+                    QuartzComposer, QuartzCore, QuartzFilters, ImageKit, \
+                    PDFKit and CoreVideo framework wrappers \
+                    for use with PyObjC.
+
+homepage            http://pyobjc.sourceforge.net/
+master_sites        http://pypi.python.org/packages/source/p/pyobjc-framework-Quartz/
+distname            pyobjc-framework-Quartz-${version}
+
+checksums           md5     8ac7d4b6028a81a428cda75de2732ee9 \
+                    sha1    114121fdb449288f8ac3e40fe86c56508661171f \
+                    rmd160  395dfdf566ebf3c56fbba6b0415881d7cef5c622
+
+python.versions     26 27 33 34
+
+if {${name} ne ${subport}} {
+    depends_lib         port:py${python.version}-pyobjc
+    
+    post-destroot {
+        xinstall -m 644 -W ${worksrcpath} \
+            LICENSE.txt README.txt \
+            ${destroot}${prefix}/share/doc/${subport}
+        copy ${worksrcpath}/Examples \
+            ${destroot}${prefix}/share/doc/${subport}/examples
+        copy ${worksrcpath}/Doc ${destroot}${prefix}/share/doc/${subport}
+    }
+    livecheck.type  none
+} else {
+    livecheck.type  regex
+    livecheck.url   http://pypi.python.org/pypi/pyobjc-framework-Quartz/
+    livecheck.regex {pyobjc-framework-Quartz ([0-9.]+)}
+}

@@ -1,0 +1,33 @@
+# $Id: Portfile 137168 2015-06-05 21:46:12Z raimue@macports.org $
+
+PortSystem          1.0
+
+name                pdfgrep
+version             1.3.2
+categories          textproc
+platforms           darwin
+license             GPL-2+
+maintainers         raimue
+description         A tool to search text in PDF files.
+long_description \
+   Pdfgrep is a tool to search text in PDF files. It works similar to grep.
+
+homepage            http://pdfgrep.sourceforge.net/
+master_sites        sourceforge
+
+checksums           rmd160  75499a372cf1b2daefdfa57cbee79381b2661d72 \
+                    sha256  386b167434443dd299d389a0ef292d708123255cbab0e179e11b65ba51d9b386
+
+depends_build       port:pkgconfig
+depends_lib         port:poppler
+
+configure.args      --without-unac
+
+variant unac description {Use unac to remove accents and ligatures before searching} {
+    depends_lib-append port:unac
+    configure.args-delete --without-unac
+    configure.args-append --with-unac
+}
+
+livecheck.type      regex
+livecheck.regex     {latest version is (\d+(\.\d+)+)}

@@ -1,0 +1,37 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135509 2015-04-25 04:18:59Z ryandesign@macports.org $
+
+PortSystem      1.0
+PortGroup       php 1.1
+
+name            php-gmagick
+version         1.1.7RC3
+license         PHP
+categories      php devel
+platforms       darwin
+maintainers     ryandesign openmaintainer
+
+php.branches    5.3 5.4 5.5 5.6
+php.pecl        yes
+php.pecl.prerelease yes
+
+description     Provides a wrapper to the GraphicsMagick library
+
+long_description \
+    Gmagick is a php extension to create, modify and obtain meta information \
+    of images using the GraphicsMagick API.
+
+checksums       rmd160  75dc13b0c4822a0e18faa30bdeb7140daa14b494 \
+                sha256  1d2a35811a29e0744e852dda526f30c8a0cba516ef611758dd5bd4837ecba1fd
+
+if {${name} ne ${subport}} {
+    depends_lib-append      port:GraphicsMagick
+    
+    configure.args-append   --with-gmagick=${prefix}
+    
+    post-destroot {
+        set docdir ${prefix}/share/doc/${subport}
+        xinstall -d ${destroot}${docdir}
+        xinstall -m 644 -W ${worksrcpath} LICENSE README ${destroot}${docdir}
+    }
+}

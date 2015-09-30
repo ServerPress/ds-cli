@@ -1,0 +1,75 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136104 2015-05-11 19:40:18Z sean@macports.org $
+
+PortSystem              1.0
+PortGroup               python 1.0
+PortGroup               bitbucket 1.0
+
+set realname            evolve
+name                    py-hg$realname
+
+categories-append       devel
+platforms               darwin
+license                 GPL-2+
+maintainers             sean openmaintainer
+supported_archs         noarch
+
+description             Mutable history for mercurial
+long_description        This extension provides several commands to mutate history \
+                        and deal with issues it may raise.
+
+# can't set python.versions before adding custom subports
+subport py27-hgevolve-devel {
+}
+
+if {[string match "*-devel" $subport]} {
+    bitbucket.setup     marmoute mutable-history 7821a00fb6de
+    bitbucket.livecheck default
+    name                py-hg$realname-devel
+    version             5.1.99
+    revision            2
+
+    checksums           rmd160  5c1cad615fc5d8f9e77b76a194e7288868b34b16 \
+                        sha256  87c34c9b7a0de812b68a7a6a3471e384e50c5fbe36eaa2c2c9d3a1b9cf56d067
+} else {
+    bitbucket.setup     marmoute mutable-history 5.1.4
+    name                py-hg$realname
+
+    checksums           rmd160  6dc7dc9b7d1e0db052dbb37ea9cec33c16b1bfe1 \
+                        sha256  7475baa0fd2d3eeb36f5e6b6e0b85957ab0030e918e94258414a0465fc388967
+}
+
+python.versions         27
+
+if {${name} ne ${subport}} {
+    depends_lib         path:bin/hg:mercurial
+
+    conflicts           py${python.version}-hg$realname-devel
+    if {[string match "*-devel" $subport]} {
+        conflicts       py${python.version}-hg$realname
+    }
+
+    post-destroot {
+        file delete ${destroot}${python.pkgd}/hgext/__init__.py
+        file delete ${destroot}${python.pkgd}/hgext/__init__.pyc
+
+        foreach f [glob -nocomplain ${destroot}${python.pkgd}/hgext/*.py] {
+            move $f ${destroot}${python.pkgd}
+        }
+        foreach f [glob -nocomplain ${destroot}${python.pkgd}/hgext/*.pyc] {
+            move $f ${destroot}${python.pkgd}
+        }
+    }
+
+    notes               "
+To enable hg${realname}, add the following to your ~/.hgrc:
+
+\[extensions\]
+rebase =
+${realname} =
+"
+
+    if {![string match "*-devel" $subport]} {
+        livecheck.type      none
+    }
+}

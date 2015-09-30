@@ -1,0 +1,31 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 75676 2011-02-04 01:58:32Z ryandesign@macports.org $
+
+PortSystem              1.0
+
+name                    peekabot
+version                 0.8.4
+categories              science devel
+maintainers             gimaker.se:staffan \
+                        openmaintainer
+description             peekabot meta-package
+long_description        This package installs both the peekabot client and \
+                        server packages. peekabot is a 3D visualization tool \
+                        for robotics.
+homepage                http://www.peekabot.org/
+platforms               darwin
+distfiles
+
+depends_lib             port:peekabot-server \
+                        port:peekabot-client
+
+use_configure           no
+build                   {}
+supported_archs         noarch
+
+destroot {
+    # Install a dummy file to keep MacPorts from complaining that the destroot
+    # directory is empty.
+    xinstall -d ${destroot}${prefix}/share/${name}
+    system "touch ${destroot}${prefix}/share/${name}/dummy.txt"
+}

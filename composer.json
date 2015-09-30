@@ -1,0 +1,11 @@
+{
+  "name": "serverpress/ds-cli",
+  "description": "DesktopServer command line interface for enhanced, cross-platform environment for professional WordPress developers.",
+  "license": "GPL-2.0",
+  "require": {
+    "steveorevo/wp-hooks": "1.*",
+    "steveorevo/string": "1.*",
+    "phpunit/phpunit": "4.8.*",
+    "wp-cli/wp-cli": "0.*"
+  }
+}

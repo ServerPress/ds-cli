@@ -1,0 +1,25 @@
+--- librtmp/Makefile.orig	2011-07-11 19:24:33.000000000 -0500
++++ librtmp/Makefile	2012-01-08 01:14:08.000000000 -0600
+@@ -1,11 +1,11 @@
+-VERSION=v2.4
++VERSION=2.4
+ 
+ prefix=/usr/local
+ 
+ incdir=$(prefix)/include/librtmp
+ bindir=$(prefix)/bin
+ libdir=$(prefix)/lib
+-mandir=$(prefix)/man
++mandir=$(prefix)/share/man
+ BINDIR=$(DESTDIR)$(bindir)
+ INCDIR=$(DESTDIR)$(incdir)
+ LIBDIR=$(DESTDIR)$(libdir)
+@@ -52,7 +52,7 @@
+ SODIR=$(SODIR_$(SYS))
+ 
+ SO_LDFLAGS_posix=-shared -Wl,-soname,$@
+-SO_LDFLAGS_darwin=-dynamiclib -flat_namespace -undefined suppress -fno-common \
++SO_LDFLAGS_darwin=-dynamiclib -install_name $(prefix)/lib/$@ -flat_namespace -undefined suppress -fno-common \
+ 	-headerpad_max_install_names
+ SO_LDFLAGS_mingw=-shared
+ SO_LDFLAGS=$(SO_LDFLAGS_$(SYS))

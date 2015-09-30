@@ -1,0 +1,276 @@
+<HEAD>
+<TITLE>File inquiry operators</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Jobs.html">Next</A>
+<A HREF="Command_exit_status.html">Previous</A>
+<H2>File inquiry operators</H2>
+Some of these operators perform true/false tests on files and related
+objects.  They are of the form <B>-</B><I>op file</I>, where <I>op</I> is one of
+<P>
+<P>
+<menu>
+<DL compact>
+<DT>
+<B>r</B>
+<DD>
+Read access
+<P>
+<DT>
+<B>w</B>
+<DD>
+Write access
+<P>
+<DT>
+<B>x</B>
+<DD>
+Execute access
+<P>
+<DT>
+<B>X</B>
+<DD>
+Executable in the path or shell builtin, e.g., `-X ls' and `-X ls-F' are
+generally true, but `-X /bin/ls' is not (+)
+<P>
+<DT>
+<B>e</B>
+<DD>
+Existence
+<P>
+<DT>
+<B>o</B>
+<DD>
+Ownership
+<P>
+<DT>
+<B>z</B>
+<DD>
+Zero size
+<P>
+<DT>
+<B>s</B>
+<DD>
+Non-zero size (+)
+<P>
+<DT>
+<B>f</B>
+<DD>
+Plain file
+<P>
+<DT>
+<B>d</B>
+<DD>
+Directory
+<P>
+<DT>
+<B>l</B>
+<DD>
+Symbolic link (+) *
+<P>
+<DT>
+<B>b</B>
+<DD>
+Block special file (+)
+<P>
+<DT>
+<B>c</B>
+<DD>
+Character special file (+)
+<P>
+<DT>
+<B>p</B>
+<DD>
+Named pipe (fifo) (+) *
+<P>
+<DT>
+<B>S</B>
+<DD>
+Socket special file (+) *
+<P>
+<DT>
+<B>u</B>
+<DD>
+Set-user-ID bit is set (+)
+<P>
+<DT>
+<B>g</B>
+<DD>
+Set-group-ID bit is set (+)
+<P>
+<DT>
+<B>k</B>
+<DD>
+Sticky bit is set (+)
+<P>
+<DT>
+<B>t</B>
+<DD>
+<I>file</I> (which must be a digit) is an open file descriptor
+for a terminal device (+)
+<P>
+<DT>
+<B>R</B>
+<DD>
+Has been migrated (Convex only) (+)
+<P>
+<DT>
+<B>L</B>
+<DD>
+Applies subsequent operators in a multiple-operator test to a symbolic link
+rather than to the file to which the link points (+) *
+</DL>
+<P>
+</menu>
+<I>file</I> is command and filename expanded and then tested to
+see if it has the specified relationship to the real user.  If <I>file</I>
+does not exist or is inaccessible or, for the operators indicated by `*',
+if the specified file type does not exist on the current system,
+then all inquiries return false, i.e., `0'.
+<P>
+These operators may be combined for conciseness: `-<I>xy file</I>' is
+equivalent to `-<I>x file</I> &amp;&amp; -<I>y file</I>'.  (+) For example, `-fx' is true
+(returns `1') for plain executable files, but not for directories.
+<P>
+<B>L</B> may be used in a multiple-operator test to apply subsequent operators
+to a symbolic link rather than to the file to which the link points.
+For example, `-lLo' is true for links owned by the invoking user.
+<B>Lr</B>, <B>Lw</B> and <B>Lx</B> are always true for links and false for
+non-links.  <B>L</B> has a different meaning when it is the last operator
+in a multiple-operator test; see below.
+<P>
+It is possible but not useful, and sometimes misleading, to combine operators
+which expect <I>file</I> to be a file with operators which do not
+(e.g., <B>X</B> and <B>t</B>).  Following <B>L</B> with a non-file operator
+can lead to particularly strange results.
+<P>
+Other operators return other information, i.e., not just `0' or `1'.  (+)
+They have the same format as before; <I>op</I> may be one of
+<P>
+<P>
+<menu>
+<DL compact>
+<DT>
+<B>A</B>
+<DD>
+Last file access time, as the number of seconds since the epoch
+<P>
+<DT>
+<B>A:</B>
+<DD>
+Like <B>A</B>, but in timestamp format, e.g., `Fri May 14 16:36:10 1993'
+<P>
+<DT>
+<B>M</B>
+<DD>
+Last file modification time
+<P>
+<DT>
+<B>M:</B>
+<DD>
+Like <B>M</B>, but in timestamp format
+<P>
+<DT>
+<B>C</B>
+<DD>
+Last inode modification time
+<P>
+<DT>
+<B>C:</B>
+<DD>
+Like <B>C</B>, but in timestamp format
+<P>
+<DT>
+<B>D</B>
+<DD>
+Device number
+<P>
+<DT>
+<B>I</B>
+<DD>
+Inode number
+<P>
+<DT>
+<B>F</B>
+<DD>
+Composite <B>f</B>ile identifier, in the form <I>device</I>:<I>inode</I>
+<P>
+<DT>
+<B>L</B>
+<DD>
+The name of the file pointed to by a symbolic link
+<P>
+<DT>
+<B>N</B>
+<DD>
+Number of (hard) links
+<P>
+<DT>
+<B>P</B>
+<DD>
+Permissions, in octal, without leading zero
+<P>
+<DT>
+<B>P:</B>
+<DD>
+Like <B>P</B>, with leading zero
+<P>
+<DT>
+<B>P</B><I>mode</I>
+<DD>
+Equivalent to `-P <I>file</I> &amp; <I>mode</I>', e.g., `-P22 <I>file</I>' returns
+`22' if <I>file</I> is writable by group and other, `20' if by group only,
+and `0' if by neither
+<P>
+<DT>
+<B>P</B><I>mode</I><B>:</B>
+<DD>
+Like <B>P</B><I>mode</I>, with leading zero
+<P>
+<DT>
+<B>U</B>
+<DD>
+Numeric userid
+<P>
+<DT>
+<B>U:</B>
+<DD>
+Username, or the numeric userid if the username is unknown
+<P>
+<DT>
+<B>G</B>
+<DD>
+Numeric groupid
+<P>
+<DT>
+<B>G:</B>
+<DD>
+Groupname, or the numeric groupid if the groupname is unknown
+<P>
+<DT>
+<B>Z</B>
+<DD>
+Size, in bytes
+</DL>
+<P>
+</menu>
+Only one of these operators may appear in a multiple-operator test, and it
+must be the last.  Note that <B>L</B> has a different meaning at the end of and
+elsewhere in a multiple-operator test.  Because `0' is a valid return value
+for many of these operators, they do not return `0' when they fail: most
+return `-1', and <B>F</B> returns `:'.
+<P>
+If the shell is compiled with POSIX defined (see the <B><A HREF="Special_shell_variables.html#version">version</A></B> shell
+variable), the result of a file inquiry is based on the permission bits of
+the file and not on the result of the <I>access</I>(2) system call.
+For example, if one tests a file with <B>-w</B> whose permissions would
+ordinarily allow writing but which is on a file system mounted read-only,
+the test will succeed in a POSIX shell but fail in a non-POSIX shell.
+<P>
+File inquiry operators can also be evaluated with the <I><A HREF="Builtin_commands.html#filetest">filetest</A></I> builtin
+command (q.v.) (+).
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Jobs.html">Next</A>
+<A HREF="Command_exit_status.html">Previous</A>
+</BODY>

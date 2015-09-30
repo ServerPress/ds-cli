@@ -1,0 +1,33 @@
+# $Id: Portfile 101843 2013-01-20 19:25:07Z jeremyhu@macports.org $
+
+PortSystem          1.0
+
+name                ico
+version             1.0.4
+categories          x11 graphics
+maintainers         jeremyhu openmaintainer
+license             X11
+description         Animate an icosahedron or other polyhedron
+long_description \
+   Ico displays a wire-frame rotating polyhedron, with hidden lines removed, \
+   or a solid-fill polyhedron with hidden faces removed.  There are a number \
+   of different polyhedra available.  Adding a new polyhedron to the program \
+   is quite simple.
+
+platforms           darwin
+
+homepage            http://www.x.org/
+master_sites        xorg:individual/app/
+use_bzip2           yes
+
+checksums           md5     be8062c90bd91f3cb848290170be83a1 \
+                    sha1    53e7bb52227f2458bf20c7f95f34b19c26cf8885 \
+                    rmd160  4a7caa5c00c5399d9f158e55ce1f6b0c9f7aa5ce
+
+depends_build       port:pkgconfig
+
+depends_lib         port:xorg-libX11
+
+livecheck.type      regex
+livecheck.regex     ${name}-(\[\\d.\]+)${extract.suffix}
+livecheck.url       http://xorg.freedesktop.org/archive/individual/app/?C=M&O=D

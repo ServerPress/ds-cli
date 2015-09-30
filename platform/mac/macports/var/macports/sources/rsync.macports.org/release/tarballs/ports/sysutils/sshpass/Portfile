@@ -1,0 +1,35 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 104185 2013-03-20 10:36:44Z jmr@macports.org $
+
+PortSystem          1.0
+
+name                sshpass
+version             1.05
+categories          sysutils
+license             GPL-2
+platforms           darwin
+maintainers         nomaintainer
+
+description         Non-interactive ssh password authentication
+
+long_description    SSH's (secure shell) most common authentication mode is \
+                    called \"interactive keyboard password authentication\", so \
+                    called both because it is typically done via keyboard, \
+                    and because openssh takes active measures to make sure \
+                    that the password is, indeed, typed interactively by the \
+                    keyboard. Sometimes, however, it is necessary to fool ssh \
+                    into accepting an interactive password non-interactively. \
+                    This is where sshpass comes in. \
+                    SECURITY NOTE: There is a reason openssh insists that \
+                    passwords be typed interactively. Passwords are harder \
+                    to store securely and to pass around securely between \
+                    programs. If you have not looked into solving your needs \
+                    using SSH's \"public key authentication\", perhaps in \
+                    conjunction with the ssh agent (RTFM ssh-add), please do \
+                    so before being tempted into using this package.
+
+homepage            http://sourceforge.net/projects/sshpass/
+master_sites        sourceforge
+
+checksums           sha1    6dafec86dd74315913417829542f4023545c8fd7 \
+                    rmd160  6db9f833fbc4eda7e0a494fe0dbd287a388afe10

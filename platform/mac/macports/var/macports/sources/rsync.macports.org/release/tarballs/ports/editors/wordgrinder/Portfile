@@ -1,0 +1,37 @@
+# $Id: Portfile 114431 2013-12-08 09:48:42Z and.damore@macports.org $
+
+PortSystem 1.0
+
+name                wordgrinder
+version             0.3.3
+categories          editors
+license             MIT
+platforms           darwin
+maintainers         nomaintainer
+description         WordGrinder, lightweight character-cell word processor designed for the console
+long_description    WordGrinder is a light-weight character-cell word processor designed for text\
+                    entry on the console, supporting Unicode and styled text. It provides a clean,\
+                    easy-to-use interface that gets out of your way and get the job done.
+homepage            http://wordgrinder.sourceforge.net/
+master_sites        sourceforge:wordgrinder
+checksums           md5     1ae3bcf2fc4ee027bdd9518a73733505 \
+                    sha1    8a15b99872ffd7317e0c654ab74157c0bc1164fa \
+                    rmd160  939dde7b35964e7ba41898eee5fdedaa5396d60d
+
+use_bzip2           yes
+depends_lib         port:lua \
+                    port:lua-luafilesystem \
+                    port:ncurses
+
+patchfiles          patch-pmfile.diff
+post-patch {
+    reinplace "s|@@DESTROOT@@|${destroot}|g" ${worksrcpath}/pmfile
+    reinplace "s|@@PREFIX@@|${prefix}|g" ${worksrcpath}/pmfile
+    }
+use_configure       no
+build.cmd           ./pm
+build.target        install
+build.args          -v
+#build.env-append    LIBRARY_PATH=${prefix}/lib
+destroot {
+    }

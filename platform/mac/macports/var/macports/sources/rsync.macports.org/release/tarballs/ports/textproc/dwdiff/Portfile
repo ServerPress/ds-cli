@@ -1,0 +1,41 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135232 2015-04-20 00:15:39Z ryandesign@macports.org $
+
+PortSystem 1.0
+
+name                dwdiff
+version             2.0.9
+revision            3
+categories          textproc
+platforms           darwin
+maintainers         mww openmaintainer
+license             GPL-3
+description         diff program that operates at the word level
+long_description    \
+    dwdiff is a front-end for the diff program that operates at the word level \
+    instead of the line level. It is different from wdiff in that it allows \
+    the user to specify what should be considered whitespace, and in that it \
+    takes an optional list of characters that should be considered delimiters. \
+    Delimiters are single characters that are treated as if they are words, \
+    even when there is no whitespace separating them from preceding words or \
+    delimiters. dwdiff is mostly commandline compatible with wdiff. Only the \
+    --autopager, --terminal and --avoid-wraps options are not supported.
+
+homepage            http://os.ghalkes.nl/dwdiff.html
+master_sites        http://os.ghalkes.nl/dist/
+
+checksums           rmd160  e0a7eedabbc500731bd85b8c77c9716c18889818 \
+                    sha256  c1c9217825ad3fac9936129cc26b73fa5479fb079e5c34522fc7066e74e31ef8
+
+extract.suffix      .tgz
+
+depends_lib         port:gettext port:icu
+
+configure.cflags-append ${configure.cppflags}
+
+configure.universal_args-delete --disable-dependency-tracking
+
+destroot.args       docdir=${prefix}/share/doc/${name}
+
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     ${name}-(\[0-9.\]+)${extract.suffix}

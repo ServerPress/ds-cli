@@ -1,0 +1,61 @@
+# $Id: Portfile 134319 2015-03-22 08:29:35Z jeremyhu@macports.org $
+
+PortSystem 1.0
+
+name		xorg-libXdmcp
+version		1.1.2
+categories	x11 devel
+license		X11
+maintainers	jeremyhu openmaintainer
+description	X.org libXdmcp
+homepage	http://www.x.org
+platforms	darwin macosx
+long_description X Display Manager Control Protocol routines
+master_sites    xorg:individual/lib/
+use_parallel_build      yes
+
+distname	libXdmcp-${version}
+checksums           sha1    3c09eabb0617c275b5ab09fae021d279a4832cac \
+                    rmd160  4b3c314683617d46e855e519e846212283c1b574 \
+                    sha256  81fe09867918fff258296e1e1e159f0dc639cb30d201c53519f25ab73af4e4e2
+use_bzip2	yes
+
+depends_build   port:pkgconfig \
+                port:xorg-xproto
+
+configure.args \
+	--without-xmlto \
+	--without-fop \
+	--disable-docs
+
+build.args V=1
+
+# Depending on ghostscript for the PDF documentation creates a dependency
+# loop, so you may want to install first without the docs variant
+variant docs description "Install extra documentation" {
+	depends_build-append \
+		port:fop \
+		port:xmlto \
+		port:xorg-sgml-doctools
+
+	depends_skip_archcheck-append \
+		xmlto
+
+	configure.args-delete \
+		--without-xmlto \
+		--without-fop \
+		--disable-docs
+
+	configure.args-append \
+		--with-xmlto \
+		--with-fop \
+		--enable-docs
+
+	configure.env-append \
+		XMLTO="${prefix}/bin/xmlto" \
+		FOP="${prefix}/bin/fop"
+}
+
+livecheck.type  regex
+livecheck.url   http://xorg.freedesktop.org/archive/individual/lib/?C=M&O=D
+livecheck.regex libXdmcp-(\\d+(?:\\.\\d+)*)

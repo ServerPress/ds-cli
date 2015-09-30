@@ -1,0 +1,77 @@
+<HEAD>
+<TITLE>NEW FEATURES (+)</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="BUGS.html">Next</A>
+<A HREF="FILES.html">Previous</A>
+<H2>NEW FEATURES (+)</H2>
+This manual describes <I>tcsh</I> as a single entity,
+but experienced <I>csh</I>(1) users will want to pay special attention to
+<I>tcsh</I>'s new features.
+<P>
+A command-line editor, which supports GNU Emacs or <I>vi</I>(1)-style
+key bindings.  See <B><A HREF="The_command-line_editor.html">The command-line editor</A></B> and <B><A HREF="Editor_commands.html">Editor commands</A></B>.
+<P>
+Programmable, interactive word completion and listing.
+See <B><A HREF="Completion_and_listing.html">Completion and listing</A></B> and the <I><A HREF="Builtin_commands.html#complete">complete</A></I> and <I><A HREF="Builtin_commands.html#uncomplete">uncomplete</A></I>
+builtin commands.
+<P>
+<B><A HREF="Spelling_correction.html">Spelling correction</A></B> (q.v.) of filenames, commands and variables.
+<P>
+<B><A HREF="Editor_commands.html">Editor commands</A></B> (q.v.) which perform other useful functions in the middle of
+typed commands, including documentation lookup (<I><A HREF="Editor_commands.html#run-help">run-help</A></I>),
+quick editor restarting (<I><A HREF="Editor_commands.html#run-fg-editor">run-fg-editor</A></I>) and
+command resolution (<I><A HREF="Editor_commands.html#which-command">which-command</A></I>).
+<P>
+An enhanced history mechanism.  Events in the history list are time-stamped.
+See also the <I><A HREF="Builtin_commands.html#history">history</A></I> command and its associated shell variables,
+the previously undocumented `#' event specifier and new modifiers
+under <B><A HREF="History_substitution.html">History substitution</A></B>,
+the <I>*-history</I>, <I>history-search-*</I>, <I>i-search-*</I>, <I>vi-search-*</I> and
+<I><A HREF="Editor_commands.html#toggle-literal-history">toggle-literal-history</A></I> editor commands
+and the <B><A HREF="Special_shell_variables.html#histlit">histlit</A></B> shell variable.
+<P>
+Enhanced directory parsing and directory stack handling.
+See the <I><A HREF="Builtin_commands.html#cd">cd</A></I>, <I><A HREF="Builtin_commands.html#pushd">pushd</A></I>, <I><A HREF="Builtin_commands.html#popd">popd</A></I> and <I><A HREF="Builtin_commands.html#dirs">dirs</A></I> commands and their associated
+shell variables, the description of <B><A HREF="Directory_stack_substitution.html">Directory stack substitution</A></B>,
+the <B><A HREF="Special_shell_variables.html#dirstack">dirstack</A></B>, <B><A HREF="Special_shell_variables.html#owd">owd</A></B> and <B><A HREF="Special_shell_variables.html#symlinks">symlinks</A></B> shell variables and
+the <I><A HREF="Editor_commands.html#normalize-command">normalize-command</A></I> and <I><A HREF="Editor_commands.html#normalize-path">normalize-path</A></I> editor commands.
+<P>
+Negation in glob-patterns.  See <B><A HREF="Filename_substitution.html">Filename substitution</A></B>.
+<P>
+New <B><A HREF="File_inquiry_operators.html">File inquiry operators</A></B> (q.v.) and a <I><A HREF="Builtin_commands.html#filetest">filetest</A></I>
+builtin which uses them.
+<P>
+A variety of <B><A HREF="Automatic,_periodic_and_timed_events.html">Automatic, periodic and timed events</A></B> (q.v.) including
+scheduled events, special aliases, automatic logout and terminal locking,
+command timing and watching for logins and logouts.
+<P>
+Support for the Native Language System
+(see <B><A HREF="Native_Language_System_support.html">Native Language System support</A></B>),
+OS variant features
+(see <B><A HREF="OS_variant_support.html">OS variant support</A></B> and the <B><A HREF="Special_shell_variables.html#echo_style">echo_style</A></B> shell variable)
+and system-dependent file locations (see <B><A HREF="FILES.html">FILES</A></B>).
+<P>
+Extensive terminal-management capabilities.  See <B><A HREF="Terminal_management.html">Terminal management</A></B>.
+<P>
+New builtin commands including <I><A HREF="Builtin_commands.html#builtins">builtins</A></I>, <I><A HREF="Builtin_commands.html#hup">hup</A></I>, <I><A HREF="Builtin_commands.html#ls-F">ls-F</A></I>,
+<I><A HREF="Builtin_commands.html#newgrp">newgrp</A></I>, <I><A HREF="Builtin_commands.html#printenv">printenv</A></I>, <I><A HREF="Builtin_commands.html#which">which</A></I> and <I><A HREF="Builtin_commands.html#where">where</A></I> (q.v.).
+<P>
+New variables that make useful information easily available to the shell.
+See the <B><A HREF="Special_shell_variables.html#gid">gid</A></B>, <B><A HREF="Special_shell_variables.html#loginsh">loginsh</A></B>, <B><A HREF="Special_shell_variables.html#oid">oid</A></B>, <B><A HREF="Special_shell_variables.html#shlvl">shlvl</A></B>, <B><A HREF="Special_shell_variables.html#tcsh">tcsh</A></B>,
+<B><A HREF="Special_shell_variables.html#tty">tty</A></B>, <B><A HREF="Special_shell_variables.html#uid">uid</A></B> and <B><A HREF="Special_shell_variables.html#version">version</A></B> shell variables and the <B><A HREF="ENVIRONMENT.html#HOST">HOST</A></B>,
+<B><A HREF="ENVIRONMENT.html#REMOTEHOST">REMOTEHOST</A></B>, <B><A HREF="ENVIRONMENT.html#VENDOR">VENDOR</A></B>, <B><A HREF="ENVIRONMENT.html#OSTYPE">OSTYPE</A></B> and <B><A HREF="ENVIRONMENT.html#MACHTYPE">MACHTYPE</A></B> environment
+variables.
+<P>
+A new syntax for including useful information in the prompt string
+(see <B><A HREF="Special_shell_variables.html#prompt">prompt</A></B>),
+and special prompts for loops and spelling correction
+(see <B><A HREF="Special_shell_variables.html#prompt2">prompt2</A></B> and <B><A HREF="Special_shell_variables.html#prompt3">prompt3</A></B>).
+<P>
+Read-only variables.  See <B><A HREF="Variable_substitution.html">Variable substitution</A></B>.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="BUGS.html">Next</A>
+<A HREF="FILES.html">Previous</A>
+</BODY>

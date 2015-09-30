@@ -1,0 +1,70 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 122468 2014-07-23 00:08:14Z dports@macports.org $
+
+PortSystem          1.0
+PortGroup           texlive 1.0
+
+name                texlive-basic
+version             34245
+revision            0
+
+categories          tex
+maintainers         dports
+license             Copyleft Permissive
+description         TeX Live: Essential programs and files
+long_description    These files are regarded as basic for any TeX system, covering plain TeX macros, Computer Modern fonts, and configuration for common drivers\; no LaTeX.
+
+checksums           texlive-basic-34245-run.tar.xz \
+                    rmd160  840e7858c2d9b5d63cf1b87750b386b5cefcc39f \
+                    sha256  cee7ad39b8ffb07597fcc80d18df21ef888a2a4f515ba9747daf47bd921a1dec \
+                    texlive-basic-34245-doc.tar.xz \
+                    rmd160  5e2fcdfeecf9aa5452d00b2c89767faa1f926ff0 \
+                    sha256  6e8b287b03771c7a6781b23c5743a757c44edf843b92973e202fb7dcaaf0208d \
+                    texlive-basic-34245-src.tar.xz \
+                    rmd160  14f728eea084e3ed5b137d4069e8d3abc2407828 \
+                    sha256  efec1ea7f4fced2466e2c66a3878d424bbb603570b22b4b7a5ce68664a3488f7
+
+texlive.formats      \
+    {1 luatex luatex language.def,language.dat.lua {luatex.ini}} \
+    {1 dviluatex luatex language.def,language.dat.lua {dviluatex.ini}} \
+    {1 luajittex luajittex language.def,language.dat.lua {luatex.ini}} \
+    {1 mf mf-nowin - {-translate-file=cp227.tcx mf.ini}} \
+    {1 pdftex pdftex language.def {-translate-file=cp227.tcx *pdfetex.ini}} \
+    {1 etex pdftex language.def {-translate-file=cp227.tcx *etex.ini}} \
+    {1 pdfetex pdftex language.def {-translate-file=cp227.tcx *pdfetex.ini}} \
+    {1 tex tex - {tex.ini}}
+
+texlive.maps      \
+    {MixedMap cm.map} \
+    {MixedMap cmextra.map} \
+    {MixedMap cyrillic.map} \
+    {Map euler.map} \
+    {MixedMap latxfont.map} \
+    {MixedMap symbols.map} \
+    {MixedMap cmtext-bsr-interpolated.map} \
+    {MixedMap mflogo.map} \
+    {Map dummy-space.map} \
+    {Map mathpple.map}
+
+texlive.binaries    afm2tfm allcm allec allneeded bibtex dvi2fax dviluatex dvipdfm dvipdfmx dvipdft dvips dvired ebb etex extractbb fmtutil fmtutil-sys gftodvi gftopk gftype gsftopk inimf initex kpseaccess kpsepath kpsereadlink kpsestat kpsetool kpsewhere kpsewhich kpsexpand luajittex luatex makeindex mf mf-nowin mft mkindex mkocp mkofm mktexfmt mktexlsr mktexmf mktexpk mktextfm pdfetex pdftex pktogf pktype simpdftex tex texconfig texconfig-dialog texconfig-sys texhash texlinks texlua texluac texluajit texluajitc updmap updmap-sys xdvi
+
+texlive.exclude     texmf-dist/web2c/fmtutil.cnf \
+                    texmf-dist/web2c/texmf.cnf \
+                    texmf-dist/web2c/texmfcnf.lua \
+                    texmf-dist/web2c/updmap.cfg \
+                    texmf-dist/web2c/updmap.cfg \
+                    texmf-dist/tex/generic/config/language.dat \
+                    texmf-dist/tex/generic/config/language.dat.lua \
+                    texmf-dist/tex/generic/config/language.def \
+                    texmf-dist/fonts/map/dvipdfm/updmap \
+                    texmf-dist/fonts/map/dvips/updmap \
+                    texmf-dist/fonts/map/pdftex/updmap \
+                    doc.html \
+                    tlpkg/tlpostcode/dvipdfmx.pl
+
+patchfiles          patch-runfiles_texmf-dist_dvipdfmx_dvipdfmx.cfg.diff
+
+texlive.forceupdatecnf yes
+texlive.use_mktexlsr_on_deactivate no
+
+texlive.texmfport

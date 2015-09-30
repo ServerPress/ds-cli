@@ -1,0 +1,26 @@
+# $Id: Portfile 116254 2014-01-23 04:19:07Z jmr@macports.org $
+
+PortSystem       1.0
+
+name             galaxis
+version          1.7
+categories       games
+license          GPL-2
+maintainers      nomaintainer
+description      UNIX clone of the Mac game Galaxis
+long_description \
+    UNIX-hosted, curses-based clone of the nifty little Macintosh \
+    freeware game Galaxis. The code is POSIX-conforming and was \
+    written under Linux using the ncurses library\; it should part \
+    readily to any System V. BSD sites using the inferior native \
+    BSD curses will lose some features (no color, nor arrow-key \
+    support).
+homepage         http://www.catb.org/~esr/galaxis/
+platforms        darwin
+master_sites     sunsite:games/strategy
+checksums        md5 5251b71f7e7cf0bb57b3f6c2cfc887e3
+patch {
+    reinplace s|\$.ROOT./usr|\$\{DESTDIR\}${prefix}|g $worksrcpath/Makefile
+}
+use_configure    no
+build.target     ${name}

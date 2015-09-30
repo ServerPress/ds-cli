@@ -1,0 +1,130 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138211 2015-07-02 13:51:44Z rmstonecipher@macports.org $
+
+PortSystem          1.0
+PortGroup           compiler_blacklist_versions 1.0
+
+name                mpd
+version             0.19.10
+set branch          [join [lrange [split ${version} .] 0 1] .]
+categories          audio
+maintainers         rmstonecipher openmaintainer
+description         Music Player Daemon
+long_description    Music Player Daemon (MPD) allows remote access for playing music \
+    (MP3, Ogg Vorbis, FLAC, AAC, Mod, and wave files) and managing \
+    playlists. MPD is designed for integrating a computer into a stereo \
+    system that provides control for music playback over a local network. \
+    It also makes a great desktop music player, especially if you are a \
+    console junkie, like frontend options, or restart X often.
+homepage            http://www.musicpd.org/
+platforms           darwin
+master_sites        http://www.musicpd.org/download/${name}/${branch}/
+license             GPL-2+ LGPL-2.1
+use_xz              yes
+checksums           rmd160  0cdde355667547b236471d9c75f2c3925f56df81 \
+                    sha256  c386eb3d22f98dc993b5ae3c272f969aa7763713483c6800040ebf1791b15851
+depends_build \
+    port:pkgconfig \
+    port:boost
+depends_lib \
+    port:audiofile \
+    port:cdparanoia \
+    port:curl \
+    port:faad2 \
+    port:flac \
+    path:lib/pkgconfig/glib-2.0.pc:glib2 \
+    port:libcue \
+    port:libiconv \
+    port:libid3tag \
+    port:libogg \
+    port:libvorbis \
+    port:zlib \
+    port:libao
+
+configure.args \
+    --mandir=${prefix}/share/man \
+    --disable-ffmpeg \
+    --disable-jack \
+    --enable-ao \
+    --disable-mpc
+configure.cflags-append -I${prefix}/include
+
+variant mpcdec description {Support for musepack via libmpcdec} {
+    depends_lib-append  port:libmpcdec
+    configure.args-delete --disable-mpc
+}
+variant ffmpeg description {Support for myriad formats via ffmpeg} {
+    depends_lib-append	path:lib/libavcodec.dylib:ffmpeg
+    configure.args-delete --disable-ffmpeg
+}
+variant mod description {Support for several formats of tracker/sequencer files via libmikmod} {
+    depends_lib-append    port:libmikmod
+    configure.args-append --enable-mod
+}
+variant modplug description {Support for several formats of tracker/sequencer files via libmodplug} {
+    depends_lib-append    port:libmodplug
+    configure.args-append --enable-modplug
+}
+variant mpg123 conflicts mad description {Use mpg123 rather than mad as mp3 deconding library} {
+    depends_lib-append    port:mpg123
+    configure.args-append --enable-mpg123 --disable-mad
+}
+variant mad conflicts mpg123 description (Use mad rather than mpg123 as mp3 decoding library} {
+    depends_lib-append      port:libmad
+    configure.args-append   --enable-mad --disable-mpg123
+}
+if {![variant_isset mpg123]} {
+    default_variants    +mad
+}
+
+# Doesn't work with old GCC. Also blacklist old Clang, since it uses
+# LLVM-GCC to compile C++.
+compiler.blacklist  gcc-3.3 {*gcc-4.[0-5]} {clang < 425.0.24}
+
+if {${os.platform} eq "darwin" && ${os.major} > 8} {
+    set mpduser       _mpd
+} else {
+    set mpduser       mpd
+}
+# Create new user for mpd:
+add_users ${mpduser} group=${mpduser} realname=Music\ Player\ Daemon
+
+startupitem.create  yes
+startupitem.start   "${prefix}/bin/mpd --no-daemon ${prefix}/etc/mpd.conf"
+startupitem.stop    "${prefix}/bin/mpd --kill"
+destroot.keepdirs   ${destroot}${prefix}/var/lib/mpd/music \
+    ${destroot}${prefix}/var/lib/mpd/playlists \
+    ${destroot}${prefix}/var/log/mpd
+post-destroot {
+    # ensure ${prefix}/var/[lib/mpd/[music,playlists],log/mpd] exist
+    xinstall -m 755 -o ${mpduser} -g ${mpduser} -d \
+    ${destroot}${prefix}/var/lib/mpd \
+    ${destroot}${prefix}/var/lib/mpd/music \
+    ${destroot}${prefix}/var/lib/mpd/playlists \
+    ${destroot}${prefix}/var/log/mpd
+
+    xinstall -m 644 ${filespath}/mpd.conf ${destroot}${prefix}/etc/mpd.conf.default
+    reinplace "s|%%PREFIX%%|${prefix}|g" \
+        ${destroot}${prefix}/etc/mpd.conf.default
+    reinplace "s|%%MPDUSER%%|${mpduser}|g" \
+        ${destroot}${prefix}/etc/mpd.conf.default
+}
+post-activate {
+    if {![file exists ${prefix}/etc/mpd.conf]} {
+        copy ${prefix}/etc/mpd.conf.default ${prefix}/etc/mpd.conf
+    }
+}
+
+notes "A basic configuration file has been created for you.
+To add music to mpd's database, create symbolic links in
+${prefix}/var/lib/mpd/music using 'ln -s'.  For advanced
+configuration, run \"man mpd.conf\" or refer to
+${prefix}/share/doc/mpd/mpdconf.example for an example configuration file.
+
+You may get \"Problems shmget'ing\" message when launching mpd.
+In this case, you can increase the values of kern.sysv.shmmax and
+kern.sysv.shmall in /etc/rc."
+
+
+livecheck.url       http://www.musicpd.org/download/${name}/${branch}/
+livecheck.regex     "${name}-(\\d+(?:\\.\\d+)*)"

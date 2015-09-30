@@ -1,0 +1,27 @@
+<HEAD>
+<TITLE>Signal handling</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Terminal_management.html">Next</A>
+<A HREF="OS_variant_support.html">Previous</A>
+<H2>Signal handling</H2>
+Login shells ignore interrupts when reading the file <I><A HREF="FILES.html#~/.logout">~/.logout</A></I>.
+The shell ignores quit signals unless started with <B>-q</B>.
+Login shells catch the terminate signal, but non-login shells inherit the
+terminate behavior from their parents.
+Other signals have the values which the shell inherited from its parent.
+<P>
+In shell scripts, the shell's handling of interrupt and terminate signals
+can be controlled with <I><A HREF="Builtin_commands.html#onintr">onintr</A></I>, and its handling of hangups can be
+controlled with <I><A HREF="Builtin_commands.html#hup">hup</A></I> and <I><A HREF="Builtin_commands.html#nohup">nohup</A></I>.
+<P>
+The shell exits on a hangup (see also the <B><A HREF="Special_shell_variables.html#logout">logout</A></B> shell variable).  By
+default, the shell's children do too, but the shell does not send them a
+hangup when it exits.  <I><A HREF="Builtin_commands.html#hup">hup</A></I> arranges for the shell to send a hangup to
+a child when it exits, and <I><A HREF="Builtin_commands.html#nohup">nohup</A></I> sets a child to ignore hangups.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Terminal_management.html">Next</A>
+<A HREF="OS_variant_support.html">Previous</A>
+</BODY>

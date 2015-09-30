@@ -1,0 +1,57 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138159 2015-06-30 18:55:47Z michaelld@macports.org $
+
+PortSystem          1.0
+PortGroup           octave 1.0
+PortGroup           compiler_blacklist_versions 1.0
+
+octave.setup        interval 1.0.0
+platforms           darwin
+license             GPL-3+
+maintainers         nomaintainer
+description         The interval package for real-valued interval arithmetic provides \
+                    data types and operations for verified computing.
+long_description    ${description} It can be used to handle uncertainties, estimate \
+                    arithmetic errors and produce reliable results. Also it can help \
+                    find guaranteed solutions to numerical problems. Thanks to GNU MPFR \
+                    many arithmetic operations are provided with best possible accuracy. \
+                    The implementation of intervals in inf-sup format is based on \
+                    interval boundaries represented by binary64 numbers and is standard \
+                    conforming to IEEE 1788.
+
+checksums           rmd160 3eca712d1c128f66e40a216033e28d444368b85c \
+                    sha256 f46128ff2f2c30b4abb7cb05b0998d186f7ccd09bc9317008a3d005d9e8cda43
+
+depends_lib-append  port:mpfr port:gmp
+
+patchfiles-append \
+    patch-src_Makefile.diff
+
+# octave-interval requires <cfenv>, which is part of C++0x and newer.
+# require c++11
+
+if {${configure.cxx_stdlib} eq "libstdc++"} {
+
+    # *clang* when using libstdc++ do not seem to support C++11;
+    # C++11 support seems to need GCC 4.7+ when using libstdc++;
+    # could use C++0x support on GCC4.[56], but just ignore it since
+    # there are newer compilers already in place as defaults.
+
+    # Blacklist GCC compilers not supporting C++11 and all CLANG.
+    # This is probably not necessary, but it's good practice.
+
+    compiler.blacklist-append *clang* {*gcc-3*} {*gcc-4.[0-6]}
+
+    # and whitelist those we do want to use. wish there were a better way.
+    # these will be used in the order provided.
+
+    compiler.whitelist macports-gcc-4.9 macports-gcc-4.8 macports-gcc-4.7
+
+} else {
+
+    # using libc++;
+    # Blacklist Clang not supporting C++11 in some form and all GCC.
+
+    compiler.blacklist-append *gcc* {clang < 500}
+
+}

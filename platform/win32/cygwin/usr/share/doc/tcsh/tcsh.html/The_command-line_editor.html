@@ -1,0 +1,65 @@
+<HEAD>
+<TITLE>The command-line editor (+)</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Completion_and_listing.html">Next</A>
+<A HREF="Editing.html">Previous</A>
+<H2>The command-line editor (+)</H2>
+Command-line input can be edited using key sequences much like those used in
+GNU Emacs or <I>vi</I>(1).
+The editor is active only when the <B><A HREF="Special_shell_variables.html#edit">edit</A></B> shell variable is set, which
+it is by default in interactive shells.
+The <I><A HREF="Builtin_commands.html#bindkey">bindkey</A></I> builtin can display and change key bindings.
+Emacs-style key bindings are used by default
+(unless the shell was compiled otherwise; see the <B><A HREF="Special_shell_variables.html#version">version</A></B> shell variable),
+but <I><A HREF="Builtin_commands.html#bindkey">bindkey</A></I> can change the key bindings to <I>vi</I>-style bindings en masse.
+<P>
+The shell always binds the arrow keys (as defined in the <B><A HREF="ENVIRONMENT.html#TERMCAP">TERMCAP</A></B>
+environment variable) to
+<P>
+<P>
+<menu>
+<DL compact>
+<DT>
+down
+<DD>
+<I><A HREF="Editor_commands.html#down-history">down-history</A></I>
+<P>
+<DT>
+up
+<DD>
+<I><A HREF="Editor_commands.html#up-history">up-history</A></I>
+<P>
+<DT>
+left
+<DD>
+<I>backward-char</I>
+<P>
+<DT>
+right
+<DD>
+<I>forward-char</I>
+</DL>
+<P>
+</menu>
+unless doing so would alter another single-character binding.
+One can set the arrow key escape sequences to the empty string with <I><A HREF="Builtin_commands.html#settc">settc</A></I>
+to prevent these bindings.
+The ANSI/VT100 sequences for arrow keys are always bound.
+<P>
+Other key bindings are, for the most part, what Emacs and <I>vi</I>(1)
+users would expect and can easily be displayed by <I><A HREF="Builtin_commands.html#bindkey">bindkey</A></I>, so there
+is no need to list them here.  Likewise, <I><A HREF="Builtin_commands.html#bindkey">bindkey</A></I> can list the editor
+commands with a short description of each.
+<P>
+Note that editor commands do not have the same notion of a ``word'' as does the
+shell.  The editor delimits words with any non-alphanumeric characters not in
+the shell variable <B><A HREF="Special_shell_variables.html#wordchars">wordchars</A></B>, while the shell recognizes only whitespace
+and some of the characters with special meanings to it, listed under
+<B><A HREF="Lexical_structure.html">Lexical structure</A></B>.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Completion_and_listing.html">Next</A>
+<A HREF="Editing.html">Previous</A>
+</BODY>

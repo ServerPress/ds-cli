@@ -1,0 +1,57 @@
+# $Id: Portfile 137185 2015-06-05 22:17:18Z ram@macports.org $
+
+PortSystem         1.0
+PortGroup          python 1.0
+
+name               pylal
+version            0.7.2
+categories         science
+platforms          darwin
+maintainers        ram
+license            GPL-2+
+
+description        Python LSC Algorithm Library
+long_description \
+  The PyLAL package is best described as the Python LIGO Algorithm \
+  Library. It was originally a Python wrapping of parts of the LAL \
+  library, and although it continues to provide that function it has \
+  acquired a large collection of independent code of its own so that \
+  it is no longer exclusively a Python interface to LAL. In this \
+  package you will find convenience code to assist with manipulating \
+  XML documents using the glue.ligolw I/O library, you will find a \
+  wrapping to libframe to enable GWF frame-file reading, you will \
+  find binning and smoothing code, and you will find (partial) \
+  wrappings of LALs burstsearch, date, inject, tools, and window \
+  packages. Additionally, you will find most, if not all, of the \
+  inspiral pipeline's follow-up and summary tools, and several \
+  burst-related trigger post-production tools.
+
+homepage           https://www.lsc-group.phys.uwm.edu/daswg/projects/pylal.html
+master_sites       http://software.ligo.org/lscsoft/source/
+
+checksums          rmd160 321cff402e089e40d23c78837f52a2a6c269a755 \
+                   sha256 2fa602053571308e83e937c5399e0cdca8973c5a9e5597493eafbfefac690190
+
+python.default_version 27
+
+depends_build      port:pkgconfig
+
+depends_lib-append port:py${python.version}-numpy \
+                   port:py${python.version}-scipy \
+                   port:py${python.version}-matplotlib \
+                   port:glue \
+                   port:lal \
+                   port:lalframe \
+                   port:lalmetaio \
+                   port:lalsimulation \
+                   port:lalburst \
+                   port:lalinspiral
+
+# py-scipy is not universal
+universal_variant  no
+
+python.link_binaries_suffix
+
+livecheck.type     regex
+livecheck.url      ${master_sites}
+livecheck.regex    {pylal-(\d+(?:\.\d+)*).tar.gz}

@@ -1,0 +1,61 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135992 2015-05-09 07:08:13Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                aircrack-ng
+version             1.2-rc2
+categories          security
+license             GPL-2
+platforms           darwin
+maintainers         ryandesign openmaintainer
+
+description         Aircrack-ng is the next generation of aircrack with lots of new features
+
+long_description    aircrack is an 802.11 WEP and WPA-PSK keys cracking \
+                    program that can recover keys once enough data packets \
+                    have been captured. It implements the standard FMS \
+                    attack along with some optimizations like KoreK attacks, \
+                    thus making the attack much faster compared to other WEP \
+                    cracking tools. In fact, aircrack is a set of tools for \
+                    auditing wireless networks.
+
+homepage            http://aircrack-ng.org/
+master_sites        http://download.aircrack-ng.org/
+
+checksums           rmd160  2410691defa40a3479903410ad9225cd123ffc25 \
+                    sha256  ba5b3eda44254efc5b7c9f776eb756f7cc323ad5d0813c101e92edb483d157e9
+
+patchfiles          patch-common.mak.diff \
+                    patch-src-Makefile.diff \
+                    patch-src-aircrack-ng.c.diff \
+                    patch-src-common.h.diff \
+                    patch-src-osdep-radiotap-platform.h.diff \
+                    patch-src-sha1-sse2.h.diff
+
+depends_build       port:gmake \
+                    port:pkgconfig
+
+depends_lib         port:openssl \
+                    port:pcre \
+                    port:sqlite3
+
+use_configure       no
+
+use_parallel_build  yes
+
+variant universal {}
+
+build.cmd           ${prefix}/bin/gmake
+
+build.args          prefix=${prefix} \
+                    libnl=false \
+                    pcre=true \
+                    sqlite=true \
+                    ASM_AC= \
+                    CC="${configure.cc} [get_canonical_archflags cc] -I${filespath}"
+
+destroot.args       prefix=${prefix}
+
+livecheck.type      regex
+livecheck.regex     ${name}-(\[0-9a-z.-\]+)${extract.suffix}

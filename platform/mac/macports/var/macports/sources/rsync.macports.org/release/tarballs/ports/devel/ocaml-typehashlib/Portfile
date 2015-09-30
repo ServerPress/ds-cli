@@ -1,0 +1,13 @@
+# $Id: Portfile 114604 2013-12-11 15:30:26Z mww@macports.org $
+
+PortSystem 1.0
+replaced_by ocaml-core
+PortGroup obsolete 1.0
+
+name                ocaml-typehashlib
+version             108.00.02
+revision            4
+categories          devel ml
+platforms           darwin
+license             LGPL-2.1
+

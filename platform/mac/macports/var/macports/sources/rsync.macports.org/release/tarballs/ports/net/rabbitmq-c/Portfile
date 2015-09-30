@@ -1,0 +1,32 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137999 2015-06-25 00:13:47Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           cmake 1.0
+PortGroup           conflicts_build 1.0
+PortGroup           github 1.0
+
+github.setup        alanxz rabbitmq-c 0.7.0 v
+categories          net devel
+platforms           darwin
+maintainers         ryandesign openmaintainer
+license             MIT
+
+description         a C-language AMQP client library for use with RabbitMQ
+
+long_description    RabbitMQ-C is ${description}.
+
+checksums           rmd160  1b6c096562ac4873fe0243b9410ea0afc191cc32 \
+                    sha256  7bb76372e397efb8fb14fa16b1673cc02c0470ff4e25e6c7402d9051d0fe16fa
+
+depends_build-append \
+                    port:xmlto
+
+depends_lib         port:openssl \
+                    port:popt
+
+configure.args-append \
+                    -DBUILD_TOOLS:BOOL=ON \
+                    -DBUILD_TOOLS_DOCS:BOOL=ON
+
+conflicts_build     ${name}

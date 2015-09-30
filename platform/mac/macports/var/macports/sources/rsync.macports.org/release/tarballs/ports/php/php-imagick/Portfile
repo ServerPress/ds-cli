@@ -1,0 +1,40 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 124944 2014-09-01 01:05:32Z ryandesign@macports.org $
+
+PortSystem              1.0
+PortGroup               php 1.1
+
+name                    php-imagick
+version                 3.1.2
+revision                1
+categories-append       graphics
+platforms               darwin
+maintainers             ryandesign openmaintainer
+license                 PHP-3.01
+
+php.branches            5.3 5.4 5.5 5.6
+php.pecl                yes
+
+description             PHP extension to create and modify images with \
+                        ImageMagick
+
+long_description        Imagick is a native PHP extension for creating and \
+                        modifying images using the ImageMagick API
+
+checksums               rmd160  6f2cfba26dbdf7ede8d14ca9c97cf2b38a921cd0 \
+                        sha256  528769ac304a0bbe9a248811325042188c9d16e06de16f111fee317c85a36c93
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:ImageMagick
+    
+    configure.args      --with-imagick=${prefix}
+    
+    use_parallel_build  yes
+    
+    post-destroot {
+        set docdir ${prefix}/share/doc/${subport}
+        xinstall -d ${destroot}${docdir} ${destroot}${prefix}/share/examples
+        xinstall -m 644 -W ${worksrcpath} CREDITS ${destroot}${subport}
+        copy ${worksrcpath}/examples ${destroot}${prefix}/share/examples/${subport}
+    }
+}

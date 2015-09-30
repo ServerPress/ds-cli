@@ -1,0 +1,29 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 127931 2014-11-08 00:45:21Z ryandesign@macports.org $
+
+PortSystem                      1.0
+PortGroup                       pure 1.0
+
+pure.setup                      faust2pd 2.12
+name                            faust2pd
+categories-append               audio devel
+platforms                       darwin
+maintainers                     ryandesign gmail.com:aggraef
+license                         GPL-3+
+
+description                     a utility to generate Pd GUI patches from Faust programs
+
+long_description                ${name} is ${description}.
+
+checksums                       rmd160  46de621738fa124b73b201405b55217dccc465e7 \
+                                sha256  e91e19b3751fd70462cab7f42c5422a209f149bff2f19f83ec8631517f414865
+
+depends_lib-append              port:pure-xml
+
+build.args-append               LIBRARY_PATH=${prefix}/lib \
+                                prefix=${prefix} \
+                                pdprefix=${prefix}
+
+destroot.target-append          install-pd
+destroot.args-append            prefix=${prefix} \
+                                pdprefix=${prefix}

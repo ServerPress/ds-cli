@@ -1,0 +1,37 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 132417 2015-01-31 21:30:47Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-pika
+version             0.9.14
+revision            0
+categories-append   devel
+license             {MPL-1.1 GPL-2+}
+platforms           darwin
+supported_archs     noarch
+
+python.versions     26 27
+
+maintainers         stromnov openmaintainer
+
+description         Pure-Python implementation of the AMQP 0-9-1 protocol.
+long_description    ${description}
+
+homepage            http://pypi.python.org/pypi/pika/
+master_sites        https://pypi.python.org/packages/source/p/pika/
+distname            pika-${version}
+
+checksums           rmd160  9ab6f58062bad44e27bb9568cf8d1f917d3d7d83 \
+                    sha256  5e2be3cb4ebdc267abd8e481c09bc30e95919a24e3a5f3f69744959490ead0e3
+
+if {${name} ne ${subport}} {
+    depends_build       port:py${python.version}-setuptools
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/pika/json
+    livecheck.regex     "pika-v?(\\d+(?:\\.\\d+)*)${extract.suffix}"
+}

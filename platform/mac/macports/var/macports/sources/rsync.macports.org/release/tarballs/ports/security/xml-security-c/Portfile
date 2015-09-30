@@ -1,0 +1,43 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 133916 2015-03-15 18:56:48Z scantor@macports.org $
+
+PortSystem          1.0
+
+name                xml-security-c
+version             1.7.3
+categories          security xml textproc shibboleth
+license             Apache-2
+maintainers         snc scantor
+description         XML Signing/Encryption for C++
+long_description    The C++ library is an implementation of the XML Digital \
+                    Signature specification. It is designed to be easily \
+                    ported to new platforms, and has been tested on Solaris, \
+                    Linux, FreeBSD, NetBSD and Windows.
+homepage            http://santuario.apache.org/
+
+platforms           darwin
+depends_lib         port:xercesc3 port:openssl
+
+master_sites        apache:santuario/c-library/
+use_bzip2           yes
+
+checksums           rmd160  ce67c1183db41ec90414c206d40c22281e6403a7 \
+                    sha256  09a1165c2cfcd468dbc170935db10861107dfa22e02754092473c0f555ef6819
+
+configure.args      --without-xalan \
+                    --with-xerces=${prefix} \
+                    --with-openssl=${prefix}
+
+if {[variant_isset universal]} {
+    depends_lib-append  port:libtool
+}
+
+post-configure {
+    if {[variant_isset universal]} {
+        file copy -force ${prefix}/bin/glibtool ${worksrcpath}/libtool
+    }
+}
+
+livecheck.type      regex
+livecheck.url       http://archive.apache.org/dist/santuario/c-library/
+livecheck.regex     ${name}-(\\d+(\\.\\d+)+)${extract.suffix}

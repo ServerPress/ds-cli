@@ -1,0 +1,210 @@
+<HEAD>
+<TITLE>Variable substitution</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Command,_filename_and_directory_stack_substitution.html">Next</A>
+<A HREF="Alias_substitution.html">Previous</A>
+<H2>Variable substitution</H2>
+The shell maintains a list of variables, each of which has as value a list of
+zero or more words.
+The values of shell variables can be displayed and changed with the
+<I><A HREF="Builtin_commands.html#set">set</A></I> and <I><A HREF="Builtin_commands.html#unset">unset</A></I> commands.
+The system maintains its own list of ``environment'' variables.
+These can be displayed and changed with <I><A HREF="Builtin_commands.html#printenv">printenv</A></I>, <I><A HREF="Builtin_commands.html#setenv">setenv</A></I> and
+<I><A HREF="Builtin_commands.html#unsetenv">unsetenv</A></I>.
+<P>
+(+) Variables may be made read-only with `set -r' (q.v.).
+Read-only variables may not be modified or unset;
+attempting to do so will cause an error.
+Once made read-only, a variable cannot be made writable,
+so `set -r' should be used with caution.
+Environment variables cannot be made read-only.
+<P>
+Some variables are set by the shell or referred to by it.
+For instance, the <B><A HREF="Special_shell_variables.html#argv">argv</A></B> variable is an image of the shell's argument
+list, and words of this variable's value are referred to in special ways.
+Some of the variables referred to by the shell are toggles;
+the shell does not care what their value is, only whether they are set or not.
+For instance, the <B><A HREF="Special_shell_variables.html#verbose">verbose</A></B> variable is a toggle which causes command
+input to be echoed.  The <B>-v</B> command line option sets this variable.
+<B><A HREF="Special_shell_variables.html">Special shell variables</A></B> lists all variables which are referred to by the shell.
+<P>
+Other operations treat variables numerically.  The `@' command permits numeric
+calculations to be performed and the result assigned to a variable.  Variable
+values are, however, always represented as (zero or more) strings.  For the
+purposes of numeric operations, the null string is considered to be zero, and
+the second and subsequent words of multi-word values are ignored.
+<P>
+After the input line is aliased and parsed, and before each command is
+executed, variable substitution is performed keyed by `$' characters.  This
+expansion can be prevented by preceding the `$' with a `\' except within `"'s
+where it <I>always</I> occurs, and within `''s where it <I>never</I> occurs.
+Strings quoted by `\`' are interpreted later (see <B><A HREF="Command_substitution.html">Command substitution</A></B>
+below) so `$' substitution does not occur there until later,
+if at all.  A `$' is passed unchanged if followed by a blank, tab, or
+end-of-line.
+<P>
+Input/output redirections are recognized before variable expansion, and are
+variable expanded separately.  Otherwise, the command name and entire argument
+list are expanded together.  It is thus possible for the first (command) word
+(to this point) to generate more than one word, the first of which becomes the
+command name, and the rest of which become arguments.
+<P>
+Unless enclosed in `"' or given the `:q' modifier the results of variable
+substitution may eventually be command and filename substituted.  Within `"', a
+variable whose value consists of multiple words expands to a (portion of a)
+single word, with the words of the variable's value separated by blanks.  When
+the `:q' modifier is applied to a substitution the variable will expand to
+multiple words with each word separated by a blank and quoted to prevent later
+command or filename substitution.
+<P>
+The following metasequences are provided for introducing variable values into
+the shell input.  Except as noted, it is an error to reference a variable which
+is not set.
+<P>
+$<I>name</I>
+<P>
+<DL compact>
+<DT>
+${<I>name</I>}
+<DD>
+Substitutes the words of the value of variable <I>name</I>, each separated
+by a blank.  Braces insulate <I>name</I> from following characters which would
+otherwise be part of it.  Shell variables have names consisting of
+letters and digits starting with a letter.  The underscore character is
+considered a letter.  If <I>name</I> is not a shell variable, but is set in the
+environment, then that value is returned (but some of the other forms
+given below are not available in this case).
+</DL>
+<P>
+$<I>name</I>[<I>selector</I>]
+<P>
+<DL compact>
+<DT>
+${<I>name</I>[<I>selector</I>]}
+<DD>
+Substitutes only the selected words from the value of <I>name</I>.
+The <I>selector</I> is subjected to `$' substitution and may consist of
+a single number or two numbers separated by a `-'.
+The first word of a variable's value is numbered `1'.
+If the first number of a range is omitted it defaults to `1'.
+If the last member of a range is omitted it defaults to `$#<I>name</I>'.
+The <I>selector</I> `*' selects all words.
+It is not an error for a range to be empty if the
+second argument is omitted or in range.
+<P>
+<DT>
+$0
+<DD>
+Substitutes the name of the file from which command input
+is being read.  An error occurs if the name is not known.
+</DL>
+<P>
+$<I>number</I>
+<P>
+<DL compact>
+<DT>
+${<I>number</I>}
+<DD>
+Equivalent to `$argv[<I>number</I>]'.
+<P>
+<DT>
+$*
+<DD>
+Equivalent to `$argv', which is equivalent to `$argv[*]'.
+</DL>
+<P>
+The `:' modifiers described under <B><A HREF="History_substitution.html">History substitution</A></B>, except for `:p',
+can be applied to the substitutions above.  More than one may be used.  (+)
+Braces may be needed to insulate a variable substitution from a literal colon
+just as with <B><A HREF="History_substitution.html">History substitution</A></B> (q.v.); any modifiers must appear
+within the braces.
+<P>
+The following substitutions can not be modified with `:' modifiers.
+<P>
+$?<I>name</I>
+<P>
+<DL compact>
+<DT>
+${?<I>name</I>}
+<DD>
+Substitutes the string `1' if <I>name</I> is set, `0' if it is not.
+<P>
+<DT>
+$?0
+<DD>
+Substitutes `1' if the current input filename is known, `0' if it is not.
+Always `0' in interactive shells.
+</DL>
+<P>
+$#<I>name</I>
+<P>
+<DL compact>
+<DT>
+${#<I>name</I>}
+<DD>
+Substitutes the number of words in <I>name</I>.
+<P>
+<DT>
+$#
+<DD>
+Equivalent to `$#argv'.  (+)
+</DL>
+<P>
+$%<I>name</I>
+<P>
+<DL compact>
+<DT>
+${%<I>name</I>}
+<DD>
+Substitutes the number of characters in <I>name</I>.  (+)
+</DL>
+<P>
+$%<I>number</I>
+<P>
+<DL compact>
+<DT>
+${%<I>number</I>}
+<DD>
+Substitutes the number of characters in $argv[<I>number</I>].  (+)
+<P>
+<DT>
+$?
+<DD>
+Equivalent to `$status'.  (+)
+<P>
+<DT>
+$$
+<DD>
+Substitutes the (decimal) process number of the (parent) shell.
+<P>
+<DT>
+$!
+<DD>
+Substitutes the (decimal) process number of the last
+background process started by this shell.  (+)
+<P>
+<DT>
+$_
+<DD>
+Substitutes the command line of the last command executed.  (+)
+<P>
+<DT>
+$&lt;
+<DD>
+Substitutes a line from the standard input, with no further interpretation
+thereafter.  It can be used to read from the keyboard in a shell script.
+(+) While <I>csh</I> always quotes $&lt;, as if it were equivalent to `$&lt;:q',
+<I>tcsh</I> does not.  Furthermore, when <I>tcsh</I> is waiting for a line to be
+typed the user may type an interrupt to interrupt the sequence into
+which the line is to be substituted, but <I>csh</I> does not allow this.
+</DL>
+<P>
+The editor command <I><A HREF="Editor_commands.html#expand-variables">expand-variables</A></I>, normally bound to `^X-$',
+can be used to interactively expand individual variables.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Command,_filename_and_directory_stack_substitution.html">Next</A>
+<A HREF="Alias_substitution.html">Previous</A>
+</BODY>

@@ -1,0 +1,31 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           github 1.0
+
+github.setup        libgit2 pygit2 0.22.0 v
+name                py-pygit2
+
+categories-append   devel
+license             BSD
+platforms           darwin
+supported_archs     noarch
+maintainers         sean openmaintainer
+
+description         Python bindings for libgit2
+long_description    Pygit2 is a set of Python bindings to the libgit2 shared \
+                    library, libgit2 implements the core of Git. 
+
+checksums           rmd160  abe5b2d4f2cdcb16a4572e80cadfbce896d7258c \
+                    sha256  5f573d20b184fea5b6dbeeadca3bff4e2cca0e9475a33a7471b28a26aff883a7
+
+python.versions     27 34
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:libgit2 \
+                        port:py${python.version}-cffi
+
+    livecheck.type  none
+}

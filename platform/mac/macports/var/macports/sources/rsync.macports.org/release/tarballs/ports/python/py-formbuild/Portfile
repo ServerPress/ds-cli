@@ -1,0 +1,25 @@
+# $Id: Portfile 130462 2014-12-31 01:43:10Z larryv@macports.org $
+
+PortSystem 1.0
+PortGroup python 1.0
+
+name			py-formbuild
+version			0.1.5b
+categories-append	devel
+license			BSD
+platforms		darwin
+supported_archs	noarch
+maintainers		nomaintainer
+description		Form generation tools to complement FormEncode
+long_description	${description}
+
+homepage		http://formbuild.org
+master_sites		http://cheeseshop.python.org/packages/source/F/FormBuild/
+distname		FormBuild-${version}
+checksums		sha1 d5ecac453d0083ea89f394cc373af1440ea844a9
+
+python.versions	27
+
+if {${name} ne ${subport}} {
+    depends_build		port:py${python.version}-setuptools
+}

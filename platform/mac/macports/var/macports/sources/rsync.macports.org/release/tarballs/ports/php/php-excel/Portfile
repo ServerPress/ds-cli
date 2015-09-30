@@ -1,0 +1,41 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 133455 2015-03-02 06:39:29Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+PortGroup           php 1.1
+
+github.setup        iliaal php_excel 1.0.1final
+name                php-excel
+version             1.0.1
+categories-append   textproc
+platforms           darwin
+maintainers         ryandesign openmaintainer
+license             PHP-3.01
+
+php.branches        5.3 5.4 5.5 5.6
+
+description         PHP interface to LibXL for reading and writing \
+                    Microsoft Excel spreadsheets
+
+long_description    ${name} is a ${description}.
+
+checksums           rmd160  f3d4e1167f4b39b3b2c2be7f8d94ab656d600359 \
+                    sha256  6e97b2f89de5bf18285c50115c3bed01863cb5f7230b67b298156b5f84fdcaa3
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:libxl
+    
+    # libxl is Intel-only
+    supported_archs     i386 x86_64
+    configure.universal_archs i386 x86_64
+    
+    configure.args      --with-libxl-incdir=${prefix}/include/libxl-c \
+                        --with-libxl-libdir=${prefix}/lib
+    
+    post-destroot {
+        xinstall -d ${destroot}${prefix}/share/doc
+        copy ${worksrcpath}/docs ${destroot}${prefix}/share/doc/${subport}
+        xinstall -m 644 -W ${worksrcpath} CREDITS ChangeLog README.markdown ${destroot}${prefix}/share/doc/${subport}
+    }
+}

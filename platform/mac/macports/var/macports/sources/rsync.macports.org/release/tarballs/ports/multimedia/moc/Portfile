@@ -1,0 +1,62 @@
+# $Id: Portfile 125490 2014-09-18 20:46:07Z devans@macports.org $
+
+PortSystem          1.0
+
+name                moc
+version             2.5.0-beta1
+revision            2
+license             GPL-2
+categories          multimedia
+maintainers         martinvazquez.net:eu
+description         MOC (music on console) is a console audio player for LINUX/UNIX
+long_description    MOC (music on console) is a console audio player for LINUX/UNIX \
+                    designed to be powerful and easy to use. \
+                    Internet stream (Icecast, Shoutcast) are supported, \
+                    key mapping can be fully customized. \
+                    Supported file formats are: mp3, Ogg Vorbis, FLAC, Musepack, Speex, WAVE, \
+                    AIFF, AU (and other less popular formats supported by libsndfile. New formats \
+                    support is under development.
+
+homepage            http://moc.daper.net
+platforms           darwin
+master_sites        ftp://ftp.daper.net/pub/soft/moc/unstable/
+
+checksums           md5     795ecba86847e082aa2f21937cc04804 \
+                    sha1    4030a1fa5c7cfef06909c54d8c7a1fbb93f23caa \
+                    rmd160  ca7095f71e5fe8155eda41e98547db541d6a4cab
+
+use_bzip2           yes
+
+depends_build	    port:pkgconfig 
+
+depends_lib         port:libiconv \
+                    port:ncurses \
+                    path:lib/libavcodec.dylib:ffmpeg \
+                    port:libmad \
+                    port:mpc \
+                    port:libid3tag \
+                    port:libsamplerate \
+                    path:lib/libspeex.dylib:speex \
+                    port:flac \
+                    port:jack \
+                    port:curl
+
+patchfiles	    patch-ffmpeg-r2529.diff
+
+use_autoreconf	    yes
+autoreconf.args     -fvi
+
+configure.args      --with-jack --without-vorbis --disable-cache
+
+#default_variants    +autojack
+
+#variant autojack description {Autostart jack on mocp init and close it on server stop} {
+#        patchfiles-append       patch-autojack.diff
+#}
+
+variant vorbis description {Add support for ogg files} {
+        depends_lib-append      port:libvorbis
+        configure.args-delete   --without-vorbis
+}
+
+livecheck.regex	    <title>music on console (.*)</title>

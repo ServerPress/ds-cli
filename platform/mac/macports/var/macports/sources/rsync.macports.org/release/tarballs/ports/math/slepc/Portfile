@@ -1,0 +1,70 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 132749 2015-02-09 22:07:23Z sean@macports.org $
+
+PortSystem          1.0
+PortGroup           bitbucket 1.0
+PortGroup           mpi 1.0
+
+bitbucket.setup     slepc slepc 3.5.3 v
+revision            1
+categories          math science
+maintainers         sean
+license             LGPL
+description         Scalable Library for Eigenvalue Problem Computations
+long_description    SLEPc is a software library for the solution of large \
+                    scale sparse eigenvalue problems on parallel computers. It is an \
+                    extension of PETSc and can be used for either standard or generalized \
+                    eigenproblems, with real or complex arithmetic. It can also be used for \
+                    computing a partial SVD of a large, sparse, rectangular matrix.
+
+notes               "Add the following lines to your .bash_profile if you plan to\
+                    use the PETSC/SLEPC makefile rules in $prefix/lib/petsc/conf:\n\
+                    \texport PETSC_DIR=${prefix}/lib/petsc\n\
+                    \texport SLEPC_DIR=${prefix}/lib/slepc"
+
+platforms           darwin
+universal_variant   no
+
+checksums           rmd160  2ec89b42a74b4380099868459b3f61c51f9cfc86 \
+                    sha256  ef335b57da96b51d29ce5da834bd8d1f43c956f0550e1e4bf3a10f545297ce85
+
+mpi.setup
+mpi.enforce_variant petsc
+
+depends_lib-append  port:petsc
+use_parallel_build  no
+
+depends_build-append \
+                    port:sowing
+
+pre-configure {
+    system -W ${worksrcpath} "SLEPC_DIR=${worksrcpath} ./config/generatefortranstubs.py bfort"
+}
+
+configure.args      --prefix=${prefix}/lib/slepc
+configure.env-append \
+                    PETSC_DIR=${prefix}/lib/petsc
+build.env-append    PETSC_DIR=${prefix}/lib/petsc
+destroot.env-append PETSC_DIR=${prefix}/lib/petsc
+destroot.cmd-append SLEPC_DESTDIR=${destroot}${prefix}/lib/slepc
+
+variant arpack description {compile with ARPACK support} {
+    mpi.enforce_variant arpack
+    compilers.enforce_fortran
+
+    pre-fetch {
+        if {![file exists ${prefix}/lib/libparpack.a]} {
+            return -code error "Please install a mpi variant of arpack first."
+        }
+    }
+
+    depends_lib-append      port:arpack
+    configure.args-append   --with-arpack-dir=${prefix} \
+                            --with-arpack-flags=-lparpack,-larpack
+}
+
+# fix install name
+post-destroot {
+    system "install_name_tool -id ${prefix}/lib/slepc/lib/libslepc.dylib ${destroot}${prefix}/lib/slepc/lib/libslepc.dylib"
+    reinplace -W ${destroot}${prefix}/lib/slepc/conf "s,${destroot},,g" slepc_variables slepc_rules
+}

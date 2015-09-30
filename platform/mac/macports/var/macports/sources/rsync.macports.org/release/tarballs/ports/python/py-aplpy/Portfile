@@ -1,0 +1,66 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 129173 2014-12-08 14:56:17Z petr@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+set _name           APLpy
+set _n              [string index ${_name} 0]
+
+name                py-aplpy
+version             0.9.14
+categories-append   science
+platforms           darwin
+supported_archs     noarch
+license             MIT
+maintainers         robitaille stsci.edu:mperrin openmaintainer
+
+description         The Astronomical Plotting Library in Python
+long_description    \
+    APLpy (the Astronomical Plotting Library in Python) is a Python module \
+    aimed at producing publication-quality plots of astronomical imaging data \
+    in FITS format. The module uses Matplotlib, a powerful and interactive \
+    plotting package. It is capable of creating output files in several \
+    graphical formats, including EPS, PDF, PS, PNG, and SVG.
+
+homepage            http://aplpy.github.com/
+master_sites        https://pypi.python.org/packages/source/${_n}/${_name}/
+distname            ${_name}-${version}
+
+checksums           md5     d95e1649f7afe479f2d093d987cfd861 \
+                    rmd160  d9b78ab394f0d558bcf9adade8d3ccc609e6472e \
+                    sha256  0313a91523b6a32a40e5b97da55243d5e59722cd8fa2e6642915edd26d464d69
+
+python.versions     27 34
+
+if {${name} ne ${subport}} {
+
+    # By default, astropy downloads an astropy-helpers package for setup.py.
+    # The --offline and --no-git flags prevent this and use a bundled version.
+    build.cmd  ${python.bin} setup.py --no-user-cfg --offline --no-git
+    destroot.cmd  ${python.bin} setup.py --no-user-cfg --offline --no-git
+
+    depends_run-append  port:py${python.version}-numpy \
+                        port:py${python.version}-matplotlib \
+                        port:py${python.version}-astropy
+
+    variant rgb description {Include support for RGB images} {
+            depends_run-append  path:${python.pkgd}/PIL:py${python.version}-Pillow
+    }
+
+    variant avm description {Include support for AVM meta-data} {
+        depends_run-append  port:py${python.version}-pyavm
+    }
+
+    variant ds9 description {Include support for DS9 region files} {
+        depends_run-append  port:py${python.version}-pyregion
+    }
+
+    default_variants    +rgb +avm +ds9
+
+    livecheck.type  none
+} else {
+    livecheck.type  regex
+    livecheck.url   [lindex ${master_sites} 0]
+    livecheck.regex ">${_name}-(\\d+(\\.\\d+)+)\\${extract.suffix}<"
+}

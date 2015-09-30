@@ -1,0 +1,83 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136521 2015-05-20 09:21:29Z sicherha@macports.org $
+
+PortSystem 1.0
+PortGroup cmake 1.0
+PortGroup cxx11 1.0
+
+name            quassel
+version         0.11.1
+categories      irc
+license         GPL-3
+platforms       darwin
+maintainers     nomaintainer
+homepage        http://quassel-irc.org
+master_sites    ${homepage}/pub
+
+checksums       rmd160  0c2faccfb3dbbe7d3c38a86598e3ee9e0be0dcfa \
+                sha256  ad60aeb937e2cb5dc2b510daf46940e0bcf27efb4a20b80c776174109aa7566e
+
+depends_lib     port:dbusmenu-qt \
+                port:openssl \
+                port:phonon \
+                port:qt4-mac \
+                port:zlib
+
+use_bzip2       yes
+
+# Do not use git to find out the program version - there is no ".git" directory
+# in the source tarball
+patchfiles      patch-scripts-build-macosx_makebundle.py.diff \
+                patch-render.diff
+
+post-patch {
+    reinplace "s|@@VERSION@@|${version}|" \
+        ${worksrcpath}/scripts/build/macosx_makebundle.py
+}
+
+cmake.out_of_source yes
+
+configure.args  -DWANT_CORE=OFF \
+                -DWANT_QTCLIENT=OFF \
+                -DWANT_MONO=OFF \
+                -DWITH_KDE=OFF
+
+if {${name} == ${subport}} {
+
+    description \
+        Qt4 IRC client
+    long_description \
+        Quassel IRC is a modern, cross-platform IRC client. This port installs \
+        the monolithic variant, which does not require a separate Quassel core.
+
+    depends_run-append port:qt4-mac-sqlite3-plugin
+
+    configure.args-replace -DWANT_MONO=OFF -DWANT_MONO=ON
+
+    destroot {
+        copy "${build.dir}/Quassel.app" "${destroot}${applications_dir}"
+    }
+}
+
+subport ${name}-client {
+
+    description \
+        Qt4 IRC client - client component
+    long_description \
+        Quassel IRC is a modern, cross-platform, distributed IRC client, \
+        meaning that one (or multiple) client(s) can attach to and detach from \
+        a central core - much like the popular combination of screen and a \
+        text-based IRC client such as WeeChat, but graphical.
+
+    depends_run-append port:qca-ossl
+
+    configure.args-replace -DWANT_QTCLIENT=OFF -DWANT_QTCLIENT=ON
+
+    destroot {
+        copy "${build.dir}/Quassel Client.app" "${destroot}${applications_dir}"
+    }
+}
+
+livecheck.type  regex
+livecheck.url   http://quassel-irc.org/pub/
+livecheck.regex "${name}-(\[0-9\.\]+)\.tar\.bz2"

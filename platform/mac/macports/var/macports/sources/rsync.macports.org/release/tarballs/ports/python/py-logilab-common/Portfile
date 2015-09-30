@@ -1,0 +1,57 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138349 2015-07-06 06:09:59Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-logilab-common
+version             1.0.1
+revision            0
+categories-append   devel
+platforms           darwin
+license             LGPL-2.1+
+supported_archs     noarch
+
+python.versions     27 33 34
+
+maintainers         dh stromnov openmaintainer
+
+description         A number of modules used by various projects from Logilab
+long_description    ${description}
+
+homepage            http://www.logilab.org/project/logilab-common
+master_sites        https://pypi.python.org/packages/source/l/logilab-common/
+
+distname            logilab-common-${version}
+
+checksums           rmd160  0719a27c5e786a901d33034f95f6d7ac15fff2ab \
+                    sha256  e031701efd2ff26f36ede7dbfcd82d639d6e7ac261ef286dc6cac1eaf8ab7d63
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-setuptools
+    depends_lib-append  port:py${python.version}-six
+
+    # Fix permissions
+    post-extract {
+        fs-traverse item ${worksrcpath} {
+            if {[file isdirectory ${item}]} {
+                file attributes ${item} -permissions a+rx
+            } elseif {[file isfile ${item}]} {
+                file attributes ${item} -permissions a+r
+            }
+        }
+    }
+
+    post-destroot {
+        xinstall -m 755 -d ${destroot}${prefix}/share/doc/${subport}
+        xinstall -m 644 -W ${worksrcpath} ChangeLog README \
+        ${destroot}${prefix}/share/doc/${subport}
+    }
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/logilab-common/json
+    livecheck.regex     {logilab-common-(\d+(?:\.\d+)*)\.[tz]}
+}

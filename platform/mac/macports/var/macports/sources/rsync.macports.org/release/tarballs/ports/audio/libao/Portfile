@@ -1,0 +1,48 @@
+# $Id: Portfile 129902 2014-12-22 22:20:58Z rmstonecipher@macports.org $
+
+PortSystem 1.0
+
+name             libao
+version          1.2.0
+categories       audio
+maintainers      nomaintainer
+description      A Cross-platform Audio Library
+long_description \
+    libao is a way to easily add cross-platform audio output to your \
+    program. Output devices are implemented as dynamic plugins, and \
+    support for OSS, ESD, ALSA, aRTs, Solaris, and Irix outputs are \
+    currently supported.
+homepage         http://www.xiph.org/ao/
+platforms        darwin
+license          GPL-2+
+master_sites     http://downloads.xiph.org/releases/ao/
+
+checksums           sha1    6b1d2c6a2e388e3bb6ebea158d51afef18aacc56 \
+                    rmd160  00921bf311f8d7a2be1f860221811924402beebd
+
+post-patch {
+	reinplace "s|/etc/libao.conf|${prefix}/etc/libao.conf|" \
+		${worksrcpath}/CHANGES \
+		${worksrcpath}/doc/config.html \
+		${worksrcpath}/libao.conf.5 \
+		${worksrcpath}/include/ao/ao_private.h \
+}
+
+configure.args   --disable-arts --disable-esd \
+                 --disable-oss --disable-X
+
+platform darwin {
+    post-destroot {
+        system "echo default_driver=macosx >> ${destroot}${prefix}/etc/libao.conf"
+    }
+}
+
+variant esd description {Enable Enlightened Sound Daemon support} {
+    depends_lib-append    port:esound
+    configure.args-delete --disable-esd
+    configure.args-append --enable-esd
+}
+
+livecheck.type   regex
+livecheck.url    ${master_sites}?C=M&O=D
+livecheck.regex  ${name}-(\\d+(?:\\.\\d+)*)

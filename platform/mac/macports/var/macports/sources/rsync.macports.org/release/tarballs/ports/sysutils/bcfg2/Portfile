@@ -1,0 +1,40 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 125957 2014-09-30 11:29:56Z jmr@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                bcfg2
+version             1.2.0
+categories          sysutils python
+maintainers         gmail.com:sol.jerome
+license             BSD
+supported_archs     noarch
+
+description         Bcfg2 configuration management system
+long_description    Bcfg2 helps system administrators deploy complex \
+                    changes across large numbers of systems in a \
+                    coherent and transparent fashion.
+
+homepage            http://www.bcfg2.org/
+platforms           darwin
+master_sites        ftp://ftp.mcs.anl.gov/pub/bcfg
+
+checksums           rmd160  db89ee0b8975bf50ad68bfac122e50253ded1906 \
+                    sha256  138d792423475ae6516a95578a3df191504afaff31007877c7c2b36830d1a260
+
+python.default_version  26
+
+patchfiles          patch-setup.py.diff
+
+post-destroot {
+    ln -s ${python.prefix}/bin/bcfg2 ${destroot}${prefix}/bin/bcfg2
+
+    set pyman ${python.prefix}/share/man/
+    set manroot ${destroot}${prefix}/share/man/
+
+    xinstall -d ${manroot}/man5
+    xinstall -d ${manroot}/man1
+    ln -s ${pyman}man5/bcfg2.conf.5 ${manroot}/man5/
+    ln -s ${pyman}/man1/bcfg2.1 ${manroot}/man1/
+}

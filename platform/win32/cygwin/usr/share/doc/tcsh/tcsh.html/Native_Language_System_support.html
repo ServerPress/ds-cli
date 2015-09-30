@@ -1,0 +1,54 @@
+<HEAD>
+<TITLE>Native Language System support (+)</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="OS_variant_support.html">Next</A>
+<A HREF="Automatic,_periodic_and_timed_events.html">Previous</A>
+<H2>Native Language System support (+)</H2>
+The shell is eight bit clean
+(if so compiled; see the <B><A HREF="Special_shell_variables.html#version">version</A></B> shell variable)
+and thus supports character sets needing this capability.
+NLS support differs depending on whether or not
+the shell was compiled to use the system's NLS (again, see <B><A HREF="Special_shell_variables.html#version">version</A></B>).
+In either case, 7-bit ASCII is the default character code
+(e.g., the classification of which characters are printable) and sorting,
+and changing the <B><A HREF="ENVIRONMENT.html#LANG">LANG</A></B> or <B><A HREF="ENVIRONMENT.html#LC_CTYPE">LC_CTYPE</A></B> environment variables
+causes a check for possible changes in these respects.
+<P>
+When using the system's NLS, the <I>setlocale</I>(3) function is called
+to determine appropriate character code/classification and sorting
+(e.g., a 'en_CA.UTF-8' would yield "UTF-8" as a character code).
+This function typically examines the <B><A HREF="ENVIRONMENT.html#LANG">LANG</A></B> and <B><A HREF="ENVIRONMENT.html#LC_CTYPE">LC_CTYPE</A></B>
+environment variables; refer to the system documentation for further details.
+When not using the system's NLS, the shell simulates it by assuming that the
+ISO 8859-1 character set is used
+whenever either of the <B><A HREF="ENVIRONMENT.html#LANG">LANG</A></B> and <B><A HREF="ENVIRONMENT.html#LC_CTYPE">LC_CTYPE</A></B> variables are set, regardless of
+their values.  Sorting is not affected for the simulated NLS.
+<P>
+In addition, with both real and simulated NLS, all printable
+characters in the range \200-\377, i.e., those that have
+M-<I>char</I> bindings, are automatically rebound to <I><A HREF="Editor_commands.html#self-insert-command">self-insert-command</A></I>.
+The corresponding binding for the escape-<I>char</I> sequence, if any, is
+left alone.
+These characters are not rebound if the <B><A HREF="ENVIRONMENT.html#NOREBIND">NOREBIND</A></B> environment variable
+is set.  This may be useful for the simulated NLS or a primitive real NLS
+which assumes full ISO 8859-1.  Otherwise, all M-<I>char</I> bindings in the
+range \240-\377 are effectively undone.
+Explicitly rebinding the relevant keys with <I><A HREF="Builtin_commands.html#bindkey">bindkey</A></I>
+is of course still possible.
+<P>
+Unknown characters (i.e., those that are neither printable nor control
+characters) are printed in the format \nnn.
+If the tty is not in 8 bit mode, other 8 bit characters are printed by
+converting them to ASCII and using standout mode.  The shell
+never changes the 7/8 bit mode of the tty and tracks user-initiated
+changes of 7/8 bit mode.  NLS users (or, for that matter, those who want to
+use a meta key) may need to explicitly set
+the tty in 8 bit mode through the appropriate <I>stty</I>(1)
+command in, e.g., the <I><A HREF="FILES.html#~/.login">~/.login</A></I> file.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="OS_variant_support.html">Next</A>
+<A HREF="Automatic,_periodic_and_timed_events.html">Previous</A>
+</BODY>

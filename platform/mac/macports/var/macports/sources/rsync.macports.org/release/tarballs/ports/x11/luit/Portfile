@@ -1,0 +1,33 @@
+# $Id: Portfile 91052 2012-03-23 08:02:08Z jeremyhu@macports.org $
+
+PortSystem          1.0
+
+name                luit
+version             1.1.1
+categories          x11
+license             X11
+platforms           darwin
+maintainers         jeremyhu openmaintainer
+description         X.org luit
+long_description    Convert terminal i/o from legacy encodings to UTF-8
+
+homepage            http://www.x.org/
+master_sites        xorg:individual/app/
+
+checksums           sha1    3130c14d7267cecce0ba2280643844b48cca49b0 \
+                    rmd160  571ec95ef3be0f761810e50272071ed4273afc16 \
+                    sha256  30b0e787cb07a0f504b70f1d6123930522111ce9d4276f6683a69b322b49c636
+
+use_bzip2	    yes
+use_parallel_build  yes
+
+depends_build \
+	port:pkgconfig
+
+depends_lib \
+	port:xorg-libX11 \
+	port:xorg-libfontenc
+
+livecheck.type  regex
+livecheck.url   http://xorg.freedesktop.org/archive/individual/app/?C=M&O=D
+livecheck.regex ${name}-(\\d+(?:\\.\\d+)*)

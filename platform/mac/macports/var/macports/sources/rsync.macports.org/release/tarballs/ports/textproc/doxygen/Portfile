@@ -1,0 +1,194 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 133907 2015-03-15 18:30:05Z ryandesign@macports.org $
+
+PortSystem              1.0
+
+name                    doxygen
+version                 1.8.9.1
+categories              textproc devel
+maintainers             css openmaintainer
+license                 GPL-2
+description             Documentation system for several programming languages
+long_description        It can generate an on-line documentation browser \
+                        (in HTML) and/or an off-line reference manual \
+                        from a set of documented source files. There is \
+                        also support for generating output in RTF \
+                        (MS-Word), PostScript, hyperlinked PDF, \
+                        compressed HTML, and Unix man pages. The \
+                        documentation is extracted directly from the \
+                        sources, which makes it much easier to keep the \
+                        documentation consistent with the source code. \
+                        You can configure doxygen to extract the code \
+                        structure from undocumented source files. This \
+                        is very useful to quickly find your way in large \
+                        source distributions. You can also visualize the \
+                        relations between the various elements by means \
+                        of include dependency graphs, inheritance \
+                        diagrams, and collaboration diagrams, which are \
+                        all generated automatically.
+
+platforms               darwin
+
+homepage                http://www.doxygen.org/
+master_sites            http://ftp.stack.nl/pub/users/dimitri/ \
+                        ftp://ftp.stack.nl/pub/users/dimitri/
+distfiles               ${distname}.src${extract.suffix}
+
+checksums               ${distname}.src${extract.suffix} \
+                        rmd160  103d45b36129a0a04b809050b7251acf6f9dacde \
+                        sha256  d4ab6e28d4d45d8956cad17470aade3fbe2356e8f64b92167e738c1887feccec
+
+depends_build-append    bin:perl:perl5 \
+                        bin:python2.7:python27 \
+                        port:flex \
+                        port:bison
+license_noconflict      perl5 python27
+
+depends_lib             port:libpng \
+                        port:libiconv
+
+post-extract {
+    # Use our flex
+    delete ${worksrcpath}/src/ce_lex.cpp
+    delete ${worksrcpath}/src/code.cpp
+    delete ${worksrcpath}/src/commentcnv.cpp
+    delete ${worksrcpath}/src/commentscan.cpp
+    delete ${worksrcpath}/src/config.cpp
+    delete ${worksrcpath}/src/declinfo.cpp
+    delete ${worksrcpath}/src/defargs.cpp
+    delete ${worksrcpath}/src/doctokenizer.cpp
+    delete ${worksrcpath}/src/fortrancode.cpp
+    delete ${worksrcpath}/src/fortranscanner.cpp
+    delete ${worksrcpath}/src/pre.cpp
+    delete ${worksrcpath}/src/pycode.cpp
+    delete ${worksrcpath}/src/pyscanner.cpp
+    delete ${worksrcpath}/src/scanner.cpp
+    delete ${worksrcpath}/src/tclscanner.cpp
+    delete ${worksrcpath}/src/vhdlcode.cpp
+    delete ${worksrcpath}/src/vhdlscanner.cpp
+
+    # Use our bison
+    delete ${worksrcpath}/src/ce_parse.cpp
+    delete ${worksrcpath}/src/ce_parse.h
+    delete ${worksrcpath}/src/vhdlparser.cpp
+    delete ${worksrcpath}/src/vhdlparser.h
+}
+
+set cxx_stdlibflags {}
+if {[string match *clang* ${configure.cxx}]} {
+    set cxx_stdlibflags -stdlib=${configure.cxx_stdlib}
+}
+
+patchfiles              patch-configure.diff
+post-patch {
+    reinplace "s/echo -n/printf/g" ${worksrcpath}/configure
+
+    # ensure correct compilers and compiler options are used
+    reinplace "/^TMAKE_CC\[\[:space:\]\]/s%=.*%= ${configure.cc} ${configure.cppflags} [get_canonical_archflags cc]%" ${tmake_conf}
+    reinplace "/^TMAKE_CXX\[\[:space:\]\]/s%=.*%= ${configure.cxx} ${configure.cppflags} ${cxx_stdlibflags} [get_canonical_archflags cxx]%" ${tmake_conf}
+    reinplace "/^TMAKE_LINK\[\[:space:\]\]/s%=.*%= ${configure.cxx} ${configure.ldflags} ${cxx_stdlibflags} [get_canonical_archflags ld]%" ${tmake_conf}
+    reinplace "/^TMAKE_LINK_SHLIB\[\[:space:\]\]/s%=.*%= ${configure.cxx} ${cxx_stdlibflags} [get_canonical_archflags ld]%" ${tmake_conf}
+    reinplace "s|-mmacosx-version-min=10.5||g" ${tmake_conf}
+
+    # make sure LIBICONV_PLUG is undefined (this flag is necessary for the
+    # system-installed libiconv, but breaks linking with the MacPorts installed
+    # one)
+    reinplace "s|#define LIBICONV_PLUG||g" ${worksrcpath}/src/portable_c.c
+
+    # may not be strictly necessary, but remove trailing '/' from DESTDIR
+    reinplace "s|\$(DESTDIR)/|\$(DESTDIR)|g" ${worksrcpath}/Makefile.in
+
+    # link with doxygen's libmd5, avoiding a libwww port conflict
+    reinplace "s|-lmd5|../lib/libmd5.a|" ${worksrcpath}/src/doxygen.pro.in
+
+    # do not require GNU install; BSD install suffices
+    reinplace "s,-n \"`\$j/\$i --version 2>/dev/null \| grep utils`\",-x \"\$j/\$i\",g" ${worksrcpath}/configure
+
+    # remove flag that is not defined for gcc and only suppresses some warnings for clang
+    if {[string match *gcc* ${configure.compiler}]} {
+        reinplace "s|-Wno-invalid-source-encoding||g" ${tmake_conf}
+    }
+}
+
+build.type              gnu
+
+configure.universal_args-delete \
+                        --disable-dependency-tracking
+configure.pre_args      --prefix ${prefix}
+configure.args          --make ${build.cmd} \
+                        --python python2.7
+
+build.target            all
+
+destroot.target         install
+destroot.args           INSTALL=${prefix} \
+                        DOCDIR=${prefix}/share/doc/doxygen \
+                        MAN1DIR=share/man/man1
+
+variant docs description {Include the doxygen PDF documentation and LaTeX} requires {latex} {
+    patchfiles-delete       patch-configure.diff
+
+    configure.args-append   --docdir ${prefix}/share/doc \
+                            --dot ${prefix}/bin/dot
+
+    depends_build-append    path:bin/dot:graphviz
+    build.target-append     pdf
+    use_parallel_build      no
+
+    destroot.target-append  install_docs
+}
+
+variant latex description {Support LaTeX/PDF doxygen output} {
+    depends_build-append    bin:pdflatex:texlive-latex \
+                            bin:gs:ghostscript \
+                            port:texlive-latex-extra
+}
+
+variant wizard description {Include the GUI wizard based on Qt4} {
+    # use the Qt4 PortGroup, which provides a bunch of variables
+    # and defines for how Qt4 was installed
+    PortGroup qt4 1.0
+
+    # tell configure to make the wizard app
+    configure.args-append   --with-doxywizard
+
+    # on Macs, qmake builds .app directories; when installing, copy
+    # this directory to the correct location (via the reinplace below).
+    patchfiles-append       patch-addon_doxywizard_Makefile.in.diff
+
+    post-patch {
+        # allow for universal building, if desired
+        reinplace "/CONFIG/s@x86@${qt_arch_types}@" \
+            ${worksrcpath}/addon/doxywizard/doxywizard.pro.in
+
+        # give doxywizard the more mac-like name of DoxyWizard
+        reinplace "/^TARGET\[\[:space:\]\]/s%=.*%= DoxyWizard%" \
+            ${worksrcpath}/addon/doxywizard/doxywizard.pro.in
+
+        # fix final install location
+        reinplace "s|__APPLICATIONS_DIR__|${applications_dir}|" \
+            ${worksrcpath}/addon/doxywizard/Makefile.in
+
+        # use the correct QMAKE command; the other should work, but
+        # this one is guaranteed to.
+        reinplace "s|QMAKE=qmake|QMAKE=${qt_qmake_cmd}|g" \
+            ${worksrcpath}/addon/doxywizard/Makefile.in
+    }
+
+    post-destroot {
+        # allow doxywizard to be called from the command line
+        ln -s ${applications_dir}/DoxyWizard.app/Contents/MacOS/DoxyWizard ${destroot}${prefix}/bin/doxywizard
+    }
+}
+
+platform darwin {
+    # Specify the platform explicitly to avoid a universal build.
+    global tmake_conf
+
+    set tmake_conf ${worksrcpath}/tmake/lib/macosx-c++/tmake.conf
+    configure.args-append   --platform macosx-c++
+}
+
+livecheck.type          regex
+livecheck.url           http://www.stack.nl/~dimitri/doxygen/download.html
+livecheck.regex         {latest version of doxygen is (\d+(?:\.\d+)*)}

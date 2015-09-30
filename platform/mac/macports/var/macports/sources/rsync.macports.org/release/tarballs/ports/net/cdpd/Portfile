@@ -1,0 +1,17 @@
+# $Id: Portfile 56061 2009-08-24 00:33:19Z ryandesign@macports.org $
+
+PortSystem 1.0
+name		cdpd
+version		1.0.2.1
+categories	net
+platforms	darwin
+maintainers	ugh.net.au:andrew
+description	Sends Cisco Discovery Protocol announcements
+long_description	cdpd periodically sends Cisco Discovery Protocol \
+			announcements on configured interfaces.
+master_sites	ftp://ftp.lexa.ru/pub/domestic/snar
+extract.suffix	.tgz
+checksums	md5 acfcb5b30dff2abf88570023b8c23f08
+depends_build	lib:libnet:libnet
+patchfiles	patch-Makefile.in
+destroot.destdir	destroot=${destroot}

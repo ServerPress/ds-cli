@@ -1,0 +1,40 @@
+# $Id: Portfile 104435 2013-03-25 18:49:57Z sean@macports.org $
+
+PortSystem 1.0
+
+name		bitchx
+version		1.1
+revision	1
+categories	irc
+maintainers	fuzzymagic.com:sean
+description	BitchX - An IRC Client based on ircII w/ ANSI color and much much more.
+long_description	BitchX is an IRC (Internet Relay Chat) client by Colten Edwards aka \
+			panasync@efnet, it is based on it's predecessors ircII and EPIC. \
+			BitchX was originally started as a script by Trench and HappyCrappy \
+			for the popular UNIX IRC client ircII. Around Christmas of 1994 the \
+			script was patched directly into the client by panasync.
+homepage	http://www.bitchx.org/
+platforms	darwin
+supported_archs i386 ppc
+master_sites	sourceforge
+distname	ircii-pana-${version}-final
+checksums	md5 611d2dda222f00c10140236f4c331572
+worksrcdir	BitchX
+configure.cflags-append -I${prefix}/include
+configure.args	--without-gtk --without-ssl \
+		--mandir=\\\${prefix}/share/man
+patchfiles	patch-Makefile.in patch-include__ctcp.h \
+		patch-include__struct.h \
+		patch-source__server.c patch-source__term.c
+destroot.args	prefix=${destroot}${prefix}
+
+platform darwin {
+	# need to keep -g -O2 (the default) while adding -DBIND_8_COMPAT
+	configure.cflags-append -DBIND_8_COMPAT -g
+}
+
+depends_lib	port:ncurses
+
+livecheck.type  regex
+livecheck.url   http://sourceforge.net/projects/bitchx/files/
+livecheck.regex pana-(\[\\d.\]+)

@@ -1,0 +1,24 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 131138 2015-01-06 12:07:29Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Expect-Simple 0.04
+license             GPL-2+
+maintainers         nomaintainer
+
+description         Wrapper around the Expect module
+long_description    ${description}
+
+checksums           rmd160  149afcbe67a57e4f4dea3659da2942fd2d79f605 \
+                    sha256  af83b92185e642695913ff138efe819752e80857759996deafcaab2700ad5db5
+
+platforms           darwin
+supported_archs     noarch
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-expect
+}

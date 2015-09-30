@@ -1,0 +1,45 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 122819 2014-07-31 03:02:29Z khindenburg@macports.org $
+
+PortSystem          1.0
+
+name                putty
+version             0.63
+categories          security net
+platforms           darwin
+maintainers         nomaintainer
+license             MIT
+
+description         a free implementation of Telnet and SSH, along with an \
+                    xterm terminal emulator
+
+long_description    PuTTY is ${description}
+
+homepage            http://www.chiark.greenend.org.uk/~sgtatham/putty/
+master_sites        ftp://ftp.chiark.greenend.org.uk/users/sgtatham/putty-${version}/ \
+                    http://the.earth.li/~sgtatham/putty/${version}/
+
+checksums           rmd160  cf28d88a5f0e1db6c21bb0308bd59ed4d6399e5f \
+                    sha256  81e8eaaf31be7d9a46b4f3fb80d1d9540776f142cd89d0a11f2f8082dc68f8b5
+
+depends_build       port:pkgconfig
+
+worksrcdir          ${worksrcdir}/unix
+
+patchfiles          patch-Makefile.in.diff \
+                    patch-configure.diff
+
+variant gui description {Build the GUI tools (including putty itself)} {
+    depends_lib-append    port:gtk2
+    configure.args-delete --without-gtk
+}
+
+default_variants +gui
+
+configure.args-append     --without-gtk
+configure.cppflags-delete -I${prefix}/include
+configure.cppflags-append -isystem${prefix}/include
+
+livecheck.type      regex
+livecheck.url       ${homepage}download.html
+livecheck.regex     ${name}-(\[0-9.\]+)${extract.suffix}

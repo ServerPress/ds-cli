@@ -1,0 +1,34 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137915 2015-06-22 22:45:06Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         CGI-Fast 2.10
+platforms           darwin
+maintainers         devans openmaintainer
+license             {Artistic-1 GPL}
+
+description         CGI::Fast - CGI Interface for Fast CGI
+
+long_description    CGI::Fast is a subclass of the CGI object created by CGI.pm. It is \
+                    specialized to work with the FCGI module, which greatly speeds up CGI \
+                    scripts by turning them into persistently running server processes. \
+                    Scripts that perform time-consuming initialization processes, such as \
+                    loading large modules or opening persistent database connections, will \
+                    see large performance improvements.
+
+checksums           rmd160  e5c4e5ee8f6b05e30fc5feec0ce943ea9338a74d \
+                    sha256  98263afcc9f5d88c7cbbd39651c5431b434c1c815fe284962d887ed7be3a1dd3
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-test-deep
+
+    depends_lib-append \
+                    port:p${perl5.major}-cgi \
+                    port:p${perl5.major}-fcgi
+
+    supported_archs noarch
+}

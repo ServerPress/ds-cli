@@ -1,0 +1,39 @@
+# $Id: Portfile 125738 2014-09-25 14:43:03Z mf2k@macports.org $
+PortSystem      1.0
+
+name                    adodb
+version                 5.11
+set branch              [join [lrange [split ${version} .] 0 0] .]
+categories              databases
+license                 BSD
+maintainers             nomaintainer
+description             Database library for PHP
+long_description        ${description}
+homepage                http://adodb.sourceforge.net/
+platforms               darwin
+master_sites            sourceforge
+checksums           sha1    67fd6066a0d11091530ae2cfbb1561e4a531cfa4 \
+                    rmd160  b6b59362563fd1b37eb7695804f5d444ac664a31
+
+set file_version        [string map {. ""} ${version}]
+extract.suffix          .tgz
+distfiles               ${name}${file_version}${extract.suffix}
+worksrcdir              ${name}${branch}
+
+use_configure           no
+build {}
+
+set adodbdir ${prefix}/share
+set docsdir ${prefix}/share/doc/${name}/cute_icons_for_site
+
+destroot {
+    xinstall -m 755 -d ${destroot}${adodbdir}
+    xinstall -m 755 -d ${destroot}${docsdir}/cute_icons_for_site
+    system "cp -R ${worksrcpath} ${destroot}${adodbdir}"
+    system "cp ${worksrcpath}/docs/* ${destroot}${docsdir}"
+    system "cp ${worksrcpath}/cute_icons_for_site/*.* ${destroot}${docsdir}/cute_icons_for_site"
+}
+
+livecheck.url       http://sourceforge.net/projects/adodb/files/adodb-php5-only/
+livecheck.type      regex
+livecheck.regex     "${name}-(\\d+\[a-z\]?)-for-php5"

@@ -1,0 +1,67 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134888 2015-04-10 01:41:43Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                ngircd
+version             22.1
+categories          irc
+platforms           darwin
+license             GPL-2+
+maintainers         nomaintainer
+
+description         next generation IRC daemon
+long_description    ngIRCd is a free open source daemon for Internet \
+                    Relay Chat (IRC). It's written from scratch and is \
+                    not based upon the original IRCd like many others.
+
+homepage            http://ngircd.barton.de/
+master_sites        http://arthur.barton.de/pub/ngircd/
+use_xz              yes
+
+checksums           rmd160  1e6ee53d301a02bff1ec425e0eb8483eb5f04e3b \
+                    sha256  cbe76d63fa919b2eaa87c5942f587f9fa95291e6fa4d7490d71bc94fa69b4956
+
+depends_lib         port:libident \
+                    port:tcp_wrappers \
+                    port:zlib
+
+patchfiles          patch-contrib-MacOSX-Makefile.in.diff \
+                    patch-doc-Makefile.in.diff
+
+configure.args      --enable-ipv6 \
+                    --enable-sniffer \
+                    --with-tcp-wrappers \
+                    --with-ident
+
+# It's easier to create our own startup item than to patch and install
+# the provided plist.
+startupitem.create      yes
+startupitem.executable  ${prefix}/sbin/ngircd --nodaemon
+startupitem.logfile     ${prefix}/var/log/ngIRCd.log
+startupitem.logevents   yes
+
+post-activate {
+    if {![file exists ${prefix}/etc/ngircd.conf]} {
+        xinstall -m 0644 ${prefix}/share/doc/${name}/sample-ngircd.conf \
+            ${prefix}/etc/ngircd.conf
+    }
+}
+
+variant gnutls conflicts openssl description {Build with GnuTLS} {
+    configure.args-append   --with-gnutls
+    depends_lib-append      port:gnutls
+}
+
+variant openssl conflicts gnutls description {Build with OpenSSL} {
+    configure.args-append   --with-openssl
+    depends_lib-append      port:openssl
+}
+
+if {![variant_isset gnutls]} {
+    default_variants        +openssl
+}
+
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     ${name}-(\[0-9.\]+)${extract.suffix}

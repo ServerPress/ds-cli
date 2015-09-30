@@ -1,0 +1,32 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 133324 2015-02-26 02:01:36Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+# Glib 1.310 is considered an unstable version
+# wait for Glib 1.320 to update
+perl5.setup         Glib 1.307
+platforms           darwin
+maintainers         nomaintainer
+license             LGPL-2.1+
+
+description         Access to GLib and GObject
+
+long_description    This module provides perl access to Glib and GLibs GObject \
+                    libraries. GLib is a portability and utility library, \
+                    GObject provides a generic type system with inheritance \
+                    and a powerful signal system.
+
+homepage            http://gtk2-perl.sourceforge.net/
+
+checksums           rmd160  d15c0a008b072334d9761203db3f37b7aa3f6c40 \
+                    sha256  f9d9b36226adbdb65b376d4bc9f00237a4ed85c4975e7cceff4acda28211a4ce
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                    port:p${perl5.major}-extutils-depends \
+                    port:p${perl5.major}-extutils-pkgconfig
+}

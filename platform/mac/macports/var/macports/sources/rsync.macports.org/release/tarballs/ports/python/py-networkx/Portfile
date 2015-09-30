@@ -1,0 +1,44 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 132417 2015-01-31 21:30:47Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-networkx
+version             1.9.1
+revision            0
+categories-append   science
+platforms           darwin
+license             BSD
+supported_archs     noarch
+
+python.versions     27 34
+
+maintainers         stromnov openmaintainer
+
+description         NetworkX in a Python package for graph manipulation.
+
+long_description    NetworkX is a Python package for the creation, \
+                    manipulation, and study of the structure, dynamics, \
+                    and functions of complex networks.
+
+homepage            http://networkx.lanl.gov/
+master_sites        https://pypi.python.org/packages/source/n/networkx/ \
+                    https://networkx.lanl.gov/download/networkx/
+
+distname            networkx-${version}
+
+checksums           rmd160  b8bbbb9125aa69ddf7654c3ed48984fd11709d1f \
+                    sha256  6380eb38d0b5770d7e50813c8a48ff7c373b2187b4220339c1adce803df01c59
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-numpy
+    depends_lib-append  port:py${python.version}-decorator
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/networkx/json
+    livecheck.regex     {networkx-(\d+(?:\.\d+)*)\.[tz]}
+}

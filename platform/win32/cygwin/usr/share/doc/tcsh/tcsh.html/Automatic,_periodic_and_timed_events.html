@@ -1,0 +1,47 @@
+<HEAD>
+<TITLE>Automatic, periodic and timed events (+)</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Native_Language_System_support.html">Next</A>
+<A HREF="Status_reporting.html">Previous</A>
+<H2>Automatic, periodic and timed events (+)</H2>
+There are various ways to run commands and take other actions automatically
+at various times in the ``life cycle'' of the shell.  They are summarized here,
+and described in detail under the appropriate <B><A HREF="Builtin_commands.html">Builtin commands</A></B>,
+<B><A HREF="Special_shell_variables.html">Special shell variables</A></B> and <B><A HREF="Special_aliases.html">Special aliases</A></B>.
+<P>
+The <I><A HREF="Builtin_commands.html#sched">sched</A></I> builtin command puts commands in a scheduled-event list,
+to be executed by the shell at a given time.
+<P>
+The <I><A HREF="Special_aliases.html#beepcmd">beepcmd</A></I>, <I><A HREF="Special_aliases.html#cwdcmd">cwdcmd</A></I>, <I><A HREF="Special_aliases.html#periodic">periodic</A></I>, <I><A HREF="Special_aliases.html#precmd">precmd</A></I>, <I><A HREF="Special_aliases.html#postcmd">postcmd</A></I>,
+and <I><A HREF="Special_aliases.html#jobcmd">jobcmd</A></I>
+<B><A HREF="Special_aliases.html">Special aliases</A></B> can be set, respectively, to execute commands when the shell wants
+to ring the bell, when the working directory changes, every <B><A HREF="Special_shell_variables.html#tperiod">tperiod</A></B>
+minutes, before each prompt, before each command gets executed, after each
+command gets executed, and when a job is started or is brought into the
+foreground.
+<P>
+The <B><A HREF="Special_shell_variables.html#autologout">autologout</A></B> shell variable can be set to log out or lock the shell
+after a given number of minutes of inactivity.
+<P>
+The <B><A HREF="Special_shell_variables.html#mail">mail</A></B> shell variable can be set to check for new mail periodically.
+<P>
+The <B><A HREF="Special_shell_variables.html#printexitvalue">printexitvalue</A></B> shell variable can be set to print the exit status
+of commands which exit with a status other than zero.
+<P>
+The <B><A HREF="Special_shell_variables.html#rmstar">rmstar</A></B> shell variable can be set to ask the user, when `rm *' is
+typed, if that is really what was meant.
+<P>
+The <B><A HREF="Special_shell_variables.html#time">time</A></B> shell variable can be set to execute the <I><A HREF="Builtin_commands.html#time">time</A></I> builtin
+command after the completion of any process that takes more than a given
+number of CPU seconds.
+<P>
+The <B><A HREF="Special_shell_variables.html#watch">watch</A></B> and <B><A HREF="Special_shell_variables.html#who">who</A></B> shell variables can be set to report when
+selected users log in or out, and the <I><A HREF="Builtin_commands.html#log">log</A></I> builtin command reports
+on those users at any time.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Native_Language_System_support.html">Next</A>
+<A HREF="Status_reporting.html">Previous</A>
+</BODY>

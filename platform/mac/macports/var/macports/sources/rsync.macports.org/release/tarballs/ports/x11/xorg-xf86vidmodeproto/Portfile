@@ -1,0 +1,25 @@
+# $Id: Portfile 101717 2013-01-17 22:49:15Z jeremyhu@macports.org $
+
+PortSystem 1.0
+
+name		xorg-xf86vidmodeproto
+version		2.3.1
+categories	x11 devel
+license		X11
+maintainers	jeremyhu openmaintainer
+description	X.org xf86vidmodeproto
+homepage	http://www.x.org
+platforms	darwin
+supported_archs	noarch
+long_description Prototype headers for the XF86Vidmode extension to X11
+master_sites 	xorg:individual/proto/
+
+distname	xf86vidmodeproto-${version}
+checksums           md5     e793ecefeaecfeabd1aed6a01095174e \
+                    sha1    11d54c3210887631ea71e8f8030a77692e964fc4 \
+                    rmd160  200a5911d46be3306a85d9684ac5aea695bfc653
+use_bzip2	yes
+
+livecheck.type  regex
+livecheck.url   http://xorg.freedesktop.org/archive/individual/proto/?C=M&O=D
+livecheck.regex xf86vidmodeproto-(\\d+(?:\\.\\d+)*)

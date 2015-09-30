@@ -1,0 +1,43 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135780 2015-05-02 22:41:42Z khindenburg@macports.org $
+
+PortSystem          1.0
+
+name                chromedriver
+version             2.15
+categories          www
+platforms           darwin
+maintainers         nomaintainer
+license             Apache-2
+supported_archs     i386
+
+description         ChromeDriver - WebDriver for Chrome
+
+long_description    WebDriver is an open source tool for automated testing of \
+                    webapps across many browsers. It provides capabilities for \
+                    navigating to web pages, user input, JavaScript execution, \
+                    and more.
+
+homepage            https://sites.google.com/a/chromium.org/chromedriver/
+master_sites        http://chromedriver.storage.googleapis.com/${version}/
+
+dist_subdir         ${name}/${version}
+distname            ${name}_mac32
+use_zip             yes
+
+checksums           rmd160  1c2125856bea0ef7d6da51e40b73ae6c563a5077 \
+                    sha256  37f7ed1cb1bbafd2139486f44c81ebe0b1561c594d2ad2004bd66c3b07453427
+
+extract.mkdir       yes
+
+use_configure       no
+
+build {}
+
+destroot {
+    xinstall -m 755 ${worksrcpath}/chromedriver ${destroot}${prefix}/bin/
+}
+
+livecheck.type      regex
+livecheck.url       http://chromedriver.storage.googleapis.com/LATEST_RELEASE
+livecheck.regex     {^(.*)$}

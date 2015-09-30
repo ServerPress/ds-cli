@@ -1,0 +1,56 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 125901 2014-09-29 02:58:17Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        simsong AFFLIBv3 3.7.4 v
+name                afflib
+categories          security
+platforms           darwin
+maintainers         nomaintainer
+license             BSD
+
+description         The Advanced Forensic Format
+
+long_description    AFF(R) is an open and extensible file format designed \
+                    to store disk images and associated metadata.
+
+homepage            http://www.forensicswiki.org/wiki/AFF
+master_sites        http://digitalcorpora.org/downloads/afflib/
+distname            ${name}-${version}
+
+checksums           sha1    35eea8946673750d2fc4e912b3cd95d805b794b3 \
+                    rmd160  c3f3cc226f6633271d1e9a4c572b9a5f4cdeec75
+
+depends_lib         port:expat \
+                    port:libewf \
+                    port:openssl \
+                    port:readline \
+                    port:zlib
+
+patchfiles          patch-configure.ac.diff
+
+use_autoreconf      yes
+
+configure.args      --enable-fuse=no \
+                    --enable-s3=no
+
+##                  --with-ssl=${prefix} \
+##                  --with-zlib=${prefix}
+
+
+variant s3 description {Enable the use of Amazon's S3 service} {
+    depends_lib-append      port:curl
+
+    configure.args-append   --enable-s3=yes \
+                            --with-curl=${prefix}/lib
+    configure.args-delete   --enable-s3=no
+}
+
+
+## untested....
+## variant fuse description {Access AFF data through FUSE} {
+##      configure.args-append   --enable-fuse=yes
+##      configure.args-delete   --enable-fuse=no
+## }

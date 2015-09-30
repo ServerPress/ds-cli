@@ -1,0 +1,43 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 116252 2014-01-23 02:41:50Z devans@macports.org $
+
+PortSystem      1.0
+
+name            gnome-bindings-perl5
+version         2.32.1
+revision        1
+categories      devel gnome
+maintainers     nomaintainer
+platforms       darwin
+supported_archs noarch
+description     The GNOME bindings for Perl
+
+long_description \
+                The GNOME bindings is the set of libraries that allow developers to \
+                develop fully GNOME compliant applications in C#, C++, Java, Perl, and \
+                Python. The platform is one of the suites of software packages that form \
+                the complete GNOME project offerings. These are the GNOME bindings for Perl.
+
+homepage        http://www.gnome.org/
+
+depends_lib     port:p5.16-glib    \
+                port:p5.16-gnome2-canvas    \
+                port:p5.16-gnome2-gconf    \
+                port:p5.16-gnome2-vfs    \
+                port:p5.16-gnome2    \
+                port:p5.16-gtk2-gladexml \
+                port:p5.16-gtk2    \
+                port:p5.16-pango
+
+distfiles
+
+use_configure   no
+
+build           {}
+
+destroot        {
+    file mkdir ${destroot}${prefix}/share/doc/
+    system "echo ${long_description} > ${destroot}${prefix}/share/doc/README.${name}.txt"
+}
+
+livecheck.type  none

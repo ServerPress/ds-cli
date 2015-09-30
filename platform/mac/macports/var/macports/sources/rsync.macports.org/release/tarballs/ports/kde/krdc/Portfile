@@ -1,0 +1,47 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 129778 2014-12-20 14:18:29Z nicos@macports.org $
+
+PortSystem          1.0
+PortGroup           kde4   1.1
+
+name                krdc
+version             4.14.3
+categories          kde kde4
+license             GPL-2+ LGPL-2+
+maintainers         nicos openmaintainer
+description         KDE Remote Desktop Client
+long_description    KRDC is a client application that allows you to view or \
+                    even control the desktop session on another machine that \
+                    is running a compatible server. VNC and RDP is supported.
+platforms           darwin
+homepage            http://www.kde.org/applications/internet/krdc/
+master_sites        kde:stable/${version}/src/
+use_xz              yes
+
+checksums           rmd160  becb677014739c9b57729dab9fe15c82b0436e7f \
+                    sha256  86dbd710db5f64f59d9879e1630e13821f10a779c8cb194eb6b627f8d03fe61e
+
+#Binaries do not link to openssl, nor use the ssl backend of kdelibs4
+license_noconflict  openssl
+
+depends_lib-append  port:kdelibs4 \
+                    port:LibVNCServer \
+                    port:telepathy-qt
+
+patchfiles-append   patch-vncclientthread.diff
+
+if {![variant_isset docs]} {
+    patchfiles-append   patch-CMakeLists.diff
+}
+
+pre-activate {
+    #Deactivate hack for when kdenetwork4 port has been fragmented into small ports
+    if {[file exists ${prefix}/lib/kde4/sambausershareplugin.so]
+        && ![catch {set vers [lindex [registry_active kdenetwork4] 0]}] 
+        && [vercmp [lindex $vers 1] 4.11.0] < 0} {
+            registry_deactivate_composite kdenetwork4 "" [list ports_nodepcheck 1] 
+    } 
+}
+
+livecheck.url       http://kde.mirrors.hoobly.com/stable/
+livecheck.regex     (\\d+(\\.\\d+)+)

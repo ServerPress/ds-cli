@@ -1,0 +1,159 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134805 2015-04-07 19:02:20Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           archcheck 1.0
+
+name                postgis2
+categories          databases gis
+license             GPL
+version             2.1.7
+epoch               1
+platforms           darwin
+maintainers         vince openmaintainer
+
+description         PostGIS is the spatial extension to the\
+                    PostGreSQL database.
+
+long_description    PostGIS 2 adds geometrical, geographical and topological\
+                    types, and functions operating thereon, to the PostGreSQL\
+                    database. The 2.0 release also provides raster handling\
+                    and basic 3D geometry capacities (TIN and polyhedra).
+
+homepage            http://postgis.refractions.net/
+
+master_sites        http://download.osgeo.org/postgis/source
+distname            postgis-${version}
+
+checksums           rmd160  77f547736bf957b32a97f9b6f707d3311f2e5639 \
+                    sha256  00ab79a3f609d7ea458f6fc358032ad059cb720baf88285243d6436a597a7ec2
+
+depends_build       port:autoconf \
+                    port:automake \
+                    port:libtool \
+                    port:libxslt
+
+depends_lib         port:geos\
+                    port:proj\
+                    port:libiconv\
+                    port:libxml2
+
+archcheck.files     lib/libgeos_c.dylib\
+                    lib/libiconv.dylib\
+                    lib/libproj.dylib\
+                    lib/libxml2.dylib
+
+# PostGIS 2.0 is not compatible with PostGIS 1.5
+
+conflicts           postgis
+
+# Neither is PostGIS 2.0 compatible with PostGreSQL 8
+
+variant postgresql92        description {Builds with postgresql 9.2} \
+                            conflicts postgresql93 postgresql94 {
+    depends_lib-append      port:postgresql92
+    archcheck.files-append  lib/postgresql92/libpq.dylib
+    configure.args-append   --libdir=${prefix}/lib/postgresql92\
+                            --with-pgconfig=${prefix}/lib/postgresql92/bin/pg_config
+    build.args-append       PGSQL_DOCDIR=${destroot}${prefix}/share/doc/postgresql92\
+                            PGSQL_MANDIR=${destroot}${prefix}/share/man
+}
+
+variant postgresql93        description {Builds with postgresql 9.3} \
+                            conflicts postgresql92 postgresql94 {
+    depends_lib-append      port:postgresql93
+    archcheck.files-append  lib/postgresql93/libpq.dylib
+    configure.args-append   --libdir=${prefix}/lib/postgresql93\
+                            --with-pgconfig=${prefix}/lib/postgresql93/bin/pg_config
+    build.args-append       PGSQL_DOCDIR=${destroot}${prefix}/share/doc/postgresql93\
+                            PGSQL_MANDIR=${destroot}${prefix}/share/man
+}
+
+
+variant postgresql94        description {Builds with postgresql 9.4} \
+                            conflicts postgresql92 postgresql93 {
+    depends_lib-append      port:postgresql94
+    archcheck.files-append  lib/postgresql94/libpq.dylib
+    configure.args-append   --libdir=${prefix}/lib/postgresql94\
+                            --with-pgconfig=${prefix}/lib/postgresql94/bin/pg_config
+    build.args-append       PGSQL_DOCDIR=${destroot}${prefix}/share/doc/postgresql94\
+                            PGSQL_MANDIR=${destroot}${prefix}/share/man
+}
+
+variant raster              description {Build raster support} {
+
+    depends_lib-append      port:gdal
+    configure.args-append   --with-raster
+}
+
+variant topology            description {Build topology support} {
+
+    configure.args-append   --with-topology
+}
+
+variant sfcgal              description {Uses SFCGAL for 3D queries} {
+    depends_lib-append      port:sfcgal
+    configure.args-append   --with-sfcgal=${prefix}/bin/sfcgal-config
+}
+
+variant gui                 description {Build the GUI import tool} {
+
+    depends_lib-append      port:gtk2
+    configure.args-append   --with-gui
+}
+
+variant comments            description {Build comments -- ! broken } {
+
+    ui_warn "The comments variant is currently broken. Use at your own risk."
+    
+    depends_build-append    port:docbook-xsl \
+                            port:libxslt \
+                            port:ImageMagick
+    
+    configure.args-append   --datadir=${prefix}/share/${name} \
+                            --with-projdir=${prefix} \
+                            --with-xsldir=${prefix}/share/xsl/docbook-xsl
+
+    build.target-append     comments
+    destroot.target-append  docs-install comments-install
+}
+
+default_variants            +raster +topology
+
+if {![variant_isset postgresql92] && ![variant_isset postgresql93] && \
+    ![variant_isset postgresql94]} {
+    default_variants        +postgresql93
+}
+
+# Port phases
+
+#pre-configure {
+    
+#    system -W ${worksrcpath} "./autogen.sh"
+#}
+
+configure.cflags-append \
+    -Diconv=libiconv -Diconv_open=libiconv_open -Diconv_close=libiconv_close \
+    -I${prefix}/include
+
+# JSON-C new version is incompatible with this version of PostGIS
+configure.args-append   -without-json
+
+post-configure {
+    if {[variant_isset universal]} {
+        # We must add universal flags to compile liblwgeom properly
+        file copy ${filespath}/ed_command ${worksrcpath}/ed_command
+        reinplace -E "s#XXX#${configure.universal_cflags}#" \
+                    ${worksrcpath}/ed_command
+        system -W ${worksrcpath}/liblwgeom \
+                "ed Makefile < ${worksrcpath}/ed_command"
+    }
+}
+
+build.args                  ICONV_LDFLAGS='-L${prefix}/lib -liconv'
+use_parallel_build          no
+
+
+livecheck.type              regex
+livecheck.url               ${master_sites}
+livecheck.regex             {postgis2?-(\d+(?:\.\d+)*)\.[tz]}

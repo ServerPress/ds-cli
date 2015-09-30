@@ -1,0 +1,57 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim: fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135631 2015-04-28 13:07:29Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-blaze
+version             0.8.0
+revision            0
+categories-append   devel
+platforms           darwin
+license             BSD
+
+python.versions     27 34
+
+maintainers         stromnov openmaintainer
+
+description         Blaze is the next-generation of NumPy
+
+long_description    Blaze is the next-generation of NumPy. It is designed \
+                    as a foundational set of abstractions on which to build \
+                    out-of-core and distributed algorithms over a wide \
+                    variety of data sources and to extend the structure \
+                    of NumPy itself.
+
+homepage            http://blaze.pydata.org/
+master_sites        https://pypi.python.org/packages/source/b/blaze/
+
+distname            blaze-${version}
+
+checksums           rmd160  dedd4b87da11823ee1bbc6e3583a438c55af1dbe \
+                    sha256  c10e5c7e15a889abf4195846c1ff1f9c870340e3381937c58836a8df341272ae
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:py${python.version}-datashape \
+                        port:py${python.version}-numpy \
+                        port:py${python.version}-sqlalchemy \
+                        port:py${python.version}-pandas \
+                        port:py${python.version}-h5py \
+                        port:py${python.version}-multipledispatch \
+                        port:py${python.version}-cytoolz \
+                        port:py${python.version}-toolz \
+                        port:py${python.version}-flask \
+                        port:py${python.version}-pytest \
+                        port:py${python.version}-xlrd \
+                        port:py${python.version}-requests \
+                        port:py${python.version}-tables \
+                        port:py${python.version}-pymongo \
+                        port:py${python.version}-psutil \
+                        port:py${python.version}-odo
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/blaze/json
+    livecheck.regex     {blaze-(\d+(?:\.\d+)*)\.[tz]}
+}

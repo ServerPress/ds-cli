@@ -1,0 +1,27 @@
+<HEAD>
+<TITLE>Command substitution</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Filename_substitution.html">Next</A>
+<A HREF="Command,_filename_and_directory_stack_substitution.html">Previous</A>
+<H2>Command substitution</H2>
+Command substitution is indicated by a command enclosed in `\`'.  The output
+from such a command is broken into separate words at blanks, tabs and newlines,
+and null words are discarded.  The output is variable and command substituted
+and put in place of the original string.
+<P>
+Command substitutions inside double
+quotes (`"') retain blanks and tabs; only newlines force new words.  The single
+final newline does not force a new word in any case.  It is thus possible for a
+command substitution to yield only part of a word, even if the command outputs
+a complete line.
+<P>
+By default, the shell since version 6.12 replaces all newline and carriage 
+return characters in the command by spaces.  If this is switched off by
+unsetting <B><A HREF="Special_shell_variables.html#csubstnonl">csubstnonl</A></B>, newlines separate commands as usual.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Filename_substitution.html">Next</A>
+<A HREF="Command,_filename_and_directory_stack_substitution.html">Previous</A>
+</BODY>

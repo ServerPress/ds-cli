@@ -1,0 +1,38 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137894 2015-06-22 20:25:38Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+epoch               5
+perl5.branches      5.16 5.18 5.20
+perl5.setup         DateTime-TimeZone 1.92
+maintainers         nomaintainer
+license             {Artistic-1 GPL}
+supported_archs     noarch
+
+description         Time zone object base class and factory
+long_description    This class is the base class for all time zone \
+                    objects. A time zone is represented internally as \
+                    a set of observances, each of which describes \
+                    the offset from GMT for a given time period.
+
+platforms           darwin
+
+checksums           rmd160  257eb225f12f7044643fc971e4deb3c17c7c9d1c \
+                    sha256  98f7641721a49560fc5781fa04407c501a39bd824745ad2496656c544941e161
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-test-fatal \
+                    port:p${perl5.major}-test-output \
+                    port:p${perl5.major}-test-requires \
+                    port:p${perl5.major}-test-taint
+    
+    depends_lib-append \
+                    port:p${perl5.major}-class-singleton \
+                    port:p${perl5.major}-list-allutils \
+                    port:p${perl5.major}-module-runtime \
+                    port:p${perl5.major}-params-validate \
+                    port:p${perl5.major}-try-tiny
+}

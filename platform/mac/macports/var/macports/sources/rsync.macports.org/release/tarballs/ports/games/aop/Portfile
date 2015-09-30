@@ -1,0 +1,31 @@
+# $Id: Portfile 125984 2014-10-01 14:38:59Z mf2k@macports.org $
+
+PortSystem 1.0
+
+name	   aop
+version	   0.6
+categories	games
+license    GPL-2
+platforms	darwin
+maintainers	nomaintainer
+
+description	Curses based arcade game for UNIX with only 64 lines of sourcecode.
+long_description	The goal of Aop (Ambassador Of Pain) is is to drive the hoovercraft \
+			(O) trough the level into the 'at' sign (@) and reach as much points \
+			as possible by reducing the number of moves and not losing any time. \
+			Lost lifes (0) can easily be picked up by simply drive over them.
+
+homepage	http://raffi.at/code/aop/
+master_sites	${homepage}
+checksums	md5 8057b3ec240db608253d653eb692d244
+
+depends_lib	port:ncurses
+
+use_configure	no
+
+pre-build	{
+		reinplace "s|/usr/local|${destroot}${prefix}|g" ${worksrcpath}/Makefile
+		reinplace "s|/usr/local|${prefix}|g" ${worksrcpath}/aop.c
+}
+
+build.target	aop

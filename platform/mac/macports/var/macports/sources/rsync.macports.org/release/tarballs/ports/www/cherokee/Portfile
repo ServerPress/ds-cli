@@ -1,0 +1,84 @@
+# $Id: Portfile 92837 2012-05-09 00:51:48Z ryandesign@macports.org $
+
+PortSystem 1.0
+
+name            cherokee
+version         1.2.101
+revision        1
+set branch      [join [lrange [split ${version} .] 0 1] .]
+categories      www
+platforms       darwin
+maintainers     stray-hound.com:michael
+license         GPL-2
+
+description     Cherokee web server
+long_description \
+  Cherokee is a relatively new HTTP server designed to be as\
+  performant as Apache and lighttpd, but much easier to \
+  configure and maintain.  It ships out-of-the-box SCGI \
+  support, making it ideal for deploying dynamic websites.
+homepage        http://www.cherokee-project.com/
+master_sites    ${homepage}download/${branch}/${version}
+
+checksums       md5     ef47003355a2e368e4d9596cd070ef23 \
+                sha1    b27f149c7d7111207ac8c3cd8a4856c05490d136 \
+                rmd160  dd3dedc352ba17bdcefd8e200143b8ffa19ad035
+
+depends_lib     port:pcre \
+                port:zlib \
+                port:libgeoip \
+                port:rrdtool
+
+# Startup item.
+set cherokee_config_name   cherokee.conf
+set cherokee_config        ${prefix}/etc/${name}/${cherokee_config_name}
+set cherokee_pidfile_name  cherokee.pid
+set cherokee_pidfile       ${prefix}/var/run/${cherokee_pidfile_name}
+
+startupitem.create  yes
+startupitem.init    "PIDFILE=${cherokee_pidfile}"
+startupitem.start   "${prefix}/sbin/cherokee -C ${cherokee_config}"
+startupitem.stop    "kill \$(cat \$PIDFILE)"
+
+variant no_startupitem description {Do not create a startup item} {
+    startupitem.create  no
+}
+
+variant ssl description {Add SSL (HTTPS) support to the server} {
+    depends_lib-append port:openssl
+    configure.args-append --enable-tls=openssl \
+                          --with-openssl=${prefix}/include/openssl
+}
+
+variant no_ipv6 description {Disable IPv6 support} {
+    configure.args-append --disable-ipv6
+}
+
+variant no_pam description {Disable PAM support} {
+    configure.args-append --disable-pam
+}
+
+variant trace description {Allows debugging options} {
+    configure.args-append --enable-trace
+}
+
+variant no_epoll description {Disable epoll() support} {
+    configure.args-append --disable-epoll
+}
+
+variant no_pthread description {Disable threading support} {
+    configure.args-append --disable-pthread
+}
+
+variant no_readdir_r description {Disable readdir_r usage} {
+    configure.args-append --disable-readdir_r
+}
+
+variant no_admin description {Skips cherokee-admin installation} {
+    configure.args-append --disable-admin
+}
+
+pre-destroot {
+    xinstall -m 755 -d ${destroot}${prefix}/var/log
+    destroot.keepdirs-append ${destroot}${prefix}/var/log
+}

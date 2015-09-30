@@ -1,0 +1,74 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134962 2015-04-12 08:20:29Z devans@macports.org $
+
+PortSystem          1.0
+
+name                transmission-x11
+version             2.84
+categories          net x11
+license             {GPL-2 OpenSSLException}
+maintainers         nomaintainer
+description         Lightweight BitTorrent client
+long_description    Transmission is a free, lightweight BitTorrent client. \
+                    It features a simple, intuitive interface on top of an \
+                    efficient, cross-platform back-end. Transmission is open \
+                    source (MIT license) and runs on Mac OS X (Cocoa interface), \
+                    Linux/NetBSD/FreeBSD/OpenBSD (GTK+ interface) and BeOS \
+                    (native interface). This is the GTK+ version.
+homepage            http://www.transmissionbt.com/
+master_sites        sourceforge:transmission.mirror
+
+platforms           darwin freebsd
+
+use_xz              yes
+
+distname            transmission-${version}
+dist_subdir         transmission
+
+checksums           rmd160  9d209bdf0ebeb6f4d6d9dc726cf8bf9e9c8ccb40 \
+                    sha256  a9fc1936b4ee414acc732ada04e84339d6755cd0d097bcbd11ba2cfc540db9eb
+
+depends_build       port:gsed \
+                    port:intltool \
+                    port:pkgconfig \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         port:desktop-file-utils \
+                    port:gtk3 \
+                    port:openssl \
+                    port:curl \
+                    port:gettext \
+                    port:libevent
+
+depends_run         port:gnome-themes-standard
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+configure.cmd       ./autogen.sh
+
+configure.args      --enable-daemon \
+                    --enable-cli \
+                    --with-gtk \
+                    --disable-mac
+
+variant aqua description {Build Aqua front-end} {
+    configure.args-replace  --disable-mac --enable-mac
+}
+
+platform darwin 8 {
+    pre-fetch {
+        ui_error "${name} requires Mac OS X 10.5 or greater."
+        return -code error "incompatible Mac OS X version"
+    }
+}
+
+post-activate {
+    system "${prefix}/bin/update-desktop-database ${prefix}/share/applications"
+    system "${prefix}/bin/gtk-update-icon-cache-3.0 -f -t ${prefix}/share/icons/hicolor"
+}
+
+livecheck.type      regex
+livecheck.url       http://sourceforge.net/projects/transmission.mirror/files/
+livecheck.regex     "transmission-(\\d+(?:\\.\\d+)*)${extract.suffix}"

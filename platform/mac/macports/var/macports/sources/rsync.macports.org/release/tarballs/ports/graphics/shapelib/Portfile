@@ -1,0 +1,49 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 84631 2011-09-29 06:03:36Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                shapelib
+version             1.2.10
+set libver          1
+categories          graphics
+platforms           darwin
+maintainers         nomaintainer
+license             LGPL-2+
+
+description         Library and tools for dealing with ESRI ShapeFiles
+
+long_description    This software provides support for the ESRI ShapeFiles.
+
+homepage            http://gdal.velocet.ca/projects/shapelib/index.html
+master_sites        http://dl.maptools.org/dl/shapelib/
+
+checksums           md5     4d96bd926167193d27bf14d56e2d484e
+
+use_configure       no
+
+variant universal {}
+
+build.target        all shptree.o
+
+build.args          CC=${configure.cc} CFLAGS="${configure.cflags} [get_canonical_archflags]"
+
+post-build {
+    set libcmd "${configure.cc} [get_canonical_archflags] -dynamiclib -all_load \
+        -install_name ${prefix}/lib/libshp.${version}.dylib \
+        -compatibility_version ${version} \
+        -o libshp.${version}.dylib shpopen.o shptree.o \
+        dbfopen.o"
+    ui_info $libcmd
+    system -W ${worksrcpath} $libcmd
+}
+
+destroot.destdir
+destroot.target
+
+post-destroot {
+    xinstall -m 644 -c -W ${worksrcpath} shapefil.h ${destroot}${prefix}/include
+    xinstall -m 644 -c -W ${worksrcpath} libshp.${version}.dylib ${destroot}${prefix}/lib
+    ln -s libshp.${version}.dylib ${destroot}${prefix}/lib/libshp.${libver}.dylib
+    ln -s libshp.${version}.dylib ${destroot}${prefix}/lib/libshp.dylib
+}

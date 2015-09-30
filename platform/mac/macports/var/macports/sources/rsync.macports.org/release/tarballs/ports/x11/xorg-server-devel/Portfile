@@ -1,0 +1,141 @@
+# $Id: Portfile 137352 2015-06-10 07:03:27Z jeremyhu@macports.org $
+
+PortSystem 1.0
+
+name		xorg-server-devel
+conflicts       xorg-server
+set my_name	xorg-server
+version		1.17.1
+categories	x11 devel
+license         X11
+maintainers	jeremyhu openmaintainer
+description	The X.org / Xquartz X server.
+homepage	http://www.x.org
+platforms	darwin macosx
+long_description The X.org X server allows you to run X11 applications on your computer.
+
+fetch.type      git
+git.url         git://anongit.freedesktop.org/xorg/xserver
+git.branch      xorg-server-1.17.1
+
+use_parallel_build yes
+
+# Yes, mesa is a *BUILD* dependency
+depends_build \
+	port:pkgconfig \
+	port:mesa \
+	port:xorg-applewmproto \
+	port:xorg-bigreqsproto \
+	port:xorg-damageproto \
+	port:xorg-fixesproto \
+	port:xorg-fontsproto \
+	port:xorg-glproto \
+	port:xorg-inputproto \
+	port:xorg-presentproto \
+	port:xorg-randrproto \
+	port:xorg-recordproto \
+	port:xorg-renderproto \
+	port:xorg-resourceproto \
+	port:xorg-scrnsaverproto \
+	port:xorg-videoproto \
+	port:xorg-xcmiscproto \
+	port:xorg-xproto \
+	port:xorg-xextproto \
+	port:xorg-xineramaproto \
+	port:xorg-xtrans
+
+# This xinit dependency needs to be port: not bin: because we specifically run ${prefix}/bin/startx from bundle-main.c
+depends_run \
+	port:xinit \
+	port:quartz-wm \
+	port:xorg-fonts \
+	port:xkeyboard-config
+
+depends_lib \
+	path:lib/pkgconfig/pixman-1.pc:libpixman \
+	port:xorg-libxkbfile \
+	port:xorg-libXfont \
+	port:xorg-libXt \
+	port:xorg-libAppleWM \
+	port:xorg-libXfixes
+
+# https://trac.macports.org/ticket/36055
+compiler.blacklist gcc-4.0
+
+configure.args --with-apple-applications-dir=${applications_dir} \
+	--with-bundle-id-prefix=org.macports \
+	--without-dtrace \
+	--without-doxygen \
+	--without-fop \
+	--without-xmlto \
+	--disable-devel-docs \
+	--with-sha1=CommonCrypto \
+	--disable-dri2 \
+	--disable-dri3
+
+# GL/internal/dri_interface.h is missing in prefix (provided by libdrm for the xorg DDX... not helpful for us)
+configure.cppflags-append -I/usr/include -I${filespath}/dri
+
+configure.env-append \
+	RAWCPP=${configure.cpp}
+
+patchfiles \
+	0001-XQuartz-Silence-Wpointer-bool-conversion.patch \
+	5000-sdksyms.sh-Use-CPPFLAGS-not-CFLAGS.patch \
+	5001-Workaround-the-GC-clipping-problem-in-miPaintWindow-.patch \
+	5002-Use-old-miTrapezoids-and-miTriangles-routines.patch \
+	5003-fb-Revert-fb-changes-that-broke-XQuartz.patch \
+	5004-fb-Revert-fb-changes-that-broke-XQuartz.patch
+
+patch.pre_args -p1
+
+use_autoreconf yes
+autoreconf.args -fvi
+
+build.args V=1
+
+depends_build-append \
+	port:xorg-util-macros \
+	port:xorg-font-util
+
+post-destroot {
+	ln -s Xquartz ${destroot}${prefix}/bin/X
+}
+
+platform macosx {
+	if { ${os.major} < 10 } {
+		# Xplugin.h is missing on Tiger and incorrect on Leopard
+		configure.cppflags-append -I${filespath}/include
+	}
+}
+
+variant docs description "Install extra documentation" {
+	depends_build-append \
+		port:doxygen \
+		port:fop \
+		port:xmlto \
+		port:xorg-sgml-doctools
+
+	depends_skip_archcheck-append \
+		doxygen \
+		xmlto
+
+	configure.args-delete \
+		--without-doxygen \
+		--without-fop \
+		--without-xmlto \
+		--disable-devel-docs 
+
+	configure.args-append \
+		--with-doxygen \
+		--with-fop \
+		--with-xmlto \
+		--enable-devel-docs
+
+	configure.env-append \
+		DOXYGEN="${prefix}/bin/doxygen" \
+		FOP="${prefix}/bin/fop" \
+		XMLTO="${prefix}/bin/xmlto"
+}
+
+livecheck.type none

@@ -1,0 +1,72 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135229 2015-04-19 20:17:11Z jeremyhu@macports.org $
+
+PortSystem          1.0
+PortGroup           conflicts_build 1.0
+PortGroup           gobject_introspection 1.0
+
+# https://bugzilla.gnome.org/show_bug.cgi?id=636134
+PortGroup           muniversal 1.0
+
+name                gstreamer1
+set my_name         gstreamer
+version             1.4.5
+description         GStreamer is a library for constructing graphs of media-handling components.
+long_description    The applications it supports range from simple Ogg/Vorbis playback, audio/video \
+                    streaming to complex audio (mixing) and video (non-linear editing) processing.
+maintainers         nomaintainer
+categories          gnome
+platforms           darwin
+license             LGPL-2+
+homepage            http://${my_name}.freedesktop.org/
+distname            ${my_name}-${version}
+
+master_sites        http://gstreamer.freedesktop.org/src/${my_name}/
+
+use_xz              yes
+
+checksums           rmd160  8e4717b6a824fb029dea344264a304e05adb9aba \
+                    sha256  40801aa7f979024526258a0e94707ba42b8ab6f7d2206e56adbc4433155cb0ae
+
+depends_build       port:gzip \
+                    port:m4 \
+                    path:bin/perl:perl5 \
+                    port:pkgconfig
+
+depends_lib         port:bison \
+                    port:flex \
+                    port:gettext \
+                    path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                    port:libxml2
+
+gobject_introspection yes
+
+conflicts_build     check
+
+# global_symbol_pipe gets set to "" on Leopard
+use_autoreconf      yes
+autoreconf.args     -fvi
+
+configure.env-append    PERL_PATH=${prefix}/bin/perl
+configure.cflags-append -funroll-loops -fstrict-aliasing -fno-common
+
+if {[variant_isset universal]} {
+    set merger_host(x86_64) x86_64-apple-${os.platform}${os.major}
+    set merger_host(i386) i686-apple-${os.platform}${os.major}
+    set merger_configure_args(x86_64) --build=x86_64-apple-${os.platform}${os.major}
+    set merger_configure_args(i386) --build=i686-apple-${os.platform}${os.major}
+} else {
+    if {${build_arch} eq "i386"} {
+        configure.args-append \
+            --host=i686-apple-${os.platform}${os.major} \
+            --build=i686-apple-${os.platform}${os.major}
+    } elseif {${build_arch} eq "x86_64"} {
+        configure.args-append \
+            --host=${build_arch}-apple-${os.platform}${os.major} \
+            --build=${build_arch}-apple-${os.platform}${os.major}
+    }
+}
+
+livecheck.type      regex
+livecheck.url       ${master_sites}
+livecheck.regex     "${my_name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

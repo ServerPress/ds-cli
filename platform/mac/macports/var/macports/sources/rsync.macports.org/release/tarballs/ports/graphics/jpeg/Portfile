@@ -1,0 +1,49 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 117637 2014-03-06 14:56:49Z raimue@macports.org $
+
+PortSystem          1.0
+
+name                jpeg
+conflicts           libjpeg-turbo mozjpeg
+version             9a
+revision            1
+categories          graphics
+platforms           darwin freebsd sunos
+maintainers         ryandesign openmaintainer
+license             IJG
+
+description         Library for manipulating JPEG images
+
+long_description    This package contains C software to implement JPEG image \
+                    encoding, decoding, and transcoding. This software \
+                    implements JPEG baseline, extended-sequential, and \
+                    progressive compression processes.
+
+homepage            http://www.ijg.org/
+master_sites        http://www.ijg.org/files/
+
+distname            ${name}src.v${version}
+worksrcdir          ${name}-${version}
+
+checksums           rmd160  885898b3db086ad3b65169d0149bf1f270dff1b5 \
+                    sha256  3a753ea48d917945dd54a2d97de388aa06ca2eb1066cbfdc6652036349fe05a7
+
+patchfiles          boolean.patch
+
+configure.ldflags-delete    -L${prefix}/lib
+configure.cppflags-delete   -I${prefix}/include
+configure.args      --disable-silent-rules
+
+test.run            yes
+
+post-destroot {
+    set docdir ${prefix}/share/doc/${subport}
+    xinstall -d ${destroot}${docdir}
+    xinstall -m 644 -W ${worksrcpath} \
+        README change.log libjpeg.txt structure.txt usage.txt wizard.txt \
+        ${destroot}${docdir}
+}
+
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     ${name}src.v(.*?)${extract.suffix}

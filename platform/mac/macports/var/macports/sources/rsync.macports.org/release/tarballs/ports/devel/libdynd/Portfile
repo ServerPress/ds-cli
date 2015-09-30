@@ -1,0 +1,46 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 128357 2014-11-19 17:49:35Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+PortGroup           cmake 1.0
+PortGroup           conflicts_build 1.0
+
+set git_sha1        09fb7e5eccadbe1ec49ff4b05fec724939331e6d
+
+github.setup        ContinuumIO libdynd 0.6.6 v
+
+categories          devel math
+platforms           darwin
+license             BSD
+
+maintainers         stromnov openmaintainer
+
+description         LibDyND is a C++ library for dynamic, multidimensional arrays.
+long_description    ${description}
+
+checksums           rmd160  27c236c4c9f63dd2739e6894b045201af8bbd159 \
+                    sha256  2851532af12dc77516284ed629869fd5f6d37d6f86725ae4255e7972800b22ff
+
+patchfiles          patch-CMakeLists.txt.diff
+
+post-patch {
+    reinplace "s|@@DYND_GIT_SHA1@@|${git_sha1}|g" ${worksrcpath}/CMakeLists.txt
+    reinplace "s|@@DYND_VERSION_STRING@@|v${version}|g" ${worksrcpath}/CMakeLists.txt
+}
+
+conflicts_build     ${name}
+
+configure.dir       ${worksrcpath}/build
+build.dir           ${configure.dir}
+pre-configure {
+    file mkdir ${configure.dir}
+}
+
+configure.args-append \
+                    ../ \
+                    -DDYND_CUDA=OFF \
+                    -DDYND_SHARED_LIB=ON \
+                    -DDYND_INSTALL_LIB=ON \
+                    -DUSE_RELATIVE_RPATH=OFF \
+                    -DDYND_BUILD_TESTS=OFF

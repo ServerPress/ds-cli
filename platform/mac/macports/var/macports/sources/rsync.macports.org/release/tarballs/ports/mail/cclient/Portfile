@@ -1,0 +1,83 @@
+# $Id: Portfile 106350 2013-05-23 10:41:43Z ryandesign@macports.org $
+
+PortSystem      1.0
+
+name            cclient
+version         2007f
+license         Apache-2
+platforms       darwin
+categories      mail devel
+maintainers     nomaintainer
+description     UW IMAP c-client library
+
+long_description \
+    C-client is a common API for accessing mailboxes. It is used internally by \
+    the popular PINE mail reader as well as the University of Washington's \
+    IMAP server.
+
+homepage        http://www.washington.edu/imap/
+master_sites    ftp://ftp.cac.washington.edu/imap/
+distname        imap-${version}
+dist_subdir     imap-uw
+
+checksums       rmd160  298b09c2da9650cb7bc70094da49bab57878ae20 \
+                sha256  53e15a2b5c1bc80161d42e9f69792a3fa18332b7b771910131004eb520004a28
+
+depends_lib     port:openssl \
+                port:zlib \
+                lib:libgssapi_krb5:kerberos5
+
+worksrcdir      imap-${version}
+
+post-patch {
+    reinplace -E /SSLLIB/s|/usr|${prefix}|g ${worksrcpath}/Makefile
+    reinplace -E /SSLLIB/s|/System/Library/OpenSSL|${prefix}/etc/openssl|g \
+        ${worksrcpath}/Makefile
+}
+
+use_configure   no
+
+build.target    oxp
+build.args      CC=${configure.cc}
+
+use_parallel_build no
+
+destroot {
+    xinstall -d ${destroot}${prefix}/include/c-client
+    xinstall -m 644 -W ${worksrcpath}/c-client \
+        c-client.h dummy.h env.h env_unix.h fdstring.h flockcyg.h flocksim.h \
+        flstring.h fs.h ftl.h imap4r1.h linkage.c linkage.h mail.h \
+        misc.h netmsg.h newsrc.h nl.h nntp.h osdep.h \
+        pseudo.h rfc822.h smtp.h sslio.h tcp.h tcp_unix.h unix.h \
+        utf8.h utf8aux.h \
+        ${destroot}${prefix}/include/c-client
+    xinstall -m 644 ${worksrcpath}/c-client/c-client.a \
+        ${destroot}${prefix}/lib/libc-client4.a
+    system "ranlib ${destroot}${prefix}/lib/libc-client4.a"
+
+    set docdir ${prefix}/share/doc/${name}
+    xinstall -d ${destroot}${docdir}
+    xinstall -m 644 -W ${worksrcpath} LICENSE.txt NOTICE SUPPORT \
+        ${destroot}${docdir}
+    copy ${worksrcpath}/docs ${destroot}${docdir}
+}
+
+if {[vercmp ${os.version} 10] >= 0} {
+    patchfiles-append patch-Makefile-fixpam
+}
+
+variant ssl_plaintext description {Allow plaintext passwords over SSL} {
+    patchfiles-append patch-Makefile
+    build.args-append SSLTYPE=unix
+}
+
+variant universal {
+    build.args-append EXTRACFLAGS="${configure.universal_cflags}" EXTRALDFLAGS="${configure.universal_ldflags}"
+}
+if {![variant_isset universal]} {
+    build.args-append EXTRACFLAGS="${configure.cc_archflags}" EXTRALDFLAGS="${configure.ld_archflags}"
+}
+
+livecheck.type  regex
+livecheck.url   http://ftp.ntua.gr/pub/net/mail/imap/?C=M&O=D
+livecheck.regex {imap-(\d+(?:[a-z]\d*)?)\.tar}

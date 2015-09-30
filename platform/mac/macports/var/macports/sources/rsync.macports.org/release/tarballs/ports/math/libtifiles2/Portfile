@@ -1,0 +1,30 @@
+# $Id: Portfile 114431 2013-12-08 09:48:42Z and.damore@macports.org $
+
+PortSystem          1.0
+
+name                libtifiles2
+version             1.1.5
+license             GPL-2
+categories          math
+maintainers         nomaintainer
+description         TILibs
+long_description    Utility libraries for TI related apps
+homepage            http://lpg.ticalc.org/prj_tilp/
+platforms           darwin
+
+master_sites        sourceforge:tilp
+
+use_bzip2           yes
+
+checksums           md5     3a0efc82d841a6c232837c34a18a8a24 \
+                    sha1    ed08600bd767cf878e56cbd55143e16d42ecd372 \
+                    rmd160  cdac8e83f70c1019d00ba0d7e230911d770ec173
+
+depends_build       port:pkgconfig \
+                    bin:grep:grep
+
+depends_lib         port:libticonv \
+                    port:gettext \
+                    path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                    port:zlib
+

@@ -1,0 +1,103 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136738 2015-05-25 14:17:31Z ionic@macports.org $
+
+PortSystem          1.0
+PortGroup           active_variants 1.0
+PortGroup           gobject_introspection 1.0
+
+name                gnumeric
+version             1.12.22
+revision            1
+set branch          [join [lrange [split ${version} .] 0 1] .]
+
+license             GPL-2+
+maintainers         devans openmaintainer
+categories          gnome math science
+platforms           darwin
+
+description         A powerful Gtk3 based spreadsheet with Excel, ODF, R and Python support.
+long_description    A powerful Gtk3 based spreadsheet that features full Excel function \
+                    and file compatibility and additional functions not found in Excel, \
+                    and statistics operations based on R. Functionality can be extended \
+                    with Python and plugins. Other file compatibility includes OASIS ODF, \
+                    Quattro Pro, Psion 5, Paradox DB, and more (see homepage). GDA \
+                    database support is available with the +database variant.
+
+homepage            http://www.gnumeric.org/
+master_sites        gnome:sources/${name}/${branch}/
+use_xz              yes
+
+checksums           rmd160  ad8e2fd15c287a6fb153187d3d2012c1f8d88d45 \
+                    sha256  3908cfd6520b599eefefe222aadeaa5126394b54d9a9a7f5e0f938eb674dcf47
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:gnome-doc-utils \
+                    port:gnome-common \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+# update-desktop-database is provided by desktop-file-utils
+
+depends_lib         port:desktop-file-utils \
+                    port:gtk3 \
+                    port:goffice \
+                    port:psiconv \
+                    port:pxlib \
+                    port:perl5.16
+
+# rarian is needed for scrollkeeper-update.
+
+depends_run         port:rarian
+
+gobject_introspection yes
+
+patchfiles          patch-configure.ac.diff
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+}
+
+configure.cmd       ./autogen.sh
+
+configure.perl      ${prefix}/bin/perl5.16
+
+configure.args      --disable-silent-rules \
+                    --disable-schemas-compile \
+                    --without-gda \
+                    --without-python
+
+variant database description {builds with support for GDA database} {
+    depends_lib-append        port:libgda5
+    configure.args-replace    --without-gda --with-gda
+}
+
+variant python27 description {Build Python plugin loader using python 2.7} {
+    configure.python          ${prefix}/bin/python2.7
+    configure.args-replace    --without-python --with-python
+    depends_lib-append        port:py27-gobject3
+    set python_framework      ${frameworks_dir}/Python.framework/Versions/2.7
+    configure.pkg_config_path ${python_framework}/lib/pkgconfig
+}
+
+default_variants +python27
+
+post-activate {
+    system "${prefix}/bin/scrollkeeper-update"
+    system "${prefix}/bin/update-desktop-database ${prefix}/share/applications"
+# gtk3 provides gtk-update-icon-cache-3.0
+    system "${prefix}/bin/gtk-update-icon-cache-3.0 -f -t ${prefix}/share/icons/hicolor"
+    system "${prefix}/bin/glib-compile-schemas ${prefix}/share/glib-2.0/schemas"
+}
+
+livecheck.type  gnome
+
+# yelp is currently not available in a +quartz environment due to dependency issues,
+# see #39898 #40282 #40116
+notes \
+"Recommended supplementary ports:
+    gnome-themes-standard  provides the default Gnome Adwaita theme
+    yelp                   provides a help browser for Gnome apps"

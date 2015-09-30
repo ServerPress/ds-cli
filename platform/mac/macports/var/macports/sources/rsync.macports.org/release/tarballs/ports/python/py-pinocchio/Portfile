@@ -1,0 +1,31 @@
+# $Id: Portfile 130630 2015-01-02 04:49:59Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-pinocchio
+set real_name       pinocchio
+version             0.3.1
+python.versions     27 34
+categories-append   devel
+platforms           darwin
+license             MIT
+maintainers         nomaintainer
+description         pinocchio plugins for the nose testing framework
+long_description  \
+    Extra plugins for the nose testing framework. Provides tools for flexibly \
+    assigning decorator tags to tests, choosing tests based on their runtime, \
+    doing moderately sophisticated code coverage analysis of your unit tests, \
+    and making your test descriptions look like specifications.
+
+homepage            http://darcs.idyll.org/~t/projects/pinocchio/doc/
+
+if {${name} ne ${subport}} {
+    master_sites        http://pypi.python.org/packages/source/p/${real_name}
+    distname            ${real_name}-${version}
+
+    checksums           rmd160  a3f5b30512a63c9d177dfe56cb1de3ff1f702b13 \
+                        sha256  3de3e3ac360f330b5c80d88e25f4d32cc733669b3f25e13dd6a3d2af4197ea14
+
+    depends_lib         port:py${python.version}-nose
+}

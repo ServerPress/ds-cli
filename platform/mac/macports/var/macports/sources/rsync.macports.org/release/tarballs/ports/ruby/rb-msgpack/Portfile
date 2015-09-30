@@ -1,0 +1,19 @@
+# $Id: Portfile 68374 2010-06-02 08:15:11Z ryandesign@macports.org $
+
+PortSystem              1.0
+PortGroup               ruby 1.0
+
+ruby.setup              msgpack 0.4.1 gem {}
+master_sites            http://rubygems.org/gems/msgpack/versions/
+maintainers             gmail.com:naoya.n
+description             Ruby API for msgpack
+long_description        This library provides to API for msgpack.
+categories-append       devel
+platforms               darwin
+homepage                http://msgpack.sourceforge.net/
+license                 Ruby
+
+master_sites            http://rubygems.org/downloads/
+checksums               md5 f44d4adb4ca7c87b0a562f3d15f3a0e9 \
+                        sha1 5e5ab524198826950593954f29bf8cc48eace753 \
+                        rmd160 492d8a5cc3018ecf798a397e289f4fcdb1ccada7

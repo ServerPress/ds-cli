@@ -1,0 +1,38 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=portfile:et:sw=4:ts=4:sts=4
+# $Id: Portfile 116137 2014-01-19 16:11:05Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+PortGroup           xcode 1.0
+
+github.setup        rentzsch mogenerator 1.27
+categories          devel
+platforms           darwin
+maintainers         francisco-garcia.net:public+macports
+license             MIT
+
+description         Core Data code generation
+
+long_description    mogenerator is a command-line tool that, given an \
+                    .xcdatamodel file, will generate two classes per entity. The \
+                    first class, _MyEntity, is intended solely for machine \
+                    consumption and will be continuously overwritten to stay in \
+                    sync with your data model. The second class, MyEntity, \
+                    subclasses _MyEntity, won't ever be overwritten and is \
+                    a great place to put your custom logic.
+
+homepage            http://rentzsch.github.com/mogenerator/
+
+checksums           md5     d3aa9e31ebf7549575af239112ae97e4 \
+                    rmd160  320eb3f320bfa9457359ffa7c6d30e864b4012de \
+                    sha256  1d931aa4616930758156878d933e24e0fc54e9d1dc6d479d5e9d6c35cbccfd79
+
+destroot {
+    xinstall ${worksrcpath}/build/Release/mogenerator ${destroot}${prefix}/bin
+    
+    set docdir ${prefix}/share/doc/${name}
+    xinstall -d ${destroot}${docdir}
+    xinstall -m 644 -W ${worksrcpath} \
+        README.markdown \
+        ${destroot}${docdir}
+}

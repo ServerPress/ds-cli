@@ -1,0 +1,64 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136811 2015-05-27 17:05:24Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           compiler_blacklist_versions 1.0
+
+name                gupnp-tools
+version             0.8.10
+license             LGPL
+set branch          [join [lrange [split ${version} .] 0 1] .]
+description         GUPnP Tools are free replacements of Intel UPnP tools that use GUPnP.
+
+long_description    ${description}
+
+maintainers         devans openmaintainer
+categories          net gnome
+platforms           darwin
+homepage            https://wiki.gnome.org/Projects/GUPnP
+master_sites        gnome:sources/${name}/${branch}/
+
+use_xz              yes
+
+checksums           rmd160  e2da0223d029db128460d92326ff99df635805d4 \
+                    sha256  592c53289ff1cd70e676405c56ca87b28d2da37a385d34a3bb9b944ba9108d17
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         port:desktop-file-utils \
+                    port:gtk3 \
+                    port:gssdp \
+                    port:gupnp \
+                    port:gupnp-av \
+                    port:gtksourceview3 \
+                    port:libsoup \
+                    port:libxml2 \
+                    port:ossp-uuid \
+                    port:gnome-icon-theme
+
+depends_run         port:gnome-settings-daemon
+
+# blacklist compilers that do not support C11
+# due to error: redefinition of typedef 'GUPnPService'
+# build fix for SL and earlier
+
+compiler.blacklist  *gcc* {clang < 300}
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+}
+
+configure.cmd       ./autogen.sh
+configure.args      --disable-silent-rules 
+
+post-activate {
+    system "${prefix}/bin/update-desktop-database ${prefix}/share/applications"
+}
+
+livecheck.type      gnome

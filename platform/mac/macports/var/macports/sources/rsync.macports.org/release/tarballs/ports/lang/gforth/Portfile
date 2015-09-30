@@ -1,0 +1,48 @@
+# $Id: Portfile 134455 2015-03-25 20:35:37Z ctreleaven@macports.org $
+
+PortSystem          1.0
+
+name                gforth
+version             0.7.3
+categories          lang
+license             GPL-3+
+maintainers         ctreleaven openmaintainer
+
+description         fast and portable implementation of the ANS Forth language
+long_description \
+    Gforth is a fast and portable implementation of the ANS Forth \
+    language. It works nicely with the Emacs editor, offers some \
+    nice features such as input completion and history and a \
+    powerful locals facility, and it even has (the beginnings of) \
+    a manual. Gforth employs traditional implementation \
+    techniques: its inner interpreter is indirect or direct threaded.
+
+homepage            http://www.gnu.org/software/gforth/
+platforms           darwin
+master_sites        gnu
+
+checksums           md5     ff484391e5cdf405867fcf96341820ab \
+                    sha1    4ef40d8427249b4367ac5e8965b55ca113c18baa
+
+depends_lib         port:libtool \
+                    port:libffi
+
+patchfiles          patch-clang_bad_flags.diff
+
+use_autoconf        yes
+
+test.run            yes
+test.cmd            make
+test.target         check bench
+
+use_parallel_build  no
+
+post-destroot {
+  file delete -force ${destroot}${prefix}/share/info/dir
+}
+
+platform darwin {
+    if {${build_arch} eq "x86_64"} {
+        configure.args-append --build=${build_arch}-apple-${os.platform}${os.version}
+    }
+}

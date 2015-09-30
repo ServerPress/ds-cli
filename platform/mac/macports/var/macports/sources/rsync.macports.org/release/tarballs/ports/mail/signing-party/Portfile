@@ -1,0 +1,166 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136666 2015-05-23 18:33:47Z cal@macports.org $
+
+PortSystem          1.0
+
+name                signing-party
+version             2.0
+checksums           rmd160  6d1bda32cd549a9c17d18e3cf3f4793153c00d57 \
+                    sha256  cc23e48b2f06dee7cbf7b80ee4dfbed69908cb4584d3d5fa29ed7b2f962ec16e
+
+categories          mail security
+maintainers         cal openmaintainer
+platforms           darwin
+description         Various OpenPGP related tools
+long_description    signing-party is a collection for all kinds of PGP/GnuPG \
+                    related things, including signing scripts, party \
+                    preparation scripts, etc.
+
+homepage            http://pgp-tools.alioth.debian.org/
+license             BSD GPL-2 GPL-2+
+master_sites        debian:s/signing-party/
+distname            ${name}_${version}
+worksrcdir          ${name}-${version}
+extract.mkdir       yes
+extract.suffix      .orig.tar.gz
+
+patchfiles          gpgwrap-makefile-usingtherightcompiler.patch \
+                    keyanalyze-makefile-usingtherightcompiler.patch
+
+use_configure       no
+
+depends_build       port:automake17 \
+                    port:autoconf
+
+depends_lib         port:perl5.16 \
+                    port:p5.16-class-methodmaker \
+                    port:p5.16-mailtools \
+                    port:p5.16-term-readkey \
+                    port:p5.16-gnupg-interface \
+                    port:p5.16-text-iconv \
+                    port:p5.16-text-template \
+                    port:p5.16-mime-tools \
+                    port:p5.16-net-idn-encode \
+                    port:qprint
+depends_run         port:gnupg \
+                    port:dialog \
+                    port:python27
+
+variant universal   {}
+
+build.env-append    CC=${configure.cc} \
+                    CFLAGS="${configure.cflags} [get_canonical_archflags]"
+
+pre-build {
+    reinplace "s|/usr/bin/perl|${prefix}/bin/perl5.16|g" \
+        ${worksrcpath}/caff/caff \
+        ${worksrcpath}/caff/pgp-clean \
+        ${worksrcpath}/caff/pgp-fixkey \
+        ${worksrcpath}/gpg-key2latex/gpg-key2latex \
+        ${worksrcpath}/gpg-key2ps/gpg-key2ps \
+        ${worksrcpath}/gpgdir/gpgdir \
+        ${worksrcpath}/gpgdir/install.pl \
+        ${worksrcpath}/gpglist/gpglist \
+        ${worksrcpath}/gpgsigs/gpgsigs \
+        ${worksrcpath}/keyanalyze/scripts/htmlify_report \
+        ${worksrcpath}/keyanalyze/scripts/top50.pl \
+        ${worksrcpath}/keyanalyze/willy/cosign \
+        ${worksrcpath}/keyanalyze/willy/msd2html \
+        ${worksrcpath}/keyanalyze/willy/non-recip \
+        ${worksrcpath}/keyanalyze/willy/party-table.pl \
+        ${worksrcpath}/keyanalyze/willy/unsign \
+        ${worksrcpath}/keylookup/keylookup \
+        ${worksrcpath}/sig2dot/sig2dot \
+        ${worksrcpath}/springgraph/springgraph
+    reinplace "s|/usr/bin/python|${prefix}/bin/python2.7|g" \
+        ${worksrcpath}/keyart/keyart
+    # force using MacPorts GPG to avoid issues such as #46601
+    reinplace "s|@GPG_PATH@|${prefix}/bin/gpg|g" \
+        ${worksrcpath}/caff/caff \
+        ${worksrcpath}/caff/pgp-clean \
+        ${worksrcpath}/caff/pgp-fixkey \
+        ${worksrcpath}/gpg-key2latex/gpg-key2latex \
+        ${worksrcpath}/gpg-key2ps/gpg-key2ps \
+        ${worksrcpath}/gpg-mailkeys/gpg-mailkeys \
+        ${worksrcpath}/gpgdir/gpgdir \
+        ${worksrcpath}/gpglist/gpglist \
+        ${worksrcpath}/gpgparticipants/gpgparticipants \
+        ${worksrcpath}/gpgsigs/gpgsigs \
+        ${worksrcpath}/keyart/keyart \
+        ${worksrcpath}/keylookup/keylookup
+}
+
+platform macosx {
+    post-patch {
+        reinplace "s!getent.*$!dscl . -read /Users/\$USER \| awk \'\{print \$2\}\'\`!" ${worksrcpath}/gpg-mailkeys/gpg-mailkeys
+    }
+}
+
+destroot {
+        # install executables
+        xinstall -m 0755 \
+            ${worksrcpath}/caff/caff \
+            ${worksrcpath}/caff/pgp-clean \
+            ${worksrcpath}/caff/pgp-fixkey \
+            ${worksrcpath}/gpg-key2ps/gpg-key2ps \
+            ${worksrcpath}/gpg-mailkeys/gpg-mailkeys \
+            ${worksrcpath}/gpglist/gpglist \
+            ${worksrcpath}/gpgparticipants/gpgparticipants \
+            ${worksrcpath}/gpgparticipants/gpgparticipants-prefill \
+            ${worksrcpath}/gpgsigs/gpgsigs \
+            ${worksrcpath}/gpgwrap/bin/gpgwrap \
+            ${worksrcpath}/keyanalyze/keyanalyze \
+            ${worksrcpath}/keyanalyze/pgpring/pgpring \
+            ${worksrcpath}/keyanalyze/process_keys \
+            ${worksrcpath}/keyart/keyart \
+            ${worksrcpath}/keylookup/keylookup \
+            ${worksrcpath}/sig2dot/sig2dot \
+            ${worksrcpath}/springgraph/springgraph \
+            ${destroot}${prefix}/bin
+        # install manpages
+        xinstall -m 0644 \
+            ${worksrcpath}/caff/caff.1 \
+            ${worksrcpath}/caff/pgp-clean.1 \
+            ${worksrcpath}/caff/pgp-fixkey.1 \
+            ${worksrcpath}/gpg-key2ps/gpg-key2ps.1 \
+            ${worksrcpath}/gpg-mailkeys/gpg-mailkeys.1 \
+            ${worksrcpath}/gpglist/gpglist.1 \
+            ${worksrcpath}/gpgparticipants/gpgparticipants-prefill.1 \
+            ${worksrcpath}/gpgparticipants/gpgparticipants.1 \
+            ${worksrcpath}/gpgsigs/gpgsigs.1 \
+            ${worksrcpath}/gpgwrap/doc/gpgwrap.1 \
+            ${worksrcpath}/keyanalyze/keyanalyze.1 \
+            ${worksrcpath}/keyanalyze/pgpring/pgpring.1 \
+            ${worksrcpath}/keyanalyze/process_keys.1 \
+            ${worksrcpath}/keyart/doc/keyart.1 \
+            ${worksrcpath}/keylookup/keylookup.1 \
+            ${worksrcpath}/sig2dot/sig2dot.1 \
+            ${worksrcpath}/springgraph/springgraph.1 \
+            ${destroot}${prefix}/share/man/man1
+        # install example configurations and scripts in share/doc
+        xinstall -d -m 0755 \
+            ${destroot}${prefix}/share/doc/${name} \
+            ${destroot}${prefix}/share/doc/${name}/examples \
+            ${destroot}${prefix}/share/doc/${name}/examples/keyanalyze \
+            ${destroot}${prefix}/share/doc/${name}/examples/keyart
+        xinstall -m 0644 \
+            ${worksrcpath}/caff/caffrc.sample \
+            ${worksrcpath}/gpg-mailkeys/example.gpg-mailkeysrc \
+            ${destroot}${prefix}/share/doc/${name}
+        copy \
+            ${worksrcpath}/keyanalyze/scripts \
+            ${worksrcpath}/keyanalyze/willy \
+            ${worksrcpath}/keyanalyze/analyze.sh \
+            ${destroot}${prefix}/share/doc/${name}/examples/keyanalyze
+        copy \
+            ${worksrcpath}/keyart/doc/druken-bishop.txt \
+            ${worksrcpath}/keyart/doc/examples \
+            ${worksrcpath}/keyart/doc/party-worksheet \
+            ${destroot}${prefix}/share/doc/${name}/examples/keyart
+}
+
+notes               "Some example configuration files have been installed to ${prefix}/share/doc/signing-party."
+
+livecheck.type      regex
+livecheck.url       http://packages.debian.org/unstable/misc/${name}
+livecheck.regex     ${name} .(\[0-9.\]+)

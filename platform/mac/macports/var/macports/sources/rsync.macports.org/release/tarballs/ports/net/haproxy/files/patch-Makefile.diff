@@ -1,0 +1,12 @@
+--- Makefile.orig	2012-08-14 02:09:31.000000000 -0500
++++ Makefile	2012-09-21 04:18:37.000000000 -0500
+@@ -366,7 +366,9 @@
+ ifneq ($(USE_LIBCRYPT),)
+ OPTIONS_CFLAGS  += -DCONFIG_HAP_CRYPT
+ BUILD_OPTIONS   += $(call ignore_implicit,USE_LIBCRYPT)
++ifneq ($(shell uname -s),Darwin)
+ OPTIONS_LDFLAGS += -lcrypt
++endif
+ endif
+ 
+ ifneq ($(USE_CRYPT_H),)

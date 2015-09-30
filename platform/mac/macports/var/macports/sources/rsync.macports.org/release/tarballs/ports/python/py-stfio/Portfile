@@ -1,0 +1,63 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137571 2015-06-14 20:12:17Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-stfio
+version             0.14.11
+categories          python science
+platforms           darwin
+license             GPL-2
+maintainers         gmx.de:christsc
+description         Electrophysiology file support for Python
+long_description    A Python module to read common electrophysiology file formats.
+homepage            http://www.stimfit.org
+master_sites        ${homepage}
+distname            stimfit-${version}
+
+checksums           rmd160  6d83f30a73f43dcf2b972079a267f0eebca3060f \
+                    sha256  a5db0b43449c6c4420130a544c2ae8e7f56e8833d57c86d49063b89b898a4f25
+
+python.versions     27 34
+
+if { ${name} ne ${subport} } {
+    depends_build   port:swig-python
+
+    depends_lib     port:boost \
+                    port:hdf5 \
+                    port:py${python.version}-matplotlib \
+                    port:py${python.version}-numpy
+
+    configure.args  --disable-dependency-tracking \
+                    --enable-module \
+                    --without-biosig
+
+    configure.python \
+                    ${python.bin}
+
+    use_configure   yes
+    build.cmd       make
+    build.target    
+    destroot.cmd    make
+    destroot.destdir \
+                    DESTDIR=${destroot}
+
+    post-destroot {
+        set docdir ${destroot}${prefix}/share/doc/${subport}
+        xinstall -d ${docdir}
+        xinstall -m 644 ${worksrcpath}/dist/debian/copyright \
+            ${worksrcpath}/COPYING ${docdir}
+    }
+
+    variant biosig description {Use biosig library for file I/O.} {
+        depends_lib-append \
+            port:libbiosig
+
+        configure.args-replace \
+            --without-biosig \
+            --with-biosig
+    }
+
+    default_variants    +biosig
+}

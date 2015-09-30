@@ -1,0 +1,49 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 114324 2013-12-05 08:44:51Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-carray
+version             0.5.1
+revision            0
+categories-append   devel
+platforms           darwin
+license             MIT BSD
+
+python.versions     26 27
+
+maintainers         stromnov openmaintainer
+
+description         A chunked data container that can be compressed in-memory.
+
+long_description    carray is a chunked container for numerical data. \
+                    Chunking allows for efficient enlarging/shrinking \
+                    of data container.  In addition, it can also be \
+                    compressed for reducing memory needs. The compression \
+                    process is carried out internally by Blosc, \
+                    a high-performance compressor that is optimized \
+                    for binary data.
+
+homepage            https://github.com/FrancescAlted/carray
+master_sites        http://carray.pytables.org/download/carray-${version}/
+
+distname            carray-${version}
+
+checksums           rmd160  761ebd81e19e85df67a1e30cc92fc64121102154 \
+                    sha256  556a38a9209b2f9927283d03b3dbeff0544ca5b5dfca681cd20520a0fcaeb92b
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:py${python.version}-numpy \
+                        port:py${python.version}-cython
+
+    # Remove --no-user-cfg
+    build.cmd           ${python.bin} setup.py
+    destroot.cmd        ${python.bin} setup.py
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       http://carray.pytables.org/download/
+    livecheck.regex     "carray-(\\d+(?:\\.\\d+)*)/"
+}

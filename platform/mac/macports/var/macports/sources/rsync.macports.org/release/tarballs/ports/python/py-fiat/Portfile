@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 131538 2015-01-13 21:54:45Z sean@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           bitbucket 1.0
+
+bitbucket.setup     fenics-project fiat 1.5.0 fiat-
+name                py-fiat
+
+categories-append   math science
+license             LGPL-3+
+platforms           darwin
+supported_archs     noarch
+maintainers         sean openmaintainer
+
+description         FInite element Automatic Tabulator
+long_description    The FInite element Automatic Tabulator FIAT supports \
+                    generation of arbitrary order instances of the Lagrange \
+                    elements on lines, triangles, and tetrahedra. It is \
+                    also capable of generating arbitrary order instances of \
+                    Jacobi-type quadrature rules on the same element shapes. \
+                    Further, H(div) and H(curl) conforming finite element \
+                    spaces such as the families of Raviart-Thomas, \
+                    Brezzi-Douglas-Marini and Nedelec are supported on \
+                    triangles and tetrahedra.
+
+checksums           rmd160  12185988be63abebbc6bfe5a2ab010b71eb01d04 \
+                    sha256  0729f12d3cc2533a773f5a41569b3db4645dddadbf3521e23f75aec2cce1bffc
+
+python.versions     27
+python.link_binaries_suffix
+
+if {${subport} ne ${name}} {
+    depends_lib     port:py${python.version}-numpy \
+                    port:py${python.version}-sympy
+
+    livecheck.type  none
+}

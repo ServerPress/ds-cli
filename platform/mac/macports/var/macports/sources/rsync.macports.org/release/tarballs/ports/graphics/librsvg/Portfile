@@ -1,0 +1,101 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135684 2015-04-29 19:11:42Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           gobject_introspection 1.0
+
+name                librsvg
+version             2.40.9
+license             {GPL-2+ LGPL-2+}
+set branch          [join [lrange [split ${version} .] 0 1] .]
+categories          graphics gnome
+platforms           darwin
+maintainers         devans pixilla openmaintainer
+description         GNOME implementation of rsvg.
+
+long_description    ${description}
+
+homepage            https://wiki.gnome.org/Projects/LibRsvg
+master_sites        gnome:sources/${name}/${branch}/
+use_xz              yes
+
+checksums           rmd160  c662eb876a03d613f15232d31d9d014b79470a0f \
+                    sha256  13964c5d35357552b47d365c34215eee0a63bf0e6059b689f048648c6bf5f43a
+
+depends_build       port:pkgconfig \
+                    port:gtk-doc
+
+depends_lib         path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                    path:lib/pkgconfig/cairo.pc:cairo \
+                    path:lib/pkgconfig/pangocairo.pc:pango \
+                    port:libcroco \
+                    port:libxml2 \
+                    port:gdk-pixbuf2 \
+                    port:vala
+
+set pyversion 2.7
+depends_run         port:python[join [split ${pyversion} "."] ""]
+
+gobject_introspection yes
+
+configure.args      --enable-vala=yes \
+                    --disable-Bsymbolic
+
+set buildpath ${worksrcpath}/macports
+post-build {
+    xinstall -d ${buildpath}
+    set fp [open ${buildpath}/svg2pdf w]
+    puts $fp "#!/bin/sh"
+    puts $fp "if \[ \$# -lt 2 -o \"\$1\" = \"-h\" -o \"\$1\" = \"--help\" \] ; then"
+    puts $fp "	echo \"FAIL: usage: \$0 input_file.svg output_file.pdf\""
+    puts $fp "	exit 255;"
+    puts $fp "fi"
+    puts $fp "rsvg-convert -f pdf -o \"\$2\" \"\$1\""
+    close $fp
+}
+
+# variant viewer disabled by default in an attempt to avoid loading
+# gtk3 by those who are using it strictly as a library outside of GTK+/GNOME.
+# https://trac.macports.org/ticket/43328
+# https://trac.macports.org/ticket/47443
+# https://trac.macports.org/ticket/47596
+
+variant viewer description "Build the rsvg-view-3 viewer utility." {
+    depends_lib-append  port:gtk3
+}
+
+if {![variant_isset viewer]} {
+    patchfiles-append   patch-disable-viewer.diff
+
+    use_autoreconf      yes
+    autoreconf.args     -fvi
+}
+
+post-destroot {
+    set python.branch ${pyversion}
+    set python.bin ${frameworks_dir}/Python.framework/Versions/${python.branch}/bin/python${python.branch}
+
+    set docdir ${prefix}/share/doc/${name}
+    xinstall -d ${destroot}${docdir}
+    xinstall -m 644 -W ${worksrcpath} AUTHORS COPYING COPYING.LIB NEWS README \
+        ${destroot}${docdir}
+    xinstall -m 755 -W ${buildpath} svg2pdf \
+        ${destroot}${prefix}/bin
+    set badfile ${prefix}/lib/gdk-pixbuf-2.0/2.10.0/loaders/libpixbufloader-svg.a
+    if {[file exists ${destroot}${badfile}]} {
+        file delete ${destroot}${badfile}
+    }
+}
+
+post-activate {
+    system "${prefix}/bin/gdk-pixbuf-query-loaders --update-cache"
+}
+
+post-deactivate {
+    system "${prefix}/bin/gdk-pixbuf-query-loaders --update-cache"
+}
+
+variant x11 conflicts quartz {}
+variant quartz conflicts x11 {}
+
+livecheck.type      gnome

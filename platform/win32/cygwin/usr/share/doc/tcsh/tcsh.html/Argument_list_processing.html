@@ -1,0 +1,152 @@
+<HEAD>
+<TITLE>Argument list processing</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Startup_and_shutdown.html">Next</A>
+<A HREF="DESCRIPTION.html">Previous</A>
+<H2>Argument list processing</H2>
+If the first argument (argument 0) to the shell is `-' then it is a
+login shell.  A login shell can be also specified by invoking the shell with
+the <B>-l</B> flag as the only argument.
+<P>
+The rest of the flag arguments are interpreted as follows:
+<P>
+<DL compact>
+<DT>
+<B>-b</B>
+<DD>
+Forces a ``break'' from option processing, causing any
+further shell arguments to be treated as non-option arguments.  The remaining
+arguments will not be interpreted as shell options.  This may be used to pass
+options to a shell script without confusion or possible subterfuge.  The shell
+will not run a set-user ID script without this option.
+<P>
+<DT>
+<B>-c</B>
+<DD>
+Commands are read from the following argument (which must be present, and
+must be a single argument),
+stored in the <B><A HREF="Special_shell_variables.html#command">command</A></B> shell variable for reference, and executed.
+Any remaining arguments are placed in the <B><A HREF="Special_shell_variables.html#argv">argv</A></B> shell variable.
+<P>
+<DT>
+<B>-d</B>
+<DD>
+The shell loads the directory stack from <I><A HREF="FILES.html#~/.cshdirs">~/.cshdirs</A></I> as described under
+<B><A HREF="Startup_and_shutdown.html">Startup and shutdown</A></B>, whether or not it is a login shell. (+)
+<P>
+<DT>
+<B>-D</B><I>name</I>[=<I>value</I>]
+<DD>
+Sets the environment variable <I>name</I> to <I>value</I>. (Domain/OS only) (+)
+<P>
+<DT>
+<B>-e</B>
+<DD>
+The shell exits if any invoked command terminates abnormally or
+yields a non-zero exit status.
+<P>
+<DT>
+<B>-f</B>
+<DD>
+The shell does not load any resource or startup files, or perform any 
+command hashing, and thus starts faster.
+<P>
+<DT>
+<B>-F</B>
+<DD>
+The shell uses <I>fork</I>(2) instead of <I>vfork</I>(2) to spawn processes. (+)
+<P>
+<DT>
+<B>-i</B>
+<DD>
+The shell is interactive and prompts for its top-level input, even if
+it appears to not be a terminal.  Shells are interactive without this option if
+their inputs and outputs are terminals.
+<P>
+<DT>
+<B>-l</B>
+<DD>
+The shell is a login shell.  Applicable only if <B>-l</B> is the only
+flag specified.
+<P>
+<DT>
+<B>-m</B>
+<DD>
+The shell loads <I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I> even if it does not belong to the effective
+user.  Newer versions of <I>su</I>(1) can pass <B>-m</B> to the shell. (+)
+<P>
+<DT>
+<B>-n</B>
+<DD>
+The shell parses commands but does not execute them.
+This aids in debugging shell scripts.
+<P>
+<DT>
+<B>-q</B>
+<DD>
+The shell accepts SIGQUIT (see <B><A HREF="Signal_handling.html">Signal handling</A></B>) and behaves when
+it is used under a debugger.  Job control is disabled. (u)
+<P>
+<DT>
+<B>-s</B>
+<DD>
+Command input is taken from the standard input.
+<P>
+<DT>
+<B>-t</B>
+<DD>
+The shell reads and executes a single line of input.  A `\' may be used to
+escape the newline at the end of this line and continue onto another line.
+<P>
+<DT>
+<B>-v</B>
+<DD>
+Sets the <B><A HREF="Special_shell_variables.html#verbose">verbose</A></B> shell variable, so that
+command input is echoed after history substitution.
+<P>
+<DT>
+<B>-x</B>
+<DD>
+Sets the <B><A HREF="Special_shell_variables.html#echo">echo</A></B> shell variable, so that commands are echoed
+immediately before execution.
+<P>
+<DT>
+<B>-V</B>
+<DD>
+Sets the <B><A HREF="Special_shell_variables.html#verbose">verbose</A></B> shell variable even before executing <I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I>.
+<P>
+<DT>
+<B>-X</B>
+<DD>
+Is to <B>-x</B> as <B>-V</B> is to <B>-v</B>.
+<P>
+<DT>
+<B>--help</B>
+<DD>
+Print a help message on the standard output and exit. (+)
+<P>
+<DT>
+<B>--version</B>
+<DD>
+Print the version/platform/compilation options on the standard output and exit.
+This information is also contained in the <B><A HREF="Special_shell_variables.html#version">version</A></B> shell variable. (+)
+</DL>
+<P>
+After processing of flag arguments, if arguments remain but none of the
+<B>-c</B>, <B>-i</B>, <B>-s</B>, or <B>-t</B> options were given, the first
+argument is taken as the name of a file of commands, or ``script'', to
+be executed.  The shell opens this file and saves its name for possible
+resubstitution by `$0'.  Because many systems use either the standard
+version 6 or version 7 shells whose shell scripts are not compatible
+with this shell, the shell uses such a `standard' shell to execute a script
+whose first character is not a `#', i.e., that does not start with a
+comment.
+<P>
+Remaining arguments are placed in the <B><A HREF="Special_shell_variables.html#argv">argv</A></B> shell variable.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Startup_and_shutdown.html">Next</A>
+<A HREF="DESCRIPTION.html">Previous</A>
+</BODY>

@@ -1,0 +1,41 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130860 2015-01-02 22:34:15Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           github 1.0
+
+github.setup        wardi urwid 1.2.1 release-
+name                py-${name}
+platforms		    darwin
+license			    LGPL-2.1+
+maintainers		    nomaintainer
+
+description		    curses-based UI/widget library for Python
+long_description	\
+    Urwid is a curses-based UI/widget library for Python. It features fluid \
+    interface resizing, multiple text layout options, simple markup for \
+    attributes, powerful scrolling list boxes and flexible edit boxes. 
+
+homepage            http://urwid.org/
+
+python.versions     26 27 33 34
+
+if {${name} ne ${subport}} {
+    checksums       rmd160  e5e08ca648865381a80330ca4e46308d33a8ee2f \
+                    sha256  16bf4d0804f5952fe80a7d7fa07d56525caef7642f23b1092ff72c98e48c26ea
+
+    if {[vercmp ${python.branch} 3.0] >= 0} {
+        depends_build-append port:py${python.version}-setuptools
+    }
+
+    post-destroot {
+        #xinstall -m 644 ${worksrcpath}/reference.html \
+        #    ${destroot}${prefix}/share/doc/${subport}
+        xinstall -m 644 -W ${worksrcpath}/examples \
+            browse.py calc.py edit.py fib.py tour.py \
+            ${destroot}${prefix}/share/doc/${subport}/examples
+    }
+
+    livecheck.type  none
+}

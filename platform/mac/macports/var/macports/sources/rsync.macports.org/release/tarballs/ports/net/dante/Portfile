@@ -1,0 +1,49 @@
+# $Id: Portfile 96839 2012-08-19 20:00:40Z ciserlohn@macports.org $
+
+PortSystem              1.0
+
+name                    dante
+version                 1.3.2
+categories              net
+platforms               darwin
+license                 BSD
+maintainers             nomaintainer
+
+description             A circuit-level firewall/proxy
+
+long_description        Dante is a circuit-level firewall/proxy (socks \
+                        implemented) that can be used to provide convenient \
+                        and secure network connectivity to a wide range of \
+                        hosts while requiring only the server Dante runs on \
+                        to have external network connectivity. Once installed, \
+                        Dante can in most cases be made transparent to the \
+                        clients while offering detailed access control and \
+                        logging facilities to the server administrator.
+
+homepage                http://www.inet.no/dante/
+master_sites            ftp://ftp.inet.no/pub/socks/ \
+                        ftp://ftp.inet.no/pub/socks/old/ \
+                        http://sorcerer.mirrors.pair.com/mirror/ \
+                        http://dbg.download.sourcemage.org/mirror/
+
+checksums               rmd160  600bf1cda8795c9ba313bf89b491223ee592820a \
+                        sha256  6b736f32ec58b899c24cf14be02491a0631a778e385314370d5dea4baf482efb
+
+patchfiles              patch-configure.diff
+
+configure.args          --mandir=${prefix}/share/man \
+                        --without-gssapi \
+                        --with-socks-conf=${prefix}/etc/dante/socks.conf \
+                        --with-sockd-conf=${prefix}/etc/dante/sockd.conf \
+                        --with-pidfile=${prefix}/var/run/dante/dante.pid
+
+destroot.keepdirs       ${destroot}${prefix}/var/run/dante/
+post-destroot {
+    xinstall -m 755 -d ${destroot}${prefix}/etc/dante/
+    xinstall -m 644 ${worksrcpath}/example/socks.conf \
+        ${destroot}${prefix}/etc/dante/socks.conf.sample
+}
+
+livecheck.type          regex
+livecheck.url           [lindex ${master_sites} 0]
+livecheck.regex         ${name}-(\[0-9.\]+)\\.tar

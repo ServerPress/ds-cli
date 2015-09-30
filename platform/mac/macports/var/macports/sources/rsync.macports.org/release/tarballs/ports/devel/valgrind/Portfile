@@ -1,0 +1,123 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135771 2015-05-02 17:26:47Z raimue@macports.org $
+
+PortSystem          1.0
+PortGroup           mpi 1.0
+
+name                valgrind
+categories          devel
+platforms           darwin
+supported_archs     i386 x86_64
+license             GPL-2
+maintainers         raimue \
+                    openmaintainer
+
+description         A powerful open-source memory debugger
+long_description \
+    Valgrind is a powerful open-source memory debugger. When valgrind is \
+    attached to a program, it intercepts calls to malloc/new/free/delete and \
+    all memory operations are checked for invalid read or write.
+
+homepage            http://valgrind.org
+master_sites        http://valgrind.org/downloads/
+
+compilers.choose    cc cxx
+mpi.setup           -gcc44 -gcc45 -gcc46
+
+depends_build       bin:perl:perl5
+# Ignore trace reports about boost, Qt and OpenMP
+# as they are only used for tests
+
+configure.args      --without-mpicc
+
+if {${build_arch} eq "i386"} {
+    configure.args-append --enable-only32bit
+} elseif {${build_arch} eq "x86_64"} {
+    configure.args-append --enable-only64bit
+}
+
+# valgrind sets up -arch by itself, adding our own interferes with the build
+configure.cc_archflags {}
+configure.ld_archflags {}
+
+variant universal {
+    configure.args-delete --enable-only32bit --enable-only64bit
+    configure.universal_cflags {}
+    configure.universal_cxxflags {}
+    configure.universal_ldflags {}
+
+    pre-configure {
+        if {${build_arch} eq "i386"} {
+            # See #25684 and https://bugs.kde.org/show_bug.cgi?id=243362
+            ui_error "${subport} does not build +universal on a 32-bit only CPU!"
+            return -code error "unsupported CPU"
+        }
+    }
+}
+
+pre-patch {
+    if {[gcc_variant_isset]} {
+        patchfiles-append patch-gcc.diff
+    }
+}
+
+pre-configure {
+    if {[mpi_variant_isset]} {
+        configure.args-delete --without-mpicc
+        configure.args-append --with-mpicc=${mpi.cc}
+    }
+}
+
+if {$subport eq $name} {
+    version             3.10.1
+    revision            0
+    conflicts           valgrind-devel
+
+    checksums           md5     60ddae962bc79e7c95cfc4667245707f \
+                        sha1    15518427de842547ffa84eff8b2b67f3b16581a8 \
+                        sha256  fa253dc26ddb661b6269df58144eff607ea3f76a9bcfe574b0c7726e1dfcb997
+
+    use_bzip2           yes
+
+    # Avoid conflict of faq.html and FAQ.html, #30541
+    extract.post_args-append --exclude=${distname}/docs/html/FAQ.html
+
+    pre-fetch {
+        if {${os.platform} eq "darwin" && (${os.major} < 9 || ${os.major} > 13)} {
+            ui_error "${subport} @${version} is only compatible with Mac OS X 10.5, 10.6, 10.7, 10.8 and 10.9"
+            return -code error "incompatible Mac OS X version"
+        }
+    }
+
+    livecheck.type      regex
+    livecheck.url       ${homepage}
+    livecheck.regex     ${name}-(\\d(?:\\.\\d+)+)
+}
+
+subport valgrind-devel {
+    svn.revision        15175
+    set vex_revision    3145
+    version             3.11.0-r${svn.revision}
+    revision            0
+    conflicts           valgrind
+
+    fetch.type      svn
+    svn.url         svn://svn.valgrind.org/valgrind/trunk
+    svn.args        --ignore-externals
+    worksrcdir      trunk
+
+    post-fetch {
+        system -W ${worksrcpath} "${svn.cmd} ${svn.pre_args} ${svn.method} svn://svn.valgrind.org/vex/trunk@${vex_revision} VEX"
+    }
+
+    pre-fetch {
+        if {${os.platform} eq "darwin" && (${os.major} < 9 || ${os.major} > 14)} {
+            ui_error "${subport} @${version} is only compatible with Mac OS X versions from 10.5 up to 10.10"
+            return -code error "incompatible Mac OS X version"
+        }
+    }
+
+    use_autoreconf      yes
+
+    livecheck.type none
+}

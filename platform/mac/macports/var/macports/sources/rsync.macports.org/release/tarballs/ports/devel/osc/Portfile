@@ -1,0 +1,43 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 114700 2013-12-14 01:32:58Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+PortGroup           python 1.0
+
+github.setup        openSUSE osc 0.142.2
+categories          devel python
+platforms           darwin
+maintainers         nomaintainer
+supported_archs     noarch
+
+description         A command line client for the openSUSE build service
+
+long_description    osc is a subversion-like client written in Python. \
+                    It serves as client for the source code repository part \
+                    of the openSUSE build service, and is used to edit \
+                    metadata or query about build results.
+
+homepage            http://en.opensuse.org/Build_Service/CLI
+
+checksums           rmd160  7c7fac690280d3359d7784b32a044264515e2b4b \
+                    sha256  557ed63f84d073b404807dd52564dfcbe6a670598306b81e1b9fcaf41369974a
+
+python.default_version 27
+
+depends_lib-append  port:py${python.version}-elementtree \
+                    port:py${python.version}-urlgrabber \
+                    port:py${python.version}-m2crypto
+
+depends_run         path:share/curl/curl-ca-bundle.crt:curl-ca-bundle
+
+post-patch {
+    reinplace "s|/etc/pki/tls/cert.pem|${prefix}/share/curl/curl-ca-bundle.crt|g" \
+        ${worksrcpath}/osc/conf.py \
+}
+
+post-destroot {
+    ln -s ${python.prefix}/bin/osc-wrapper.py ${destroot}${prefix}/bin/osc
+}
+
+python.link_binaries no

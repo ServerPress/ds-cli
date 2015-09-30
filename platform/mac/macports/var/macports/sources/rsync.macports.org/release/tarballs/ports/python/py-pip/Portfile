@@ -1,0 +1,66 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138352 2015-07-06 06:10:57Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           select 1.0
+
+set realname        pip
+
+name                py-${realname}
+version             7.1.0
+revision            0
+categories-append   www
+platforms           darwin
+license             MIT
+supported_archs     noarch
+
+python.versions     26 27 33 34
+
+maintainers         stromnov openmaintainer
+
+description         A tool for installing and managing Python packages.
+
+long_description    pip is a replacement for easy_install. It uses mostly the \
+                    same techniques for finding packages, so packages that \
+                    were made easy_installable should be pip-installable as \
+                    well.
+
+homepage            http://www.pip-installer.org/
+master_sites        https://pypi.python.org/packages/source/p/pip/
+
+distname            ${realname}-${version}
+
+checksums           rmd160  3af0746024f769ded40b2018bfdc979a22f9daa3 \
+                    sha256  d5275ba3221182a5dd1b6bcfbfc5ec277fb399dd23226d6fa018048f7e0f10f2
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:py${python.version}-setuptools
+    depends_run         port:pip_select
+
+    post-destroot {
+        eval xinstall -m 644 [glob -types f ${worksrcpath}/docs/*] ${destroot}${prefix}/share/doc/${subport}
+
+        xinstall -m 755 -d ${destroot}${prefix}/share/doc/${subport}/reference
+        eval xinstall -m 644 [glob -types f ${worksrcpath}/docs/reference/*] ${destroot}${prefix}/share/doc/${subport}/reference
+
+        delete ${destroot}${prefix}/bin/pip[string range ${python.version} 0 end-1]-${python.branch}
+        delete ${destroot}${prefix}/bin/pip${python.branch}-${python.branch}
+    }
+
+    select.group        ${realname}
+    select.file         ${filespath}/${realname}${python.version}
+
+    notes "
+    To make the Python ${python.branch} version of pip the one that is run\
+    when you execute the commands without a version suffix, e.g. 'pip', run:
+
+    port select --set ${select.group} [file tail ${select.file}]
+    "
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/pip/json
+    livecheck.regex     {pip-(\d+(?:\.\d+)*)\.[tz]}
+}

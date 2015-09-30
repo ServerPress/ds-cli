@@ -1,0 +1,51 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 111021 2013-09-13 19:24:54Z larryv@macports.org $
+
+PortSystem          1.0
+
+name                librep
+version             0.92.3
+categories          lang
+platforms           darwin
+maintainers         hilaiel.com:lloyd
+license             GPL-2+
+
+description         A shared library implementing a Lisp dialect
+
+long_description    librep is a shared library implementing a Lisp \
+                    dialect that is lightweight, reasonably fast, and \
+                    highly extensible. It contains an interpreter, \
+                    byte-code compiler and virtual machine. Applications \
+                    may use the interpreter as an extension language, or \
+                    it may be used for standalone scripts.
+
+homepage            http://sawfish.wikia.com/wiki/Librep
+master_sites        http://download.tuxfamily.org/librep/
+use_xz              yes
+
+patchfiles          patch-src-repint.h.diff
+
+checksums           rmd160  dbbef7097c9a3f72c343f2e997bf2f337cd7233b \
+                    sha256  45c98a5bbdfde4f1d98e3839b319d9ae15857d2d1ae8e3838d9a18d53f3e8b85
+
+depends_build       port:pkgconfig
+
+depends_lib         port:gdbm \
+                    port:gmp \
+                    port:libffi
+
+configure.args      --without-readline
+
+configure.cflags-append -std=gnu89
+
+variant readline description {build with readline support} {
+    depends_lib-append      port:readline
+    configure.args-delete   --without-readline
+    configure.args-append   --with-readline
+}
+
+# 10.3 and i386 are fine with the default 'stack-direction=-1' but 10.4
+# ppc needs 1
+platform darwin 8 powerpc {
+    configure.args-append   --with-stack-direction=1
+}

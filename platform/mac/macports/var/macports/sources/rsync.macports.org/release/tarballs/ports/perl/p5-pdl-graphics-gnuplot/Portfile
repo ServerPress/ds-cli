@@ -1,0 +1,28 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136226 2015-05-12 15:33:03Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         PDL-Graphics-Gnuplot 2.005
+platforms           darwin
+maintainers         nomaintainer
+license             {Artistic-1 GPL-1+}
+supported_archs     noarch
+
+description         Gnuplot-based plotting for PDL
+
+long_description    ${description}
+
+checksums           rmd160  d7f90e6d9bea2891fb3d5d29248d0dad9384a6bc \
+                    sha256  1885455b92777d05a073623310d1d9e7f74d07c91bda9e68cef666bb99f96151
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:gnuplot \
+                    port:p${perl5.major}-alien-gnuplot \
+                    port:p${perl5.major}-ipc-run \
+                    port:p${perl5.major}-pdl \
+                    port:p${perl5.major}-safe-isa
+}

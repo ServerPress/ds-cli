@@ -1,0 +1,77 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137299 2015-06-08 18:06:10Z larryv@macports.org $
+
+PortSystem          1.0
+
+name                libtool
+version             2.4.6
+revision            1
+categories          devel sysutils
+platforms           darwin freebsd
+# Scripts are GPL-2+, libltdl is LGPL-2+, but all parts that tend to be
+# distributed with dependents have a licensing exception that allows
+# distribution under the same terms as the rest of the program.
+license             libtool
+maintainers         larryv
+
+description         The GNU Portable Library Tool
+long_description    GNU libtool is a generic library support script. \
+                    Libtool hides the complexity of using shared \
+                    libraries behind a consistent, portable interface.
+homepage            http://www.gnu.org/software/libtool/
+
+master_sites        gnu
+checksums           rmd160  6f4b4c3e89426652da3acffa707f71bb4ccee26a \
+                    sha256  e3bd4d5d3d025a36c21dd6af7ea818a2afcd4dfc1ea5a17b39d7854bcd0c06e3
+
+# For consistency, always use the M4 detected by configure.
+patchfiles          hardcode-m4.patch
+post-patch {
+    # Stop build from trying to regenerate this after patching.
+    touch ${worksrcpath}/doc/libtoolize.1
+}
+
+# Leopard and later provide GNU M4 1.4.6, which works fine. Tiger's
+# 1.4.2 does not (#47545).
+#   - http://lists.gnu.org/archive/html/libtool/2014-12/msg00002.html
+#   - http://lists.gnu.org/archive/html/libtool/2015-01/msg00004.html
+if {${os.platform} eq "darwin" && ${os.major} >= 9} {
+    configure.env   M4=/usr/bin/m4
+} else {
+    depends_lib     port:m4
+}
+
+# Don't let configure detect MacPorts' grep or gsed (#19237).
+if {${os.platform} eq "darwin"} {
+    configure.env-append    GREP=/usr/bin/grep SED=/usr/bin/sed
+} else {
+    depends_lib-append      port:grep port:gsed
+}
+
+# Don't look for broken compilers (#23684, #32321).
+configure.env-append    GCJ=no
+configure.fc            no
+configure.f77           no
+
+configure.args      --disable-silent-rules \
+                    --program-prefix=g
+
+post-destroot {
+    set gnubin ${prefix}/libexec/gnubin
+    xinstall -d ${destroot}${gnubin}
+    ln -s ../../bin/glibtool ${destroot}${gnubin}/libtool
+    ln -s ../../bin/glibtoolize ${destroot}${gnubin}/libtoolize
+
+    set docdir ${prefix}/share/doc/${name}
+    xinstall -d ${destroot}${docdir}
+    xinstall -m 0644 -W ${worksrcpath} \
+            AUTHORS COPYING ChangeLog NEWS README THANKS TODO \
+            ${destroot}${docdir}
+}
+
+test.run            yes
+test.target         check
+
+livecheck.type      regex
+livecheck.url       http://ftp.gnu.org/gnu/${name}/?C=M&O=D
+livecheck.regex     ${name}-(\\d+(?:\\.\\d+)*\[a-z\]?)

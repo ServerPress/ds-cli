@@ -1,0 +1,28 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem              1.0
+PortGroup               perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup             DateTime-Format-MySQL 0.05
+platforms               darwin
+license                 {Artistic-1 GPL}
+maintainers             fpassera.com:dev openmaintainer
+description             Parse and format MySQL dates and times
+long_description        ${description}
+
+checksums               rmd160  cfa3b1f3e16e71576d42b08a62875bcd5e61ac60 \
+                        sha256  26d0348a930aa34d3b33ec1b2a9d9629f2ee78234e224ca74d594703922ca2e9
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                        port:p${perl5.major}-namespace-clean \
+                        port:p${perl5.major}-sub-exporter-progressive
+
+    depends_lib-append \
+                        port:p${perl5.major}-datetime \
+                        port:p${perl5.major}-datetime-format-builder
+
+    supported_archs     noarch
+}

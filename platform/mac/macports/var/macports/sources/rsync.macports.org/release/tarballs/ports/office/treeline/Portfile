@@ -1,0 +1,40 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 120950 2014-06-12 14:52:03Z mf2k@macports.org $
+
+PortSystem          1.0
+
+name                treeline
+version             1.4.1
+categories          office pim python
+maintainers         nomaintainer
+platforms			darwin
+
+description         Advanced outliner and personal information manager
+long_description    Some would call TreeLine an Outliner, others would call \
+                    it a PIM. Basically, it just stores almost any kind of \
+                    information. A tree structure makes it easy to keep \
+                    things organized. And each node in the tree can contain \
+                    several fields, forming a mini-database. The output \
+                    format for each node can be defined, and the output can \
+                    be shown on the screen, printed, or exported to html.
+
+homepage            http://treeline.bellz.org
+master_sites        sourceforge:project/treeline/${version}/
+
+checksums           rmd160  8649430eb07e6816acca6ea89f17cb8a309c3f68 \
+                    sha256  d66e0fcae9bcb5e54f664381f6af73f360f9ff46c91787a126c7197fbe685489
+                    
+worksrcdir          TreeLine
+
+# Can use either py*-pyqt4 or py*-pyqt4-devel.
+depends_lib         path:share/py27-sip/PyQt4:py27-pyqt4 \
+                    port:aspell
+
+patchfiles          patch-SaveWindowGeom.diff
+destroot.cmd        ${prefix}/bin/python2.7 install.py
+destroot.target
+destroot.args       -p ${prefix} -b ${destroot}
+destroot.destdir
+
+use_configure       no
+build {}

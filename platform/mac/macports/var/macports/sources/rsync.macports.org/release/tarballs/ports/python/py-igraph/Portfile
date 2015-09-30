@@ -1,0 +1,48 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135824 2015-05-04 16:11:45Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-igraph
+version             0.7
+categories-append   math
+platforms           darwin
+license             GPL-2+
+
+python.versions     26 27 33 34
+
+maintainers         snc openmaintainer
+
+description         Python interface to the igraph library
+
+long_description    Python interface to the igraph high performance \
+                    graph library
+
+homepage            http://pypi.python.org/pypi/python-igraph/
+master_sites        http://pypi.python.org/packages/source/p/python-igraph/
+
+distname            python-igraph-${version}
+dist_subdir         python/${distname}/1/
+
+checksums           rmd160  0d843b17da829ee531336e9bbc5dbf064a270a5e \
+                    sha256  f155bca04d5e500cb3cc087d25ac9e09077959392d245b3cab588bd9b541f0d0
+
+if {${name} ne ${subport}} {
+    depends_build       port:pkgconfig port:py${python.version}-setuptools
+    depends_lib-append  port:igraph
+
+    patchfiles          patch-setup.cfg.diff \
+                        patch-setup.py.diff
+
+    post-patch {
+        reinplace s|@PREFIX@|${prefix}|g ${worksrcpath}/setup.cfg
+        reinplace s|@PREFIX@|${prefix}|g ${worksrcpath}/setup.py
+    }
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/python-igraph/json
+    livecheck.regex     {python-igraph-(\d+(?:\.\d+)*)\.[tz]}
+}

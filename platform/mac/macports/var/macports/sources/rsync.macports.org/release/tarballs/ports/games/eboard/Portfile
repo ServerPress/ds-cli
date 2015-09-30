@@ -1,0 +1,30 @@
+# $Id: Portfile 120979 2014-06-13 15:51:30Z mf2k@macports.org $
+
+PortSystem          1.0
+
+name                eboard
+categories          games
+version             1.1.1
+platforms	    darwin
+maintainers	    nomaintainer
+
+description         eboard is a chess interface just like xboard.
+long_description    \
+    eboard is a chess interface for Unix-like systems (GNU/Linux, FreeBSD, \
+    Solaris, etc.) based on the GTK+ GUI toolkit. It provides a chess board \
+    interface to ICS (Internet Chess Servers) like FICS and to chess \
+    engines like GNU Chess, Sjeng and Crafty.
+
+homepage            http://www.bergo.eng.br/${name}/
+master_sites        sourceforge
+use_bzip2	    yes
+checksums           md5 03dcdaa2bc85218b1b18c4bee276fea7
+
+depends_build	    path:bin/perl:perl5  port:pkgconfig
+depends_lib	    port:gtk2
+
+patchfiles      configure.patch
+
+configure.cmd       ${prefix}/bin/perl ./configure
+configure.args	    --man-prefix=${prefix}/share/man \
+                    --compiler=\${CXX}

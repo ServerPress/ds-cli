@@ -1,0 +1,48 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130518 2014-12-31 03:36:23Z larryv@macports.org $
+
+PortSystem 1.0
+PortGroup python 1.0
+
+set realname        twilio
+name                py-${realname}
+version             3.6.7
+python.versions     26 27 33 34
+license             MIT
+platforms           darwin
+supported_archs     noarch
+maintainers         aronnax openmaintainer
+description         Twilio API client and TwiML generator
+long_description    ${description}
+homepage            http://pypi.python.org/pypi/${realname}/
+master_sites        http://pypi.python.org/packages/source/[string index ${realname} 0]/${realname}/
+distname            ${realname}-${version}
+
+checksums           md5     0ea03da3b7766a4ff5a4436aee46326b \
+                    rmd160  6dddd7349c7380022b0bfb1d914a96ab40bfd97e \
+                    sha256  ddde4f2c4e92d08edd7b180b69afc144acdf2c76712da953ae177e61606bbed5
+
+if {${name} eq ${subport}} {
+    livecheck.type  regex
+    livecheck.regex [format "%s-%s" ${realname} {(\d+(?:\.\d+)*)}]
+    
+} else {
+    depends_lib-append \
+                    port:py${python.version}-six \
+                    port:py${python.version}-httplib2
+
+    depends_build-append \
+                    port:py${python.version}-setuptools
+
+    if {${python.version} == 25} {
+        depends_lib-append \
+                    port:py${python.version}-simplejson
+    }
+
+    if {${python.version} >= 30} {
+        depends_lib-append \
+                    port:py${python.version}-socksipy-branch
+    }
+
+    livecheck.type  none
+}

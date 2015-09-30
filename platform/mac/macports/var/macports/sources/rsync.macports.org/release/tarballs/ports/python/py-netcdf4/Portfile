@@ -1,0 +1,50 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134776 2015-04-07 05:24:59Z sean@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-netcdf4
+version             1.1.7.1
+categories-append   science
+platforms           darwin
+maintainers         sean \
+                    fastmail.fm:jswhit \
+                    openmaintainer
+license             MIT
+
+description         Python/numpy interface to netCDF
+long_description    netCDF version 4 has many features not found in \
+                    earlier versions of the library and is implemented \
+                    on top of HDF5. This module can read and write files \
+                    in both the new netCDF 4 and the old netCDF \
+                    3 format, and can create files that are readable by \
+                    HDF5 clients.
+homepage            http://code.google.com/p/netcdf4-python/
+
+master_sites        http://pypi.python.org/packages/source/n/netCDF4
+distname            netCDF4-${version}
+
+checksums           rmd160  168a0f13092a4d78e4219e8f12b6cc93553a4d82 \
+                    sha256  74dc9bdc066455c230f4e09a7443641b9612d02a2c055b0294d8ca924a0f577a
+
+build.env-append    USE_NCCONFIG=1
+destroot.env-append USE_NCCONFIG=1
+
+python.versions     26 27 33 34
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:netcdf \
+                        port:py${python.version}-numpy
+
+    pre-configure {
+        # py-netcdf4's setup.py uses nc-config for flags and libs but not compiler
+        configure.cc        [exec ${prefix}/bin/nc-config --cc]
+    }
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/netCDF4
+    livecheck.regex     >netCDF4-(.*)${extract.suffix}<
+}

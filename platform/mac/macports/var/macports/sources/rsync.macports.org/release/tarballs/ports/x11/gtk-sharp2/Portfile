@@ -1,0 +1,82 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 115235 2013-12-29 19:42:00Z devans@macports.org $
+
+PortSystem      1.0
+
+name            gtk-sharp2
+set my_name     gtk-sharp
+version         2.12.11
+revision        2
+set branch      [join [lrange [split ${version} .] 0 1] ""]
+categories      x11 devel
+license         LGPL-2
+platforms       darwin
+maintainers     nomaintainer
+description     Gtk bindings for the Mono .NET Development Framework
+
+long_description \
+    This is the Gtk# toolkit for Mono, an implementation \
+	of the .NET Development Framework.
+
+homepage        http://www.mono-project.com/GtkSharp
+master_sites    http://download.mono-project.com/sources/${my_name}${branch}/
+distname        ${my_name}-${version}
+
+checksums       md5     c278da6a472c6c13b698af012f543c64 \
+                sha1    1ef391896e57f2445b7a1ca1b640d74d533e2158 \
+                rmd160  f3106eb2fa764e9db9324e6d6653445b2f598efa
+
+use_bzip2       yes
+
+patchfiles      patch-gdk-sharp.dll.config.in.diff \
+                patch-glade-sharp.dll.config.in.diff \
+                patch-glib-sharp.dll.config.in.diff \
+                patch-gtk-sharp.dll.config.in.diff \
+                patch-pango-sharp.dll.config.in.diff
+
+depends_build   port:pkgconfig
+
+depends_lib     port:gtk2 \
+                port:mono \
+                port:libglade2
+
+# mono is not universal
+universal_variant   no
+
+post-patch {
+    # Fix build with glib-2.32
+    reinplace "s:<glib/.*>:<glib.h>:" ${worksrcpath}/glib/glue/thread.c
+}
+
+post-configure {
+    # TODO This shouldn't be needed, we need to fix Mono dllmap library path.
+    fs-traverse {f} ${worksrcpath} {
+        if {[string match *.dll.config ${f}]} {
+            reinplace -E "s|(target=\")|\\1${prefix}/lib/|" ${f}
+        }
+    }
+
+    reinplace "s/libgtk-x11-2\\.0\\.0\\.dylib/[glob -tail -path $prefix/lib/ libgtk-*-2.0.0.dylib]/" \
+        $worksrcpath/gtk/gtk-sharp.dll.config
+
+    reinplace "s/libgdk-x11-2\\.0\\.0\\.dylib/[glob -tail -path $prefix/lib/ libgdk-*-2.0.0.dylib]/" \
+        $worksrcpath/gdk/gdk-sharp.dll.config \
+        $worksrcpath/gtkdotnet/gtk-dotnet.dll.config
+}
+
+use_parallel_build  no
+
+post-destroot {
+    set docdir ${prefix}/share/doc/${my_name}-${version}
+    xinstall -d ${destroot}${docdir}
+    xinstall -m 644 -W ${worksrcpath} AUTHORS COPYING README README.generator \
+        ${destroot}${docdir}
+}
+
+variant debug description {Enable debug build} {
+    configure.args-append   --enable-debug
+}
+
+livecheck.type  regex
+livecheck.url   ${master_sites}
+livecheck.regex ${my_name}-(\\d+(?:\\.\\d+)*)

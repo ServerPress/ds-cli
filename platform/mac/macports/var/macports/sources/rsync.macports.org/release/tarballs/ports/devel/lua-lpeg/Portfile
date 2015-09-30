@@ -1,0 +1,61 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 114431 2013-12-08 09:48:42Z and.damore@macports.org $
+
+PortSystem          1.0
+
+name                lua-lpeg
+license             MIT
+version             0.11
+categories          devel
+platforms           darwin
+maintainers         gmail.com:andremm openmaintainer
+description         Parsing Expression Grammars for Lua
+long_description    LPeg is a new pattern-matching library for Lua, based on \
+                    Parsing Expression Grammars (PEGs).
+
+homepage            http://www.inf.puc-rio.br/~roberto/lpeg
+master_sites        ${homepage}
+distname            lpeg-${version}
+# upstream archive had a stealth update, setting subdir since it's likely to happen again
+dist_subdir         ${name}/${version}_1
+
+checksums           rmd160  2738018cab6231afbaee8045c45543e59ba8fa8d \
+                    sha256  234a3be92be6b263bb5b91df7067f1c1e14be2d38dae11184af5fa37436a0571
+
+depends_build       port:pkgconfig
+depends_lib         port:lua
+
+patchfiles          patch-makefile.diff
+post-patch {
+    reinplace  "s|%%CFLAGS%%|${configure.cflags}  `${prefix}/bin/pkg-config lua --cflags`|" ${worksrcpath}/makefile
+    reinplace "s|%%LDFLAGS%%|${configure.ldflags} `${prefix}/bin/pkg-config lua --libs`|"   ${worksrcpath}/makefile
+
+    reinplace "s|/usr/bin/env lua5.1|${prefix}/bin/lua|" ${worksrcpath}/test.lua
+}
+
+use_configure       no
+
+variant universal {}
+
+build.target
+build.args          CC="${configure.cc} [get_canonical_archflags]" \
+                    LUADIR=${prefix}/include 
+
+destroot {
+    set lua_cmod [exec ${prefix}/bin/pkg-config lua --variable INSTALL_CMOD]
+    set lua_lmod [exec ${prefix}/bin/pkg-config lua --variable INSTALL_LMOD]
+    set lua_docdir ${prefix}/share/doc/${name}
+    set lua_exampledir ${prefix}/share/examples/${name}
+
+    xinstall -m 755 -d \
+        ${destroot}${lua_cmod} \
+        ${destroot}${lua_lmod} \
+        ${destroot}${lua_docdir} \
+        ${destroot}${lua_exampledir}
+
+    xinstall ${worksrcpath}/lpeg.so ${destroot}${lua_cmod}
+    xinstall ${worksrcpath}/re.lua ${destroot}${lua_lmod}
+
+    xinstall -m 644 -W ${worksrcpath} HISTORY lpeg-128.gif lpeg.html re.html ${destroot}${lua_docdir}
+    xinstall -m 755 ${worksrcpath}/test.lua ${destroot}${lua_exampledir}
+}

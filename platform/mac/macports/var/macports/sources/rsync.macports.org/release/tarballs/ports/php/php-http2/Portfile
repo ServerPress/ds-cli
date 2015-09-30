@@ -1,0 +1,57 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135012 2015-04-13 07:45:11Z ryandesign@macports.org $
+
+PortSystem      1.0
+PortGroup       php 1.1
+
+name            php-http2
+version         2.4.3
+categories      php www
+platforms       darwin
+maintainers     ryandesign openmaintainer
+license         BSD
+
+php.branches    5.3 5.4 5.5 5.6
+php.pecl        yes
+php.pecl.name   pecl_http
+
+# The http2 extension must load after the propro and raphf extensions.
+# https://bugs.php.net/bug.php?id=66155
+php.extension_ini z${php.extension_ini}
+
+description     Extended HTTP Support
+
+long_description \
+    This HTTP extension aims to provide a convenient and powerful \
+    set of functionality for one of PHPs major applications. \
+    It eases handling of HTTP urls, dates, redirects, headers and \
+    messages, provides means for negotiation of clients preferred \
+    language and charset, as well as a convenient way to send any \
+    arbitrary data with caching and resuming capabilities. \
+    It provides powerful request functionality, if built with CURL \
+    support. Parallel requests are available for PHP 5 and greater.
+
+dist_subdir     php5-http
+
+checksums       rmd160  7de8495e55295139ef93d2b93a636e68e1b22354 \
+                sha256  2d9f3713331cf35b4a0162bd8b294683a67fecb5223e50978661acccd30c6c39
+
+if {${name} ne ${subport}} {
+    conflicts           ${php}-http
+
+    depends_lib-append  port:curl \
+                        port:${php}-iconv \
+                        port:${php}-propro \
+                        port:${php}-raphf \
+                        port:zlib
+    
+    configure.args      --with-http \
+                        --with-http-libcurl-dir=${prefix} \
+                        --with-http-shared-deps \
+                        --with-http-zlib-dir=${prefix} \
+                        --without-http-libevent-dir
+    
+    configure.cppflags-append -DHAVE_ICONV
+
+    use_parallel_build  yes
+}

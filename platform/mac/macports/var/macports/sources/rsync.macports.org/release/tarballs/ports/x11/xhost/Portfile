@@ -1,0 +1,31 @@
+# $Id: Portfile 108917 2013-08-04 19:14:01Z jeremyhu@macports.org $
+
+PortSystem          1.0
+
+name                xhost
+version             1.0.6
+categories          x11
+license             X11
+maintainers         jeremyhu openmaintainer
+description         Server access control program for X11
+long_description \
+   The xhost program is used to add and delete host names or user names to \
+   the list allowed to make connections to the X server.
+
+platforms           darwin
+
+homepage            http://www.x.org/
+master_sites        xorg:individual/app/
+use_bzip2           yes
+
+checksums           sha1    6224c8bcd909bf205c7e92dbdc349356890c4428 \
+                    rmd160  f64faa75625793d588172780fceedf13e3473ea6 \
+                    sha256  a6f5b922df0a7be5d3ba43f525fa8e69c539c738418f013a0b7adaa423a89dc2
+
+depends_build       port:pkgconfig
+
+depends_lib         port:xorg-libXmu
+
+livecheck.type      regex
+livecheck.regex     ${name}-(\[\\d.\]+)${extract.suffix}
+livecheck.url       http://xorg.freedesktop.org/archive/individual/app/?C=M&O=D

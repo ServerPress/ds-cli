@@ -1,0 +1,35 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         ExtUtils-MakeMaker 7.04
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Create a module Makefile
+long_description    This utility is designed to write a Makefile for an \
+                    extension module from a Makefile.PL.
+
+platforms           darwin
+
+checksums           rmd160  cb7f5b462b01c857aedd9e91e88801c81d41eed0 \
+                    sha256  98126b012d70c2af0f8e33a07ebe0d6f2340281b2460981b959a9fb31d5ad97f
+
+configure.env       BUILDING_AS_PACKAGE=1
+
+supported_archs     noarch
+
+perl5.link_binaries no
+if {${perl5.major} != ""} {
+depends_lib-append  port:p${perl5.major}-cpan-meta \
+                    port:p${perl5.major}-cpan-meta-yaml \
+                    port:p${perl5.major}-extutils-command \
+                    port:p${perl5.major}-extutils-install \
+                    port:p${perl5.major}-extutils-manifest \
+                    port:p${perl5.major}-file-temp \
+                    port:p${perl5.major}-parse-cpan-meta \
+                    port:p${perl5.major}-scalar-list-utils \
+                    port:p${perl5.major}-version
+}

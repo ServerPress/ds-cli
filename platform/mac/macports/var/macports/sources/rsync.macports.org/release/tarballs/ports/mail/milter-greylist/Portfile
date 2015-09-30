@@ -1,0 +1,63 @@
+# $Id: Portfile 124225 2014-08-21 14:46:48Z dluke@macports.org $
+
+PortSystem 1.0
+
+name	           	milter-greylist
+version         	4.4.1
+revision		1
+categories      	mail
+maintainers     	geeklair.net:dluke
+platforms		darwin
+description     	milter-greylist standalone greylist milter
+license			BSD
+
+long_description	milter-greylist is a stand-alone milter written in C \
+			that implements the greylist filtering method
+
+homepage        http://hcpnet.free.fr/milter-greylist/
+master_sites    http://ftp.espci.fr/pub/milter-greylist/ \
+                ftp://ftp.espci.fr/pub/milter-greylist/
+
+extract.suffix	.tgz
+
+checksums	md5	56cfd2aa25d4eb88bb94cd0ee5026508 \
+		sha1	4ed61d7f76e88266ce21096d08191c23b281bf74 \
+		rmd160	17daad46bd5f5e1e5f62cec74d293b2599d8c147
+
+depends_lib	port:libmilter
+
+use_parallel_build	no
+
+configure.args	--mandir=${prefix}/share \
+		--with-user=milter-greylist \
+		--with-libmilter=${prefix}
+
+add_users milter-greylist group=milter-greylist
+
+#- otherwise the 10.8 sed complains - sed: RE error: illegal byte sequence
+build.env LANG=C
+
+post-configure	{
+			reinplace "s|/etc/mail|${prefix}/etc/mail|g" \
+				${worksrcpath}/Makefile ${worksrcpath}/conf.h
+			reinplace "s|/var/milter-greylist|${prefix}/var/milter-greylist|g" \
+				${worksrcpath}/greylist.conf
+		}
+
+post-destroot	{
+			file rename ${destroot}${prefix}/etc/mail/greylist.conf \
+				${destroot}${prefix}/etc/mail/greylist.conf.sample
+			xinstall -o milter-greylist -g milter-greylist \
+				-d ${destroot}${prefix}/var/milter-greylist
+		}
+
+destroot.keepdirs ${destroot}${prefix}/var/milter-greylist
+
+startupitem.create	yes
+startupitem.name	milter-greylist
+startupitem.executable	${prefix}/bin/milter-greylist -D -u milter-greylist:milter-greylist
+
+variant postfix	description {build with postfix support} {
+			depends_lib-append port:postfix
+			configure.args-append --enable-postfix
+		}

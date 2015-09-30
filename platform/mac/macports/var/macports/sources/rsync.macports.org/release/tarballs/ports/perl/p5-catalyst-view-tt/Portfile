@@ -1,0 +1,27 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 131709 2015-01-16 07:37:54Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Catalyst-View-TT 0.42
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Helper for TT view which builds a skeleton web site
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  24beba64bae6e37fc584db4bf26a451c50124b10 \
+                    sha256  e804ca8ab0ea1417f390eaf7129884f20daab35c2cf2a4b472122becd28c91a1
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-catalyst-runtime \
+                    port:p${perl5.major}-class-accessor \
+                    port:p${perl5.major}-mro-compat \
+                    port:p${perl5.major}-path-class \
+                    port:p${perl5.major}-template-toolkit \
+                    port:p${perl5.major}-template-timer
+}

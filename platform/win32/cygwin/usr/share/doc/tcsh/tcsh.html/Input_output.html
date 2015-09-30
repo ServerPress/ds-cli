@@ -1,0 +1,98 @@
+<HEAD>
+<TITLE>Input/output</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Features.html">Next</A>
+<A HREF="Builtin_and_non-builtin_command_execution.html">Previous</A>
+<H2>Input/output</H2>
+The standard input and standard output of a command may be redirected with the
+following syntax:
+<P>
+<P>
+<DL compact>
+<DT>
+&lt; <I>name</I>
+<DD>
+Open file <I>name</I> (which is first variable, command and filename
+expanded) as the standard input.
+<P>
+<DT>
+&lt;&lt; <I>word</I>
+<DD>
+Read the shell input up to a line which is identical to <I>word</I>.  <I>word</I>
+is not subjected to variable, filename or command substitution, and each input
+line is compared to <I>word</I> before any substitutions are done on this input
+line.  Unless a quoting `\', `"', `' or `\`' appears in <I>word</I> variable and
+command substitution is performed on the intervening lines, allowing `\' to
+quote `$', `\' and `\`'.  Commands which are substituted have all blanks, tabs,
+and newlines preserved, except for the final newline which is dropped.  The
+resultant text is placed in an anonymous temporary file which is given to the
+command as standard input.
+</DL>
+<P>
+&gt; <I>name</I>
+<BR>
+&gt;! <I>name</I>
+<BR>
+&gt;&amp; <I>name</I>
+<P>
+<DL compact>
+<DT>
+&gt;&amp;! <I>name</I>
+<DD>
+The file <I>name</I> is used as standard output.  If the file does not exist
+then it is created; if the file exists, it is truncated, its previous contents
+being lost.
+</DL>
+<P>
+<menu>
+If the shell variable <B><A HREF="Special_shell_variables.html#noclobber">noclobber</A></B> is set, then the file must not exist or be a
+character special file (e.g., a terminal or `/dev/null') or an error results.
+This helps prevent accidental destruction of files.  In this case the `!' forms
+can be used to suppress this check.
+<P>
+The forms involving `&amp;' route the diagnostic output into the specified file as
+well as the standard output.  <I>name</I> is expanded in the same way as `&lt;'
+input filenames are.
+<P>
+</menu>
+&gt;&gt; <I>name</I>
+<BR>
+&gt;&gt;&amp; <I>name</I>
+<BR>
+&gt;&gt;! <I>name</I>
+<P>
+<DL compact>
+<DT>
+&gt;&gt;&amp;! <I>name</I>
+<DD>
+Like `&gt;', but appends output to the end of <I>name</I>.
+If the shell variable <B><A HREF="Special_shell_variables.html#noclobber">noclobber</A></B> is set, then it is an error for
+the file <I>not</I> to exist, unless one of the `!' forms is given.
+</DL>
+<P>
+A command receives the environment in which the shell was invoked as modified
+by the input-output parameters and the presence of the command in a pipeline.
+Thus, unlike some previous shells, commands run from a file of shell commands
+have no access to the text of the commands by default; rather they receive the
+original standard input of the shell.  The `&lt;&lt;' mechanism should be used to
+present inline data.  This permits shell command scripts to function as
+components of pipelines and allows the shell to block read its input.  Note
+that the default standard input for a command run detached is <I>not</I>
+the empty file <I>/dev/null</I>, but the original standard input of the shell.
+If this is a terminal and if the process attempts to read from the terminal,
+then the process will block and the user will be notified (see <B><A HREF="Jobs.html">Jobs</A></B>).
+<P>
+Diagnostic output may be directed through a pipe with the standard output.
+Simply use the form `|&amp;' rather than just `|'.
+<P>
+The shell cannot presently redirect diagnostic output without also redirecting
+standard output, but `(<I>command</I> &gt; <I>output-file</I>) &gt;&amp; <I>error-file</I>'
+is often an acceptable workaround.  Either <I>output-file</I> or
+<I>error-file</I> may be `/dev/tty' to send output to the terminal.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Features.html">Next</A>
+<A HREF="Builtin_and_non-builtin_command_execution.html">Previous</A>
+</BODY>

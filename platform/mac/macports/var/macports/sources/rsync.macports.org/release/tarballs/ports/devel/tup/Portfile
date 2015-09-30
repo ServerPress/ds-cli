@@ -1,0 +1,54 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136754 2015-05-26 02:01:51Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        gittup tup 0.7.3 v
+categories          devel
+platforms           macosx
+maintainers         ryandesign openmaintainer
+license             GPL-2
+
+description         A build system with amazingly fast incremental build cycle
+
+long_description    \
+    Tup is a file-based build system - it inputs a list of file changes    \
+    and a directed acyclic graph (DAG), then processes the DAG to execute  \
+    the appropriate commands required to update dependent files.  The DAG  \
+    is stored in an SQLite database.  By providing the file change log up  \
+    front and storing the dependencies in an efficient database structure, \
+    updates can be performed with very little overhead.
+
+homepage            http://gittup.org/tup/
+
+checksums           rmd160  5a4bcf58898af54f29fc2ac366fb25f66b92c066 \
+                    sha256  6360f9dd92ad163758307173d716ba2f51de3c6af69eaa006711cdb371d93e97
+
+depends_build       port:pkgconfig
+
+depends_lib         port:osxfuse \
+                    port:libiconv
+
+patchfiles          patch-build.sh.diff \
+                    patch-readlinkat.diff
+
+use_configure       no
+
+build.cmd           ./build.sh
+build.env-append    CC=${configure.cc} \
+                    CFLAGS="${configure.cflags} [get_canonical_archflags cc]" \
+                    LDFLAGS="${configure.ldflags} [get_canonical_archflags ld]" \
+                    TUP_LABEL=${version}
+
+destroot {
+    xinstall -m 0755 ${worksrcpath}/build/tup ${destroot}${prefix}/bin/
+    xinstall -m 0644 ${worksrcpath}/tup.1 ${destroot}${prefix}/share/man/man1/
+
+    set docdir ${prefix}/share/doc/${subport}
+    xinstall -d ${destroot}${docdir}
+    xinstall -m 0644 -W ${worksrcpath} \
+        COPYING \
+        README.md \
+        ${destroot}${docdir}
+}

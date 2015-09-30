@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 131370 2015-01-10 16:09:27Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                advancecomp
+version             1.19
+categories          archivers
+platforms           darwin
+maintainers         nomaintainer
+license             GPL-3
+
+description         recompression utilities for .PNG, .MNG, .ZIP and .GZ files
+
+long_description    AdvanceCOMP is a set of recompression utilities for \
+                    .PNG, .MNG, .ZIP and .GZ files. The main features are: \
+                    Recompress ZIP, GZ, PNG and MNG files using the Deflate \
+                    7-Zip implementation, and recompress MNG files using \
+                    Delta and Move optimization.
+
+homepage            http://advancemame.sourceforge.net/comp-readme.html
+master_sites        sourceforge:project/advancemame/advancecomp/${version}
+
+checksums           rmd160  1064b5068178f6b65b30821cc19dcc0d241e4934 \
+                    sha256  d594c50c3da356aa961f75b00e958a4ed1e142c6530b42926092e46419af3047
+
+depends_lib         port:bzip2 \
+                    port:zlib
+
+configure.args      --enable-bzip2
+
+post-destroot {
+    set docdir ${prefix}/share/doc/${subport}
+        xinstall -d ${destroot}${docdir}
+        xinstall -m 0644 -W ${worksrcpath} AUTHORS COPYING HISTORY README \
+                ${destroot}${docdir}
+}
+
+livecheck.distname  ${name}

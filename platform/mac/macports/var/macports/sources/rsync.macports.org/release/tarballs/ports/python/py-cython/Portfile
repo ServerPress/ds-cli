@@ -1,0 +1,63 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137985 2015-06-24 07:30:40Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           select 1.0
+
+name                py-cython
+version             0.22.1
+revision            0
+categories-append   devel
+platforms           darwin
+license             Apache-2
+
+python.versions     26 27 33 34
+
+maintainers         stromnov openmaintainer
+
+description         A language for writing C extension modules for Python.
+
+long_description    Cython is a language that makes writing C extensions for \
+                    the Python language as easy as Python itself. Cython is  \
+                    based on the well-known Pyrex, but supports more cutting \
+                    edge functionality and optimizations
+
+homepage            http://www.cython.org/
+master_sites        ${homepage}release/ \
+                    https://pypi.python.org/packages/source/C/Cython/
+
+distname            Cython-${version}
+
+checksums           rmd160  b4e5b28c2e3af0465eb639f16a6102ed0d61d3d6 \
+                    sha256  7fff120e65e7b66edb4a42823f5642bad3bc1e5601bf882d66aee50248cf0682
+
+if {${name} ne ${subport}} {
+    post-destroot {
+        xinstall -m 755 -d ${destroot}${python.prefix}/share/doc/cython
+        xinstall -m 644 -W ${worksrcpath}/Doc About.html FAQ.html \
+            extension_types.html index.html overview.html primes.c sharing.html \
+            special_methods.html ${destroot}${python.prefix}/share/doc/cython
+        xinstall -m 644 -W ${worksrcpath} INSTALL.txt README.txt \
+            ToDo.txt USAGE.txt ${destroot}${python.prefix}/share/doc/cython
+    }
+
+    depends_run         port:cython_select
+    test.run            no
+
+    select.group        cython
+    select.file         ${filespath}/cython${python.version}
+
+    notes "
+To make the Python ${python.branch} version of Cython the one that is run\
+when you execute the commands without a version suffix, e.g. 'cython', run:
+
+port select --set ${select.group} [file tail ${select.file}]
+"
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       [lindex ${master_sites} 0]
+    livecheck.regex     {Cython-(\d+(?:\.\d+)*)\.[tz]}
+}

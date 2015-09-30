@@ -1,0 +1,54 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136034 2015-05-10 16:13:39Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-axiom
+set gname           python-axiom
+version             0.7.3
+license             MIT
+categories-append   databases
+platforms           darwin
+supported_archs     noarch
+
+maintainers         devans openmaintainer
+
+description         Axiom is an object database, or alternatively, an object-relational \
+                    mapper, implemented on top of Python.
+
+long_description    ${description} \
+                    Its primary goal is to provide an object-oriented layer with the key \
+                    aspects of OOP (Object Oriented Programming), i.e. polymorphism and \
+                    message dispatch, without hindering the power of an RDBMS \
+                    (Relational DataBase Management System).
+
+homepage            https://pypi.python.org/pypi/Axiom
+master_sites        debian:p/${gname}
+
+distname            ${gname}_${version}.orig
+
+checksums           rmd160  19898e9ab5e6b075d110eea514c1c8735436efbc \
+                    sha256  f6607717c0ac812eedcbca45927099cd998626bbd7fc6a9cb075295cdc6a403f
+
+worksrcdir          Axiom-${version}
+
+python.default_version  27
+python.versions     27
+
+if {${name} ne ${subport}} {
+    depends_build-append    port:py${python.version}-setuptools
+    depends_lib-append      port:py${python.version}-epsilon \
+                            port:py${python.version}-sqlite
+
+    post-destroot {
+          set filepath ${destroot}${python.libdir}/site-packages/twisted/plugins/dropin.cache 
+          if {[file exists ${filepath}]} {
+              file delete ${filepath}
+          }
+    }
+}
+
+livecheck.type      regex
+livecheck.url       http://ftp.us.debian.org/debian/pool/main/p/${gname}/
+livecheck.regex     "${gname}_(\\d+(?:\\.\\d+)*)\\.orig${extract.suffix}"

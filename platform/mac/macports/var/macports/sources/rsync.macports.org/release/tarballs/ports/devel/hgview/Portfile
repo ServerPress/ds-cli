@@ -1,0 +1,71 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 132472 2015-02-02 04:41:59Z sean@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                hgview
+version             1.8.2
+categories          devel python
+license             GPL-2
+platforms           darwin
+supported_archs     noarch
+maintainers         sean openmaintainer
+
+homepage            http://www.logilab.org/project/${name}
+master_sites        http://download.logilab.org/pub/${name}
+description         A fast Mercurial log navigator
+long_description    hgview is a simple tool aiming at visually navigate \
+                    in a Mercurial repository history. It is written in \
+                    Python with quick and efficient key-based navigation \
+                    in mind, trying to be fast enough to be usable for \
+                    big repositories.
+
+depends_build-append port:asciidoc \
+                    port:xmlto
+
+depends_lib-append  path:bin/hg:mercurial \
+                    port:py27-qscintilla \
+                    port:py27-pygments \
+                    port:py27-docutils \
+                    port:py27-urwid
+
+checksums           rmd160  af867f582f53a8b3c2965cc41af211eead4bb40d \
+                    sha256  511445c7bd9441750dac929bb24f70bcc020daf9a68f1f923e947f6263ac47bb
+
+conflicts           ${name}-devel
+
+python.versions     27
+python.link_binaries_suffix
+
+livecheck.type      regex
+livecheck.url       http://pypi.python.org/pypi/hgview
+livecheck.regex     ${name}-(\[0-9.\]+)${extract.suffix}
+
+post-patch {
+    reinplace -W $worksrcpath "s,pyrcc4,pyrcc4-2.7," setup.py
+    reinplace -W $worksrcpath "s,pyrcc4,pyrcc4-2.7," hgviewlib/qt4/__init__.py
+    reinplace -W $worksrcpath "s,pyuic4,pyuic4-2.7," hgviewlib/qt4/hgdialogmixin.py
+}
+
+post-destroot {
+    move ${destroot}${python.pkgd}/hgext/hgview.py ${destroot}${python.pkgd}/hgview.py
+    move ${destroot}${python.pkgd}/hgext/hgview.pyc ${destroot}${python.pkgd}/hgview.pyc
+}
+
+subport ${name}-devel {
+    version         1.7.99
+    revision        1
+    fetch.type      hg
+    hg.url          http://hg.logilab.org/master/hgview/
+    hg.tag          b115909fe347
+    conflicts       ${name}
+    livecheck.type  none
+}
+
+notes               "
+To enable ${name}, add the following to your ~/.hgrc:
+
+\[extensions\]
+${name} =
+"

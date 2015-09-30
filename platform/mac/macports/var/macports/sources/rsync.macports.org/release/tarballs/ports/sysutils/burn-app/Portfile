@@ -1,0 +1,52 @@
+# $Id: Portfile 94512 2012-06-21 04:03:12Z rmstonecipher@macports.org $
+
+PortSystem 1.0
+PortGroup xcode 1.0
+
+name            burn-app
+version         2.5.1
+categories      sysutils
+platforms       macosx
+license		GPL-2
+maintainers     raimue
+
+description     Burn.app is a burning application for Mac OS X
+long_description \
+                Burn.app is an open source frontend for Apple's DiscBurning \
+                Framework
+
+homepage        http://burn-osx.sourceforge.net/
+master_sites    sourceforge:burn-osx
+distname        burn[strsed ${version} {g/\\.//}]src
+use_zip         yes
+
+checksums       md5     81c2fe4298d820ee2b0149b6328fda4a \
+                sha1    bbfd94746e353ed7bbce1401ee6cf5543d03d3dd \
+                rmd160  d50980ba43d58fd1d930ec6ed992834f19ac545e
+
+worksrcdir      Source.localized
+xcode.configuration     Release
+
+variant universal {
+    # NB: has problems with 64-bit
+    xcode.target "Burn (Universal)"
+    configure.universal_archs ppc i386
+}
+
+platform i386 {
+    if {![variant_isset universal]} {
+        xcode.target "Burn (Intel)"
+        configure.build_arch i386
+    }
+}
+
+platform powerpc {
+    if {![variant_isset universal]} {
+        xcode.target "Burn (PowerPC)"
+        configure.build_arch ppc
+    }
+}
+
+livecheck.type  regex
+livecheck.url http://sourceforge.net/projects/burn-osx/files/Burn/
+livecheck.regex {/Burn/(\d+(?:\.\d+)+)/}

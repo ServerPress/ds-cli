@@ -1,0 +1,60 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136949 2015-05-31 04:17:42Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                dylibbundler
+version             0.4.4
+revision            2
+categories          devel
+platforms           darwin
+maintainers         strasweb.fr:rudloff openmaintainer
+license             GPL-2+
+
+description         terminal utility for Mac OS X that eases bundling dynamic \
+                    libraries (.dylib) inside app bundles
+
+long_description    ${name} is a small command-line programs that aims to \
+                    make bundling .dylibs as easy as possible. It \
+                    automatically determines which dylibs are needed by your \
+                    program, copies these libraries inside the app bundle, \
+                    and fixes both them and the executable to be ready for \
+                    distribution, all this with a single command. It will \
+                    also work if your program uses plug-ins that have \
+                    dependencies too.
+
+homepage            http://macdylibbundler.sourceforge.net/
+master_sites        sourceforge:project/macdylibbundler/macdylibbundler/${version}
+use_zip             yes
+
+checksums           rmd160  e6c4f4d6f7ba340775e5af3942f0d5740b3a7152 \
+                    sha256  65d050327df99d12d96ae31a693bace447f4115e6874648f1b3960a014362200
+
+pre-fetch {
+    if {${os.platform} ne "darwin"} {
+        ui_error "${name} is designed for use on Darwin or OS X only."
+        return -code error "incompatible platform"
+    }
+}
+
+patchfiles          patch-makefile.diff \
+                    patch-src-DylibBundler.cpp.diff \
+                    patch-src-main.cpp.diff
+
+post-patch {
+    reinplace "s|@VERSION@|${version}|g" ${worksrcpath}/src/main.cpp
+}
+
+use_configure       no
+
+variant universal {}
+
+build.args          CXX="${configure.cxx} [get_canonical_archflags cxx]"
+
+destroot.args       PREFIX=${prefix}
+
+post-destroot {
+    set docdir ${prefix}/share/doc/${subport}
+    xinstall -d ${destroot}${docdir}
+    xinstall -m 644 -W ${worksrcpath} dylibbundler.png index.html maclib.jpg ${destroot}${docdir}
+}

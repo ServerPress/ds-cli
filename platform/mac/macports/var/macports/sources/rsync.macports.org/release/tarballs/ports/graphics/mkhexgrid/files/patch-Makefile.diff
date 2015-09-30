@@ -1,0 +1,26 @@
+--- Makefile.orig	2010-02-04 04:31:19.000000000 -0500
++++ Makefile	2010-02-04 04:31:44.000000000 -0500
+@@ -1,16 +1,16 @@
+-DESTDIR=/usr/local
+-BINDIR=$(DESTDIR)/bin
+-DOCDIR=$(DESTDIR)/share/doc
+-MANDIR=$(DESTDIR)/share/man
++DESTDIR=@@PREFIX@@
++BINDIR=@@PREFIX@@/bin
++DOCDIR=@@PREFIX@@/share/doc
++MANDIR=@@PREFIX@@/share/man
+ 
+ VERSION=$(shell cat VERSION)
+ RELEASE=$(shell sed -n 's/^Release: *\([0-9]*\)/\1/p' mkhexgrid.spec)
+ DISTDIR=mkhexgrid-$(VERSION)
+ RPMDIR=/home/uckelman/rpmbuild
+ 
+-CC=g++
+-CPPFLAGS=-c -g -O2 -W -Wall -DVERSION='"$(VERSION)"'
+-LDFLAGS=-lm -lstdc++ -lgd
++CC=@@CC@@
++CPPFLAGS=-c -g -O2 -W -Wall -DVERSION='"$(VERSION)"' @@CPPFLAGS@@
++LDFLAGS=-lm -lstdc++ -lgd @@LDFLAGS@@
+ 
+ FILES=grid.h \
+       grid.cpp \

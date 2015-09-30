@@ -1,0 +1,30 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138134 2015-06-30 02:16:03Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Path-Tiny 0.070 ../by-authors/id/D/DA/DAGOLDEN
+license             {Artistic-1 GPL}
+maintainers         devans openmaintainer
+description         Path::Tiny - File path utility
+long_description    This module provide a small, fast utility for working with file paths. \
+                    It is friendlier to use than File::Spec and provides easy access to \
+                    functions from several other core file handling modules.
+
+platforms           darwin
+
+checksums           rmd160  e5b43657503d1a912bdad473b52ecbc9c330f05f \
+                    sha256  45244a3922444333bff91bd13e69404dc6d4edde7e5cfac093a629942cf4142a
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-test-failwarnings
+
+    depends_lib-append \
+                    port:p${perl5.major}-pathtools \
+                    port:p${perl5.major}-unicode-utf8
+
+    supported_archs noarch
+}

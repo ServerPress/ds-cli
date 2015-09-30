@@ -1,0 +1,18 @@
+# $Id: Portfile 137331 2015-06-09 11:17:57Z kimuraw@macports.org $
+
+PortSystem        1.0
+PortGroup         ruby 1.0
+
+ruby.setup        actionmailer 2.2.2 gem {} rubygems
+categories-append devel
+maintainers       gmail.com:rcavanaugh
+description       Simplifies the creation of mail service classes.
+long_description  Simplifies the creation of mail service classes \
+                  that uses Action View (from Action Pack) to render \
+                  the body templates.
+checksums           md5     bd50366a8bd2a88d0e312241c4123028 \
+                    sha1    a7f3d228cdc763886fd1fe8b5637c56795df3fd0 \
+                    rmd160  9f896948661bbf66e0ec26dded72eced17ae8451
+platforms         darwin
+
+depends_lib-append  port:rb-actionpack

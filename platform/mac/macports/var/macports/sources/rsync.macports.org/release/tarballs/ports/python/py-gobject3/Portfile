@@ -1,0 +1,75 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137920 2015-06-23 01:55:37Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           compiler_blacklist_versions 1.0
+
+name                py-gobject3
+set my_name         pygobject
+version             3.16.2
+set branch          [join [lrange [split ${version} .] 0 1] .]
+categories-append   gnome
+license             LGPL-2.1+
+maintainers         cal openmaintainer
+platforms           darwin
+description         Python bindings for GObject, version 3
+
+long_description \
+    PyGObject is a Python dynamic module that enables developers to use the \
+    power of GObject, which is part of the GNOME platform.
+
+homepage            https://wiki.gnome.org/Projects/PyGObject
+master_sites        gnome:sources/${my_name}/${branch}/
+distname            ${my_name}-${version}
+use_xz              yes
+
+checksums           sha256  de620e00fe7ecb788aa2dc0d664e41f71b8e718e728168e8d982cf193a9e7e64 \
+                    rmd160  e33890c8023a0a30202126b9973d4b749b6dbae9
+
+python.versions     27 33 34
+
+if {${name} ne ${subport}} {
+    depends_build-append    port:pkgconfig
+    depends_lib-append      path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                            port:libffi \
+                            port:py${python.version}-cairo \
+                            port:gobject-introspection
+
+#   blacklist compilers that do not support C11
+    compiler.blacklist  *gcc* {clang < 300}
+
+    use_configure           yes
+    configure.python        ${python.bin}
+    configure.pkg_config_path \
+                            ${python.prefix}/lib/pkgconfig
+    configure.pre_args      --prefix='${python.prefix}'
+    configure.args          --disable-glibtest \
+                            --disable-silent-rules
+    configure.cppflags-append \
+                            -I${python.prefix}/include
+
+    build.cmd               [portbuild::build_getmaketype]
+    build.target
+
+    destroot.cmd            ${build.cmd}
+    destroot.target         install
+    destroot.destdir        DESTDIR=${destroot}
+
+    test.run                yes
+    test.env                PYTHONPATH=[glob -nocomplain ${worksrcpath}/build/lib*]
+    test.target             check
+
+    post-destroot {
+        set docdir ${prefix}/share/doc/${subport}
+        xinstall -d ${destroot}${docdir}
+        xinstall -m 0644 -W ${worksrcpath} \
+            AUTHORS COPYING ChangeLog NEWS README \
+            ${destroot}${docdir}
+    }
+
+    livecheck.type  none
+} else {
+    livecheck.type  gnome
+    livecheck.name  ${my_name}
+}

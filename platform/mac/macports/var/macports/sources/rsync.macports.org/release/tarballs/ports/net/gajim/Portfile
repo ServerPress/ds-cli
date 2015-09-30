@@ -1,0 +1,94 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-off    set: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 127107 2014-10-21 04:40:49Z larryv@macports.org $
+
+PortSystem          1.0
+
+name                gajim
+version             0.14.1
+revision            2
+set branch          [join [lrange [split ${version} .] 0 1] .]
+homepage            http://www.gajim.org/
+categories          net chat x11
+license             GPL-3
+
+description         A full featured and easy to use Jabber client.
+long_description    The goal of Gajim is to provide a full featured and \
+                    easy to use Jabber client. Gajim works nicely with \
+                    GNOME, but does not require it to run.
+
+maintainers         rene \
+                    openmaintainer
+
+platforms           darwin
+supported_archs     noarch
+
+master_sites        http://www.gajim.org/downloads/${branch}/
+use_bzip2           yes
+checksums           md5     d5e421da6eef7bb5e802231d93cb090f \
+                    sha1    d2fdf32ded4a5fb3c7a277a765f84a5453931f34 \
+                    rmd160  859cbd4a9f190adfc6b84c23ef03e3c3cab09d8d
+
+post-patch {
+    # Force usage of MacPorts python
+    reinplace "s|@PYTHON@|${prefix}/bin/python2.6|" \
+        ${worksrcpath}/scripts/gajim.in
+}
+
+depends_build       port:intltool \
+                    port:pkgconfig
+depends_lib         port:gettext \
+                    port:gtk2 \
+                    port:py26-pygtk \
+                    port:py26-gobject \
+                    port:py26-docutils \
+                    port:py26-openssl \
+                    port:dbus-python26
+
+set python_prefix ${frameworks_dir}/Python.framework/Versions/2.6
+configure.pkg_config_path  ${python_prefix}/lib/pkgconfig
+
+configure.args      --disable-trayicon \
+                    --enable-idle \
+                    --disable-gtkspell \
+                    --disable-remote \
+                    --enable-nls
+
+variant gnome description {Add GNOME support} {
+    depends_lib-append      port:gnome-desktop
+}
+
+variant zeroconf description {Add zeroconf (Bonjour) support} {
+    depends_lib-append      port:dbus-glib \
+                            port:avahi
+}
+
+variant trayicon description {Add trayicon support} {
+    configure.args-delete   --disable-trayicon
+    configure.args-append   --enable-trayicon
+}
+
+variant noidle description {Disable idle support} {
+    configure.args-delete   --enable-idle
+    configure.args-append   --disable-idle
+}
+
+variant remote description {Add remote support} {
+    configure.args-delete   --disable-remote
+    configure.args-append   --enable-remote
+    depends_lib-append      port:dbus
+}
+
+variant nonls description {Disable native language support} {
+    configure.args-delete   --enable-nls
+    configure.args-append   --disable-nls
+}
+
+variant gtkspell description {Add gtkspell support} {
+    configure.args-delete   --disable-gtkspell
+    configure.args-append   --enable-gtkspell
+    depends_lib-append      port:gtkspell2
+}
+
+livecheck.type      regex
+livecheck.url       ${homepage}/downloads.php?lang=en
+livecheck.regex     "Latest version of Gajim is\\s+<strong>(\\d+.\\d+.\\d+)<"

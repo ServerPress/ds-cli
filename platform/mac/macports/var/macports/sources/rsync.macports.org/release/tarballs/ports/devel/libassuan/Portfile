@@ -1,0 +1,33 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138195 2015-07-01 19:49:09Z larryv@macports.org $
+
+PortSystem          1.0
+
+name                libassuan
+version             2.2.1
+categories          devel
+platforms           darwin
+# strangely enough, only the docs are under GPL3
+license             LGPL-2.1+ GPL-3+
+maintainers         nomaintainer
+
+description         Assuan IPC Library
+long_description    Libassuan is a small library implementing the \
+                    so-called 'Assuan' protocol. This protocol is used \
+                    for IPC between most newer GnuPG components. Both \
+                    server and client side functions are provided.
+homepage            http://www.gnupg.org/related_software/libassuan/index.html
+
+depends_lib         port:libgpg-error port:pth
+
+master_sites        gnupg
+use_bzip2           yes
+checksums           rmd160  a3cd677855045fe095a1d04de756ab4d8e25521c \
+                    sha256  949285bb79345362cb72a40c798defefc007031c60f2f10251720bf60a9de2de
+
+test.run            yes
+test.target         check
+
+livecheck.type      regex
+livecheck.url       https://gnupg.org/download/index.html
+livecheck.regex     ${name}-(\\d+(\\.\\d+)+)${extract.suffix}

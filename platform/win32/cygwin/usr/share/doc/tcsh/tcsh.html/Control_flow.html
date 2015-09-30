@@ -1,0 +1,27 @@
+<HEAD>
+<TITLE>Control flow</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Expressions.html">Next</A>
+<A HREF="Features.html">Previous</A>
+<H2>Control flow</H2>
+The shell contains a number of commands which can be used to regulate the
+flow of control in command files (shell scripts) and (in limited but
+useful ways) from terminal input.  These commands all operate by forcing the
+shell to reread or skip in its input and, due to the implementation,
+restrict the placement of some of the commands.
+<P>
+The <I><A HREF="Builtin_commands.html#foreach">foreach</A></I>, <I><A HREF="Builtin_commands.html#switch">switch</A></I>, and <I><A HREF="Builtin_commands.html#while">while</A></I> statements, as well as the
+<I>if-then-else</I> form of the <I><A HREF="Builtin_commands.html#if">if</A></I> statement, require that the major
+keywords appear in a single simple command on an input line as shown below.
+<P>
+If the shell's input is not seekable, the shell buffers up input whenever
+a loop is being read and performs seeks in this internal buffer to
+accomplish the rereading implied by the loop.  (To the extent that this
+allows, backward <I><A HREF="Builtin_commands.html#goto">goto</A></I>s will succeed on non-seekable inputs.)
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Expressions.html">Next</A>
+<A HREF="Features.html">Previous</A>
+</BODY>

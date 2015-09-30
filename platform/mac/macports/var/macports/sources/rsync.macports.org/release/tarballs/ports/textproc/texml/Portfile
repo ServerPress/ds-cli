@@ -1,0 +1,36 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 127842 2014-11-05 05:12:47Z khindenburg@macports.org $
+
+PortSystem      1.0
+PortGroup       python 1.0
+
+name            texml
+version         2.0.2
+categories      textproc
+license         MIT
+maintainers     nomaintainer
+platforms       darwin
+
+description     XML syntax for TeX
+long_description \
+    TeXML is an XML vocabulary for TeX. The processor transforms the TeXML \
+    markup into the TeX markup, escaping special and out-of-encoding \
+    characters. The intended audience is developers who automatically \
+    generate (La)TeX or ConTeXt files.
+
+homepage        http://getfo.org/texml/
+master_sites    sourceforge:getfo
+
+checksums       rmd160  f7598b7d2bc914c8ab912b119c0fb89988a4bb41 \
+                sha256  9446966f80e4b63fc73741091fe611dd39a28810d3fa540f9f2a7ea22a8e0696
+
+python.default_version 27
+
+post-destroot {
+    xinstall -d "${destroot}${prefix}/share/man/man1"
+    foreach man [glob -nocomplain -tails -directory "${destroot}${python.prefix}/share/man/man1" *] {
+        ln -s "${python.prefix}/share/man/man1/${man}" "${destroot}${prefix}/share/man/man1/${man}"
+    }
+}
+
+livecheck.regex ${name}-(\[0-9.\]+)${extract.suffix}

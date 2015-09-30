@@ -1,0 +1,28 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 124944 2014-09-01 01:05:32Z ryandesign@macports.org $
+
+PortSystem                  1.0
+PortGroup                   php 1.1
+
+name                        php-pdflib
+version                     3.0.4
+categories-append           print textproc
+platforms                   darwin
+maintainers                 ryandesign openmaintainer
+license                     PHP
+
+php.branches                5.3 5.4 5.5 5.6
+php.pecl                    yes
+
+description                 PHP bindings for pdflib
+
+long_description            ${description}
+
+checksums                   rmd160  255d80ad808f61f6aec085bc0a212ca7a7322671 \
+                            sha256  18de7bf00983a5b0fbbd4f7e993ecf948217072ae6ebff9fbb0eef88b8984b7e
+
+if {${name} ne ${subport}} {
+    depends_lib-append      port:pdflib
+    
+    configure.args          --with-pdflib=${prefix}
+}

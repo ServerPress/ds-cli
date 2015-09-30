@@ -1,0 +1,49 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134750 2015-04-06 18:53:07Z mmoll@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           github 1.0
+
+github.setup        MurpheyLab trep 1.0.0 v
+name                py-trep
+license             GPL-3
+maintainers         mmoll openmaintainer
+
+description         Module for modeling articulated rigid body mechanical \
+                    systems in generalized coordinates.
+long_description    Trep is a Python module for modeling articulated rigid \
+                    body mechanical systems in generalized coordinates. Trep \
+                    supports basic simulation but it is primarily designed to \
+                    serve as a calculation engine for analysis and optimal \
+                    control algorithms that require 1st and 2nd derivatives \
+                    of the system's dynamics.
+
+homepage            http://murpheylab.github.io/trep
+platforms           darwin
+checksums           md5     17fab8dfca944b03bc3c6f66d4b1320a \
+                    sha1    85852d600740764ca7199f0358d0bcd1dc414430 \
+                    rmd160  8e130a34d3b6af40b3a20b361a0ff1af283b42fc
+patchfiles          patch-setup.py.diff
+python.versions     27
+
+if {${name} ne ${subport}} {
+    # Can use either py*-pyqt4 or py*-pyqt4-devel.
+    depends_lib     port:py${python.version}-numpy \
+                    port:py${python.version}-scipy \
+                    port:py${python.version}-matplotlib \
+                    port:py${python.version}-opengl \
+                    path:share/py${python.version}-sip/PyQt4:py${python.version}-pyqt4
+    depends_build   port:py${python.version}-sphinx
+    post-patch {
+        reinplace "s|@PKGD@|${destroot}${python.pkgd}|g" ${worksrcpath}/setup.py
+    }
+    build.target-append build_sphinx
+    post-destroot {
+        delete ${destroot}${prefix}/share/doc/${subport}/examples
+        file copy ${worksrcpath}/examples ${destroot}${prefix}/share/doc/${subport}
+        file copy ${worksrcpath}/build/sphinx/html ${destroot}${prefix}/share/doc/${subport}
+        xinstall -m 644 ${worksrcpath}/LICENSE ${destroot}${prefix}/share/doc/${subport}
+    }
+    livecheck.type      none
+}

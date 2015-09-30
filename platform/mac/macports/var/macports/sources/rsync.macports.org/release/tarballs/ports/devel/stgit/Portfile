@@ -1,0 +1,81 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136557 2015-05-21 19:50:03Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                stgit
+version             0.15
+revision            4
+categories          devel python
+license             GPL-2
+platforms           darwin
+maintainers         nomaintainer
+supported_archs     noarch
+
+description         Push/pop utility on top of GIT
+long_description    StGIT is a Python application providing similar \
+                    functionality to Quilt (i.e. pushing/popping patches \
+                    to/from a stack) on top of GIT. These operations are \
+                    performed using GIT commands and the patches are stored \
+                    as GIT commit objects, allowing easy merging of the StGIT \
+                    patches into other repositories using standard GIT \
+                    functionality. \
+                    Note that StGIT is not an SCM interface on top of GIT and \
+                    it expects a previously initialised GIT repository \
+                    (unless it is cloned using StGIT directly). For standard \
+                    SCM operations, either use plain GIT commands or the \
+                    Cogito tool but it is not recommended to mix them with \
+                    the StGIT commands.
+homepage            http://www.procode.org/stgit/
+master_sites        http://homepage.ntlworld.com/cmarinas/stgit/ \
+                    http://download.gna.org/stgit/
+checksums           md5     a4721b2a5f529cf5450109f9fcb4db19 \
+                    sha1    8f18e3079014d907237aeffa6b851074422b7f27 \
+                    rmd160  3779091ed8639c825f053c66031b4569a6ffbdea
+
+depends_run         port:git
+
+python.default_version 27
+
+# ticket #27778
+patchfiles          tutorial.txt.patch
+
+set stgdocs         "${worksrcpath}/Documentation/\\\[a-z\\\]*.txt"
+set stgman          ""
+
+post-build {
+    system -W ${worksrcpath} "PYTHON=${prefix}/bin/python2.7 make all"
+}
+
+python.link_binaries_suffix
+
+post-destroot {
+    move ${destroot}${python.prefix}/share/stgit/ \
+        ${destroot}${prefix}/share/
+
+    # Install what little documentation there is
+    xinstall -m 644 -W ${worksrcpath} COPYING README \
+        ${destroot}${prefix}/share/doc/${name}
+    eval xinstall -m 644 [eval glob ${stgdocs}] \
+        ${destroot}${prefix}/share/doc/${name}
+    if {${stgman} != ""} {
+        eval xinstall -m 644 [eval glob ${stgman}] \
+            ${destroot}${prefix}/share/man/man1
+    }
+}
+
+variant html_man_docs \
+    description {Build and install documentation in HTML and manpage format} {
+    # Need to add post-destroot addition of extra docs...
+    lappend stgdocs ${worksrcpath}/Documentation/*.html
+    lappend stgman ${worksrcpath}/Documentation/*.1
+    depends_build-append    port:asciidoc port:xmlto
+    post-build {
+        system -W ${worksrcpath} "PYTHON=${prefix}/bin/python2.7 make all doc"
+    }
+}
+
+livecheck.type      regex
+livecheck.url       ${homepage}
+livecheck.regex     "${name}-(\\d+\\.\\d+\\.\\d+)"

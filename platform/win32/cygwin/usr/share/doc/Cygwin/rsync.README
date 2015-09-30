@@ -1,0 +1,166 @@
+rsync
+------------------------------------------
+
+fast, versatile file synchronizing tool
+
+Fast and versatile file-copying tool which can copy locally and
+to/from a remote host. It offers many options to control its behavior,
+and its remote-update protocol can minimize network traffic to make
+transferring updates between machines fast and efficient. It is widely
+used for backups and mirroring and as an improved copy command for
+everyday use.
+
+Mini-HOWTO for using the program as a service:
+
+*) have a valid /etc/rsyncd.conf:
+   man rsyncd.conf
+
+*) install service:
+   cygrunsrv --help
+   cygrunsrv -I rsyncd -p /usr/bin/rsync -a "--daemon --no-detach"
+
+*) remove service:
+   cygrunsrv -R rsyncd
+
+Runtime requirements:
+  libgcc1
+  libiconv2
+
+Build requirements:
+  libiconv2-devel
+
+Canonical homepage:
+  http://freecode.com/projects/rsync
+  http://rsync.samba.org
+  https://packages.debian.org/unstable/rsync
+
+Canonical download:
+  http://rsync.samba.org/ftp/rsync
+
+Version control repository:
+
+Mailing list:
+
+Forum / Wiki:
+
+IRC channel:
+
+Upstream contact:
+  Maintainer:
+  Bugs:
+
+License:
+  GPL-3+
+
+Language:
+  C
+
+------------------------------------------
+
+Build instructions:
+  unpack rsync-*-src.tar.bz2
+    if you use setup to install this source package, it will be
+    unpacked under /usr/src automatically
+  cd /usr/src
+  ./rsync*.sh all
+
+------------------------------------------
+
+Files included in the binary distribution:
+  See Cygwin package archive
+
+------------------------------------------
+
+Port Notes:
+
+----- version 3.1.1-1 -----
+- New upstream release 2015-02-13 Jari Aalto
+
+----- version 3.1.0-1 -----
+- New upstream release 2014-06-17 Jari Aalto
+
+----- version 3.0.9-1 -----
+- New upstream release.
+
+----- version 3.0.8-1 -----
+- New upstream release.
+
+----- version 3.0.7-1 -----
+- New upstream release.
+
+----- version 3.0.6-1 -----
+- New upstream release.
+  Experimentally enabled xattr support (with a small patch).
+
+----- version 3.0.4-2 -----
+- Cygwin 1.7 release.
+
+----- version 3.0.4-1 -----
+- New upstream release.
+
+----- version 3.0.2-0 -----
+- This release produced by: David Rothenberger <daveroth@acm.org>
+- As in message: http://www.cygwin.com/ml/cygwin/2008-05/msg00136.html
+  New upstream release. Fixes a security issue with extended attribute
+  support, which isn't enabled for Cygwin anyway.
+
+----- version 3.0.1-0 -----
+New upstream release.
+
+----- version 3.0.0-0 -----
+- New upstream release.
+
+----- version 2.6.9-2 -----
+- Security fix patch (kudos to David Rothenberger for pointing it to me):
+  http://www.suse.de/%7Ekrahmer/rsync-2.6.9-fname-obo.diff
+
+----- version 2.6.9-1 -----
+No patch used.
+
+----- version 2.6.3-1 -----
+- Kept Sjoerd Mullender's patch for the textmode issue as the only patch.
+
+----- version 2.6.2-3 -----
+- Added Sjoerd Mullender's patch for the new textmode issue:
+  http://www.cygwin.com/ml/cygwin/2004-09/msg01022.html
+
+----- version 2.6.2-2 -----
+- Added patch for the August 2004 security advisory:
+  http://rsync.samba.org/#security_aug04
+
+----- version 2.6.2-1 -----
+- No patch used.
+
+----- version 2.6.0-1 -----
+- No patch used.
+
+----- version 2.5.7-2 -----
+- Moved man pages under the /usr/share tree.
+
+----- version 2.5.7-1 -----
+- Identical to 2.5.6-2, almost:
+  1. security advisory:
+  http://www.mail-archive.com/rsync@lists.samba.org/msg08782.html
+  2. moved documentation under the /usr/share tree
+
+----- version 2.5.6-2 -----
+- Compiled against cygwin-1.5.0 experimental library,
+  with support for 64-bit file offsets and more.
+
+----- version 2.5.6-1 -----
+- Compiled with gcc version 3.2 from now on
+
+----- version 2.5.5-2 -----
+- Compiled with gcc version 3.2 20020818 (prerelease)
+- Included Anthony Heading's patch to avoid dead child processes
+  http://sources.redhat.com/ml/cygwin/2002-09/msg01155.html
+
+----- version 2.5.5-1 -----
+- No special patch was needed for this version.
+- Daemon mode sometimes produces "read error: Connection reset by peer" at the
+  very end of transfer.
+
+Licensed under GPL v2 or later
+Cygwin port maintained by Jari Aalto
+Copyright (C) 2014-2015 Jari Aalto <jari.aalto@cante.net>
+Copyright (C) 2002-2014 Lapo Luchini <lapo@lapo.it>

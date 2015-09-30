@@ -1,0 +1,41 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 124184 2014-08-20 14:50:22Z khindenburg@macports.org $
+
+PortSystem          1.0
+
+name                xboard
+version             4.7.3
+categories          games
+maintainers         nomaintainer
+platforms           darwin
+license             GPL-3+
+
+description         X frontend for Crafty, GNUChess, Internet Chess Servers, \
+                    or e-mail chess
+
+long_description    Xboard is a graphical chessboard that can serve as a user \
+                    interface for Crafty, GNU Chess, for Internet Chess \
+                    Servers, or for electronic mail correspondence chess. \
+                    xboard can also be used by itself.
+
+homepage            http://www.gnu.org/software/xboard/
+master_sites        gnu
+
+checksums           rmd160  ff0a5363e898923026070e6c78ff054d2bb9773c \
+                    sha256  7fd0b03f53dad57c587bc3438459612e2455534f715cfb0e637b6290f34cbeaa
+
+depends_build-append    port:pkgconfig
+depends_lib-append      path:lib/pkgconfig/cairo.pc:cairo \
+                        path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                        port:gdk-pixbuf2 \
+                        port:gettext \
+                        port:librsvg \
+                        port:xorg-libice \
+                        port:xorg-libsm \
+                        port:xorg-libX11 \
+                        port:xorg-libXaw \
+                        port:xorg-libXmu \
+                        port:xorg-libXt \
+                        port:xpm
+
+configure.args      --enable-zippy

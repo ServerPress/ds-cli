@@ -1,0 +1,62 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 129881 2014-12-22 09:16:32Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           muniversal 1.0
+
+name                gr1c
+version             0.9.0
+categories          math devel
+platforms           darwin
+maintainers         caltech.edu:SCL openmaintainer
+license             BSD
+
+description         Tools for GR(1) synthesis and related activities
+
+long_description    A collection of tools for GR(1) synthesis and related \
+                    activities.  Its core functionality is checking \
+                    realizability of and synthesizing strategies for GR(1) \
+                    specifications, though it does much more.
+
+homepage            http://scottman.net/2012/gr1c
+master_sites        http://vehicles.caltech.edu/snapshots/gr1c/ \
+                    http://vehicles.caltech.edu/snapshots/gr1c/old/
+
+checksums           rmd160  56212751bfaf4a896cca559c04545022680de48f \
+                    sha256  818782d3c304e963ab1ac4ce2e3beaede372152adcb593df1bd8245fd2b1c254
+
+patchfiles          patch-Makefile.diff \
+                    patch-tests-Makefile.diff
+
+depends_build       port:bison \
+                    port:flex
+
+depends_lib         port:libcudd
+
+configure.cmd       true
+
+# Build succeeds but test fails
+use_parallel_build  no
+
+build.args          prefix="${prefix}"
+
+foreach arch ${configure.universal_archs} {
+    lappend merger_build_args(${arch}) \
+                    CC='${configure.cc} -arch ${arch}' \
+                    LD='ld -r -arch ${arch}'
+}
+
+if {![variant_isset universal] && [info exists merger_build_args(${build_arch})]} {
+    build.args-append $merger_build_args(${build_arch})
+}
+
+test.run            yes
+test.target         check
+test.args           {*}${build.args}
+
+destroot.target     install expinstall
+destroot.args       {*}${build.args}
+
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     ${name}-(\[0-9.\]+)${extract.suffix}

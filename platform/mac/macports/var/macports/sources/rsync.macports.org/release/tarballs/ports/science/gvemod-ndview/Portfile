@@ -1,0 +1,63 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 100906 2012-12-31 13:38:53Z raphael@macports.org $
+
+PortSystem                  1.0
+
+name                        gvemod-ndview
+version                     0.2
+revision                    2
+categories                  science graphics x11
+maintainers                 raphael openmaintainer
+description                 A Geomview emodule for displaying projections \
+                            of higher dimensional objects.
+long_description            This package contains the NDview emodule and \
+                            the emodules of the src/bin/ndutils directory \
+                            of the original Geomview distribution. emodules \
+                            are kind of plugins which extend the \
+                            functionality of Geomview (an interactive 3d \
+                            viewing program). The modules are based on \
+                            Tcl/Tk and can be used as a tool-kit for \
+                            displaying projections of higher dimensional \
+                            objects.
+homepage                    http://www.geomview.org/
+license                     LGPL-2+
+platforms                   darwin
+master_sites                sourceforge
+master_sites.mirror_subdir  geomview
+livecheck.name              geomview
+livecheck.distname          ${name}
+
+checksums                   rmd160  5e95e2c308bc8019d0588ab689bbbc05371e7469 \
+                            sha256  6514f66d157a0ae33d00f17ff6f7cecb844e605c424dce6d22f2fe62c4b939f4
+
+patchfiles                  patch-wrappers.c.diff
+depends_lib                 port:geomview \
+                            port:tk
+# Work around case-inensitivity "NDview" Tcl script <-> "ndview" module
+post-extract {
+    move ${worksrcpath}/src/NDview/NDview ${worksrcpath}/src/NDview/NDview.tc
+    reinplace "s|module_tcl_DATA = NDview|module_tcl_DATA = NDview.tc|" \
+        ${worksrcpath}/src/NDview/Makefile.in
+}
+
+configure.cppflags-append   -DUSE_INTERP_RESULT
+
+post-destroot {
+    move ${destroot}${prefix}/libexec/geomview/tcl/NDview.tc \
+        ${destroot}${prefix}/libexec/geomview/tcl/NDview
+
+    set docdir ${destroot}${prefix}/share/doc/${name}
+    xinstall -d ${docdir}
+    xinstall -m 644 -W ${worksrcpath} \
+        AUTHORS \
+        COPYING \
+        ChangeLog \
+        NEWS \
+        README \
+        ${docdir}
+}
+
+platform darwin 9 { configure.ldflags-append \
+    -Wl,-dylib_file,/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib:\
+        /System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib
+}

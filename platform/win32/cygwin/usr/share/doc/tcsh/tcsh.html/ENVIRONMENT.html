@@ -1,0 +1,390 @@
+<HEAD>
+<TITLE>ENVIRONMENT</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="FILES.html">Next</A>
+<A HREF="Special_shell_variables.html">Previous</A>
+<H2>ENVIRONMENT</H2>
+<DL compact>
+<DT>
+<B><A NAME="AFSUSER">AFSUSER</A> </B>(+)
+<DD>
+Equivalent to the <B><A HREF="Special_shell_variables.html#afsuser">afsuser</A></B> shell variable.
+<P>
+<DT>
+<B><A NAME="COLUMNS">COLUMNS</A></B>
+<DD>
+The number of columns in the terminal.  See <B><A HREF="Terminal_management.html">Terminal management</A></B>.
+<P>
+<DT>
+<B><A NAME="DISPLAY">DISPLAY</A></B>
+<DD>
+Used by X Window System (see <I>X</I>(1)).
+If set, the shell does not set <B><A HREF="Special_shell_variables.html#autologout">autologout</A></B> (q.v.).
+<P>
+<DT>
+<B><A NAME="EDITOR">EDITOR</A></B>
+<DD>
+The pathname to a default editor.
+See also the <B><A HREF="ENVIRONMENT.html#VISUAL">VISUAL</A></B> environment variable
+and the <I><A HREF="Editor_commands.html#run-fg-editor">run-fg-editor</A></I> editor command.
+<P>
+<DT>
+<B><A NAME="GROUP">GROUP</A> </B>(+)
+<DD>
+Equivalent to the <B><A HREF="Special_shell_variables.html#group">group</A></B> shell variable.
+<P>
+<DT>
+<B><A NAME="HOME">HOME</A></B>
+<DD>
+Equivalent to the <B><A HREF="Special_shell_variables.html#home">home</A></B> shell variable.
+<P>
+<DT>
+<B><A NAME="HOST">HOST</A> </B>(+)
+<DD>
+Initialized to the name of the machine on which the shell
+is running, as determined by the <I>gethostname</I>(2) system call.
+<P>
+<DT>
+<B><A NAME="HOSTTYPE">HOSTTYPE</A> </B>(+)
+<DD>
+Initialized to the type of machine on which the shell
+is running, as determined at compile time.  This variable is obsolete and
+will be removed in a future version.
+<P>
+<DT>
+<B><A NAME="HPATH">HPATH</A> </B>(+)
+<DD>
+A colon-separated list of directories in which the <I><A HREF="Editor_commands.html#run-help">run-help</A></I> editor
+command looks for command documentation.
+<P>
+<DT>
+<B><A NAME="LANG">LANG</A></B>
+<DD>
+Gives the preferred character environment.
+See <B><A HREF="Native_Language_System_support.html">Native Language System support</A></B>.
+<P>
+<DT>
+<B><A NAME="LC_CTYPE">LC_CTYPE</A></B>
+<DD>
+If set, only ctype character handling is changed.
+See <B><A HREF="Native_Language_System_support.html">Native Language System support</A></B>.
+<P>
+<DT>
+<B><A NAME="LINES">LINES</A></B>
+<DD>
+The number of lines in the terminal.  See <B><A HREF="Terminal_management.html">Terminal management</A></B>.
+<P>
+<DT>
+<B><A NAME="LS_COLORS">LS_COLORS</A></B>
+<DD>
+The format of this variable is reminiscent of the <B>termcap(5)</B>
+file format; a colon-separated list of expressions of the form
+"<I>xx=string</I>", where "<I>xx</I>" is a two-character variable name.  The
+variables with their associated defaults are:
+</DL>
+<P>
+<P>
+<menu>
+<menu>
+<DL compact>
+<DT>
+no	0
+<DD>
+Normal (non-filename) text
+<P>
+<DT>
+fi	0
+<DD>
+Regular file
+<P>
+<DT>
+di	01;34
+<DD>
+Directory
+<P>
+<DT>
+ln	01;36
+<DD>
+Symbolic link
+<P>
+<DT>
+pi	33
+<DD>
+Named pipe (FIFO)
+<P>
+<DT>
+so	01;35
+<DD>
+Socket
+<P>
+<DT>
+do	01;35
+<DD>
+Door
+<P>
+<DT>
+bd	01;33
+<DD>
+Block device
+<P>
+<DT>
+cd	01;32
+<DD>
+Character device
+<P>
+<DT>
+ex	01;32
+<DD>
+Executable file
+<P>
+<DT>
+mi	(none)
+<DD>
+Missing file (defaults to fi)
+<P>
+<DT>
+or	(none)
+<DD>
+Orphaned symbolic link (defaults to ln)
+<P>
+<DT>
+lc	^[[
+<DD>
+Left code
+<P>
+<DT>
+rc	m
+<DD>
+Right code
+<P>
+<DT>
+ec	(none)
+<DD>
+End code (replaces lc+no+rc)
+</DL>
+<P>
+</menu>
+You need to include only the variables you want to change from
+the default.
+<P>
+File names can also be colorized based on filename extension.
+This is specified in the <B><A HREF="ENVIRONMENT.html#LS_COLORS">LS_COLORS</A></B> variable using the syntax
+<B>"*ext=string"</B>.  For example, using ISO 6429 codes, to color
+all C-language source files blue you would specify <B>"*.c=34"</B>.
+This would color all files ending in <B>.c</B> in blue (34) color.
+<P>
+Control characters can be written either in C-style-escaped
+notation, or in stty-like ^-notation.  The C-style notation
+adds <B>^[</B> for Escape, <B>\_</B> for a normal space character,
+and <B>?</B> for Delete.  In addition, the <B>^[</B> escape character
+can be used to override the default interpretation of <B>^[</B>,
+<B>^</B>, <B>:</B> and <B>=</B>.
+<P>
+Each file will be written as <B>&lt;lc&gt;</B> <B>&lt;color-code&gt;</B>
+<B>&lt;rc&gt;</B> <B>&lt;filename&gt;</B> <B>&lt;ec&gt;</B>.  If the <B>&lt;ec&gt;</B>
+code is undefined, the sequence <B>&lt;lc&gt;</B> <B>&lt;no&gt;
+&lt;rc&gt;</B> will be used instead.  This is generally more convenient
+to use, but less general.  The left, right and end codes are
+provided so you don't have to type common parts over and over
+again and to support weird terminals; you will generally not
+need to change them at all unless your terminal does not use
+ISO 6429 color sequences but a different system.
+<P>
+If your terminal does use ISO 6429 color codes, you can
+compose the type codes (i.e., all except the <B>lc</B>, <B>rc</B>,
+and <B>ec</B> codes) from numerical commands separated by semicolons.  The
+most common commands are:
+<P>
+<P>
+<menu>
+<DL compact>
+<DT>
+0
+<DD>
+to restore default color
+<P>
+<DT>
+1
+<DD>
+for brighter colors
+<P>
+<DT>
+4
+<DD>
+for underlined text
+<P>
+<DT>
+5
+<DD>
+for flashing text
+<P>
+<DT>
+30
+<DD>
+for black foreground
+<P>
+<DT>
+31
+<DD>
+for red foreground
+<P>
+<DT>
+32
+<DD>
+for green foreground
+<P>
+<DT>
+33
+<DD>
+for yellow (or brown) foreground
+<P>
+<DT>
+34
+<DD>
+for blue foreground
+<P>
+<DT>
+35
+<DD>
+for purple foreground
+<P>
+<DT>
+36
+<DD>
+for cyan foreground
+<P>
+<DT>
+37
+<DD>
+for white (or gray) foreground
+<P>
+<DT>
+40
+<DD>
+for black background
+<P>
+<DT>
+41
+<DD>
+for red background
+<P>
+<DT>
+42
+<DD>
+for green background
+<P>
+<DT>
+43
+<DD>
+for yellow (or brown) background
+<P>
+<DT>
+44
+<DD>
+for blue background
+<P>
+<DT>
+45
+<DD>
+for purple background
+<P>
+<DT>
+46
+<DD>
+for cyan background
+<P>
+<DT>
+47
+<DD>
+for white (or gray) background
+</DL>
+<P>
+</menu>
+Not all commands will work on all systems or display devices.
+<P>
+A few terminal programs do not recognize the default end code
+properly.  If all text gets colorized after you do a directory
+listing, try changing the <B>no</B> and <B>fi</B> codes from 0 to the
+numerical codes for your standard fore- and background colors.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="MACHTYPE">MACHTYPE</A> </B>(+)
+<DD>
+The machine type (microprocessor class or machine model), as determined at compile time.
+<P>
+<DT>
+<B><A NAME="NOREBIND">NOREBIND</A> </B>(+)
+<DD>
+If set, printable characters are not rebound to <I><A HREF="Editor_commands.html#self-insert-command">self-insert-command</A></I>.
+See <B><A HREF="Native_Language_System_support.html">Native Language System support</A></B>.
+<P>
+<DT>
+<B><A NAME="OSTYPE">OSTYPE</A> </B>(+)
+<DD>
+The operating system, as determined at compile time.
+<P>
+<DT>
+<B><A NAME="PATH">PATH</A></B>
+<DD>
+A colon-separated list of directories in which to look for executables.
+Equivalent to the <B><A HREF="Special_shell_variables.html#path">path</A></B> shell variable, but in a different format.
+<P>
+<DT>
+<B><A NAME="PWD">PWD</A> </B>(+)
+<DD>
+Equivalent to the <B><A HREF="Special_shell_variables.html#cwd">cwd</A></B> shell variable, but not synchronized to it;
+updated only after an actual directory change.
+<P>
+<DT>
+<B><A NAME="REMOTEHOST">REMOTEHOST</A> </B>(+)
+<DD>
+The host from which the user has logged in remotely, if this is the case and
+the shell is able to determine it.  Set only if the shell was so compiled;
+see the <B><A HREF="Special_shell_variables.html#version">version</A></B> shell variable.
+<P>
+<DT>
+<B><A NAME="SHLVL">SHLVL</A> </B>(+)
+<DD>
+Equivalent to the <B><A HREF="Special_shell_variables.html#shlvl">shlvl</A></B> shell variable.
+<P>
+<DT>
+<B><A NAME="SYSTYPE">SYSTYPE</A> </B>(+)
+<DD>
+The current system type.  (Domain/OS only)
+<P>
+<DT>
+<B><A NAME="TERM">TERM</A></B>
+<DD>
+Equivalent to the <B><A HREF="Special_shell_variables.html#term">term</A></B> shell variable.
+<P>
+<DT>
+<B><A NAME="TERMCAP">TERMCAP</A></B>
+<DD>
+The terminal capability string.  See <B><A HREF="Terminal_management.html">Terminal management</A></B>.
+<P>
+<DT>
+<B><A NAME="USER">USER</A></B>
+<DD>
+Equivalent to the <B><A HREF="Special_shell_variables.html#user">user</A></B> shell variable.
+<P>
+<DT>
+<B><A NAME="VENDOR">VENDOR</A> </B>(+)
+<DD>
+The vendor, as determined at compile time.
+<P>
+<DT>
+<B><A NAME="VISUAL">VISUAL</A></B>
+<DD>
+The pathname to a default full-screen editor.
+See also the <B><A HREF="ENVIRONMENT.html#EDITOR">EDITOR</A></B> environment variable
+and the <I><A HREF="Editor_commands.html#run-fg-editor">run-fg-editor</A></I> editor command.
+</DL>
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="FILES.html">Next</A>
+<A HREF="Special_shell_variables.html">Previous</A>
+</BODY>

@@ -1,0 +1,37 @@
+# $Id: Portfile 136787 2015-05-26 22:30:51Z ram@macports.org $
+
+PortSystem    1.0
+PortGroup     python 1.0
+
+name          ligo-gracedb
+version       1.18
+categories    science
+platforms     darwin
+supported_archs noarch
+maintainers   ram
+license       GPL-3+
+
+description   Gravitational-wave Candidate Event Database
+long_description \
+  A prototype system to organize candidate events from \
+  gravitational-wave searches and to provide an environment to record \
+  information about follow-ups. This package provides a simple client \
+  tool to submit candidate events to the database.
+
+homepage      https://www.lsc-group.phys.uwm.edu/daswg/projects/gracedb.html
+master_sites  http://software.ligo.org/lscsoft/source/
+
+checksums     rmd160 4fda6ac9dead53c561cb206402470ab6beba088a \
+              sha256 1b2a86b9d93be6d0af2bf9782f2e66e586c09c343355402e1aee7fed79117d3d
+
+python.default_version  27
+
+depends_lib-append port:ligo-common \
+                   port:py${python.version}-m2crypto \
+                   port:py${python.version}-cjson
+
+python.link_binaries_suffix
+
+livecheck.type   regex
+livecheck.url    ${master_sites}
+livecheck.regex  {ligo-gracedb-(\d+(?:\.\d+)*).tar.gz}

@@ -1,0 +1,94 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136911 2015-05-29 22:18:10Z devans@macports.org $
+
+PortSystem          1.0
+
+name                glade3
+version             3.8.5
+revision            1
+license             LGPL-2 GPL-2
+set branch          [join [lrange [split ${version} .] 0 1] .]
+description         Glade is a RAD tool to enable quick & easy development of user interfaces \
+                    for the GTK+ 2.* toolkit and the GNOME desktop environment.
+long_description    ${description}
+maintainers         devans openmaintainer
+categories          devel gnome
+platforms           darwin
+homepage            https://wiki.gnome.org/Apps/Glade
+master_sites        gnome:sources/${name}/${branch}/
+
+use_xz              yes
+
+checksums           rmd160  0e4c66e9455b3b5212b3f696103ce5a414147594 \
+                    sha256  58a5f6e4df4028230ddecc74c564808b7ec4471b1925058e29304f778b6b2735
+
+depends_skip_archcheck devhelp
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:gnome-common \
+                    port:gnome-doc-utils \
+                    port:gtk-doc \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         port:desktop-file-utils \
+                    port:rarian \
+                    port:gtk2 \
+                    port:libxml2
+
+depends_run         port:devhelp
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+configure.cmd       ./autogen.sh
+
+configure.cflags-append \
+                    -Wno-format-nonliteral
+
+configure.args      --disable-scrollkeeper \
+                    --disable-gnome \
+                    --disable-python
+
+variant python27 description {Enable support for Python widgets using Python 2.7} {
+    configure.args-replace    --disable-python --enable-python
+    configure.python          ${prefix}/bin/python2.7
+    depends_lib-append        port:py27-pygtk
+    set python_framework      ${frameworks_dir}/Python.framework/Versions/2.7
+    configure.pkg_config_path ${python_framework}/lib/pkgconfig
+}
+
+# legacy variant can be removed after October 2015
+variant disable_gnome conflicts gnome description {Legacy variant, use -gnome instead} {}
+
+variant gnome conflicts disable_gnome description {Enable support for GNOME2 UI widgets} {
+    configure.args-replace    --disable-gnome  --enable-gnome
+    depends_lib-append        port:libbonoboui \
+                              port:libgnomeui
+}
+
+#
+# ige-mac-integration is broken
+#
+# disable quartz variant until this is resolved
+#
+
+#variant quartz {
+#         depends_lib-append port:ige-mac-integration
+#         depends_run-delete port:devhelp
+#}
+
+if {[variant_isset disable_gnome]} {
+    default_variants +python27 -gnome
+} else {
+    default_variants +python27 +gnome
+}
+
+post-activate {
+    system "${prefix}/bin/scrollkeeper-update"
+    system "${prefix}/bin/update-desktop-database ${prefix}/share/applications"
+    system "${prefix}/bin/gtk-update-icon-cache -f -t ${prefix}/share/icons/hicolor"
+}
+
+livecheck.type      gnome

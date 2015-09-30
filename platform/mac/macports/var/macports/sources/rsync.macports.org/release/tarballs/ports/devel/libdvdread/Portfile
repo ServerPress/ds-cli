@@ -1,0 +1,43 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 126715 2014-10-14 12:23:09Z ctreleaven@macports.org $
+
+PortSystem      1.0
+
+name            libdvdread
+version         5.0.0
+categories      devel multimedia
+platforms       darwin
+# nav_print.c and nav_types.h do not allow "any later version"
+license         GPL-2
+maintainers     nomaintainer
+description     simple foundation for reading DVD-Video images
+
+long_description \
+    libdvdread provides a simple foundation for reading DVD-Video \
+    images. It offers DVD applications: \
+    1. A simple abstraction for reading the files on a DVD image \
+       (dvd_reader.h). \
+    2. A simple library for parsing the information (IFO) files \
+       (ifo_read.h/ifo_types.h). \
+    3. A simple library for parsing the navigation (NAV) packets \
+       (nav_read.h/nav_types.h).
+
+homepage            http://dvdnav.mplayerhq.hu/
+master_sites        http://download.videolan.org/pub/videolan/${name}/${version}/
+
+use_bzip2           yes
+checksums           rmd160  91c663a52acb45e4a1a96d33591a7649e6b0807b \
+                    sha256  66fb1a3a42aa0c56b02547f69c7eb0438c5beeaf21aee2ae2c6aa23ea8305f14
+
+depends_lib     port:libdvdcss
+
+patchfiles      patch-src_dvd_input.c.diff
+post-patch {
+    reinplace -locale C "s|@@PREFIX@@|${prefix}|" ${worksrcpath}/src/dvd_input.c
+}
+
+configure.args-append   --disable-silent-rules
+
+livecheck.type      regex
+livecheck.url       http://download.videolan.org/pub/videolan/${name}/
+livecheck.regex     {>([0-9.]+)/<}

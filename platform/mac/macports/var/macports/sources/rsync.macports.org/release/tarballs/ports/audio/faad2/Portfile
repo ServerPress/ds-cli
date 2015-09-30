@@ -1,0 +1,33 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 100938 2013-01-01 22:54:30Z ryandesign@macports.org $
+
+PortSystem      1.0
+
+name            faad2
+version         2.7
+categories      audio
+license         GPL-2+
+maintainers     nomaintainer
+description     Fastest ISO AAC audio decoder.
+long_description \
+    FAAD2 is the fastest ISO AAC audio decoder available. FAAD2 correctly \
+    decodes all MPEG-4 and MPEG-2 MAIN, LC (Low Complexity), HE (High \
+    Efficiency), LTP (Long Term Prediction), LD (Low Delay) and ER (Error \
+    Resiliency) object type AAC files.
+homepage            http://www.audiocoding.com/
+platforms           darwin
+master_sites        sourceforge:project/faac/faad2-src/faad2-${version}
+checksums           md5     ee1b4d67ea2d76ee52c5621bc6dbf61e \
+                    sha1    80eaaa5cc576c35dd28863767b795c50cbcc0511 \
+                    rmd160  3f0ca461e2953014d5b17edccb3337767d478b8d
+
+patchfiles          patch-automake-1.13.diff
+
+use_autoreconf  yes
+autoreconf.args -vif
+
+configure.args  --without-xmms --without-drm --without-mpeg4ip
+
+livecheck.type  regex
+livecheck.url   http://www.audiocoding.com/downloads.html
+livecheck.regex "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

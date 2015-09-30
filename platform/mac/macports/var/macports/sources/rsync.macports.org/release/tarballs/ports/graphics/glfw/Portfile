@@ -1,0 +1,65 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138206 2015-07-02 12:58:39Z michaelld@macports.org $
+
+PortSystem          1.0
+PortGroup           cmake 1.0
+PortGroup           github 1.0
+
+github.setup        glfw glfw cf10e318d6356729133843dde014e528c4937574
+version             20150701
+checksums           rmd160 daed2552e158d2613d23012772ef4ff04dc890df \
+                    sha256 a1e8140e564883242f11fb31e18aadc4877f5afb6ed4dc384ad5f0998df0c3ab
+
+categories          graphics
+maintainers         michaelld openmaintainer
+description         GLFW is a free, open-source, portable library for OpenGL and OpenGL ES application development
+license             zlib
+platforms           darwin macosx
+
+long_description ${description}: \
+    This port follows the GIT master version of GLFW, which is typically updated every few days to weeks.
+
+# use the real home page, not github's
+
+homepage            http://www.glfw.org/
+
+# do VPATH (out of source tree) build
+
+cmake.out_of_source yes
+
+# configuration arguments for MacPorts build
+
+configure.args      -DBUILD_SHARED_LIBS=on \
+                    -DGLFW_BUILD_EXAMPLES=off \
+                    -DGLFW_BUILD_TESTS=off
+
+# remove top-level library path, such that internal libraries are used
+# instead of any already-installed ones.
+
+configure.ldflags-delete -L${prefix}/lib
+
+variant docs description {build documentation} {}
+
+default_variants    +docs
+
+if {[variant_isset docs]} {
+    depends_build-append  port:doxygen
+    configure.args-append -DDOXYGEN_EXECUTABLE=${prefix}/bin/doxygen
+} else {
+    configure.args-append -DDOXYGEN_EXECUTABLE=
+}
+
+post-destroot {
+
+    # move cmake Modules to an appropriate location
+
+    xinstall -m 755 -d ${destroot}${prefix}/share/cmake
+    move ${destroot}${prefix}/lib/cmake/glfw ${destroot}${prefix}/share/cmake
+
+    # copy html docs if requested
+
+    if {[variant_isset docs]} {
+        xinstall -m 755 -d ${destroot}${prefix}/share/doc/${name}
+        copy ${cmake.build_dir}/docs/html ${destroot}${prefix}/share/doc/${name}
+    }
+}

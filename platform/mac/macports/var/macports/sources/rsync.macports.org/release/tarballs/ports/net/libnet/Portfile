@@ -1,0 +1,41 @@
+# $Id: Portfile 135115 2015-04-15 19:49:04Z ryandesign@macports.org $
+
+PortSystem 1.0
+
+name		libnet
+conflicts	libnet11
+version		1.0.2a
+revision	4
+categories	net
+license		BSD
+maintainers	geovedi.com:jim
+description	A C library for creating IP packets
+long_description	\
+	libnet is a high-level API (toolkit) allowing the application \
+	programmer to construct and inject network packets. It provides a \
+	portable and simplified interface for low-level network packet \
+	shaping, handling and injection. Libnet hides much of the tedium of \
+	packet creation from the application programmer such as \
+	multiplexing, buffer management, arcane packet header information, \
+	byte-ordering, OS-dependent issues, and much more. Libnet features \
+	portable packet creation interfaces at the IP layer and link layer, \
+	as well as a host of supplementary and complementary functionality. \
+	Using libnet, quick and simple packet assembly applications can be \
+	whipped up with little effort. With a bit more time, more complex \
+	programs can be written (Traceroute and ping were easily rewritten \
+	using libnet and libpcap).
+homepage	http://www.packetfactory.net/libnet/
+platforms	darwin
+master_sites	http://www.packetfactory.net/libnet/dist/deprecated/
+checksums	md5 ddf53f0f484184390e8c2a1bd0853667
+patchfiles	patch-Makefile patch-include-libnet.h \
+		patch-include__libnet__libnet-headers.h \
+		patch-configure
+worksrcdir	Libnet-${version}
+
+platform darwin {
+	depends_build-append port:libtool
+	pre-configure {
+		xinstall -m 644 -W ${prefix}/share/libtool/build-aux config.guess config.sub ${worksrcpath}
+	}
+}

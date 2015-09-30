@@ -1,0 +1,190 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136009 2015-05-09 12:25:22Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                osxfuse
+version             2.7.5
+set branch          [join [lrange [split ${version} .] 0 1] .]
+categories          fuse devel
+platforms           macosx
+license             BSD APSL
+maintainers         dports openmaintainer
+
+description         A FUSE-Compliant File System Implementation Mechanism \
+                    for Mac OS X
+long_description    FUSE for OS X implements a mechanism that makes it possible to implement \
+                    a fully functional file system in a user-space program on Mac OS X. It \
+                    aims to be API-compliant with the FUSE (File-system in USErspace) \
+                    mechanism that originated on Linux.  Therefore, many existing FUSE file \
+                    systems become readily usable on Mac OS X. This port provides the \
+                    user-space library and header files for building filesystems.
+
+homepage            http://osxfuse.github.io/
+
+livecheck.type      regex
+livecheck.url       ${homepage}
+livecheck.regex     "[quotemeta [string toupper ${name}]] (\\d+(?:\\.\\d+)*)"
+
+# Use the published signed kext for OS 10.9 (Darwin 13) and later.
+# Don't even fetch and extract the dmg unnecessarily, since the commands don't
+# work on some earlier OS versions.
+if {${os.major} >= 13} {
+    set use_signed_kext    yes
+} else {
+    set use_signed_kext    no
+}
+
+# We will build user-space components for the specified arch, and
+# kernel modules for the kernel arch.
+set kernel_arch [exec uname -m]
+# If building for different kernel arch than our buildslaves use, force a build
+# from source. The binary package IDs don't encode the kernel arch.
+if {${kernel_arch} ne "x86_64"} {
+    archive_sites
+}
+
+distfiles
+set mp.dist {
+    osxfuse     cc1913b
+    kext        7c4dc18
+    framework   2ab904a
+    prefpane    ee2df12
+    fuse        98b9960
+    support     4868d64
+}
+
+depends_build       port:autoconf \
+                    port:automake \
+                    port:libtool
+
+set mp.osxfuse_rev  [lindex ${mp.dist} [expr [lsearch ${mp.dist} osxfuse] + 1]]
+worksrcdir          osxfuse-osxfuse-${mp.osxfuse_rev}
+
+foreach { mp.comp mp.rev } ${mp.dist} {
+    set f ${mp.comp}-${mp.rev}.tar.gz
+    master_sites-append https://github.com/osxfuse/${mp.comp}/tarball/${mp.rev}/:${mp.comp}
+    distfiles-append    ${f}:${mp.comp}
+}
+
+if { $use_signed_kext } {
+    master_sites-append sourceforge
+    distfiles-append ${name}-${version}.dmg
+}
+
+checksums           osxfuse-cc1913b.tar.gz \
+                    rmd160  ef6b533076be6fdc8fd1b06b9205de78a59e17fc \
+                    sha256  4e9ebe21b94c78963c077d326c19ccda46a622909836dac92b42654dc8c68d31 \
+                    kext-7c4dc18.tar.gz \
+                    rmd160  a6ef4031b0678c42fdb712ec7af85c5eb6e0913b \
+                    sha256  17682e1c29798d391d48f4a9e87111a83be68154c0e66184bd5744d09c522eee \
+                    framework-2ab904a.tar.gz \
+                    rmd160  af79296880d18d8f8a27803e348ff6429280f0e7 \
+                    sha256  1591c26d0d01311007105ab3789d43abc6e824aaee681aef8b601413dafea65e \
+                    prefpane-ee2df12.tar.gz \
+                    rmd160  7bbef9ba190975b038ab458bdfaf6ed56425940d \
+                    sha256  596582bd8f4642c916d1d76e37e4d20e409971f21bccd89240117a4a1edfd7d5 \
+                    fuse-98b9960.tar.gz \
+                    rmd160  589cbe0c819caded56dc4be64727580e1400fd9e \
+                    sha256  f60205e19c2971228b78d180dc65cda2a6271a567229acdeb19567fcbcebb641 \
+                    support-4868d64.tar.gz \
+                    rmd160  d321d49bc3040a3227143204b57d6361eb67a9ed \
+                    sha256  d6cd13707f0f202b2c2391b5410decf1776d1306180da8164c02e5fcf6ba8b43 \
+                    osxfuse-2.7.5.dmg \
+                    rmd160  7952c427b7e6961efd0cb564c6bb677bdcb8fbf2 \
+                    sha256  9be5cc9c44c2211aacea6a35aea5d47fea82599e981f051f318201a637b43f72
+
+# extract phase will just extract the dmg; post-extract will expand
+# the tarballs
+if { $use_signed_kext } {
+    use_dmg yes
+    extract.only ${name}-${version}.dmg
+}
+
+post-extract {
+    # Extract the pkg and the appropriate payload from the binary dmg
+    if { $use_signed_kext } {
+        system -W ${workpath}/${name}-${version} "pkgutil --expand 'Install OSXFUSE ${branch}.pkg' ${workpath}/pkg"
+        system -W ${workpath}/pkg/10.9/OSXFUSECore.pkg "gzip -dc Payload | cpio -id"
+    }
+
+    # Extract the source tarballs
+    foreach { mp.comp mp.rev } ${mp.dist} {
+        if { $use_signed_kext } {
+            system -W ${workpath} "tar -xvf ${distpath}/${mp.comp}-${mp.rev}.tar.gz"
+        }
+        if {${mp.comp} ne "osxfuse"} {
+            # Replace existing empty directory if it exists
+            file delete ${workpath}/${worksrcdir}/${mp.comp}
+            move ${workpath}/osxfuse-${mp.comp}-${mp.rev} ${workpath}/${worksrcdir}/${mp.comp}
+        }
+    }
+}
+
+patchfiles          patch-buildsystem.diff \
+                    patch-kext-location.diff
+
+patchfiles-append   patch-Xcode-6.3-6.4.diff
+
+post-patch {
+    reinplace "s,@@TMP@@,${workpath}/.tmp,g" ${worksrcpath}/build.sh
+
+    # Only build the archs we want, not the hardcoded universal archs
+    reinplace -E "s,@@ARCHS@@,[get_canonical_archs],g" ${worksrcpath}/build.sh
+
+    # Inject the destroot path as the buildsystem tries to write to the prefix directly
+    reinplace -E "s,@@DESTROOT@@,${destroot},g" ${worksrcpath}/build.sh
+
+    # Correct the location of the kext
+    reinplace -E "s,@@PREFIX@@,${prefix},g" ${worksrcpath}/kext/common/fuse_param.h
+}
+
+use_configure   no
+
+build.cmd       ./build.sh
+# Yes, they really named this target homebrew
+build.target    -t homebrew
+build.args      -f ${prefix}
+
+# The build step already does everything
+destroot {}
+
+# Move filesystem bundle into place
+post-destroot {
+    # Set proper permissions
+    fs-traverse f ${destroot}${prefix}/Library {
+        file attributes $f -owner root -group wheel
+    }
+    # Enable setuid on helper binary
+    file attributes ${destroot}${prefix}/Library/Filesystems/osxfusefs.fs/Support/load_osxfusefs -permissions 04755
+}
+
+
+# On Mavericks and Yosemite, replace the kext we just built with the
+# one from the binary distribution. This works around OS X's
+# unwillingness to load an unsigned kext (and our inability to sign
+# kexts). See #45521.
+#
+# Unlike newer versions, Mavericks does not require the kext to be
+# signed, but will display a warning if it's unsigned -- so use the
+# signed binary instead here too.
+if { $use_signed_kext } {
+    post-destroot {
+        delete ${destroot}${prefix}/Library/Filesystems/osxfusefs.fs/Support/osxfusefs.kext \
+            ${destroot}${prefix}/Library/Filesystems/osxfusefs.fs/Support/osxfusefs.kext.dSYM
+        
+        file copy ${workpath}/pkg/10.9/OSXFUSECore.pkg/Library/Filesystems/osxfusefs.fs/Support/osxfusefs.kext \
+            ${destroot}${prefix}/Library/Filesystems/osxfusefs.fs/Support
+    }
+}
+
+destroot.violate_mtree yes
+
+notes {
+    When upgrading, unmount all FUSE filesystems and then unload the kernel extension.
+    Unloading can be done via: sudo kextunload -b com.github.osxfuse.filesystems.osxfusefs
+    Alternatively (or if this fails), just reboot your computer now.
+}
+
+# Could probably be supported by setting ARCHS correctly above
+universal_variant no

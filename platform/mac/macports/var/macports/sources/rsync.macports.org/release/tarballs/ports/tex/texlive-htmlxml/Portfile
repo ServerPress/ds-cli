@@ -1,0 +1,48 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 121682 2014-07-04 04:51:53Z dports@macports.org $
+
+PortSystem          1.0
+PortGroup           texlive 1.0
+
+name                texlive-htmlxml
+version             34201
+revision            0
+
+categories          tex
+maintainers         dports
+license             Copyleft Permissive
+description         TeX Live: HTML/SGML/XML support
+long_description    Packages to convert LaTeX to XML/HTML, and typset XML/SGML.
+
+checksums           texlive-htmlxml-34201-run.tar.xz \
+                    rmd160  64863e2a2194697e944deaa5f4043483af63b53d \
+                    sha256  ba01b2cab1e04c61bd395918ce3c1842f5ea9266f268d639df362d01678794b4 \
+                    texlive-htmlxml-34201-doc.tar.xz \
+                    rmd160  0b204ce68b3c1c5b02756d979b923056a676c2fc \
+                    sha256  01a5a323aef1dfc7569e651da3a40b2e1a3703802d09e7071b6f1271888376f0 \
+                    texlive-htmlxml-34201-src.tar.xz \
+                    rmd160  6e260f770935b1c37a37aa6bb3854fea96003176 \
+                    sha256  382727aefecc1af69abb8883911d53171dca32fc46d195bf1f700b9d3b32bc3b
+
+depends_lib         port:texlive-basic port:texlive-fonts-recommended port:texlive-latex
+
+texlive.formats      \
+    {1 jadetex pdftex language.dat {*jadetex.ini}} \
+    {1 pdfjadetex pdftex language.dat {*pdfjadetex.ini}} \
+    {1 xmltex pdftex language.dat {*xmltex.ini}} \
+    {1 pdfxmltex pdftex language.dat {*pdfxmltex.ini}}
+
+texlive.binaries    ht htcontext htlatex htmex httex httexi htxelatex htxetex jadetex mk4ht pdfjadetex pdfxmltex t4ht tex4ht xmltex
+
+depends_lib-append  port:texlive-latex-recommended \
+                    port:texlive-generic-recommended
+
+ 
+post-patch {
+    reinplace "s|%%~/texmf-dist|${texlive_texmfdist}|g" ${worksrcpath}/runfiles/texmf-dist/tex4ht/base/unix/tex4ht.env
+
+    # See #30270
+    reinplace -locale C "s|\\Needs\{\"xhtex|\\Needs\{\"mk4ht xhtex|g" ${worksrcpath}/runfiles/texmf-dist/tex/generic/tex4ht/html4.4ht
+}
+
+texlive.texmfport

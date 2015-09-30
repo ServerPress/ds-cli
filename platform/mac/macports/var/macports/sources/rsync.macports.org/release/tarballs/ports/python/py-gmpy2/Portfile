@@ -1,0 +1,44 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135928 2015-05-07 03:50:59Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-gmpy2
+epoch               1
+version             2.0.5
+maintainers         alluvialsw.com:md14-macports openmaintainer
+license             LGPL-2.1+
+platforms           darwin
+description         General multiple precision arithmetic module for Python
+long_description \
+    GMPY2 is a C-coded Python extension module that supports fast \
+    multiple-precision arithmetic.  GMPY2 supports the GMP library \
+    for integer and rational arithmetic and multiple-precision real \
+    and complex arithmetic as provided by the MPFR and MPC libraries.
+
+homepage            http://code.google.com/p/gmpy/
+master_sites        https://pypi.python.org/packages/source/g/gmpy2
+distname            gmpy2-${version}
+use_zip             yes
+checksums           rmd160  b9ed105aa41ca4a2a0db71798ffddcf17d01cc41 \
+                    sha256  014ebfb901fde1d823bfa6bdd70abd79adff36c0473d678ea79664be10d4e620
+
+python.versions     26 27 33 34
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:gmp port:libmpc port:mpfr
+
+    patchfiles          patch-setup.py.diff
+
+    post-patch {
+        reinplace "s|@PREFIX@|${prefix}|g" ${worksrcpath}/setup.py
+    }
+
+    post-destroot {
+        xinstall -m 644 -W ${worksrcpath} README \
+            ${destroot}${prefix}/share/doc/${subport}
+    }
+
+    livecheck.type      none
+}

@@ -1,0 +1,45 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 115910 2014-01-14 04:33:48Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                bayon
+version             0.1.1
+revision            1
+categories          math textproc
+maintainers         hum openmaintainer
+
+description         a simple and fast hard-clustering tool
+long_description    Bayon is a simple and fast hard-clustering tool, and supports \
+                    Repeated Bisection clustering and K-means clustering.
+
+homepage            http://code.google.com/p/bayon/
+platforms           darwin
+license             GPL-2.1
+
+master_sites        googlecode:bayon
+checksums           rmd160  e833352e8dd54cc103c8081738b60408649c7a20 \
+                    sha256  1749f8d2202459e33dd739e62fd8c128facaf16a06cb3f38a9e4f10cce542e0c
+
+patchfiles          patch-classifier.diff \
+                    patch-configure.diff
+
+depends_lib         port:sparsehash
+
+variant universal {
+    configure.universal_args
+}
+
+build.args          CFLAGS="${configure.cxxflags} [get_canonical_archflags cxx]" \
+                    CPPFLAGS="-I. -I${prefix}/include" \
+                    LDFLAGS="-L. -L${prefix}/lib"
+
+test.run            yes
+eval test.args      ${build.args}
+
+post-destroot {
+    set sharedir ${prefix}/share/${name}
+    xinstall -d ${destroot}${sharedir}
+    xinstall -m 644 -W ${worksrcpath} COPYING README ${destroot}${sharedir}
+    copy ${worksrcpath}/data ${destroot}${sharedir}
+}

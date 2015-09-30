@@ -1,0 +1,75 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136887 2015-05-29 06:31:35Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           app 1.0
+PortGroup           bitbucket 1.0
+
+bitbucket.setup     tortoisehg thg 3.4
+name                tortoisehg
+categories          devel python
+platforms           darwin
+license             GPL-2+
+maintainers         sean openmaintainer
+supported_archs     noarch
+
+description         A set of graphical tools for Mercurial
+
+long_description    A set of graphical tools for the Mercurial distributed \
+                    revision control system.
+
+checksums           rmd160  b249f9cfc571849ce030d39774398e908e0d5c07 \
+                    sha256  dad18c15c94e08600124137176e67f24b58f9c48f21ef4b5f54f23b6d541eac0
+
+python.default_version 27
+
+# Can use either py*-pyqt4 or py*-pyqt4-devel. Also mercurial or
+# mercurial-devel.
+depends_lib         path:bin/hg:mercurial \
+                    path:share/py${python.version}-sip/PyQt4:py${python.version}-pyqt4 \
+                    port:py${python.version}-qscintilla \
+                    port:py${python.version}-iniparse
+
+depends_build       port:py${python.version}-sphinx
+
+post-extract {
+    copy ${filespath}/config.py ${worksrcpath}/tortoisehg/util/
+}
+
+patchfiles          patch-setup.py.diff
+
+post-patch {
+    reinplace "s|{prefix}|${prefix}|" ${worksrcpath}/tortoisehg/util/config.py
+    reinplace "s|{python.prefix}|${python.prefix}|" ${worksrcpath}/tortoisehg/util/config.py
+
+    foreach f [glob -type f \
+                   ${worksrcpath}/thg \
+                   ${worksrcpath}/contrib/hg \
+                   ${worksrcpath}/contrib/*.py \
+                   ${worksrcpath}/i18n/*.py] {
+        reinplace "s,#! */usr/bin/env python,#!${python.bin}," $f
+    }
+}
+
+python.link_binaries_suffix
+
+post-destroot {
+    system -W ${worksrcpath}/doc "make SPHINXBUILD=sphinx-build-${python.branch} html"
+    copy ${worksrcpath}/doc/build/html ${destroot}${prefix}/share/doc/${name}/html
+
+    xinstall -m 644 -W ${worksrcpath} COPYING.txt ${destroot}${prefix}/share/doc/${name}
+}
+
+app.name            TortoiseHg
+app.executable      ${workpath}/${app.name}
+app.icon            icons/thg_logo_92x50.png
+
+platform macosx {
+    post-extract {
+        copy ${filespath}/${app.name}.in ${workpath}/${app.name}
+    }
+    post-patch {
+        reinplace "s|@PREFIX@|${prefix}|g" ${workpath}/${app.name}
+    }
+}

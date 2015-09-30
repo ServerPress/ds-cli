@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 118642 2014-04-06 17:59:47Z devans@macports.org $
+
+PortSystem      1.0
+
+name            gnome-icon-theme-symbolic
+version         3.12.0
+set branch      [join [lrange [split ${version} .] 0 1] .]
+maintainers     nomaintainer
+categories      gnome
+platforms       darwin
+license         Attribution-Sharealike-3.0
+description     Additional symbolic icons for the GNOME desktop.
+
+long_description \
+                gnome-icon-theme-symbolic extends the base icon theme following the \
+                Tango style guidelines for specific purposes
+
+homepage        http://www.gnome.org/
+master_sites    gnome:sources/${name}/${branch}/
+
+use_xz          yes
+
+checksums       rmd160  8df41f2d16dde4135bfb19c99fb7f0982a695cc1 \
+                sha256  851a4c9d8e8cb0000c9e5e78259ab8b8e67c5334e4250ebcc8dfdaa33520068b
+
+depends_build   port:pkgconfig \
+                port:icon-naming-utils \
+                port:gtk3
+
+configure.env-append \
+                GTK_UPDATE_ICON_CACHE=${prefix}/bin/gtk-update-icon-cache-3.0
+
+supported_archs noarch
+installs_libs   no
+
+patchfiles      patch-configure.diff
+
+livecheck.type  gnome

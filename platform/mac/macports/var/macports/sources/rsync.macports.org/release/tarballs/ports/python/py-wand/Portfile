@@ -1,0 +1,46 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim: fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 133143 2015-02-21 11:50:45Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-wand
+version             0.4.0
+revision            0
+categories-append   graphics
+platforms           darwin
+license             MIT
+supported_archs     noarch
+
+python.versions     27 34
+
+maintainers         stromnov openmaintainer
+
+description         Ctypes-based simple MagickWand API binding for Python
+long_description    ${description}
+
+homepage            http://wand-py.org/
+master_sites        https://pypi.python.org/packages/source/W/Wand/
+
+distname            Wand-${version}
+
+checksums           rmd160  b9d36a8a446bac8170f792ab8d509cc8920147bf \
+                    sha256  3ef8cbadb122808c123b33d34a9cc833a91eebb700ebea1d5d610fa807f55a89
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-setuptools
+    depends_lib-append  port:ImageMagick
+
+    patchfiles-append   patch-wand_api.py.diff
+
+    post-patch {
+        reinplace "s|@PREFIX@|${prefix}|g" ${worksrcpath}/wand/api.py
+    }
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/wand/json
+    livecheck.regex     {Wand-(\d+(?:\.\d+)*)\.[tz]}
+}

@@ -1,0 +1,21 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136698 2015-05-24 17:08:58Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Inline-Files 0.69
+license             {Artistic-1 GPL}
+maintainers         devans openmaintainer
+description         Inline::Files - Multiple virtual files at the end of your code
+long_description    Inline::Files generalizes the notion of the __DATA__ marker \
+                    and the associated <DATA> filehandle, to an arbitrary number \
+                    of markers and associated filehandles.
+
+platforms           darwin
+
+checksums           rmd160  aba704c0681b090c3b679ef51d6ffb9e7ffeec54 \
+                    sha256  8f003605f2f4a3cb9929772ca78d66aa88c0d441c8f75c7d47d798b3128b685e
+
+supported_archs     noarch

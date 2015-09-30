@@ -1,0 +1,23 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Text-Glob 0.09
+revision            2
+platforms           darwin
+maintainers         nomaintainer
+license             {Artistic-1 GPL}
+supported_archs     noarch
+
+description         match globbing patterns against text
+
+long_description    Text::Glob implements glob(3) style matching that can be \
+                    used to match against text, rather than fetching names \
+                    from a filesystem. If you want to do full file globbing \
+                    use the File::Glob module instead.
+
+checksums           rmd160  dd891eabaac4eeca4dadb112877a849ad77acea1 \
+                    sha256  a5a121da026fbc4cc8c1065cfbe76ab5110e88091f454e70ee8c23a933372753

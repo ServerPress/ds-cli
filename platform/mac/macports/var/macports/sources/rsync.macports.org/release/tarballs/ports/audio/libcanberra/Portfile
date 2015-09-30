@@ -1,0 +1,57 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 115644 2014-01-07 19:50:17Z cal@macports.org $
+
+PortSystem          1.0
+
+name                libcanberra
+version             0.30
+revision            4
+license             LGPL-2.1+
+categories          audio devel
+maintainers         nomaintainer
+description         XDG sound theme and naming implementation
+long_description    libcanberra is an implementation of the XDG Sound Theme \
+                    and Name Specifications, for generating event sounds on \
+                    free desktops, such as GNOME.
+homepage            http://0pointer.de/lennart/projects/libcanberra/
+platforms           darwin
+master_sites        ${homepage}
+use_xz              yes
+
+checksums           rmd160  f5a800f50ae185d9ec12c284298c20fd60f70a8c \
+                    sha256  c2b671e67e0c288a69fc33dc1b6f1b534d07882c2aceed37004bf48c601afa72
+
+depends_build       port:pkgconfig
+
+depends_lib         port:gstreamer1 \
+                    port:libtool \
+                    port:libvorbis
+
+patchfiles          patch-configure.diff \
+                    patch-gtkquartz.diff \
+                    LC_CTYPE.patch
+
+configure.args      --disable-alsa \
+                    --disable-gtk-doc \
+                    --disable-oss \
+                    --disable-lynx \
+                    --disable-null \
+                    --disable-pulse \
+                    --disable-silent-rules \
+                    --disable-tdb \
+                    --disable-udev \
+                    --disable-gtk \
+                    --disable-gtk3
+
+variant x11 {
+    depends_lib-append  port:xorg-libX11 \
+                        port:gtk2 \
+                        port:gtk3
+    configure.args-replace  --disable-gtk --enable-gtk
+    configure.args-replace  --disable-gtk3 --enable-gtk3
+}
+
+default_variants +x11
+
+livecheck.type      regex
+livecheck.regex     libcanberra-(\[0-9.\]+)${extract.suffix}

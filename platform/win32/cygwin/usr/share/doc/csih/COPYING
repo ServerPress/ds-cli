@@ -1,0 +1,26 @@
+The files included in this distribution are available
+under a number of different licenses.
+
+native/getopt[1][.c|.h]            : LGPL 2.1
+native/Win32Error.h                : equivalent to MIT/X or BSD-2-clause
+native/getAccountName.cpp          : MIT/X
+native/winProductName.c            : MIT/X
+native/lookupAccountName[.h|.cpp]  : MIT/X
+cygwin/getvolinfo.c                : MIT/X
+
+cygwin-service-installation-helper.sh : MIT/X
+  portions derived from ---
+    ssh-host-config (2008-02-25): BSD
+        permission granted for distribing the portions of csih.sh
+        derived from this script under MIT/X
+        Corinna Vinschen 2008Apr08
+        http://cygwin.com/ml/cygwin/2008-04/msg00228.html
+    exim-config (2008-03-02)    : not specified
+        permission granted for distribing the portions of csih.sh
+        derived from this script under MIT/X
+        Pierre Humblett 2008Apr07 (private email)
+    cron-config (2008-03-02)    : not specified
+        permission granted for distribing the portions of csih.sh
+        derived from this script under MIT/X
+        Pierre Humblett 2008Apr07 (private email)
+

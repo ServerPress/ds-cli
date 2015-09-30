@@ -1,0 +1,57 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136879 2015-05-28 22:27:35Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-tornado
+version             4.2
+revision            0
+categories-append   www
+platforms           darwin
+license             Apache-2
+
+python.versions     26 27 33 34
+
+maintainers         stromnov openmaintainer
+
+description         Scalable, non-blocking web server and related tools
+
+long_description    \
+    Tornado is an open source version of the scalable, non-blocking web server \
+    and tools that power FriendFeed. The FriendFeed application is written \
+    using a web framework that looks a bit like web.py or Google's webapp, \
+    but with additional tools and optimizations to take advantage of the \
+    underlying non-blocking infrastructure.
+
+homepage            http://www.tornadoweb.org/
+master_sites        https://pypi.python.org/packages/source/t/tornado/
+
+distname            tornado-${version}
+
+checksums           rmd160  0d3e047b4224b0b983fd9b77db9d5cd4e4e65f03 \
+                    sha256  e8b1207da67dbdceebfb291292b4ef1b547d6171525bec1b366853f923456a5f
+
+if {${name} ne ${subport} && ${python.version} == 26} {
+    version             3.1.1
+    revision            0
+    distname            tornado-${version}
+    checksums           rmd160  36598ca25dcb47b6c27316f44cae3cea9b649136 \
+                        sha256  345904bfe4a0ce5d687203f783986a73cfd7dc3a9957ee3342cd43d4e310fdc6
+}
+
+if {${name} ne ${subport}} {
+    if {${python.version} == 27} {
+        depends_lib-append  port:py${python.version}-backports-ssl_match_hostname
+    }
+
+    if {[lsearch {27 33 34} ${python.version}] != -1} {
+        depends_lib-append  port:py${python.version}-certifi
+    }
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/tornado/json
+    livecheck.regex     "tornado-(\\d+(?:\\.\\d+)*)${extract.suffix}"
+}

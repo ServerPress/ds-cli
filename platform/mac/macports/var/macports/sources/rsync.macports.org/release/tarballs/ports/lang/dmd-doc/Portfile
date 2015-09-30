@@ -1,0 +1,61 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134530 2015-03-29 02:39:53Z takeshi@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        D-Programming-Language dlang.org 2.067.0 v
+name                dmd-doc
+categories          lang
+platforms           darwin
+license             DMD
+maintainers         takeshi openmaintainer
+supported_archs     noarch
+
+description         HTML files for dman of the D programming language compiler
+long_description \
+    D is a language with C-like syntax and static typing. \
+    It pragmatically combines efficiency, control, \
+    and modeling power, with safety and programmer productivity. \
+    This port provides the html files required to build the dman command of \
+    the D programming language compiler.
+homepage            http://dlang.org/
+checksums           rmd160  cddcf5c2ebe5d86a5446867c58c4d218112cb54e \
+                    sha256  4f2da7b07b822e57ee9ac240605ace69db37f03dc96e515f0169de211a161c97
+
+depends_lib         port:phobos
+
+use_configure       no
+
+if {${build_arch} eq "x86_64"} {
+    set model 64
+} else {
+    set model 32
+}
+
+set dmd ${prefix}/bin/dmd
+set dflags "-O -d"
+set ddocflags " -c -o- -Df"
+set ddoc "macros.ddoc doc.ddoc"
+set stddoc "std.ddoc"
+set stddocflags "-m${model} -d -c -o- -version=StdDoc"
+build {
+   file mkdir ${worksrcpath}/dmd
+    system "
+        cd ${worksrcpath};
+        ${dmd} ${ddocflags}dmd/expression.html ${ddoc} expression.dd;
+        ${dmd} ${ddocflags}dmd/statement.html ${ddoc} statement.dd 
+    "
+    foreach f [glob ${prefix}/include/phobos/std/*.d] {
+        set html std_[file rootname [file tail ${f}]].html
+        system "
+            cd ${worksrcpath};
+            ${dmd} ${stddocflags} ${stddoc} -Dfdmd/${html} ${f}
+        "
+    }
+}
+
+destroot {
+    xinstall -d -m 755 ${destroot}${prefix}/share/doc
+    file copy ${worksrcpath}/dmd ${destroot}${prefix}/share/doc
+}

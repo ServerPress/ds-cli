@@ -1,0 +1,65 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136426 2015-05-16 19:21:03Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        jrosdahl ccache 3.2.2 v
+name                ccache-devel
+epoch               1
+categories          devel
+platforms           darwin freebsd
+license             GPL-3+
+
+maintainers         landonf ryandesign openmaintainer
+
+description         object-file caching compiler wrapper
+
+long_description \
+    ccache is a compiler cache.  It acts as a caching pre-processor to C/C++ \
+    compilers, using the -E compiler switch and a hash to detect when a \
+    compilation can be satisfied from cache.  This often results in a 5 to 10 \
+    times speedup in common compilations.
+
+homepage            http://ccache.samba.org/
+
+checksums           rmd160  35b2f9464f51a16fd2e0eb6843838653a504aa82 \
+                    sha256  865adc726c1b525b10647bd41055a288e2c81ca968fc0e25d36b97ee5ec2eb22
+
+depends_build       port:asciidoc \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool \
+                    port:libxslt
+
+depends_lib         port:zlib
+
+patchfiles          patch-dev.mk.in.diff
+
+post-patch {
+    reinplace "s|@PREFIX@|${prefix}|g" ${worksrcpath}/dev.mk.in
+}
+
+use_autoconf        yes
+autoconf.cmd        ./autogen.sh
+
+build.target-append ccache.1
+
+set symlinks_dir    ${prefix}/libexec/ccache
+
+post-destroot {
+    file mkdir ${destroot}${symlinks_dir}
+
+    foreach {bin} {
+        cc
+        gcc gcc2    gcc3    gcc-3.3 gcc-4.0 gcc-4.2
+        c++ c++3    c++-3.3 c++-4.0 c++-4.2
+        g++ g++2    g++3    g++-3.3 g++-4.0 g++-4.2
+    } {
+        ln -sf ${prefix}/bin/ccache ${destroot}${symlinks_dir}/${bin}
+    }
+}
+
+conflicts           ccache
+
+notes "The ccache symlinks are installed in ${symlinks_dir}"

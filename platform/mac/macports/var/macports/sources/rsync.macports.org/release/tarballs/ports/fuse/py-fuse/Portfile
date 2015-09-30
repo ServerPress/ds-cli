@@ -1,0 +1,43 @@
+# -*- mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
+# $Id: Portfile 132167 2015-01-25 10:51:31Z petr@macports.org $
+
+PortSystem          1.0
+PortGroup python    1.0
+
+name                py-fuse
+version             0.2.1
+revision            2
+categories          fuse python
+license             LGPL
+maintainers         dports openmaintainer
+
+description         Python interface for FUSE
+long_description    $description
+homepage            http://sourceforge.net/projects/fuse/
+
+platforms           darwin
+master_sites        sourceforge:project/fuse/fuse-python/${version}
+
+checksums           rmd160  91b0b0f727842b7128232fc46db7063047e61ef9 \
+                    sha256  11ead462f8d0f8302ee07b33fe93dc42c653861a16c8802a31903a7355b8351b
+
+distname            fuse-python-${version}
+
+python.versions     26 27
+
+livecheck.distname  fuse-python
+
+if {${name} ne ${subport}} {
+    depends_build-append    path:bin/pkg-config:pkgconfig
+    depends_lib-append      port:osxfuse
+
+    platform darwin {
+        patchfiles      patch-_fusemodule.c
+    }
+
+    post-destroot {
+        foreach item [glob -directory ${worksrcpath} example/*] {
+            file copy ${item} ${destroot}${prefix}/share/doc/${subport}/examples/
+        }
+    }
+}

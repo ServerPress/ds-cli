@@ -1,0 +1,48 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136150 2015-05-11 22:36:46Z devans@macports.org $
+
+PortSystem          1.0
+
+name                dconf
+version             0.24.0
+set branch          [join [lrange [split ${version} .] 0 1] .]
+maintainers         devans openmaintainer
+categories          gnome
+platforms           darwin
+license             GPL-2+
+description         dconf is a simple key/value storage system that is heavily optimised for \
+                    reading.
+
+long_description    ${description} \
+                    This makes it an ideal system for storing user preferences \
+                    (which are read 1000s of times for each time the user changes one).
+
+homepage            https://wiki.gnome.org/Projects/dconf
+master_sites        gnome:sources/${name}/${branch}/
+
+use_xz              yes
+
+checksums           rmd160  60fcdd4ca2aa09a1102cbdb3586bb462d2292eae \
+                    sha256  4373e0ced1f4d7d68d518038796c073696280e22957babb29feb0267c630fec2
+
+depends_build       port:pkgconfig \
+                    port:docbook-xsl \
+                    port:libxslt
+
+depends_lib         path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                    port:dbus \
+                    port:vala
+
+patchfiles          patch-fix-lib-names-Makefile.am.diff
+
+use_autoreconf      yes
+autoreconf.args     -fvi
+
+configure.args      --disable-schemas-compile \
+                    --disable-silent-rules
+
+post-activate {
+    system "${prefix}/bin/gio-querymodules ${prefix}/lib/gio/modules"
+}
+
+livecheck.type      gnome

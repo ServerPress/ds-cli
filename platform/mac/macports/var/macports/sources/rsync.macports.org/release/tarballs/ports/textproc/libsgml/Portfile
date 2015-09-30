@@ -1,0 +1,31 @@
+# $Id: Portfile 113161 2013-11-11 06:40:09Z jeremyhu@macports.org $
+
+PortSystem          1.0
+
+name                libsgml
+version             1.1.4
+revision            1
+categories          textproc
+license             Permissive
+platforms           darwin
+maintainers         nomaintainer
+description         SGML parsing library.
+long_description    SGML parsing library. Currently supports HTML parsing \
+                    into a tree.
+
+homepage            http://www.hick.org/code.html
+master_sites        http://www.hick.org/code/skape/libsgml/
+checksums           md5 a3ba2f8c19faf1a53182d9c6fab22e58 \
+                    sha1 fb563f899139ad50aa677052ca17f8f4c01d83c3 \
+                    rmd160 c7d96449756dd002708afc27c3c4594f15229b0b
+
+patchfiles          patch-examples_variant.c.diff \
+                    patch-src_Variant.c.diff \
+                    patch-Makefile.in.diff \
+                    patch-configure.in.diff \
+                    patch-src_Makefile.in.diff
+
+use_autoreconf      yes
+autoreconf.args     -fvi
+
+use_parallel_build  no

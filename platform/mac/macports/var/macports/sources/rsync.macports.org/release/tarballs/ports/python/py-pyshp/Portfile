@@ -1,0 +1,61 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134036 2015-03-17 17:43:04Z petr@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+set _name           pyshp
+set _n              [string index ${_name} 0]
+
+name                py-${_name}
+
+version             1.2.1
+categories-append   gis
+platforms           darwin
+supported_archs     noarch
+
+maintainers         petr openmaintainer
+
+license             MIT
+
+description         Python Shapefile Library
+
+long_description    PyShp library provides read and write support for the \
+                    ESRI shapefile format in pure Python. This format is a \
+                    popular Geographic Information System vector data format \
+                    created by ESRI. You can read and write shp, shx, and dbf \
+                    files with all types of geometry. Everything in the \
+                    public ESRI shapefile specification is implemented.
+
+homepage            http://code.google.com/${_n}/${_name}/
+
+distname            ${_name}-${version}
+master_sites        https://pypi.python.org/packages/source/${_n}/${_name}
+
+checksums           md5     156654b3c7878c4a31d27e4b9dc34377 \
+                    rmd160  567ecaba8235d4e7be5ad4a51ede921e3059e18a \
+                    sha256  eb4a1999f7c7bd573f3c8920344f50bd86221114980f07f521858d23654a33b0
+
+python.versions     26 27 33 34
+
+if {${name} ne ${subport}} {
+    depends_build-append    port:py${python.version}-setuptools
+
+    # Adding documentation
+    post-destroot {
+        set dest_doc ${destroot}${prefix}/share/doc/${subport}
+        xinstall -d  ${dest_doc}
+        xinstall -m 755 -W ${worksrcpath} \
+            README.pdf \
+            README.html \
+            README.txt \
+            changelog.txt \
+                ${dest_doc}
+    }
+
+    livecheck.type  none
+} else {
+    livecheck.type  regex
+    livecheck.url   https://pypi.python.org/pypi/${_name}/json
+    livecheck.regex "\"${_name}-(\[.\\d\]+)\\${extract.suffix}\""
+}

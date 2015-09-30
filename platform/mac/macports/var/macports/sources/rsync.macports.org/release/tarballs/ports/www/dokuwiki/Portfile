@@ -1,0 +1,40 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 96980 2012-08-23 19:19:44Z cal@macports.org $
+
+PortSystem          1.0
+
+name                dokuwiki
+version             2012-01-25b
+categories          www
+license             GPL-2
+platforms           darwin
+maintainers         nomaintainer
+supported_archs     noarch
+
+description         simple to use wiki aimed at documentation projects
+long_description    dokuwiki is a simple to use wiki aimed at a small \
+                    companies documentation needs. It works on plain texts files \
+                    and thus needs no database. It has a simple but powerful \
+                    syntax which makes sure the datafiles remain readable outside \
+                    the Wiki.
+
+homepage            http://www.splitbrain.org/projects/dokuwiki
+master_sites        http://www.splitbrain.org/_media/projects/dokuwiki/ \
+                    http://dev.splitbrain.org/browse/snapshots/
+extract.suffix      .tgz
+
+checksums           sha256  0231fd4fabdb14a05628fad60a6d68017b7664b645662d4dfdb5f2f704ca165a \
+                    rmd160  af0f101eb7ea67e13888550d0b4128e4b8e40f26
+
+depends_run         port:php5-web
+
+use_configure       no
+
+build               {}
+
+set docroot ${destroot}${prefix}/www/${name}
+
+destroot {
+    xinstall -m 755 -d ${docroot}
+    eval copy [glob ${worksrcpath}/*] ${docroot}
+}

@@ -1,0 +1,11 @@
+--- src/wxMaxima.cpp.orig	2014-04-25 01:20:45.000000000 +0200
++++ src/wxMaxima.cpp	2014-04-25 01:20:55.000000000 +0200
+@@ -1484,7 +1484,7 @@
+   if (!have_config || (have_config && command.IsSameAs (wxT("1"))))
+   {
+ #if defined (__WXMAC__)
+-    command = wxT("/Applications/Maxima.app");
++    command = wxT("maxima");
+ #else
+     command = wxT("maxima");
+ #endif

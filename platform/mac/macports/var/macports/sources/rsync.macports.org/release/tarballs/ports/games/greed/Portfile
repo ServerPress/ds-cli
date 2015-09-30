@@ -1,0 +1,36 @@
+# $Id: Portfile 112916 2013-11-04 03:30:42Z jmr@macports.org $
+
+PortSystem       1.0
+
+name             greed
+version          3.6
+categories       games
+license          GPL-2
+maintainers      nomaintainer
+description      strategy game
+long_description \
+    The strategy game of Greed. Try to eat as much as possible \
+    of the board before munching yourself into a corner.
+homepage         http://www.catb.org/~esr/greed/
+platforms        darwin
+master_sites     sunsite:games/solitaires
+checksums        md5 502106bda564e0e7ce48f590a2555cf9
+use_configure    no
+build.target     ${name}
+
+patch {
+    reinplace s|/install|/greed| $worksrcpath/Makefile
+    reinplace "s|cp greed |cp greed \$\{DESTDIR\}|" $worksrcpath/Makefile
+    reinplace "s|cp greed.6 |cp greed.6 \$\{DESTDIR\}|" \
+        $worksrcpath/Makefile
+    reinplace s|BIN=/usr/games|BIN=${prefix}/bin| $worksrcpath/Makefile
+    reinplace s|SFILE=/usr/games/lib|SFILE=${prefix}/share/greed| \
+        $worksrcpath/Makefile
+    reinplace s|/usr/share|${prefix}/share| $worksrcpath/Makefile
+}
+
+post-destroot {
+    file mkdir ${destroot}${prefix}/share/greed
+    system "touch ${destroot}${prefix}/share/greed/greed.hs"
+    system "chmod 775 ${destroot}${prefix}/share/greed/greed.hs"
+}

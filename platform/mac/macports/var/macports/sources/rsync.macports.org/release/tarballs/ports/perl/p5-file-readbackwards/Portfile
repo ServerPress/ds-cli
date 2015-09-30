@@ -1,0 +1,28 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 133560 2015-03-05 02:22:15Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         File-ReadBackwards 1.05
+# licensed under the same terms as Perl per README
+license             {Artistic-1 GPL}
+maintainers         pixilla openmaintainer
+platforms           darwin
+
+description         This module reads a file backwards line by line.
+
+long_description    It is simple to use, memory efficient and fast. \
+                    It supports both an object and a tied handle interface. \
+                                            \
+                    It is intended for processing log and other similar text \
+                    files which typically have their newest entries appended \
+                    to them. By default files are assumed to be plain text and \
+                    have a line ending appropriate to the OS. But you can set \
+                    the input record separator string on a per file basis.
+
+checksums           rmd160  7583d56b7d475585c1bc02ff3be976e5f6ccb4db \
+                    sha256  82b261af87507cc3e7e66899c457104ebc8d1c09fb85c53f67c1f90f70f18d6e
+
+supported_archs     noarch

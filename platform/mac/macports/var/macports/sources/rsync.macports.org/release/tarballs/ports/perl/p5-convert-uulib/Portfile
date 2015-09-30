@@ -1,0 +1,16 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-b asic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 131641 2015-01-15 10:49:44Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Convert-UUlib 1.4
+platforms           darwin
+maintainers         designvox.com:borys
+
+description         Perl interface to the uulib library
+long_description    ${name} is a ${description} (a.k.a. uudeview/uuenview)
+
+checksums           rmd160  dd59256c94554914fc2e647b253e7a591f486e97 \
+                    sha256  a85fe375bad0b7b8411719b27ac395ba804356d2fc528e9f127e1018cd95efcf

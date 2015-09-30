@@ -1,0 +1,57 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136113 2015-05-11 19:40:34Z sean@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+PortGroup           elisp 1.0
+
+github.setup        djcb mu 0.9.12 v
+license             GPL-3
+categories          mail
+maintainers         sean openmaintainer
+description         Command-line tools to index and search email (aka maildir-utils)
+long_description \
+   mu is a set of command-line tools for Linux/Unix that enable you to \
+   quickly find the e-mails you are looking for. First, a tool called \
+   mu-index fills a database with information about all your e-mails. After \
+   that, you can easily search for them, using mu-find and its dedicated \
+   query language.
+
+platforms           darwin
+
+homepage            http://www.djcbsoftware.nl/code/mu/
+
+checksums           rmd160  dd0fb51b3351396295c96e1a72b853446b31a2ac \
+                    sha256  7044d776b7a7ff7b8a4e5b4e00c8c853a15119f0b7db4835bcfec551062a46f8
+
+depends_build       port:pkgconfig
+depends_lib         port:gmime port:xapian-core
+
+use_autoreconf      yes
+configure.args      --disable-silent-rules --with-gui=none --disable-mu4e --disable-webkit --disable-guile
+
+# see https://github.com/djcb/mu/issues/380
+configure.cxxflags-delete -Os
+
+if {${os.platform} eq "darwin" && ${os.major} >= 13} {
+    # see https://github.com/djcb/mu/issues/332
+    macosx_deployment_target
+}
+
+variant emacs description {Build with emacs bindings} {
+    depends_lib-append    path:${emacs_binary}:${emacs_binary_provider}
+    configure.env-append  EMACS=${emacs_binary}
+    build.env-append      ELCFLAGS=-Q
+    configure.args-delete --disable-mu4e
+    configure.args-append --enable-mu4e
+}
+
+subport mu-devel {
+    github.setup    djcb mu 976711c16c32
+    name            mu-devel
+    version         0.9.11.99
+    revision        7
+
+    checksums       rmd160  06ae013659e6341b78867f3c4fce07cece52e0e0 \
+                    sha256  32f6d38bbcc80d4fb56aa39ae441daf1a64ce1c0e726df0d529fc73f75f90ddc
+}

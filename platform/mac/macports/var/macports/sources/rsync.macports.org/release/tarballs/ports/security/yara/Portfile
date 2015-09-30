@@ -1,0 +1,36 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 105138 2013-04-11 21:29:42Z ryandesign@macports.org $
+
+PortSystem              1.0
+
+name                    yara
+version                 1.7
+categories              security
+license                 GPL-2+
+platforms               darwin
+maintainers             yendor.net:a.schuster \
+                        openmaintainer
+                        
+description             Malware identification and classification tool
+long_description \
+    YARA is a tool aimed at helping malware researchers to identify and \
+    classify malware samples.
+
+homepage                http://code.google.com/p/yara-project/
+master_sites            googlecode:yara-project
+
+checksums               rmd160  12ca8b2eb7a8b7de3fae8d97e728d4847299d99a \
+                        sha256  fcee06a2f43ab65c88597de54d630a3beee925e7e84c890a8303f08a3fc85c91
+
+depends_lib             port:pcre
+
+post-patch {
+    # fix use of inline for clang compatibility
+    reinplace "s|inline|static inline|g" ${worksrcpath}/libyara/scan.c
+}
+
+variant re2 description "uses re2 library instead of pcre for regular expression parsing" {
+    configure.args-append   --with-re2
+    depends_lib-append      port:re2
+    depends_lib-delete      port:pcre
+}

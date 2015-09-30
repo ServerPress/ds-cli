@@ -1,0 +1,11 @@
+--- configure.orig	2014-07-15 13:35:22.000000000 +0900
++++ configure	2014-07-16 20:09:16.000000000 +0900
+@@ -5311,7 +5311,7 @@
+ 
+ fi
+ 
+-BOOST_LIBS="-lboost_system -lboost_filesystem -lboost_program_options -lboost_regex"
++BOOST_LIBS="-lboost_system-mt -lboost_filesystem-mt -lboost_program_options-mt -lboost_regex-mt"
+ 
+ #old_CPPFLAGS=${CPPFLAGS}
+ #old_LDFLAGS=${LDFLAGS}

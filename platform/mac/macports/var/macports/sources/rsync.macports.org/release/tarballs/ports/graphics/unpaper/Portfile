@@ -1,0 +1,32 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 111726 2013-09-30 09:07:59Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        Flameeyes unpaper 5.1 unpaper-
+categories          graphics
+maintainers         nomaintainer
+license             GPL-2+
+
+description         Post-processing scanned and photocopied book pages
+long_description    unpaper is a post-processing tool for scanned sheets of paper, especially for book pages that have been scanned from previously created photocopies. \
+                    The main purpose is to make scanned book pages better readable on screen after conversion to PDF. \
+                    Additionally, unpaper might be useful to enhance the quality of scanned pages before performing optical character recognition (OCR).
+platforms           darwin
+
+homepage            https://www.flameeyes.eu/projects/unpaper
+
+checksums           rmd160  4fb03da9d256cb18bfa77217ac238afe673a6292 \
+                    sha256  2296a7e1ff7ad1d8964c61a8ce88d2aaddfe5cd7a118eac230d159f8aae6dcb9
+
+depends_build       port:libxslt \
+                    port:netpbm
+
+depends_run         port:netpbm
+
+# tarball does not include configure script
+# https://github.com/Flameeyes/unpaper/issues/17
+use_autoreconf      yes
+
+configure.args      --disable-silent-rules

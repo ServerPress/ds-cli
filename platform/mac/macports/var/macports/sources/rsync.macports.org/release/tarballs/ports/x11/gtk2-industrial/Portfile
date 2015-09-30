@@ -1,0 +1,21 @@
+# $Id: Portfile 92854 2012-05-09 05:34:57Z jmr@macports.org $
+
+PortSystem		1.0
+name			gtk2-industrial
+version			1.0
+categories		x11
+maintainers		mac.com:jbenninghoff
+description \
+	Industrial GTK 1 & 2 theme engine from the Ximian Artwork package.
+
+homepage		http://art.gnome.org/themes/gtk2/468.php
+master_sites		http://art.gnome.org/download/themes/gtk2/470/
+
+distname		GTK2-Industrial-Engine
+distfiles		GTK2-Industrial.tar.gz
+
+platforms		darwin
+checksums		md5 adc531896a56cc496078711cf2fc34b5
+
+depends_build		port:pkgconfig bin:gtk-config:gtk1
+depends_lib		lib:libgtk.2:gtk2

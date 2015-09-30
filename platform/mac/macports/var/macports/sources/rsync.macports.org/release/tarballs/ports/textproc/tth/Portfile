@@ -1,0 +1,54 @@
+# $Id: Portfile 95782 2012-07-22 09:41:27Z ryandesign@macports.org $
+
+PortSystem 1.0
+
+name            tth
+version         4.03
+categories      textproc print
+maintainers     toby
+description     a TeX to HTML transaltor
+long_description \
+    TTH translates TEX, the predominant mark-up language for 	\
+    expressing mathematics, into HTML, the language of 		\
+    world-wide-web browsers. It thereby enables mathematical 	\
+    documents to be made available on the web. Document structure, 	\
+    using either the Plain or LaTeX macro packages, is also 	\
+    translated and incorporated in the form of hyperlinks.
+platforms       darwin freebsd
+homepage        http://hutchinson.belmont.ma.us/tth/
+
+master_sites    ${homepage}tth-noncom/
+distname        ${name}_C
+extract.suffix  .tgz
+
+dist_subdir     ${name}/${version}
+
+checksums       rmd160  bb0a5a38c5f99dabff0c921a1c2c8cbe476f6b19 \
+                sha256  ce532f5dcf907c29e1ec581d1bd9c235f0ad66fe75f0b3b703eb2a73664ab61d
+
+use_configure   no
+
+variant universal {}
+
+build.cmd       ${configure.cc}
+build.pre_args
+build.args      ${configure.cflags} [get_canonical_archflags cc] ${name}.c -o ${name}
+
+destroot {
+    xinstall -m 755 ${worksrcpath}/tth ${destroot}${prefix}/bin
+    xinstall -m 755 ${worksrcpath}/latex2gif ${destroot}${prefix}/bin
+    xinstall -m 755 ${worksrcpath}/ps2gif ${destroot}${prefix}/bin
+    xinstall -m 755 ${worksrcpath}/ps2png ${destroot}${prefix}/bin
+    xinstall -m 644 ${worksrcpath}/tth.1 ${destroot}${prefix}/share/man/man1
+
+    set docdir ${prefix}/share/doc/${name}
+    xinstall -d ${destroot}${docdir}
+    xinstall -m 644 -W ${worksrcpath} \
+        CHANGES \
+        license.txt \
+        tth_manual.html \
+        ${destroot}${docdir}
+}
+
+livecheck.url   ${homepage}Version
+livecheck.regex \"(.*)\"

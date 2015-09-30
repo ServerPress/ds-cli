@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 85000 2011-10-07 01:20:44Z jmr@macports.org $
+
+PortSystem 1.0
+
+name			antlr
+version			2.7.7
+revision		1
+categories		lang java
+license			public-domain
+platforms		darwin
+maintainers		landonf openmaintainer
+description		antlr is ANother Tool for Language Recognition
+long_description	ANTLR, ANother Tool for Language Recognition, is a \
+			language tool that provides a framework for \
+			constructing recognizers, compilers, and translators \
+			from grammatical descriptions containing Java, C#, or \
+			C++ actions. 
+
+homepage		http://www.antlr2.org/
+master_sites		${homepage}download/ \
+			http://www.mirrorservice.org/sites/master.us.finkmirrors.net/distfiles/
+checksums		md5    01cc9a2a454dd33dcd8c856ec89af090         \
+            sha1   802655c343cc7806aaf1ec2177a0e663ff209de1 \
+            rmd160 0b7951a28b748e912721fe0f6de4095d9f8da57d
+patchfiles		patch-configure.diff antlr-DESTDIR.patch
+
+configure.env		CLASSPATH=.
+configure.args		--disable-csharp
+
+if {[variant_isset universal]} {
+     build.args "CXXFLAGS=\"${configure.cxxflags} ${configure.universal_cxxflags}\" LDFLAGS=\"${configure.ldflags} ${configure.universal_ldflags}\""
+} else {
+     build.args "CXXFLAGS=\"${configure.cxxflags} ${configure.cxx_archflags}\" LDFLAGS=\"${configure.ldflags} ${configure.ld_archflags}\""
+}
+
+livecheck.type  regex
+livecheck.url   ${homepage}download.html
+livecheck.regex ${name}-(\\d+(?:\\.\\d+)*)

@@ -1,0 +1,57 @@
+# $Id: Portfile 102680 2013-02-06 19:26:32Z mmoll@macports.org $
+
+PortSystem		1.0
+
+name			triangle
+version			1.6
+revision                4
+categories		science
+license			Noncommercial Copyleft
+maintainers		nomaintainer
+description		A Two-Dimensional Quality Mesh Generator and Delaunay Triangulator
+long_description	Triangle generates exact Delaunay triangulations, \
+    constrained Delaunay triangulations, conforming Delaunay \
+    triangulations, Voronoi diagrams, and high-quality triangular \
+    meshes. The latter can be generated with no small or large \
+    angles, and are thus suitable for finite element analysis.
+
+platforms		darwin
+
+homepage		http://www.cs.cmu.edu/~quake/triangle.html
+master_sites		http://www.netlib.org/voronoi/
+distname		${name}
+
+checksums		md5 10aff8d7950f5e0e2fb6dd2e340be2c9 \
+			sha1 63d11e0b5bf097eb946a4da4ee18ddf279e16fc4 \
+			rmd160 12be39ae4e34fc14ef3f9982e28a242abe200307
+
+use_zip			yes
+
+extract.mkdir		yes
+
+post-patch	{
+    reinplace "s/-DLINUX//" ${worksrcpath}/makefile
+    reinplace "s|/usr/X11R6|${prefix}|g" ${worksrcpath}/makefile
+    reinplace "s|CC = cc|CC = ${configure.cc}|g" ${worksrcpath}/makefile
+    reinplace "s|CSWITCHES = -O|CSWITCHES = ${configure.cflags} ${configure.cc_archflags}|" ${worksrcpath}/makefile
+    reinplace "s|trilibrary: \$(BIN)triangle.o \$(BIN)tricall|trilibrary: \$(BIN)triangle.o\\\n\\\t${configure.cc} -dynamiclib -install_name ${prefix}/lib/libtriangle.dylib -o libtriangle.dylib triangle.o|" ${worksrcpath}/makefile
+}
+
+build.target trilibrary triangle
+
+use_configure		no
+
+destroot	{
+    xinstall -d ${destroot}${prefix}/share/doc/${name}
+    xinstall -W ${worksrcpath} triangle ${destroot}${prefix}/bin
+    xinstall -d ${destroot}${prefix}/share/${name}
+    # The port ncarg needs the triangle source files; see http://trac.macports.org/ticket/34706
+    xinstall -m 644 -W ${worksrcpath} triangle.h triangle.c ${destroot}${prefix}/share/${name}
+    xinstall -m 644 -W ${worksrcpath} README ${destroot}${prefix}/share/doc/${name}
+    xinstall -m 644 -W ${worksrcpath} triangle.h ${destroot}${prefix}/include
+    xinstall -m 755 -W ${worksrcpath} libtriangle.dylib ${destroot}${prefix}/lib
+}
+
+livecheck.type	regex
+livecheck.url	${homepage}
+livecheck.regex	Version (1\.\[0-9\]+)

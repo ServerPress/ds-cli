@@ -1,0 +1,141 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138004 2015-06-25 16:54:04Z dstrubbe@macports.org $
+
+PortSystem          1.0
+PortGroup           mpi 1.0
+
+name                octopus
+version             4.1.2
+revision            4
+categories          science
+platforms           darwin
+license             GPL-2+
+maintainers         dstrubbe
+
+description         A real-space (time-dependent) density-functional theory code.
+long_description    Octopus is a scientific program aimed at ab initio virtual experimentation \
+                    on a hopefully ever-increasing range of system types. \
+                    Electrons are described quantum-mechanically within density-functional \
+                    theory (DFT), in its time-dependent form (TDDFT) when doing simulations \
+                    in time. Nuclei are described classically as point particles. Electron-nucleus \
+                    interaction is described within the pseudopotential approximation.
+homepage            http://www.tddft.org/programs/octopus
+master_sites        ${homepage}/download/${version}
+
+checksums           rmd160  0ce62e38bed99e436b83489375fe55e53e64a538 \
+                    sha256  c43ac301ff035caee667292841c5d9f166da986634cf2623e3f5a8aa86fe7a69
+
+# dragonegg freezes when building; no acceptable way to set FCCPP for gcc5 or gcc6;
+# clang versions are unnecessary and may cause FCCPP trouble too
+mpi.setup           require_fortran -dragonegg -gcc5 -gcc6 -clang
+compilers.enforce_fortran libxc
+
+depends_lib         port:atlas port:libxc port:fftw-3 port:gsl
+
+configure.args      --with-libxc-prefix=${prefix} --with-blas=-lsatlas \
+                    --disable-gdlib --without-sparskit --with-netcdf-prefix=no \
+                    --with-etsf-io-prefix=no --with-berkeleygw-prefix=no \
+                    --with-arpack=no --with-libfm=no --with-pfft-prefix=no \
+                    --with-pspio-prefix=no --with-nfft=no --with-blacs=no \
+                    --with-scalapack=no --enable-utils
+# configure will find and use these other libraries unless they are explicitly disabled
+configure.optflags  -O3
+
+default_variants +newuoa
+# FIXME: does fortran default variant not happen in time to make fftw-3 get
+# installed +gcc48?
+
+# Update test results for libxc 2.1.0 (distribution has results for libxc 2.0.0)
+patchfiles          patch-testsuite-periodic_systems-07-tb09.test.diff \
+                    patch-testsuite-functionals-03-xc.test.diff
+
+pre-fetch {
+    if {[fortran_active_variant_name fftw-3] eq ""} {
+        ui_error "Install fftw-3 with a Fortran variant."
+        return -code error "fftw-3 not installed with a Fortran variant."
+    }
+}
+
+pre-configure {
+    # note: from version 5.0 the configure script will handle this
+    if {[variant_isset llvm]} {
+        configure.args-append  FCCPP="${configure.cc} -x c -E -ansi"
+    } elseif {[string match *cpp-mp-* ${configure.cpp}]} {
+        # gcc's cpp will not accept the -E flag
+        configure.args-append  FCCPP="${configure.cpp} -ansi"
+    } else {
+        # clang
+        configure.args-append  FCCPP="${configure.cc} -E -ansi"        
+    }
+}
+
+if {[mpi_variant_isset]} {
+    configure.args-delete  --disable-mpi
+    configure.args-append  --enable-mpi --without-external_zoltan
+}
+
+# More options that could be added:
+# variants: berkeleygw, openmp, threads (for fftw, atlas?), arpack
+# no way to turn off PAPI.
+
+# libxc does not have universal variant, so octopus cannot either
+universal_variant   no
+
+test.run            yes
+test.target         check-full
+
+pre-test {
+    if {[mpi_variant_isset]} {
+        test.env-append MPIEXEC=${prefix}/bin/${mpi.exec}
+    }
+    if {[variant_isset openmpi] || [variant_isset openmpi-devel]} {
+        ui_msg "Note: Test with OpenMPI may hang after periodic_systems/03-sodium_chain.02-ground_state_disp.inp."
+        ui_msg "This does not seem necessarily to indicate a problem with the build."
+    }
+}
+
+variant newuoa description {Build with internal newuoa library for optimal control} {
+    configure.args-append --enable-newuoa
+}
+
+variant netcdf description {Build with support for NetCDF output} {
+    configure.args-delete   --with-netcdf-prefix=no
+    configure.args-append   --with-netcdf-prefix=${prefix}
+    depends_lib-append      port:netcdf-fortran
+    require_active_variants netcdf-fortran {} universal
+    compilers.enforce_fortran netcdf-fortran
+}
+
+variant etsf_io requires netcdf description {Build with support for ETSF_IO output} {
+    configure.args-delete   --with-etsf-io-prefix=no
+    configure.args-append   --with-etsf-io-prefix=${prefix}
+    depends_lib-append      port:etsf_io
+    compilers.enforce_fortran etsf_io
+}
+
+variant sparskit description {Build with support for SPARSKIT propagators} {
+    configure.args-delete   --without-sparskit
+    depends_lib-append      port:sparskit
+}
+
+variant gdlib description {Build with support for definition of domain by 2D image} {
+    configure.args-delete   --disable-gdlib
+    depends_lib-append      port:gd2
+}
+
+variant scalapack description {Build with ScaLAPACK} {
+    configure.args-delete   --with-blacs=no
+    configure.args-delete   --with-scalapack=no
+    configure.args-append   --with-blacs=-lscalapack
+    depends_lib-append      port:scalapack
+
+    mpi.setup               require
+    # FIXME: this unnecessarily enforces scalapack had same C compiler as we are using.
+    # also, if +scalapack but no MPI is used, an internal error from active_variants
+    # is produced rather than saying you need MPI or just adding it to variants as intended.
+    mpi.enforce_variant     scalapack
+}
+
+livecheck.type      regex
+livecheck.url       ${homepage}/wiki/index.php/Main_Page
+livecheck.regex     ${name} (\[0-9.\]+)

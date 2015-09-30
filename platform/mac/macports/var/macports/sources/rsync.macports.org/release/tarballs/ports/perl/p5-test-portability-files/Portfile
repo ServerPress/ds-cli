@@ -1,0 +1,20 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 131149 2015-01-06 13:14:00Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Test-Portability-Files 0.06
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Check file names portability
+long_description    This module is used to check the portability across \
+                    operating systems of the names of the files present \
+                    in the distribution of a module.
+
+checksums           rmd160  e4f724312f45f624390856a22f3e873e531c5fb2 \
+                    sha256  3e0fd033387ab82df8aedd42a14a8e64200aebd59447ad62a3bc411ff4a808a8
+
+platforms           darwin
+supported_archs     noarch

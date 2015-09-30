@@ -1,0 +1,19 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Class-C3-XS 0.13
+revision            4
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         XS speedups for Class::C3
+long_description    This contains XS performance enhancers for \
+                    Class::C3 version 0.16 and higher.
+
+platforms           darwin
+
+checksums           rmd160  2fb60457d32d2526e3edf99d0ab7183bb94f08f7 \
+                    sha256  faa55a03d5d4caf0bae49856b45a5de628392d26cac04e65f006024f912a21ab

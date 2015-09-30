@@ -1,0 +1,169 @@
+#!/bin/bash
+#
+# UnixV init.d script for the Sendmail mail transfer agent
+# Copyright (C) 2015 Daniel Boland <d.boland@rocleiden.nl>
+#
+# This library is free software; you can redistribute it and/or
+# modify it under the terms of the GNU Lesser General Public
+# License as published by the Free Software Foundation; either
+# version 2.1 of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# Lesser General Public License for more details.
+# 
+# You should have received a copy of the GNU Lesser General Public
+# License along with this library; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+
+OSNAME=`uname | awk -F_ '{printf $1}'`
+RESULT=0
+PID=""
+STATUS=""
+COMMAND="$1"
+
+SERVICE="sendmail"
+PROGRAM="sendmail"
+PIDFILE=/var/run/sendmail.pid
+PROGFILE=/usr/libexec/sendmail
+PROGARGS="-L sm-mta -bd -q30m"
+CYGARGS="-L sm-mta -bD -q30m"
+
+function print_help {
+	echo "Usage: $0 [COMMAND]"
+	echo
+	echo commands:
+	printf -- " start      - start $PROGRAM\n"
+	printf -- " stop       - stop $PROGRAM\n"
+	printf -- " restart    - restart $PROGRAM by sending a SIGHUP if running or start if \n"
+	printf -- "              not running\n"
+	printf -- " fullstatus - dump a full status screen; requires lynx and mod_status enabled\n"
+	printf -- " status     - dump a short status screen; requires lynx and mod_status enabled\n"
+	printf -- " graceful   - do a graceful restart by sending a SIGUSR1 or start if not running\n"
+	printf -- " configtest - do a configuration syntax test\n"
+	printf -- " help       - this screen\n"
+}
+function print_status {
+	echo "$0 $COMMAND: $1"
+}
+function is_running {
+	PID=`awk '{print $1; exit}' $PIDFILE 2>/dev/null`
+	result=1
+	if ! [ $PID ]; then
+		STATUS="$PROGRAM (no pid file) not running"
+	elif kill -0 $PID 2>/dev/null; then
+		STATUS="$PROGRAM (pid $PID) running"
+		result=0
+	else
+		STATUS="$PROGRAM (pid $PID?) not running"
+	fi
+	return $result
+}
+function start_cygwin_service {
+	rm -f /var/log/$SERVICE.log
+	/usr/bin/cygrunsrv -S $SERVICE 2>/dev/null
+	result=$?
+	cat /var/log/$SERVICE.log
+	return $result
+}
+function start_service {
+	if [ $OSNAME == CYGWIN ]; then
+		start_cygwin_service
+	else
+		$PROGFILE $PROGARGS
+	fi
+}
+function restart_service {
+	signal=$1
+	if ! is_running; then
+		print_status "$PROGRAM not running, trying to start"
+		start_service
+	else
+		kill -$signal $PID
+	fi
+	if [ $? -eq 0 ]; then
+		print_status "$PROGRAM started"
+	else
+		print_status "$PROGRAM could not be started"
+	fi
+}
+function install_cygwin_service {
+	if ! /usr/bin/cygrunsrv -Q $SERVICE >/dev/null; then
+		/usr/bin/cygrunsrv -I $SERVICE -d "CYGWIN $PROGRAM" -p $PROGFILE.exe -a "$CYGARGS" -t manual -o
+		STATUS="$SERVICE service installed"
+	fi
+}
+function install_service {
+	if [ -f /etc/init.d/$SERVICE ]; then
+		STATUS="$SERVICE service already installed"
+	else
+		cp $0 /etc/init.d/$SERVICE
+		STATUS="$SERVICE service installed"
+	fi
+	if [ $OSNAME == CYGWIN ]; then
+		install_cygwin_service 2>/dev/null
+	fi
+}
+
+if ! [ "$COMMAND" ]; then
+	echo "Usage: $0 {help|start|stop|restart|status|graceful|configtest|install}"
+	exit 0
+fi
+
+case "$COMMAND" in
+	help)
+		print_help
+		;;
+	start)
+		if is_running; then
+			print_status "$STATUS"
+		elif start_service; then
+			print_status "$PROGRAM started"
+		else
+			print_status "$PROGRAM could not be started"
+			RESULT=1
+		fi
+		;;
+	stop)
+		if ! is_running; then
+			print_status "$STATUS"
+		elif kill $PID; then
+			print_status "$PROGRAM stopped"
+		else
+			print_status "$PROGRAM could not be stopped"
+			RESULT=1
+		fi
+		;;
+	restart)
+		restart_service HUP
+		;;
+	status)
+		if ! is_running; then
+			RESULT=1
+		fi
+		print_status "$STATUS"
+		;;
+	graceful)
+		restart_service USR1
+		;;
+	configtest)
+		echo | $PROGFILE -d0.13 -d89.10 "$USER"
+		;;
+	install)
+		if ! install_service; then
+			print_status "$SERVICE service could not be installed"
+			RESULT=1
+		else
+			print_status "$STATUS"
+		fi
+		;;
+	*)
+		print_status "No such command"
+		RESULT=1
+		;;
+esac
+
+exit $RESULT
+
+

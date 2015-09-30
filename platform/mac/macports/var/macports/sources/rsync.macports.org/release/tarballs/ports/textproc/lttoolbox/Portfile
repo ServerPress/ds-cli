@@ -1,0 +1,37 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
+# $Id: Portfile 95200 2012-07-06 17:14:29Z jmr@macports.org $
+
+PortSystem              1.0
+
+name                    lttoolbox
+version                 3.2.0
+set branch              [join [lrange [split ${version} .] 0 1] .]
+categories              textproc
+license                 GPL-2+
+platforms               darwin
+maintainers             nomaintainer
+
+description             toolbox for lexical processing, morphological analysis \
+                        and generation
+
+long_description        lttoolbox is a toolbox from the Apertium platform \
+                        used for lexical processing, morphological analysis \
+                        and generation of words. Analysis involves finding \
+                        the lemma and grammatical information (e.g. noun, \
+                        plural) of a surface form. Generation is the opposite \
+                        process. The package is split into three programs, \
+                        lt-comp (compiler), lt-proc (processor), and \
+                        lt-expand (generates all possible mappings between \
+                        surface forms and lexical forms).
+
+homepage                http://wiki.apertium.org/wiki/Lttoolbox
+master_sites            sourceforge:project/apertium/lttoolbox/${branch}
+
+checksums               rmd160  b346261a79b7b54c0bb9abede26e72cc49939148 \
+                        sha256  1359291173ae4af6cbaa625f5ab63ad288b91f72ed0555b2a676e3dfe9b4c1fc
+
+depends_build           port:pkgconfig
+
+depends_lib             port:libxml2
+
+livecheck.regex         /${name}-(\[0-9.\]+)${extract.suffix}

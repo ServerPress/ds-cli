@@ -1,0 +1,20 @@
+# $Id: Portfile 94884 2012-07-01 22:21:15Z mww@macports.org $
+PortSystem 1.0
+name		clive
+version		0.4.5
+license		BSD
+description	A console line client for livejournal.
+long_description	This is a console UNIX client for updating weblogs. \
+			It is designed to be used interactively or as a \
+			UNX-style filter on the command line.
+maintainers	nomaintainer
+categories	net
+platforms	darwin 
+homepage	http://sourceforge.net/projects/ljclive/
+master_sites	sourceforge:project/ljclive/ljclive/clive-${version}
+checksums	md5 1ed5e499501e6af761d56727b49aa273
+configure.cppflags-append "-L${prefix}/lib"
+configure.args	--mandir=${prefix}/share/man
+depends_lib		port:libiconv
+
+livecheck.regex (?i)<title>ljclive clive-(.*) released.*</title>

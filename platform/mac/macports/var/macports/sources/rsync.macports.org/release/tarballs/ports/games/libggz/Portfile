@@ -1,0 +1,26 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 122412 2014-07-22 12:41:54Z ryandesign@macports.org $
+
+PortSystem 1.0
+
+name            libggz
+version         0.0.14.1
+revision        2
+categories      games
+platforms       darwin
+maintainers     nomaintainer
+license         GPL-2+ LGPL-2.1+
+description     The GGZ Gaming Zone - Base Library.
+long_description ${description}
+homepage	http://www.ggzgamingzone.org/
+master_sites	http://ftp.belnet.be/packages/ggzgamingzone/ggz/${version}/ \
+                http://mirrors.ibiblio.org/pub/mirrors/ggzgamingzone/ggz/${version}/
+checksums       md5     603739504648833779aa13b0327a1c3d \
+                sha1    8a602e60606c89fd13ad93bb84a8be466fd457ef \
+                rmd160  5136aba62a4e988d97451b00193c10189f7265f2
+depends_lib     port:libgcrypt \
+                port:openssl
+
+livecheck.type  regex
+livecheck.url   http://ftp.belnet.be/packages/ggzgamingzone/ggz/
+livecheck.regex ">(\\d+(?:\\.\\d+)*)"

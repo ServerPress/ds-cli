@@ -1,0 +1,39 @@
+# -*- coding: utf-8; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
+# $Id: Portfile 114324 2013-12-05 08:44:51Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-openopt
+version             0.29
+revision            1
+categories-append   math science
+maintainers         nomaintainer
+description         Numerical optimization framework for python
+long_description    OpenOpt is a free optimization framework for python. \
+                    It interfaces with many different algorithms for solving \
+                    optimization problems, some of which are written in C or Fortran.
+
+platforms           darwin
+license             BSD
+
+homepage            http://openopt.org
+#the checksums (inevitably) mismatch with upstream as of 2013-07-6
+#master_sites        http://openopt.org/images/3/33/
+master_sites        http://distfiles.macports.org/python/
+distname            OpenOpt
+
+checksums           md5     e2cf031a18616c26cdd7d0a4615ef8d8 \
+                    sha1    f60213b5c01e133b3c06a9698b34484fe1948f2e \
+                    rmd160  c7e23f95fdfd4af7c5df960e23641fc1d6a784ba
+
+python.versions     26
+
+if {${name} ne ${subport}} {
+    use_zip             yes
+    depends_lib-append  port:py${python.version}-numpy
+    livecheck.type      none
+} else {
+    livecheck.url       ${master_sites}
+    livecheck.regex     OpenOpt(.*).zip
+}

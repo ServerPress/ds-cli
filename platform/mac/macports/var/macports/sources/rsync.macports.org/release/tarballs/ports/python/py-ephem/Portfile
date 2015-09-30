@@ -1,0 +1,38 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; truncate-lines: t; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130446 2014-12-31 00:50:59Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-ephem
+version             3.7.5.3
+categories-append   science
+platforms           darwin
+maintainers         aronnax openmaintainer
+license             LGPL-3
+description         scientific-grade astronomy routines
+long_description \
+  PyEphem provides an ephem Python package for performing high-precision \
+  astronomy computations. The underlying numeric routines are coded in C and \
+  are the same ones that drive the popular XEphem astronomy application, whose \
+  author, Elwood Charles Downey, generously gave permission for their use in \
+  PyEphem. The name ephem is short for the word ephemeris, which is the \
+  traditional term for a table giving the position of a planet, asteroid, or \
+  comet for a series of dates.
+
+homepage            http://rhodesmill.org/pyephem/
+distname            ephem-${version}
+master_sites        http://pypi.python.org/packages/source/e/ephem/
+checksums           md5     0e33905844e3be5c901c13e5a9c938a3 \
+                    rmd160  cb54fcac92fb179274bba5c25dca8068d7fa5411 \
+                    sha256  ec5ce28ac931e87649ab658a3b7eebc8f88b945e5707b48453fbe76db6578b05
+
+python.versions     26 27 33 34
+
+if {${name} eq ${subport}} {
+    livecheck.type  regex
+    livecheck.url   {http://pypi.python.org/pypi?:action=doap&name=pyephem}
+    livecheck.regex {<release><Version><revision>([^<]+)</revision></Version></release>}
+} else {
+    livecheck.type  none
+}

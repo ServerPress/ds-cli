@@ -1,0 +1,27 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138280 2015-07-04 00:32:03Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Time-Duration-Parse 0.12
+license             {Artistic-1 GPL}
+maintainers         devans openmaintainer
+description         Time::Duration::Parse - Parse string that represents time duration
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  a92573772bd92522aebf5d111a94828b583578fa \
+                    sha256  3a61800d5e757c4a766a48cff3efae4c4c1504c496947d99b529e8ee0eefae7b
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-time-duration
+
+    depends_lib-append \
+                    port:p${perl5.major}-exporter-lite
+
+    supported_archs noarch
+}

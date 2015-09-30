@@ -1,0 +1,112 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136969 2015-06-01 12:27:54Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           cmake 1.0
+PortGroup           qt4 1.0
+PortGroup           conflicts_build 1.0
+
+name                orfeotoolbox
+version             4.0.0
+revision            0
+categories          gis graphics
+platforms           darwin
+license             CeCILL
+
+maintainers         gmail.com:julien.malik stromnov openmaintainer
+
+description         OrfeoToolbox - Free library of image processing algorithms
+
+long_description    ORFEO Toolbox (OTB) is distributed as an open source library of image \
+                    processing algorithms. OTB is based on the medical image processing library \
+                    ITK and offers particular functionalities for remote sensing image processing \
+                    in general and for high spatial resolution images in particular. OTB is \
+                    distributed under a free software license CeCILL (similar to GNU GPL) to \
+                    encourage contribution from users and to promote reproducible research.
+
+homepage            http://www.orfeo-toolbox.org/otb/
+master_sites        http://orfeo-toolbox.org/packages/
+
+distname            OTB-${version}
+extract.suffix      .tgz
+
+checksums           rmd160  90ee3e47a79e2bee9525c1a9cbfa050a78e1c360 \
+                    sha256  9875484139b785163c0f0e19e76d458f598fd076b80d0d0aa0e3b59cafcad98e
+
+depends_lib-append  port:tiff \
+                    port:jpeg \
+                    port:libgeotiff \
+                    port:gdal \
+                    port:expat \
+                    port:boost \
+                    port:curl \
+                    port:libkml \
+                    port:tinyxml \
+                    port:muparser \
+                    port:opencv \
+                    port:fftw-3
+
+conflicts_build     libsvm \
+                    openjpeg15 \
+                    OpenSceneGraph \
+                    InsightToolkit
+
+patchfiles-append       patch-Code_ApplicationEngine_otbWrapperApplication.h.diff
+
+use_parallel_build      no
+
+cmake.out_of_source     yes
+
+configure.args-append   -DBUILD_APPLICATIONS=ON \
+                        -DBUILD_EXAMPLES=OFF \
+                        -DBUILD_TESTING=OFF
+
+# The default installation path for library is ${prefix}/lib/otb
+# But the cmake PortGroup is using rpath and CMAKE_INSTALL_NAME_DIR=${prefix}/lib
+configure.args-replace  -DCMAKE_INSTALL_NAME_DIR=${prefix}/lib \
+                        -DCMAKE_INSTALL_NAME_DIR=${prefix}/lib/otb
+
+# Use external libs, where available
+configure.args-append   -DOTB_USE_EXTERNAL_EXPAT=ON \
+                        -DOTB_USE_EXTERNAL_BOOST=ON \
+                        -DOTB_USE_EXTERNAL_TINYXML=ON \
+                        -DOTB_USE_EXTERNAL_LIBKML=ON \
+                        -DOTB_USE_EXTERNAL_MUPARSER=ON \
+                        -DOTB_USE_CURL=ON \
+                        -DOTB_USE_OPENCV=ON
+
+# Use internal ITK (MacPorts ITK is outdated)
+configure.args-append   -DOTB_USE_EXTERNAL_ITK=OFF \
+                        -DOTB_USE_PATENTED=OFF
+
+# Use internal openjpeg (OTB needs 2.0 API, but does not support using the external lib yet)
+configure.args-append   -DOTB_USE_JPEG2000=ON
+
+# Use internal libs (no MacPorts alternatives available)
+configure.args-append   -DOTB_USE_EXTERNAL_OPENTHREADS=OFF \
+                        -DOTB_USE_EXTERNAL_OSSIM=OFF \
+                        -DOTB_USE_SIFTFAST=ON
+
+configure.args-append   -DITK_USE_FFTWF=OFF
+
+variant qt4 description {Wrap QT4} {
+    depends_lib-append      port:qt4-mac
+    configure.args-append   -DOTB_WRAP_QT=ON
+}
+
+variant python27 description {Wrap Python 2.7} {
+    depends_lib-append      port:python27 \
+                            port:swig \
+                            port:swig-python
+
+    patchfiles-append       patch-Code-Wrappers-SWIG-__init__.py.in.diff \
+                            patch-Code-Wrappers-SWIG-CMakeLists.txt.diff
+
+    configure.args-append   -DOTB_WRAP_PYTHON=ON \
+                            -DPYTHON_EXECUTABLE=${prefix}/bin/python2.7 \
+                            -DOTB_INSTALL_PYTHON_DIR=${frameworks_dir}/Python.framework/Versions/2.7/lib/python2.7/site-packages
+}
+
+livecheck.type      regex
+livecheck.url       ${master_sites}
+livecheck.regex     {OTB-(\d+(?:\.\d+)*)\.[tz]}

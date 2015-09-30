@@ -1,0 +1,126 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138128 2015-06-29 22:48:08Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           gobject_introspection 1.0
+
+name                totem
+version             3.16.2
+set branch          [join [lrange [split ${version} .] 0 1] .]
+categories          gnome
+# also has an exception allowing use of non-GPL-compatible plugins
+license             GPL-2+
+maintainers         devans openmaintainer
+description         Official movie player of the GNOME desktop environment
+long_description    Totem is based on GStreamer. It features a \
+                    playlist, a full-screen mode, seek and volume controls, \
+                    as well as keyboard navigation. It comes with added \
+                    functionality such as: \
+                        * Video thumbnailer for the file manager \
+                        * Nautilus properties tab \
+                        * Webcam utility (in development)
+
+homepage            https://wiki.gnome.org/Apps/Videos
+platforms           darwin
+master_sites        gnome:sources/${name}/${branch}/
+
+use_xz              yes
+
+checksums           rmd160  7bd0aad3b1c4cebe1dc0dddbf6ef5f956c71baaa \
+                    sha256  8e9150d104499500939499e29d56b1593ca49777f35ad5a7a02192e23d811f32
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:itstool \
+                    port:yelp-tools \
+                    port:appstream-glib \
+                    port:gnome-common \
+                    port:gtk-doc \
+                    port:autoconf \
+                    port:automake \
+                    port:intltool
+
+depends_lib         port:desktop-file-utils \
+                    port:gnome-desktop \
+                    port:gsettings-desktop-schemas \
+                    port:gtk3 \
+                    port:grilo-plugins \
+                    port:gstreamer1-gst-plugins-base \
+                    port:gstreamer1-gst-plugins-good \
+                    port:gstreamer1-gst-plugins-bad \
+                    port:gstreamer1-gst-libav \
+                    port:clutter \
+                    port:clutter-gtk \
+                    port:clutter-gst3 \
+                    port:totem-pl-parser \
+                    port:libpeas \
+                    port:libxml2 \
+                    port:shared-mime-info \
+                    port:dbus \
+                    port:vala \
+                    port:zeitgeist \
+                    port:xorg-libX11 \
+                    port:xorg-libsm \
+                    port:xorg-libice
+
+depends_run         port:gnome-settings-daemon \
+                    port:yelp
+
+patchfiles          patch-vala-cflags.diff
+
+gobject_introspection yes
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+configure.cmd       ./autogen.sh
+
+set withplugins     apple-trailers,autoload-subtitles,chapters,dbusservice,im-status,gromit,media-player-keys,ontop,opensubtitles,properties,pythonconsole,recent,rotation,screensaver,screenshot,skipto,zeitgeist-dp,vimeo
+
+if {[variant_isset nautilus]} {
+    set withplugins [string map {"rotation" "rotation,save-file"} ${withplugins}]
+}
+
+configure.args      --with-plugins=${withplugins} \
+                    --enable-easy-codec-installation \
+                    --enable-debug \
+                    --enable-compile-warnings=minimum \
+                    --disable-python \
+                    --enable-vala \
+                    --disable-nautilus \
+                    --disable-schemas-compile \
+                    --disable-silent-rules
+
+variant nautilus description {Build nautilus properties page plugin} {
+    configure.args-delete     --disable-nautilus
+    depends_lib-append        port:nautilus
+}
+
+variant python27 conflicts python34 description {Use python 2.7} {
+    configure.python          ${prefix}/bin/python2.7
+    depends_lib-append        port:py27-gobject3 port:py27-pylint
+    set python_framework      ${frameworks_dir}/Python.framework/Versions/2.7
+    configure.pkg_config_path ${python_framework}/lib/pkgconfig
+    configure.env              PATH=${python_framework}/bin:$env(PATH)
+    configure.args-replace    --disable-python --enable-python
+}
+
+variant python34 conflicts python27 description {Use python 3.4} {
+    configure.python          ${prefix}/bin/python3.4
+    depends_lib-append        port:py34-gobject3 port:py34-pylint
+    set python_framework      ${frameworks_dir}/Python.framework/Versions/3.4
+    configure.pkg_config_path ${python_framework}/lib/pkgconfig
+    configure.env              PATH=${python_framework}/bin:$env(PATH)
+    configure.args-replace    --disable-python --enable-python
+}
+
+if {![variant_isset python27]} {
+    default_variants    +python34
+}
+
+post-activate {
+    system "${prefix}/bin/update-desktop-database ${prefix}/share/applications"
+    system "${prefix}/bin/gtk-update-icon-cache-3.0 -f -t ${prefix}/share/icons/hicolor"
+    system "${prefix}/bin/glib-compile-schemas ${prefix}/share/glib-2.0/schemas"
+}
+
+livecheck.type      gnome

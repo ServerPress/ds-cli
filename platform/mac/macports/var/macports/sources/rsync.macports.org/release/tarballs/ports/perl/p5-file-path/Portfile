@@ -1,0 +1,21 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 131362 2015-01-10 14:43:02Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         File-Path 2.09
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+
+description         Create or remove directory trees
+long_description    This module provide a convenient way to create directories \
+                    of arbitrary depth and to delete an entire directory \
+                    subtree from the filesystem.
+
+checksums           rmd160  a91c935aa6f6494d7b096d27408a23c35f2cc43f \
+                    sha256  d1e0b5b7f93cc4133e2fc206a34e00dd868886b7ed850d799ccee824d25a225e
+
+platforms           darwin
+supported_archs     noarch

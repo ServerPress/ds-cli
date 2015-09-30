@@ -1,0 +1,37 @@
+# -*- coding: utf-8; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+set real_name       word2vec
+name                py-${real_name}
+version             0.7.1
+categories-append   textproc
+maintainers         hum openmaintainer
+license             Apache-2
+platforms           darwin
+
+description         Google word2vec python wrapper
+long_description    ${description}
+
+homepage            https://github.com/danielfrg/word2vec/
+master_sites        https://pypi.python.org/packages/source/w/${real_name}/
+
+distname            ${real_name}-${version}
+
+python.versions     27 34
+
+if {${name} ne ${subport}} {
+    checksums           rmd160  678798d2a7562938ffd1dc3b72c42967bf8901f7 \
+                        sha256  7673067a75134151eebab7a1093d787d76f60acaeef5a9cd8fc04865434e7988
+
+    depends_build-append  port:py${python.version}-setuptools
+    depends_lib-append  port:py${python.version}-numpy
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/${real_name}
+    livecheck.regex     "${real_name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"
+}

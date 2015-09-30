@@ -1,0 +1,44 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137601 2015-06-15 11:08:10Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-rpy2
+version             2.6.0
+revision            0
+categories-append   science
+platforms           darwin
+license             {MPL-1.1 LGPL-2.1+}
+
+python.versions     27 34
+
+maintainers         stromnov openmaintainer
+
+description         A simple and efficient access to R from Python
+
+long_description    rpy2 is a redesign and rewrite of rpy. It is providing a \
+                    low-level interface to R, a proposed high-level interface, \
+                    including wrappers to graphical libraries, as well as R-like \
+                    structures and functions.
+
+homepage            http://rpy.sourceforge.net/rpy2.html
+master_sites        https://pypi.python.org/packages/source/r/rpy2/
+
+distname            rpy2-${version}
+
+checksums           rmd160  d968ea366e3805fe186179fab868ba6a154c9872 \
+                    sha256  53e295f3018a781008bffb97cc0c9a7cd361a3d191939f197157827d21a2e4b6
+
+if {${name} ne ${subport}} {
+    # To continue using your custom R installation instead of MacPorts' R,
+    # you have to remove this dependency line and make sure that your R
+    # is in MacPorts' binpath, see your macports.conf for details.
+    depends_lib-append  port:R
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/rpy2/json
+    livecheck.regex     {rpy2-(\d+(?:\.\d+)*)\.[tz]}
+}

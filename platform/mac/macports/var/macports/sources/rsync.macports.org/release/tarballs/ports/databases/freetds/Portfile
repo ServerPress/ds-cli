@@ -1,0 +1,85 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 122220 2014-07-18 01:18:53Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                freetds
+epoch               1
+version             0.91.103
+categories          databases
+platforms           darwin
+maintainers         nomaintainer
+# libs are LGPL, tdspool executable is GPL
+license             {GPL-2+ LGPL}
+
+description         A set of libraries for Unix and Linux that allows your programs to natively \
+                    talk to Microsoft SQL Server and Sybase databases
+
+long_description    FreeTDS is an open source implementation of the TDS (Tabular DataStream) \
+                    protocol used by these databases for their own clients. It supports many \
+                    different flavors of the protocol and supports several APIs to access it. \
+                    Additionally FreeTDS works with other software such as Perl and PHP, \
+                    providing access from those languages as well. There is also a native (type 4) \
+                    JDBC driver available for platform-independent Java clients (including Java \
+                    Server Pages applications), with support for most of the JDBC 1 API and \
+                    portions of the JDBC 2 API.
+
+homepage            http://www.freetds.org/
+master_sites        ftp://ftp.freetds.org/pub/${name}/stable/
+
+checksums           rmd160  7e82979c3333c56439ca01eb71da1ae783b58c02 \
+                    sha256  895cdce6d2af65f79db5e7034d1eba5dd3b63369a0c6b5fbc890e606c699556b
+
+depends_lib         port:libiconv \
+                    port:ncurses \
+                    port:readline
+
+configure.args      --includedir=${prefix}/include/${name} \
+                    --sysconfdir=${prefix}/etc/${name} \
+                    --with-libiconv-prefix=${prefix}
+
+use_parallel_build  yes
+
+post-destroot {
+    # rename the freetds conf files so we don't clobber any existing ones
+    foreach file [list "freetds.conf" "locales.conf" "pool.conf"] {
+        file rename ${destroot}${prefix}/etc/freetds/${file} ${destroot}${prefix}/etc/freetds/${file}.sample
+    }
+    
+    file rename ${destroot}${prefix}/share/doc/${name}-${version} \
+        ${destroot}${prefix}/share/doc/${name}
+}
+
+post-activate {
+    # copy over freetds sample files if none exists
+    ui_msg "\n****************************************************************"
+    foreach file [list "freetds.conf" "locales.conf" "pool.conf"] {
+        if {![file exists ${prefix}/etc/freetds/${file}]} {
+            ui_msg "Configuration file ${file} does not exist and has been created using"
+            ui_msg "    ${prefix}/etc/freetds/${file}.sample"
+            file copy ${prefix}/etc/freetds/${file}.sample ${prefix}/etc/freetds/${file}
+        } else {
+            ui_msg "Configuration file ${file} exists and has has been retained."
+            ui_msg "(The distribution's version has been installed to ${prefix}/etc/freetds/${file}.sample)"
+        }
+    }
+    ui_msg "****************************************************************"
+}
+
+variant mssql description {Use MS style dblib} {
+    configure.args-append --enable-msdblib --with-tdsver=8.0
+}
+
+variant odbc conflicts iodbc description {Build odbc driver against unixODBC} {
+    depends_lib-append port:unixODBC
+    configure.args-append --with-unixodbc=${prefix}
+}
+
+variant iodbc conflicts odbc description {Build odbc driver against iODBC} {
+    depends_lib-append port:libiodbc
+    configure.args-append --with-iodbc=${prefix}
+}
+
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     ${name}-(0\\.91\\.\\d+)${extract.suffix}

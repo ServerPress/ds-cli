@@ -1,0 +1,59 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim: fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130005 2014-12-24 11:55:28Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           cmake 1.0
+
+name                viennacl
+version             1.6.2
+set branch          [join [lrange [split ${version} .] 0 1] .]
+revision            0
+categories          math devel
+platforms           darwin
+license             MIT
+
+maintainers         stromnov openmaintainer
+
+description         ViennaCL is a free open-source linear algebra library
+
+long_description    ViennaCL is a free open-source linear algebra library \
+                    for computations on many-core architectures (GPUs, MIC) \
+                    and multi-core CPUs. The library is written in C++ \
+                    and supports CUDA, OpenCL, and OpenMP. In addition \
+                    to core functionality and many other features including \
+                    BLAS level 1-3 support and iterative solvers.
+
+homepage            http://viennacl.sourceforge.net
+master_sites        sourceforge:project/viennacl/${branch}.x
+
+distname            ViennaCL-${version}
+
+checksums           rmd160  b638aa4831821eca95a89227351aef3f39aa6017 \
+                    sha256  e46e1960b0bd87619bf02a884611ca087ac3c7378b35d5be3d8185f4fe669805
+
+worksrcdir          ${workpath}/build
+patch.dir           ${workpath}/${distname}
+
+post-extract {
+    file mkdir ${worksrcpath}
+}
+
+patchfiles-append   patch-CMakeLists.txt.diff \
+                    patch-cmake_ViennaCLCommon.cmake.diff \
+                    patch-libviennacl_CMakeLists.txt.diff
+
+post-patch {
+    reinplace "s|@prefix@|${prefix}|" "${patch.dir}/CMakeLists.txt"
+    reinplace "s|@prefix@|${prefix}|" "${patch.dir}/cmake/ViennaCLCommon.cmake"
+}
+
+depends_lib-append  port:boost
+
+configure.args-append \
+                    ../${distname} \
+                    -DBUILD_EXAMPLES=OFF \
+                    -DBUILD_TESTING=OFF
+
+livecheck.type      sourceforge
+livecheck.name      viennacl
+livecheck.regex     {/ViennaCL-(\d+(?:\.\d+)*)\.[tz]}

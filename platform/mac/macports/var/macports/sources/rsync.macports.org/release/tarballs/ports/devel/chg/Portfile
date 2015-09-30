@@ -1,0 +1,31 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 127564 2014-10-29 18:12:32Z sean@macports.org $
+
+PortSystem          1.0
+PortGroup           bitbucket 1.0
+
+bitbucket.setup     yuja chg 0.1
+revision            11
+
+categories          devel
+platforms           darwin
+license             LGPL-2+
+maintainers         sean openmaintainer
+
+description         A bit faster Mercurial client for Unix with per-user cmdserver daemon.
+long_description    ${description}
+
+depends_lib-append  port:python27 \
+                    bin:hg:mercurial
+
+use_configure       no
+
+build.args          CC="${configure.cc} [get_canonical_archflags]" CFLAGS=${configure.cflags} \
+                    PYTHON=${prefix}/bin/python2.7 HG=${prefix}/bin/hg \
+                    HGEXTDIR=${frameworks_dir}/Python.framework/Versions/2.7/lib/python2.7/site-packages/hgext
+destroot.args       PREFIX=${prefix} \
+                    PYTHON=${prefix}/bin/python2.7 HG=${prefix}/bin/hg \
+                    HGEXTDIR=${frameworks_dir}/Python.framework/Versions/2.7/lib/python2.7/site-packages/hgext
+
+checksums           rmd160  3cfac3ddc6c6424a00192864f36183ac2b6ef378 \
+                    sha256  f97cbad60e8de4dc234840ac416afdd6deab2a5021a23293fd23f9933ab0b982

@@ -1,0 +1,35 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 128240 2014-11-17 02:08:31Z khindenburg@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-medusa
+set real_name       medusa
+version             0.5.4
+revision            1
+license             MIT
+maintainers         nomaintainer
+description         Framework for asynchronous socket-based servers.
+long_description    Medusa is a framework for writing asynchronous socket-based servers.
+
+platforms           darwin
+supported_archs     noarch
+
+homepage            https://pypi.python.org/pypi/medusa
+master_sites        https://pypi.python.org/packages/source/m/${real_name}
+distname            ${real_name}-${version}
+
+checksums           rmd160  84da6140aaf3e677e86014a4e87c83ada39776ec \
+                    sha256  ab7fc4c9afd28b3aaf575aca5bb07005d228a0cad5b1787a521ffca63cfe4317
+
+python.versions     27 34
+
+if {${name} ne ${subport}} {
+    depends_build-append    port:py${python.version}-setuptools
+    livecheck.type  none
+} else {
+    livecheck.type  regex
+    livecheck.url   [lindex ${master_sites} 0]
+    livecheck.regex ${real_name}-(\[0-9.\]+)${extract.suffix}
+}

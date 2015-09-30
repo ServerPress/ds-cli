@@ -1,0 +1,22 @@
+--- src/posix.h.orig	2015-01-16 15:39:35.000000000 -0800
++++ src/posix.h	2015-01-20 19:17:39.000000000 -0800
+@@ -121,6 +121,19 @@
+ 
+ #include "strnlen.h"
+ 
++#ifdef __APPLE__
++#include <Availability.h>
++#if __MAC_OS_X_VERSION_MIN_REQUIRED <= 1060
++static size_t
++strnlen (const char *string, size_t maxlen)
++{
++    const char *end = memchr (string, '\0', maxlen);
++    return end ? (size_t) (end - string) : maxlen;
++}
++# define p_strnlen strnlen
++#endif
++#endif
++
+ #ifdef NO_READDIR_R
+ #	include <dirent.h>
+ GIT_INLINE(int) p_readdir_r(DIR *dirp, struct dirent *entry, struct dirent **result)

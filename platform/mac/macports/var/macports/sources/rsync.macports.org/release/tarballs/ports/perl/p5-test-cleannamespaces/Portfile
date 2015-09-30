@@ -1,0 +1,46 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 124255 2014-08-21 20:37:49Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Test-CleanNamespaces 0.18
+revision            1
+platforms           darwin
+maintainers         devans openmaintainer
+license             {Artistic-1 GPL}
+
+description         Test::CleanNamespaces - Check for uncleaned imports
+
+long_description    This module lets you check your module's namespaces for \
+                    imported functions you might have forgotten to remove with \
+                    namespace::autoclean or namespace::clean and are therefore \
+                    available to be called as methods, which usually isn't want you want.
+
+supported_archs     noarch
+
+checksums           rmd160  4148014ff4a358ba62849ec971560c08890d87aa \
+                    sha256  3c497bb488175e622873275aa7636b42ab5ceac0a85a4598e1f1edb022264777
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-module-implementation \
+                    port:p${perl5.major}-test-deep \
+                    port:p${perl5.major}-test-requires \
+                    port:p${perl5.major}-test-simple \
+                    port:p${perl5.major}-test-warnings
+
+    depends_lib-append \
+                    port:p${perl5.major}-file-find-rule \
+                    port:p${perl5.major}-file-find-rule-perl \
+                    port:p${perl5.major}-module-runtime \
+                    port:p${perl5.major}-package-stash \
+                    port:p${perl5.major}-package-stash-xs \
+                    port:p${perl5.major}-sub-exporter \
+                    port:p${perl5.major}-sub-exporter-progressive \
+                    port:p${perl5.major}-sub-identify \
+                    port:p${perl5.major}-namespace-clean
+
+    supported_archs noarch
+}

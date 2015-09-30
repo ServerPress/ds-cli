@@ -1,0 +1,59 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 132632 2015-02-06 08:54:41Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           wxWidgets 1.0
+
+name                relax
+version             3.3.6
+categories          science python chemistry
+license             GPL-3
+maintainers         gmail.com:howarth.at.macports
+description         Protein dynamics by NMR relax. data analysis
+long_description    The program relax is designed for the study of the \
+                    dynamics of proteins or other macromolecules though the \
+                    analysis of NMR relaxation data.
+homepage            http://www.nmr-relax.com/
+platforms           darwin
+master_sites        http://download.gna.org/relax/
+distfiles           ${name}-${version}.src.tar.bz2
+dist_subdir         ${name}
+checksums           md5     66a915e6112db5018253112966926efd \
+                    sha1    2eed0df4b0e64d6daf0d809f0a96fcb6d2a87409 \
+                    rmd160  41e4845fb12135a4b3b0843687e909abe83e05ee
+use_bzip2           yes
+
+python.default_version 27
+
+depends_build-append \
+                    port:scons
+depends_lib-append  port:pymol \
+                    port:py${python.version}-scipy \
+                    port:py${python.version}-numpy \
+                    port:py${python.version}-wxpython-3.0
+patchfiles          relax.patch
+post-patch {
+    reinplace  "s|'i386', 'ppc', 'x86_64'|'${build_arch}'|g" ${worksrcpath}/sconstruct
+    reinplace  "s|cflags = '-I'|cflags = '-O3 -ffast-math -funroll-loops -I'|g" ${worksrcpath}/sconstruct
+    reinplace  "s|@DEST_ROOT@|${destroot}|g" ${worksrcpath}/sconstruct
+    reinplace  "s|@PYTHON_BIN@|${python.bin}|g" ${worksrcpath}/relax
+    reinplace  "s|@PYTHON_INCL@|${python.include}|g" ${worksrcpath}/sconstruct
+    reinplace  "s|@PREFIX@|${prefix}|g" ${worksrcpath}/sconstruct
+}
+build.cmd           ${prefix}/bin/scons
+build.target
+test.run            yes
+test.cmd            relax
+test.target         --test-suite
+destroot.cmd        ${build.cmd}
+destroot.destdir    DESTDIR=${destroot}
+post-destroot {
+    reinplace  "s|${destroot}${prefix}|${prefix}|g" ${destroot}${prefix}/lib/relax/sconstruct
+    ln -sf ${prefix}/lib/relax/relax ${destroot}${prefix}/bin/relax
+    file delete -force ${destroot}${prefix}/lib/relax/version.pyc
+    eval file delete -force [glob -directory ${destroot}${prefix}/lib/relax/scons/ *.pyc]
+    system "${python.bin} -O ${python.libdir}/compileall.py -d ${prefix}/lib/relax ${destroot}${prefix}/lib/relax"
+}
+
+universal_variant   no

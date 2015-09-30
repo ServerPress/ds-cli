@@ -1,0 +1,56 @@
+# $Id: Portfile 137175 2015-06-05 22:16:11Z ram@macports.org $
+
+PortSystem    1.0
+PortGroup     active_variants 1.1
+
+name          lalmetaio
+version       1.2.6
+categories    science
+platforms     darwin
+maintainers   ram
+license       GPL-2+
+
+description   LSC Algorithm Library - MetaIO
+long_description \
+  LIGO Scientific Collaboration Algorithm Library - MetaIO containing \
+  routines for reading/writing LIGO_LW XML files.
+
+homepage      https://www.lsc-group.phys.uwm.edu/daswg/projects/lalsuite.html
+master_sites  http://software.ligo.org/lscsoft/source/lalsuite
+
+checksums     rmd160 9d83f405eb8230a416b0ad20f25b54671a266527 \
+              sha256 77710b48f7489268d6537939a7876645fa89f634a19b348d0a4e763478f8aadd
+
+depends_build-append port:pkgconfig
+
+depends_lib   port:python27 \
+              port:lal \
+              port:metaio
+
+configure.python ${prefix}/bin/python2.7
+configure.args --mandir=${prefix}/share/man \
+               --disable-silent-rules \
+               --disable-gcc-flags \
+               --disable-debug
+
+use_parallel_build yes
+
+set pythondir "${frameworks_dir}/Python.framework/Versions/2.7/lib/python2.7/site-packages"
+destroot.args-append \
+              pythondir="${pythondir}" \
+              pyexecdir="${pythondir}" \
+              pkgpythondir="${pythondir}/${name}" \
+              pkgpyexecdir="${pythondir}/${name}"
+
+variant swig_python description {Build python SWIG bindings} {
+  require_active_variants lal swig_python
+  depends_build-append  port:swig-python
+  depends_lib-append    port:py27-numpy
+  configure.args-append --enable-swig-python
+}
+
+default_variants +swig_python
+
+livecheck.type   regex
+livecheck.url    ${master_sites}
+livecheck.regex  {lalmetaio-(\d+(?:\.\d+)*).tar.gz}

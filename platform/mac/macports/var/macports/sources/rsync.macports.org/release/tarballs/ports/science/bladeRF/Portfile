@@ -1,0 +1,65 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138367 2015-07-06 13:27:59Z michaelld@macports.org $
+
+PortSystem          1.0
+PortGroup           cmake 1.0
+PortGroup           github 1.0
+
+github.setup        Nuand bladeRF 962d7b2be9f43066c2caeb6167a109ed513a8925
+version             20150701
+checksums           rmd160 3ef499db337ed6d7fb53bab8cd0727e77fe52362 \
+                    sha256 dca07a9277f0c02a856134369ae848c6634b8cfbc942e5e5e2a9c3cc2eaae77e
+
+categories          science comms
+maintainers         michaelld openmaintainer
+description         bladeRF is an open-source hardware and software software-defined radio (SDR) platform.
+long_description    ${description} This port provides all the source code required to program and interact with a bladeRF platform, including firmware for the Cypress FX3 USB controller, HDL for the Altera Cyclone IV FPGA, and C code for the host side libraries, drivers, and utilities.
+license             mit lgpl-2 gpl-2
+platforms           darwin
+
+depends_build-append port:pkgconfig
+depends_lib-append  path:lib/libusb-1.0.dylib:libusb
+
+# do VPATH (out of source tree) build
+
+cmake.out_of_source yes
+
+# remove top-level library path, such that internal libraries are used
+# instead of any already-installed ones.
+
+configure.ldflags-delete -L${prefix}/lib
+
+# override the default version info,
+# per ticket #46197, to be MacPorts-specific
+
+configure.args-append -DVERSION_INFO_OVERRIDE="MacPorts-${version}"
+
+# do not treat compiler warnings as errors
+
+configure.args-append -DTREAT_WARNINGS_AS_ERRORS=OFF
+
+# default to building all variants
+
+default_variants +tecla
+
+variant tecla description "Build with support for the tecla interactive command line" {
+
+    depends_lib-append \
+        port:tecla
+
+    configure.args-append \
+        -DENABLE_LIBTECLA=ON
+
+}
+
+if {![variant_isset tecla]} {
+
+    configure.args-append \
+        -DENABLE_LIBTECLA=OFF
+
+}
+
+# documentation does not work as of 20140126
+
+configure.args-append \
+    -DBUILD_DOCUMENTATION=OFF

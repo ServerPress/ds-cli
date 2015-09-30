@@ -1,0 +1,62 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 123086 2014-08-05 01:23:54Z ryandesign@macports.org $
+
+PortSystem        1.0
+
+name              mdk
+version             1.2.8
+categories        lang
+license           GPL-3
+maintainers       ryandesign openmaintainer
+platforms         darwin
+description       A set of utilities for developing programs using MIX and \
+                  MIXAL
+long_description  MDK stands for MIX Development Kit, and provides \
+                  tools for developing and executing, in a MIX virtual \
+                  machine, MIXAL programs. \
+                  \
+                  The MIX is Donald Knuth's mythical computer, \
+                  described in the first volume of The Art of Computer \
+                  Programming, which is programmed using MIXAL, the MIX \
+                  assembly language. \
+                  \
+                  MDK includes a MIXAL assembler (mixasm) and a MIX \
+                  virtual machine (mixvm) with a command line \
+                  interface. In addition, a GTK+ GUI to mixvm, called \
+                  gmixvm, is provided. \
+                  \
+                  Using these interfaces, you can debug your MIXAL \
+                  programs at source code level, and read/modify the \
+                  contents of all the components of the MIX computer \
+                  (including block devices, which are simulated using \
+                  the file system).
+homepage          http://www.gnu.org/software/mdk/mdk.html
+master_sites      gnu:mdk/v${version}/
+
+checksums           rmd160  38b2e4eebd7cfbaab61bab92864af90d4e61859d \
+                    sha256  7bff1e10b829c6e1f3c278bfecbe82f0f658753ce80ea58b6f71c05f9490b0db
+
+depends_build       port:bison \
+                    port:intltool \
+                    port:pkgconfig
+
+depends_lib         path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                  port:gmp \
+                  port:gettext \
+                  port:libiconv \
+                  port:readline \
+                  port:ncurses \
+                    port:libtool
+
+configure.args    --disable-gui
+
+build.type        gnu
+
+variant gui description "Build the GTK+ user interface" {
+   configure.args-delete  --disable-gui
+   depends_lib-append     port:gtk2 \
+                          port:libglade2
+
+}
+
+livecheck.regex     {v([0-9.]+)}

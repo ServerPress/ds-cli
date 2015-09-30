@@ -1,0 +1,102 @@
+md5deep
+
+------------------------------------------
+
+Introduction (from http://md5deep.sourceforge.net/)
+
+md5deep is a set of programs to compute MD5, SHA-1, SHA-256, Tiger,
+or Whirlpool message digests on an arbitrary number of files.
+md5deep is similar to the md5sum program found in the GNU Coreutils
+package, but has the following additional features:
+
+* Recursive operation - md5deep is able to recursively examine
+  an entire directory tree. That is, compute the MD5 for every
+  file in a directory and for every file in every subdirectory.
+
+* Comparison mode - md5deep can accept a list of known hashes
+  and compare them to a set of input files. The program can
+  display either those input files that match the list of known
+  hashes or those that do not match. Hash sets can be drawn
+  from Encase, the National Software Reference Library, iLook
+  Investigator, Hashkeeper, md5sum, BSD md5, and other generic
+  hash generating programs.
+
+* Time estimation - md5deep can produce a time estimate when
+  it's processing very large files.
+
+* Piecewise hashing - Hash input files in arbitrary sized blocks
+
+* File type mode - md5deep can process only files of a certain
+  type, such as regular files, block devices, etc. 
+
+hashdeep is a program to compute, match, and audit hashsets. With
+traditional matching, programs report if an input file matched one in
+a set of knowns or if the input file did not match. It's hard to get
+a complete sense of the state of the input files compared to the set
+of knowns. It's possible to have matched files, missing files, files
+that have moved in the set, and to find new files not in the set.
+Hashdeep can report all of these conditions. It can even spot hash
+collisions, when an input file matches a known file in one hash
+algorithm but not in others. The results are displayed in an audit
+report.
+
+------------------------------------------
+
+Runtime requirements:
+  cygwin
+  libgcc1
+  libstdc++6
+
+Build requirements:
+  cygwin
+  cygport
+  gcc4-g++
+
+Upstream website:
+  http://md5deep.sourceforge.net/
+
+Canonical download URL:
+  http://sourceforge.net/projects/md5deep/files/md5deep/md5deep-4.1/md5deep-4.1.tar.gz/download
+
+Licence:
+The vast majority of this package is public domain. The minor
+part of this package that implements Tiger+strsep is derived
+from the GnuPG project, which is licensed under the GNU General
+Public License (GPL).
+
+See /usr/share/doc/md5deep/COPYING for fuller details.
+
+-------------------------------------------
+
+Build instructions:
+  unpack md5deep-4.1-1-src.tar.bz2
+    if you use setup to install this src package, it will be
+	 unpacked under /usr/src automatically
+  cd /usr/src
+  cygport md5deep-4.1-1.cygport all
+
+This will create:
+  /usr/src/md5deep-4.1-1-src.tar.bz2
+  /usr/src/md5deep-4.1-1.tar.bz2
+
+-------------------------------------------
+
+Port Notes:
+
+----- version 4.1-1 -----
+New upstream stable release.
+Reimplemented in C++ at version 4, thus the change in buildtime and 
+runtime requirements.
+
+----- version 3.6-1 -----
+Initial port to Cygwin.
+The upstream vanilla sources build under cygport with no Cygwin-specific
+patches required.
+
+-------------------------------------------
+
+Cygwin port maintained by:
+steve-cygwin at monai dot ca
+
+Please send questions, bug reports and enhancement requests to the Cygwin
+mailing list (cygwin@cygwin.com).

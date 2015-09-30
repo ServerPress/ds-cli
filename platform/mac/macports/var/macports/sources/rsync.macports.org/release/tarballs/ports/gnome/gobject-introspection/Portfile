@@ -1,0 +1,70 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136074 2015-05-11 18:17:00Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           active_variants 1.1
+
+name                gobject-introspection
+version             1.44.0
+set branch          [join [lrange [split ${version} .] 0 1] .]
+categories          gnome
+platforms           darwin
+# library under LGPL-2+, tools under GPL-2+
+license             {LGPL GPL-2+}
+maintainers         juanrgar devans openmaintainer
+description         GObject Introspection
+long_description    Gobject Introspection acts as a bridge between low-level C+GObject code and \
+                    a managed runtime (JavaScript, Python, Java, Lua, .NET, Scheme, etc.).
+
+homepage            https://wiki.gnome.org/Projects/GObjectIntrospection
+master_sites        gnome:sources/${name}/${branch}/
+use_xz              yes
+
+checksums           rmd160  6c6521f2690f09ea676b3fa0093e0fed5e87bc89 \
+                    sha256  6f0c2c28aeaa37b5037acbf21558098c4f95029b666db755d3a12c2f1e1627ad
+
+depends_build       port:pkgconfig
+
+depends_lib         path:lib/pkgconfig/cairo.pc:cairo \
+                    path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                    port:libffi \
+                    port:py27-mako
+
+depends_run         bin:glibtool:libtool
+
+post-patch {
+    reinplace "s|'cc'|'${configure.cc}'|g" ${worksrcpath}/giscanner/sourcescanner.py
+    reinplace "s|'gcc'|'${configure.cc}'|g" ${worksrcpath}/giscanner/dumper.py
+    reinplace "s|libcairo-gobject.2.dylib|${prefix}/lib/libcairo-gobject.2.dylib|g" ${worksrcpath}/configure
+}
+
+configure.python    ${prefix}/bin/python2.7
+
+# GObject introspection doesn't build with tiger's make, #32358
+platform darwin 8 {
+    depends_build-append    port:gmake
+    build.cmd               ${prefix}/bin/gmake
+}
+
+build.args          CC="${configure.cc} ${configure.cc_archflags}" V=1
+
+# gobject-introspection needs to be aware whether it was compiled against python +ucs4, see #35603
+variant python_ucs4 description {Build against Python with +ucs4} {
+    require_active_variants python27 ucs4
+}
+
+if {![variant_isset python_ucs4]} {
+    pre-configure {
+        if {![active_variants python27 "" ucs4]} {
+            error "You have python installed with the +ucs4 variant. Please build ${name} with +python_ucs4"
+        }
+    }
+}
+
+if {![catch {set result [active_variants python27 ucs4]}]} {
+    if {$result} {
+        default_variants +python_ucs4
+    }
+}
+
+livecheck.type      gnome

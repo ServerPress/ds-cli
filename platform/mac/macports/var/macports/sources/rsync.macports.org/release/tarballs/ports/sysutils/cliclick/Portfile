@@ -1,0 +1,37 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 128657 2014-11-25 00:38:49Z ryandesign@macports.org $
+
+PortSystem                  1.0
+PortGroup                   github 1.0
+PortGroup                   xcode 1.0
+
+github.setup                BlueM cliclick 3.0.3
+categories                  sysutils
+maintainers                 ryandesign
+license                     BSD
+
+description                 a command-line utility for simulating mouse clicks
+
+long_description            ${name} emulates mouse clicks or series of mouse \
+                            clicks (including double-clicks and Control-clicks) \
+                            at arbitrary screen coordinates
+
+homepage                    http://www.bluem.net/en/mac/cliclick/
+
+checksums                   rmd160  69c56df7f5f07dfd4d1ff68443b9c46bac816970 \
+                            sha256  923a26b083a2c69ceb7a490f51e835c5f1a7909d4a64c8e0f0b7a65d5c5a67ef
+
+pre-fetch {
+    if {${os.major} < 10} {
+        ui_error "${name} requires Mac OS X 10.6 or greater."
+        return -code error "incompatible Mac OS X version"
+    }
+}
+
+xcode.configuration         Release
+
+destroot {
+    xinstall ${worksrcpath}/build/${xcode.configuration}/${name} ${destroot}${prefix}/bin
+    xinstall -d ${destroot}${prefix}/share/doc/${name}
+    xinstall -m 644 -W ${worksrcpath} README.markdown ${destroot}${prefix}/share/doc/${name}
+}

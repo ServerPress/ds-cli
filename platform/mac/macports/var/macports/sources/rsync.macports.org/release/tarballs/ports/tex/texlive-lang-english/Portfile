@@ -1,0 +1,34 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 121682 2014-07-04 04:51:53Z dports@macports.org $
+
+PortSystem          1.0
+PortGroup           texlive 1.0
+
+name                texlive-lang-english
+version             34157
+revision            0
+
+categories          tex
+maintainers         dports
+license             Copyleft Permissive
+description         TeX Live: US and UK English
+long_description    Support for (and documentation in) English.
+
+checksums           texlive-lang-english-34157-run.tar.xz \
+                    rmd160  565b3368add18c8c58eda27b979c863ccb0d7149 \
+                    sha256  6efe5b68429f2d698e6fca7af0a9fbb3971547c05823e3f8f566c7918dbbb782 \
+                    texlive-lang-english-34157-doc.tar.xz \
+                    rmd160  e38648eeff842df1b298fa374f4867494af9c92f \
+                    sha256  acf14bb9fe97ab087160c912e5b60e6f12c9f232d0345989d1c9f0dd559ffc4a \
+                    texlive-lang-english-34157-src.tar.xz \
+                    rmd160  28e33f05692505695d88d5dc1aa277560a6b5d39 \
+                    sha256  43c654715edb4dec4bc18a5a2ebdda28d7d70bc2457ebbdb69d471e45d94e769
+
+depends_lib         port:texlive-basic
+
+texlive.languages      \
+    {ukenglish loadhyph-en-gb.tex 2 3 {british UKenglish} {hyph-en-gb.pat.txt} {hyph-en-gb.hyp.txt} {} } \
+    {usenglishmax loadhyph-en-us.tex 2 3 {} {hyph-en-us.pat.txt} {hyph-en-us.hyp.txt} {} }
+
+
+texlive.texmfport

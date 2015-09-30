@@ -1,0 +1,28 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 94572 2012-06-22 23:50:47Z ryandesign@macports.org $
+
+PortSystem 1.0
+
+name                    scrypt
+version                 1.1.6
+description             key derivation function
+long_description        The scrypt key derivation function was originally developed \
+    for use in the Tarsnap online backup system and is designed to be far more secure \
+    against hardware brute-force attacks than alternative functions such as PBKDF2 or bcrypt.
+categories              security
+platforms               darwin
+maintainers             nomaintainer
+license                 BSD
+
+homepage                http://www.tarsnap.com/scrypt.html
+master_sites            http://www.tarsnap.com/scrypt/
+
+checksums               rmd160  a395db33b7c638a4f0feba2bc76874cf634b33de \
+                        sha256  dfd0d1a544439265bbb9b58043ad3c8ce50a3987b44a61b1d39fd7a3ed5b7fb8
+
+extract.suffix          .tgz
+
+depends_lib             port:openssl
+
+livecheck.type          regex
+livecheck.regex         /${name}-(\[0-9.\]+)${extract.suffix}

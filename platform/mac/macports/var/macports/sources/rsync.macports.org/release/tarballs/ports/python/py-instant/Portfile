@@ -1,0 +1,34 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 131537 2015-01-13 21:54:43Z sean@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           bitbucket 1.0
+
+bitbucket.setup     fenics-project instant 1.5.0 instant-
+name                py-instant
+
+categories-append   math science
+license             LGPL-3+
+platforms           darwin
+supported_archs     noarch
+maintainers         sean openmaintainer
+
+description         Instant inlining of C and C++ in Python
+long_description    Instant is a Python module that allows for \
+                    instant inlining of C and C++ code in Python. \
+                    It is a small Python module built on top of SWIG \
+                    and Distutils. It is part of the FEniCS Project.
+
+checksums           rmd160  13c441ea49fa3d283eb1a62f9e5ba19afa869f9c \
+                    sha256  16b449dea0f69e6dd0edb968b8bc34137475223cbb8556dfea2637edef25f5ab
+
+python.versions     27
+python.link_binaries_suffix
+
+if {${subport} ne ${name}} {
+    depends_lib     port:swig-python \
+                    port:py${python.version}-numpy
+
+    livecheck.type  none
+}

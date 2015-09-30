@@ -1,0 +1,52 @@
+# $Id: Portfile 136686 2015-05-24 08:59:24Z ryandesign@macports.org $
+
+PortSystem 1.0
+
+name            grc
+version         1.5
+revision        1
+categories      textproc
+platforms       darwin
+license         GPL-2
+maintainers     nomaintainer
+supported_archs noarch
+
+description     Generic Colouriser for colourising logfiles and output of commands.
+
+long_description \
+    Generic Colouriser provides colourised output of logfiles \
+    and commands. It provides the grc and grcat Python scripts \
+    for filtering text output and colourising it.
+
+homepage        http://kassiopeia.juls.savba.sk/~garabik/software/grc.html
+master_sites    http://kassiopeia.juls.savba.sk/~garabik/software/grc
+
+distname        ${name}_${version}
+worksrcdir      ${name}-${version}
+
+checksums       md5     8692db331e6461c5ec77e382d306d74d \
+                sha1    bcbe45992d2c4cb1d33e76aac6aa79b448124ce2 \
+                rmd160  67a919afcaed85970df4f476de1a6b1a72f55f96
+
+depends_lib     port:python27
+
+use_configure   no
+build           {}
+
+post-destroot   {
+    reinplace "s|#! /usr/bin/python|#!${prefix}/bin/python2.7|" \
+        ${worksrcpath}/grc ${worksrcpath}/grcat
+    reinplace "s|/etc|${prefix}/etc|g" \
+        ${worksrcpath}/grc ${worksrcpath}/grc.1
+    reinplace "s|/usr/local|${prefix}|g" \
+        ${worksrcpath}/grcat ${worksrcpath}/grcat.1
+    xinstall -m 755 -W ${worksrcpath} \
+        grc grcat ${destroot}${prefix}/bin
+    xinstall -m 755 -d ${destroot}${prefix}/share/${name}
+    xinstall -m 644 {*}[glob ${worksrcpath}/conf.*] \
+        ${destroot}${prefix}/share/${name}
+    xinstall -m 644 -W ${worksrcpath} \
+        grc.conf ${destroot}${prefix}/etc
+    xinstall -m 644 -W ${worksrcpath} \
+        grc.1 grcat.1 ${destroot}${prefix}/share/man/man1
+}

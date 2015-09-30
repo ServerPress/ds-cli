@@ -1,0 +1,76 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 122410 2014-07-22 11:49:59Z ryandesign@macports.org $
+
+PortSystem      1.0
+PortGroup       github 1.0
+
+github.setup    jabberd2 jabberd2 2.2.17 jabberd-
+name            jabberd
+categories      net
+platforms       darwin
+maintainers     nomaintainer
+license         GPL-2+
+
+description     Jabber messaging (XMPP) server
+long_description \
+    The Jabber server (jabberd) is a daemon for Jabber clients to connect and \
+    communicate with using the XMPP protocol.
+
+homepage        http://jabberd2.org/
+distname        ${name}-${version}
+github.tarball_from downloads
+use_xz          yes
+
+checksums       rmd160  4e0d30fdd24ce707ce3c5e3654f51c01de7ee0a2 \
+                sha256  0be815dfa1e450cd7416a9a2046c6f9ad547b11b562b6d0bf33520594e03b647
+
+depends_build   port:libudns
+
+depends_lib     port:openssl \
+                port:expat \
+                port:libgsasl \
+                port:libidn \
+                port:gettext \
+                port:zlib
+
+patchfiles      patch-configure.diff \
+                patch-s2s-out.c.diff \
+                patch-sm-mod_roster.c.diff
+
+# gcc 4.1.1 miscompiles something at -Os. gcc 4.2.2 works. Don't know when it
+# got fixed, therefore use -O2 on all gcc.
+# https://github.com/jabberd2/jabberd2/issues/34
+if {[string match *gcc* ${configure.compiler}]} {
+    configure.optflags -O2
+}
+
+configure.args  --enable-mio=select \
+                --enable-ssl \
+                --disable-mysql \
+                --disable-pgsql \
+                --disable-sqlite \
+                --disable-db \
+                --disable-oracle \
+                --disable-ldap \
+                --disable-pam \
+                --disable-pipe \
+                --disable-anon \
+                --disable-fs
+
+destroot.keepdirs ${destroot}${prefix}/var/jabberd/pid
+
+set conf_files {c2s.xml jabberd.cfg router-filter.xml router-users.xml router.xml s2s.xml sm.xml templates/roster.xml}
+
+post-destroot {
+    foreach f ${conf_files} {
+        file delete ${destroot}${prefix}/etc/$f
+    }
+}
+
+post-activate {
+    foreach f ${conf_files} {
+        if {![file exists ${prefix}/etc/$f]} {
+            copy ${prefix}/etc/$f.dist ${prefix}/etc/$f
+        }
+    }
+}

@@ -1,0 +1,55 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136317 2015-05-14 19:10:41Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+name                intltool
+epoch               1
+version             0.51.0
+maintainers         devans openmaintainer
+categories          textproc gnome
+license             GPL-2+
+installs_libs       no
+platforms           darwin
+supported_archs     noarch
+
+description         A collection of i18n tools
+
+long_description    The intltool collection can be used to extract translatable \
+                    strings from various source files (.xml.in, .glade, .desktop.in, \
+                    .server.in, .oaf.in), collect the extracted strings together with \
+                    messages from traditional source files (.c, .h) in po/PACKAGE.pot \
+                    and merge back the translations from .po files into .xml, .desktop \
+                    and .oaf files. This merge step will happen at build or \
+                    installation time.
+
+homepage            https://launchpad.net/intltool
+master_sites        ${homepage}/trunk/${version}/+download
+
+checksums           rmd160  f10a7a86bdc504db22c2e1eb4e09705c6a41fbaa \
+                    sha256  67c74d94196b153b774ab9f89b2fa6c6ba79352407037c8c14d5aeb334e959cd
+
+perl5.require_variant   yes
+perl5.conflict_variants yes
+perl5.branches          5.16 5.18 5.20
+perl5.create_variants   ${perl5.branches}
+
+depends_build       port:gnome-common
+
+depends_lib-append  port:expat \
+                    port:p${perl5.major}-getopt-long \
+                    port:p${perl5.major}-pathtools \
+                    port:p${perl5.major}-scalar-list-utils \
+                    port:p${perl5.major}-xml-parser
+
+patchfiles          patch-remove-intltool-perl-hack.diff
+
+configure.perl      ${prefix}/bin/perl${perl5.major}
+
+test.run            yes
+test.target         check
+
+livecheck.type      regex
+livecheck.url       ${homepage}/+download
+livecheck.regex     ${name}-(\[0-9.\]+)${extract.suffix}

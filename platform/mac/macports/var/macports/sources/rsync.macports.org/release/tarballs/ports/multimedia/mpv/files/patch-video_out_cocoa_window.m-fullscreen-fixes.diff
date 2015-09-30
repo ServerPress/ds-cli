@@ -1,0 +1,17 @@
+--- video/out/cocoa/window.m.orig
++++ video/out/cocoa/window.m
+@@ -30,6 +30,14 @@
+ - (void)setCenteredContentSize:(NSSize)newSize;
+ @end
+ 
++#if !defined(MAC_OS_X_VERSION_10_7) || MAC_OS_X_VERSION_MAX_ALLOWED < MAC_OS_X_VERSION_10_7
++enum {
++    NSFullScreenWindowMask = 0,
++    NSApplicationPresentationFullScreen = 0,
++    NSApplicationPresentationAutoHideToolbar = 0,
++};
++#endif
++
+ @implementation MpvVideoWindow {
+     NSSize _queued_video_size;
+ }

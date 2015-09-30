@@ -1,0 +1,70 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 127552 2014-10-29 14:23:56Z khindenburg@macports.org $
+
+PortSystem              1.0
+
+name                    latex2html
+version                 2008
+revision                5
+categories              print
+platforms               darwin
+maintainers             nomaintainer
+license                 GPL-2
+supported_archs         noarch
+
+description             Convert LaTeX into HTML.
+
+long_description        LATEX2HTML is a convertor written in Perl that \
+                        converts LATEX documents to HTML.
+
+homepage                http://www.latex2html.org/
+master_sites            ${homepage}/current/
+
+checksums               md5     275ab6cfa8ca9328446b7f40d8dc302e \
+                        sha1    5e0aa47572e0c13a4c5da51e963d5496be3f86e7 \
+                        rmd160  a95f06253d6fc8808ffedcad7edf8235194d7756
+
+depends_run             bin:latex:texlive-latex \
+                        port:ghostscript \
+                        port:netpbm
+
+depends_lib             path:bin/perl:perl5
+
+patchfiles              patch-config-config.pl.diff \
+                        patch-pstoimg.pin.diff
+
+configure.perl          ${prefix}/bin/perl
+
+configure.args          --without-mktexlsr \
+                        --with-texpath=${prefix}/share/texmf/tex/latex/html
+
+post-destroot {
+    set docdir ${destroot}${prefix}/share/doc/${name}
+    xinstall -d ${docdir}
+    xinstall -m 644 -W ${worksrcpath} \
+        BUGS \
+        Changes \
+        FAQ \
+        LICENSE \
+        README \
+        TODO \
+        ${docdir}
+
+    set texmfdir ${destroot}${prefix}/share/texmf/tex/latex/html
+    xinstall -d -m 755 ${texmfdir}
+    foreach file [ glob ${worksrcpath}/texinputs/* ] {
+        file copy -force ${file} ${texmfdir}
+    }
+}
+
+post-activate {
+    system "mktexlsr"
+}
+
+post-deactivate {
+    system "mktexlsr"
+}
+
+livecheck.type          regex
+livecheck.url           [lindex ${master_sites} 0]
+livecheck.regex         ${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}

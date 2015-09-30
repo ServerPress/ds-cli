@@ -1,0 +1,38 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130740 2015-01-02 09:28:13Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         innotop 1.9.1
+license             {GPL-2 Artistic-1}
+maintainers         nomaintainer
+supported_archs     noarch
+
+description         A MySQL and InnoDB monitor program.
+long_description    MySQL and InnoDB transaction/status monitor.  \
+                    Like 'top' for MySQL.  Displays queries, InnoDB \
+                    transactions, lock waits, deadlocks, foreign key \
+                    errors, open tables, replication status, buffer \
+                    information, row operations, logs, I/O \
+                    operations, load graph, and more.  You can \
+                    monitor any servers at once with innotop.
+homepage            http://code.google.com/p/innotop/
+
+platforms           darwin
+master_sites        googlecode:innotop
+dist_subdir         innotop
+
+checksums           rmd160  bc39ee3dbffdf81606af4ea30405404d0aa9ce3c \
+                    sha256  117e5af58a83af79b6cf99877b25b1479197597be5a7d51b245a0ad9c69f4d3d
+
+if {${perl5.major} != ""} {
+depends_lib-append  port:p${perl5.major}-dbi \
+                    port:p${perl5.major}-dbd-mysql \
+                    port:p${perl5.major}-term-readkey
+}
+
+livecheck.type      regex
+livecheck.url       https://code.google.com/p/innotop/downloads/
+livecheck.regex     "innotop-(\\d+(?:\\.\\d+)*)${extract.suffix}"

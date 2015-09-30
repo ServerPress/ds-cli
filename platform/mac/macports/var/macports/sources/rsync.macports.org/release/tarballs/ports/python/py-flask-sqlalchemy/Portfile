@@ -1,0 +1,31 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 125535 2014-09-20 17:21:32Z aronnax@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           github 1.0
+
+github.setup        mitsuhiko flask-sqlalchemy 2.0
+name                py-flask-sqlalchemy
+set real_name       Flask-SQLAlchemy
+python.versions     26 27 33 34
+categories-append   www
+maintainers         nomaintainer
+description         Flask support for SQLAlchemy
+long_description    \
+    Flask-SQLAlchemy is an extension for Flask that adds support for SQLAlchemy \
+    to your application. It requires SQLAlchemy 0.6 or higher. It aims to \
+    simplify using SQLAlchemy with Flask by providing useful defaults and extra \
+    helpers that make it easier to accomplish common tasks.
+
+license             BSD
+platforms           darwin
+homepage            https://pythonhosted.org/Flask-SQLAlchemy/
+checksums           rmd160  bff22ca59e8ee8f00a821e38e8e17449adcb3344 \
+                    sha256  6a9098f4701abd2ec384952786a48cb364410f170eaf00e535daf55208a8087e
+
+if {${name} ne ${subport}} {
+    depends_build-append    port:py${python.version}-setuptools
+    depends_lib-append      port:py${python.version}-flask \
+                            port:py${python.version}-sqlalchemy
+}

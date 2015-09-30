@@ -1,0 +1,33 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137054 2015-06-03 18:40:09Z ryandesign@macports.org $
+
+PortSystem      1.0
+
+name            libyaml
+set dname       yaml
+version         0.1.6
+revision        1
+maintainers     nomaintainer
+categories      devel
+platforms       darwin
+license         MIT
+
+description     A YAML Parser.
+long_description LibYAML is a YAML 1.1 parser and emitter written in C. It is \
+                 in an early stage of development.
+
+homepage        http://pyyaml.org/wiki/LibYAML
+master_sites    http://pyyaml.org/download/libyaml
+distname        ${dname}-${version}
+
+checksums       rmd160  c37f04eb6d8c3c587bf241c2f3daf74b6d24f513 \
+                sha256  7da6971b4bd08a986dd2a61353bc422362bd0edcc67d7ebaac68c95f74182749
+
+patchfiles      yosemite-libtool.patch
+
+test.run        yes
+test.target     check
+
+livecheck.type  regex
+livecheck.url   ${master_sites}
+livecheck.regex "${dname}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

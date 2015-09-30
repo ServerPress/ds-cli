@@ -1,0 +1,39 @@
+<HEAD>
+<TITLE>Logical, arithmetical and comparison operators</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Command_exit_status.html">Next</A>
+<A HREF="Expressions.html">Previous</A>
+<H2>Logical, arithmetical and comparison operators</H2>
+These operators are similar to those of C and have the same precedence.
+They include
+<P>
+<menu>
+||  &amp;&amp;  |  ^  &amp;  ==  !=  =~  !~  &lt;=  &gt;=
+<BR>
+&lt;  &gt; &lt;&lt;  &gt;&gt;  +  -  *  /  %  !  ~  (  )
+</menu>
+<P>
+Here the precedence increases to the right, `==' `!=' `=~' and `!~', `&lt;='
+`&gt;=' `&lt;' and `&gt;', `&lt;&lt;' and `&gt;&gt;', `+' and `-', `*' `/' and `%' being, in
+groups, at the same level.  The `==' `!=' `=~' and `!~' operators compare
+their arguments as strings; all others operate on numbers.  The operators
+`=~' and `!~' are like `!=' and `==' except that the right hand side is a
+glob-pattern (see <B><A HREF="Filename_substitution.html">Filename substitution</A></B>) against which the left hand
+operand is matched.  This reduces the need for use of the <I><A HREF="Builtin_commands.html#switch">switch</A></I>
+builtin command in shell scripts when all that is really needed is
+pattern matching.
+<P>
+Null or
+missing arguments are considered `0'.  The results of all expressions are
+strings, which represent decimal numbers.  It is important to note that
+no two components of an expression can appear in the same word; except
+when adjacent to components of expressions which are syntactically
+significant to the parser (`&amp;' `|' `&lt;' `&gt;' `(' `)') they should be
+surrounded by spaces.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Command_exit_status.html">Next</A>
+<A HREF="Expressions.html">Previous</A>
+</BODY>

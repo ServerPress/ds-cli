@@ -1,0 +1,20 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 131499 2015-01-13 02:25:55Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         MIME-Base64 3.15
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         base64 encoder/decoder
+long_description    This package contains a base64 encoder/decoder \
+                    and a quoted-printable encoder/decoder.  These encoding \
+                    methods are specified in RFC 2045 - \
+                    MIME (Multipurpose Internet Mail Extensions).
+
+platforms           darwin
+
+checksums           rmd160  02e2b20b1c6f2102afef0178f3a0587f00ba75c7 \
+                    sha256  7f863566a6a9cb93eda93beadb77d9aa04b9304d769cea3bb921b9a91b3a1eb9

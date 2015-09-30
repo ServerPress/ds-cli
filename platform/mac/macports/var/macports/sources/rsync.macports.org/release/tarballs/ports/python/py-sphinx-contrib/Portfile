@@ -1,0 +1,56 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           bitbucket 1.0
+
+bitbucket.setup     birkenfeld sphinx-contrib bb88d36e1ac8
+name                py-sphinx-contrib
+version             0.0.20150508
+categories-append   textproc devel
+license             BSD
+maintainers         sean openmaintainer
+description         Sphinx extensions
+long_description \
+    This is a collection of Sphinx extensions maintained by their respective authors. \
+    It is not an official part of Sphinx.
+
+platforms           darwin
+supported_archs     noarch
+
+checksums           rmd160  d9487618d884ff4123db203a89887324770130a7 \
+                    sha256  4dda5b5445648fb4983387ccc970ed82a146eb24a6176e5029022cac3468cf15
+
+python.versions     26 27
+
+if {$subport ne $name} {
+    depends_lib     port:py${python.version}-sphinx
+
+    livecheck.type  none
+
+    post-patch {
+        reinplace -W ${worksrcpath}/ansi "s,README,README.rst," setup.py
+        reinplace -W ${worksrcpath}/cheeseshop "s,README,README.rst," setup.py
+        reinplace -W ${worksrcpath}/clearquest "s,README,README.rst," setup.py
+        reinplace -W ${worksrcpath}/email "s,README,README.rst," setup.py
+        reinplace -W ${worksrcpath}/googleanalytics "s,README,README.rst," setup.py
+        reinplace -W ${worksrcpath}/hyphenator "s,README,README.rst," setup.py
+    }
+
+    build {
+        foreach d [glob -type d -directory ${worksrcpath} *] {
+            if {[file exists $d/setup.py] && ![string match "*cmakedomain" $d]} {
+                system -W $d "${build.cmd} ${build.target}"
+            }
+        }
+    }
+
+    destroot {
+        foreach d [glob -type d -directory ${worksrcpath} *] {
+            if {[file exists $d/setup.py] && ![string match "*cmakedomain" $d]} {
+                system -W $d "${destroot.cmd} ${destroot.target} ${destroot.destdir}"
+            }
+        }
+    }
+}

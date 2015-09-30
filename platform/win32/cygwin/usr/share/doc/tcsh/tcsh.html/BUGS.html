@@ -1,0 +1,62 @@
+<HEAD>
+<TITLE>BUGS</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="THE_T_IN_TCSH.html">Next</A>
+<A HREF="NEW_FEATURES.html">Previous</A>
+<H2>BUGS</H2>
+When a suspended command is restarted, the shell prints the directory
+it started in if this is different from the current directory.  This can
+be misleading (i.e., wrong) as the job may have changed directories internally.
+<P>
+Shell builtin functions are not stoppable/restartable.  Command sequences
+of the form `a ; b ; c' are also not handled gracefully when stopping is
+attempted.  If you suspend `b', the shell will then immediately execute
+`c'.  This is especially noticeable if this expansion results from an
+<I><A HREF="Builtin_commands.html#alias">alias</A></I>.  It suffices to place the sequence of commands in ()'s to force it
+to a subshell, i.e., `( a ; b ; c )'.
+<P>
+Control over tty output after processes are started is primitive; perhaps
+this will inspire someone to work on a good virtual terminal interface.
+In a virtual terminal interface much more interesting things could be
+done with output control.
+<P>
+Alias substitution is most often used to clumsily simulate shell procedures;
+shell procedures should be provided rather than aliases.
+<P>
+Control structures should be parsed rather than being recognized as
+built-in commands.  This would allow control commands to be placed anywhere,
+to be combined with `|', and to be used with `&amp;' and `;' metasyntax.
+<P>
+<I><A HREF="Builtin_commands.html#foreach">foreach</A></I> doesn't ignore here documents when looking for its <I><A HREF="Builtin_commands.html#end">end</A></I>.
+<P>
+It should be possible to use the `:' modifiers on the output of command
+substitutions.
+<P>
+The screen update for lines longer than the screen width is very poor
+if the terminal cannot move the cursor up (i.e., terminal type `dumb').
+<P>
+<B><A HREF="ENVIRONMENT.html#HPATH">HPATH</A></B> and <B><A HREF="ENVIRONMENT.html#NOREBIND">NOREBIND</A></B> don't need to be environment variables.
+<P>
+Glob-patterns which do not use `?', `*' or `[]' or which use `{}' or `~'
+are not negated correctly.
+<P>
+The single-command form of <I><A HREF="Builtin_commands.html#if">if</A></I> does output redirection even if
+the expression is false and the command is not executed.
+<P>
+<I><A HREF="Builtin_commands.html#ls-F">ls-F</A></I> includes file identification characters when sorting filenames
+and does not handle control characters in filenames well.  It cannot be
+interrupted.
+<P>
+Command substitution supports multiple commands and conditions, but not
+cycles or backward <I><A HREF="Builtin_commands.html#goto">goto</A></I>s.
+<P>
+Report bugs at http://bugs.gw.com/, preferably with fixes.  If you want to
+help maintain and test tcsh, send mail to tcsh-request@mx.gw.com with the
+text `subscribe tcsh' on a line by itself in the body.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="THE_T_IN_TCSH.html">Next</A>
+<A HREF="NEW_FEATURES.html">Previous</A>
+</BODY>

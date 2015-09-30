@@ -1,0 +1,28 @@
+# $Id: Portfile 134144 2015-03-19 01:16:09Z mmoll@macports.org $
+
+PortSystem 1.0
+PortGroup  cmake 1.0
+PortGroup  github 1.0
+PortGroup  compiler_blacklist_versions 1.0
+cmake.out_of_source yes
+
+categories          science
+maintainers         mmoll openmaintainer
+description         A Flexible Collision Library
+long_description    $description
+github.setup        flexible-collision-library fcl 0.3.2
+homepage            http://gamma.cs.unc.edu/FCL
+platforms           darwin
+license             BSD
+depends_build-append port:pkgconfig
+depends_lib-append  port:libccd port:boost
+checksums           md5     e3ba95f353824f89950cfb030bfc85fc \
+                    sha1    d601701e76c99e90bcb7ff5b218d001175bafa71 \
+                    rmd160  c72720a9f57f30b27528a2de71f203b803a51026
+compiler.blacklist-append  gcc-4.0 *gcc-4.2 {clang < 137}
+
+# this should just enable "-march=native", but seems to cause errors with gcc*
+if {[string match *clang* ${configure.compiler}]} {
+    configure.args-append -DFCL_USE_SSE=ON
+}
+

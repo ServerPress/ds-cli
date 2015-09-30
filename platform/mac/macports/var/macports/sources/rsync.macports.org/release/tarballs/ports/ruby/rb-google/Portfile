@@ -1,0 +1,20 @@
+# $Id: Portfile 105268 2013-04-15 14:03:07Z jmr@macports.org $
+
+PortSystem		    1.0
+PortGroup		    ruby 1.0
+
+ruby.setup		    {google ruby-google} 0.5.1 install.rb {README examples}
+maintainers		    nomaintainer
+description		    Ruby interface to Google's SOAP-driven Web API
+long_description	Ruby/Google offers a higher-level abstraction of \
+                    Google's SOAP-driven Web API. It allows the user \
+                    to programmatically query the Google serach-engine \
+                    from the convert of his or her favorite programming \
+                    language.
+categories-append	www
+license		        GPL-2+
+homepage            http://www.caliban.org/ruby/ruby-google.shtml
+master_sites	    http://www.caliban.org/files/ruby/
+depends_lib-append  port:rb-uconv port:rb-http-access2
+checksums		    md5 354c1958fe102115da1152af9263833f
+platforms		    darwin

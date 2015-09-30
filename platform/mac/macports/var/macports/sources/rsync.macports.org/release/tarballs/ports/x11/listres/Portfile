@@ -1,0 +1,34 @@
+# $Id: Portfile 101720 2013-01-17 23:03:06Z jeremyhu@macports.org $
+
+PortSystem          1.0
+
+name                listres
+version             1.0.3
+categories          x11 graphics
+license             X11
+maintainers         jeremyhu openmaintainer
+description         List resources in X11 widgets
+long_description \
+   The listres program generates a list of a widget's resource database.  \
+   The class in which each resource is first defined, the instance and class \
+   name, and the type of each resource is listed.  If no specific widgets or \
+   the -all switch are given, a two-column list of widget names and their \
+   class hierarchies is printed.
+
+platforms           darwin
+
+homepage            http://www.x.org/
+master_sites        xorg:individual/app/
+use_bzip2           yes
+
+checksums           sha1    ff226b0e565c337ac1ae60027487131920b8d86b \
+                    rmd160  ad3f68fe4dc7291e3d293770c8ffa87f535a9718 \
+                    sha256  c3d71e9a01650e3fd470189a749cd0202ef03d9e399350a7a7443d7595ed478e
+
+depends_build       port:pkgconfig
+
+depends_lib         port:xorg-libXaw
+
+livecheck.type      regex
+livecheck.regex     ${name}-(\[\\d.\]+)${extract.suffix}
+livecheck.url       http://xorg.freedesktop.org/archive/individual/app/?C=M&O=D

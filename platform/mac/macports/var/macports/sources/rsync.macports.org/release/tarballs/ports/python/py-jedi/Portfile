@@ -1,0 +1,29 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136878 2015-05-28 20:28:43Z sean@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           github 1.0
+
+github.setup        davidhalter jedi 0.9.0 v
+name                py-jedi
+platforms           darwin
+supported_archs     noarch
+license             GPL-2+
+maintainers         nomaintainer
+
+description         Awesome autocompletion library for python
+long_description    Jedi is an autocompletion tool for Python that can \
+                    be used in IDEs/editors. Jedi works. Jedi is fast. \
+                    It understands all of the basic Python syntax \
+                    elements including many builtin functions.
+
+checksums           rmd160  572d54192478974ad6197e1e55fdfb762f4589b4 \
+                    sha256  01e5b59b3ae32cb0596e1189e1727fd695c01c2ec032d3345e0569267ecd10f5
+
+python.versions     27 34
+
+if {${name} ne ${subport}} {
+    depends_build-append    port:py${python.version}-setuptools
+    livecheck.type          none
+}

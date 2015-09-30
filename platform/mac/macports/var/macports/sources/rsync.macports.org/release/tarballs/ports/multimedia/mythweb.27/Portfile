@@ -1,0 +1,97 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 126912 2014-10-17 15:33:00Z ctreleaven@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+# set fullhash      fca2bd2f78136a5363b1fbe7a313677b6bd1adc5
+set shorthash       fca2bd2f
+github.setup        MythTV mythweb ${shorthash}
+set majorversion    .27
+set minorversion    .4
+name                mythweb${majorversion}
+version             0${majorversion}${minorversion}-Fixes-20141015
+revision            0
+categories          multimedia www
+platforms           darwin
+license             GPL-2 LGPL-2.1
+maintainers         ctreleaven openmaintainer
+supported_archs     noarch
+conflicts           mythweb.25 mythweb.26
+
+description         control your Myth system via a web browser
+long_description    MythWeb provides a frontend to MythTV using a web browser. \
+                    Review program listings, schedule recordings, browse previous recordings, \
+                    check on the status of your system and much more.  Note that this is an \
+                    INSECURE installation intended for local network access only.  Take steps to \
+                    secure if access from the internet is to be allowed.
+
+homepage            http://www.mythtv.org/
+checksums           rmd160  90b44de09d93d77c7163222f66e5b91445416f3f \
+                    sha256  15045045107bedeb5cd8bfb6ae204dc0be03531af4b5563cd9162c2d6b4223d3
+
+set perlver         perl5.16
+set perlbin         ${prefix}/bin/${perlver}
+set perlmodver      p5.16
+
+depends_run         port:php54-mysql \
+                    port:php54-apache2handler
+
+depends_lib         port:mythtv-core${majorversion} \
+                    port:${perlmodver}-http-request-ascgi \
+                    port:${perlmodver}-dbd-mysql
+
+patchfiles          patch-mythweb.conf.diff
+
+use_configure       no
+build               {}
+
+pre-patch {
+    copy ${worksrcpath}/mythweb.conf.apache ${worksrcpath}/mythweb.conf
+}
+
+post-patch {
+    reinplace -locale C "s|@PREFIX@|${prefix}|g" ${worksrcpath}/mythweb.conf
+    reinplace -locale C "s|/usr/local|${prefix}|" ${worksrcpath}/mythweb.php
+
+    reinplace -locale C "s|#!/usr/bin/perl|#!${perlbin}|" \
+         ${worksrcpath}/mythweb.pl \
+         ${worksrcpath}/modules/_shared/lang/build_translation.pl \
+         ${worksrcpath}/modules/coverart/handler.pl \
+         ${worksrcpath}/modules/stream/handler.pl \
+         ${worksrcpath}/modules/stream/stream_asx.pl \
+         ${worksrcpath}/modules/stream/stream_flv.pl \
+         ${worksrcpath}/modules/stream/stream_flvp.pl \
+         ${worksrcpath}/modules/stream/stream_mp4.pl \
+         ${worksrcpath}/modules/stream/stream_raw.pl \
+         ${worksrcpath}/modules/stream/tv.pl
+}
+
+destroot {
+    xinstall -d ${destroot}${prefix}/apache2/htdocs
+    copy ${worksrcpath} ${destroot}${prefix}/apache2/htdocs
+    file rename ${destroot}${prefix}/apache2/htdocs/mythweb-${shorthash} \
+        ${destroot}${prefix}/apache2/htdocs/MythWeb
+    system "chown -R _www:_www ${destroot}${prefix}/apache2/htdocs/MythWeb/data"
+
+    destroot.violate_mtree yes
+
+    destroot.keepdirs \
+        ${destroot}${prefix}/apache2/htdocs/MythWeb/data/cache \
+        ${destroot}${prefix}/apache2/htdocs/MythWeb/data/tv_icons
+}
+
+notes "\
+############################################################################
+#
+# If this is the first time installing MythWeb, please see
+# http://www.mythtv.org/wiki/MythWeb_via_MacPorts for information
+# essential to finishing the installation of MythWeb!
+#
+# Upgrading for the first time after September 23, 2014?  The change to PHP 
+# 5.4 requires certain configuration changes.  Check your configuration with 
+# the above wiki page.
+#
+############################################################################"
+
+livecheck.type              none

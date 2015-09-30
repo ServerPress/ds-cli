@@ -1,0 +1,1887 @@
+<HEAD>
+<TITLE>Builtin commands</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Special_aliases.html">Next</A>
+<A HREF="REFERENCE.html">Previous</A>
+<H2>Builtin commands</H2>
+<DL compact>
+<DT>
+<B><A NAME="%">%</A></B><I>job</I>
+<DD>
+A synonym for the <I><A HREF="Builtin_commands.html#fg">fg</A></I> builtin command.
+<P>
+<DT>
+<B>%</B><I>job </I><B>&amp;</B>
+<DD>
+A synonym for the <I><A HREF="Builtin_commands.html#bg">bg</A></I> builtin command.
+<P>
+<DT>
+<B><A NAME=":">:</A></B>
+<DD>
+Does nothing, successfully.
+</DL>
+<P>
+<B><A NAME="@">@</A></B>
+<BR>
+<B>@ </B><I>name</I><B> = </B><I>expr</I>
+<BR>
+<B>@ </B><I>name</I>[<I>index</I>]<B> = </B><I>expr</I>
+<BR>
+<B>@ </B><I>name</I><B>++</B>|<B>--</B>
+<P>
+<DL compact>
+<DT>
+<B>@ </B><I>name</I>[<I>index</I>]<B>++</B>|<B>--</B>
+<DD>
+The first form prints the values of all shell variables.
+</DL>
+<P>
+<menu>
+The second form assigns the value of <I>expr</I> to <I>name</I>.
+The third form assigns the value of <I>expr</I> to the <I>index</I>'th
+component of <I>name</I>; both <I>name</I> and its <I>index</I>'th component
+must already exist.
+<P>
+<I>expr</I> may contain the operators `*', `+', etc., as in C.
+If <I>expr</I> contains `&lt;', `&gt;', `&amp;' or `' then at least that part of
+<I>expr</I> must be placed within `()'.
+Note that the syntax of <I>expr</I> has nothing to do with that described
+under <B><A HREF="Expressions.html">Expressions</A></B>.
+<P>
+The fourth and fifth forms increment (`++') or decrement (`--') <I>name</I>
+or its <I>index</I>'th component.
+<P>
+The space between `@' and <I>name</I> is required.  The spaces between
+<I>name</I> and `=' and between `=' and <I>expr</I> are optional.  Components of
+<I>expr</I> must be separated by spaces.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="alias">alias</A> </B>[<I>name </I>[<I>wordlist</I>]]
+<DD>
+Without arguments, prints all aliases.
+With <I>name</I>, prints the alias for name.
+With <I>name</I> and <I>wordlist</I>, assigns
+<I>wordlist</I> as the alias of <I>name</I>.
+<I>wordlist</I> is command and filename substituted.
+<I>name</I> may not be `alias' or `unalias'.
+See also the <I><A HREF="Builtin_commands.html#unalias">unalias</A></I> builtin command.
+<P>
+<DT>
+<B><A NAME="alloc">alloc</A></B>
+<DD>
+Shows the amount of dynamic memory acquired, broken down into used and free
+memory.  With an argument shows the number of free and used blocks in each size
+category.  The categories start at size 8 and double at each step.  This
+command's output may vary across system types, because systems other than the VAX
+may use a different memory allocator.
+<P>
+<DT>
+<B><A NAME="bg">bg</A> </B>[<B>%</B><I>job</I> ...]
+<DD>
+Puts the specified jobs (or, without arguments, the current job)
+into the background, continuing each if it is stopped.
+<I>job</I> may be a number, a string, `', `%', `+' or `-' as described
+under <B><A HREF="Jobs.html">Jobs</A></B>.
+</DL>
+<P>
+<B><A NAME="bindkey">bindkey</A> </B>[<B>-l</B>|<B>-d</B>|<B>-e</B>|<B>-v</B>|<B>-u</B>] (+)
+<BR>
+<B>bindkey </B>[<B>-a</B>] [<B>-b</B>] [<B>-k</B>] [<B>-r</B>] [<B>--</B>] <I>key </I>(+)
+<P>
+<DL compact>
+<DT>
+<B>bindkey </B>[<B>-a</B>] [<B>-b</B>] [<B>-k</B>] [<B>-c</B>|<B>-s</B>] [<B>--</B>] <I>key command </I>(+)
+<DD>
+<!--
+ .B macro can't take too many words, so I used \fB in the previous tags
+-->
+Without options, the first form lists all bound keys and the editor command to which each is bound,
+the second form lists the editor command to which <I>key</I> is bound and
+the third form binds the editor command <I>command</I> to <I>key</I>.
+Options include:
+</DL>
+<P>
+<P>
+<menu>
+<DL compact>
+<DT>
+<B>-l</B>
+<DD>
+Lists all editor commands and a short description of each.
+<P>
+<DT>
+<B>-d</B>
+<DD>
+Binds all keys to the standard bindings for the default editor.
+<P>
+<DT>
+<B>-e</B>
+<DD>
+Binds all keys to the standard GNU Emacs-like bindings.
+<P>
+<DT>
+<B>-v</B>
+<DD>
+Binds all keys to the standard <I>vi</I>(1)-like bindings.
+<P>
+<DT>
+<B>-a</B>
+<DD>
+Lists or changes key-bindings in the alternative key map.
+This is the key map used in <I>vi</I> command mode.
+<P>
+<DT>
+<B>-b</B>
+<DD>
+<I>key</I> is interpreted as
+a control character written ^<I>character</I> (e.g., `^A') or
+C-<I>character</I> (e.g., `C-A'),
+a meta character written M-<I>character</I> (e.g., `M-A'),
+a function key written F-<I>string</I> (e.g., `F-string'),
+or an extended prefix key written X-<I>character</I> (e.g., `X-A').
+<P>
+<DT>
+<B>-k</B>
+<DD>
+<I>key</I> is interpreted as a symbolic arrow key name, which may be one of
+`down', `up', `left' or `right'.
+<P>
+<DT>
+<B>-r</B>
+<DD>
+Removes <I>key</I>'s binding.
+Be careful: `bindkey -r' does <I>not</I> bind <I>key</I> to
+<I><A HREF="Editor_commands.html#self-insert-command">self-insert-command</A></I> (q.v.), it unbinds <I>key</I> completely.
+<P>
+<DT>
+<B>-c</B>
+<DD>
+<I>command</I> is interpreted as a builtin or external command instead of an
+editor command.
+<P>
+<DT>
+<B>-s</B>
+<DD>
+<I>command</I> is taken as a literal string and treated as terminal input
+when <I>key</I> is typed.  Bound keys in <I>command</I> are themselves
+reinterpreted, and this continues for ten levels of interpretation.
+<P>
+<DT>
+<B>--</B>
+<DD>
+Forces a break from option processing, so the next word is taken as <I>key</I>
+even if it begins with '-'.
+<P>
+<DT>
+<B>-u </B>(or any invalid option)
+<DD>
+Prints a usage message.
+</DL>
+<P>
+<I>key</I> may be a single character or a string.
+If a command is bound to a string, the first character of the string is bound to
+<I><A HREF="Editor_commands.html#sequence-lead-in">sequence-lead-in</A></I> and the entire string is bound to the command.
+<P>
+Control characters in <I>key</I> can be literal (they can be typed by preceding
+them with the editor command <I>quoted-insert</I>, normally bound to `^V') or
+written caret-character style, e.g., `^A'.  Delete is written `^?'
+(caret-question mark).  <I>key</I> and <I>command</I> can contain backslashed
+escape sequences (in the style of System V <I>echo</I>(1)) as follows:
+<P>
+<menu>
+<DL compact>
+<DT>
+<B>\a</B>
+<DD>
+Bell
+<P>
+<DT>
+<B>\b</B>
+<DD>
+Backspace
+<P>
+<DT>
+<B>\e</B>
+<DD>
+Escape
+<P>
+<DT>
+<B>\f</B>
+<DD>
+Form feed
+<P>
+<DT>
+<B>\n</B>
+<DD>
+Newline
+<P>
+<DT>
+<B>\r</B>
+<DD>
+Carriage return
+<P>
+<DT>
+<B>\t</B>
+<DD>
+Horizontal tab
+<P>
+<DT>
+<B>\v</B>
+<DD>
+Vertical tab
+<P>
+<DT>
+<B>\</B><I>nnn</I>
+<DD>
+The ASCII character corresponding to the octal number <I>nnn</I>
+</DL>
+<P>
+</menu>
+`\' nullifies the special meaning of the following character, if it has
+any, notably `\' and `^'.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="bs2cmd">bs2cmd</A> </B><I>bs2000-command</I> (+)
+<DD>
+Passes <I>bs2000-command</I> to the BS2000 command interpreter for
+execution. Only non-interactive commands can be executed, and it is
+not possible to execute any command that would overlay the image
+of the current process, like /EXECUTE or /CALL-PROCEDURE. (BS2000 only)
+<P>
+<DT>
+<B><A NAME="break">break</A></B>
+<DD>
+Causes execution to resume after the <I><A HREF="Builtin_commands.html#end">end</A></I> of the nearest
+enclosing <I><A HREF="Builtin_commands.html#foreach">foreach</A></I> or <I><A HREF="Builtin_commands.html#while">while</A></I>.  The remaining commands on the
+current line are executed.  Multi-level breaks are thus
+possible by writing them all on one line.
+<P>
+<DT>
+<B><A NAME="breaksw">breaksw</A></B>
+<DD>
+Causes a break from a <I><A HREF="Builtin_commands.html#switch">switch</A></I>, resuming after the <I><A HREF="Builtin_commands.html#endsw">endsw</A></I>.
+<P>
+<DT>
+<B><A NAME="builtins">builtins</A> </B>(+)
+<DD>
+Prints the names of all builtin commands.
+<P>
+<DT>
+<B><A NAME="bye">bye</A> </B>(+)
+<DD>
+A synonym for the <I><A HREF="Builtin_commands.html#logout">logout</A></I> builtin command.
+Available only if the shell was so compiled;
+see the <B><A HREF="Special_shell_variables.html#version">version</A></B> shell variable.
+<P>
+<DT>
+<B><A NAME="case">case</A> </B><I>label</I><B>:</B>
+<DD>
+A label in a <I><A HREF="Builtin_commands.html#switch">switch</A></I> statement as discussed below.
+<P>
+<DT>
+<B><A NAME="cd">cd</A> </B>[<B>-p</B>] [<B>-l</B>] [<B>-n</B>|<B>-v</B>] [\I--] [<I>name</I>]
+<DD>
+If a directory <I>name</I> is given, changes the shell's working directory
+to <I>name</I>.  If not, changes to <B><A HREF="Special_shell_variables.html#home">home</A></B>, unless the <B><A HREF="Special_shell_variables.html#cdtohome">cdtohome</A></B>
+variable is not set, in which case a <I>name</I> is required.
+If <I>name</I> is `-' it is interpreted as the previous working directory
+(see <B><A HREF="Other_substitutions.html">Other substitutions</A></B>).  (+)
+If <I>name</I> is not a subdirectory of the current directory
+(and does not begin with `/', `./' or `../'), each component of the variable
+<B><A HREF="Special_shell_variables.html#cdpath">cdpath</A></B> is checked to see if it has a subdirectory <I>name</I>.  Finally, if
+all else fails but <I>name</I> is a shell variable whose value
+begins with `/' or '.', then this is tried to see if it is a directory, and
+the <B>-p</B> option is implied.
+</DL>
+<P>
+<menu>
+With <B>-p</B>, prints the final directory stack, just like <I><A HREF="Builtin_commands.html#dirs">dirs</A></I>.
+The <B>-l</B>, <B>-n</B> and <B>-v</B> flags have the same effect on <I><A HREF="Builtin_commands.html#cd">cd</A></I>
+as on <I><A HREF="Builtin_commands.html#dirs">dirs</A></I>, and they imply <B>-p</B>.  (+)
+Using <B>--</B> forces a break from option processing so the next word
+is taken as the directory <I>name</I> even if it begins with '-'. (+)
+<P>
+See also the <B><A HREF="Special_shell_variables.html#implicitcd">implicitcd</A></B> and <B><A HREF="Special_shell_variables.html#cdtohome">cdtohome</A></B> shell variables.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="chdir">chdir</A></B>
+<DD>
+A synonym for the <I><A HREF="Builtin_commands.html#cd">cd</A></I> builtin command.
+<P>
+<DT>
+<B><A NAME="complete">complete</A> </B>[<I>command</I> [<I>word</I><B>/</B><I>pattern</I><B>/</B><I>list</I>[<B>:</B><I>select</I>]<B>/</B>[[<I>suffix</I>]<B>/</B>] ...]] (+)
+<DD>
+Without arguments, lists all completions.
+With <I>command</I>, lists completions for <I>command</I>.
+With <I>command</I> and <I>word</I> etc., defines completions.
+</DL>
+<P>
+<menu>
+<I>command</I> may be a full command name or a glob-pattern
+(see <B><A HREF="Filename_substitution.html">Filename substitution</A></B>).  It can begin with `-' to indicate that
+completion should be used only when <I>command</I> is ambiguous.
+<P>
+<I>word</I> specifies which word relative to the current word
+is to be completed, and may be one of the following:
+<P>
+<P>
+<menu>
+<DL compact>
+<DT>
+<B>c</B>
+<DD>
+Current-word completion.
+<I>pattern</I> is a glob-pattern which must match the beginning of the current word on
+the command line.  <I>pattern</I> is ignored when completing the current word.
+<P>
+<DT>
+<B>C</B>
+<DD>
+Like <B>c</B>, but includes <I>pattern</I> when completing the current word.
+<P>
+<DT>
+<B>n</B>
+<DD>
+Next-word completion.
+<I>pattern</I> is a glob-pattern which must match the beginning of the previous word on
+the command line.
+<P>
+<DT>
+<B>N</B>
+<DD>
+Like <B>n</B>, but must match the beginning of the word two before the current word.
+<P>
+<DT>
+<B>p</B>
+<DD>
+Position-dependent completion.
+<I>pattern</I> is a numeric range, with the same syntax used to index shell
+variables, which must include the current word.
+</DL>
+<P>
+</menu>
+<I>list</I>, the list of possible completions, may be one of the following:
+<P>
+<P>
+<menu>
+<DL compact>
+<DT>
+<B>a</B>
+<DD>
+Aliases
+<P>
+<DT>
+<B>b</B>
+<DD>
+Bindings (editor commands)
+<P>
+<DT>
+<B>c</B>
+<DD>
+Commands (builtin or external commands)
+<P>
+<DT>
+<B>C</B>
+<DD>
+External commands which begin with the supplied path prefix
+<P>
+<DT>
+<B>d</B>
+<DD>
+Directories
+<P>
+<DT>
+<B>D</B>
+<DD>
+Directories which begin with the supplied path prefix
+<P>
+<DT>
+<B>e</B>
+<DD>
+Environment variables
+<P>
+<DT>
+<B>f</B>
+<DD>
+Filenames
+<P>
+<DT>
+<B>F</B>
+<DD>
+Filenames which begin with the supplied path prefix
+<P>
+<DT>
+<B>g</B>
+<DD>
+Groupnames
+<P>
+<DT>
+<B>j</B>
+<DD>
+Jobs
+<P>
+<DT>
+<B>l</B>
+<DD>
+Limits
+<P>
+<DT>
+<B>n</B>
+<DD>
+Nothing
+<P>
+<DT>
+<B>s</B>
+<DD>
+Shell variables
+<P>
+<DT>
+<B>S</B>
+<DD>
+Signals
+<P>
+<DT>
+<B>t</B>
+<DD>
+Plain (``text'') files
+<P>
+<DT>
+<B>T</B>
+<DD>
+Plain (``text'') files which begin with the supplied path prefix
+<P>
+<DT>
+<B>v</B>
+<DD>
+Any variables
+<P>
+<DT>
+<B>u</B>
+<DD>
+Usernames
+<P>
+<DT>
+<B>x</B>
+<DD>
+Like <B>n</B>, but prints <I>select</I> when <I><A HREF="Editor_commands.html#list-choices">list-choices</A></I> is used.
+<P>
+<DT>
+<B>X</B>
+<DD>
+Completions
+<P>
+<DT>
+$<I>var</I>
+<DD>
+Words from the variable <I>var</I>
+<P>
+<DT>
+(...)
+<DD>
+Words from the given list
+<P>
+<DT>
+\`...\`
+<DD>
+Words from the output of command
+</DL>
+<P>
+</menu>
+<I>select</I> is an optional glob-pattern.
+If given, words from only <I>list</I> that match <I>select</I> are considered
+and the <B><A HREF="Special_shell_variables.html#fignore">fignore</A></B> shell variable is ignored.
+The last three types of completion may not have a <I>select</I>
+pattern, and <B>x</B> uses <I>select</I> as an explanatory message when
+the <I><A HREF="Editor_commands.html#list-choices">list-choices</A></I> editor command is used.
+<P>
+<I>suffix</I> is a single character to be appended to a successful
+completion.  If null, no character is appended.  If omitted (in which
+case the fourth delimiter can also be omitted), a slash is appended to
+directories and a space to other words.
+<P>
+<I>command</I> invoked from \`...\` version has additional environment
+variable set, the variable name is \%<B>COMMAND_LINE</B>\% and
+contains (as its name indicates) contents of the current (already
+typed in) command line. One can examine and use contents of the
+\%<B>COMMAND_LINE</B>\% variable in her custom script to build more
+sophisticated completions (see completion for svn(1) included in
+this package).
+<P>
+Now for some examples.  Some commands take only directories as arguments,
+so there's no point completing plain files.
+<P>
+<menu>
+&gt; complete cd 'p/1/d/'
+</menu>
+<P>
+completes only the first word following `cd' (`p/1') with a directory.
+<B>p</B>-type completion can also be used to narrow down command completion:
+<P>
+<menu>
+&gt; co[^D]
+<BR>
+complete compress
+<BR>
+&gt; complete -co* 'p/0/(compress)/'
+<BR>
+&gt; co[^D]
+<BR>
+&gt; compress
+</menu>
+<P>
+This completion completes commands (words in position 0, `p/0')
+which begin with `co' (thus matching `co*') to `compress' (the only
+word in the list).
+The leading `-' indicates that this completion is to be used with only
+ambiguous commands.
+<P>
+<menu>
+&gt; complete find 'n/-user/u/'
+</menu>
+<P>
+is an example of <B>n</B>-type completion.  Any word following `find' and
+immediately following `-user' is completed from the list of users.
+<P>
+<menu>
+&gt; complete cc 'c/-I/d/'
+</menu>
+<P>
+demonstrates <B>c</B>-type completion.  Any word following `cc' and beginning
+with `-I' is completed as a directory.  `-I' is not taken as part of the
+directory because we used lowercase <B>c</B>.
+<P>
+Different <I>list</I>s are useful with different commands.
+<P>
+<menu>
+&gt; complete alias 'p/1/a/'
+<BR>
+&gt; complete man 'p/*/c/'
+<BR>
+&gt; complete set 'p/1/s/'
+<BR>
+&gt; complete true 'p/1/x:Truth has no options./'
+</menu>
+<P>
+These complete words following `alias' with aliases, `man' with commands,
+and `set' with shell variables.
+`true' doesn't have any options, so <B>x</B> does nothing when completion
+is attempted and prints `Truth has no options.' when completion choices are listed.
+<P>
+Note that the <I>man</I> example, and several other examples below, could
+just as well have used 'c/*' or 'n/*' as 'p/*'.
+<P>
+Words can be completed from a variable evaluated at completion time,
+<P>
+<menu>
+&gt; complete ftp 'p/1/$hostnames/'
+<BR>
+&gt; set hostnames = (rtfm.mit.edu tesla.ee.cornell.edu)
+<BR>
+&gt; ftp [^D]
+<BR>
+rtfm.mit.edu tesla.ee.cornell.edu
+<BR>
+&gt; ftp [^C]
+<BR>
+&gt; set hostnames = (rtfm.mit.edu tesla.ee.cornell.edu uunet.uu.net)
+<BR>
+&gt; ftp [^D]
+<BR>
+rtfm.mit.edu tesla.ee.cornell.edu uunet.uu.net
+</menu>
+<P>
+or from a command run at completion time:
+<P>
+<menu>
+&gt; complete kill 'p/*/\`ps | awk \{print\ \$1\}\`/'
+<BR>
+&gt; kill -9 [^D]
+<BR>
+23113 23377 23380 23406 23429 23529 23530 PID
+</menu>
+<P>
+Note that the <I><A HREF="Builtin_commands.html#complete">complete</A></I> command does not itself quote its arguments,
+so the braces, space and `$' in `{print $1}' must be quoted explicitly.
+<P>
+One command can have multiple completions:
+<P>
+<menu>
+&gt; complete dbx 'p/2/(core)/' 'p/*/c/'
+</menu>
+<P>
+completes the second argument to `dbx' with the word `core' and all other
+arguments with commands.  Note that the positional completion is specified
+before the next-word completion.
+Because completions are evaluated from left to right, if
+the next-word completion were specified first it would always match
+and the positional completion would never be executed.  This is a
+common mistake when defining a completion.
+<P>
+The <I>select</I> pattern is useful when a command takes files with only
+particular forms as arguments.  For example,
+<P>
+<menu>
+&gt; complete cc 'p/*/f:*.[cao]/'
+</menu>
+<P>
+completes `cc' arguments to files ending in only `.c', `.a', or `.o'.
+<I>select</I> can also exclude files, using negation of a glob-pattern as
+described under <B><A HREF="Filename_substitution.html">Filename substitution</A></B>.  One might use
+<P>
+<menu>
+&gt; complete rm 'p/*/f:^*.{c,h,cc,C,tex,1,man,l,y}/'
+</menu>
+<P>
+to exclude precious source code from `rm' completion.  Of course, one
+could still type excluded names manually or override the completion
+mechanism using the <I><A HREF="Editor_commands.html#complete-word-raw">complete-word-raw</A></I> or <I><A HREF="Editor_commands.html#list-choices-raw">list-choices-raw</A></I>
+editor commands (q.v.).
+<P>
+The `C', `D', `F' and `T' <I>list</I>s are like `c', `d', `f' and `t'
+respectively, but they use the <I>select</I> argument in a different way: to
+restrict completion to files beginning with a particular path prefix.  For
+example, the Elm mail program uses `=' as an abbreviation for one's mail
+directory.  One might use
+<P>
+<menu>
+&gt; complete elm c@=@F:$HOME/Mail/@
+</menu>
+<P>
+to complete `elm -f =' as if it were `elm -f ~/Mail/'.  Note that we used `@'
+instead of `/' to avoid confusion with the <I>select</I> argument, and we used
+`$HOME' instead of `~' because home directory substitution works at only the
+beginning of a word.
+<P>
+<I>suffix</I> is used to add a nonstandard suffix
+(not space or `/' for directories) to completed words.
+<P>
+<menu>
+&gt; complete finger 'c/*@/$hostnames/' 'p/1/u/@'
+</menu>
+<P>
+completes arguments to `finger' from the list of users, appends an `@',
+and then completes after the `@' from the `hostnames' variable.  Note
+again the order in which the completions are specified.
+<P>
+Finally, here's a complex example for inspiration:
+<P>
+<menu>
+&gt; complete find \
+<BR>
+'n/-name/f/' 'n/-newer/f/' 'n/-{,n}cpio/f/' \
+<BR>
+\'n/-exec/c/' 'n/-ok/c/' 'n/-user/u/' \
+<BR>
+'n/-group/g/' 'n/-fstype/(nfs 4.2)/' \
+<BR>
+'n/-type/(b c d f l p s)/' \
+<BR>
+'c/-/(name newer cpio ncpio exec ok user \
+<BR>
+group fstype type atime ctime depth inum \
+<BR>
+ls mtime nogroup nouser perm print prune \
+<BR>
+size xdev)/' \
+<BR>
+'p/*/d/'
+</menu>
+<P>
+This completes words following `-name', `-newer', `-cpio' or `ncpio'
+(note the pattern which matches both) to files,
+words following `-exec' or `-ok' to commands, words following `user'
+and `group' to users and groups respectively
+and words following `-fstype' or `-type' to members of the
+given lists.  It also completes the switches themselves from the given list
+(note the use of <B>c</B>-type completion)
+and completes anything not otherwise completed to a directory.  Whew.
+<P>
+Remember that programmed completions are ignored if the word being completed
+is a tilde substitution (beginning with `~') or a variable (beginning with `$').
+See also the <I><A HREF="Builtin_commands.html#uncomplete">uncomplete</A></I> builtin command.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="continue">continue</A></B>
+<DD>
+Continues execution of the nearest enclosing <I><A HREF="Builtin_commands.html#while">while</A></I> or <I><A HREF="Builtin_commands.html#foreach">foreach</A></I>.
+The rest of the commands on the current line are executed.
+<P>
+<DT>
+<B><A NAME="default:">default:</A></B>
+<DD>
+Labels the default case in a <I><A HREF="Builtin_commands.html#switch">switch</A></I> statement.
+It should come after all <I><A HREF="Builtin_commands.html#case">case</A></I> labels.
+</DL>
+<P>
+<B><A NAME="dirs">dirs</A> </B>[<B>-l</B>] [<B>-n</B>|<B>-v</B>]
+<BR>
+<B>dirs -S</B>|<B>-L </B>[<I>filename</I>] (+)
+<P>
+<DL compact>
+<DT>
+<B>dirs -c </B>(+)
+<DD>
+The first form prints the directory stack.  The top of the stack is at the
+left and the first directory in the stack is the current directory.
+With <B>-l</B>, `~' or `~<I>name\fP' in the output is expanded explicitly
+to </I><B><A HREF="Special_shell_variables.html#home">home</A></B> or the pathname of the home directory for user <I>name\fP.  (+)
+With </I><B>-n</B>, entries are wrapped before they reach the edge of the screen.  (+)
+With <B>-v</B>, entries are printed one per line, preceded by their stack positions.  (+)
+If more than one of <B>-n</B> or <B>-v</B> is given, <B>-v</B> takes precedence.
+<B>-p</B> is accepted but does nothing.
+</DL>
+<P>
+<menu>
+With <B>-S</B>, the second form saves the directory stack to <I>filename</I>
+as a series of <I><A HREF="Builtin_commands.html#cd">cd</A></I> and <I><A HREF="Builtin_commands.html#pushd">pushd</A></I> commands.
+With <B>-L</B>, the shell sources <I>filename</I>, which is presumably
+a directory stack file saved by the <B>-S</B> option or the <B><A HREF="Special_shell_variables.html#savedirs">savedirs</A></B>
+mechanism.
+In either case, <B><A HREF="Special_shell_variables.html#dirsfile">dirsfile</A></B> is used if <I>filename</I> is not given and
+<I><A HREF="FILES.html#~/.cshdirs">~/.cshdirs</A></I> is used if <B><A HREF="Special_shell_variables.html#dirsfile">dirsfile</A></B> is unset.
+<P>
+Note that login shells do the equivalent of `dirs -L' on startup
+and, if <B><A HREF="Special_shell_variables.html#savedirs">savedirs</A></B> is set, `dirs -S' before exiting.
+Because only <I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I> is normally sourced before <I><A HREF="FILES.html#~/.cshdirs">~/.cshdirs</A></I>,
+<B><A HREF="Special_shell_variables.html#dirsfile">dirsfile</A></B> should be set in <I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I> rather than <I><A HREF="FILES.html#~/.login">~/.login</A></I>.
+<P>
+The last form clears the directory stack.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="echo">echo</A> </B>[<B>-n</B>] <I>word</I> ...
+<DD>
+Writes each <I>word</I> to the shell's standard
+output, separated by spaces and terminated with a newline.
+The <B><A HREF="Special_shell_variables.html#echo_style">echo_style</A></B> shell variable may be set to emulate (or not) the flags and escape
+sequences of the BSD and/or System V versions of <I><A HREF="Builtin_commands.html#echo">echo</A></I>; see <I>echo</I>(1).
+<P>
+<DT>
+<B><A NAME="echotc">echotc</A> </B>[<B>-sv</B>] <I>arg</I> ... (+)
+<DD>
+Exercises the terminal capabilities (see <I>termcap</I>(5)) in <I>args</I>.
+For example, 'echotc home' sends the cursor to the home position,
+'echotc cm 3 10' sends it to column 3 and row 10, and
+'echotc ts 0; echo "This is a test."; echotc fs' prints "This is a test."
+in the status line.
+</DL>
+<P>
+<menu>
+If <I>arg</I> is 'baud', 'cols', 'lines', 'meta' or 'tabs', prints the
+value of that capability ("yes" or "no" indicating that the terminal does
+or does not have that capability).  One might use this to make the output
+from a shell script less verbose on slow terminals, or limit command
+output to the number of lines on the screen:
+<P>
+<menu>
+&gt; set history=\`echotc lines\`
+<BR>
+&gt; @ history--
+</menu>
+<P>
+Termcap strings may contain wildcards which will not echo correctly.
+One should use double quotes when setting a shell variable to a terminal
+capability string, as in the following example that places the date in
+the status line:
+<P>
+<menu>
+&gt; set tosl="\`echotc ts 0\`"
+<BR>
+&gt; set frsl="\`echotc fs\`"
+<BR>
+&gt; echo -n "$tosl";date; echo -n "$frsl"
+</menu>
+<P>
+With <B>-s</B>, nonexistent capabilities return the empty string rather
+than causing an error.
+With <B>-v</B>, messages are verbose.
+<P>
+</menu>
+<B><A NAME="else">else</A></B>
+<BR>
+<B><A NAME="end">end</A></B>
+<BR>
+<B><A NAME="endif">endif</A></B>
+<P>
+<DL compact>
+<DT>
+<B><A NAME="endsw">endsw</A></B>
+<DD>
+See the description of the <I><A HREF="Builtin_commands.html#foreach">foreach</A></I>, <I><A HREF="Builtin_commands.html#if">if</A></I>, <I><A HREF="Builtin_commands.html#switch">switch</A></I>, and
+<I><A HREF="Builtin_commands.html#while">while</A></I> statements below.
+<P>
+<DT>
+<B><A NAME="eval">eval</A> </B><I>arg</I> ...
+<DD>
+Treats the arguments as input to the
+shell and executes the resulting command(s) in the context
+of the current shell.  This is usually used to execute commands
+generated as the result of command or variable substitution,
+because parsing occurs before these substitutions.
+See <I>tset</I>(1) for a sample use of <I><A HREF="Builtin_commands.html#eval">eval</A></I>.
+<P>
+<DT>
+<B><A NAME="exec">exec</A> </B><I>command</I>
+<DD>
+Executes the specified command in place of the current shell.
+<P>
+<DT>
+<B><A NAME="exit">exit</A> </B>[<I>expr</I>]
+<DD>
+The shell exits either with the value of the specified <I>expr</I>
+(an expression, as described under <B><A HREF="Expressions.html">Expressions</A></B>)
+or, without <I>expr</I>, with the value 0.
+<P>
+<DT>
+<B><A NAME="fg">fg</A> </B>[<B>%</B><I>job</I> ...]
+<DD>
+Brings the specified jobs (or, without arguments, the current job)
+into the foreground, continuing each if it is stopped.
+<I>job</I> may be a number, a string, `', `%', `+' or `-' as described
+under <B><A HREF="Jobs.html">Jobs</A></B>.
+See also the <I><A HREF="Editor_commands.html#run-fg-editor">run-fg-editor</A></I> editor command.
+<P>
+<DT>
+<B><A NAME="filetest">filetest</A> -</B><I>op file</I> ... (+)
+<DD>
+Applies <I>op</I> (which is a file inquiry operator as described under
+<B><A HREF="File_inquiry_operators.html">File inquiry operators</A></B>) to each <I>file</I> and returns the results as a
+space-separated list.
+</DL>
+<P>
+<B><A NAME="foreach">foreach</A> </B><I>name </I><B>(</B><I>wordlist</I><B>)</B>
+<BR>
+...
+<P>
+<DL compact>
+<DT>
+<B>end</B>
+<DD>
+Successively sets the variable <I>name</I> to each member of
+<I>wordlist</I> and executes the sequence of commands between this command
+and the matching <I><A HREF="Builtin_commands.html#end">end</A></I>.  (Both <I><A HREF="Builtin_commands.html#foreach">foreach</A></I> and <I><A HREF="Builtin_commands.html#end">end</A></I>
+must appear alone on separate lines.)  The builtin command
+<I><A HREF="Builtin_commands.html#continue">continue</A></I> may be used to continue the loop prematurely and
+the builtin command <I><A HREF="Builtin_commands.html#break">break</A></I> to terminate it prematurely.
+When this command is read from the terminal, the loop is read once
+prompting with `foreach? ' (or <B><A HREF="Special_shell_variables.html#prompt2">prompt2</A></B>) before any statements in
+the loop are executed.  If you make a mistake typing in a
+loop at the terminal you can rub it out.
+<P>
+<DT>
+<B><A NAME="getspath">getspath</A> </B>(+)
+<DD>
+Prints the system execution path.  (TCF only)
+<P>
+<DT>
+<B><A NAME="getxvers">getxvers</A> </B>(+)
+<DD>
+Prints the experimental version prefix.  (TCF only)
+<P>
+<DT>
+<B><A NAME="glob">glob</A> </B><I>wordlist</I>
+<DD>
+Like <I><A HREF="Builtin_commands.html#echo">echo</A></I>, but the `-n' parameter is not recognized and words are
+delimited by null characters in the output.  Useful for
+programs which wish to use the shell to filename expand a list of words.
+<P>
+<DT>
+<B><A NAME="goto">goto</A> </B><I>word</I>
+<DD>
+<I>word</I> is filename and command-substituted to
+yield a string of the form `label'.  The shell rewinds its
+input as much as possible, searches for a line of the
+form `label:', possibly preceded by blanks or tabs, and
+continues execution after that line.
+<P>
+<DT>
+<B><A NAME="hashstat">hashstat</A></B>
+<DD>
+Prints a statistics line indicating how effective the
+internal hash table has been at locating commands (and avoiding
+<I><A HREF="Builtin_commands.html#exec">exec</A></I>'s).  An <I><A HREF="Builtin_commands.html#exec">exec</A></I> is attempted for each component of the
+<B><A HREF="Special_shell_variables.html#path">path</A></B> where the hash function indicates a possible hit, and
+in each component which does not begin with a `/'.
+</DL>
+<P>
+<menu>
+On machines without <I>vfork</I>(2), prints only the number and size of
+hash buckets.
+</menu>
+<P>
+<B><A NAME="history">history</A> </B>[<B>-hTr</B>] [<I>n</I>]
+<BR>
+<B>history -S</B>|<B>-L|-M </B>[<I>filename</I>] (+)
+<P>
+<DL compact>
+<DT>
+<B>history -c </B>(+)
+<DD>
+The first form prints the history event list.
+If <I>n</I> is given only the <I>n</I> most recent events are printed or saved.
+With <B>-h</B>, the history list is printed without leading numbers.  If
+<B>-T</B> is specified, timestamps are printed also in comment form.
+(This can be used to
+produce files suitable for loading with 'history -L' or 'source -h'.)
+With <B>-r</B>, the order of printing is most recent
+first rather than oldest first.
+</DL>
+<P>
+<menu>
+With <B>-S</B>, the second form saves the history list to <I>filename</I>.
+If the first word of the <B><A HREF="Special_shell_variables.html#savehist">savehist</A></B> shell variable is set to a
+number, at most that many lines are saved.  If the second word of
+<B><A HREF="Special_shell_variables.html#savehist">savehist</A></B> is set to `merge', the history list is merged with the
+existing history file instead of replacing it (if there is one) and
+sorted by time stamp.  (+) Merging is intended for an environment like
+the X Window System
+with several shells in simultaneous use.  If the second word of <B><A HREF="Special_shell_variables.html#savehist">savehist</A></B>
+is `merge' and the third word is set to `lock', the history file update
+will be serialized with other shell sessions that would possibly like
+to merge history at exactly the same time.
+<P>
+With <B>-L</B>, the shell appends <I>filename</I>, which is presumably a
+history list saved by the <B>-S</B> option or the <B><A HREF="Special_shell_variables.html#savehist">savehist</A></B> mechanism,
+to the history list.
+<B>-M</B> is like <B>-L</B>, but the contents of <I>filename</I> are merged
+into the history list and sorted by timestamp.
+In either case, <B><A HREF="Special_shell_variables.html#histfile">histfile</A></B> is used if <I>filename</I> is not given and
+<I><A HREF="FILES.html#~/.history">~/.history</A></I> is used if <B><A HREF="Special_shell_variables.html#histfile">histfile</A></B> is unset.
+`history -L' is exactly like 'source -h' except that it does not require a
+filename.
+<P>
+Note that login shells do the equivalent of `history -L' on startup
+and, if <B><A HREF="Special_shell_variables.html#savehist">savehist</A></B> is set, `history -S' before exiting.
+Because only <I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I> is normally sourced before <I><A HREF="FILES.html#~/.history">~/.history</A></I>,
+<B><A HREF="Special_shell_variables.html#histfile">histfile</A></B> should be set in <I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I> rather than <I><A HREF="FILES.html#~/.login">~/.login</A></I>.
+<P>
+If <B><A HREF="Special_shell_variables.html#histlit">histlit</A></B> is set, the first and second forms print and save the literal
+(unexpanded) form of the history list.
+<P>
+The last form clears the history list.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="hup">hup</A> </B>[<I>command</I>] (+)
+<DD>
+With <I>command</I>, runs <I>command</I> such that it will exit on a hangup
+signal and arranges for the shell to send it a hangup signal when the shell
+exits.
+Note that commands may set their own response to hangups, overriding <I><A HREF="Builtin_commands.html#hup">hup</A></I>.
+Without an argument, causes the non-interactive shell only to
+exit on a hangup for the remainder of the script.
+See also <B><A HREF="Signal_handling.html">Signal handling</A></B> and the <I><A HREF="Builtin_commands.html#nohup">nohup</A></I> builtin command.
+<P>
+<DT>
+<B><A NAME="if">if</A> (</B><I>expr</I><B>) </B><I>command</I>
+<DD>
+If <I>expr</I> (an expression, as described under <B><A HREF="Expressions.html">Expressions</A></B>)
+evaluates true, then <I>command</I> is executed.
+Variable substitution on <I>command</I> happens early, at the same time it
+does for the rest of the <I><A HREF="Builtin_commands.html#if">if</A></I> command.
+<I>command</I> must be a simple command, not an alias, a pipeline, a command list
+or a parenthesized command list, but it may have arguments.
+Input/output redirection occurs even if <I>expr</I> is
+false and <I>command</I> is thus <I>not</I> executed; this is a bug.
+</DL>
+<P>
+<B>if (</B><I>expr</I><B>) then</B>
+<BR>
+...
+<BR>
+<B>else if (</B><I>expr2</I><B>) then</B>
+<BR>
+...
+<BR>
+<B>else</B>
+<BR>
+...
+<P>
+<DL compact>
+<DT>
+<B>endif</B>
+<DD>
+If the specified <I>expr</I> is true then the commands to the
+first <I><A HREF="Builtin_commands.html#else">else</A></I> are executed; otherwise if <I>expr2</I> is true then
+the commands to the second <I><A HREF="Builtin_commands.html#else">else</A></I> are executed, etc.  Any
+number of <I>else-if</I> pairs are possible; only one <I><A HREF="Builtin_commands.html#endif">endif</A></I> is
+needed.  The <I><A HREF="Builtin_commands.html#else">else</A></I> part is likewise optional.  (The words
+<I><A HREF="Builtin_commands.html#else">else</A></I> and <I><A HREF="Builtin_commands.html#endif">endif</A></I> must appear at the beginning of input lines;
+the <I><A HREF="Builtin_commands.html#if">if</A></I> must appear alone on its input line or after an
+<I><A HREF="Builtin_commands.html#else">else</A></I>.)
+<P>
+<DT>
+<B><A NAME="inlib">inlib</A> </B><I>shared-library</I> ... (+)
+<DD>
+Adds each <I>shared-library</I> to the current environment.  There is no way
+to remove a shared library.  (Domain/OS only)
+<P>
+<DT>
+<B><A NAME="jobs">jobs</A> </B>[<B>-l</B>]
+<DD>
+Lists the active jobs.  With <B>-l</B>, lists process
+IDs in addition to the normal information.  On TCF systems, prints
+the site on which each job is executing.
+</DL>
+<P>
+<P>
+<DL compact>
+<DT>
+<B><A NAME="kill">kill</A> </B>[<B>-s </B><I>signal</I>] <B>%</B><I>job</I>|<I>pid</I> ...
+<DD>
+<P>
+<DT>
+<B>kill -l</B>
+<DD>
+The first and second forms sends the specified <I>signal</I> (or, if none
+is given, the TERM (terminate) signal) to the specified jobs or processes.
+<I>job</I> may be a number, a string, `', `%', `+' or `-' as described
+under <B><A HREF="Jobs.html">Jobs</A></B>.
+Signals are either given by number or by name (as given in
+<I>/usr/include/signal.h</I>, stripped of the prefix `SIG').
+There is no default <I>job</I>; saying just `kill' does not send a signal
+to the current job.  If the signal being sent is TERM (terminate)
+or HUP (hangup), then the job or process is sent a
+CONT (continue) signal as well.
+The third form lists the signal names.
+<P>
+<DT>
+<B><A NAME="limit">limit</A> </B>[<B>-h</B>] [<I>resource</I> [<I>maximum-use</I>]]
+<DD>
+Limits the consumption by the current process and each
+process it creates to not individually exceed <I>maximum-use</I> on
+the specified <I>resource</I>.  If no <I>maximum-use</I> is given, then
+the current limit is printed; if no <I>resource</I> is given, then
+all limitations are given.  If the <B>-h</B> flag is given, the
+hard limits are used instead of the current limits.  The
+hard limits impose a ceiling on the values of the current
+limits.  Only the super-user may raise the hard limits, but
+a user may lower or raise the current limits within the legal range.
+</DL>
+<P>
+<menu>
+Controllable resources currently include (if supported by the OS):
+<P>
+<DL compact>
+<DT>
+<I>cputime</I>
+<DD>
+the maximum number of cpu-seconds to be used by each process
+<P>
+<DT>
+<I>filesize</I>
+<DD>
+the largest single file which can be created
+<P>
+<DT>
+<I>datasize</I>
+<DD>
+the maximum growth of the data+stack region via sbrk(2) beyond
+the end of the program text
+<P>
+<DT>
+<I>stacksize</I>
+<DD>
+the maximum size of the automatically-extended stack region
+<P>
+<DT>
+<I>coredumpsize</I>
+<DD>
+the size of the largest core dump that will be created
+<P>
+<DT>
+<I>memoryuse</I>
+<DD>
+the maximum amount of physical memory a process
+may have allocated to it at a given time
+<P>
+<DT>
+<I>vmemoryuse</I>
+<DD>
+the maximum amount of virtual memory a process
+may have allocated to it at a given time (address space)
+<P>
+<DT>
+<I>vmemoryuse</I>
+<DD>
+the maximum amount of virtual memory a process
+may have allocated to it at a given time
+<P>
+<DT>
+<I>heapsize</I>
+<DD>
+the maximum amount of memory a process
+may allocate per <I>brk()</I> system call
+<P>
+<DT>
+<I>descriptors</I> or <I>openfiles</I>
+<DD>
+the maximum number of open files for this process
+<P>
+<DT>
+<I>pseudoterminals</I>
+<DD>
+the maximum number of pseudo-terminals for this user
+<P>
+<DT>
+<I>kqueues</I>
+<DD>
+the maximum number of kqueues allocated for this process
+<P>
+<DT>
+<I>concurrency</I>
+<DD>
+the maximum number of threads for this process
+<P>
+<DT>
+<I>memorylocked</I>
+<DD>
+the maximum size which a process may lock into memory using mlock(2)
+<P>
+<DT>
+<I>maxproc</I>
+<DD>
+the maximum number of simultaneous processes for this user id
+<P>
+<DT>
+<I>maxthread</I>
+<DD>
+the maximum number of simultaneous threads (lightweight processes) for this
+user id
+<P>
+<DT>
+<I>threads</I>
+<DD>
+the maximum number of threads for this process
+<P>
+<DT>
+<I>sbsize</I>
+<DD>
+the maximum size of socket buffer usage for this user
+<P>
+<DT>
+<I>swapsize</I>
+<DD>
+the maximum amount of swap space reserved or used for this user
+<P>
+<DT>
+<I>maxlocks</I>
+<DD>
+the maximum number of locks for this user
+<P>
+<DT>
+<I>posixlocks</I>
+<DD>
+the maximum number of POSIX advisory locks for this user
+<P>
+<DT>
+<I>maxsignal</I>
+<DD>
+the maximum number of pending signals for this user
+<P>
+<DT>
+<I>maxmessage</I>
+<DD>
+the maximum number of bytes in POSIX mqueues for this user
+<P>
+<DT>
+<I>maxnice</I>
+<DD>
+the maximum nice priority the user is allowed to raise mapped from [19...-20]
+to [0...39] for this user
+<P>
+<DT>
+<I>maxrtprio</I>
+<DD>
+the maximum realtime priority for this user
+<I>maxrttime</I>
+the timeout for RT tasks in microseconds for this user.
+</DL>
+<P>
+<I>maximum-use</I> may be given as a (floating point or
+integer) number followed by a scale factor.  For all limits
+other than <I>cputime</I> the default scale is `k' or `kilobytes'
+(1024 bytes); a scale factor of `m' or `megabytes' or `g' or `gigabytes'
+may also be used.  For <I>cputime</I> the default scaling is `seconds',
+while `m' for minutes or `h' for hours, or a time of the
+form `mm:ss' giving minutes and seconds may be used.
+<P>
+If <I>maximum-use</I>  is `unlimited',
+then the limitation on the specified <I>resource</I>
+is removed (this is equivalent to the <I><A HREF="Builtin_commands.html#unlimit">unlimit</A></I> builtin command).
+<P>
+For both <I>resource</I> names and scale factors, unambiguous
+prefixes of the names suffice.
+<P>
+</menu>
+<DL compact>
+<DT>
+<B><A NAME="log">log</A> </B>(+)
+<DD>
+Prints the <B><A HREF="Special_shell_variables.html#watch">watch</A></B> shell variable and reports on each user indicated
+in <B><A HREF="Special_shell_variables.html#watch">watch</A></B> who is logged in, regardless of when they last logged in.
+See also <I><A HREF="Builtin_commands.html#watchlog">watchlog</A></I>.
+<P>
+<DT>
+<B><A NAME="login">login</A></B>
+<DD>
+Terminates a login shell, replacing it with an instance of
+<I>/bin/login</I>. This is one way to log off, included for
+compatibility with <I>sh</I>(1).
+<P>
+<DT>
+<B><A NAME="logout">logout</A></B>
+<DD>
+Terminates a login shell.  Especially useful if <B><A HREF="Special_shell_variables.html#ignoreeof">ignoreeof</A></B> is set.
+<P>
+<DT>
+<B><A NAME="ls-F">ls-F</A> </B>[-<I><A HREF="Builtin_commands.html#switch">switch</A></I> ...] [<I>file</I> ...] (+)
+<DD>
+Lists files like `ls -F', but much faster.  It identifies each type of
+special file in the listing with a special character:
+</DL>
+<P>
+<P>
+<menu>
+<DL compact>
+<DT>
+/
+<DD>
+Directory
+<P>
+<DT>
+*
+<DD>
+Executable
+<P>
+<DT>
+#
+<DD>
+Block device
+<P>
+<DT>
+%
+<DD>
+Character device
+<P>
+<DT>
+|
+<DD>
+Named pipe (systems with named pipes only)
+<P>
+<DT>
+=
+<DD>
+Socket (systems with sockets only)
+<P>
+<DT>
+@
+<DD>
+Symbolic link (systems with symbolic links only)
+<P>
+<DT>
++
+<DD>
+Hidden directory (AIX only) or context dependent (HP/UX only)
+<P>
+<DT>
+:
+<DD>
+Network special (HP/UX only)
+</DL>
+<P>
+If the <B><A HREF="Special_shell_variables.html#listlinks">listlinks</A></B> shell variable is set, symbolic links are identified
+in more detail (on only systems that have them, of course):
+<P>
+<P>
+<DL compact>
+<DT>
+@
+<DD>
+Symbolic link to a non-directory
+<P>
+<DT>
+&gt;
+<DD>
+Symbolic link to a directory
+<P>
+<DT>
+&amp;
+<DD>
+Symbolic link to nowhere
+</DL>
+<P>
+<B><A HREF="Special_shell_variables.html#listlinks">listlinks</A></B> also slows down <I><A HREF="Builtin_commands.html#ls-F">ls-F</A></I> and causes partitions holding
+files pointed to by symbolic links to be mounted.
+<P>
+If the <B><A HREF="Special_shell_variables.html#listflags">listflags</A></B> shell variable is set to `x', `a' or `A', or any
+combination thereof (e.g., `xA'), they are used as flags to <I><A HREF="Builtin_commands.html#ls-F">ls-F</A></I>,
+making it act like `ls -xF', `ls -Fa', `ls -FA' or a combination
+(e.g., `ls -FxA').
+On machines where `ls -C' is not the default, <I><A HREF="Builtin_commands.html#ls-F">ls-F</A></I> acts like `ls -CF',
+unless <B><A HREF="Special_shell_variables.html#listflags">listflags</A></B> contains an `x', in which case it acts like `ls -xF'.
+<I><A HREF="Builtin_commands.html#ls-F">ls-F</A></I> passes its arguments to <I>ls</I>(1) if it is given any switches,
+so `alias ls ls-F' generally does the right thing.
+<P>
+The <B>ls-F</B> builtin can list files using different colors depending on the
+filetype or extension.  See the <B><A HREF="Special_shell_variables.html#color">color</A></B> shell variable and the
+<B><A HREF="ENVIRONMENT.html#LS_COLORS">LS_COLORS</A></B> environment variable.
+<P>
+</menu>
+<B><A NAME="migrate">migrate</A> </B>[<B>-</B><I>site</I>] <I>pid</I>|<B>%</B><I>jobid</I> ... (+)
+<P>
+<DL compact>
+<DT>
+<B>migrate -</B><I>site</I> (+)
+<DD>
+The first form migrates the process or job to the site specified or the
+default site determined by the system path.
+The second form is equivalent to `migrate -<I>site</I> $$': it migrates the
+current process to the specified site.  Migrating the shell
+itself can cause unexpected behavior, because the shell
+does not like to lose its tty.  (TCF only)
+<P>
+<DT>
+<B><A NAME="newgrp">newgrp</A> </B>[<B>-</B>] <I>[group]</I> (+)
+<DD>
+Equivalent to `exec newgrp'; see <I>newgrp</I>(1).
+Available only if the shell was so compiled;
+see the <B><A HREF="Special_shell_variables.html#version">version</A></B> shell variable.
+<P>
+<DT>
+<B><A NAME="nice">nice</A> </B>[<B>+</B><I>number</I>] [<I>command</I>]
+<DD>
+Sets the scheduling priority for the shell to <I>number</I>, or, without
+<I>number</I>, to 4.  With <I>command</I>, runs <I>command</I> at the appropriate
+priority.
+The greater the <I>number</I>, the less cpu
+the process gets.  The super-user may specify negative
+priority by using `nice -number ...'.  Command is always
+executed in a sub-shell, and the restrictions placed on
+commands in simple <I><A HREF="Builtin_commands.html#if">if</A></I> statements apply.
+<P>
+<DT>
+<B><A NAME="nohup">nohup</A> </B>[<I>command</I>]
+<DD>
+With <I>command</I>, runs <I>command</I> such that it will ignore hangup signals.
+Note that commands may set their own response to hangups, overriding <I><A HREF="Builtin_commands.html#nohup">nohup</A></I>.
+Without an argument, causes the non-interactive shell only to
+ignore hangups for the remainder of the script.
+See also <B><A HREF="Signal_handling.html">Signal handling</A></B> and the <I><A HREF="Builtin_commands.html#hup">hup</A></I> builtin command.
+<P>
+<DT>
+<B><A NAME="notify">notify</A> </B>[<B>%</B><I>job</I> ...]
+<DD>
+Causes the shell to notify the user asynchronously when the status of any
+of the specified jobs (or, without %<I>job</I>, the current job) changes,
+instead of waiting until the next prompt as is usual.
+<I>job</I> may be a number, a string, `', `%', `+' or `-' as described
+under <B><A HREF="Jobs.html">Jobs</A></B>.
+See also the <B><A HREF="Special_shell_variables.html#notify">notify</A></B> shell variable.
+<P>
+<DT>
+<B><A NAME="onintr">onintr</A> </B>[<B>-</B>|<I>label</I>]
+<DD>
+Controls the action of the shell on interrupts.  Without arguments,
+restores the default action of the shell on interrupts,
+which is to terminate shell scripts or to return to the
+terminal command input level.
+With `-', causes all interrupts to be ignored.
+With <I>label</I>, causes the shell to execute a `goto <I>label</I>'
+when an interrupt is received or a child process terminates because it was
+interrupted.
+</DL>
+<P>
+<menu>
+<I><A HREF="Builtin_commands.html#onintr">onintr</A></I> is ignored if the shell is running detached and in system
+startup files (see <B><A HREF="FILES.html">FILES</A></B>), where interrupts are disabled anyway.
+</menu>
+<P>
+<DL compact>
+<DT>
+<B><A NAME="popd">popd</A> </B>[<B>-p</B>] [<B>-l</B>] [<B>-n</B>|<B>-v</B>] [<B>+</B><I>n</I>]
+<DD>
+Without arguments, pops the directory stack and returns to the new top directory.
+With a number `+<I>n</I>', discards the <I>n</I>'th entry in the stack.
+</DL>
+<P>
+<menu>
+Finally, all forms of <I><A HREF="Builtin_commands.html#popd">popd</A></I> print the final directory stack,
+just like <I><A HREF="Builtin_commands.html#dirs">dirs</A></I>.  The <B><A HREF="Special_shell_variables.html#pushdsilent">pushdsilent</A></B> shell variable can be set to
+prevent this and the <B>-p</B> flag can be given to override <B><A HREF="Special_shell_variables.html#pushdsilent">pushdsilent</A></B>.
+The <B>-l</B>, <B>-n</B> and <B>-v</B> flags have the same effect on <I><A HREF="Builtin_commands.html#popd">popd</A></I>
+as on <I><A HREF="Builtin_commands.html#dirs">dirs</A></I>.  (+)
+</menu>
+<P>
+<DL compact>
+<DT>
+<B><A NAME="printenv">printenv</A> </B>[<I>name</I>] (+)
+<DD>
+Prints the names and values of all environment variables or,
+with <I>name</I>, the value of the environment variable <I>name</I>.
+<P>
+<DT>
+<B><A NAME="pushd">pushd</A> </B>[<B>-p</B>] [<B>-l</B>] [<B>-n</B>|<B>-v</B>] [<I>name</I>|<B>+</B><I>n</I>]
+<DD>
+Without arguments, exchanges the top two elements of the directory stack.
+If <B><A HREF="Special_shell_variables.html#pushdtohome">pushdtohome</A></B> is set, <I><A HREF="Builtin_commands.html#pushd">pushd</A></I> without arguments does `pushd ~',
+like <I><A HREF="Builtin_commands.html#cd">cd</A></I>.  (+)
+With <I>name</I>, pushes the current working directory onto the directory
+stack and changes to <I>name</I>.
+If <I>name</I> is `-' it is interpreted as the previous working directory
+(see <B><A HREF="Filename_substitution.html">Filename substitution</A></B>).  (+)
+If <B><A HREF="Special_shell_variables.html#dunique">dunique</A></B> is set, <I><A HREF="Builtin_commands.html#pushd">pushd</A></I> removes any instances of <I>name</I>
+from the stack before pushing it onto the stack.  (+)
+With a number `+<I>n</I>', rotates the <I>n</I>th element of the
+directory stack around to be the top element and changes to it.
+If <B><A HREF="Special_shell_variables.html#dextract">dextract</A></B> is set, however, `pushd +<I>n</I>' extracts the <I>n</I>th
+directory, pushes it onto the top of the stack and changes to it.  (+)
+</DL>
+<P>
+<menu>
+Finally, all forms of <I><A HREF="Builtin_commands.html#pushd">pushd</A></I> print the final directory stack,
+just like <I><A HREF="Builtin_commands.html#dirs">dirs</A></I>.  The <B><A HREF="Special_shell_variables.html#pushdsilent">pushdsilent</A></B> shell variable can be set to
+prevent this and the <B>-p</B> flag can be given to override <B><A HREF="Special_shell_variables.html#pushdsilent">pushdsilent</A></B>.
+The <B>-l</B>, <B>-n</B> and <B>-v</B> flags have the same effect on <I><A HREF="Builtin_commands.html#pushd">pushd</A></I>
+as on <I><A HREF="Builtin_commands.html#dirs">dirs</A></I>.  (+)
+</menu>
+<P>
+<DL compact>
+<DT>
+<B><A NAME="rehash">rehash</A></B>
+<DD>
+Causes the internal hash table of the contents of the
+directories in the <B><A HREF="Special_shell_variables.html#path">path</A></B> variable to be recomputed.  This is
+needed if the <B><A HREF="Special_shell_variables.html#autorehash">autorehash</A></B> shell variable is not set and new
+commands are added to directories in <B><A HREF="Special_shell_variables.html#path">path</A></B> while you are logged
+in.  With <B><A HREF="Special_shell_variables.html#autorehash">autorehash</A></B>, a new command will be found
+automatically, except in the special case where another command of
+the same name which is located in a different directory already
+exists in the hash table.  Also flushes the cache of home directories
+built by tilde expansion.
+<P>
+<DT>
+<B><A NAME="repeat">repeat</A> </B><I>count command</I>
+<DD>
+The specified <I>command</I>,
+which is subject to the same restrictions as the <I>command</I>
+in the one line <I><A HREF="Builtin_commands.html#if">if</A></I> statement above, is executed <I>count</I> times.
+I/O redirections occur exactly once, even if <I>count</I> is 0.
+<P>
+<DT>
+<B><A NAME="rootnode">rootnode</A> //</B><I>nodename </I>(+)
+<DD>
+Changes the rootnode to //<I>nodename</I>, so that `/' will be interpreted
+as `//<I>nodename</I>'.  (Domain/OS only)
+</DL>
+<P>
+<B><A NAME="sched">sched</A> </B>(+)
+<BR>
+<B>sched </B>[<B>+</B>]<I>hh:mm command</I> (+)
+<P>
+<DL compact>
+<DT>
+<B>sched -</B><I>n</I> (+)
+<DD>
+The first form prints the scheduled-event list.
+The <B><A HREF="Special_shell_variables.html#sched">sched</A></B> shell variable may be set to define the format in which
+the scheduled-event list is printed.
+The second form adds <I>command</I> to the scheduled-event list.
+For example,
+</DL>
+<P>
+<menu>
+<menu>
+&gt; sched 11:00 echo It\'s eleven o\'clock.
+</menu>
+<P>
+causes the shell to echo `It's eleven o'clock.' at 11 AM.
+The time may be in 12-hour AM/PM format
+<P>
+<menu>
+<!--
+ TODO
+-->
+&gt; sched 5pm set prompt='[%h] It\'s after 5; go home: &gt;'
+</menu>
+<P>
+or may be relative to the current time:
+<P>
+<menu>
+&gt; sched +2:15 /usr/lib/uucp/uucico -r1 -sother
+</menu>
+<P>
+A relative time specification may not use AM/PM format.
+The third form removes item <I>n</I> from the event list:
+<P>
+<menu>
+&gt; sched
+<BR>
+     1  Wed Apr  4 15:42  /usr/lib/uucp/uucico -r1 -sother
+<BR>
+     2  Wed Apr  4 17:00  set prompt=[%h] It's after 5; go home: &gt;
+<BR>
+&gt; sched -2
+<BR>
+&gt; sched
+<BR>
+     1  Wed Apr  4 15:42  /usr/lib/uucp/uucico -r1 -sother
+</menu>
+<P>
+A command in the scheduled-event list is executed just before the first
+prompt is printed after the time when the command is scheduled.
+It is possible to miss the exact time when the command is to be run, but
+an overdue command will execute at the next prompt.
+A command which comes due while the shell
+is waiting for user input is executed immediately.
+However, normal operation of an already-running command will not
+be interrupted so that a scheduled-event list element may be run.
+<P>
+This mechanism is similar to, but not the same as, the <I>at</I>(1)
+command on some Unix systems.
+Its major disadvantage is that it may not run a command at exactly the
+specified time.
+Its major advantage is that because <I><A HREF="Builtin_commands.html#sched">sched</A></I> runs directly from
+the shell, it has access to shell variables and other structures.
+This provides a mechanism for changing one's working environment
+based on the time of day.
+<P>
+</menu>
+<B><A NAME="set">set</A></B>
+<BR>
+<B>set </B><I>name</I> ...
+<BR>
+<B>set </B><I>name</I><B>=</B><I>word</I> ...
+<BR>
+<B>set [-r] [-f|-l] </B><I>name</I><B>=(</B><I>wordlist</I><B>)</B> ... (+)
+<BR>
+<B>set </B><I>name[index]</I><B>=</B><I>word</I> ...
+<BR>
+<B>set -r </B>(+)
+<BR>
+<B>set -r </B><I>name</I> ... (+)
+<P>
+<DL compact>
+<DT>
+<B>set -r </B><I>name</I><B>=</B><I>word</I> ... (+)
+<DD>
+The first form of the command prints the value of all shell variables.
+Variables which contain more than a single word print as a
+parenthesized word list.
+The second form sets <I>name</I> to the null string.
+The third form sets <I>name</I> to the single <I>word</I>.
+The fourth form sets <I>name</I> to the list of words in
+<I>wordlist</I>.  In all cases the value is command and filename expanded.
+If <B>-r</B> is specified, the value is set read-only.  If <B>-f</B> or
+<B>-l</B> are specified, set only unique words keeping their order.
+<B>-f</B> prefers the first occurrence of a word, and <B>-l</B> the last.
+The fifth form sets the <I>index</I>'th component of <I>name</I> to <I>word</I>;
+this component must already exist.
+The sixth form lists only the names of all shell variables that are read-only.
+The seventh form makes <I>name</I> read-only, whether or not it has a value.
+The eighth form is the same as the third form, but
+make <I>name</I> read-only at the same time.
+</DL>
+<P>
+<menu>
+These arguments can be repeated to set and/or make read-only multiple variables
+in a single set command.  Note, however, that variable expansion
+happens for all arguments before any setting occurs.  Note also that `=' can
+be adjacent to both <I>name</I> and <I>word</I> or separated from both by
+whitespace, but cannot be adjacent to only one or the other.
+See also the <I><A HREF="Builtin_commands.html#unset">unset</A></I> builtin command.
+</menu>
+<P>
+<DL compact>
+<DT>
+<B><A NAME="setenv">setenv</A> </B>[<I>name </I>[<I>value</I>]]
+<DD>
+Without arguments, prints the names and values of all environment variables.
+Given <I>name</I>, sets the environment variable <I>name</I> to <I>value</I>
+or, without <I>value</I>, to the null string.
+<P>
+<DT>
+<B><A NAME="setpath">setpath</A> </B><I>path </I>(+)
+<DD>
+Equivalent to <I>setpath</I>(1).  (Mach only)
+<P>
+<DT>
+<B><A NAME="setspath">setspath</A></B> LOCAL|<I>site</I>|<I>cpu</I> ...  (+)
+<DD>
+Sets the system execution path.  (TCF only)
+<P>
+<DT>
+<B><A NAME="settc">settc</A> </B><I>cap value </I>(+)
+<DD>
+Tells the shell to believe that the terminal capability <I>cap</I>
+(as defined in <I>termcap</I>(5)) has the value <I>value</I>.
+No sanity checking is done.
+Concept terminal users may have to `settc xn no' to get proper
+wrapping at the rightmost column.
+<P>
+<DT>
+<B><A NAME="setty">setty</A> </B>[<B>-d</B>|<B>-q</B>|<B>-x</B>] [<B>-a</B>] [[<B>+</B>|<B>-</B>]<I>mode</I>] (+)
+<DD>
+Controls which tty modes (see <B><A HREF="Terminal_management.html">Terminal management</A></B>)
+the shell does not allow to change.
+<B>-d</B>, <B>-q</B> or <B>-x</B> tells <I><A HREF="Builtin_commands.html#setty">setty</A></I> to act
+on the `edit', `quote' or `execute' set of tty modes respectively; without
+<B>-d</B>, <B>-q</B> or <B>-x</B>, `execute' is used.
+</DL>
+<P>
+<menu>
+Without other arguments, <I><A HREF="Builtin_commands.html#setty">setty</A></I> lists the modes in the chosen set
+which are fixed on (`+mode') or off (`-mode').
+The available modes, and thus the display, vary from system to system.
+With <B>-a</B>, lists all tty modes in the chosen set
+whether or not they are fixed.
+With <B>+</B><I>mode</I>, <B>-</B><I>mode</I> or <I>mode</I>, fixes <I>mode</I> on or off
+or removes control from <I>mode</I> in the chosen set.
+For example, `setty +echok echoe' fixes `echok' mode on and allows commands
+to turn `echoe' mode on or off, both when the shell is executing commands.
+</menu>
+<P>
+<DL compact>
+<DT>
+<B><A NAME="setxvers">setxvers</A></B> [<I>string</I>] (+)
+<DD>
+Set the experimental version prefix to <I>string</I>, or removes it
+if <I>string</I> is omitted.  (TCF only)
+<P>
+<DT>
+<B><A NAME="shift">shift</A> </B>[<I>variable</I>]
+<DD>
+Without arguments, discards <B><A HREF="Special_shell_variables.html#argv">argv</A></B>[1] and shifts the members of
+<B><A HREF="Special_shell_variables.html#argv">argv</A></B> to the left.  It is an error for <B><A HREF="Special_shell_variables.html#argv">argv</A></B> not to be set or to have
+less than one word as value.  With <I>variable</I>, performs the
+same function on <I>variable</I>.
+<P>
+<DT>
+<B><A NAME="source">source</A> </B>[<B>-h</B>] <I>name</I> [<I>args</I> ...]
+<DD>
+The shell reads and executes commands from <I>name</I>.
+The commands are not placed on the history list.
+If any <I>args</I> are given, they are placed in <B><A HREF="Special_shell_variables.html#argv">argv</A></B>.  (+)
+<I><A HREF="Builtin_commands.html#source">source</A></I> commands may be nested;
+if they are nested too deeply the shell may run out of file descriptors.
+An error in a <I><A HREF="Builtin_commands.html#source">source</A></I> at any level terminates all nested
+<I><A HREF="Builtin_commands.html#source">source</A></I> commands.
+With <B>-h</B>, commands are placed on the history list instead of being
+executed, much like `history -L'.
+<P>
+<DT>
+<B><A NAME="stop">stop</A> %</B><I>job</I>|<I>pid</I> ...
+<DD>
+Stops the specified jobs or processes which are executing in the background.
+<I>job</I> may be a number, a string, `', `%', `+' or `-' as described
+under <B><A HREF="Jobs.html">Jobs</A></B>.
+There is no default <I>job</I>; saying just `stop' does not stop
+the current job.
+<P>
+<DT>
+<B><A NAME="suspend">suspend</A></B>
+<DD>
+Causes the shell to stop in its tracks, much as if it had
+been sent a stop signal with <B>^Z</B>.  This is most often used to
+stop shells started by <I>su</I>(1).
+</DL>
+<P>
+<B><A NAME="switch">switch</A> (</B><I>string</I><B>)</B>
+<BR>
+<B>case </B><I>str1</I><B>:</B>
+<P>
+<menu>
+...
+<BR>
+<B>breaksw</B>
+</menu>
+<P>
+...
+<P>
+<B>default:</B>
+<P>
+<menu>
+...
+<BR>
+<B>breaksw</B>
+</menu>
+<P>
+<DL compact>
+<DT>
+<B>endsw</B>
+<DD>
+Each case label is successively matched, against the
+specified <I>string</I> which is first command and filename expanded.
+The file metacharacters `*', `?' and `[...]'  may be used
+in the case labels, which are variable expanded.  If none
+of the labels match before a `default' label is found, then
+the execution begins after the default label.  Each case
+label and the default label must appear at the beginning of
+a line.  The command <I><A HREF="Builtin_commands.html#breaksw">breaksw</A></I> causes execution to continue
+after the <I><A HREF="Builtin_commands.html#endsw">endsw</A></I>.  Otherwise control may fall through case
+labels and default labels as in C.  If no label matches and
+there is no default, execution continues after the <I><A HREF="Builtin_commands.html#endsw">endsw</A></I>.
+<P>
+<DT>
+<B><A NAME="telltc">telltc</A> </B>(+)
+<DD>
+Lists the values of all terminal capabilities (see <I>termcap</I>(5)).
+<P>
+<DT>
+<B><A NAME="termname">termname</A> </B>[<I>terminal type</I>] (+)
+<DD>
+Tests if <I>terminal type</I> (or the current value of <B><A HREF="ENVIRONMENT.html#TERM">TERM</A></B> if no
+<I>terminal type</I> is given) has an entry in the hosts termcap(5) or
+terminfo(5) database. Prints the terminal type to stdout and returns 0
+if an entry is present otherwise returns 1.
+<P>
+<DT>
+<B><A NAME="time">time</A> </B>[<I>command</I>]
+<DD>
+Executes <I>command</I> (which must be a simple command, not an alias,
+a pipeline, a command list or a parenthesized command list)
+and prints a time summary as described under the <B><A HREF="Special_shell_variables.html#time">time</A></B> variable.
+If necessary, an extra shell is created to print the time statistic when
+the command completes.
+Without <I>command</I>, prints a time summary for the current shell and its
+children.
+<P>
+<DT>
+<B><A NAME="umask">umask</A> </B>[<I>value</I>]
+<DD>
+Sets the file creation mask to <I>value</I>, which is given in octal.
+Common values for the mask are
+002, giving all access to the group and read and execute access to others, and
+022, giving read and execute access to the group and others.
+Without <I>value</I>, prints the current file creation mask.
+<P>
+<DT>
+<B><A NAME="unalias">unalias</A> </B><I>pattern</I>
+<DD>
+<BR>
+Removes all aliases whose names match <I>pattern</I>.
+`unalias *' thus removes all aliases.
+It is not an error for nothing to be <I><A HREF="Builtin_commands.html#unalias">unalias</A></I>ed.
+<P>
+<DT>
+<B><A NAME="uncomplete">uncomplete</A> </B><I>pattern</I> (+)
+<DD>
+Removes all completions whose names match <I>pattern</I>.
+`uncomplete *' thus removes all completions.
+It is not an error for nothing to be <I><A HREF="Builtin_commands.html#uncomplete">uncomplete</A></I>d.
+<P>
+<DT>
+<B><A NAME="unhash">unhash</A></B>
+<DD>
+Disables use of the internal hash table to speed location of
+executed programs.
+<P>
+<DT>
+<B><A NAME="universe">universe</A> </B><I><A HREF="Builtin_commands.html#universe">universe</A></I> (+)
+<DD>
+Sets the universe to <I><A HREF="Builtin_commands.html#universe">universe</A></I>.  (Masscomp/RTU only)
+<P>
+<DT>
+<B><A NAME="unlimit">unlimit</A> </B>[<B>-hf</B>] [<I>resource</I>]
+<DD>
+Removes the limitation on <I>resource</I> or, if no <I>resource</I> is
+specified, all <I>resource</I> limitations.
+With <B>-h</B>, the corresponding hard limits are removed.
+Only the super-user may do this.
+Note that <B>unlimit</B> may not exit successful, since most systems
+do not allow <I>descriptors</I> to be unlimited.
+With <B>-f</B> errors are ignored.
+<P>
+<DT>
+<B><A NAME="unset">unset</A> </B><I>pattern</I>
+<DD>
+Removes all variables whose names match <I>pattern</I>, unless they are read-only.
+`unset *' thus removes all variables unless they are read-only;
+this is a bad idea.
+It is not an error for nothing to be <I><A HREF="Builtin_commands.html#unset">unset</A></I>.
+<P>
+<DT>
+<B><A NAME="unsetenv">unsetenv</A> </B><I>pattern</I>
+<DD>
+Removes all environment variables whose names match <I>pattern</I>.
+`unsetenv *' thus removes all environment variables;
+this is a bad idea.
+It is not an error for nothing to be <I><A HREF="Builtin_commands.html#unsetenv">unsetenv</A></I>ed.
+<P>
+<DT>
+<B><A NAME="ver">ver</A> </B>[<I>systype</I> [<I>command</I>]] (+)
+<DD>
+Without arguments, prints <B><A HREF="ENVIRONMENT.html#SYSTYPE">SYSTYPE</A></B>.  With <I>systype</I>, sets <B><A HREF="ENVIRONMENT.html#SYSTYPE">SYSTYPE</A></B>
+to <I>systype</I>.  With <I>systype</I> and <I>command</I>, executes <I>command</I>
+under <I>systype</I>.  <I>systype</I> may be `bsd4.3' or `sys5.3'.
+(Domain/OS only)
+<P>
+<DT>
+<B><A NAME="wait">wait</A></B>
+<DD>
+The shell waits for all background jobs.  If the shell is interactive, an
+interrupt will disrupt the wait and cause the shell to print the names and job
+numbers of all outstanding jobs.
+<P>
+<DT>
+<B><A NAME="warp">warp</A> </B><I><A HREF="Builtin_commands.html#universe">universe</A></I> (+)
+<DD>
+Sets the universe to <I><A HREF="Builtin_commands.html#universe">universe</A></I>.  (Convex/OS only)
+<P>
+<DT>
+<B><A NAME="watchlog">watchlog</A> </B>(+)
+<DD>
+An alternate name for the <I><A HREF="Builtin_commands.html#log">log</A></I> builtin command (q.v.).
+Available only if the shell was so compiled;
+see the <B><A HREF="Special_shell_variables.html#version">version</A></B> shell variable.
+<P>
+<DT>
+<B><A NAME="where">where</A> </B><I>command</I> (+)
+<DD>
+Reports all known instances of <I>command</I>, including aliases, builtins and
+executables in <B><A HREF="Special_shell_variables.html#path">path</A></B>.
+<P>
+<DT>
+<B><A NAME="which">which</A></B> <I>command</I> (+)
+<DD>
+Displays the command that will be executed by the shell after substitutions,
+<B><A HREF="Special_shell_variables.html#path">path</A></B> searching, etc.
+The builtin command is just like <I>which</I>(1), but it correctly reports
+<I>tcsh</I> aliases and builtins and is 10 to 100 times faster.
+See also the <I><A HREF="Editor_commands.html#which-command">which-command</A></I> editor command.
+</DL>
+<P>
+<B><A NAME="while">while</A> (</B><I>expr</I><B>)</B>
+<BR>
+...
+<P>
+<DL compact>
+<DT>
+<B>end</B>
+<DD>
+Executes the commands between the <I><A HREF="Builtin_commands.html#while">while</A></I> and the matching <I><A HREF="Builtin_commands.html#end">end</A></I>
+while <I>expr</I> (an expression, as described under <B><A HREF="Expressions.html">Expressions</A></B>)
+evaluates non-zero.
+<I><A HREF="Builtin_commands.html#while">while</A></I> and <I><A HREF="Builtin_commands.html#end">end</A></I> must appear alone on their input lines.
+<I><A HREF="Builtin_commands.html#break">break</A></I> and <I><A HREF="Builtin_commands.html#continue">continue</A></I> may be used to terminate or continue the
+loop prematurely.
+If the input is a terminal, the user is prompted the first time
+through the loop as with <I><A HREF="Builtin_commands.html#foreach">foreach</A></I>.
+</DL>
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Special_aliases.html">Next</A>
+<A HREF="REFERENCE.html">Previous</A>
+</BODY>

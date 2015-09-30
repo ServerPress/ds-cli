@@ -1,0 +1,36 @@
+# $Id: Portfile 111353 2013-09-19 07:21:56Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                rvm
+version             1.07
+categories          sysutils net
+platforms           darwin
+maintainers         nomaintainer
+description         archive manager to manage backups of multiple clients
+long_description    The Rsync Vault Manager is an archive manager that \
+                    uses rsync to manage backups of multiple clients \
+                    across multiple logical partitions (vaults).
+
+homepage            http://rvm.sourceforge.net/
+master_sites        sourceforge
+
+checksums           md5     9a6f0d7a0ed6490e70fd38720423ad9d \
+                    sha1    19a4418105c35879768a0a57f8da41b065a7e6ff \
+                    rmd160  03fd1d12dc9eff530d02dc14c8c11cb3651a8899
+
+distfiles           ${name}_${version}${extract.suffix}
+
+depends_lib         path:bin/rsync:rsync
+
+configure.args      --with-rsync=${prefix}/bin/rsync \
+                    --with-default-config-file=${prefix}/etc/rvm.conf \
+                    --with-default-log-dir=${prefix}/var/log/rvm
+
+# avoid ridiculous conftest that uses up all memory to see if it gets an error when it runs out of memory
+configure.args-append ac_cv_cxx_exception_on_failed_alloc=yes
+
+test.run            yes
+test.target         check
+
+destroot.keepdirs   ${destroot}${prefix}/var/log/rvm

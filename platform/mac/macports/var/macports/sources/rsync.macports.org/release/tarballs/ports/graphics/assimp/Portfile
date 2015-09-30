@@ -1,0 +1,36 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134144 2015-03-19 01:16:09Z mmoll@macports.org $
+
+PortSystem          1.0
+PortGroup           cmake 1.0
+cmake.out_of_source yes
+
+name                assimp
+version             3.0.1270
+revision            1
+conflicts           assimp2
+categories          graphics
+maintainers         openmaintainer mmoll
+description         library to import/export 3D model formats
+long_description    Open Asset Import Library (short name: Assimp) is a \
+                    portable Open Source library to import various well-known \
+                    3D model formats in a uniform manner. The most recent \
+                    version also knows how to export 3d files and is therefore \
+                    suitable as general-purpose 3D model converter.
+homepage            http://assimp.sourceforge.net/
+platforms           darwin
+license             BSD
+master_sites        sourceforge
+
+checksums           md5     52aa4cf4e34e6b2a9c5f6c0b3c319af1 \
+                    sha1    e80a3a4326b649ed6585c0ce312ed6dd68942834 \
+                    rmd160  7bd166f6c8df2e2000e3b93122b6eb70738d1cc3
+distname            ${name}--${version}-source-only
+patchfiles          patch-CMakeLists.txt.diff \
+                    patch-code-STEPFile.h.diff
+use_zip             yes
+depends_lib         port:boost port:zlib
+
+livecheck.type      regex
+livecheck.url       http://sourceforge.net/projects/assimp/rss
+livecheck.regex     /${name}--(\[0-9.\]+)-source-only${extract.suffix}

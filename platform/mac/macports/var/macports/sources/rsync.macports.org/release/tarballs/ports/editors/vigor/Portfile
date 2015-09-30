@@ -1,0 +1,41 @@
+# $Id: Portfile 97619 2012-09-10 01:15:12Z jmr@macports.org $
+
+PortSystem 1.0
+
+name		vigor
+version		0.016
+categories	editors
+platforms	darwin
+license		BSD
+maintainers	nomaintainer
+description	vigor is a vi clone that comes with a personal assistant
+long_description	Vigor (pronouced like Igor, Dr. Frankensteins \
+			assistant), the popular Unix editor vi with the \
+			addition of the Vigor Assistant, has arrived.
+
+homepage	http://vigor.sourceforge.net/
+master_sites	sourceforge
+checksums	md5 5bd9a2e50581817f4a5f0e7a0f0d1a52
+
+depends_build port:automake
+depends_lib	port:tk \
+		port:xorg-libXt
+
+worksrcdir	${worksrcdir}/build
+
+patchfiles  patch-configure.diff
+
+post-patch {
+    file copy -force ${prefix}/share/automake-1.12/config.guess \
+                     ${prefix}/share/automake-1.12/config.sub \
+                     ${worksrcpath}
+}
+
+configure.env	ADDLDFLAGS='-L${prefix}/lib/tk8.5'
+configure.args	--enable-tknvi \
+		--x-includes=${prefix}/include \
+		--x-libraries=${prefix}/lib
+
+build.env	${configure.env}
+
+destroot.destdir	prefix=${destroot}${prefix}

@@ -1,0 +1,23 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137911 2015-06-22 22:10:54Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Math-Prime-Util-GMP 0.31
+license             {Artistic-1 GPL}
+maintainers         devans openmaintainer
+description         Math::Prime::Util::GMP - Utilities related to prime numbers and factoring, using GMP
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  8e643be0c368f69265d7482f6c77bbd0ba8a1804 \
+                    sha256  2a49bec16b91e575c63b8400138d1ccb3aad5658ec08eac4a98dd3b31f6131dc
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:gmp
+}
+

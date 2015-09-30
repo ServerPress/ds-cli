@@ -1,0 +1,33 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136436 2015-05-17 01:52:31Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Eval-Closure 0.13 ../by-authors/id/D/DO/DOY
+
+platforms           darwin
+maintainers         nomaintainer
+license             {Artistic-1 GPL}
+
+supported_archs     noarch
+
+description         Eval::Closure - safely and cleanly create closures via string eval.
+
+long_description    ${description}
+
+checksums           rmd160  8cb02f52bc13e86503bc2befeffc47db1d074e54 \
+                    sha256  65bec0368e8f0631a24bf6dc6dd24d2d8d485350e406d20005db2c6aa1c0445d
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                        port:p${perl5.major}-devel-lexalias \
+                        port:p${perl5.major}-padwalker \
+                        port:p${perl5.major}-test-fatal \
+                        port:p${perl5.major}-test-output \
+                        port:p${perl5.major}-test-requires
+    
+    depends_lib-append  port:p${perl5.major}-sub-exporter \
+                        port:p${perl5.major}-try-tiny
+}

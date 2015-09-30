@@ -1,0 +1,23 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 125547 2014-09-20 20:37:35Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+PortGroup           muniversal 1.0
+
+github.setup        ivmai libatomic_ops 7_4_2 libatomic_ops-
+version             [string map {_ .} ${version}]
+checksums           rmd160  0441e78fd9fa2d6651e64a5eb079c319b110c891 \
+                    sha256  501bd5d631a78d5fdb4db88e8902d709810cc5c8a05a2676f96a4f296162dbc7
+
+maintainers         nomaintainer
+categories          devel
+platforms           darwin
+# Permissive for parts from boehmgc, MIT for parts to be linked with other
+# software, GPL for the separate GPL'd library
+license             Permissive MIT GPL-2
+
+description         The atomic_ops project (Atomic memory update operations portable implementation)
+long_description    This package provides semi-portable access to hardware-provided atomic memory update operations on a number architectures.
+
+use_autoreconf      yes

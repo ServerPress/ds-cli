@@ -1,0 +1,36 @@
+# $Id: Portfile 75773 2011-02-08 06:41:03Z jmr@macports.org $
+
+PortSystem      1.0
+
+name            libsdl_image-framework
+version         20110119
+categories      devel graphics
+platforms       darwin
+license         BSD
+supported_archs noarch
+maintainers     jmr openmaintainer
+description     Framework version of libsdl_image
+
+long_description \
+    ${description}
+
+homepage        http://www.libsdl.org/projects/SDL_image/
+distfiles
+
+depends_run     port:libsdl-framework port:libsdl_image
+
+use_configure   no
+build           {}
+
+destroot {
+    set path ${frameworks_dir}/SDL_image.framework
+    xinstall -d ${destroot}${path}/Versions/A/Headers
+
+    ln -sf ${prefix}/lib/libSDL_image.dylib ${destroot}${path}/Versions/A/SDL_image
+    ln -sf Versions/A/SDL_image ${destroot}${path}/SDL_image
+
+    ln -sf ${prefix}/include/SDL/SDL_image.h ${destroot}${path}/Versions/A/Headers/
+    ln -sf Versions/A/Headers ${destroot}${path}/Headers
+}
+
+livecheck.type  none

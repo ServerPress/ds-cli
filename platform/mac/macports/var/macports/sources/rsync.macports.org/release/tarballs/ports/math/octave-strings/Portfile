@@ -1,0 +1,17 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137525 2015-06-13 16:59:02Z khindenburg@macports.org $
+
+PortSystem          1.0
+PortGroup           octave 1.0
+
+octave.setup        strings 1.2.0
+platforms           darwin
+license             GPL-3+ BSD public-domain
+maintainers         nomaintainer
+description         Additional manipulation functions.
+long_description    ${description}
+
+checksums           rmd160 7acbca2d81e16c489f0f8f30f207bc81a2c2de8e \
+                    sha256 cfe2702d9e1b69e1fc6bee9a8fab8bb3d63a42d74e763538687d0dbcdd5619ac
+
+depends_lib-append  port:pcre

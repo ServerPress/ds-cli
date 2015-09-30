@@ -1,0 +1,52 @@
+# $Id: Portfile 85968 2011-10-17 23:01:38Z takanori@macports.org $
+
+PortSystem      1.0
+
+name            eblook
+set ver_main    1.6.1
+set ver_media   20110801
+version         ${ver_main}-media-${ver_media}
+set my_version  ${ver_main}+media-${ver_media}
+categories      textproc japanese
+maintainers     nomaintainer
+description     Interactive EB interface command for searching words in CD-ROM books.
+long_description \
+                Eblook supports to access CD-ROM books of EB, EBG, EBXA and EPWING \
+                formats which are popular in Japan. Including the media patch.
+platforms       darwin
+license         GPL-2+
+homepage        http://green.ribbon.to/~ikazuhiro/lookup/lookup.html#EBLOOK
+distname        ${name}-${my_version}
+master_sites    http://green.ribbon.to/~ikazuhiro/lookup/files/
+
+checksums       md5     26de6b196e48d97c0bdb4348ac9e92dc \
+                sha1    457c05a8be98b1838d780be200f140628d4dee17 \
+                rmd160  9d4b8997b3fee6c60326b2d7387969145dcb8502
+
+depends_lib     port:eb \
+                port:gettext \
+                port:libiconv \
+                port:ncurses \
+                port:readline \
+                port:zlib
+
+configure.args   --infodir=${prefix}/share/info \
+                 --with-readline \
+                 --with-pager
+
+#use_parallel_build yes
+
+#test.run        yes
+#test.target     check
+
+post-destroot {
+    set docdir ${destroot}${prefix}/share/doc/${name}
+    xinstall -d ${docdir}
+    xinstall -m 644 -W ${worksrcpath} AUTHORS COPYING ChangeLog INSTALL NEWS README README.org VERSION ${docdir}
+}
+
+universal_variant   no
+
+livecheck.type  regex
+livecheck.version ${my_version}
+livecheck.regex   ${name}-(\[0-9.\]+\\+media-\[0-9\]+)\\.tar

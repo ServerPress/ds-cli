@@ -1,0 +1,29 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 97776 2012-09-15 03:08:08Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+PortGroup           xcode 1.0
+
+github.setup        suminb readown 1.0.5
+name                Readown
+categories          aqua textproc
+platforms           darwin
+maintainers         ryandesign
+license             LGPL-3
+
+description         markdown reader GUI
+
+long_description    ${name} is a simple ${description}.
+
+checksums           rmd160  9b3bf26c43bd2c6399212e973838e4968f4ec96c \
+                    sha256  f7336a261796b934ea52edcf4ea483879f3a25dbc6fc9b76dca17f9a3bb584d4
+
+post-destroot {
+    set docdir ${destroot}${prefix}/share/doc/${name}
+    xinstall -d ${docdir}
+    xinstall -m 644 -W ${worksrcpath} \
+        LICENSE.markdown \
+        README.markdown \
+        ${docdir}
+}

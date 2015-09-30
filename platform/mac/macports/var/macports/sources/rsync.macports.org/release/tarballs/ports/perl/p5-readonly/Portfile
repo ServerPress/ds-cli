@@ -1,0 +1,21 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Readonly 2.00
+license             {Artistic-1 GPL}
+platforms           darwin
+maintainers         nomaintainer
+supported_archs     noarch
+
+description         Facility for creating read-only scalars, arrays, hashes.
+long_description    This is a facility for creating non-modifiable variables. \
+                    This is useful for configuration files, headers, etc.
+
+checksums           rmd160  414d7741f021117f18f271c6522d48b1930419f4 \
+                    sha256  9bd0156e958842fdfd6c3bb27a23b47232d4737a407d81fabc4dc64b9363bf98
+
+perl5.use_module_build

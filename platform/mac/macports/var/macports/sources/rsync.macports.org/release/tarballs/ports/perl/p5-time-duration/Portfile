@@ -1,0 +1,22 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135799 2015-05-03 21:09:09Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Time-Duration 1.20
+platforms           darwin
+maintainers         nomaintainer
+license             {Artistic-1 GPL}
+supported_archs     noarch
+
+description         Rounded or exact English expression of durations
+
+long_description    This module provides functions for expressing \
+                    durations in rounded or exact terms, e.g. \"1 \
+                    second,\" \"2 minutes and 5 seconds,\" or \"1 hour, \
+                    3 minutes, and 40 seconds.\"
+
+checksums           rmd160  aa642c91ef52a699ede6c6eeee1a4e4439ffced8 \
+                    sha256  458205b528818e741757b2854afac5f9af257f983000aae0c0b1d04b5a9cbbb8

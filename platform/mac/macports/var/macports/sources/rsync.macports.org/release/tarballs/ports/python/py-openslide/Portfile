@@ -1,0 +1,71 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136487 2015-05-19 00:34:51Z bgilbert@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           github 1.0
+
+github.setup        openslide openslide-python 1.1.0 v
+name                py-openslide
+categories-append   graphics
+platforms           darwin
+license             LGPL-2.1 MIT BSD
+maintainers         bgilbert
+
+python.versions     27 34
+python.default_version  27
+
+description         Python binding for the OpenSlide library.
+
+long_description    OpenSlide Python allows the OpenSlide library to be \
+                    used from Python programs.  OpenSlide provides a simple \
+                    interface for reading whole-slide images, also known as \
+                    virtual slides, which are high-resolution images used in \
+                    digital pathology.  These images can occupy tens of \
+                    gigabytes when uncompressed, and so cannot be easily \
+                    read using standard tools or libraries, which are \
+                    designed for images that can be comfortably uncompressed \
+                    into RAM.  Whole-slide images are typically \
+                    multi-resolution\; OpenSlide allows reading a small \
+                    amount of image data at the resolution closest to a \
+                    desired zoom level.
+
+homepage            http://openslide.org/
+github.tarball_from releases
+use_xz              yes
+
+checksums           rmd160  61f729cb71ceb4089a9bfb1bf2c1adad9ca9d6a5 \
+                    sha256  49ffad546fda030fcd0e76c7da995a06b507c3d43af1ff4a1a4aef00d3b535bb
+
+if {${name} ne ${subport}} {
+    depends_build       port:py${python.version}-sphinx
+    # py-flask is only needed for the examples.
+    # On Python 2.x, we can use either PIL or Pillow.
+    depends_lib-append  port:openslide \
+                        port:py${python.version}-flask \
+                        path:${frameworks_dir}/Python.framework/Versions/${python.branch}/lib/python${python.branch}/site-packages/PIL/Image.py:py${python.version}-Pillow
+
+    livecheck.type      none
+
+    build.target-append build_sphinx
+
+    patchfiles          patch-disable-find_library-fallback.diff
+
+    post-patch {
+        reinplace "s|@@PREFIX@@|${prefix}|g" \
+            ${worksrcpath}/openslide/lowlevel.py
+    }
+
+    post-destroot {
+        set docdir ${prefix}/share/doc/${subport}
+        xinstall -m 644 -W ${worksrcpath} \
+            CHANGELOG.txt \
+            LICENSE.txt \
+            lgpl-2.1.txt \
+            ${destroot}${docdir}
+        file copy ${worksrcpath}/build/sphinx/html ${destroot}${docdir}
+        # Empty examples directory created by python portgroup
+        file delete ${destroot}${docdir}/examples
+        file copy ${worksrcpath}/examples ${destroot}${docdir}
+    }
+}

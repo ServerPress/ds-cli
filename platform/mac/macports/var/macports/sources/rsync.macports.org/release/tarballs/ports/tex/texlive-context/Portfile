@@ -1,0 +1,52 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 121682 2014-07-04 04:51:53Z dports@macports.org $
+
+PortSystem          1.0
+PortGroup           texlive 1.0
+
+name                texlive-context
+version             34221
+revision            0
+
+categories          tex
+maintainers         dports
+license             Copyleft Permissive
+description         TeX Live: ConTeXt and packages
+long_description    Hans Hagen's powerful ConTeXt system, http://pragma-ade.com. Also includes third-party ConTeXt packages.
+
+checksums           texlive-context-34221-run.tar.xz \
+                    rmd160  1e93862ab1c3405fca9ea513ed22dc532fcb7a3a \
+                    sha256  0f866a32901e023cbdc99edc14346fa223c4ded671c65aa32ff7cd72f4b208b8 \
+                    texlive-context-34221-doc.tar.xz \
+                    rmd160  cbe1bf80e18436f5d0377d4fbb3934c12fc8d5d9 \
+                    sha256  bafa918491cc887019556090e614587ca0d0999ebe513f533bba7ef7823897ca \
+                    texlive-context-34221-src.tar.xz \
+                    rmd160  4264491c8225afdfe6197e31ad20beacea3b4dab \
+                    sha256  ea61b6680d38751cb6ba0b3e31f974afc13191ed23482217c2836e2c79e77c55
+
+depends_lib         port:texlive-basic
+
+texlive.formats      \
+    {1 cont-en pdftex cont-usr.tex {-8bit *cont-en.mkii}} \
+    {1 cont-en xetex cont-usr.tex {-8bit *cont-en.mkii}} \
+    {0 cont-fr pdftex cont-usr.tex {-8bit *cont-fr.mkii}} \
+    {0 cont-it pdftex cont-usr.tex {-8bit *cont-it.mkii}} \
+    {0 cont-nl pdftex cont-usr.tex {-8bit *cont-nl.mkii}} \
+    {0 cont-ro pdftex cont-usr.tex {-8bit *cont-ro.mkii}}
+
+texlive.maps      \
+    {Map original-context-symbol.map}
+
+texlive.binaries    context contextjit luatools mtxrun mtxrunjit texexec texmfstart
+
+depends_lib-append  port:texlive-latex \
+                    port:texlive-metapost \
+                    port:texlive-xetex \
+                    port:texlive-fonts-recommended \
+                    port:texlive-math-extra
+
+post-deactivate {
+    delete ${texlive_texmfsysvar}/luatex-cache
+}
+
+texlive.texmfport

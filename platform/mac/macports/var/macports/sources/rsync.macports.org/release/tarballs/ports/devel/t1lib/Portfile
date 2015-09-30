@@ -1,0 +1,53 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 87177 2011-11-13 04:26:26Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                t1lib
+version             5.1.2
+revision            2
+categories          devel graphics fonts
+license             LGPL-2+
+maintainers         nomaintainer
+
+description         Library for generating glyphs from Type 1 fonts
+long_description \
+    t1lib is a library distributed under the GNU General Public Library   \
+    License for generating character- and string-glyphs from Adobe Type 1 \
+    fonts under UNIX. t1lib uses most of the code of the X11 rasterizer   \
+    donated by IBM to the X11-project. But some disadvantages of the      \
+    rasterizer being included in X11 have been eliminated.
+
+homepage            http://www.t1lib.org/
+
+platforms           darwin
+
+master_sites        sunsite:libs/graphics/
+
+checksums           md5 a5629b56b93134377718009df1435f3c \
+                    sha1 4b4fc22c8688eefaaa8cfc990f0039f95f4287de \
+                    rmd160 ab22aea390356750d743c0f4b08762aa76ca2a82
+
+patchfiles          patch-01-buffer-limit \
+                    patch-libtool-tag.diff
+
+configure.args      --without-x
+
+depends_build       path:bin/glibtool:libtool
+build.args          LIBTOOL=${prefix}/bin/glibtool
+build.target        without_doc
+use_parallel_build  no
+
+variant x11 {
+    depends_lib-append      port:xorg-libX11
+    configure.args-delete   --without-x
+    configure.args-append   --with-x
+}
+
+post-destroot {
+    xinstall -m 755 -d ${destroot}${prefix}/share/doc/
+    move ${destroot}${prefix}/share/${name}/doc ${destroot}${prefix}/share/doc/${name}
+}
+
+livecheck.url    "http://sunsite.unc.edu/pub/Linux/libs/graphics/?C=M;O=D"
+livecheck.regex  ${name}-(\\d+(?:\\.\\d+)*)

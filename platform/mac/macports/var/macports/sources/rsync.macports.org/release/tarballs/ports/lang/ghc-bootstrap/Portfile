@@ -1,0 +1,97 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 131258 2015-01-07 20:02:00Z cal@macports.org $
+
+PortSystem          1.0
+PortGroup           compiler_blacklist_versions 1.0
+
+name                ghc-bootstrap
+set canonicalname   ghc
+# Note: 7.6.3 doesn't have a i386 darwin version at http://www.haskell.org/ghc/dist/7.6.3
+version             7.6.2
+revision            1
+categories          lang haskell
+maintainers         gmail.com:kitchen.andy cal openmaintainer
+license             BSD
+platforms           darwin
+supported_archs     i386 x86_64
+universal_variant   no
+installs_libs       no
+
+description         The Glorious Glasgow Haskell Compilation System
+long_description    \
+                    This is a package that installs a binary \
+                    bootstrap ghc compiler.
+
+homepage            http://haskell.org/${canonicalname}
+master_sites        ${homepage}/dist/${version}/
+distname            ${canonicalname}-${version}-${build_arch}-apple-darwin
+worksrcdir          ${canonicalname}-${version}
+use_bzip2           yes
+
+checksums           ${canonicalname}-${version}-i386-apple-darwin${extract.suffix} \
+                        rmd160  232b3aa4ed9e2ff09d520f4ae02fa572a671178a \
+                        sha256  c1da502fa7d99f3d87370c65d705a7e8ee4c900fdb62df6f71696c5432047059 \
+                    ${canonicalname}-${version}-x86_64-apple-darwin${extract.suffix} \
+                        rmd160  b0870a4a292fae7248f9b0be485affa4a5a76a2d \
+                        sha256  eb0dd19bd5a6eede332d58de219437b9c2b186c72a1fc0c60fa1095b0c2d2789
+
+post-extract {
+    # Copy clang-wrapper for re-inplace during configure
+    xinstall -m 644 ${filespath}/clang-wrapper ${workpath}/clang-wrapper
+}
+
+# Compilation (of the final non-bootstrap GHC, which uses the C compiler
+# configured in this port) fails with older versions of clang. clang-4.1 from
+# Xcode 4.5 is too old, clang-5.1 from from Xcode 5.1 works. I do not have
+# any data points in between, so I'm blacklisting everything lower than 5.1.
+# If you want to test the versions in between, be my guest.
+# Also avoid LLVM GCC 4.2 and GCC 4.2, which are before MacPorts' clang 3.4
+# in the fallback list on some systems.
+compiler.blacklist-append \
+                    llvm-gcc-4.2 \
+                    gcc-4.2 \
+                    {clang < 503.0.38} \
+                    macports-clang-3.3
+
+configure.pre_args  --prefix=${prefix}/share/ghc-bootstrap
+configure.args      --with-gcc=${configure.cc}
+
+pre-configure {
+    # OK so because this binary has been prebuilt for libraries
+    # in /usr/lib we search these before macports stuff so (hopefully)
+    # weird things don't happen
+    configure.ldflags  -L/usr/lib
+    configure.cppflags -I/usr/include
+
+    # patch clang-wrapper and make sure it is used by patching settings.in
+    reinplace "s#@clang@#${configure.cc}#g" ${workpath}/clang-wrapper
+    reinplace "s#@SettingsCCompilerCommand@#${prefix}/share/ghc-bootstrap/libexec/clang-wrapper#g" ${worksrcpath}/settings.in
+}
+
+build {}
+
+post-destroot {
+    # install clang-wrapper to libexec
+    xinstall -d -m 755 ${destroot}${prefix}/share/ghc-bootstrap/libexec
+    xinstall -m 755 ${workpath}/clang-wrapper ${destroot}${prefix}/share/ghc-bootstrap/libexec
+
+    # Delete all .dylib files, because their load commands would have to be
+    # fixed or rev-upgrade complains and tries to rebuild the port. However, we
+    # cannot correctly fix all .dylibs, because the have not been built with
+    # -headerpad_max_install_names. Deleting them fixes the problem and GHC
+    # still seems to compile correctly.
+
+    # We also delete all the .html files, because we really don't need the
+    # documentation in a bootstrap port.
+
+    fs-traverse f ${destroot}${prefix} {
+        if {[file isfile ${f}]} {
+            set ext [file extension ${f}]
+            if {${ext} eq ".html" || ${ext} eq ".dylib"} {
+                delete ${f}
+            }
+        }
+    }
+}
+
+livecheck.type      none

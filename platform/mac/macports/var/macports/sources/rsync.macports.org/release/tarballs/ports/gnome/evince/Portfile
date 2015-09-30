@@ -1,0 +1,103 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136805 2015-05-27 15:59:39Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           gobject_introspection 1.0
+
+name                evince
+version             3.16.1
+license             GPL-2+
+set branch          [join [lrange [split ${version} .] 0 1] .]
+description         Evince is a document viewer capable of displaying \
+                    single and multiple page document formats such as PDF  \
+                    and Postscript.
+long_description    ${description}
+maintainers         devans openmaintainer
+categories          gnome print
+platforms           darwin
+homepage            https://wiki.gnome.org/Apps/Evince
+master_sites        gnome:sources/${name}/${branch}/
+
+use_xz              yes
+
+checksums           rmd160  431ceee17b567802051076e8b141182755c518a3 \
+                    sha256  06ff75065b2a30cd588c402f6bd2ea88ee3166181805e0cc00bd54f71dbf6130
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:itstool \
+                    port:yelp-tools \
+                    port:gnome-common \
+                    port:gtk-doc \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         port:desktop-file-utils \
+                    port:adwaita-icon-theme \
+                    port:gdk-pixbuf2 \
+                    port:gtk3 \
+                    port:libxml2 \
+                    port:xorg-libsm \
+                    port:xorg-libice \
+                    port:libsecret \
+                    port:gsettings-desktop-schemas \
+                    port:poppler \
+                    port:libspectre \
+                    port:tiff \
+                    port:texlive-bin \
+                    port:t1lib
+
+depends_run         port:gnome-settings-daemon \
+                    port:yelp
+
+gobject_introspection yes
+
+patchfiles          patch-browser-plugin-Makefile.am.diff
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+}
+
+configure.cmd       ./autogen.sh
+
+configure.args      --disable-schemas-compile \
+                    --disable-silent-rules \
+                    --disable-djvu \
+                    --disable-xps \
+                    --disable-nautilus \
+                    --enable-compile-warnings=minimum \
+                    --enable-debug \
+                    --enable-ps \
+                    --enable-pdf \
+                    --enable-tiff \
+                    --enable-dvi \
+                    --enable-comics \
+                    --enable-t1lib
+
+# browser plugin requires -std=c++11 -stdlib=libc++
+# disable plugin if libc++ is not configured
+
+if {${configure.cxx_stdlib} ne "libc++"} {
+    configure.args-append   --disable-browser-plugin
+}
+
+variant djvu description {Support for djvu documents using djvulibre} {
+    configure.args-replace --disable-djvu --enable-djvu
+    depends_lib-append port:djvulibre
+}
+
+variant nautilus description {Build optional nautilus extensions} {
+    configure.args-replace  --disable-nautilus --enable-nautilus
+    depends_lib-append      port:nautilus
+}
+
+post-activate    {
+    system "${prefix}/bin/gtk-update-icon-cache-3.0 -f -t ${prefix}/share/icons/hicolor"
+    system "${prefix}/bin/update-desktop-database ${prefix}/share/applications"
+    system "${prefix}/bin/glib-compile-schemas ${prefix}/share/glib-2.0/schemas"
+}
+
+livecheck.type      gnome

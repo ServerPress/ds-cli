@@ -1,0 +1,21 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         File-Touch 0.09
+
+platforms           darwin
+maintainers         nomaintainer
+license             unknown
+
+supported_archs     noarch
+
+description         Update timestamps, create nonexistent files
+
+long_description    ${description}
+
+checksums           rmd160  081b60f0eec1a0fb534e89e35f0c613e9baf088a \
+                    sha256  7377524be6b2483d002dbdcdd5b0ab8117e3e324f0baeb58a012f3e93302e366

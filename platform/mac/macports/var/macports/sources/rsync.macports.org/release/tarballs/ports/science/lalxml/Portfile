@@ -1,0 +1,57 @@
+# $Id: Portfile 137176 2015-06-05 22:16:17Z ram@macports.org $
+
+PortSystem    1.0
+PortGroup     active_variants 1.1
+
+name          lalxml
+version       1.1.16
+categories    science
+platforms     darwin
+maintainers   ram
+license       GPL-2+
+
+description   LSC Algorithm Library - XML
+long_description \
+  LIGO Scientific Collaboration Algorithm Library - XML containing \
+  routines for accessing XML files using libxml2.
+
+homepage      https://www.lsc-group.phys.uwm.edu/daswg/projects/lalsuite.html
+master_sites  http://software.ligo.org/lscsoft/source/lalsuite
+
+checksums     rmd160 bb3a35ac3225da9a33dcbeff11b40eb14bbee35e \
+              sha256 b7fe89e87da00cbc98325d1c74508020f1dfa7fa9c73626064c4134f80970051
+
+depends_build-append port:pkgconfig
+
+depends_lib   port:python27 \
+              port:lal \
+              port:libxml2 \
+              port:gsl
+
+configure.python ${prefix}/bin/python2.7
+configure.args --mandir=${prefix}/share/man \
+               --disable-silent-rules \
+               --disable-gcc-flags \
+               --disable-debug
+
+use_parallel_build yes
+
+set pythondir "${frameworks_dir}/Python.framework/Versions/2.7/lib/python2.7/site-packages"
+destroot.args-append \
+              pythondir="${pythondir}" \
+              pyexecdir="${pythondir}" \
+              pkgpythondir="${pythondir}/${name}" \
+              pkgpyexecdir="${pythondir}/${name}"
+
+variant swig_python description {Build python SWIG bindings} {
+  require_active_variants lal swig_python
+  depends_build-append  port:swig-python
+  depends_lib-append    port:py27-numpy
+  configure.args-append --enable-swig-python
+}
+
+default_variants +swig_python
+
+livecheck.type   regex
+livecheck.url    ${master_sites}
+livecheck.regex  {lalxml-(\d+(?:\.\d+)*).tar.gz}

@@ -1,0 +1,42 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         MooseX-Types 0.45
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+supported_archs     noarch
+
+description         Organise your Moose types in libraries
+long_description    The types provided with Moose are by design global. \
+                    This package helps you to organise and selectively \
+                    import your own and the built-in types in libraries. \
+                    As a nice side effect, it catches typos at \
+                    compile-time too.
+
+platforms           darwin
+
+checksums           rmd160  e095cd5b7a975d52d5acae796835c1b1b24920e3 \
+                    sha256  d01ff4a3db78e1150101b4b63569e4bce3ced3b5b0024c52c87575e0820609c7
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-extutils-makemaker \
+                    port:p${perl5.major}-module-build-tiny \
+                    port:p${perl5.major}-test-fatal \
+                    port:p${perl5.major}-test-requires
+
+    depends_lib-append \
+                    port:p${perl5.major}-carp-clan \
+                    port:p${perl5.major}-module-runtime \
+                    port:p${perl5.major}-moose \
+                    port:p${perl5.major}-namespace-autoclean \
+                    port:p${perl5.major}-scalar-list-utils \
+                    port:p${perl5.major}-sub-exporter \
+                    port:p${perl5.major}-sub-name \
+
+    perl5.use_module_build
+}

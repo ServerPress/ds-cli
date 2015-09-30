@@ -1,0 +1,54 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 124620 2014-08-27 01:30:50Z dports@macports.org $
+
+PortSystem          1.0
+PortGroup           texlive 1.0
+
+name                texlive-latex
+version             34192
+revision            1
+
+categories          tex
+maintainers         dports
+license             Copyleft Permissive
+description         TeX Live: LaTeX fundamental packages
+long_description    These packages are either mandated by the core LaTeX team, or very widely used and strongly recommended in practice.
+
+checksums           texlive-latex-34192-run.tar.xz \
+                    rmd160  bae71760b7ad7794aae7359e213b547dc7752056 \
+                    sha256  e0a89db670c54090dabc18ed96e91c83778eaaf5b038b1ec6ebe42f38fe04c74 \
+                    texlive-latex-34192-doc.tar.xz \
+                    rmd160  8b42bdff92b24f0366fe8244158995078552459a \
+                    sha256  ef290620b7bd100f8a2d54bcd0df6b7a3084bede16181d77e7c2aa5434e7cd50 \
+                    texlive-latex-34192-src.tar.xz \
+                    rmd160  aa9f117533235b029f0e0d15aedd1b328c0e14f7 \
+                    sha256  23b539dbff8b105d9f781e6a8dbf354972d3c9abed88e9d9e434abe62800811a
+
+depends_lib         port:texlive-basic
+
+texlive.formats      \
+    {1 latex pdftex language.dat {-translate-file=cp227.tcx *latex.ini}} \
+    {1 pdflatex pdftex language.dat {-translate-file=cp227.tcx *pdflatex.ini}} \
+    {1 dvilualatex luatex language.dat,language.dat.lua {dvilualatex.ini}} \
+    {1 lualatex luatex language.dat,language.dat.lua {lualatex.ini}} \
+    {0 luajitlatex luajittex language.dat,language.dat.lua {lualatex.ini}} \
+    {1 mptopdf pdftex - {-translate-file=cp227.tcx mptopdf.tex}}
+
+texlive.maps      \
+    {Map charter.map} \
+    {Map fpls.map} \
+    {Map pazo.map} \
+    {Map utopia.map}
+
+texlive.binaries    dvilualatex latex lualatex mptopdf pdflatex
+
+# TL 2014: miscdoc moved from texlive-latex-recommended to texlive-latex
+pre-activate {
+    if { ![catch {set vers [lindex [registry_active texlive-latex-recommended] 0]}]
+         && ([vercmp [lindex $vers 1] 34240] < 0) } {
+        registry_deactivate_composite texlive-latex-recommended "" [list ports_nodepcheck 1]
+    }
+}
+
+
+texlive.texmfport

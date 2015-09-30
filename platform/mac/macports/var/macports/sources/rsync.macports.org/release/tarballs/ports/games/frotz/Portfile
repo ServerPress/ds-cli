@@ -1,0 +1,40 @@
+# $Id: Portfile 97142 2012-08-28 00:57:23Z ryandesign@macports.org $
+PortSystem	  1.0
+
+name		  frotz
+version		  2.43
+revision	  1
+categories	  games
+platforms	  darwin
+maintainers	  rattus.net:pack-darwinports
+license		  GPL-2+
+
+description	  an interpreter for Infocom Z-Code games
+long_description  Frotz provides a portable implementation of the zcode \
+		  virtual machine used for all Infocom text adventures and \
+		  many of those written by other authors. 
+homepage	  http://frotz.sourceforge.net/
+master_sites      sourceforge
+checksums	  md5 efe51879e012b92bb8d5f4a82e982677
+depends_lib       port:ncurses
+patchfiles	  patch-Makefile patch-src-common-main.c \
+                    patch-src-common-process.c \
+                    patch-getline.diff
+post-patch {
+	reinplace "s|@PREFIX@|${prefix}|" \
+		"${worksrcpath}/Makefile"
+}
+
+use_configure       no
+
+variant universal {}
+
+build.args          CC="${configure.cc} [get_canonical_archflags cc]" \
+                    INCL=${configure.cppflags} \
+                    LIB=${configure.ldflags}
+
+use_parallel_build  yes
+
+eval destroot.args  ${build.args}
+
+destroot.destdir  PREFIX=${destroot}${prefix}

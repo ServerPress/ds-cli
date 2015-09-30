@@ -1,0 +1,61 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135697 2015-04-30 02:37:45Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           conflicts_build 1.0
+
+name                notmuch
+version             0.19
+categories          mail
+platforms           darwin
+license             GPL-3+
+maintainers         nomaintainer
+description         The mail indexer
+long_description    “Not much mail” is what Notmuch thinks about your email \
+                    collection, even if you receive 12000 messages per month or have on the \
+                    order of millions of messages that you’ve been saving for decades. \
+                    Regardless, Notmuch will be able to quickly search all of it. It’s just \
+                    plain not much mail.
+
+homepage            http://notmuchmail.org/
+master_sites        ${homepage}releases/
+
+checksums           rmd160  850fb63960abf5f5d4433683ce21e80cdf1205cb \
+                    sha256  396fc6548423785ebbbe9a6cce321d957d3b2e856edb8225bb0988470833eeeb
+
+depends_build       port:pkgconfig
+
+depends_lib         port:xapian-bindings\
+                    port:gmime\
+                    port:talloc
+
+patchfiles          patch-bindings-python-notmuch-globals.py.diff \
+                    patch-doc-Makefile.local.diff \
+                    patch-lib-Makefile.local.diff \
+                    visibility.patch
+
+post-patch {
+    reinplace "s|@PREFIX@|${prefix}|g" ${worksrcpath}/bindings/python/notmuch/globals.py
+}
+
+conflicts_build     ${name}
+
+if {[variant_isset universal]} {
+    # llvm-gcc-4.2: -E, -S, -save-temps and -M options are not allowed with multiple -arch flags
+    compiler.blacklist  *llvm-gcc-4.2
+}
+
+configure.args      --without-emacs
+
+# disable silent rules
+build.args          V=1
+
+variant emacs description {EMACS support} {
+    depends_lib-append      port:emacs
+    configure.args-delete   --without-emacs
+    configure.args-append   --with-emacs
+}
+
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     ${name}-(\[0-9.\]+)${extract.suffix}

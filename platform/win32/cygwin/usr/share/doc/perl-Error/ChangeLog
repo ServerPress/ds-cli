@@ -1,0 +1,318 @@
+Feb 12 2015 <shlomif@shlomifish.org> (Shlomi Fish)
+
+  Error.pm #0.17023
+  - Minimal version of Module-Build reduced to 0.280801
+    - https://rt.cpan.org/Public/Bug/Display.html?id=102062
+
+Jan 29 2014 <shlomif@shlomifish.org> (Shlomi Fish)
+
+  Error.pm #0.17022
+  - Add "use warnings;" to everything (CPANTS Kwalitee).
+  - Add a separate LICENSE file (CPANTS Kwalitee).
+
+Aug 27 2013 <shlomif@shlomifish.org> (Shlomi Fish)
+
+  Error.pm #0.17021
+  - Fix for the format of the new Carp (in bleadperl)
+    - https://rt.cpan.org/Ticket/Display.html?id=88137
+    - Thanks to Zefram for the report and patch.
+
+May 03 2013 <shlomif@shlomifish.org> (Shlomi Fish)
+
+  Error.pm #0.17020
+  - Correct typos.
+    - https://rt.cpan.org/Ticket/Display.html?id=85023
+
+Nov 19 2012 <shlomif@shlomifish.org> (Shlomi Fish)
+
+  Error.pm #0.17019
+  - Change to Shlomi Fish's new E-mail and web address.
+  - Clarify the licence of lib/Error/Simple.pm .
+    - https://rt.cpan.org/Ticket/Display.html?id=81277
+    - Thanks to Marcela
+
+May 08 2012 <shlomif@shlomifish.org> (Shlomi Fish)
+
+  Error.pm #0.17018
+  - Add a $VERSION variable for Error::Simple.
+    - thanks to Kevin Dawson for the report.
+  - Add scripts/bump-version-number.pl .
+    - This can be used to bump the version numbers globally.
+
+Feb 11 2012 <shlomif@shlomifish.org> (Shlomi Fish)
+
+  - Bleadperl broke Error.pm's tests -
+  	- https://rt.cpan.org/Ticket/Display.html?id=74770
+    - Applied a patch to check for optional trailing periods.
+	- Thanks to ANDK for the report and RURBAN for the patch
+
+Dec 19 2009 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17016
+  - Mentioned the lack of compatibility of "use Error qw(:try)" with Moose.
+    Fixed: https://rt.cpan.org/Ticket/Display.html?id=46364
+  - Added TryCatch and Try::Tiny to the "SEE ALSO".
+  - Add the WARNING that this module is no longer recommended.
+
+Jul 19 2008 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17015
+  - Added the "SEE ALSO" section to the Error.pm POD mentioning
+  Exception::Class and Error::Exception.
+
+May 24 2008 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17014
+  - Made Makefile.PL require perl-5.6.0 and above.
+
+May 22 2008 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17013
+  - Now building only on perl-5.6.0 and above.
+    - Added the line to the Build.PL
+
+Jan 25 2008 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17012
+  - Added some examples to the examples/ directory.
+  - Applied the patch from hchbaw to fix:
+    -//rt.cpan.org/Public/Bug/Display.html?id=32638
+    - Thanks to hchbaw
+
+Dec 25 2007 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17011
+  - added 'warnings' to the dependencies in the Build.PL/Makefile.PL as
+    we are using it.
+  - changed the author in Makefile.PL/Build.PL from GBARR to SHLOMIF:
+    - http://rt.cpan.org/Public/Bug/Display.html?id=31861
+    - Thanks to Michael Schwern
+  - added an empty line between the "__END__" and "=head1" in
+  lib/Error/Simple.pm for more pedantic POD parsers.
+
+Nov 22 2007 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17010
+  - moved the first Error->new() POD portion over to the POD at the bottom, and
+    deleted the second, identical POD portion.
+  - closing http://rt.cpan.org/Public/Bug/Display.html?id=30906
+    ( "Duplicate Error->new() documentation" )
+
+Aug 28 2007 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17009
+  - fixed http://rt.cpan.org/Public/Bug/Display.html?id=20643 by applying
+  a modified version of the patch by MAREKR with the t/12wrong-error-var.t
+  regression test.
+
+Oct 25 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17008
+  - Added the empty PL_FILES paramaeter to ExtUtils::MakeMaker so it won't
+    attempt to run Build.PL.
+
+Oct 18 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17007
+  - Added the "COPYRIGHT" section to the POD with the correct
+    license. (several people have asked me about what the license is.)
+  - Added the Build.PL file so we'll have license meta data in the
+  distribution.
+
+Oct 07 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17006
+  - t/11rethrow.t - added the test file by Thomas Equeter.
+  - Changed to the more correct behevaiour that fixes the rethrowning
+  error by Thomas Equeter.
+  - see http://rt.cpan.org/Public/Bug/Display.html?id=21612
+  - added t/pod.t to check for POD validity.
+  - added the t/pod-coverage.t file for POD coverage.
+    - added the missing POD.
+  - added "use strict" and "use warnings" to lib/Error/Simple.pm to make
+    CPANTS happy.
+
+Oct 03 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17005
+  - t/09dollar-at.t - included in the distribution (it was not placed in
+  the MANIFEST previously.
+  - t/10throw-in-catch.t, t/Error.pm - Fixed:
+    http://rt.cpan.org/Public/Bug/Display.html?id=21884 when an error that
+    was thrown inside a catch or otherwise clause was not registered.
+
+Sep 01 2006 <leonerd@leonerd.org.uk> (Paul Evans)
+
+  Error.pm #0.17004
+  - t/08warndie.t: Various fixes:
+    Workaround for ActivePerl bug when dup2()ing to STDERR - close it first
+      Should fix https://rt.cpan.org/Public/Bug/Display.html?id=21080 but I
+      have no means to test it
+    Use __LINE__ rather than a custom function implemented using caller()
+
+Aug 20 2006 <leonerd@leonerd.org.uk> (Paul Evans)
+
+  Error.pm #0.17003
+  - Pass error in $@ as well as $_[0] to catch and otherwise blocks.
+  - t/08warndie.t: Various fixes for Win32:
+    Win32 can't open( HANDLE, "-|" ) - need manual pipe()/fork() workaround
+    Filename on Win32 is t\08warndie.t - need \Q in regexp to avoid
+      interpretation as an invalid octal character
+
+Aug 17 2006 <leonerd@leonerd.org.uk> (Paul Evans)
+
+  Error.pm #0.17002
+  - Documentation fix for Error::Simple constructor in example
+  - t/80warndie.t: Bugfix to open() call to work on perl 5.6
+
+Jul 24 2006 <leonerd@leonerd.org.uk> (Paul Evans)
+
+  Error.pm #0.17001
+  - Bugfix to t/08warndie.t - Don't abuse $! for forcing "die"'s exit status
+    Fixes http://rt.cpan.org/Public/Bug/Display.html?id=20549
+
+Jul 13 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.17
+  - Added some examples to the examples/ directory.
+  - Updated the MANIFEST.
+
+Jul 13 2006 <leonerd@leonerd.org.uk> (Paul Evans)
+
+  Error.pm #0.16001
+  - Added the :warndie tag and the internal Error::WarnDie package that
+    provides custom __WARN__ and __DIE__ handlers.
+
+Apr 24 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.16
+  - Bumped the version number to indicate a new number with no known
+    bugs.
+
+Apr 24 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.15009
+  - Added the flush() method from Alasdair Allan.
+
+Apr 07 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.15008
+  - Fixed a test in t/05text-errors-with-file-handles.t to work on
+    MS Windows due to File::Spec and require inconsistency.
+
+Apr 07 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.15007
+  - Fixed https://rt.cpan.org/Ticket/Display.html?id=3291
+
+Apr 07 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.15006
+  - According to https://rt.cpan.org/Ticket/Display.html?id=6130 - made
+    the auto-conversion of textual errors to object customizable.
+
+Apr 03 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.15005
+  - Fixed the conversion of textual messages to Error::Simple when
+    they contain information about an open filehandle. (as reported in
+    http://rt.cpan.org/Ticket/Display.html?id=6130 )
+
+Apr 02 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.15004
+  - Added POD to the lib/Error/Simple.pm module.
+
+Mar 31 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  Error.pm #0.15003
+  - Added the lib/Error/Simple.pm module (that just "use"'s Error) so
+    one can say "use base 'Error::Simple';' Added an appropriate test.
+    Fixes: http://rt.cpan.org/Public/Bug/Display.html?id=17841
+
+Mar 30 2006 <shlomif@iglu.org.il> (Shlomi Fish)
+
+  - Added Scalar::Util to the dependencies in Makefile.PL.
+
+  Error.pm #0.15002
+  - Fixed http://rt.cpan.org/Public/Bug/Display.html?id=18024 and a related
+  exception thrown because ->isa was called on something that was not
+  certainly an object.
+
+  Error.pm #0.15001
+
+  - Moved Error.pm inside the distribution to reside under lib/.
+
+Oct 9 2001 <u_arunkumar@yahoo.com> (Arun Kumar U)
+
+  Error.pm #0.15
+
+  - Removed the run_clauses calls from the stack trace
+
+May 12 2001 <u_arunkumar@yahoo.com> (Arun Kumar U)
+
+  Error.pm #0.14
+
+  - Added overloading method for 'bool'. This was neccessary so that
+    examining the value of $@ after a eval block, returns a true
+    value
+  - Applied the diffs from Graham's code base
+  - Changed README with more information about the module
+
+Change 436 on 2000/03/29 by <gbarr@pobox.com> (Graham Barr)
+
+  Added ppd stuff to MANIFEST and Makefile.PL
+
+Change 435 on 2000/03/29 by <gbarr@pobox.com> (Graham Barr)
+
+  Changed README to contain examples from the POD
+
+Change 434 on 2000/03/29 by <gbarr@pobox.com> (Graham Barr)
+
+  Documentation updates
+  removed experimental warning, too many users now to change too much.
+
+Change 422 on 2000/03/28 by <gbarr@pobox.com> (Graham Barr)
+
+  Some tidy-ups
+
+Change 145 on 1998/05/31 by <gbarr@pobox.com> (Graham Barr)
+
+  Errno.pm
+  - Separated run_clauses out into a sub
+
+Oct 28 1997 <gbarr@pobox.com>
+
+  Error.pm #0.12
+
+  - Removed proceed clause
+
+Oct 27 1997 <gbarr@pobox.com>
+
+  Error.pm #0.11
+
+  - Fixed calling of otherwise clause if there are no catch claues
+
+Oct 21 1997 <gbarr@pobox.com>
+
+  Error.pm #0.10
+
+  - Added proceed clause, the return value from the proceed block
+    will be returned by throw.
+  - try will now return the result from the try block
+    or from the catch
+  - Changed except clause handling so that block is only evaluated
+    once, the first time the result is required.
+  - Changed catch and proceed blocks to accept two arguments. The
+    second argument is a reference to a scalar, which if set to true
+    will cause Error to continue looking for a catch/proceed block
+    when the block returns.
+
+Oct 19 1997 <gbarr@pobox.com>
+
+  - Added associate method so that an existing error may be associated
+    with an object.
+
+Oct 10 1997 <gbarr@pobox.com>
+
+  - Initial release for private viewing

@@ -1,0 +1,43 @@
+--- gnome-session/main.c.orig	2015-01-05 10:34:39.000000000 -0800
++++ gnome-session/main.c	2015-01-30 08:42:20.000000000 -0800
+@@ -179,6 +179,14 @@
+         if (g_getenv ("DBUS_SESSION_BUS_ADDRESS"))
+                 return TRUE;
+ 
++#ifdef __APPLE__
++        /* See if we can get the session DBus address */
++	if (!g_dbus_address_get_for_bus_sync (G_BUS_TYPE_SESSION, NULL, error)) {
++		g_critical("gsm error: %s", (*error)->message);
++		exit(1);
++	}
++	return TRUE;
++#else
+         /* Just a sanity check to prevent infinite recursion if
+          * dbus-launch fails to set DBUS_SESSION_BUS_ADDRESS 
+          */
+@@ -203,6 +211,7 @@
+                              g_strerror (errno));
+                 return FALSE;
+         }
++#endif
+ 
+         /* Should not be reached */
+         return TRUE;
+@@ -227,6 +236,17 @@
+         return g_spawn_check_exit_status (status, error);
+ }
+ 
++#ifdef __APPLE__
++
++static int
++rpmatch (const char *response)
++{
++  return (*response == 'y' || *response == 'Y' ? 1
++	  : *response == 'n' || *response == 'N' ? 0 : -1);
++}
++
++#endif
++
+ int
+ main (int argc, char **argv)
+ {

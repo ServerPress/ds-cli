@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135336 2015-04-23 11:54:49Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-kombu
+version             3.0.26
+revision            0
+categories-append   devel
+platforms           darwin
+license             BSD
+supported_archs     noarch
+
+python.versions     27 34
+
+maintainers         stromnov openmaintainer
+
+description         AMQP Messaging Framework for Python.
+long_description    ${description}
+
+homepage            http://kombu.readthedocs.org/
+master_sites        https://pypi.python.org/packages/source/k/kombu/
+
+distname            kombu-${version}
+
+checksums           rmd160  2c3daae4665ade20e729b36b352b5929d8184094 \
+                    sha256  1f565abd44c4b7dfaa4dd543d52f982d2f006aba0a2b3830542b4d25a801fe09
+
+if {${name} ne ${subport}} {
+    # py-kombu depends on pkg_resources module (part of setuptools)
+    depends_lib-append  port:py${python.version}-setuptools
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/kombu/json
+    livecheck.regex     {kombu-(\d+(?:\.\d+)*)\.[tz]}
+}

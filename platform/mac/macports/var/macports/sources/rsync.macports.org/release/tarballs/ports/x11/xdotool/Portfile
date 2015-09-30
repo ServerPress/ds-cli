@@ -1,0 +1,59 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 79015 2011-05-30 12:03:23Z ryandesign@macports.org $
+
+PortSystem                  1.0
+
+name                        xdotool
+version                     2.20110530.1
+categories                  x11 devel
+platforms                   darwin
+maintainers                 ryandesign
+license                     BSD
+
+description                 X11 keyboard and mouse simulation utility
+
+long_description            ${name} lets you programatically (or manually) \
+                            simulate keyboard input and mouse activity\; \
+                            move, resize, hide and show windows\; \
+                            modify window properties like the title\; etc.
+
+notes                       "To use xdotool (and avoid the error message\
+                            \"Error: XTEST extension unavailable on '(null)'\")\
+                            you need to enable the XTEST extension. If you're\
+                            using Apple's X11.app, the command to do so is:\
+                            \n\ndefaults write org.x.X11 enable_test_extensions -boolean true\
+                            \n\nIf you're using the MacPorts X11.app, use:\
+                            \n\ndefaults write org.macports.X11 enable_test_extensions -boolean true\
+                            \n\nThis only needs to be done once."
+
+homepage                    http://www.semicomplete.com/projects/xdotool/
+master_sites                googlecode:semicomplete
+
+checksums                   sha1    bf8372b2e76e8ee3884763cee6e8b3f66bf29aa6 \
+                            rmd160  1aebcd835a4741a9e77aa489a3bdce195c582204
+
+depends_build               port:pkgconfig \
+                            path:bin/perl:perl5
+
+depends_lib                 port:xorg-libXtst \
+                            port:xorg-libXinerama
+
+patchfiles                  patch-Makefile.diff
+
+use_configure               no
+
+build.env                   PREFIX=${prefix} \
+                            CC=${configure.cc} \
+                            CFLAGS="${configure.cflags}" \
+                            LDFLAGS="${configure.ldflags}"
+destroot.env                PREFIX=${prefix} \
+                            INSTALLMAN=${prefix}/share/man
+
+post-destroot {
+    xinstall -d ${destroot}${prefix}/share/doc/${name} ${destroot}${prefix}/share/examples
+    xinstall -m 644 -W ${worksrcpath} CHANGELIST COPYRIGHT README VERSION ${destroot}${prefix}/share/doc/${name}
+    copy ${worksrcpath}/examples ${destroot}${prefix}/share/examples/${name}
+}
+
+livecheck.url               http://code.google.com/p/semicomplete/downloads/list?q=${name}
+livecheck.regex             ${name}-(\\d+\\.\\d+\\.\\d+)\\.tar

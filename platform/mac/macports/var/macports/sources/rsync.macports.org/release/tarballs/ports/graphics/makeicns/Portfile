@@ -1,0 +1,61 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 122425 2014-07-22 18:57:16Z mk@macports.org $
+
+PortSystem          1.0
+
+name                makeicns
+version             1.4.10a
+revision            2
+categories          graphics
+maintainers         mk pixilla
+platforms           darwin
+license             MIT
+
+description         This program lets you convert all kinds of images to Apple icns format on the command line.
+long_description    ${description}
+
+homepage            https://bitbucket.org/mkae/makeicns
+master_sites        ${homepage}/downloads
+
+use_bzip2           yes
+
+worksrcdir          ${name}
+
+checksums           md5     29613f4774d4dc2871a0052826abe1ae \
+                    sha1    2a3b1229781516c8cc36089bf09729d5c17ac17c \
+                    rmd160  8bf438b375dbc3d84a7dc47cef39c5c290a4c2ed
+
+use_configure       no
+
+variant universal {
+}
+
+platform darwin {
+    # This patch is only needed from Mavericks on
+    if {${os.major} >= 13} {
+        patchfiles      patch-IconFamily.m.diff
+    }
+}
+
+if {[string match *clang* ${configure.cxx}]} {
+    configure.cxxflags-append -stdlib=${configure.cxx_stdlib}
+    configure.ldflags-append  -stdlib=${configure.cxx_stdlib}
+}
+
+build.env-append    CC=${configure.cc} \
+                    CXX=${configure.cxx} \
+                    CFLAGS="${configure.cflags} [get_canonical_archflags cc]" \
+                    CXXFLAGS="${configure.cxxflags} [get_canonical_archflags cxx]" \
+                    LDFLAGS="[join ${configure.ldflags}] [get_canonical_archflags ld]"
+
+if {${configure.sdkroot} != ""} {
+    build.env-append SDK=${configure.sdkroot}
+}
+
+destroot {
+    xinstall ${worksrcpath}/${name} ${destroot}${prefix}/bin/${name}
+}
+
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     "(?!${name}).*${name}-((?!${extract.suffix}).*)${extract.suffix}"

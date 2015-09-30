@@ -1,0 +1,151 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 113210 2013-11-12 09:44:33Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                alienarena
+version             7.66-20130827
+set version_number  [lindex [split ${version} -] 0]
+set version_date    [lindex [split ${version} -] 1]
+categories          games
+platforms           darwin
+maintainers         ryandesign
+license             GPL-2+
+
+description         retro sci-fi old school deathmatch game similar to Quake \
+                    III and Unreal Tournament
+
+long_description    Alien Arena combines some of the very best aspects of \
+                    such games as Quake III and Unreal Tournament and wraps \
+                    them up with a retro alien theme, while adding tons of \
+                    original ideas to make the game quite unique. Alien Arena \
+                    is a furious frag fest with arenas ranging from the \
+                    small, to the massive. With a large built-in player base, \
+                    it's never hard to find a good match going on, at any \
+                    hour of the day. The community is friendly, as well as \
+                    prolific. Dozens of maps, models, and various accessories \
+                    have been created by community members to add on to the \
+                    game experience.
+
+homepage            http://red.planetarena.org/
+master_sites        http://icculus.org/alienarena/Files/ \
+                    ${homepage}files/
+
+worksrcdir          alienarena-${version_number}
+distname            ${worksrcdir}-linux${version_date}
+
+checksums           rmd160  f3183b9ce90b52d7e01379cfcf004ce3249384a5 \
+                    sha256  29086098eacb18319e6dcc9156355c44db4b1aa8a4f7b0bb63e6856d8128b012
+
+platform darwin {
+    pre-fetch {
+        # 10.4.11:
+        # ld: common symbols not allowed with MH_DYLIB output format with the -multi_module option
+        # The usual advice is to use -fno-common (e.g. http://gcc.gnu.org/ml/gcc/2005-06/msg00378.html)
+        # but this leads to several "multiple definitions of symbol" errors.
+        if {${os.major} < 9} {
+            ui_error "Alien Arena requires Mac OS X 10.5 or greater at the moment."
+            return -code error "incompatible Mac OS X version"
+        }
+    }
+}
+
+if {${name} eq ${subport}} {
+    revision                    0
+    
+    depends_build               port:pkgconfig
+    
+    depends_lib                 port:curl \
+                                port:freetype \
+                                port:jpeg \
+                                port:libvorbis \
+                                port:openal-soft \
+                                port:mesa \
+                                port:xorg-libX11 \
+                                port:xorg-libXext \
+                                port:xorg-libXxf86dga \
+                                port:xorg-libXxf86vm
+    
+    depends_run                 port:alienarena-data
+    
+    pre-extract {
+        # Create list of data files we want to exclude.
+        system -W ${workpath} "${extract.cmd} ${extract.pre_args} ${distpath}/${distfiles} | tar -tf - --exclude '*.cfg' ${worksrcdir}/data1 | grep -v /$ > datafiles.txt"
+    }
+    
+    # Avoid extracting data files.
+    extract.post_args-append    -X datafiles.txt
+    
+    configure.args              --disable-silent-rules \
+                                --x-includes=${prefix}/include \
+                                --x-libraries=${prefix}/lib \
+                                --without-system-libode \
+                                --with-xf86dga \
+                                --with-xf86vm
+    
+    pre-configure {
+        configure.cflags-append -std=gnu89
+    }
+    
+    patchfiles                  patch-Makefile.am.diff \
+                                patch-configure.ac.diff
+    
+    post-patch {
+        reinplace "s|@PREFIX@|${prefix}|g" ${worksrcpath}/configure.ac
+    }
+    
+    use_autoreconf              yes
+    
+    # Prevent finding an installed version of ode which would cause a build error.
+    configure.cppflags-replace  -I${prefix}/include -isystem${prefix}/include
+    
+    post-destroot {
+        xinstall -d ${destroot}${prefix}/share/${name}
+        copy ${worksrcpath}/arena ${worksrcpath}/botinfo ${worksrcpath}/data1 ${destroot}${prefix}/share/${name}
+    }
+    
+    variant debug description {Enable debugging symbols} {
+        configure.args-append   --enable-debugging-symbols
+        configure.optflags      -O0
+    }
+    
+    notes "
+To play Alien Arena, type:
+
+${name}
+
+To run your own dedicated Alien Arena server, use:
+
+${name}-ded
+"
+    
+    livecheck.version           ${version_number}
+    livecheck.type              regex
+    livecheck.url               ${homepage}aquire.html
+    livecheck.regex             ${name}-(\[0-9.\]+)-linux\[0-9\]+${extract.suffix}
+} else {
+    livecheck.type              none
+}
+
+subport alienarena-data {
+    revision                    0
+    license                     Restrictive
+    supported_archs             noarch
+    
+    description                 Assets for the Alien Arena game
+    
+    long_description            ${description}
+    
+    # Extract only the data1 directory, minus its .cfg files.
+    extract.post_args-append    --exclude '*.cfg' ${worksrcdir}/data1
+    
+    use_configure               no
+    
+    build {}
+    
+    destroot {
+        xinstall -d ${destroot}${prefix}/share/${name}
+        copy ${worksrcpath}/data1 ${destroot}${prefix}/share/${name}
+    }
+}
+

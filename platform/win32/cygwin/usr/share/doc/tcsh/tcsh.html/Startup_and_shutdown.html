@@ -1,0 +1,59 @@
+<HEAD>
+<TITLE>Startup and shutdown</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Editing.html">Next</A>
+<A HREF="Argument_list_processing.html">Previous</A>
+<H2>Startup and shutdown</H2>
+A login shell begins by executing commands from the system files
+<I><A HREF="FILES.html#/etc/csh.cshrc">/etc/csh.cshrc</A></I> and <I><A HREF="FILES.html#/etc/csh.login">/etc/csh.login</A></I>.
+It then executes commands from files in the user's <B><A HREF="Special_shell_variables.html#home">home</A></B> directory:
+first <I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I> (+)
+or, if <I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I> is not found, <I><A HREF="FILES.html#~/.cshrc">~/.cshrc</A></I>,
+then <I><A HREF="FILES.html#~/.history">~/.history</A></I> (or the value of the <B><A HREF="Special_shell_variables.html#histfile">histfile</A></B> shell variable),
+then <I><A HREF="FILES.html#~/.login">~/.login</A></I>,
+and finally <I><A HREF="FILES.html#~/.cshdirs">~/.cshdirs</A></I> (or the value of the <B><A HREF="Special_shell_variables.html#dirsfile">dirsfile</A></B> shell variable) (+).
+The shell may read <I><A HREF="FILES.html#/etc/csh.login">/etc/csh.login</A></I> before instead of after
+<I><A HREF="FILES.html#/etc/csh.cshrc">/etc/csh.cshrc</A></I>, and <I><A HREF="FILES.html#~/.login">~/.login</A></I> before instead of after
+<I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I> or <I><A HREF="FILES.html#~/.cshrc">~/.cshrc</A></I> and <I><A HREF="FILES.html#~/.history">~/.history</A></I>, if so compiled;
+see the <B><A HREF="Special_shell_variables.html#version">version</A></B> shell variable. (+)
+<P>
+Non-login shells read only <I><A HREF="FILES.html#/etc/csh.cshrc">/etc/csh.cshrc</A></I> and <I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I>
+or <I><A HREF="FILES.html#~/.cshrc">~/.cshrc</A></I> on startup.
+<P>
+For examples of startup files, please consult
+<I>http://tcshrc.sourceforge.net</I>.
+<P>
+Commands like <I>stty</I>(1) and <I>tset</I>(1),
+which need be run only once per login, usually go in one's <I><A HREF="FILES.html#~/.login">~/.login</A></I> file.
+Users who need to use the same set of files with both <I>csh</I>(1) and
+<I>tcsh</I> can have only a <I><A HREF="FILES.html#~/.cshrc">~/.cshrc</A></I> which checks for the existence of the
+<B><A HREF="Special_shell_variables.html#tcsh">tcsh</A></B> shell variable (q.v.) before using <I>tcsh</I>-specific commands,
+or can have both a <I><A HREF="FILES.html#~/.cshrc">~/.cshrc</A></I> and a <I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I> which <I><A HREF="Builtin_commands.html#source">source</A></I>s
+(see the builtin command) <I><A HREF="FILES.html#~/.cshrc">~/.cshrc</A></I>.
+The rest of this manual uses `<I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I>' to mean `<I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I> or,
+if <I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I> is not found, <I><A HREF="FILES.html#~/.cshrc">~/.cshrc</A></I>'.
+<P>
+In the normal case, the shell begins reading commands from the terminal,
+prompting with `&gt; '.  (Processing of arguments and the use of the shell to
+process files containing command scripts are described later.)
+The shell repeatedly reads a line of command input, breaks it into words,
+places it on the command history list, parses it and executes each command
+in the line.
+<P>
+One can log out by typing `^D' on an empty line, `logout' or `login' or
+via the shell's autologout mechanism (see the <B><A HREF="Special_shell_variables.html#autologout">autologout</A></B> shell variable).
+When a login shell terminates it sets the <B><A HREF="Special_shell_variables.html#logout">logout</A></B> shell variable to
+`normal' or `automatic' as appropriate, then
+executes commands from the files
+<I><A HREF="FILES.html#/etc/csh.logout">/etc/csh.logout</A></I> and <I><A HREF="FILES.html#~/.logout">~/.logout</A></I>.  The shell may drop DTR on logout
+if so compiled; see the <B><A HREF="Special_shell_variables.html#version">version</A></B> shell variable.
+<P>
+The names of the system login and logout files vary from system to system for
+compatibility with different <I>csh</I>(1) variants; see <B><A HREF="FILES.html">FILES</A></B>.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Editing.html">Next</A>
+<A HREF="Argument_list_processing.html">Previous</A>
+</BODY>

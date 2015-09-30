@@ -1,0 +1,31 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 126199 2014-10-05 07:59:46Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                cssc
+version             1.4.0
+categories          devel
+platforms           darwin
+maintainers         ryandesign openmaintainer
+license             GPL-3+
+
+description         SCCS replacement
+
+long_description    CSSC is the GNU Project's replacement for SCCS. SCCS is \
+                    a proprietary suite of tools which is provided with most \
+                    commercial versions of Unix.
+
+homepage            http://www.gnu.org/software/cssc/
+master_sites        gnu
+distname            CSSC-${version}
+
+checksums           rmd160  6619af3566de003ed171bd9f3f2a0c216f47e99a \
+                    sha256  30146f96c26c2a4c6b742bc8a498993ec6ea9f289becaaf566866488600b2994
+
+patchfiles          patch-config.h.diff \
+                    patch-src-version.cc.in.diff
+
+configure.args      --enable-binary
+
+livecheck.distname  CSSC

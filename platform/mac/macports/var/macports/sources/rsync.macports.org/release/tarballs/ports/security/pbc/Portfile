@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 114461 2013-12-09 10:16:54Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                pbc
+version             0.5.14
+categories          security
+platforms           darwin
+maintainers         googlemail.com:jgilab openmaintainer
+license             LGPL-3
+
+description         The Pairing-Based Cryptography Library
+
+long_description    ${description}\
+                    \n\nPairing-based cryptography is a relatively young area \
+                    of cryptography that revolves around a certain function \
+                    with special properties. \
+                    \n\nThe PBC (Pairing-Based Cryptography) library is a free \
+                    C library built on the GMP library that performs the \
+                    mathematical operations underlying pairing-based \
+                    cryptosystems. \
+                    \n\nThe PBC library is designed to be the backbone of \
+                    implementations of pairing-based cryptosystems, thus \
+                    speed and portability are important goals. It provides \
+                    routines such as elliptic curve generation, elliptic \
+                    curve arithmetic and pairing computation. Thanks to the \
+                    GMP library, despite being written in C, pairings times \
+                    are reasonable.
+
+homepage            http://crypto.stanford.edu/pbc/
+master_sites        ${homepage}files/
+
+checksums           sha1    8947f1a5a32d5c2d1f5113ccbb1e0d25ca5ce1c9 \
+                    rmd160  7cf2fb398960d34d7207798296ceb8324af34a17
+
+depends_lib         port:gmp
+
+patchfiles          patch-configure.diff

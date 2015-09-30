@@ -1,0 +1,23 @@
+# $Id: Portfile 94986 2012-07-03 11:31:31Z jmr@macports.org $
+
+PortSystem 1.0
+
+name             mcl
+version          12-068
+description      MCL - a cluster algorithm for graphs.
+long_description \
+    The MCL algorithm is short for the Markov Cluster Algorithm, \
+    a fast and scalable unsupervised cluster algorithm for graphs \
+    based on simulation of (stochastic) flow in graphs.
+maintainers     gmail.com:mike.thon
+categories      science math
+license         GPL-3
+platforms       darwin
+homepage        http://micans.org/mcl/
+master_sites    http://micans.org/mcl/src/
+checksums       rmd160 f43c64da14ec4316a67d3a9987aecd1bef25298e \
+                sha256 11fd811a84e340faf1596ee5e1889457c87b4e172aa8b150bda3414f06f093c8
+
+patchfiles      C99.patch
+
+configure.args  --enable-blast --mandir=${prefix}/share/man

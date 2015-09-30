@@ -1,0 +1,35 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
+# $Id: Portfile 115709 2014-01-09 16:10:16Z eborisch@macports.org $
+
+PortSystem          1.0
+
+name                octave-devel
+version             3.6.4
+revision            11
+
+categories          math science
+maintainers         michaelld openmaintainer
+license             GPL-3
+platforms           darwin
+
+description         a Matlab-like environment for numerical analysis
+long_description    Octave provides a convenient command line interface \
+                    for solving linear and nonlinear problems numerically, \
+                    using a language that is mostly compatible with Matlab. \
+                    It is easily extensible and customizable via \
+                    user-defined functions or using dynamically loaded \
+                    modules written in e.g. C++, C or Fortran.
+
+homepage            http://www.gnu.org/software/octave/
+
+replaced_by         octave
+
+archive_sites
+distfiles
+
+pre-fetch {
+    ui_error "${subport} has been temporarily replaced by the port 'octave'. Please install octave instead."
+    return -code error "obsolete port"
+}
+
+livecheck.type      none

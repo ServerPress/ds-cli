@@ -1,0 +1,62 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137419 2015-06-11 05:25:58Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         ExtUtils-F77 1.18
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Helper for linking C with Fortran subroutines
+long_description    ExtUtils::F77 describes to the calling perl code how to link C programs \
+                    with Fortran subroutines on the current system.
+
+platforms           darwin
+supported_archs     noarch
+
+checksums           rmd160  80d77972d4bde7039b05d9b978cc8b6bbda106e2 \
+                    sha256  6b1fbeb38f092b399f46d58f8699917f71c098dff131a3c7b72ccccadbc953b4
+
+if {${perl5.major} != ""} {
+
+platform darwin {
+    set lib ""
+    patchfiles-append   patch-F77.pm.diff
+    post-patch {
+        reinplace "s|@@GCCLIB@@|${lib}|g" ${worksrcpath}/F77.pm
+        reinplace "s|@@F77@@|${configure.f77}|g" ${worksrcpath}/F77.pm
+    }
+}
+
+variant gcc43 conflicts gcc45 gcc46 gcc47 gcc48 gcc49 description {Build with GFortran 4.3} {
+    configure.compiler  macports-gcc-4.3
+    set lib ${prefix}/lib/gcc43
+}
+variant gcc45 conflicts gcc43 gcc46 gcc47 gcc48 gcc49 description {Build with GFortran 4.5} {
+    configure.compiler  macports-gcc-4.5
+    set lib ${prefix}/lib/gcc45
+}
+variant gcc46 conflicts gcc43 gcc45 gcc47 gcc48 gcc49 description {Build with GFortran 4.6} {
+    configure.compiler  macports-gcc-4.6
+    set lib ${prefix}/lib/gcc46
+}
+variant gcc47 conflicts gcc43 gcc45 gcc46 gcc48 gcc49 description {Build with GFortran 4.7} {
+    configure.compiler  macports-gcc-4.7
+    set lib ${prefix}/lib/gcc47
+}
+variant gcc48 conflicts gcc43 gcc45 gcc46 gcc47 gcc49 description {Build with GFortran 4.8} {
+    configure.compiler  macports-gcc-4.8
+    set lib ${prefix}/lib/gcc48
+}
+variant gcc49 conflicts gcc43 gcc45 gcc46 gcc47 gcc48 description {Build with GFortran 4.9} {
+    configure.compiler  macports-gcc-4.9
+    set lib ${prefix}/lib/gcc49
+}
+
+
+if {![variant_isset gcc43] && ![variant_isset gcc45] && ![variant_isset gcc46] && ![variant_isset gcc47] && ![variant_isset gcc48]} {
+    default_variants    +gcc49
+}
+
+}

@@ -1,0 +1,19 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 89037 2012-01-18 12:41:49Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+PortGroup           cmake 1.0
+
+github.setup        lloyd yajl 2.0.4
+categories          devel
+maintainers         gmail.com:benjaminlyu openmaintainer
+description         Yet Another JSON Library.
+long_description    YAJL is a small event-driven (SAX-style) JSON parser \
+                    written in ANSI C, and a small validating JSON generator.
+license             BSD
+homepage            http://lloyd.github.com/yajl/
+platforms           darwin
+
+checksums           rmd160  ffb49cc83531c41e70869d6610d47b9b182ca335 \
+                    sha256  c19b9691cf15f22e74d903cd06ac9ba5e1e216e6a1b82bfe787c3b48a25bc118

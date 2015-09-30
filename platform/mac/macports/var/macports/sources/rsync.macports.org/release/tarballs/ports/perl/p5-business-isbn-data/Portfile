@@ -1,0 +1,31 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 131592 2015-01-15 01:41:55Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Business-ISBN-Data 20140910.002
+maintainers         nomaintainer
+license             {Artistic-1 GPL}
+
+description         ISBN data required for use of Business::ISBN
+long_description    This package provides ISBN data used by the \
+                    Business::ISBN family of Perl modules to associate \
+                    countries with ISBN codes.  It has been made a separate \
+                    module so that it can be updated independently of the \
+                    Business::ISBN code.
+
+checksums           rmd160  0fd24b0962363ffe3daa0797d8175bfb27ce9e22 \
+                    sha256  3e2413d6672f6cbbfad61caa2d6eb315382bb5bc09db5157c8107cbdc98ecbae
+
+platforms           darwin
+supported_archs     noarch
+
+if {${perl5.major} != ""} {
+    # requires version 6.65 of ExtUtils::MakeMaker
+    if {[vercmp ${perl5.major} 5.16] <= 0} {
+        depends_build-append \
+                    port:p${perl5.major}-extutils-makemaker
+    }
+}

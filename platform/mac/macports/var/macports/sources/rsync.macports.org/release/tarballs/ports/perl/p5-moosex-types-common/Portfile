@@ -1,0 +1,32 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134738 2015-04-06 02:55:36Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         MooseX-Types-Common 0.001013
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         A set of commonly-used type constraints that do not \
+                    ship with Moose by default.
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  67219d761d63f340d9d0bcaa81a20f4077b0ac6e \
+                    sha256  ff0c963f5e8304acb5f64bdf9ba1f19284311148e1a8f0d1f81f123f9950f5f2
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-module-build-tiny \
+                    port:p${perl5.major}-test-deep \
+                    port:p${perl5.major}-test-exception \
+                    port:p${perl5.major}-test-warnings
+
+    depends_lib-append \
+                    port:p${perl5.major}-moose \
+                    port:p${perl5.major}-moosex-types \
+
+    perl5.use_module_build
+}

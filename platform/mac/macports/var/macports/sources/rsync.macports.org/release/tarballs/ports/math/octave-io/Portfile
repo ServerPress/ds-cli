@@ -1,0 +1,15 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138158 2015-06-30 18:46:16Z michaelld@macports.org $
+
+PortSystem          1.0
+PortGroup           octave 1.0
+
+octave.setup        io 2.2.8
+platforms           darwin
+license             GPL-3+ BSD
+maintainers         gmail.com:mschamschula nomaintainer
+description         Input/Output in external formats.
+long_description    ${description}
+
+checksums           rmd160 32b352a4190d06720662049f514674c1beb04967 \
+                    sha256 bbcba0b06eeb7111058f54b779f81b292ed409f399a551809dffa3d964682e9d

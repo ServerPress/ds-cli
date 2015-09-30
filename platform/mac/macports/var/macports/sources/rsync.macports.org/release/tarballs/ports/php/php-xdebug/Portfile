@@ -1,0 +1,59 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137923 2015-06-23 03:20:41Z ryandesign@macports.org $
+
+PortSystem              1.0
+PortGroup               php 1.1
+
+name                    php-xdebug
+version                 2.3.3
+categories-append       net devel
+platforms               darwin freebsd openbsd
+maintainers             ryandesign openmaintainer
+license                 Xdebug-1.01
+
+homepage                http://www.xdebug.org/
+master_sites            ${homepage}files/
+
+php.branches            5.3 5.4 5.5 5.6
+php.extensions.zend     xdebug
+
+description             php5 extension for php debugging
+
+long_description        Xdebug is a php extension that helps you debug your \
+                        scripts. It provides valuable debug information, \
+                        including error stack traces and memory allocation \
+                        summaries. It can generate profiling information \
+                        about your php scripts, to be used for script \
+                        execution analysis and optimization. It also supports \
+                        debugging interactively using the dbg debug client.
+
+checksums               rmd160  ca47cc37a0ca1919e688edef86a9931218ec3ec8 \
+                        sha256  b27bd09b23136d242dbc94f4503c98f012a521d5597002c9d463a63c6b0cdfe3
+
+extract.suffix          .tgz
+
+if {${name} ne ${subport}} {
+    if {[vercmp ${php.branch} 5.4] < 0} {
+        version         2.2.7
+        checksums       rmd160  ad0839b7d7d9751ef0c30eddf43890809bbd7e91 \
+                        sha256  4fce7fc794ccbb1dd0b961191cd0323516e216502fe7209b03711fc621642245
+        livecheck.type  none
+    }
+    
+    configure.args      --enable-xdebug
+    
+    set xdebug_docs     ${homepage}docs/
+    notes "
+You can get a list of the available configuration settings for xdebug\
+with the following command:
+
+    ${php} --ri xdebug
+
+For more information and details about configuration settings, see\
+${xdebug_docs}
+"
+}
+
+default livecheck.type  {regex}
+livecheck.url           http://www.xdebug.org/updates.php
+livecheck.regex         {Xdebug (\d+(\.\d+)*)<}

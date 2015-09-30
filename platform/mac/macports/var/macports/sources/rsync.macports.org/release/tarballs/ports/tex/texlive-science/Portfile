@@ -1,0 +1,35 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 121682 2014-07-04 04:51:53Z dports@macports.org $
+
+PortSystem          1.0
+PortGroup           texlive 1.0
+
+name                texlive-science
+version             33447
+revision            0
+
+categories          tex
+maintainers         dports
+license             Copyleft Permissive
+description         TeX Live: Natural and computer sciences
+long_description    Natural and computer sciences
+
+checksums           texlive-science-33447-run.tar.xz \
+                    rmd160  bc8f5ff33fff55a5dfc792969ac706f91d946813 \
+                    sha256  9dc7478d65404cebdb736618b642e33636ba539e33a5d339bd498c183960fda9 \
+                    texlive-science-33447-doc.tar.xz \
+                    rmd160  a1d808992127a196f44771bd826a3ea15ff5812c \
+                    sha256  74ec39b5c5f90232f1bbb7db20aa24067df56ad62a28669cf54de71fce765bb5 \
+                    texlive-science-33447-src.tar.xz \
+                    rmd160  248a25da7a807fbe1d60a550c820afaef6a0b747 \
+                    sha256  a297185aab8404602fb9bb7e5f35a4d1c67d89a1c10467dd12c73985bbe8fbcd
+
+depends_lib         port:texlive-latex
+
+texlive.maps      \
+    {Map chemarrow.map}
+
+texlive.binaries    ulqda
+
+
+texlive.texmfport

@@ -1,0 +1,21 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Mozilla-CA 20141217
+platforms           darwin
+license             {MPL-1.1 GPL-2+ LGPL-2.1+}
+maintainers         nomaintainer
+supported_archs     noarch
+
+description         Mozilla::CA - Mozilla's CA cert bundle in PEM format
+
+long_description    Mozilla::CA provides a copy of Mozilla\'s bundle of Certificate \
+                    Authority certificates in a form that can be consumed by modules and \
+                    libraries based on OpenSSL.
+
+checksums           rmd160  bb95dc682334873127d974d6fd97fc0cff52b040 \
+                    sha256  b753c9aceb20388482eb7f371b86e9e7bbc43feb0f87b3d9e10f7728d1720d30

@@ -1,0 +1,32 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 132316 2015-01-28 22:48:48Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Gtk3 0.021
+platforms           darwin
+maintainers         devans openmaintainer
+license             LGPL-2.1+
+
+description         Perl interface to the 3.x series of the gtk+ toolkit
+
+long_description    This module provides Perl bindings to the 3.x series of the gtk+ toolkit. \
+                    It allows you to write graphical user interfaces in a Perlish and object-oriented way, \
+                    freeing you from the casting and memory management in C, yet remaining very \
+                    close in spirit to original API.
+
+homepage            https://metacpan.org/pod/Gtk3
+master_sites        sourceforge:project/gtk2-perl/Gtk3
+
+checksums           rmd160  172499050b40ec0e3422dbd1e7e52a4fa8d9b462 \
+                    sha256  906a4c04f4ec2fac96612c289afe841aac5496307466694bcc358be524eca8b2
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:gtk3 \
+                    port:p${perl5.major}-cairo-gobject \
+                    port:p${perl5.major}-glib-object-introspection \
+                    port:p${perl5.major}-test-simple
+}

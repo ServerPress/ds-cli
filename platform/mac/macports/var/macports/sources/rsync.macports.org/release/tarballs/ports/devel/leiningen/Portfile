@@ -1,0 +1,40 @@
+# $Id: Portfile 105957 2013-05-11 06:20:48Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        technomancy leiningen 2.1.3
+categories          devel java
+maintainers         ieure
+platforms           darwin
+
+description         A build tool for Clojure designed to not set your hair on fire.
+long_description    ${description}
+
+checksums           rmd160  d1a07d38bd8849258476a6dd6e1bdaced4333cd3 \
+                    sha256  c9a4f7ecf9b5622411b96d5463b528a195cc46c59f164a1adff1a52bdd0a6308
+
+depends_build       port:clojure \
+                    port:clojure-contrib \
+                    port:apache-ant \
+                    port:maven2 \
+                    port:maven-ant-tasks
+depends_run         port:jline
+
+post-patch {
+    copy ${filespath}/build.xml ${worksrcpath}
+    reinplace "s|__PREFIX__|${prefix}/share/java|" ${worksrcpath}/build.xml
+}
+
+use_configure       no
+
+build.cmd           ant
+build.target        jar
+
+destroot {
+    set javadir ${prefix}/share/java
+    reinplace "s|__PREFIX__|${javadir}|" ${worksrcpath}/bin/lein
+    xinstall -m 0755 -d ${destroot}${javadir}
+    xinstall -m 0755 ${worksrcpath}/bin/lein ${destroot}${prefix}/bin
+    xinstall -m 0644 ${worksrcpath}/leiningen.jar ${destroot}${javadir}
+}

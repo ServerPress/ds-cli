@@ -1,0 +1,44 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137573 2015-06-14 22:11:15Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-cffi
+version             1.1.2
+revision            0
+categories-append   devel
+platforms           darwin
+license             MIT
+
+python.versions     26 27 33 34
+
+maintainers         stromnov openmaintainer
+
+description         Foreign Function Interface for Python calling C code.
+
+long_description    Foreign Function Interface for Python calling C code. \
+                    The aim of this project is to provide a convenient and \
+                    reliable way of calling C code from Python.
+
+homepage            http://cffi.readthedocs.org/
+master_sites        https://pypi.python.org/packages/source/c/cffi/
+
+distname            cffi-${version}
+
+checksums           rmd160  d3a138b528a25f7ad3abc125a35b3f656a9291f7 \
+                    sha256  390970b602708c91ddc73953bb6929e56291c18a4d80f360afa00fad8b6f3339
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-setuptools
+    depends_lib-append  port:libffi
+
+    depends_run-append  port:py${python.version}-pycparser
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/cffi/json
+    livecheck.regex     {cffi-(\d+(?:\.\d+)*)\.[tz]}
+}

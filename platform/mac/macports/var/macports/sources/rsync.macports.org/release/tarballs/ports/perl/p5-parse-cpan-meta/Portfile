@@ -1,0 +1,24 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137413 2015-06-11 05:20:59Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Parse-CPAN-Meta 1.4417
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Parse::CPAN::Meta - Parse META.yml and META.json CPAN metadata files
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  a8fa0fd2ff3d0d08792f544803495f9970a313d1 \
+                    sha256  dd1df72c80390551563159f18f81a26baabeda8d4b0e94df7f1c223391967121
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-cpan-meta-yaml
+
+    supported_archs noarch
+}

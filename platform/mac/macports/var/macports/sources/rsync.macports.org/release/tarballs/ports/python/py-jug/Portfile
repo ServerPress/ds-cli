@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 133498 2015-03-03 12:23:47Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-jug
+version             1.1
+revision            0
+platforms           darwin
+license             MIT
+
+python.versions     27 33 34
+
+maintainers         stromnov openmaintainer
+
+description         A Task Based Parallelization Framework
+long_description    ${description}
+
+homepage            http://luispedro.org/software/jug
+master_sites        https://pypi.python.org/packages/source/J/Jug/
+
+distname            Jug-${version}
+
+checksums           rmd160  8249d7fc067e429be2601fb532349c7600bc63a0 \
+                    sha256  e60841c193834f3a70e9109d2cec301b66a01acfd6a075855ab91ca169d1bb79
+
+if {${name} ne ${subport}} {
+    depends_build-append    port:py${python.version}-setuptools
+
+    depends_lib-append      port:py${python.version}-six \
+                            port:py${python.version}-redis
+
+    livecheck.type          none
+} else {
+    livecheck.type          regex
+    livecheck.url           https://pypi.python.org/pypi/jug/json
+    livecheck.regex         {Jug-(\d+(?:\.\d+)*)\.[tz]}
+}

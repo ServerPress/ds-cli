@@ -1,0 +1,68 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136532 2015-05-20 22:10:00Z aronnax@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           github 1.0
+
+github.setup        SciTools cartopy 0.12.0 v
+
+name                py-${github.project}
+revision            1
+categories-append   science gis graphics
+platforms           darwin
+license             LGPL-3
+
+maintainers         petr openmaintainer
+
+description         A library providing cartographic tools for python.
+
+long_description    \
+    Cartopy is a Python package designed to make drawing maps for data \
+    analysis and visualisation as easy as possible. It makes use of the \
+    powerful PROJ.4, numpy and shapely libraries and has a simple and \
+    intuitive drawing interface to matplotlib for creating publication \
+    quality maps.
+
+homepage            http://scitools.org.uk/cartopy/
+
+checksums           rmd160  8852de76349b16da1d52b8c7546d50bedef64384 \
+                    sha256  92aac05873c2a13784c7a4536e605d82c56901eb4960f36a188efff97d020a10
+
+python.versions     27
+
+if {${name} ne ${subport}} {
+    depends_build-append    port:py${python.version}-setuptools \
+                            port:py${python.version}-cython \
+                            port:py${python.version}-numpy
+
+    depends_lib-append      port:proj \
+                            port:geos \
+                            port:py${python.version}-numpy \
+                            port:py${python.version}-matplotlib \
+                            port:py${python.version}-shapely \
+                            port:py${python.version}-pyshp \
+                            port:py${python.version}-six
+
+    # Required for post-installation testing only.
+    depends_run-append      port:py${python.version}-nose \
+                            port:py${python.version}-pep8 \
+                            port:py${python.version}-mock \
+                            port:py${python.version}-owslib
+
+    # Adding documentation
+    post-destroot {
+        set dest_doc ${destroot}${prefix}/share/doc/${subport}
+        xinstall -d  ${dest_doc}
+        xinstall -m 755 -W ${worksrcpath} \
+            README.md \
+            INSTALL \
+            CHANGES \
+            COPYING \
+            COPYING.LESSER \
+            CONTRIBUTING.md \
+                ${dest_doc}
+    }
+
+    livecheck.type  none
+}

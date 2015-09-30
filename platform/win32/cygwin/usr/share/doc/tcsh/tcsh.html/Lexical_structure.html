@@ -1,0 +1,57 @@
+<HEAD>
+<TITLE>Lexical structure</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Substitutions.html">Next</A>
+<A HREF="Editor_commands.html">Previous</A>
+<H2>Lexical structure</H2>
+The shell splits input lines into words at blanks and tabs.  The special
+characters `&amp;', `|', `;', `&lt;', `&gt;', `(', and `)' and the doubled characters
+`&amp;&amp;', `||', `&lt;&lt;' and `&gt;&gt;' are always separate words, whether or not they are
+surrounded by whitespace.
+<P>
+When the shell's input is not a terminal, the character `#' is taken to begin a
+comment.  Each `#' and the rest of the input line on which it appears is
+discarded before further parsing.
+<P>
+A special character (including a blank or tab) may be prevented from having
+its special meaning, and possibly made part of another word, by preceding it
+with a backslash (`\') or enclosing it in single (`''), double (`"') or
+backward (`\`') quotes.  When not otherwise quoted a newline preceded by a `\'
+is equivalent to a blank, but inside quotes this sequence results in a
+newline.
+<P>
+Furthermore, all <B><A HREF="Substitutions.html">Substitutions</A></B> (see below) except <B><A HREF="History_substitution.html">History substitution</A></B>
+can be prevented by enclosing the strings (or parts of strings)
+in which they appear with single quotes or by quoting the crucial character(s)
+(e.g., `$' or `\`' for <B><A HREF="Variable_substitution.html">Variable substitution</A></B> or <B><A HREF="Command_substitution.html">Command substitution</A></B> respectively)
+with `\'.  (<B><A HREF="Alias_substitution.html">Alias substitution</A></B> is no exception: quoting in any way any
+character of a word for which an <I><A HREF="Builtin_commands.html#alias">alias</A></I> has been defined prevents
+substitution of the alias.  The usual way of quoting an alias is to precede it
+with a backslash.) <B><A HREF="History_substitution.html">History substitution</A></B> is prevented by
+backslashes but not by single quotes.  Strings quoted with double or backward
+quotes undergo <B><A HREF="Variable_substitution.html">Variable substitution</A></B> and <B><A HREF="Command_substitution.html">Command substitution</A></B>, but other
+substitutions are prevented.
+<P>
+Text inside single or double quotes becomes a single word (or part of one).
+Metacharacters in these strings, including blanks and tabs, do not form
+separate words.  Only in one special case (see <B><A HREF="Command_substitution.html">Command substitution</A></B>
+below) can a double-quoted string yield parts of more than one word;
+single-quoted strings never do.  Backward quotes are special: they signal
+<B><A HREF="Command_substitution.html">Command substitution</A></B> (q.v.), which may result in more than one word.
+<P>
+Quoting complex strings, particularly strings which themselves contain quoting
+characters, can be confusing.  Remember that quotes need not be used as they are
+in human writing!  It may be easier to quote not an entire string, but only
+those parts of the string which need quoting, using different types of quoting
+to do so if appropriate.
+<P>
+The <B><A HREF="Special_shell_variables.html#backslash_quote">backslash_quote</A></B> shell variable (q.v.) can be set to make backslashes
+always quote `\', `'', and `"'.  (+) This may make complex quoting tasks
+easier, but it can cause syntax errors in <I>csh</I>(1) scripts.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Substitutions.html">Next</A>
+<A HREF="Editor_commands.html">Previous</A>
+</BODY>

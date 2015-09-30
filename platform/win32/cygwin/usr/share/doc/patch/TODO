@@ -1,0 +1,12 @@
+* Add instrumentation code for the path traversal functions !!!
+
+access() !!!
+Apply the mode fix!
+Alpha release ?!
+Announcement ...
+
+* Fix Savannah patches.
+* Reduce the number of unnecessary syscalls: for example, stat is often called
+  repeatedly. 
+* Call makedirs() before creating files inside the directory; with the dirfd
+  cache, this causes no extra syscalls anymore.

@@ -1,0 +1,68 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 128517 2014-11-22 18:27:25Z petr@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-django
+version             1.7.1
+categories-append   www
+platforms           darwin
+license             BSD
+maintainers         nomaintainer
+
+description         Django is a high-level Python Web framework
+long_description    Django is a high-level Python Web framework that \
+                    encourages rapid development and clean, pragmatic \
+                    design.
+
+homepage            http://www.djangoproject.com
+set branch          [join [lrange [split ${version} .] 0 1] .]
+master_sites        https://www.djangoproject.com/m/releases/${branch}/
+distname            Django-${version}
+
+checksums           rmd160  cc8a74dadb0c39a3d6186bcb79376d719db1a5e6 \
+                    sha256  3de62e71ce2cfbcdecb6e344cad04948506c8410ea5c6eab15c8f3b31b8ac1c0
+
+python.versions     26 27 33 34
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:py${python.version}-setuptools
+
+    variant bash_completion {
+        depends_run-append path:etc/bash_completion:bash-completion
+
+        post-patch {
+            reinplace "s|django-admin.py|django-admin-${python.branch}.py|g" \
+                ${worksrcpath}/extras/django_bash_completion
+        }
+
+        post-destroot {
+            xinstall -d ${destroot}${prefix}/etc/bash_completion.d
+            xinstall -m 644 ${worksrcpath}/extras/django_bash_completion \
+                ${destroot}${prefix}/etc/bash_completion.d/django-admin-${python.branch}.py
+        }
+    }
+
+    # we want *-${python.branch}.py not *.py-${python.branch}
+    python.link_binaries no
+    python.move_binaries no
+    post-destroot   {
+        xinstall -m 644 -W ${worksrcpath} \
+            AUTHORS INSTALL LICENSE README.rst \
+            ${destroot}${prefix}/share/doc/${subport}
+
+        file copy ${worksrcpath}/docs \
+            ${destroot}${prefix}/share/doc/${subport}/docs
+
+        # To avoid conflict between py*-django
+        ln -s ${python.prefix}/bin/django-admin.py \
+            ${destroot}${prefix}/bin/django-admin-${python.branch}.py
+    }
+
+    livecheck.type  none
+} else {
+    livecheck.type  regex
+    livecheck.url   http://www.djangoproject.com/download/
+    livecheck.regex "The latest official version is (1\.\[0-9\]+\.\[0-9\]*)"
+}

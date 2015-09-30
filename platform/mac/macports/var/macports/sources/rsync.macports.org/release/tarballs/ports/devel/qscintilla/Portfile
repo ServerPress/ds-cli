@@ -1,0 +1,94 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135260 2015-04-20 16:16:05Z michaelld@macports.org $
+
+PortSystem 1.0
+PortGroup           qt4 1.0
+
+name                qscintilla
+
+# NOTE: the version of this port must be kept in sync with the 'py*-qscintilla' port(s),
+#       since they contain the python bindings!
+
+version             2.9
+checksums           rmd160 3b3682a578a988466ef35aeab757466ea908934f \
+                    sha256 d7c32e32582f93779de861006d87467b38b9ebc06e3d0b32e981cb24369fa417
+
+categories          devel
+license             {GPL-2 GPL-3 OpenSSLException}
+maintainers         michaelld openmaintainer
+description         QScintilla is a port to Qt of Neil Hodgson's Scintilla C++ editor control.
+homepage            http://www.riverbankcomputing.com/software/qscintilla/
+platforms           darwin
+
+long_description    QScintilla is a port to Qt of Neil Hodgson's Scintilla C++ editor control. \
+                	As well as features found in standard text editing components,		\
+                	QScintilla includes features especially useful when editing and		\
+                	debugging source code. These include support for syntax styling,	\
+                	error indicators, code completion and call tips. The selection		\
+                	margin can contain markers like those used in debuggers to indicate	\
+                	breakpoints and the current line. Styling choices are more open		\
+                	than with many editors, allowing the use of proportional fonts,		\
+                	bold and italics, multiple foreground and background colours and	\
+                	multiple fonts. See the py*-qscintilla port to install python bindings.
+
+distname            QScintilla-gpl-${version}
+master_sites        sourceforge:pyqt
+
+# fix up QMake .pro files for +debug, if selected; also fixed up the
+# library and header paths to include .. and ../Qt4 before others.
+patchfiles-append   patch-add_debug.diff
+
+post-patch {
+    # allow for universal and non-native building, if desired, by
+    # fixing up the QMake .pro files.
+    reinplace "s/@ARCHES@/${qt_arch_types}/" \
+        ${worksrcpath}/Qt4Qt5/qscintilla.pro
+    reinplace "s/@ARCHES@/${qt_arch_types}/" \
+        ${worksrcpath}/designer-Qt4Qt5/designer.pro
+
+    # fix up 'Platform.h's, to avoid a conflict with the port 'tidy's
+    # 'platform.h'.
+    foreach fixfile [exec grep -lr \"Platform\.h\" ${worksrcpath}] {
+        reinplace -locale C "s@\"Platform\.h\"@\"include/Platform\.h\"@g" ${fixfile}
+    }
+
+    # fix up .pro files to handle debug and release
+    set build_type "release"
+    if {[variant_isset debug]} {
+        set build_type "debug_and_release build_all"
+    }
+    reinplace "s/@BUILD_TYPE@/${build_type}/" \
+        ${worksrcpath}/designer-Qt4Qt5/designer.pro
+    reinplace "s/@BUILD_TYPE@/${build_type}/" \
+        ${worksrcpath}/Qt4Qt5/qscintilla.pro
+
+    # drop in a simple QMake file, for easy building
+    copy ${filespath}/Qsci.pro ${worksrcpath}
+
+    # rename QMake .pro files in subdirs to work with top-level file
+    move ${worksrcpath}/Qt4Qt5/qscintilla.pro \
+        ${worksrcpath}/Qt4Qt5/Qt4Qt5.pro
+    move ${worksrcpath}/designer-Qt4Qt5/designer.pro \
+        ${worksrcpath}/designer-Qt4Qt5/designer-Qt4Qt5.pro
+}
+
+# QMake does not handle this flag.
+configure.universal_args-delete --disable-dependency-tracking
+configure.args-delete  --disable-dependency-tracking
+
+configure.pre_args
+configure.cmd ${qt_qmake_cmd}
+
+# allow ccache, if specified by the user
+pre-build {
+    if {[tbool configure.ccache]} {
+        build.post_args "CCACHE=ccache"
+    }
+}
+
+variant debug \
+description {Produce both release and debug library and plugin} {}
+
+livecheck.type      regex
+livecheck.url       ${homepage}download
+livecheck.regex     >QScintilla-gpl-\(\\d+.\\d+.\\d+\).tar.gz<

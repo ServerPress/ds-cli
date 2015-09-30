@@ -1,0 +1,41 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 126038 2014-10-02 13:51:28Z khindenburg@macports.org $
+
+PortSystem          1.0
+
+name                iodine
+version             0.7.0
+categories          net
+platforms           darwin
+maintainers         gmail.com:tomhennigan
+license             ISC
+
+description         IPv4 over DNS
+
+long_description    iodine lets you tunnel IPv4 data through a DNS server. \
+                    This can be usable in different situations where \
+                    internet access is firewalled, but DNS queries are allowed.
+
+homepage            http://code.kryo.se/iodine/
+master_sites        http://code.kryo.se/iodine/
+
+checksums           sha1    f4c49305b6f46a547b160b3bd8c962942d701a63 \
+                    rmd160  9552890a18bcd9b4576dd096a4cda8d9973dfc34 \
+                    sha256  ad2b40acf1421316ec15800dcde0f587ab31d7d6f891fa8b9967c4ded93c013e
+
+patchfiles          patch-Makefile.diff
+
+post-patch {
+    reinplace "s|@PREFIX@|${prefix}|" ${worksrcpath}/Makefile
+}
+
+use_configure       no
+
+variant universal {}
+
+build.args-append   CC="${configure.cc} [get_canonical_archflags cc]" \
+                    CXX="${configure.cxx} [get_canonical_archflags cxx]" \
+                    CPP=${configure.cpp}
+
+livecheck.type      regex
+livecheck.regex     ${name}-(.+?)${extract.suffix}

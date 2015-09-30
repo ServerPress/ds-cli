@@ -1,0 +1,37 @@
+# $Id: Portfile 99557 2012-11-09 23:45:22Z raimue@macports.org $
+
+PortSystem 1.0
+PortGroup  muniversal 1.0
+
+name                libmikmod
+epoch               1
+version             3.2.0
+categories          audio
+license             LGPL-2+
+maintainers         nomaintainer
+description         portable sound library
+platforms           darwin
+
+long_description    libmikmod is a portable sound library for Unix systems. \
+                    It can play IT, XM, S3M, MTM, 669, STM, ULT, FAR, MED, \
+                    AMF, DSM, IMF, GDM, STX, OKT, and MOD module formats.
+
+homepage            http://mikmod.shlomifish.org/
+master_sites        ${homepage}files/
+
+checksums           rmd160  066db43670878914774f16b2c5444acfa8e86f28 \
+                    sha256  734c8490bbf9b0c587920b92414dcfa3c2267838a0cdf698d5f1fb6bba8f661e
+
+merger_arch_compiler yes
+
+patchfiles          patch-ngvolume
+
+configure.optflags  -Os
+configure.args      --mandir=${prefix}/share/man --infodir=${prefix}/share/info
+
+variant esound description {Enable esound support} {
+    depends_lib-append  port:esound
+}
+
+livecheck.type      regex
+livecheck.regex     libmikmod-(\\d+(?:\\.\\d+)*(?:-(?:alpha|beta)\\d)?)\\.tar\\.gz

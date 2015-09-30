@@ -1,0 +1,18 @@
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         UUID 0.05
+revision            1
+license             Artistic-1
+maintainers         nomaintainer
+description         Perl extension for using UUID interfaces.
+long_description    Perl extension for using UUID interfaces as defined \
+                    in e2fsprogs.
+
+platforms           darwin
+
+checksums           rmd160  65d5540772fd3d63b8631a093021f15c60e4eb38 \
+                    sha256  dfdf6ffc86f6af5ab021b0d862b3bf77388a302f1796377b7fbd48ad61b5312c

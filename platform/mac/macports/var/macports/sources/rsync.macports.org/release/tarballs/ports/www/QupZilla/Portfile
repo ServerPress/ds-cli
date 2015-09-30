@@ -1,0 +1,37 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 132257 2015-01-28 08:57:14Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+PortGroup           qmake 1.0
+
+github.setup        QupZilla qupzilla 1.8.6 v
+name                QupZilla
+categories          www
+platforms           darwin
+maintainers         ryandesign openmaintainer
+license             GPL-3+
+
+description         fast lightweight web browser made with QtWebKit
+
+long_description    QupZilla is a ${description}. QupZilla has all the \
+                    standard features you expect from a web browser, \
+                    including bookmarks, history, tabbed browsing, RSS \
+                    feeds, ad blocking, Flash blocking, and an SSL \
+                    certificate manager.
+
+homepage            http://www.qupzilla.com/
+
+checksums           rmd160  add007d2c4381a24bf36aae506f9ab9097b85936 \
+                    sha256  6671b69dddcd5d9d95cbce0290b43a3618e725d24caae0113c841f944c0c5781
+
+depends_run-append  port:qt4-mac-sqlite3-plugin
+
+patchfiles          patch-mac-macdeploy.sh.diff
+
+build.args-append   QUPZILLA_PREFIX=${prefix}/
+
+destroot {
+    system -W ${worksrcpath} "./mac/macdeploy.sh true"
+    copy ${worksrcpath}/bin/QupZilla.app ${destroot}${applications_dir}
+}

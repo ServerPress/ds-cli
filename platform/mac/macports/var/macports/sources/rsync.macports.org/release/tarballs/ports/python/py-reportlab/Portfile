@@ -1,0 +1,47 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137596 2015-06-15 07:56:36Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-reportlab
+version             3.2.0
+revision            0
+categories-append   textproc
+platforms           darwin
+license             BSD
+
+python.versions     27 34
+
+maintainers         stromnov openmaintainer
+
+description         Engine for creating PDF documents
+
+long_description    The ReportLab Toolkit is a library for programatically \
+                    creating documents in PDF format.
+
+homepage            http://www.reportlab.com/software/opensource/rl-toolkit/
+master_sites        https://pypi.python.org/packages/source/r/reportlab/ \
+                    http://www.reportlab.com/ftp/
+
+distname            reportlab-${version}
+
+checksums           rmd160  1483f863ea2df098016ef039679a7391b80aae6f \
+                    sha256  72e687662bd854776407b9108483561831b45546d935df8b0477708199086293
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:freetype \
+                        path:${python.pkgd}/PIL:py${python.version}-Pillow
+
+    post-destroot {
+        set docdir ${prefix}/share/doc/${subport}
+        xinstall -m 644 -W ${worksrcpath} README.txt CHANGES.md LICENSE.txt \
+            ${destroot}${docdir}
+    }
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/reportlab/json
+    livecheck.regex     {reportlab-(\d+(?:\.\d+)*)\.[tz]}
+}

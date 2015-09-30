@@ -1,0 +1,98 @@
+<HEAD>
+<TITLE>Filename substitution</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Directory_stack_substitution.html">Next</A>
+<A HREF="Command_substitution.html">Previous</A>
+<H2>Filename substitution</H2>
+If a word contains any of the characters `*', `?', `[' or `{' or begins with
+the character `~' it is a candidate for filename substitution, also known as
+``globbing''.  This word is then regarded as a pattern (``glob-pattern''), and
+replaced with an alphabetically sorted list of file names which match the
+pattern.
+<P>
+In matching filenames, the character `.' at the beginning of a filename or
+immediately following a `/', as well as the character `/' must be matched
+explicitly (unless either
+<B>globdot</B>
+or
+<B>globstar</B>
+or both are set(+)).  The character `*' matches any string of characters, 
+including the null string.  The character `?' matches any single character.  
+The sequence `[...]' matches any one of the characters enclosed.  
+Within `[...]', a pair of
+characters separated by `-' matches any character lexically between the two.
+<P>
+(+) Some glob-patterns can be negated:
+The sequence `[^...]' matches any single character <I>not</I> specified by the
+characters and/or ranges of characters in the braces.
+<P>
+An entire glob-pattern can also be negated with `^':
+<P>
+<menu>
+&gt; echo *
+<BR>
+bang crash crunch ouch
+<BR>
+&gt; echo ^cr*
+<BR>
+bang ouch
+</menu>
+<P>
+Glob-patterns which do not use `?', `*', or `[]' or which use `{}' or `~'
+(below) are not negated correctly.
+<P>
+The metanotation `a{b,c,d}e' is a shorthand for `abe ace ade'.
+Left-to-right order is preserved: `/usr/source/s1/{oldls,ls}.c' expands
+to `/usr/source/s1/oldls.c /usr/source/s1/ls.c'.  The results of matches are
+sorted separately at a low level to preserve this order:
+`../{memo,*box}' might expand to `../memo ../box ../mbox'.
+(Note that `memo' was not sorted with the results of matching `*box'.)
+It is not an error when this construct expands to files which do not exist,
+but it is possible to get an error from a command to which the expanded list
+is passed.
+This construct may be nested.
+As a special case the words `{', `}' and `{}' are passed undisturbed.
+<P>
+The character `~' at the beginning of a filename refers to home directories.
+Standing alone, i.e., `~', it expands to the invoker's home directory as
+reflected in the value of the <B><A HREF="Special_shell_variables.html#home">home</A></B> shell variable.  When followed by a
+name consisting of letters, digits and `-' characters the shell searches for a
+user with that name and substitutes their home directory; thus `~ken' might
+expand to `/usr/ken' and `~ken/chmach' to `/usr/ken/chmach'.  If the character
+`~' is followed by a character other than a letter or `/' or appears elsewhere
+than at the beginning of a word, it is left undisturbed.
+A command like `setenv MANPATH /usr/man:/usr/local/man:~/lib/man' does not,
+therefore, do home directory substitution as one might hope.
+<P>
+It is an error for a glob-pattern containing `*', `?', `[' or `~', with or
+without `^', not to match any files.  However, only one pattern in a list of
+glob-patterns must match a file (so that, e.g., `rm *.a *.c *.o' would fail
+only if there were no files in the current directory ending in `.a', `.c', or
+`.o'), and if the <B><A HREF="Special_shell_variables.html#nonomatch">nonomatch</A></B> shell variable is set a pattern (or list
+of patterns) which matches nothing is left unchanged rather than causing
+an error.
+<P>
+The <B><A HREF="Special_shell_variables.html#globstar">globstar</A></B> shell variable can be set to allow `**' or `***' as 
+a file glob pattern that matches any string of characters including `/',
+recursively traversing any existing sub-directories.  For example, 
+`ls **.c' will list all the .c files in the current directory tree.
+If used by itself, it will match zero or more sub-directories
+(e.g. `ls /usr/include/**/time.h' will list any file named `time.h'
+in the /usr/include directory tree; `ls /usr/include/**time.h' will match 
+any file in the /usr/include directory tree ending in `time.h'; and
+`ls /usr/include/**time**.h' will match any .h file with `time' either
+in a subdirectory name or in the filename itself).
+To prevent problems with recursion, the `**' glob-pattern will not 
+descend into a symbolic link containing a directory.  To override this,
+use `***' (+)
+<P>
+The <B><A HREF="Special_shell_variables.html#noglob">noglob</A></B> shell variable can be set to prevent filename substitution,
+and the <I><A HREF="Editor_commands.html#expand-glob">expand-glob</A></I> editor command, normally bound to `^X-*', can be
+used to interactively expand individual filename substitutions.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Directory_stack_substitution.html">Next</A>
+<A HREF="Command_substitution.html">Previous</A>
+</BODY>

@@ -1,0 +1,32 @@
+# $Id: Portfile 111130 2013-09-15 23:43:38Z jeremyhu@macports.org $
+
+PortSystem          1.0
+
+name                xmodmap
+version             1.0.8
+categories          x11
+license             X11
+maintainers         jeremyhu openmaintainer
+description         Modify keymaps and pointer button mappings in X11
+long_description \
+   The xmodmap program is used to edit and display the keyboard modifier \
+   map and keymap table that are used by client applications to convert \
+   event keycodes into keysyms.
+
+platforms           darwin
+
+homepage            http://www.x.org/
+master_sites        xorg:individual/app/
+use_bzip2           yes
+
+checksums           sha1    44ebb0a1047fc9391422108007c30c64cc0782bc \
+                    rmd160  7f00a783fdf865aa0de22c90cdf379ed33fe38a8 \
+                    sha256  efe2e3c89858a2db3bdcf969f55f55d0af4f5007789198344de0595249a99fc3
+
+depends_build       port:pkgconfig
+
+depends_lib         port:xorg-libX11
+
+livecheck.type      regex
+livecheck.regex     ${name}-(\[\\d.\]+)${extract.suffix}
+livecheck.url       http://xorg.freedesktop.org/archive/individual/app/?C=M&O=D

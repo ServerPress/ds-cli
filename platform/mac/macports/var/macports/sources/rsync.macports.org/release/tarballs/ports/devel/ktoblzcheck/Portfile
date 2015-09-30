@@ -1,0 +1,31 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 125661 2014-09-23 20:23:08Z mk@macports.org $
+
+PortSystem        1.0
+
+name              ktoblzcheck
+version           1.47
+categories        devel finance
+maintainers       mk openmaintainer
+description       a library to check bank account numbers and bank codes
+long_description  ${description}
+platforms         darwin
+license           LGPL-2.1+
+homepage          http://ktoblzcheck.sourceforge.net/
+master_sites      sourceforge
+checksums         md5     fc5f561d268e4962c95d6a88889104f2 \
+                  sha1    bf099879916d22c9334ef94b4e782afecd319226 \
+                  rmd160  91dcaa2f896f4bce1b4a1e075aa41ccd7b66bd84
+
+depends_lib       port:python27
+patchfiles        patch-src_python_ktoblzcheck.py.diff
+configure.python  ${prefix}/bin/python2.7
+configure.args    --enable-static
+set python_prefix    ${frameworks_dir}/Python.framework/Versions/2.7
+set python_libsite   ${python_prefix}/lib/python2.7/site-packages
+configure.env     am_cv_python_pythondir=${python_libsite} \
+                  am_cv_python_pyexecdir=${python_libsite}
+
+livecheck.type    regex
+livecheck.url     http://sourceforge.net/projects/ktoblzcheck/files/
+livecheck.regex   ${name}-(\[0-9.\]+)\\.tar

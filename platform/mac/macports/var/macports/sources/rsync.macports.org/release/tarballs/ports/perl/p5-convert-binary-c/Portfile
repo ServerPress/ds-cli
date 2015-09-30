@@ -1,0 +1,20 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135553 2015-04-26 08:24:12Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Convert-Binary-C 0.76
+platforms           darwin
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+
+description         Perl extension for Binary Data Conversion using C Types
+
+long_description    ${description}
+
+checksums           rmd160  432b92e9626ff180f1e616a32f2c5a5022b57498 \
+                    sha256  4f0ce8dcee618f9a2309161994545b1d019742387627bf647459033ae94952e5
+
+use_parallel_build  no

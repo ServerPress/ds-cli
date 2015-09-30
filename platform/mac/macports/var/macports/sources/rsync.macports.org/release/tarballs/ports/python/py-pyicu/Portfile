@@ -1,0 +1,43 @@
+# $Id: Portfile 135232 2015-04-20 00:15:39Z ryandesign@macports.org $
+
+PortSystem      1.0
+PortGroup       python 1.0
+
+name            py-pyicu
+version         1.8
+revision        2
+categories-append   textproc
+platforms       darwin
+maintainers     nomaintainer
+license         MIT
+
+description     Python extension wrapping IBM's International \
+                Components for Unicode C++ library (ICU)
+
+long_description \
+                ${description}
+
+homepage        http://pyicu.osafoundation.org/
+master_sites    http://pypi.python.org/packages/source/P/PyICU/
+distname        PyICU-${version}
+
+checksums       rmd160  9793711f1bcf65cf1f6d1ff6f83bab418b61bcf3 \
+                sha256  bc499fc858dce96041edaee4f345084fc5f245c2a3b79a759a095a2a500f66f8
+
+python.versions 27 34
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:icu
+
+    patchfiles          patch-setup.py
+
+    post-patch {
+        reinplace "s|@PREFIX@|${prefix}|g" ${worksrcpath}/setup.py
+    }
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       [lindex ${master_sites} 0]
+    livecheck.regex     PyICU-(\[0-9.\]+)${extract.suffix}
+}

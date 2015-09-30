@@ -1,0 +1,40 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 132132 2015-01-23 22:53:08Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+PortGroup           gobject_introspection 1.0
+
+github.setup        pavouk lgi 0.8.0
+name                lua-lgi
+
+maintainers         nomaintainer
+categories          devel
+platforms           darwin
+license             MIT
+
+description         Dynamic Lua binding to GObject libraries using \
+                    GObject-Introspection
+long_description    LGI is gobject-introspection based dynamic Lua binding to \
+                    GObject based libraries. It allows using GObject-based \
+                    libraries directly from Lua.
+
+checksums           rmd160  255fc61d928133b797a494ca468b440e117dd0db \
+                    sha256  8a6d4d4a8035b9a2fcece15c3cfed3b75edc419ac254ff4fd7d421b87312eac1
+
+depends_build-append \
+                    port:pkgconfig
+
+depends_lib-append  port:lua
+
+patchfiles          patch-dylib-path.diff
+
+post-patch {
+    reinplace "s|%PREFIX%|${prefix}|g" ${worksrcpath}/lgi/core.c
+}
+
+gobject_introspection yes
+
+use_configure       no
+
+destroot.post_args PREFIX=${destroot}${prefix} LUA_VERSION=5.2

@@ -1,0 +1,35 @@
+# $Id: Portfile 130601 2015-01-02 01:31:34Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-mpmath
+version             0.18
+categories-append   math
+license             BSD
+maintainers         nomaintainer
+
+description         Arbitrary-precision floating-point library for Python
+long_description \
+   Mpmath is a pure-Python library for arbitrary-precision floating-point \
+   arithmetic that implements an extensive set of mathematical functions.
+
+platforms           darwin
+supported_archs     noarch
+
+homepage            http://code.google.com/p/mpmath/
+master_sites        googlecode:mpmath
+distname            mpmath-${version}
+
+checksums           rmd160  83979e4e4b9c11158d2a94c52302620ad94d63e5 \
+                    sha256  12306dc2340f59178681fcb28ef4d727702c7ad3e64f81a2d970c4c91afe461e
+
+python.versions     27
+
+if {${name} ne ${subport}} {
+    post-destroot {
+       xinstall -m 755 -d ${destroot}${prefix}/share/doc/${subport}
+       xinstall -m 644 -W ${worksrcpath} CHANGES LICENSE \
+          ${destroot}${prefix}/share/doc/${subport}
+    }
+}

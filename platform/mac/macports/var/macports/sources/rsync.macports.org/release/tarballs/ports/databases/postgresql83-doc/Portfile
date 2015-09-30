@@ -1,0 +1,43 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 104833 2013-04-03 17:38:00Z jwa@macports.org $
+
+PortSystem 1.0
+
+name			postgresql83-doc
+version			8.3.23
+categories		databases
+platforms		darwin
+maintainers		mww jwa
+license			Permissive
+description		Documentation for the postgresql database
+long_description PostgreSQL is Object-Relational Database Management System. \
+				It supports almost all SQL constructs, including transactions, \
+				subselects, and user-defined types and functions. Write-ahead \
+				logging means increased performance while retaining data \
+				integrity. This is the documentation.
+
+homepage		http://www.postgresql.org/
+master_sites		postgresql:source/v${version}
+distname		postgresql-${version}
+
+checksums           rmd160  ac0ee6a829f04e7cdca0179a2c881244c54f31cd \
+                    sha256  17a46617ddbeb16f37d79b43f4e72301b051e6ef888a2eac960375bf579018d9
+
+use_bzip2		yes
+dist_subdir		postgresql83
+
+set libdir		${prefix}/lib/postgresql83
+configure.args	--mandir=${prefix}/share/man \
+				--with-docdir=${prefix}/share/doc/postgresql83 \
+				--without-openssl \
+				--without-rendezvous \
+				--without-readline \
+				--without-zlib
+
+build.dir		${worksrcpath}/doc
+build.type		gnu
+build.target
+
+destroot.dir	${build.dir}
+
+livecheck.type	none

@@ -1,0 +1,63 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 121084 2014-06-17 08:59:59Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           app       1.0
+PortGroup           github    1.0
+PortGroup           wxWidgets 1.0
+
+github.setup        wojdyr fityk 1.2.9 v
+name                fityk
+categories          math
+platforms           darwin
+license             GPL-2
+maintainers         nomaintainer
+
+description         fityk is for peak fitting.
+
+long_description    fityk is a program for nonlinear fitting of analytical \
+                    functions (especially peak-shaped) to data (usually \
+                    experimental data). There are also people using it to \
+                    remove the baseline from data, or to display data only.
+
+homepage            http://fityk.nieto.pl/
+
+checksums           rmd160  2a47cc48ba9f5d5ab70e8987d86a4f3a74caa159 \
+                    sha256  0357fd0923984cc2d6ff045e0ed7dfe28f76fac85041a88eb00ce27e2710f55e
+
+app.name            fityk
+app.executable      fityk
+app.icon            ${worksrcpath}/fityk.png
+
+wxWidgets.use       wxWidgets-3.0
+
+# WARNING: dvipng command 'dvipng' cannot be run (needed for math display), check the pngmath_dvipng setting
+depends_build-append port:swig-lua
+
+depends_lib         port:boost \
+                    port:readline \
+                    port:ncurses \
+                    port:xylib \
+                    port:lua \
+                    port:zlib \
+                    port:python27 \
+                    port:${wxWidgets.port}
+
+depends_run         port:gnuplot
+
+use_autoreconf      yes
+
+configure.args-append --with-wxdir=${wxWidgets.wxdir}
+
+pre-build {
+    if {[variant_isset docs]} {
+        depends_build-append port:py27-sphinx
+        # TODO: use a python PortGroup and variable
+        reinplace "s|sphinx-build|${prefix}/Library/Frameworks/Python.framework/Versions/2.7/bin/sphinx-build|" ${worksrcpath}/doc/Makefile
+        system -W ${worksrcpath}/doc make
+    } else {
+        file mkdir ${worksrcpath}/doc/html/placeholder
+    }
+}
+
+variant docs description {Build and install documentation} {}

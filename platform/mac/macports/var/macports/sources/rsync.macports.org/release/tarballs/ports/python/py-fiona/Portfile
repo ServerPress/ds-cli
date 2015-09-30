@@ -1,0 +1,42 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134345 2015-03-23 14:36:20Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-fiona
+version             1.5.1
+revision            0
+categories-append   gis
+platforms           darwin
+license             BSD
+
+python.versions     27 34
+
+maintainers         stromnov openmaintainer
+
+description         OGR's neat, nimble, no-nonsense API for Python programmers.
+
+long_description    Fiona provides uncomplicated Python interfaces \
+                    to functions in OGR, the best open source C/C++ \
+                    library for reading and writing geographic vector data.
+
+homepage            http://github.com/Toblerity/Fiona
+master_sites        https://pypi.python.org/packages/source/F/Fiona/
+
+distname            Fiona-${version}
+
+checksums           rmd160  f64ccbc3d6d53a833e63705d2ae1b82c77d4f7b2 \
+                    sha256  2e2469190107dc671b4aa05d5b8bed5c01ffeb9de79525c91129bad76915e095
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:py${python.version}-setuptools \
+                        port:py${python.version}-six \
+                        port:gdal
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/fiona/json
+    livecheck.regex     {Fiona-(\d+(?:\.\d+)*)\.[tz]}
+}

@@ -1,0 +1,19 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130766 2015-01-02 16:04:18Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         ExtUtils-Manifest 1.70
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         utilities to write and check a MANIFEST file
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  bce8a59cf51da8bf0e25964828aa4285af068367 \
+                    sha256  eeff062050b223964cd8f624a90ae75df443612239df34a20ff87644f9f52b95
+
+supported_archs     noarch

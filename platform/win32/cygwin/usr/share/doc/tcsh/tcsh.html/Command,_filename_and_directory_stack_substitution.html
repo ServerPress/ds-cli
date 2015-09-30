@@ -1,0 +1,19 @@
+<HEAD>
+<TITLE>Command, filename and directory stack substitution</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Command_substitution.html">Next</A>
+<A HREF="Variable_substitution.html">Previous</A>
+<H2>Command, filename and directory stack substitution</H2>
+The remaining substitutions are applied selectively to the arguments of builtin
+commands.  This means that portions of expressions which are not evaluated are
+not subjected to these expansions.  For commands which are not internal to the
+shell, the command name is substituted separately from the argument list.  This
+occurs very late, after input-output redirection is performed, and in a child
+of the main shell.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Command_substitution.html">Next</A>
+<A HREF="Variable_substitution.html">Previous</A>
+</BODY>

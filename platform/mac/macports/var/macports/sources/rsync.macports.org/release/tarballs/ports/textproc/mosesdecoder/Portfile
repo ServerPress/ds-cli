@@ -1,0 +1,66 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 98599 2012-10-09 15:46:33Z hum@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        moses-smt mosesdecoder f4471692ba51aeec3cf9867fcabe2c4fc7d4cb33
+version             20121007
+
+categories          textproc
+maintainers         hum openmaintainer
+
+description         a statistical machine translation system
+
+long_description    Moses is a statistical machine translation system that \
+                    allows you to automatically train translation models for \
+                    any language pair. All you need is a collection of \
+                    translated texts (parallel corpus). An efficient search \
+                    algorithm finds quickly the highest probability translation \
+                    among the exponential number of choices.
+
+homepage            http://www.statmt.org/moses/
+platforms           darwin
+license             LGPL
+
+checksums           rmd160  f64d5bc5012cde499569b7b6f2bf1c8877bd91cf \
+                    sha256  bd7db39e836668fff7e75ff6256fb643e21f9fb768e88a6eb7482190d7310939
+
+depends_lib         port:boost \
+                    port:zlib
+
+# binaries are installed at ${libexec_dir}.
+set libexec_dir     ${prefix}/libexec/${name}
+
+# set _EXTERNAL_BINDIR (-external-bin-dir) to ${prefix}/bin.
+patchfiles          patch-train-model.perl.diff
+
+post-patch {
+    set f ${worksrcpath}/scripts/training/train-model.perl
+    reinplace "s|@prefix@|${prefix}|g" ${f}
+    reinplace "s|\$SCRIPTS_ROOTDIR/\\.\\./bin/|${libexec_dir}/|g" ${f}
+}
+
+use_configure       no
+
+build.cmd           ./bjam
+build.target
+build.args          --with-macports=${prefix}
+
+destroot.args       ${build.args} \
+                    --bindir=${destroot}${libexec_dir} \
+                    --includedir=${destroot}${prefix}/include/${name}
+destroot.destdir    --prefix=${destroot}${prefix}
+
+post-destroot {
+    # install scripts.
+    set scripts_dir ${libexec_dir}/scripts
+    set args "${build.args} --install-scripts=${destroot}${scripts_dir}"
+    system -W ${worksrcpath}/scripts "../bjam ${args}"
+    # link some binaries to bin.
+    foreach file {moses moses_chart} {
+        ln -s ${libexec_dir}/${file} ${destroot}${prefix}/bin/${file}
+    }
+}
+
+livecheck.type      none

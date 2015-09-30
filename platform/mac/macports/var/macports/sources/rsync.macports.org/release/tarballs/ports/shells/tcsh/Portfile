@@ -1,0 +1,34 @@
+# $Id: Portfile 96355 2012-08-07 22:21:38Z jmr@macports.org $
+
+PortSystem 1.0
+
+name            tcsh
+version         6.18.01
+categories      shells
+maintainers     nomaintainer
+license         BSD
+
+description     C shell with file name completion and command line editing 
+long_description \
+    Tcsh is a version of the Berkeley C-Shell, with the addition of: a  \
+    command line editor, command and file name completion, listing, etc.\
+    and a bunch of small additions to the shell itself.
+
+homepage        http://www.tcsh.org/Home
+platforms       darwin
+master_sites    ftp://ftp.funet.fi/pub/unix/shells/${name}/ \
+                ftp://ftp.astron.com/pub/${name}/ \
+                ftp://ftp.gw.com/pub/unix/${name}/ 
+
+checksums       rmd160  ea18bb6d4d6dca2700d74daa2940f67d45a18cb9 \
+                sha256  d81ca27851f3e8545666399b4bcf25433e602a195113b3f7c73886fef84c9fa8
+
+patchfiles      patch-Makefile.in.diff
+
+destroot.target install install.man
+depends_lib     port:libiconv \
+                port:ncurses
+
+livecheck.type  regex
+livecheck.url   http://www.tcsh.org/MostRecentRelease
+livecheck.regex {>([0-9.]+)<}

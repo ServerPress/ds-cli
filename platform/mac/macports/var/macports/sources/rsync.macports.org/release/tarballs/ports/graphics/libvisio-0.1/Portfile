@@ -1,0 +1,62 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137831 2015-06-20 23:34:41Z devans@macports.org $
+
+PortSystem          1.0
+
+name                libvisio-0.1
+set dname           libvisio
+version             0.1.1
+revision            2
+categories          graphics
+platforms           darwin
+maintainers         devans openmaintainer
+license             LGPL-2
+
+description         Libvisio is a C++ library for reading and parsing \
+                    drawings in VSD (Visio) format.
+
+long_description    ${description} VSD is the format used by Visio.
+
+homepage            https://wiki.documentfoundation.org/DLP/Libraries/${dname}
+master_sites        http://dev-www.libreoffice.org/src/${dname}
+
+use_xz              yes
+
+distname            ${dname}-${version}
+
+checksums           sha256  4b510168d1465516fdf6e57c01e2f9eae1fc0ae232c74e44e70693bbc49227f1 \
+                    rmd160  46bab63e5bcef89eea264411afdbe1b2fb716d61
+
+depends_build       port:pkgconfig
+
+depends_lib         port:librevenge \
+                    port:boost \
+                    port:cppunit \
+                    port:icu \
+                    port:libxml2 \
+                    port:zlib
+
+patchfiles          patch-src-lib-VSDMetaData.cpp.diff
+
+# Version 0.1.1's glibtool doesn't know to pass -stdlib=... to the linker
+use_autoreconf      yes
+autoreconf.args     -fvi
+
+configure.args      --without-docs \
+                    --disable-silent-rules \
+                    --disable-werror
+
+# delete binaries that conflict with libvisio
+
+post-destroot {
+    file delete -force ${destroot}${prefix}/bin
+}
+
+variant docs description {Build documentation using doxygen} {
+    depends_build-append    port:doxygen
+    configure.args-delete   --without-docs
+}
+    
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     \"${dname}-(\[0-9.\]+)${extract.suffix}\"

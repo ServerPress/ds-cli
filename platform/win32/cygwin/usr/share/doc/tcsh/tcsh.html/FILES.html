@@ -1,0 +1,98 @@
+<HEAD>
+<TITLE>FILES</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="NEW_FEATURES.html">Next</A>
+<A HREF="ENVIRONMENT.html">Previous</A>
+<H2>FILES</H2>
+<P>
+<DL compact>
+<DT>
+<I><A NAME="/etc/csh.cshrc">/etc/csh.cshrc</A></I>
+<DD>
+Read first by every shell.
+ConvexOS, Stellix and Intel use <I>/etc/cshrc</I> and
+NeXTs use <I>/etc/cshrc.std</I>.
+A/UX, AMIX, Cray and IRIX have no equivalent in <I>csh</I>(1),
+but read this file in <I>tcsh</I> anyway.
+Solaris 2.x does not have it either, but <I>tcsh</I> reads <I>/etc/.cshrc</I>.  (+)
+<P>
+<DT>
+<I><A NAME="/etc/csh.login">/etc/csh.login</A></I>
+<DD>
+Read by login shells after <I><A HREF="FILES.html#/etc/csh.cshrc">/etc/csh.cshrc</A></I>.
+ConvexOS, Stellix and Intel use <I>/etc/login</I>,
+NeXTs use <I>/etc/login.std</I>, Solaris 2.x uses <I>/etc/.login</I> and
+A/UX, AMIX, Cray and IRIX use <I>/etc/cshrc</I>.
+<P>
+<DT>
+<I><A NAME="~/.tcshrc">~/.tcshrc</A> </I>(+)
+<DD>
+Read by every shell after <I><A HREF="FILES.html#/etc/csh.cshrc">/etc/csh.cshrc</A></I> or its equivalent.
+<P>
+<DT>
+<I><A NAME="~/.cshrc">~/.cshrc</A></I>
+<DD>
+Read by every shell, if <I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I> doesn't exist,
+after <I><A HREF="FILES.html#/etc/csh.cshrc">/etc/csh.cshrc</A></I> or its equivalent.
+This manual uses `<I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I>' to mean `<I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I> or,
+if <I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I> is not found, <I><A HREF="FILES.html#~/.cshrc">~/.cshrc</A></I>'.
+<P>
+<DT>
+<I><A NAME="~/.history">~/.history</A></I>
+<DD>
+Read by login shells after <I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I>
+if <B><A HREF="Special_shell_variables.html#savehist">savehist</A></B> is set, but see also <B><A HREF="Special_shell_variables.html#histfile">histfile</A></B>.
+<P>
+<DT>
+<I><A NAME="~/.login">~/.login</A></I>
+<DD>
+Read by login shells after <I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I> or <I><A HREF="FILES.html#~/.history">~/.history</A></I>.
+The shell may be compiled to read <I><A HREF="FILES.html#~/.login">~/.login</A></I> before instead of after
+<I><A HREF="FILES.html#~/.tcshrc">~/.tcshrc</A></I> and <I><A HREF="FILES.html#~/.history">~/.history</A></I>; see the <B><A HREF="Special_shell_variables.html#version">version</A></B> shell variable.
+<P>
+<DT>
+<I><A NAME="~/.cshdirs">~/.cshdirs</A> </I>(+)
+<DD>
+Read by login shells after <I><A HREF="FILES.html#~/.login">~/.login</A></I>
+if <B><A HREF="Special_shell_variables.html#savedirs">savedirs</A></B> is set, but see also <B><A HREF="Special_shell_variables.html#dirsfile">dirsfile</A></B>.
+<P>
+<DT>
+<I><A NAME="/etc/csh.logout">/etc/csh.logout</A></I>
+<DD>
+Read by login shells at logout.
+ConvexOS, Stellix and Intel use <I>/etc/logout</I> and
+NeXTs use <I>/etc/logout.std</I>.
+A/UX, AMIX, Cray and IRIX have no equivalent in <I>csh</I>(1),
+but read this file in <I>tcsh</I> anyway.
+Solaris 2.x does not have it either, but <I>tcsh</I> reads <I>/etc/.logout</I>.  (+)
+<P>
+<DT>
+<I><A NAME="~/.logout">~/.logout</A></I>
+<DD>
+Read by login shells at logout after <I><A HREF="FILES.html#/etc/csh.logout">/etc/csh.logout</A></I> or its equivalent.
+<P>
+<DT>
+<I><A NAME="/bin/sh">/bin/sh</A></I>
+<DD>
+Used to interpret shell scripts not starting with a `#'.
+<P>
+<DT>
+<I><A NAME="/tmp/sh*">/tmp/sh*</A></I>
+<DD>
+Temporary file for `&lt;&lt;'.
+<P>
+<DT>
+<I><A NAME="/etc/passwd">/etc/passwd</A></I>
+<DD>
+Source of home directories for `~name' substitutions.
+</DL>
+<P>
+The order in which startup files are read may differ if the shell was so
+compiled; see <B><A HREF="Startup_and_shutdown.html">Startup and shutdown</A></B> and the <B><A HREF="Special_shell_variables.html#version">version</A></B> shell variable.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="NEW_FEATURES.html">Next</A>
+<A HREF="ENVIRONMENT.html">Previous</A>
+</BODY>

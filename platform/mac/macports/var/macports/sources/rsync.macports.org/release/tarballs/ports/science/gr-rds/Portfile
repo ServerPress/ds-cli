@@ -1,0 +1,80 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136255 2015-05-13 17:24:44Z michaelld@macports.org $
+
+PortSystem          1.0
+PortGroup           cmake 1.0
+PortGroup           github 1.0
+
+github.setup        bastibl gr-rds 201f32bb15e738fc8491039c7176b9b1643c27e2
+version             20150512
+checksums           rmd160 8c3f95fd214dd890aedbf72b72d2de17a57688a6 \
+                    sha256 c98efac2472fe025a6d1f62e53e513783783a4bb887ffc7a9cf4ae6155ba3a47
+
+categories          science comms
+maintainers         michaelld openmaintainer
+description         Provides the Radio Data System (RDS) block for GNU Radio.
+long_description    ${description}
+license             GPL-2+
+platforms           darwin
+
+depends_build-append port:pkgconfig
+depends_lib-append  port:boost \
+                    port:doxygen \
+                    port:libxml2 \
+                    port:swig
+depends_run-append  port:gr-osmosdr
+
+# allow gr-osmosdr to work with both gnuradio and gnuradio-devel ...
+
+depends_lib-append  path:lib/libgnuradio-runtime.dylib:gnuradio
+
+# ... but not with gnuradio-legacy or gnuradio-next
+
+pre-fetch {
+    if {![catch {set installed [lindex [registry_active gnuradio-legacy] 0]}]} {
+        # gnuradio-legacy is installed; this version of gr-osmosdr does not work with gnuradio-legacy
+        ui_msg "\nError: ${name} requires the gnuradio or gnuradio-devel port, and will not work with the gnuradio-legacy port.  deactivate gnuradio-legacy, and then install or activate gnuradio or gnuradio-devel.\n"
+        return -code error "Invalid port dependency: gnuradio-legacy"
+    }
+    if {![catch {set installed [lindex [registry_active gnuradio-next] 0]}]} {
+        # gnuradio-next is installed; this version of gr-osmosdr does not work with gnuradio-next
+        ui_msg "\nError: ${name} requires the gnuradio or gnuradio-devel port, and will not work with the gnuradio-next port.  deactivate gnuradio-next, and then install or activate gnuradio or gnuradio-devel.\n"
+        return -code error "Invalid port dependency: gnuradio-next"
+    }
+}
+
+# do VPATH (out of source tree) build
+
+cmake.out_of_source yes
+
+# patch to fix use of binary literal -> hex literal to be more
+# compatible with older compilers
+
+patchfiles-append patch-lib_encoder_impl.cc.diff
+
+# remove top-level library path, such that internal libraries are used
+# instead of any already-installed ones.
+
+configure.ldflags-delete -L${prefix}/lib
+
+# specify the Python dependencies
+
+depends_lib-append \
+    port:python27
+
+# specify the Python version to use
+
+configure.args-append \
+    -DPYTHON_EXECUTABLE=${prefix}/Library/Frameworks/Python.framework/Versions/2.7/bin/python2.7 \
+    -DPYTHON_INCLUDE_DIR=${prefix}/Library/Frameworks/Python.framework/Versions/2.7/Headers \
+    -DPYTHON_LIBRARY=${prefix}/Library/Frameworks/Python.framework/Versions/2.7/Python \
+    -DGR_PYTHON_DIR=${frameworks_dir}/Python.framework/Versions/2.7/lib/python2.7/site-packages
+
+post-destroot {
+
+    # copy the provided app into examples
+    xinstall -m 755 -d ${destroot}/${prefix}/share/gnuradio/examples/grc/rds
+    xinstall -m 644 -W ${worksrcpath} apps/rds_rx.grc \
+        ${destroot}/${prefix}/share/gnuradio/examples/grc/rds
+
+}

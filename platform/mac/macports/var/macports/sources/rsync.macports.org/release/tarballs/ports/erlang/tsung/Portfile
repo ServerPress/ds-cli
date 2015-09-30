@@ -1,0 +1,47 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 123277 2014-08-07 20:25:59Z mf2k@macports.org $
+
+PortSystem          1.0
+
+name                tsung
+version             1.4.2
+revision            1
+set perl_version    5.16
+categories          erlang devel
+platforms           darwin
+maintainers         nomaintainer
+license             GPL-2+
+supported_archs     noarch
+
+description         Load test tool for HTTP, PostgreSQL, Jabber and others.
+
+long_description    Tsung (formerly IDX-Tsunami) is a distributed load \
+                    testing tool. It is protocol-independent and can \
+                    currently be used to stress HTTP, SOAP, PostgreSQL, \
+                    and Jabber servers.
+
+homepage            http://tsung.erlang-projects.org/
+master_sites        ${homepage}dist/
+
+checksums           rmd160  6256621446213256e1865ca07e4136b08fde0ad7 \
+                    sha256  66608f551a8381dd853ead64c0e44255e64f25db05d3458a2e9c557d72a34d6e
+
+depends_lib         port:erlang \
+                    port:mochiweb \
+                    port:gnuplot \
+                    port:p${perl_version}-template-toolkit \
+                    port:rrdtool
+
+patchfiles          patch-Makefile.in.diff
+
+build.target        all doc
+
+post-patch {
+    reinplace -locale C "s|/usr/bin/perl|${prefix}/bin/perl${perl_version}|" \
+        ${worksrcpath}/src/tsung-rrd.pl.in \
+        ${worksrcpath}/src/tsung_stats.pl.in
+    reinplace "s|/usr/bin/env perl|${prefix}/bin/perl${perl_version}|" \
+        ${worksrcpath}/src/log2tsung.pl.in
+    reinplace "s| /usr/bin/python|${prefix}/bin/python2.7|" \
+        ${worksrcpath}/src/tsung-plotter/tsung/tsung.py
+}

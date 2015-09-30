@@ -1,0 +1,29 @@
+# $Id: Portfile 130923 2015-01-04 03:41:37Z larryv@macports.org $
+
+PortSystem 1.0
+PortGroup python 1.0
+
+name			py-webstack
+version			1.0
+categories-append	www
+license			LGPL-2.1+
+platforms		darwin
+supported_archs	noarch
+maintainers		nomaintainer
+description		python module providing a simple, common API for web applications
+long_description	${description}
+
+homepage		http://www.boddie.org.uk/python/WebStack.html
+master_sites	http://www.boddie.org.uk/python/downloads/ \
+		http://pypi.python.org/packages/source/W/WebStack/
+distname		WebStack-${version}
+checksums		md5 0bc82ce99ca08ed8686529bb371ec33e
+
+python.versions	27
+
+if {${name} ne ${subport}} {
+    post-destroot	{
+        xinstall -m 644 -W ${worksrcpath} README.txt \
+            ${destroot}${prefix}/share/doc/${subport}
+    }
+}

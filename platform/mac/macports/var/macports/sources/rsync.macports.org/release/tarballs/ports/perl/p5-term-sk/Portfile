@@ -1,0 +1,21 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 132509 2015-02-02 21:07:21Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Term-Sk 0.17
+
+platforms           darwin
+maintainers         nomaintainer
+license             {Artistic-1 GPL}
+
+supported_archs     noarch
+
+description         Term::Sk - Perl extension for displaying a progress indicator on a terminal.
+
+long_description    ${description}
+
+checksums           rmd160  4cb1320988e03c085346f451601ed6d4ceaa2dd3 \
+                    sha256  7d2037f936ee27b22fb7d883da776a9bbf897c277a757308d1dc50f7895282b3

@@ -1,0 +1,46 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135833 2015-05-04 20:42:50Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           gobject_introspection 1.0
+
+name                uhttpmock
+version             0.4.0
+description         A HTTP web service mocking library for GNOME.
+
+long_description    ${description}
+
+maintainers         devans openmaintainer
+categories          gnome net
+license             LGPL-2.1+
+platforms           darwin
+homepage            https://gitlab.com/groups/${name}
+master_sites        http://tecnocode.co.uk/downloads/${name}/
+
+use_xz              yes
+
+checksums           rmd160  3b0323dc7bbac3a613cd8c80e6fd9738c82006d9 \
+                    sha256  0d9a75ac66070879a14caabddfaa7bd4e888e2abb03f9ac73610921ed341b571
+
+depends_build       port:pkgconfig
+
+depends_lib         path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                    port:libsoup \
+                    port:vala
+
+gobject_introspection yes
+
+patchfiles          patch-m4-ax_compiler_flags_ldflags.m4.diff
+
+use_autoreconf      yes
+autoreconf.args     -fvi
+
+configure.args      --enable-vala \
+                    --enable-compile-warnings=minimum
+
+test.run            yes
+test.target         check
+
+livecheck.type      regex
+livecheck.url       ${master_sites}
+livecheck.regex     "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

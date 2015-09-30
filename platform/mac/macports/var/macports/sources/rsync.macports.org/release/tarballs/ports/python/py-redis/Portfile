@@ -1,0 +1,38 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 132417 2015-01-31 21:30:47Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-redis
+version             2.10.3
+revision            0
+categories-append   devel
+platforms           darwin
+license             MIT
+supported_archs     noarch
+
+python.versions     26 27 33 34
+
+maintainers         stromnov openmaintainer
+
+description         Python client for Redis key-value store
+long_description    ${description}
+
+homepage            http://github.com/andymccurdy/redis-py
+master_sites        https://pypi.python.org/packages/source/r/redis/
+
+distname            redis-${version}
+
+checksums           rmd160  7864eaac18bdaeb9f3814cf5305ff685a1ced9aa \
+                    sha256  a4fb37b02860f6b1617f6469487471fd086dd2d38bbce640c2055862b9c4019c
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-setuptools
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/redis/json
+    livecheck.regex     {redis-(\d+(?:\.\d+)*)\.[tz]}
+}

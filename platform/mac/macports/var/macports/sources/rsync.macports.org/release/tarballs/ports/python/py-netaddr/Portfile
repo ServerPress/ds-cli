@@ -1,0 +1,36 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138142 2015-06-30 07:40:53Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-netaddr
+version             0.7.15
+revision            0
+categories-append   devel
+platforms           darwin
+license             BSD MIT
+supported_archs     noarch
+
+python.versions     27 34
+
+maintainers         stromnov openmaintainer
+
+description         A network address manipulation library for Python
+long_description    ${description}
+
+homepage            http://github.com/drkjam/netaddr/
+master_sites        https://pypi.python.org/packages/source/n/netaddr/
+
+distname            netaddr-${version}
+
+checksums           rmd160  4eacf725f58b52e68f1941fc86ef8560d14c2d56 \
+                    sha256  d5b5bb3f4e9a94f93d232bb876e567517d8fb59e5bebb5339483b44df5529d11
+
+if {${name} ne ${subport}} {
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/netaddr/json
+    livecheck.regex     {netaddr-(\d+(?:\.\d+)*)\.[tz]}
+}

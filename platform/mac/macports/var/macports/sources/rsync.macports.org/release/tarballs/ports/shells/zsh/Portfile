@@ -1,0 +1,94 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 126367 2014-10-09 02:07:28Z larryv@macports.org $
+
+PortSystem              1.0
+
+name                    zsh
+version                 5.0.7
+categories              shells
+platforms               darwin
+license                 Permissive
+maintainers             larryv
+
+description             Zsh is a UNIX command interpreter (shell)
+long_description        Zsh is a UNIX command interpreter (shell) which \
+                        of the standard shells most resembles the Korn \
+                        shell (ksh), although it is not completely \
+                        compatible. It includes enhancements of many \
+                        types, notably in the command-line editor, \
+                        options for customising its behaviour, filename \
+                        globbing, features to make C-shell (csh) users \
+                        feel more at home and extra features drawn from \
+                        tcsh (another 'custom' shell).
+homepage                http://www.zsh.org/
+
+depends_build           bin:makeinfo:texinfo
+depends_skip_archcheck-append texinfo
+
+depends_lib             port:gdbm \
+                        port:libiconv \
+                        port:ncurses \
+                        port:pcre
+
+master_sites            sourceforge:project/zsh/zsh/${version}:src \
+                        sourceforge:project/zsh/zsh-doc/${version}:doc \
+                        http://www.zsh.org/pub/:src \
+                        http://www.zsh.org/pub/:doc \
+                        ftp://ftp.zsh.org/pub/:src \
+                        ftp://ftp.zsh.org/pub/:doc \
+                        ftp://ftp.fu-berlin.de/unix/shells/zsh/:src \
+                        ftp://ftp.fu-berlin.de/unix/shells/zsh/:doc \
+                        ftp://ftp.icm.edu.pl/vol/rzm1/zsh/:src \
+                        ftp://ftp.icm.edu.pl/vol/rzm1/zsh/:doc
+
+use_bzip2               yes
+distfiles               ${distname}${extract.suffix}:src \
+                        ${distname}-doc${extract.suffix}:doc
+
+checksums               ${distname}${extract.suffix} \
+                            rmd160  4b1aac38996414783522762b5a8677533bf77d2d \
+                            sha256  544e27de81740286b916d1d77c9f48ad7c26ad7943ed96d278abee67cf6704b3 \
+                        ${distname}-doc${extract.suffix} \
+                            rmd160  d9ed5e5fe84bcadb174ddfffc1394e542c10361a \
+                            sha256  43e8665ba9d9eca8370c64e2d4846e84f9111c628e5792f2aa639a7fb209fcf1
+
+set doc ${prefix}/share/doc/${name}
+
+configure.args          --enable-cap \
+                        --enable-pcre \
+                        --htmldir=${doc}/html \
+                        --with-tcsetpgrp \
+                        DL_EXT=bundle
+
+# NOTE: As of 5.0.6, the zpty tests fail when run with MacPorts but not
+# when run directly from the command line.
+test.run                yes
+test.target             check
+
+destroot.target-append  install.html install.info
+
+post-destroot {
+    # zshall(1) just includes every other zsh manpage, but its .so groff
+    # directives fail because MacPorts gzips manpages.
+    set man ${destroot}${prefix}/share/man
+    system -W ${man} "soelim man1/zshall.1 > zshall.1.soelim"
+    move -force ${man}/zshall.1.soelim ${man}/man1/zshall.1
+
+    # Install any straggling documentation.
+    xinstall -m 0644 -W ${worksrcpath} \
+        ChangeLog FEATURES LICENCE META-FAQ NEWS README ${destroot}${doc}
+    xinstall -d ${destroot}${doc}/pdf
+    xinstall -m 0644 -W ${worksrcpath}/Doc \
+        intro.a4.pdf intro.us.pdf zsh.pdf ${destroot}${doc}/pdf
+}
+
+notes "
+To set MacPorts' ${name} as default login shell, run:
+
+    sudo chpass -s ${prefix}/bin/${name} \$USER
+
+To be able to switch default shells to or from ${name} without superuser\
+privileges, add it to /etc/shells:
+
+    sudo sh -c 'echo ${prefix}/bin/${name} >> /etc/shells'
+"

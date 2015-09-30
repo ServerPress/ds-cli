@@ -1,0 +1,22 @@
+--- fail2ban-server.orig	2013-06-12 19:21:12.000000000 +0200
++++ fail2ban-server	2013-08-15 23:33:56.000000000 +0200
+@@ -29,7 +29,7 @@
+ try:
+ 	from common.version import version
+ except ImportError, e:
+-	sys.path.insert(1, "/usr/share/fail2ban")
++	sys.path.insert(1, "@@PREFIX@@/share/fail2ban")
+ 	from common.version import version
+ 
+ from server.server import Server
+@@ -53,8 +53,8 @@
+ 		self.__conf = dict()
+ 		self.__conf["background"] = True
+ 		self.__conf["force"] = False
+-		self.__conf["socket"] = "/var/run/fail2ban/fail2ban.sock"
+-		self.__conf["pidfile"] = "/var/run/fail2ban/fail2ban.pid"
++		self.__conf["socket"] = "@@PREFIX@@/var/run/fail2ban/fail2ban.sock"
++		self.__conf["pidfile"] = "@@PREFIX@@/var/run/fail2ban/fail2ban.pid"
+ 
+ 	def dispVersion(self):
+ 		print "Fail2Ban v" + version

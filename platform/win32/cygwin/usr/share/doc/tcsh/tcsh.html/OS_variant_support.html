@@ -1,0 +1,58 @@
+<HEAD>
+<TITLE>OS variant support (+)</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Signal_handling.html">Next</A>
+<A HREF="Native_Language_System_support.html">Previous</A>
+<H2>OS variant support (+)</H2>
+A number of new builtin commands are provided to support features in
+particular operating systems.  All are described in detail in the
+<B><A HREF="Builtin_commands.html">Builtin commands</A></B> section.
+<P>
+On systems that support TCF (aix-ibm370, aix-ps2),
+<I><A HREF="Builtin_commands.html#getspath">getspath</A></I> and <I><A HREF="Builtin_commands.html#setspath">setspath</A></I> get and set the system execution path,
+<I><A HREF="Builtin_commands.html#getxvers">getxvers</A></I> and <I><A HREF="Builtin_commands.html#setxvers">setxvers</A></I> get and set the experimental version prefix
+and <I><A HREF="Builtin_commands.html#migrate">migrate</A></I> migrates processes between sites.  The <I><A HREF="Builtin_commands.html#jobs">jobs</A></I> builtin
+prints the site on which each job is executing.
+<P>
+Under BS2000, <I><A HREF="Builtin_commands.html#bs2cmd">bs2cmd</A></I> executes commands of the underlying BS2000/OSD
+operating system.
+<P>
+Under Domain/OS, <I><A HREF="Builtin_commands.html#inlib">inlib</A></I> adds shared libraries to the current environment,
+<I><A HREF="Builtin_commands.html#rootnode">rootnode</A></I> changes the rootnode and <I><A HREF="Builtin_commands.html#ver">ver</A></I> changes the systype.
+<P>
+Under Mach, <I><A HREF="Builtin_commands.html#setpath">setpath</A></I> is equivalent to Mach's <I>setpath</I>(1).
+<P>
+Under Masscomp/RTU and Harris CX/UX, <I><A HREF="Builtin_commands.html#universe">universe</A></I> sets the universe.
+<P>
+Under Harris CX/UX, <I>ucb</I> or <I>att</I> runs a command under the specified
+universe.
+<P>
+Under Convex/OS, <I><A HREF="Builtin_commands.html#warp">warp</A></I> prints or sets the universe.
+<P>
+The <B><A HREF="ENVIRONMENT.html#VENDOR">VENDOR</A></B>, <B><A HREF="ENVIRONMENT.html#OSTYPE">OSTYPE</A></B> and <B><A HREF="ENVIRONMENT.html#MACHTYPE">MACHTYPE</A></B> environment variables
+indicate respectively the vendor, operating system and machine type
+(microprocessor class or machine model) of the
+system on which the shell thinks it is running.
+These are particularly useful when sharing one's home directory between several
+types of machines; one can, for example,
+<P>
+<menu>
+set path = (~/bin.$MACHTYPE /usr/ucb /bin /usr/bin .)
+</menu>
+<P>
+in one's <I><A HREF="FILES.html#~/.login">~/.login</A></I> and put executables compiled for each machine in the
+appropriate directory.
+<P>
+The <B><A HREF="Special_shell_variables.html#version">version</A></B> shell
+variable indicates what options were chosen when the shell was compiled.
+<P>
+Note also the <I><A HREF="Builtin_commands.html#newgrp">newgrp</A></I> builtin, the <B><A HREF="Special_shell_variables.html#afsuser">afsuser</A></B> and
+<B><A HREF="Special_shell_variables.html#echo_style">echo_style</A></B> shell variables and the system-dependent locations of
+the shell's input files (see <B><A HREF="FILES.html">FILES</A></B>).
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Signal_handling.html">Next</A>
+<A HREF="Native_Language_System_support.html">Previous</A>
+</BODY>

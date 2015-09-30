@@ -1,0 +1,65 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 128545 2014-11-23 00:13:06Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                bro
+version             2.2
+categories          net security
+platforms           darwin
+maintainers         gmail.com:tanawts openmaintainer
+license             BSD
+
+description         BRO is a Network Intrusion Detection System
+
+long_description    Bro is an open-source, Unix-based Network Intrusion \
+                    Detection System (NIDS) that passively monitors network \
+                    traffic and looks for suspicious activity.
+
+homepage            http://www.bro.org/
+master_sites        ${homepage}downloads/release/ \
+                    ${homepage}downloads/archive/
+
+checksums           rmd160  ad1820eae034062c0e1125e4a4ac1e61960ad126 \
+                    sha256  86909361c2d804681f314604a6ce763be663937b2f045c8d25d810528a633dc9
+
+depends_build       port:cmake \
+                    port:libgeoip \
+                    port:swig-python
+
+# use the system-provided flex
+depends_lib         port:bison \
+                    port:curl \
+                    port:libmagic \
+                    port:libpcap \
+                    port:openssl \
+                    port:perl5 \
+                    port:python27 \
+                    port:readline \
+                    port:zlib
+
+patchfiles          patch-CMakeLists.txt.diff
+patchfiles-append   patch-htonll.diff
+
+universal_variant   no
+
+configure.args      --enable-mobile-ipv6
+
+post-destroot {
+    move ${destroot}${prefix}/etc/broccoli.conf ${destroot}${prefix}/etc/broccoli.conf.dist
+}
+
+post-activate {
+    if {![file exists ${prefix}/etc/broccoli.conf]} {
+        copy ${prefix}/etc/broccoli.conf.dist ${prefix}/etc/broccoli.conf
+    }
+}
+
+notes \
+"You'll need to set your BROHOME to ${prefix}/share/bro and your\
+BROPATH to ${prefix}/share/bro/site:${prefix}/share/bro/policy\
+to use the provided policies."
+
+livecheck.type      regex
+livecheck.url       ${homepage}download/
+livecheck.regex     ${name}-(\[0-9a-z.\]+)${extract.suffix}

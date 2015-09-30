@@ -1,0 +1,68 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 121649 2014-07-03 13:31:09Z mojca@macports.org $
+
+PortSystem          1.0
+
+name                pythia
+version             8.185
+set my_version      [strsed ${version} g/\\.//]
+categories          science
+platforms           darwin
+maintainers         gmail.com:mattiafrancescomoro
+license             LGPL-2.1
+description         Generator of high-energy physics events
+long_description    PYTHIA is a program for the generation of high-energy physics events, \
+                    i.e. for the description of collisions at high energies between elementary particles \
+                    such as e+, e-, p and pbar in various combinations. It contains theory and models for \
+                    a number of physics aspects, including hard and soft interactions, parton distributions, \
+                    initial- and final-state parton showers, multiple interactions, fragmentation and decay. \
+                    It is largely based on original research, but also borrows many formulae and other \
+                    knowledge from the literature.
+
+homepage            http://home.thep.lu.se/~torbjorn/Pythia.html
+master_sites        http://home.thep.lu.se/~torbjorn/pythia8/
+
+distname            ${name}${my_version}
+extract.suffix      .tgz
+
+checksums           rmd160  9189d5ade9328206ea5a7d872871d1f590258e2e \
+                    sha256  6dfb623346bb5313d9fe527ce95c3daf26f5d6a595bea84b898d28edd8bd28f7
+
+universal_variant   no
+
+depends_lib         port:zlib \
+                    port:boost
+
+configure.args      --enable-shared \
+                    --with-boost=${prefix} \
+                    --with-zlib=${prefix}/lib
+
+# g++-4.2 on 10.6 doesn't know about -stdlib (#44145)
+# build.args        CC=${configure.cc} CXX="${configure.cxx} -stdlib=${configure.cxx_stdlib}"
+pre-configure {
+    if { ${configure.cxx_stdlib} eq "libc++" } {
+        build.args  CC=${configure.cc} CXX="${configure.cxx} -stdlib=${configure.cxx_stdlib}"
+    } else {
+        build.args  CC=${configure.cc} CXX=${configure.cxx}
+    }
+}
+
+post-build {
+    foreach dylib {libpythia8.dylib liblhapdfdummy.dylib} {
+        system "install_name_tool -id ${prefix}/lib/${dylib} ${worksrcpath}/lib/${dylib}"
+    }
+}
+
+destroot {
+    xinstall -W ${worksrcpath}/lib libpythia8.dylib liblhapdfdummy.dylib ${destroot}${prefix}/lib
+    xinstall -W ${worksrcpath}/lib/archive liblhapdfdummy.a libpythia8.a ${destroot}${prefix}/lib
+    file mkdir ${destroot}${prefix}/include/${name}/Pythia8/
+    eval xinstall -m 644 [glob ${worksrcpath}/include/Pythia8/*.h] ${destroot}${prefix}/include/${name}/Pythia8/
+    file mkdir ${destroot}${prefix}/share/doc/${name}/xmldoc/
+    eval xinstall -m 644 [glob ${worksrcpath}/xmldoc/*] ${destroot}${prefix}/share/doc/${name}/xmldoc/
+}
+
+livecheck.type      regex
+livecheck.version   ${my_version}
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     ${name}(\\d+)${extract.suffix}

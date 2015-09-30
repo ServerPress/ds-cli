@@ -1,0 +1,12 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 95012 2012-07-03 22:06:20Z dports@macports.org $
+
+PortSystem 1.0
+
+replaced_by         fuse4x
+PortGroup           obsolete 1.0
+
+name                macfuse
+version             2.0.3
+revision            6
+categories          fuse devel

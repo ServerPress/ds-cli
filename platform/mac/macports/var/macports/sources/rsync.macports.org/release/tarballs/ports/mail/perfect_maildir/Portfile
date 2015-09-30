@@ -1,0 +1,45 @@
+# $Id: Portfile 116118 2014-01-19 04:02:24Z jmr@macports.org $
+
+PortSystem          1.0
+
+name                perfect_maildir
+version             0.3
+revision            2
+categories          mail
+platforms           darwin
+supported_archs     noarch
+license             GPL-2+
+maintainers         nomaintainer
+description         Simple but Perfect mbox to Maildir converter
+long_description    ${description} by Philip Mak.
+
+homepage            http://perfectmaildir.home-dn.net/
+master_sites        ${homepage}/${name}/
+checksums           md5 a5e52b2c12ded8e5670db7e46bfaebb1 \
+                    sha1 6e0beadfcefe232fd89dbed2d3a5f2e454421ff7 \
+                    rmd160 f076ea65732d1c49996f68c19956aa33b2eaaed3
+distfiles           ${name}.pl
+
+depends_lib         port:perl5.16 \
+                    port:p5.16-timedate
+
+extract {
+    file mkdir ${worksrcpath}
+    file copy ${distpath}/${distfiles} ${worksrcpath}
+}
+
+patch {
+    reinplace "s|/usr/bin/perl|${prefix}/bin/perl5.16|g" ${worksrcpath}/${name}.pl
+}
+
+use_configure       no
+
+build {}
+
+destroot {
+    xinstall ${worksrcpath}/${name}.pl ${destroot}${prefix}/bin/${name}
+}
+
+livecheck.type      regex
+livecheck.url       ${master_sites}CHANGES
+livecheck.regex     {v(\d+(?:\.\d+)*)}

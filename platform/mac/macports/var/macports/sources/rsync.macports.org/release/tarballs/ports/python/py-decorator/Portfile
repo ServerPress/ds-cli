@@ -1,0 +1,34 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130394 2014-12-30 05:39:26Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-decorator
+version             3.4.0
+platforms           darwin
+supported_archs     noarch
+license             BSD
+maintainers         nomaintainer
+
+description         Provides a decorator factory that makes creating \
+                    signature-preserving decorators dead simple.
+long_description    ${description} By Michele Simionato.
+homepage            http://pypi.python.org/pypi/decorator
+
+master_sites        http://pypi.python.org/packages/source/d/decorator/
+distname            decorator-${version}
+checksums           rmd160  57b014f5fb2a1750910364882d430a85f94a8b85 \
+                    sha256  c20b404cbb7ee5cebd506688e0114e3cd76f5ce233805a51f36e1a7988d9d783
+
+python.versions     26 27 33 34
+
+if {${name} ne ${subport}} {
+    if {${python.version} >= 31} {
+        depends_build-append    port:py${python.version}-setuptools
+    }
+    livecheck.type  none
+} else {
+    livecheck.type  regex
+    livecheck.regex {decorator/(\d+(?:\.\d+)*)}
+}

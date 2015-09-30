@@ -1,0 +1,73 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136416 2015-05-16 16:52:31Z mmoll@macports.org $
+
+PortSystem                  1.0
+PortGroup                   mpi 1.0
+PortGroup                   github 1.0
+
+mpi.enforce_variant         hdf5
+
+github.setup                Unidata netcdf-c 4.3.3.1 v
+revision                    2
+epoch                       2
+name                        netcdf
+dist_subdir                 ${name}/${version}_1
+maintainers                 takeshi openmaintainer
+platforms                   darwin
+categories                  science
+license                     Permissive
+
+description                 libraries for array-oriented scientific data
+long_description \
+    NetCDF (network Common Data Form) is a set of software libraries \
+    and machine-independent data formats that support the creation,  \
+    access, and sharing of array-oriented scientific data.
+
+homepage                    http://www.unidata.ucar.edu/software/netcdf/
+
+checksums           md5     3ebfe346aa6e56fe0500679a1a601e17 \
+                    sha1    d8678a3e2c862e00de9d9fdeec4c0840afff73c7 \
+                    rmd160  e4a200455f1cffe730d050d530b349043b54493b
+
+compilers.choose            cc cpp
+mpi.setup
+
+patchfiles          patch-configure.diff \
+                    patch-libdap2-Makefile.in.diff
+
+configure.cppflags-append   -DNDEBUG
+configure.cflags-append     -fno-common
+configure.args              --disable-doxygen \
+                            --disable-netcdf-4 \
+                            --disable-dap
+
+test.run                    yes
+test.target                 check
+
+destroot.destdir            prefix=${destroot}${prefix} \
+                            MANDIR=\\\${prefix}/share/man
+
+default_variants +netcdf4 +dap
+
+variant netcdf4 description {enable support for netcdf-4 API} {
+    depends_lib-append      port:hdf5
+    configure.args-delete   --disable-netcdf-4
+    configure.args-append   --enable-netcdf-4
+}
+
+variant hdf4 description {enable support for hdf4} {
+    depends_lib-append      port:hdf4
+    configure.env-append    LIBS=-ljpeg
+    configure.args-append   --enable-hdf4 \
+                            --disable-hdf4-file-tests
+}
+
+variant dap description {enable dap} {
+    depends_lib-append      port:curl
+    configure.args-delete   --disable-dap
+}
+
+notes "
+As of version 4.2 c++ and fortran interfaces are separate ports,\
+netcdf-cxx and netcdf-fortran, respectively.
+"

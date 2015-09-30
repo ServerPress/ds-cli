@@ -1,0 +1,27 @@
+# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+
+PortSystem            1.0
+PortGroup             perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup           Tree-Simple-View 0.17
+revision              4
+license               {Artistic-1 GPL}
+maintainers           nomaintainer
+description           A set of classes for viewing Tree::Simple hierarchies
+long_description      ${description}
+
+platforms             darwin
+
+checksums             md5 69aea99d174a89d04455e6d6c322c7b6 \
+                      sha1 88ad1bca5c688b3cf599a5eff197ac2f4d59b272 \
+                      rmd160 5eb7430642e0dd348ea9301dfdf1c5cdee42b0af
+
+if {${perl5.major} != ""} {
+depends_lib-append    port:p${perl5.major}-class-throwable \
+                      port:p${perl5.major}-tree-simple \
+                      port:p${perl5.major}-test-exception \
+                      port:p${perl5.major}-test-longstring
+
+supported_archs noarch
+}

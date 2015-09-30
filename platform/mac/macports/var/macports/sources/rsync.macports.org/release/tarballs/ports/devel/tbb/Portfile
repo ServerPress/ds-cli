@@ -1,0 +1,100 @@
+# -*- coding: utf-8; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136596 2015-05-22 22:46:08Z larryv@macports.org $
+
+PortSystem          1.0
+
+name                tbb
+version             4.3-20150424
+categories          devel
+platforms           darwin
+maintainers         mehta.io:sean
+license             GPL-2
+
+description         Intel Threading Building Blocks offers a rich and complete approach to parallelism in C++
+
+long_description    ${description} \
+                    It represents a higher-level, task-based parallelism that abstracts \
+                    platform details and threading mechanisms for scalability and performance
+
+homepage            http://threadingbuildingblocks.org/
+master_sites        ${homepage}sites/default/files/software_releases/source/
+
+livecheck.version   [strsed [strsed ${version} {g/-/_/}] {g/\.//}]
+
+worksrcdir          ${name}${livecheck.version}oss
+distname            ${worksrcdir}_src
+extract.suffix      .tgz
+
+checksums           rmd160  0c7aef63f7927063c70d400ab7e3feae8ff76934 \
+                    sha256  d03b6cb18826c3d8515ba755f27ef3a1462cf079d275221e3c1bf407e363d22b
+
+use_configure       no
+
+switch ${build_arch} {
+    i386 {
+        set tbb_arch ia32
+    }
+    x86_64 {
+        set tbb_arch intel64
+    }
+    ppc {
+        set tbb_arch ppc32
+    }
+    default {
+        set tbb_arch ${build_arch}
+    }
+}
+
+if {[string match *clang* ${configure.compiler}]} {
+    set tbb_compiler clang
+} else {
+    set tbb_compiler gcc
+}
+
+set tbb_build_prefix macports
+
+patchfiles          patch-build-macos.inc.diff
+
+post-patch {
+    reinplace "s|@CC@|${configure.cc}|g" ${worksrcpath}/build/macos.inc
+    reinplace "/^CONLY *=/s|=.*$|= ${configure.cc}|g" ${worksrcpath}/build/macos.${tbb_compiler}.inc
+    reinplace "/^CPLUS *=/s|=.*$|= ${configure.cxx}|g" ${worksrcpath}/build/macos.${tbb_compiler}.inc
+
+    # http://software.intel.com/en-us/forums/topic/505370
+    reinplace "/ -dynamiclib/s|$| -install_name ${prefix}/lib/\$@|g" ${worksrcpath}/build/macos.${tbb_compiler}.inc
+}
+
+build.target        tbb tbbmalloc tbbproxy
+build.args-append   arch=${tbb_arch} \
+                    compiler=${tbb_compiler} \
+                    tbb_build_prefix=${tbb_build_prefix} \
+                    use_proxy=1
+
+test.run            yes
+test.target         test
+test.args-append    ${build.args}
+
+# The Makefile does not have an install target.
+# http://software.intel.com/en-us/forums/topic/347428
+destroot.dir        ${worksrcpath}/build/${tbb_build_prefix}_release
+destroot {
+    # fix paths
+    reinplace "s|\\(TBBROOT.\\)\".*\"|\\1\"${prefix}\"|g" \
+        ${destroot.dir}/tbbvars.sh ${destroot.dir}/tbbvars.csh
+    reinplace "s|\\(tbb_bin.\\)\".*\"|\\1\"${prefix}/lib\"|g" \
+        ${destroot.dir}/tbbvars.sh ${destroot.dir}/tbbvars.csh
+
+    # copy lib, include & bin
+    eval copy [glob ${destroot.dir}/lib*.dylib] ${destroot}${prefix}/lib
+    eval copy [glob ${destroot.dir}/tbbvars.*sh] ${destroot}${prefix}/bin
+    copy ${worksrcpath}/include/tbb ${destroot}${prefix}/include/tbb
+
+    # copy examples & docs
+    xinstall -d ${destroot}${prefix}/share/${name}
+    copy ${worksrcpath}/doc ${destroot}${prefix}/share/${name}/doc
+    copy ${worksrcpath}/examples ${destroot}${prefix}/share/${name}/examples
+}
+
+livecheck.type      regex
+livecheck.url       ${homepage}download
+livecheck.regex     ${name}(\[\\d_\]+)oss_src${extract.suffix}

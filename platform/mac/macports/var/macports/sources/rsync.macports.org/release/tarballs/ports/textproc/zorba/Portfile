@@ -1,0 +1,92 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135232 2015-04-20 00:15:39Z ryandesign@macports.org $
+
+PortSystem      1.0
+PortGroup       cmake 1.0
+
+name            zorba
+version         3.0
+revision        3
+set branch      [join [lrange [split ${version} .] 0 1] .]
+license         Apache-2
+categories      textproc devel
+platforms       darwin
+maintainers     nomaintainer
+description     The XQuery Processor
+
+long_description \
+    Zorba is a general purpose XQuery processor implementing in C++ the W3C \
+    family of specifications. It is not an XML database. The query processor \
+    has been designed to be embeddable in a variety of environments such as \
+    other programming languages extended with XML processing capabilities, \
+    browsers, database servers, XML message dispatchers, or smartphones. Its \
+    architecture employes a modular design, which allows customizing the Zorba \
+    query processor to the environment’s needs. In particular the architecture \
+    of the query processor allows a pluggable XML store (e.g. main memory, DOM \
+    stores, persistent disk-based large stores, S3 stores).
+
+homepage        http://www.zorba-xquery.com/
+master_sites    https://launchpad.net/zorba/trunk/${branch}/+download
+distfiles       ${name}-${version}${extract.suffix} \
+                ${name}_modules-${version}${extract.suffix}
+
+checksums       ${name}-${version}${extract.suffix} \
+                    rmd160  f6add7764e6c538c76f538fa3e2cc226ba36a6f7 \
+                    sha256  8ae73ce11ed522d40f20dc2d7c907176ee5dd9e26bde5a40b8a02dbca9558dfe \
+                ${name}_modules-${version}${extract.suffix} \
+                    rmd160  fb9cac7f26cf0351b7a73f279002d0cda09fdd66 \
+                    sha256  5fc68381f2ffde43f705010b2055df7067a8d8740815805750ab73b602a1957d
+
+# In-source builds are not allowed
+configure.dir   ${worksrcpath}/build
+
+build.dir       ${configure.dir}
+
+post-extract {
+    xinstall -d ${build.dir}
+}
+
+patchfiles      patch-src-types-schema-SchemaValidatorFilter.h.diff
+patchfiles-append   patch-bison-3.0.diff
+
+depends_lib \
+    port:boost \
+    port:curl \
+    port:fop \
+    port:geos \
+    port:icu \
+    port:libarchive \
+    port:libiconv \
+    port:libxml2 \
+    port:libxslt \
+    port:sqlite3 \
+    port:tidy \
+    port:xercesc3
+
+# External modules not installed:
+#   port:ImageMagick    - image         skip this, creates too big .mpkg files
+#                       - schema-tools  xmlbeans port not available
+#                       - read-pdf      fontbox port not available
+#   port:cclient        - email         breaks zorba build
+
+# Dependencies for external modules
+#    port:cclient       - email
+#    port:geos          - geo
+#    port:libarchive    - archive
+#    port:libxslt       - language/xslt
+#    port:fop           - xsl-fo
+
+configure.post_args ${worksrcpath}
+configure.args-append \
+    -DCURL_FOUND=YES \
+    -DCURL_INCLUDE_DIR=${prefix}/include \
+    -DCURL_LIBRARY=${prefix}/lib/libcurl.dylib \
+    -DZORBA_SUPPRESS_SWIG=YES \
+    -DZORBA_XQUERYX=YES
+
+test.env DYLD_LIBRARY_PATH=${worksrcpath}/src
+test.run yes
+
+livecheck.type  regex
+livecheck.url   https://launchpad.net/zorba/+download
+livecheck.regex zorba-(\[0-9.\]+)${extract.suffix}

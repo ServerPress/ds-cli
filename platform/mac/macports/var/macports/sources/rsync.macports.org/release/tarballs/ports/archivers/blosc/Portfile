@@ -1,0 +1,45 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim: fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136416 2015-05-16 16:52:31Z mmoll@macports.org $
+
+PortSystem          1.0
+PortGroup           cmake 1.0
+PortGroup           github 1.0
+
+github.setup        Blosc c-blosc 1.6.1 v
+revision            2
+name                blosc
+categories          archivers devel
+platforms           darwin
+license             MIT
+
+maintainers         stromnov openmaintainer
+
+description         A blocking, shuffling and loss-less compression library.
+
+long_description    Blosc is a high performance compressor optimized \
+                    for binary data. It has been designed to transmit data \
+                    to the processor cache faster than the traditional, \
+                    non-compressed, direct memory fetch approach via \
+                    a memcpy() OS call. It uses the blocking technique \
+                    to reduce activity on the memory bus as much as possible.
+
+homepage            http://www.blosc.org/
+
+checksums           rmd160  d8b2f37a62b12a58ffec1e3bc802094e87cf8e48 \
+                    sha256  bd98117e3aca998bf3b1429371b4665a4f9d8de42e7bb54889931516e4ce945f
+
+patchfiles-append   patch-CMakeLists.txt.diff \
+                    patch-blosc-shuffle.c.diff
+
+configure.args-append \
+                    -DBUILD_STATIC=ON \
+                    -DBUILD_HDF5_FILTER=OFF \
+                    -DPREFER_EXTERNAL_COMPLIBS=OFF \
+                    -DBUILD_TESTS=OFF \
+                    -DBUILD_BENCHMARKS=OFF
+
+variant hdf5 description {Build a blosc based compression filter for the HDF5 library.} {
+    depends_lib-append          port:hdf5
+    configure.args-delete       -DBUILD_HDF5_FILTER=OFF
+    configure.args-append       -DBUILD_HDF5_FILTER=ON
+}

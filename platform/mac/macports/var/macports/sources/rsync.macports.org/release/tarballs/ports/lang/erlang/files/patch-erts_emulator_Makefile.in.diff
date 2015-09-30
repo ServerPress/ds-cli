@@ -1,0 +1,25 @@
+--- erts/emulator/Makefile.in.orig
++++ erts/emulator/Makefile.in
+@@ -46,7 +46,12 @@ THR_DEFS=@EMU_THR_DEFS@
+ M4FLAGS=
+ CREATE_DIRS=
+ 
+-LDFLAGS=@LDFLAGS@
++# On x86_64, the default pagezero_size is 4GB, thus making it
++# impossible to allocate an mmap between 0.5GB and 2GB, which
++# is required by hipe.
++# On i386, the default pagezero_size is 4KB which is what we'll
++# set here.
++LDFLAGS=@LDFLAGS@ -pagezero_size 0x400000
+ ARFLAGS=rc
+ OMIT_OMIT_FP=no
+ 
+@@ -125,7 +130,7 @@ else
+ override TYPE=opt
+ PURIFY =
+ TYPEMARKER =
+-TYPE_FLAGS = @CFLAGS@
++TYPE_FLAGS = -Ipcre -Ibeam @CFLAGS@
+ endif
+ endif
+ endif

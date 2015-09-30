@@ -1,0 +1,94 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130067 2014-12-26 02:09:19Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                pdflib
+version             7.0.5
+revision            2
+categories          print
+platforms           darwin
+license             Restrictive
+maintainers         nomaintainer
+
+description         PDFlib Lite (Source Code) is a subset of PDFlib
+long_description    ${description}, a library of C routines that allow \
+                    to programmatically generate PDF, the Adobe's \
+                    Portable Document File format.
+homepage            http://www.pdflib.com/download/free-software/pdflib-lite-7/
+
+master_sites        http://www.pdflib.com/binaries/PDFlib/[string map {"." ""} [strsed ${version} s/\[^0-9.\].*$//]]/
+distname            PDFlib-Lite-${version}
+checksums           md5     34a1cc89e2cfdc1e43ba57019e442a90 \
+                    sha1    5b2bf5edc49dba3da0997ade0e191511a37fae01 \
+                    rmd160  7f3862e70e2f74cf3143ea61e051c30e518ab2eb
+
+patchfiles          patch-configure.diff \
+                    patch-perl_Makefile.diff \
+                    patch-libtool.diff
+
+configure.ccache    no
+configure.args      --without-java \
+                    --without-perl \
+                    --without-py \
+                    --without-ruby \
+                    --without-tcl
+
+# The existence of tiff header files interferes with PDFLib (#11789).
+configure.cppflags-replace  -I${prefix}/include -isystem${prefix}/include
+
+use_parallel_build  yes
+
+test.run            yes
+
+post-destroot {
+    xinstall -m 755 -d ${destroot}${prefix}/share/doc/
+    file copy ${worksrcpath}/doc/pdflib ${destroot}${prefix}/share/doc/${name}
+}
+
+variant java description {Enable Java language binding} {
+    configure.args-replace  --without-java --with-java=yes
+}
+
+variant perl description {Enable Perl language binding} {
+    depends_lib-append      path:bin/perl:perl5
+    configure.args-replace  --without-perl --with-perl=${prefix}/bin/perl
+}
+
+# TODO: Remove after 2015-12-18.
+variant python24 description {Legacy compatibility variant} requires python27 {}
+variant python25 description {Legacy compatibility variant} requires python27 {}
+variant python26 description {Legacy compatibility variant} requires python27 {}
+
+variant python27 description {Enable Python 2.7 binding} {
+    set pyversion 2.7
+    depends_lib-append      port:python[strsed ${pyversion} {g/[.]//}]
+    configure.args-replace  --without-py --with-py=${frameworks_dir}/Python.framework/Versions/${pyversion}
+    configure.args-append   --with-pyincl=${frameworks_dir}/Python.framework/Versions/${pyversion}/include/python${pyversion}
+    configure.env-append    PYTHONBIN=${prefix}/bin/python${pyversion}
+}
+
+variant tcl description {Enable Tcl language binding} {
+    depends_lib-append      path:bin/tclsh:tcl
+    configure.args-replace  --without-tcl --with-tcl=${prefix}/bin/tclsh
+}
+
+variant ruby description {Enable Ruby language binding} {
+    depends_lib-append          port:ruby
+    pre-configure {
+        set rubyIncl [file dirname [glob ${prefix}/lib/ruby/*/*/ruby.h]]
+        configure.args-replace  --without-ruby --with-ruby=${prefix}
+        configure.args-append   --with-rubyincl=${rubyIncl}
+    }
+}
+
+if {[variant_isset universal]} {
+    depends_build-append    port:libtool
+    post-configure {
+        file copy -force ${prefix}/bin/glibtool ${worksrcpath}/libtool
+    }
+}
+
+# The web page says “Note that PDFlib Lite is no longer maintained by PDFlib GmbH”
+# and that they “will not release new and updated versions”.
+livecheck.type              none

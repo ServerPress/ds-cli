@@ -1,0 +1,77 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 90486 2012-03-06 23:48:02Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                tuntaposx
+version             20111101
+categories          net
+platforms           darwin
+license             BSD
+maintainers         nomaintainer
+
+description         Tun and tap virtual devices.
+
+long_description    Unix-style tun and tap virtual network interfaces for Mac \
+                    OS X. You typically use these for VPN and OS virtualization.
+
+homepage            http://tuntaposx.sourceforge.net/
+master_sites        sourceforge:project/tuntaposx/tuntap/${version}
+distname            tuntap_${version}_src
+worksrcdir          tuntap
+
+checksums           rmd160  d7ec7fbea29d05de3a1532737b74970d9bbcc2ed \
+                    sha256  d5a21b326e95afc7db3c6683d3860f3192e3260fae12f74e8404a8fd0764558f
+
+destroot.violate_mtree  yes
+destroot.args       BASE=${destroot}${prefix}
+
+patchfiles          patch-src__tap__Makefile \
+                    patch-src__tun__Makefile
+
+configure {
+    reinplace "s|@CC@|${configure.cc}|g"    ${worksrcpath}/src/tun/Makefile \
+                                            ${worksrcpath}/src/tap/Makefile
+    reinplace "s|@CXX@|${configure.cxx}|g"  ${worksrcpath}/src/tun/Makefile \
+                                            ${worksrcpath}/src/tap/Makefile
+    reinplace "s|@ARCHFLAGS@|[get_canonical_archflags cc]|" ${worksrcpath}/src/tun/Makefile \
+                                                            ${worksrcpath}/src/tap/Makefile
+}
+
+startupitem.create  yes
+startupitem.pidfile none
+set kext_dir        ${prefix}/Library/Extensions
+startupitem.start   "kextload ${kext_dir}/tap.kext ; kextload  ${kext_dir}/tun.kext"
+startupitem.stop    "kextunload ${kext_dir}/tap.kext ; kextunload  ${kext_dir}/tun.kext"
+
+post-destroot {
+    set docs ${destroot}${prefix}/share/doc/${name}
+    xinstall -m 755 -d ${docs}
+    xinstall -m 644 -W ${worksrcpath} README Changelog ${docs}
+}
+
+post-activate {
+    set tap_loaded [expr [string length [exec kextstat -lb foo.tap]] > 0]
+    set tun_loaded [expr [string length [exec kextstat -lb foo.tun]] > 0]
+    
+    if {${tap_loaded} || ${tun_loaded}} {
+        ui_msg "**********************************************************************"
+        ui_msg "* Warning: tuntaposx virtual device kernel extension loaded already. *"
+        ui_msg "* Maybe you have installed the tuntaposx package already without     *"
+        ui_msg "* using MacPorts, e.g. by installing Tunnelblick openvpn GUI. See    *"
+        ui_msg "* kextstat(8), kextload(8) and kextunload(8) for manual handling.    *"
+        ui_msg "**********************************************************************"
+    }
+}
+
+if {${os.major} <= 9} {
+    patchfiles-append patch-leopard.diff
+}
+
+platform darwin 10 {
+    # Kernel can be 32-bit or 64-bit, so build both
+    default_variants +universal
+    configure.universal_archs i386 x86_64
+}
+
+livecheck.regex     {/tuntap_([0-9.]+)_src}

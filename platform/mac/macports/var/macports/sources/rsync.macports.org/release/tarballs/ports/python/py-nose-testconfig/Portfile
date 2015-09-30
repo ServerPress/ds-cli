@@ -1,0 +1,34 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 126595 2014-10-12 06:37:20Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-nose-testconfig
+set real_name       nose-testconfig
+version             0.8
+python.versions     27
+categories-append   devel
+license             Apache-2
+maintainers         nomaintainer
+description         Test Configuration plugin for nosetests.
+long_description    \
+    nose-testconfig is a plugin to the nose test framework which provides a \
+    faculty for passing test-specific (or test-run specific) configuration data \
+    to the tests being executed.
+
+platforms           darwin
+supported_archs     noarch
+checksums           rmd160  6e13245b021aa027ef81ec5595bda387595c6ff8 \
+                    sha256  cde6a8558e3d246da30021c723c1b8ffc9d59426507ad12c362764ca797aa86e
+
+homepage            https://bitbucket.org/jnoller/${real_name}
+master_sites        http://pypi.python.org/packages/source/n/${real_name}
+distname            ${real_name}-${version}
+
+if {${name} ne ${subport}} {
+    depends_lib-append \
+                    port:py${python.version}-nose
+    
+    patchfiles      testconfig.py.patch
+}

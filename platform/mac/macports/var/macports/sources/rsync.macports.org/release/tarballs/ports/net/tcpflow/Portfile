@@ -1,0 +1,60 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 113584 2013-11-20 03:42:39Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        simsong tcpflow 1.4.2 tcpflow-
+
+categories          net security
+platforms           darwin freebsd
+maintainers         nomaintainer
+license             GPL-2
+
+description         TCP flow recorder
+long_description    tcpflow is a program that captures data transmitted as \
+                    part of TCP connections (flows), and stores the data in a \
+                    way that is convenient for protocol analysis or debugging. \
+                    A program like tcpdump(4) shows a summary of packets seen \
+                    on the wire, but usually doesn't store the data that's \
+                    actually being transmitted. In contrast, tcpflow \
+                    reconstructs the actual data streams and stores each flow \
+                    in a separate file for later analysis. tcpflow understands \
+                    TCP sequence numbers and will correctly reconstruct data \
+                    streams regardless of retransmissions or out-of-order \
+                    delivery.
+
+checksums           rmd160  df6a3bb42dc3980c11ff2b7352242030f3be203e \
+                    sha256  6cfdb9aeb8fce19513da31a5855967f0bd6469e04493b063ad02595032577adf
+
+depends_build       port:autoconf \
+                    port:automake \
+                    port:boost
+
+depends_lib         port:bzip2 \
+                    path:lib/pkgconfig/cairo.pc:cairo \
+                    port:expat \
+                    port:fontconfig \
+                    port:freetype \
+                    port:libpcap \
+                    path:lib/pkgconfig/pixman-1.pc:libpixman \
+                    port:openssl \
+                    port:zlib
+
+# Fetch from git instead of distfile because it needs submodules.
+fetch.type          git
+
+post-fetch {
+    system -W ${worksrcpath} "git submodule update --init"
+}
+
+patchfiles          patch-configure.ac.diff
+
+pre-configure {
+    system -W ${worksrcpath} "sh ./bootstrap.sh"
+}
+
+configure.args      ac_cv_func_tre_regcomp=no \
+                    ac_cv_func_tre_version=no \
+                    ac_cv_header_tre_tre_h=no \
+                    ac_cv_lib_tre_tre_regcomp=no

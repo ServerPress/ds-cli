@@ -1,0 +1,41 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130314 2014-12-30 02:26:49Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-cherrypy
+version             2.3.0
+revision            1
+categories-append   www
+license             BSD
+maintainers         gmail.com:freespace openmaintainer
+supported_archs     noarch
+
+description         Object-Oriented HTTP framework
+long_description    CherryPy is a pythonic, object-oriented web \
+                    development framework. CherryPy allows developers \
+                    to build web applications in much the same way \
+                    they would build any other object-oriented Python \
+                    program. This usually results in smaller source \
+                    code developed in less time.
+platforms           darwin
+homepage            http://www.cherrypy.org/
+master_sites        http://download.cherrypy.org/cherrypy/${version}/
+distname            CherryPy-${version}
+checksums           md5 80ce0f666f2899d4e681432e4061db16 \
+                    sha1 067121c5f31442519ac07138ffe8af6f7c7465d2 \
+                    rmd160 4c95735b17d58c431f1dbf685500d2a1ca8e38d8
+
+python.versions     26 27
+
+if {${name} ne ${subport}} {
+    conflicts       py${python.version}-cherrypy3
+    post-destroot {
+        xinstall -m 644 -W ${worksrcpath} \
+            CHANGELOG.txt CHERRYPYTEAM.txt README.txt \
+            ${destroot}${prefix}/share/doc/${subport}
+        move ${destroot}${python.pkgd}/cherrypy/tutorial \
+            ${destroot}${prefix}/share/doc/${subport}
+    }
+}

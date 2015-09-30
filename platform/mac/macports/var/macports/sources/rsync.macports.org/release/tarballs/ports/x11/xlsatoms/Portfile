@@ -1,0 +1,29 @@
+# $Id: Portfile 99520 2012-11-08 12:23:41Z jmr@macports.org $
+
+PortSystem          1.0
+
+name                xlsatoms
+version             1.1.1
+categories          x11
+license             X11
+maintainers         jeremyhu openmaintainer
+description         List interned atoms defined on an X11 server
+long_description    ${description}
+
+platforms           darwin
+
+homepage            http://www.x.org/
+master_sites        xorg:individual/app/
+use_bzip2           yes
+
+checksums           sha1    271880bf9dcd37b85b08e5f4a43e6015747b45e1 \
+                    rmd160  7424ed666e43899b881876604c7ab64f0dae096c \
+                    sha256  3b8bd98c1ca9789178db80bca75556b0c76e5092403014995d5ddaa3117536f9
+
+depends_build       port:pkgconfig
+
+depends_lib         port:xorg-libxcb
+
+livecheck.type      regex
+livecheck.regex     ${name}-(\[\\d.\]+)${extract.suffix}
+livecheck.url       http://xorg.freedesktop.org/archive/individual/app/?C=M&O=D

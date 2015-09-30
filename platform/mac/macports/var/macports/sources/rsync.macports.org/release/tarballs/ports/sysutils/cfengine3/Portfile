@@ -1,0 +1,42 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 124033 2014-08-17 17:08:15Z mf2k@macports.org $
+
+PortSystem          1.0
+
+name                cfengine3
+conflicts           cfengine
+version             3.4.2
+categories          sysutils
+platforms           darwin
+license             GPL-3
+maintainers         nomaintainer
+description         network configuration-management tool
+long_description    a suite of programs for integrated autonomic \
+                    management of either individual or networked \
+                    computers. Cfengine 3 is a significant rewrite \
+                    of underlying cfengine technology which \
+                    preserves the core principles and methodology \
+                    of cfengine2’s approach.
+homepage            http://cfengine.com/
+distname            cfengine-${version}
+master_sites        ${homepage}source-code/download?file=${distfiles}&dummy=
+checksums           md5     37221270db925e6073bbade5db643a49 \
+                    sha1    83d6eb3e8c8ed16bf6364a41d216cf96499749c6 \
+                    rmd160  b1c2bfa74c517efd9d26445ff148b8a93cb173b8
+                    
+depends_lib         port:tokyocabinet \
+                    port:openssl \
+                    port:pcre
+
+patchfiles          patch-configure.diff
+
+configure.args      --enable-fhs \
+                    --with-tokyocabinet=${prefix} \
+                    --with-openssl=${prefix} \
+                    --with-pcre=${prefix} \
+                    --with-postgresql=no
+
+livecheck.type      regex
+livecheck.url       ${homepage}source-code
+livecheck.regex     "cfengine-(\\d+(?:\\.\\d+)*).tar.gz"
+

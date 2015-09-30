@@ -1,0 +1,25 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136937 2015-05-30 22:50:27Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Test-TrailingSpace 0.0205
+license             {Artistic-1 GPL}
+maintainers         devans openmaintainer
+description         Test::TrailingSpace - test for trailing space in source files.
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  235c1772854c9fca640623b9bf4d7d7afbbfb76b \
+                    sha256  1bcc1dcf0c83cb12671b485b66e7e0488d49f114af5ff3753e0d73b2310ff243
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-file-find-object-rule
+
+    perl5.use_module_build
+    supported_archs noarch
+}

@@ -1,0 +1,32 @@
+<HEAD>
+<TITLE>Terminal management (+)</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="REFERENCE.html">Next</A>
+<A HREF="Signal_handling.html">Previous</A>
+<H2>Terminal management (+)</H2>
+The shell uses three different sets of terminal (``tty'') modes:
+`edit', used when editing, `quote', used when quoting literal characters,
+and `execute', used when executing commands.
+The shell holds some settings in each mode constant, so commands which leave
+the tty in a confused state do not interfere with the shell.
+The shell also matches changes in the speed and padding of the tty.
+The list of tty modes that are kept constant
+can be examined and modified with the <I><A HREF="Builtin_commands.html#setty">setty</A></I> builtin.
+Note that although the editor uses CBREAK mode (or its equivalent),
+it takes typed-ahead characters anyway.
+<P>
+The <I><A HREF="Builtin_commands.html#echotc">echotc</A></I>, <I><A HREF="Builtin_commands.html#settc">settc</A></I> and <I><A HREF="Builtin_commands.html#telltc">telltc</A></I> commands can be used to
+manipulate and debug terminal capabilities from the command line.
+<P>
+On systems that support SIGWINCH or SIGWINDOW, the shell
+adapts to window resizing automatically and adjusts the environment
+variables <B><A HREF="ENVIRONMENT.html#LINES">LINES</A></B> and <B><A HREF="ENVIRONMENT.html#COLUMNS">COLUMNS</A></B> if set.  If the environment
+variable <B><A HREF="ENVIRONMENT.html#TERMCAP">TERMCAP</A></B> contains li# and co# fields, the shell adjusts
+them to reflect the new window size.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="REFERENCE.html">Next</A>
+<A HREF="Signal_handling.html">Previous</A>
+</BODY>

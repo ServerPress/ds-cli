@@ -1,0 +1,40 @@
+# $Id: Portfile 120912 2014-06-11 13:10:52Z ciserlohn@macports.org $
+
+PortSystem          1.0
+
+name                repo
+version             1.19
+revision            1
+epoch               20130316
+license             Apache-2
+categories          python
+platforms           darwin
+maintainers         nomaintainer
+supported_archs     noarch
+
+description         tool that helps to manage Android Git repositories 
+long_description    \
+            Repo is a tool that we built on top of Git. Repo helps us \
+            manage the many Git repositories, does the uploads to our \
+            revision control system , and automates parts of the Android \
+            development workflow. Repo is not meant to replace Git, only \
+            to make it easier to work with Git in the context of Android.
+
+homepage            http://source.android.com/source/git-repo.html
+master_sites        googlecode:git-repo
+
+checksums           sha1    e48d46e36194859fe8565e8cbdf4c5d1d8768ef3 \
+                    rmd160  d01c3c78ba42e08e8a1c80fde272d39278c3515f
+
+depends_run         port:git
+extract.suffix      
+extract.only
+use_configure       no
+build               { }
+destroot            {
+        xinstall -m 755 ${distpath}/${distname} ${destroot}${prefix}/bin/${name}
+}
+
+livecheck.type  googlecode
+livecheck.name  git-repo
+

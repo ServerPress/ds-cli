@@ -1,0 +1,27 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137682 2015-06-17 11:29:16Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           php 1.1
+
+name                php-timezonedb
+version             2015.5
+categories          php devel
+platforms           darwin
+maintainers         ryandesign openmaintainer
+license             PHP-3
+
+php.branches        5.3 5.4 5.5 5.6
+php.pecl            yes
+
+description         A PECL Timezone Database.
+
+long_description    Timezone Database to be used with PHP's date and time \
+                    functions.
+
+checksums           rmd160  9fecac430e99fd3c6eea22baa845a799cdd2546a \
+                    sha256  a251d404057825e673f40d8106b863bcfc78cdab66cf269c48dbb8bdcebabb4f
+
+configure.args-append --enable-timezonedb
+
+use_parallel_build  yes

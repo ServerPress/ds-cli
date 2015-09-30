@@ -1,0 +1,40 @@
+# $Id: Portfile 98353 2012-10-03 11:53:15Z ryandesign@macports.org $
+
+PortSystem			1.0
+name				BibTool
+version				2.55
+categories			tex
+license				GPL
+maintainers			nomaintainer
+description			Tool for manipulating BibTeX databases.
+long_description \
+	BibTeX provides an easy to use means to integrate citations and \
+	bibliographies into LaTeX documents. But the user is left alone \
+	with the management of the BibTeX files. The program BibTool is \
+	intended to fill this gap. BibTool allows the manipulation of \
+	BibTeX files which goes beyond the possibilities---and \
+	intentions---of BibTeX. 
+
+platforms			darwin
+
+homepage			http://www.gerd-neugebauer.de/software/TeX/BibTool/index.en.html
+master_sites		ftp://cam.ctan.org/tex-archive/biblio/bibtex/utils/bibtool/ \
+					ftp://ftp.dante.de/tex-archive/biblio/bibtex/utils/bibtool/
+
+checksums           rmd160  233145303c7221e0c3937458c0f3afe15d101fe9 \
+                    sha256  fc55764ef74eb996f2e38d743ba51d2276339e8aa3a0290d1079ea7d805aa53e
+
+worksrcdir          ${name}
+
+# The configure script included with 2.55 is older than the configure.in
+use_autoreconf      yes
+
+configure.args      --without-kpathsea
+
+configure.universal_args-delete --disable-dependency-tracking
+
+destroot.destdir	BINDIR=${destroot}${prefix}/bin LIBDIR=${destroot}${prefix}/lib/${name}
+
+livecheck.type		regex
+livecheck.url		[lindex ${master_sites} 0]
+livecheck.regex		${name}-(\[0-9.\]+)${extract.suffix}

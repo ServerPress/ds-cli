@@ -1,0 +1,37 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137606 2015-06-15 11:48:15Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+set realname        chardet
+
+name                py-${realname}
+version             2.3.0
+categories-append   devel textproc
+license             LGPL-2.1+
+platforms           darwin
+supported_archs     noarch
+maintainers         aronnax openmaintainer
+description         Universal character encoding detector
+long_description    Character encoding auto-detection in Python. \
+                    As smart as your browser.
+
+homepage            https://pypi.python.org/pypi/${realname}/
+master_sites        http://pypi.python.org/packages/source/[string index ${realname} 0]/${realname}
+distname            ${realname}-${version}
+
+checksums           rmd160  b68ed94bccfd97f23cc0a6288ee8c7914f4c7d04 \
+                    sha256  e53e38b3a4afe6d1132de62b7400a4ac363452dc5dfcf8d88e8e0cce663c68aa
+
+python.versions     26 27 33 34
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                    port:py${python.version}-setuptools
+
+    livecheck.type  none
+} else {
+    livecheck.type  regex
+    livecheck.regex [format "%s-%s" ${realname} {(\d+(?:\.\d+)*)}]
+}

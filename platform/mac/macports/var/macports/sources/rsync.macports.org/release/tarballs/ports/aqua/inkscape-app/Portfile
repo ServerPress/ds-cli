@@ -1,0 +1,50 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 124351 2014-08-22 23:52:05Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        piksels-and-lines-orchestra inkscape 628ca88bdb258c0be08a5aa6337ed6df31190326
+name                inkscape-app
+version             0.48
+revision            1
+license             GPL-2+
+maintainers         nomaintainer
+description         Inkscape.app application bundle
+long_description    ${description}
+
+categories          aqua graphics
+homepage            http://www.inkscape.org
+
+depends_run         bin:inkscape:inkscape
+
+# we only need to download the icns file
+master_sites        ${github.raw}/${git.branch}/packaging/macosx/Resources
+
+distfiles           Inkscape.icns
+
+checksums           rmd160  a0dc6e65125ad2d4554728515996c473b9aac671 \
+                    sha256  0ae10f9edd037c72b445d797e8be257dde94ef19d3df19e6aeabb1c0ec87fcca
+
+extract.mkdir       yes
+use_configure       no
+
+extract {
+    copy ${distpath}/Inkscape.icns ${worksrcpath}
+}
+
+build {}
+
+destroot {
+    set inkapp ${destroot}${applications_dir}/Inkscape.app
+    xinstall -d ${inkapp}/Contents/MacOS
+    xinstall -d ${inkapp}/Contents/Resources
+
+    xinstall -m 644 ${filespath}/Info.plist ${inkapp}/Contents/
+    xinstall -m 644 ${worksrcpath}/Inkscape.icns ${inkapp}/Contents/Resources/
+    xinstall -m 755 ${filespath}/Inkscape ${inkapp}/Contents/MacOS
+
+    reinplace -W ${inkapp}/Contents/MacOS "s,@@PREFIX@@,${prefix},g" Inkscape
+}
+
+livecheck.type      none

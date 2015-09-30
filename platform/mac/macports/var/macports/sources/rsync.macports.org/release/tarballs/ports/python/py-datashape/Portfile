@@ -1,0 +1,43 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 133921 2015-03-15 20:04:09Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-datashape
+version             0.4.4
+revision            0
+categories-append   devel
+platforms           darwin
+license             BSD
+supported_archs     noarch
+
+python.versions     27 34
+
+maintainers         stromnov openmaintainer
+
+description         DataShape is a language for describing data.
+
+long_description    DataShape is a language for describing data. It is an \
+                    extension of the NumPy dtype with an emphasis on cross \
+                    language support.
+
+homepage            http://packages.python.org/datashape
+master_sites        https://pypi.python.org/packages/source/D/DataShape/
+
+distname            DataShape-${version}
+
+checksums           rmd160  a88f914b15f6344dadfcaad6b511db435dd2427c \
+                    sha256  e5a23feb36e157cccd180e522d366859924bcf248de93547ce2ab4273e564545
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:py${python.version}-numpy \
+                        port:py${python.version}-multipledispatch \
+                        port:py${python.version}-dateutil
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/DataShape/json
+    livecheck.regex     {DataShape-(\d+(?:\.\d+)*)\.[tz]}
+}

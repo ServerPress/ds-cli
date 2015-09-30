@@ -1,0 +1,85 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138337 2015-07-06 00:52:45Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                libvirt
+version             1.2.17
+categories          sysutils
+license             LGPL-2.1+
+platforms           darwin
+maintainers         ryandesign openmaintainer
+
+description         Libvirt - The Virtualization API
+
+long_description    A toolkit to interact with the virtualization \
+                    capabilities of modern hypervisors.
+
+homepage            http://www.libvirt.org/
+master_sites        ${homepage}sources/
+
+checksums           rmd160  a04ed7a147253fa5653cea3374a8e7ac913e23b6 \
+                    sha256  e07eaf20b0590fae05ba3b53ad4dac3e5fbd771437563cc78b692f23ddd02fad
+
+depends_build       port:pkgconfig \
+                    port:xhtml1
+
+depends_lib         port:curl \
+                    port:gnutls \
+                    port:libiconv \
+                    port:libssh2 \
+                    port:libxml2 \
+                    port:readline \
+                    port:yajl \
+                    port:zlib
+
+patchfiles-append   yosemite-libtool.patch
+
+configure.args      --disable-silent-rules \
+                    --without-apparmor \
+                    --without-audit \
+                    --without-avahi \
+                    --without-capng \
+                    --without-dtrace \
+                    --without-hal \
+                    --with-init-script=none \
+                    --without-libpcap \
+                    --without-lxc \
+                    --without-macvtap \
+                    --without-netcf \
+                    --without-network \
+                    --without-numactl \
+                    --without-openvz \
+                    --without-phyp \
+                    --without-polkit \
+                    --without-qemu \
+                    --without-sasl \
+                    --without-selinux \
+                    --without-udev \
+                    --without-uml \
+                    --without-virtualport \
+                    --without-xen \
+                    --without-xenapi \
+                    --without-xen-inotify \
+                    --with-esx \
+                    --with-libvirtd \
+                    --with-remote \
+                    --with-test \
+                    --with-vbox=check \
+                    --with-vmware \
+                    --with-xml-catalog-file=${prefix}/etc/xml/catalog \
+                    --with-yajl
+
+variant avahi description {Use Avahi to advertise remote daemon} {
+    depends_lib-append      port:avahi
+    configure.args-replace  --without-avahi --with-avahi
+}
+
+variant sasl description {Use Cyrus SASL for authentication} {
+    depends_lib-append      port:cyrus-sasl2
+    configure.args-replace  --without-sasl --with-sasl
+}
+
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     ${name}-(\[0-9.\]+)${extract.suffix}

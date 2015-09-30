@@ -1,0 +1,43 @@
+# $Id: Portfile 97947 2012-09-20 17:24:39Z cal@macports.org $
+
+PortSystem 1.0
+PortGroup xcode 1.0
+
+name                    MacPorts_Framework
+version                 1.2.1
+revision                1
+categories              devel macports framework
+license                 BSD
+maintainers             nomaintainer
+description             Cocoa framework for MacPorts.
+long_description    \
+    MacPorts.framework is a framework for linking Cocoa applications to the \
+    MacPorts infrastructure.
+homepage                http://www.macports.org
+#master_sites
+#distname               ${name}
+#checksums              md5 c586fd603d9978b306aee428ea39e329
+
+fetch.type              svn
+svn.url                 https://svn.macports.org/repository/macports/contrib/MacPorts_Framework
+svn.revision            86927
+
+worksrcdir              MacPorts_Framework
+
+xcode.target            MacPorts
+
+xcode.configuration     Release
+
+platform darwin 8 {
+    pre-fetch {
+        ui_error "${name} requires Mac OS X 10.5 or greater."
+    }
+}
+
+xcode.destroot.type     framework
+
+#Clean up MPHelperInstallTool and MPHelperTool from directory
+post-destroot {
+  file delete ${destroot}${frameworks_dir}/MPHelperTool \
+    ${destroot}${frameworks_dir}/MPHelperInstallTool
+}

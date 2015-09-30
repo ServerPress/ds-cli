@@ -1,0 +1,40 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136716 2015-05-25 00:59:24Z khindenburg@macports.org $
+
+PortSystem          1.0
+
+name                ncmpcpp
+version             0.6.4
+revision            1
+categories          audio
+maintainers         rmstonecipher openmaintainer
+description         an ncurses mpd client inspired by ncmpc
+long_description    Ncmpcpp has UI very similar to ncmpc's one, but it provides new useful \
+                    features such as support for regular expressions in search engine, \
+                    extended song format, items filtering, last.fm support, ability to \
+                    sort playlist, local filesystem browser and other minor functions.
+homepage            http://mpd.wikia.com/wiki/Client:Ncmpcpp
+license             GPL-2+
+platforms           darwin
+master_sites        http://ncmpcpp.rybczak.net/stable/
+use_bzip2           yes
+checksums           rmd160  dd6d1448d47369b91d4a151e0d27a5abf3f1f139 \
+                    sha256  757e2e06b7e17009c24e2b46a69f008e61aa679476f93e00dc602ca087c805f1
+
+depends_build       port:pkgconfig
+
+depends_lib         port:boost \
+                    port:curl \
+                    port:fftw-3 \
+                    port:libmpdclient \
+                    port:ncurses \
+                    port:readline \
+                    port:taglib
+
+variant visualizer description "Enable Visualizer" {
+    configure.args-append --enable-visualizer
+}
+
+livecheck.type      regex
+livecheck.url       http://unkart.ovh.org/ncmpcpp/download.php
+livecheck.regex     "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

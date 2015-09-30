@@ -1,0 +1,36 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 124944 2014-09-01 01:05:32Z ryandesign@macports.org $
+
+PortSystem              1.0
+PortGroup               php 1.1
+
+name                    php-svm
+version                 0.1.9
+categories-append       math
+platforms               darwin
+maintainers             ryandesign openmaintainer
+license                 BSD
+
+php.branches            5.3 5.4 5.5 5.6
+php.pecl                yes
+php.pecl.prerelease     yes
+
+description             PHP bindings for libsvm, a support vector machine implementation
+
+long_description        ${description}
+
+checksums               rmd160  174f667f56c051bf29f3e36766d92b68012b976b \
+                        sha256  28c0eda03b47fb79a7a584143e8fb539fd796aacbcb11dc8dcc7b66d42cd007f
+
+test.run                yes
+
+if {${name} ne ${subport}} {
+    # Rebuild with php55 @5.5.0alpha2
+    if {[vercmp ${php.branch} 5.5] == 0} {
+        revision 1
+    }
+    
+    depends_lib-append      port:libsvm
+    
+    configure.args-append   --with-svm=${prefix}
+}

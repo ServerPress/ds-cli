@@ -1,0 +1,71 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134044 2015-03-17 18:40:56Z petr@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+set _name           apache-libcloud
+set _n              [string index ${_name} 0]
+
+name                py-libcloud
+version             0.17.0
+categories-append   net
+platforms           darwin
+supported_archs     noarch
+license             Apache-2
+
+maintainers         petr openmaintainer
+
+description         Apache libcloud a unified interface into the cloud
+
+long_description    \
+    Apache Libcloud is a Python library which hides differences between \
+    different cloud provider APIs and allows you to manage different \
+    cloud resources through a unified and easy to use API.
+
+homepage            http://libcloud.apache.org/
+master_sites        http://www.apache.org/dist/libcloud/ \
+                    https://pypi.python.org/packages/source/${_n}/${_name}/
+distname            ${_name}-${version}
+
+checksums           md5     a63650261971dc82c5a6d763a2153881 \
+                    sha1    14e3b1cffb94a2b254309c219484bd8796019205 \
+                    rmd160  571b1bc41579e29970eee499f9871aa4d0082dda \
+                    sha256  8ac4895c5ed2fa51812237dfd587675e3cbc4b7e57d9b44722ce849eab2131c2
+
+python.versions     26 27 33 34
+
+if {${name} ne ${subport}} {
+    depends_build-append    port:py${python.version}-setuptools
+
+    # Testing
+    test.run            yes
+
+    if {${test.run}} {
+        depends_build-append    port:py${python.version}-mock
+
+        set test_dir ${worksrcpath}/libcloud/test
+        pre-test  { copy ${test_dir}/secrets.py-dist ${test_dir}/secrets.py }
+        post-test { delete ${test_dir}/secrets.py }
+    }
+
+    # Adding documentation and examples
+    post-destroot {
+        set dest_doc ${destroot}${prefix}/share/doc/${subport}
+        xinstall -d  ${dest_doc}
+        xinstall -m 755 -W ${worksrcpath} \
+            LICENSE \
+            NOTICE \
+            CHANGES.rst \
+            README.rst \
+                ${dest_doc}
+
+        eval copy [glob ${worksrcpath}/example_*.py] ${dest_doc}/examples
+    }
+
+    livecheck.type  none
+} else {
+    livecheck.type  regex
+    livecheck.url   [lindex ${master_sites} 0]
+    livecheck.regex ">${_name}-(\\d+(\\.\\d+)+)\\${extract.suffix}<"
+}

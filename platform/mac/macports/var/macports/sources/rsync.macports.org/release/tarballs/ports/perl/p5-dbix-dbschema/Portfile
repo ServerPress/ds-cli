@@ -1,0 +1,23 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136037 2015-05-10 17:01:33Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         DBIx-DBSchema 0.45
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Database-independent schema objects
+long_description    ${description}
+platforms           darwin
+
+checksums           rmd160  d5889b57d66f15e3274cf3ccbe28c8a89c4752e0 \
+                    sha256  7a2a978fb6d9feaa3e4b109c71c963b26a008a2d130c5876ecf24c5a72338a1d
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-dbi
+
+    supported_archs noarch
+}

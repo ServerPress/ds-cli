@@ -1,0 +1,102 @@
+# -*- mode: tcl; indent-tabs-mode: nil; tab-width: 4; c-basic-offset: 4 -*-
+# $Id: Portfile 104410 2013-03-25 07:46:16Z ryandesign@macports.org $
+
+PortSystem 1.0
+PortGroup cmake 1.0
+
+name                ogre
+version             1.7.3
+revision            4
+set branch          [join [lrange [split ${version} .] 0 1] .]
+license             MIT
+categories          graphics
+maintainers         gmail.com:marin.saric
+description         Object-Oriented Graphics Rendering Engine (static version)
+
+long_description    OGRE (Object-Oriented Graphics Rendering Engine) is a \
+                    scene-oriented, flexible 3D engine written in \
+                    C++ designed to make it easier and more intuitive \
+                    for developers to produce applications utilising \
+                    hardware-accelerated 3D graphics. The class \
+                    library abstracts all the details of using the \
+                    underlying system libraries like Direct3D and \
+                    OpenGL and provides an interface based on world \
+                    objects and other intuitive classes. \
+                    NOTE: \
+                    This version is so far the only version which produces \
+                    normal non-bundled executables that can run on any \
+                    64-bit MacOS X machine without depending on MacPorts or \
+                    any other libraries. This version is also the only \
+                    version that allows building fully functioning CMake \
+                    OGRE projects on MacOS X without using XCode.
+
+homepage            http://www.ogre3d.org/
+platforms           darwin
+supported_archs     x86_64
+master_sites        sourceforge:project/ogre/ogre/${branch}
+checksums           rmd160  fea467f35aaf0fd5926573de4f0348ed44191893 \
+                    sha1    41acccfbbf7297c91cda78a0ce8a053e56505f04
+distname            ogre_src_v[strsed ${version} {g/\./-/}]
+use_bzip2           yes
+
+depends_build-append port:doxygen path:bin/dot:graphviz
+
+depends_lib-append  port:libzzip port:zlib port:bzip2 port:freeimage \
+                    port:freetype port:boost port:ois
+
+patchfiles          patch-Tools_XMLConverter_CMakeLists.txt.diff \
+                    patch-CMakeLists.txt.diff \
+                    patch-CMake_CMakeLists.txt.diff \
+                    patch-CMake_InstallResources.cmake \
+                    patch-CMake_Packages_FindOGRE.cmake.diff \
+                    patch-CMake_Packages_FindOIS.cmake.diff \
+                    patch-CMake_Templates_SDK_CMakeLists.txt.in.diff \
+                    patch-CMake_Utils_FindPkgMacros.cmake.diff \
+                    patch-Docs_CMakeLists.txt.diff \
+                    patch-OgreMain_CMakeLists.txt.diff \
+                    patch-README_and_Tutorials_files.diff \
+                    patch-Samples_CMakeLists.txt.diff \
+                    patch-Samples_Browser_CMakeLists.txt.diff \
+                    patch-Samples_Browser_include_SampleBrowser_OSX.h.diff \
+                    patch-Samples_Media_CMakeLists.txt.diff \
+                    patch-Tools_CMakeLists.txt.diff
+                    
+post-patch {
+    reinplace "s|@PREFIX@|${prefix}|g" \
+        ${worksrcpath}/CMakeLists.txt \
+        ${worksrcpath}/Tutorials/CMakeLists.txt
+    reinplace "s|@FRAMEWORKS_DIR@|${frameworks_dir}|g" \
+        ${worksrcpath}/Tutorials/CMakeLists.txt
+}
+
+configure.args-append -DMACPORTS=TRUE \
+                    -DOGRE_BUILD_TOOLS=TRUE \
+                    -DOGRE_COPY_DEPENDENICES=FALSE \
+                    -DOGRE_INSTALL_DEPENDENCIES=FALSE \
+                    -DOGRE_BUILD_SAMPLES=TRUE \
+                    -DOGRE_INSTALL_DOCS=TRUE \
+                    -DOGRE_INSTALL_SAMPLES=TRUE \
+                    -DOGRE_INSTALL_SAMPLES_SOURCE=TRUE \
+                    -DOGRE_INSTALL_TOOLS=TRUE \
+                    -DOGRE_STATIC=TRUE
+
+post-destroot {
+    # Move the SampleBrowser.app to a more visible place
+    xinstall -d -m 755 ${destroot}${prefix}/share/doc/OGRE/SDKSamples/bin
+    file rename ${destroot}${prefix}/bin/SampleBrowser.app \
+        ${destroot}${prefix}/share/doc/OGRE/SDKSamples/bin
+
+    xinstall -m 644 -W ${worksrcpath} \
+        AUTHORS BUGS COPYING README READ_ME_FIRST_OGRE_MACPORTS.txt \
+        ${destroot}${prefix}/share/doc/OGRE
+
+    # Install the tutorial files
+    xinstall -d -m 755 ${destroot}${prefix}/share/doc/OGRE/Tutorials
+    
+    eval xinstall -m 644 [glob ${worksrcpath}/Tutorials/*] \
+        ${destroot}${prefix}/share/doc/OGRE/Tutorials
+}
+
+livecheck.type      regex
+livecheck.url       ${homepage}download/source
+livecheck.regex     {>OGRE ([0-9.]+) Source}

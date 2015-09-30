@@ -1,0 +1,43 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 133355 2015-02-27 02:54:47Z dports@macports.org $
+
+PortSystem              1.0
+
+name                    mosh
+version                 1.2.4
+revision                5
+categories              net
+license                 {GPL-3+ OpenSSLException}
+platforms               darwin
+maintainers             mit.edu:quentin
+description             Mobile Shell
+long_description        Mosh is a replacement for ssh that better handles \
+                        high-latency, high-packet-loss, dynamically-addressed \
+                        network links
+homepage                http://mosh.mit.edu/
+master_sites            ${homepage}
+
+checksums               rmd160  9569a4356efc8afc851ab64914d30e949a899533 \
+                        sha256  e74d0d323226046e402dd469a176075fc2013b69b0e67cea49762c957175df46
+
+depends_build           port:pkgconfig
+
+depends_lib             port:ncurses \
+                        port:protobuf-cpp \
+                        port:zlib \
+                        port:openssl \
+                        port:p5.16-getopt-long
+
+post-patch {
+    reinplace "s|#!/usr/bin/env perl|#!${prefix}/bin/perl5.16|" ${worksrcpath}/scripts/mosh
+}
+
+post-destroot {
+    xinstall -d ${destroot}${prefix}/etc/bash_completion.d
+    copy ${worksrcpath}/conf/bash_completion.d/mosh \
+         ${destroot}${prefix}/etc/bash_completion.d/mosh
+}
+
+livecheck.type          regex
+livecheck.url           ${homepage}
+livecheck.regex         "[quotemeta ${name}]-(\[0-9a-z.\]+)[quotemeta ${extract.suffix}]"

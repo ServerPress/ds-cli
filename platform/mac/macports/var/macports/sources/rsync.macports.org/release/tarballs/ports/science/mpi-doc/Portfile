@@ -1,0 +1,41 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134773 2015-04-07 05:24:56Z sean@macports.org $
+
+PortSystem          1.0
+
+universal_variant    no
+
+# make sure to keep in sync with mpich
+name                mpi-doc
+version             3.1.4
+
+license             BSD
+categories          science parallel net
+platforms           darwin
+maintainers         sean \
+                    openmaintainer
+homepage            http://www.mpich.org/
+
+description         Message Passing Interface (MPI) Library Man Pages
+long_description    ${description}
+
+master_sites        ${homepage}static/tarballs/${version}/
+distname            mpich-${version}
+
+checksums           rmd160  7ffb43108310ab891b59c0104f9d5bfa4b1a470d \
+                    sha256  f68b5330e94306c00ca5a1c0e8e275c7f53517d01d6c524d51ce9359d240466b
+
+use_configure       no
+
+build {}
+
+destroot {
+    delete ${destroot}/${prefix}/share/man/man1
+    delete ${destroot}/${prefix}/share/man/man3
+    move ${worksrcpath}/man/man1 ${destroot}/${prefix}/share/man/
+    move ${worksrcpath}/man/man3 ${destroot}/${prefix}/share/man/
+}
+
+livecheck.type      regex
+livecheck.regex     mpich-(\[0-9.p\]+)${extract.suffix}
+livecheck.url       ${homepage}downloads/index.php?s=downloads

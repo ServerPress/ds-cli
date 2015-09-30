@@ -1,0 +1,34 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137197 2015-06-06 00:35:20Z khindenburg@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Error 0.17024
+license             {Artistic-1 GPL}
+maintainers         khindenburg openmaintainer
+description         Error/exception handling in an OO-ish way
+long_description    The Error package provides two interfaces.  Firstly \
+                    Error provides a procedural interface to exception \
+                    handling. Secondly Error is a  base class for \
+                    errors/exeptions that can either be thrown, for \
+                    subsequent catch, or can simply be recorded.
+platforms           darwin
+
+checksums           rmd160  55deff0f0ab5853ade702b8e3ecbb3e9b07e337d \
+                    sha256  074db7c783a67b0667eca64a4f6a0c3de94998afc92c01d6453163eb04b9150d
+
+if {${perl5.major} != ""} {
+post-destroot {
+    set docdir ${prefix}/share/doc/${subport}
+    xinstall -d ${destroot}${docdir}
+    xinstall -m 644 -W ${worksrcpath} ChangeLog README ${destroot}${docdir}
+
+    set examplesdir ${prefix}/share/examples/${subport}
+    xinstall -d ${destroot}[file dirname ${examplesdir}]
+    copy ${worksrcpath}/examples ${destroot}${examplesdir}
+}
+
+supported_archs noarch
+}

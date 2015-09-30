@@ -1,0 +1,42 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 119590 2014-05-01 22:09:43Z mf2k@macports.org $
+
+PortSystem          1.0
+
+name                sleuthkit
+version             4.1.3
+revision            2
+categories          sysutils
+maintainers         gmail.com:jessekornblum
+platforms           darwin
+description         Forensic toolkit
+long_description    The Sleuth Kit (previously known as TASK) is a collection \
+    of UNIX-based command line file system and media management forensic \
+    analysis tools. The file system tools allow you to examine file systems of \
+    a suspect computer in a non-intrusive fashion. Because the tools do not \
+    rely on the operating system to process the file systems, deleted and \
+    hidden content is shown. \
+    The media management tools allow you to examine the layout of disks and \
+    other media. The Sleuth Kit supports DOS partitions, BSD partitions (disk \
+    labels), Mac partitions, Sun slices (Volume Table of Contents), and GPT \
+    disks. With these tools, you can identify where partitions are located and \
+    extract them so that they can be analyzed with file system analysis tools.
+
+homepage            http://www.sleuthkit.org/sleuthkit/
+license             cpl ibmpl
+master_sites        sourceforge:project/sleuthkit/sleuthkit/${version}
+
+checksums           rmd160  223c6ffe22259ca057b6d9634813536e7ccd9dba \
+                    sha256  67f9d2a31a8884d58698d6122fc1a1bfa9bf238582bde2b49228ec9b899f0327
+
+depends_build       port:file \
+                    port:perl5.16
+depends_lib         port:libewf \
+                    port:openssl \
+                    port:p5.16-datemanip \
+                    port:zlib
+
+configure.args      --mandir=${prefix}/share/man
+
+## for pystk
+patchfiles          patch-tsk4.1.3_external_type.diff

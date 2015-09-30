@@ -1,0 +1,50 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136585 2015-05-22 22:11:23Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           cmake 1.0
+
+name                libbiosig
+version             1.6.4
+categories          science
+platforms           darwin
+license             GPL-3
+maintainers         gmx.de:christsc
+description         I/O library for biomedical data
+long_description    BioSig is a library for accessing files in several \
+                    biomedical data formats (including EDF, BDF, GDF, \
+                    BrainVision, BCI2000, CFWB, HL7aECG, SCP_ECG (EN1064), \
+                    MFER, ACQ, CNT(Neuroscan), DEMG, EGI, EEG1100, FAMOS, \
+                    SigmaPLpro, TMS32)
+homepage            http://biosig.sourceforge.net/index.html
+master_sites        sourceforge:biosig
+master_sites.mirror_subdir \
+                    /BioSig%20for%20C_C++/src
+distname            biosig4c++-${version}.src
+worksrcdir          biosig4c++-${version}
+checksums           rmd160  cfc7f36d16eebbef99edc12a0e60ae118ac4175f \
+                    sha256  3274f4fb315ef4918adc8cd74ae0f2d379da024c30187673f41447de7ba05584
+
+depends_build-append \
+                    port:gawk
+depends_lib         port:SuiteSparse \
+                    port:zlib \
+                    port:libiconv
+
+cmake.out_of_source yes
+
+configure.args-append \
+                    -DUSE_SUITESPARSE=ON \
+                    -DUSE_ZLIB=ON \
+                    -DZLIB_INCLUDE_DIR=${prefix}/include \
+                    -DZLIB_LIBRARY=${prefix}/lib/libz.dylib \
+                    -DICONV_LIBRARY=${prefix}/lib/libiconv.dylib \
+                    -DCHOLMOD_LIBRARY=${prefix}/lib/libcholmod.dylib
+
+configure.cflags-append \
+                    -DMACPORTS
+
+configure.cxxflags-append \
+                    -DMACPORTS
+
+livecheck.regex     biosig4c\\+\\+-(\[0-9a-z.\]+)\\.src${extract.suffix}

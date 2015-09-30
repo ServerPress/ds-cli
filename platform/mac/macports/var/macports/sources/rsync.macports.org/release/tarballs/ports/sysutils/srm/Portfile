@@ -1,0 +1,26 @@
+# $Id: Portfile 104187 2013-03-20 11:00:17Z jmr@macports.org $
+
+PortSystem 1.0
+
+name            srm
+version         1.2.11
+description     srm is a secure replacement for rm(1).
+long_description \
+    srm is a secure replacement for rm(1). Unlike the standard rm, it   \
+    overwrites the data in the target files before unlinking them. This \
+    prevents command-line recovery of the data by examining the raw     \
+    block device. It may also help frustrate physical examination of the\
+    disk, although it's unlikely that it can completely prevent that    \
+    type of recovery. It is, essentially, a paper shredder for sensitive\
+    files.
+
+maintainers     nomaintainer
+categories      sysutils
+# included getopt is LGPL
+license         MIT LGPL
+platforms       darwin
+homepage        http://srm.sourceforge.net/
+master_sites    sourceforge
+
+checksums       sha1    eb3a653484d5906fdb32b0f2e48bfd7eedefe419 \
+                rmd160  243cc8f02174cf78856f1f4a66aa76e38490e1f5

@@ -1,0 +1,78 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138126 2015-06-29 22:21:38Z petr@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           select 1.0
+
+set _name           flake8
+set _n              [string index ${_name} 0]
+
+name                py-${_name}
+version             2.4.1
+categories-append   devel
+platforms           darwin
+supported_archs     noarch
+license             MIT
+
+maintainers         petr openmaintainer
+
+description         The modular source code checker: pep8, pyflakes and Co.
+
+long_description    \
+    Flake8 runs all the tools by launching the single flake8 script. It is \
+    is a wrapper around the following tools: PyFlakes, PEP8 and the McCabe \
+    script by Ned Batchelder. It displays the warnings in a per-file, merged \
+    output, features Git and Mercurial hook and is extendable through \
+    flake8.extension entry points.
+
+homepage            http://flake8.readthedocs.org/
+
+distname            ${_name}-${version}
+master_sites        https://pypi.python.org/packages/source/${_n}/${_name}/
+
+checksums           md5     ed45d3db81a3b7c88bd63c6e37ca1d65 \
+                    rmd160  07ca435f8c53ffc86006b4aa91b61a1c803175b5 \
+                    sha256  2e7ebbe59d8c85e626e36d99f0db2f578394313d3f7ce9dc9f1da57ef6cd7537
+
+python.versions     27 34
+
+if {${name} ne ${subport}} {
+    depends_build-append    port:py${python.version}-setuptools
+
+    depends_lib-append      port:py${python.version}-pyflakes \
+                            port:py${python.version}-pep8 \
+                            port:py${python.version}-flake8-mccabe
+
+    depends_run-append      port:${_name}_select
+
+    # corresponds to https://gitlab.com/pycqa/flake8/ -- commit f2b0bb52
+    patchfiles      patch-setup.py.diff
+
+    select.group    ${_name}
+    select.file     ${filespath}/${_name}${python.version}
+    notes "
+To make the Python ${python.branch} version of flake8 the one that is run\
+when you execute the commands without a version suffix, e.g. 'flake8', run:
+
+port select --set ${select.group} [file tail ${select.file}]
+"
+
+    # Adding documentation
+    post-destroot {
+        set dest_doc ${destroot}${prefix}/share/doc/${subport}
+        xinstall -d  ${dest_doc}
+        xinstall -m 755 -W ${worksrcpath} \
+            CHANGES.rst \
+            CONTRIBUTORS.txt \
+            LICENSE \
+            README.rst \
+                ${dest_doc}
+    }
+
+    livecheck.type  none
+} else {
+    livecheck.type  regex
+    livecheck.url   https://pypi.python.org/pypi/${_name}/json
+    livecheck.regex "\"${_name}-(\[.\\d\]+)\\${extract.suffix}\""
+}

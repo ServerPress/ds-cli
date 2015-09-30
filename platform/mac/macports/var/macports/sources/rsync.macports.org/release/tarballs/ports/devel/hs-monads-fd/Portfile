@@ -1,0 +1,12 @@
+# $Id: Portfile 104538 2013-03-27 07:01:44Z larryv@macports.org $
+
+PortSystem      1.0
+
+name            hs-monads-fd
+replaced_by     hs-mtl
+PortGroup       obsolete 1.0
+
+version         0.0.0.1
+revision        2
+
+categories      devel haskell

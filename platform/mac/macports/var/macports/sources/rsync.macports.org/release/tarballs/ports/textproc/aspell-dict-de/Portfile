@@ -1,0 +1,35 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 124316 2014-08-22 16:03:01Z jmr@macports.org $
+
+PortSystem 1.0
+
+set langcode        de
+name		        aspell-dict-${langcode}
+version		        20030222-1
+categories	        textproc
+license		        GPL-2
+maintainers	        nomaintainer
+description	        German dictionary for aspell (current spelling rules)
+platforms	        darwin
+supported_archs     noarch
+
+long_description    German dictionary for Aspell, using the current German \
+                    spelling rules.  For a dictionary with the old German \
+                    spelling rules,  install the aspell-dict-de-alt port.
+
+homepage            http://aspell.net
+master_sites	    gnu:aspell/dict/${langcode}
+
+distname	        aspell6-${langcode}-${version}
+checksums	        md5 5950c5c8a36fc93d4d7616591bace6a6
+
+use_bzip2	        yes
+
+depends_build	    port:aspell
+
+configure.pre_args  {}
+configure.args      --vars \
+                    ASPELL=${prefix}/bin/aspell \
+                    WORD_LIST_COMPRESS=${prefix}/bin/word-list-compress
+
+livecheck.regex     >aspell(?:5|6)?-${langcode}-(.*?)\\.tar\\.

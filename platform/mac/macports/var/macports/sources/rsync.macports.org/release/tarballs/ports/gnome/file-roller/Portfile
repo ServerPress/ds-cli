@@ -1,0 +1,73 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138261 2015-07-03 15:33:29Z devans@macports.org $
+
+PortSystem          1.0
+
+name                file-roller
+version             3.16.3
+license             GPL-2+
+set branch          [join [lrange [split ${version} .] 0 1] .]
+description         An archive manager for GNOME
+long_description    File Roller is an archive manager for the GNOME \
+                    environment. Archive manager means that you can: \
+                        * Create and modify archives.  \
+                        * View the content of an archive.  \
+                        * View a file contained in the archive.  \
+                        * Extract files from the archive.
+maintainers         devans openmaintainer
+categories          gnome
+platforms           darwin
+homepage            https://wiki.gnome.org/Apps/FileRoller
+master_sites        gnome:sources/${name}/${branch}/
+
+use_xz              yes
+
+checksums           rmd160  ac1d4a5045fcf87506844b7f89d64e273bb61118 \
+                    sha256  2b3a1111caba26e67b96559a3118a700dbfb6a4c6ad7ebd3e509df227995411c
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:itstool \
+                    port:yelp-tools \
+                    port:gnome-common \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         port:desktop-file-utils \
+                    port:gtk3 \
+                    port:json-glib \
+                    port:libnotify \
+                    port:libmagic \
+                    port:libarchive
+
+depends_run         port:gnome-settings-daemon \
+                    port:yelp
+
+patchfiles          patch-src-fr-command-lrzip.c.diff
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+}
+
+configure.cmd       ./autogen.sh
+
+configure.args      --disable-nautilus-actions \
+                    --disable-packagekit \
+                    --disable-schemas-compile \
+                    --disable-silent-rules
+
+variant nautilus description {Build optional nautilus context menu actions} {
+    configure.args-delete   --disable-nautilus-actions
+    depends_lib-append      port:nautilus
+}
+
+post-activate {
+    system "${prefix}/bin/gtk-update-icon-cache-3.0 -f -t ${prefix}/share/icons/hicolor"
+    system "${prefix}/bin/update-desktop-database ${prefix}/share/applications"
+    system "${prefix}/bin/glib-compile-schemas ${prefix}/share/glib-2.0/schemas"
+}
+
+livecheck.type      gnome

@@ -1,0 +1,35 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137591 2015-06-15 07:17:54Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-unicodecsv
+version             0.13.0
+revision            0
+categories-append   devel
+platforms           darwin
+license             BSD
+
+python.versions     27
+
+maintainers         stromnov openmaintainer
+
+description         Python 2's csv module which supports unicode strings.
+long_description    ${description}
+
+homepage            https://github.com/jdunck/python-unicodecsv/
+master_sites        https://pypi.python.org/packages/source/u/unicodecsv/
+
+distname            unicodecsv-${version}
+
+checksums           rmd160  99f273e2bf7d2f83882988358f8406e41e321a27 \
+                    sha256  a913fa13a26b4b25058950f8d6231abee855e8a03a0f265274b3ed30a91034a3
+
+if {${name} ne ${subport}} {
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/unicodecsv/json
+    livecheck.regex     {unicodecsv-(\d+(?:\.\d+)*)\.[tz]}
+}

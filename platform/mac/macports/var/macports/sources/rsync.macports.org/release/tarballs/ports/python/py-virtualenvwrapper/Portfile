@@ -1,0 +1,45 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137670 2015-06-17 04:53:21Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-virtualenvwrapper
+set real_name       virtualenvwrapper
+version             4.6.0
+platforms           darwin
+supported_archs     noarch
+license             MIT
+maintainers         nomaintainer
+
+description         Enhancements to virtualenv
+long_description    virtualenvwrapper is a set of extensions to Ian \
+                    Bicking's virtualenv tool. The extensions include \
+                    wrappers for creating and deleting virtual \
+                    environments and otherwise managing your \
+                    development workflow, making it easier to work on \
+                    more than one project at a time without \
+                    introducing conflicts in their dependencies.
+homepage            http://www.doughellmann.com/projects/${real_name}/
+
+master_sites        http://pypi.python.org/packages/source/v/${real_name}
+distname            ${real_name}-${version}
+checksums           md5     b6928707eb17152b6a14fd6eeb2931a3 \
+                    rmd160  ae0f2d4fc5d96ea110d65594b5cf30b7f6a82ee1 \
+                    sha256  f3c73c3a5436f4d040505e5fb45401abdc4be267a80fa071878cfaa685e685e1
+
+python.versions     27 34
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:py${python.version}-pbr \
+                        port:py${python.version}-setuptools \
+                        port:py${python.version}-stevedore \
+                        port:py${python.version}-virtualenv \
+                        port:py${python.version}-virtualenv-clone
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi?:action=doap&name=${real_name}
+    livecheck.regex     {<revision>(\d+(\.\d+)+)</revision>}
+}

@@ -1,0 +1,32 @@
+# $Id: Portfile 110905 2013-09-09 19:27:28Z jmr@macports.org $
+
+PortSystem 1.0
+
+name			mkpwd
+version			0.7
+categories		sysutils
+license			Permissive
+platforms		darwin
+maintainers		nomaintainer
+description		mkpwd is a scalable password generator
+long_description	${description}
+
+homepage		http://www.o-schroeder.de/
+master_sites	        ${homepage}/download/${name}/
+distfiles		mkpwd-0-7.tgz
+checksums		md5 2317f750932342d521819bd7c52cd300
+
+patchfiles		patch-Makefile
+
+worksrcdir		${name}
+
+use_configure	        no
+
+build.target
+
+destroot.args	        PREFIX=${prefix}
+
+livecheck.type          regex
+livecheck.url           ${master_sites}
+livecheck.regex         href="/download/mkpwd/mkpwd-(\\d-\\d).tgz"
+livecheck.version       0-7

@@ -1,0 +1,51 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134962 2015-04-12 08:20:29Z devans@macports.org $
+
+PortSystem          1.0
+
+name                shared-mime-info
+version             1.4
+maintainers         nomaintainer
+categories          devel
+license             GPL-2+
+platforms           darwin
+description         Database of common types.
+
+long_description    The core database of common types and the \
+                    update-mime-database command used to extend it.
+
+homepage            http://freedesktop.org/wiki/Software/shared-mime-info
+master_sites        http://people.freedesktop.org/~hadess/
+use_xz              yes
+
+checksums           rmd160  bbdef1289454b13164e8112892294f24f4eb2049 \
+                    sha256  bbc0bd023f497dfd75e1ca73441cbbb5a63617d9e14f2790b868361cc055b5b1
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                    port:libxml2
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+}
+
+configure.cmd       ./autogen.sh
+
+use_parallel_build  no
+
+configure.args      --disable-update-mimedb
+
+post-activate {
+    ui_debug "Updating MIME database..."
+    system "${prefix}/bin/update-mime-database -V ${prefix}/share/mime"
+}
+
+livecheck.type      regex
+livecheck.regex     ${name}-(\\d+(?:\\.\\d+)*)

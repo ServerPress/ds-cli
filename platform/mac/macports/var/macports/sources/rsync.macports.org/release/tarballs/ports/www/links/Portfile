@@ -1,0 +1,41 @@
+# $Id: Portfile 117911 2014-03-17 01:38:55Z rmstonecipher@macports.org $
+
+PortSystem 1.0
+
+name		links
+version		2.8
+description	Lynx-like WWW browser that supports tables, menus, etc
+
+long_description \
+		Lynx-like WWW browser with text and graphics modes with many \
+		features like displaying tables, menus, etc.
+
+platforms	darwin freebsd sunos
+categories	www
+license		GPL-2+
+homepage	http://links.twibright.com/
+master_sites	http://links.twibright.com/download/
+checksums           sha1    a808d80d910b7d3ad86f4c5089e64f35113b69f2 \
+                    rmd160  29d4faeb598a76199704ae10ff5592937df3cee5
+
+maintainers	landonf openmaintainer
+use_bzip2	yes
+
+depends_lib	port:openssl port:bzip2 port:zlib port:libpng port:jpeg
+
+configure.args	--enable-javascript --without-svgalib \
+		--mandir=${prefix}/share/man --with-ssl
+
+post-patch {
+	reinplace s|/etc/|${prefix}/etc/| ${workpath}/${worksrcdir}/default.c
+}
+
+variant x11 {
+	depends_lib-append	port:jpeg \
+				port:xorg-libXt
+	configure.args-append	--enable-graphics --with-x
+}
+
+livecheck.type	regex
+livecheck.url	[lindex ${master_sites} 0]
+livecheck.regex	{links-([0-9.]+)\.tar\.bz2}

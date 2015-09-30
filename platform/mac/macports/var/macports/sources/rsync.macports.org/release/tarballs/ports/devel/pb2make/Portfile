@@ -1,0 +1,12 @@
+# $Id: Portfile 99674 2012-11-14 04:56:39Z ryandesign@macports.org $
+
+PortSystem 1.0
+replaced_by	pbtomake
+PortGroup	obsolete 1.0
+
+name		pb2make
+version		4.0
+categories	devel
+platforms	darwin
+maintainers	nomaintainer
+homepage	http://members.bellatlantic.net/~vze35xda/software.html

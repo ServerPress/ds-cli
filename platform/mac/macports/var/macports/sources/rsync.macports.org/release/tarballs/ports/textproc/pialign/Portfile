@@ -1,0 +1,54 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 110665 2013-09-03 04:34:45Z jeremyhu@macports.org $
+
+PortSystem          1.0
+
+name                pialign
+version             0.2.4
+categories          textproc
+maintainers         hum openmaintainer
+
+description         Phrasal ITG Aligner
+
+long_description    pialign is a package that allows you to create a phrase \
+                    table and word alignments from an unaligned parallel \
+                    corpus. It is unlike other unsupervised word alignment \
+                    tools in that it is able to create a phrase table using a \
+                    fully statistical model, no heuristics. As a result, it \
+                    is able to build phrase tables for phrase-based machine \
+                    translation that achieve competitive results but are only \
+                    a fraction of the size of those created with heuristic \
+                    methods.
+
+homepage            http://www.phontron.com/pialign/
+platforms           darwin
+license             CPL-1
+
+master_sites        ${homepage}download/
+checksums           rmd160  4ca9d4518672051541984a14794bc8414556f123 \
+                    sha256  e58aee210ce312550475f7db379922893ed7ff81721db16ceb7c4dfb9a1c0588
+
+# TODO: Cleanup old tr1 namespace usage
+compiler.blacklist  *clang*
+
+platform darwin {
+    if {${os.major} >= 13} {
+        depends_lib
+        depends_run
+        pre-fetch {
+            ui_error "$name does not build on Mavericks or later."
+            error "unsupported platform"
+        }
+    }
+}
+
+post-destroot {
+    set doc_dir ${destroot}${prefix}/share/doc/${name}
+    xinstall -d ${doc_dir}
+    xinstall -m 644 -W ${worksrcpath} \
+        AUTHORS COPYING README \
+        ${doc_dir}
+}
+
+livecheck.type      regex
+livecheck.regex     ${name}-(\[0-9.\]+)\\.

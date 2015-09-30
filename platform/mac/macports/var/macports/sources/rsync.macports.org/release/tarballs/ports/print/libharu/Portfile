@@ -1,0 +1,42 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 115019 2013-12-22 09:29:46Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                libharu
+version             2.2.1
+revision            2
+categories          print
+platforms           darwin
+maintainers         nomaintainer
+license             zlib
+
+description         a free, cross platform, open source library for generating PDF files
+long_description    ${description} supporting the following features: \
+        1. Generating PDF files with lines, text, images. \
+        2. Outline, text annotation, link annotation. \
+        3. Compressing document with deflate-decode. \
+        4. Embedding PNG, Jpeg images. \
+        5. Embedding Type1 font and TrueType font. \
+        6. Creating encrypted PDF files. \
+        7. Using various character sets (ISO8859-1~16, MSCP1250~8, KOI8-R). \
+        8. CJK fonts and encodings.
+
+homepage            http://libharu.org
+master_sites        ${homepage}/files/
+use_bzip2           yes
+depends_lib         port:libpng \
+                    port:zlib
+
+checksums           md5     4febd7e677b1c5d54db59a608b84e79f \
+                    sha1    bfea7d9df3fb6a112340d0d54731f62f53b26d2f \
+                    rmd160  2f5b66b5e63d15039940fa9a38630b06e74a1360
+
+patchfiles          patch-src-hpdf_image_png.c.diff
+
+configure.args-append --with-png=${prefix} \
+                      --with-zlib=${prefix}
+
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     (?i)lib(?:haru|hpdf)-(\[0-9.\]+)${extract.suffix}

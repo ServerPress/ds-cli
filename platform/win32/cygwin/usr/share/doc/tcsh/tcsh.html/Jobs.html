@@ -1,0 +1,77 @@
+<HEAD>
+<TITLE>Jobs</TITLE>
+</HEAD>
+<BODY>
+<A HREF="top.html">Up</A>
+<A HREF="Status_reporting.html">Next</A>
+<A HREF="File_inquiry_operators.html">Previous</A>
+<H2>Jobs</H2>
+The shell associates a <I>job</I> with each pipeline.  It keeps a table of
+current jobs, printed by the <I><A HREF="Builtin_commands.html#jobs">jobs</A></I> command, and assigns them small integer
+numbers.  When a job is started asynchronously with `&amp;', the shell prints a
+line which looks like
+<P>
+<menu>
+[1] 1234
+</menu>
+<P>
+indicating that the job which was started asynchronously was job number 1 and
+had one (top-level) process, whose process id was 1234.
+<P>
+If you are running a job and wish to do something else you may hit the suspend
+key (usually `^Z'),
+which sends a STOP signal to the current job.  The shell will then normally
+indicate that the job has been `Suspended' and print another prompt.
+If the <B><A HREF="Special_shell_variables.html#listjobs">listjobs</A></B> shell variable is set, all jobs will be listed
+like the <I><A HREF="Builtin_commands.html#jobs">jobs</A></I> builtin command; if it is set to `long' the listing will
+be in long format, like `jobs -l'.
+You can then manipulate the state of the suspended job.
+You can put it in the
+``background'' with the <I><A HREF="Builtin_commands.html#bg">bg</A></I> command or run some other commands and
+eventually bring the job back into the ``foreground'' with <I><A HREF="Builtin_commands.html#fg">fg</A></I>.
+(See also the <I><A HREF="Editor_commands.html#run-fg-editor">run-fg-editor</A></I> editor command.)
+A `^Z' takes effect immediately and is like an interrupt
+in that pending output and unread input are discarded when it is typed.
+The <I><A HREF="Builtin_commands.html#wait">wait</A></I> builtin command causes the shell to wait for all background
+jobs to complete.
+<P>
+The `^]' key sends a delayed suspend signal, which does not generate a STOP
+signal until a program attempts to <I>read</I>(2) it, to the current job.
+This can usefully be typed ahead when you have prepared some commands for a
+job which you wish to stop after it has read them.
+The `^Y' key performs this function in <I>csh</I>(1); in <I>tcsh</I>,
+`^Y' is an editing command.  (+)
+<P>
+A job being run in the background stops if it tries to read from the
+terminal.  Background jobs are normally allowed to produce output, but this can
+be disabled by giving the command `stty tostop'.  If you set this tty option,
+then background jobs will stop when they try to produce output like they do
+when they try to read input.
+<P>
+There are several ways to refer to jobs in the shell.  The character `%'
+introduces a job name.  If you wish to refer to job number 1, you can name it
+as `%1'.  Just naming a job brings it to the foreground; thus `%1' is a synonym
+for `fg %1', bringing job 1 back into the foreground.  Similarly, saying `%1 &amp;'
+resumes job 1 in the background, just like `bg %1'.  A job can also be named
+by an unambiguous prefix of the string typed in to start it: `%ex' would
+normally restart a suspended <I>ex</I>(1) job, if there were only one suspended
+job whose name began with the string `ex'.  It is also possible to say
+`%?<I>string</I>' to specify a job whose text contains <I>string</I>, if there
+is only one such job.
+<P>
+The shell maintains a notion of the current and previous jobs.  In output
+pertaining to jobs, the current job is marked with a `+' and the previous job
+with a `-'.  The abbreviations `%+', `%', and (by analogy with the syntax of
+the <I><A HREF="Builtin_commands.html#history">history</A></I> mechanism) `%%' all refer to the current job, and `%-' refers
+to the previous job.
+<P>
+The job control mechanism requires that the <I>stty</I>(1) option `new' be set
+on some systems.  It is an artifact from a `new' implementation of the tty
+driver which allows generation of interrupt characters from the keyboard to
+tell jobs to stop.  See <I>stty</I>(1) and the <I><A HREF="Builtin_commands.html#setty">setty</A></I> builtin command for
+details on setting options in the new tty driver.
+<P>
+<A HREF="top.html">Up</A>
+<A HREF="Status_reporting.html">Next</A>
+<A HREF="File_inquiry_operators.html">Previous</A>
+</BODY>

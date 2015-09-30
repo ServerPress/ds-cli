@@ -1,0 +1,62 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 124976 2014-09-01 19:13:00Z larryv@macports.org $
+
+PortSystem          1.0
+
+name                lynx
+set milestone       2.8.8
+version             ${milestone}rel.2
+categories          www
+platforms           darwin
+license             {GPL-2 OpenSSLException}
+maintainers         larryv
+
+description         The text web browser
+long_description    Lynx is a fully-featured World Wide Web browser for \
+                    users on Unix, VMS, and other platforms running \
+                    cursor-addressable, character-cell terminals or \
+                    emulators.
+homepage            http://lynx.isc.org/
+
+depends_lib         port:gettext \
+                    port:libiconv \
+                    port:libidn \
+                    port:ncurses
+
+master_sites        http://lynx.isc.org/current/ \
+                    ftp://lynx.isc.org/current/
+distname            [strsed ${distname} {g/-//}]
+use_bzip2           yes
+
+checksums           rmd160  a683f9c163a6c343bde53ffde99dbecce4e41b02 \
+                    sha256  6980e75cf0d677fd52c116e2e0dfd3884e360970c88c8356a114338500d5bee7
+
+worksrcdir          ${name}[strsed ${milestone} {g/\./-/}]
+
+patchfiles          patch-LYCharSets.c
+
+configure.args      --datadir=${prefix}/share/doc \
+                    --enable-htmlized-cfg \
+                    --enable-ipv6 \
+                    --enable-local-docs \
+                    --enable-nls
+
+destroot.target-append  install-doc install-help
+
+if {![variant_isset gnutls]} {
+    default_variants +ssl
+}
+
+variant ssl conflicts gnutls description "Enable secure connections using OpenSSL" {
+    depends_lib-append      port:openssl
+    configure.args-append   --with-ssl=${prefix}
+}
+
+variant gnutls conflicts ssl description "Enable secure connections with GnuTLS (experimental)" {
+    depends_lib-append      port:gnutls
+    configure.args-append   --with-gnutls=${prefix}
+}
+
+livecheck.type      regex
+livecheck.url       http://lynx.isc.org/current/
+livecheck.regex     "${name}(\\d+(?:\\.\\d+)*rel\\.\[0-9a-z\]*)${extract.suffix}"

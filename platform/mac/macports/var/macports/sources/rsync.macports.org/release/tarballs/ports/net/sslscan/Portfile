@@ -1,0 +1,38 @@
+# $Id: Portfile 83385 2011-08-31 01:52:26Z dports@macports.org $
+
+PortSystem 1.0
+
+name            sslscan
+version         1.8.2
+revision        2
+categories      net
+maintainers     nomaintainer
+description     SSL port scanner
+long_description \
+    SSLScan determines what ciphers are supported on \
+    SSL-based services, such as HTTPS. Furthermore, \
+    SSLScan will determine the prefered ciphers of \
+    the SSL service.
+homepage        http://test.titania.co.uk/index.php?option=com_content&view=article&id=56&Itemid=68
+platforms       darwin
+license         GPL-3
+
+depends_lib     port:openssl
+
+master_sites    sourceforge
+extract.suffix  .tgz
+checksums       md5 1a890d031996ab252efb535511bd58db \
+                sha1 4982ff622ca1f05829a3910be5e3903e91cfdd68 \
+                rmd160 a048d3a29d56b34a0fb2ea8e5a5dc2ba3e773d76
+
+patchfiles      patch-Makefile
+
+configure {
+    reinplace "s|__PREFIX__|${prefix}|g" ${worksrcpath}/Makefile
+    reinplace "s|__CC__|${configure.cc}|" ${worksrcpath}/Makefile
+}
+
+destroot {
+    xinstall -m 0755 ${worksrcpath}/sslscan ${destroot}${prefix}/bin
+    xinstall -m 0644 ${worksrcpath}/sslscan.1 ${destroot}${prefix}/share/man/man1
+}

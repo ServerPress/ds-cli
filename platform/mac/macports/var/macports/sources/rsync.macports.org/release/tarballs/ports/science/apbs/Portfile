@@ -1,0 +1,102 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130952 2015-01-04 06:01:01Z sean@macports.org $
+
+PortSystem              1.0
+PortGroup               cmake 1.0
+PortGroup               mpi 1.0
+
+compilers.choose        cc cxx
+
+name                    apbs
+subport                 apbs-mpi {}
+version                 1.4.0
+# Set revision separately for each subport, below.
+set branch              [join [lrange [split ${version} .] 0 1] .]
+categories              science
+maintainers             gmail.com:howarth.at.macports
+
+description             Adaptive Poisson-Boltzmann Solver
+long_description        APBS is a software package for the numerical \
+                        solution of the Poisson-Boltzmann equation, \
+                        a popular continuum model for describing \
+                        electrostatic interactions between molecular \
+                        solutes over a wide range of length scales.
+
+homepage                http://www.poissonboltzmann.org/apbs/
+platforms               darwin
+master_sites            sourceforge:project/apbs/apbs/apbs-${version}
+
+distname                APBS-${branch}-source
+worksrcdir              ${name}
+
+checksums               rmd160  9cf903fc904de18c1ceaa571f1c8bdd145731d78 \
+                        sha256  00312320a042e283f106583a3f8b9093abbd193fe5e22ca5c615ab722ca586bd
+
+depends_lib             port:maloc \
+                        port:readline
+
+configure.args-append   -DENABLE_OPENMP:BOOL=OFF \
+                        -DCMAKE_C_FLAGS="-Ii${prefix}/include -O3 -ffast-math -g"
+
+set bins {analysis benchmark born coulomb del2dx dx2mol dx2uhbd dxmath
+    mergedx mergedx2 mgmesh multivalue similarity smooth tensor2dx
+    uhbd_asc2bin value}
+
+switch ${subport} {
+    apbs {
+        compilers.setup
+
+        revision                1
+
+        configure.args-append   -DENABLE_MPI:BOOL=OFF
+
+        post-destroot {
+            set tools ${destroot}${prefix}/share/${subport}/tools
+
+            move ${tools}/manip/psize.py ${destroot}${prefix}/bin/apbs-psize.py
+            file attributes ${destroot}${prefix}/bin/apbs-psize.py \
+                -permissions 755
+
+            foreach {bin} ${bins} {
+                move ${tools}/bin/${bin} ${destroot}${prefix}/bin/apbs-${bin}
+                file attributes ${destroot}${prefix}/bin/apbs-${bin} \
+                    -permissions 755
+            }
+        }
+    }
+    apbs-mpi {
+        mpi.setup               require
+
+        revision                0
+
+        description             ${description} (MPI version)
+
+        depends_run             port:apbs
+
+        compilers.enforce_c     apbs
+
+        pre-configure {
+            configure.cc        ${mpi.cc}
+            configure.cxx       ${mpi.cxx}
+            configure.args-append   -DENABLE_MPI:BOOL=ON \
+                    -DCMAKE_C_COMPILER=${configure.cc} \
+                    -DCMAKE_CXX_COMPILER=${configure.cxx} \
+                    -DMPI_C_COMPILER=${mpi.cc} \
+                    -DMPI_CXX_COMPILER=${mpi.cxx}
+        }
+
+        destroot {
+            xinstall ${worksrcpath}/bin/apbs \
+                ${destroot}${prefix}/bin/apbs-mpi
+            foreach {bin} ${bins} {
+                xinstall ${worksrcpath}/tools/bin/${bin} \
+                    ${destroot}${prefix}/bin/apbs-mpi-${bin}
+            }
+            xinstall -d ${destroot}${prefix}/share/${subport}
+            copy ${worksrcpath}/examples \
+                    ${worksrcpath}/tools \
+                    ${worksrcpath}/doc \
+                ${destroot}${prefix}/share/${subport}
+        }
+    }
+}

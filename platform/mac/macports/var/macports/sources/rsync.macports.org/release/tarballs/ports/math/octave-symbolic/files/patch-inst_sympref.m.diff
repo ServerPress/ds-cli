@@ -1,0 +1,11 @@
+--- inst/sympref.m.orig
++++ inst/sympref.m
+@@ -165,7 +165,7 @@
+     case 'defaults'
+       settings = [];
+       settings.ipc = 'default';
+-      settings.whichpython = '';
++      settings.whichpython = '@PYTHON@';
+       sympref ('display', 'default')
+       sympref ('digits', 'default')
+       sympref ('snippet', 'default')

@@ -1,0 +1,37 @@
+# -*- Mode: Tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:et:sw=4:ts=4:sts=4
+# $Id: Portfile 126547 2014-10-12 01:01:19Z ctreleaven@macports.org $
+
+PortSystem 1.0
+
+name                libupnp
+version             1.6.19
+categories          devel
+platforms           darwin
+maintainers         ctreleaven openmaintainer
+description         portable open source UPnP development kit
+long_description \
+    The portable SDK for UPnP(tm) Devices (libupnp) provides developers with \
+    an API and open source code for building control points, devices, and \
+    bridges that are compliant with Version 1.0 of the Universal Plug and Play \
+    Device Architecture Specification.
+license             GPL-2+
+
+homepage            http://pupnp.sourceforge.net
+master_sites        sourceforge:pupnp
+# tried to Avoid Redirects but uri contains %20 character ?!?
+use_bzip2           yes
+checksums           md5     ee16e5d33a3ea7506f38d71facc057dd \
+                    sha1    ee9e16ff42808521b62b7fc664fc9cba479ede88 \
+                    rmd160  9879bc7e2e31b50b36ca752c70a00b3abc6de23f
+
+# Following 4 patches fix security faults - http://sourceforge.net/p/pupnp/bugs/122/
+patchfiles         patch-Fix_broken_strncat.diff \
+                   patch-directly_use_strdup.diff \
+                   patch-Fix-getaddrinfo-loop.diff \
+                   patch-Fix-resolve_rel_url.diff
+
+configure.args-append \
+                    --enable-ipv6
+
+livecheck.url       http://sourceforge.net/projects/pupnp/files/pupnp/
+livecheck.regex    "title=\\\"libUPnP (\\d+(?:\\.\\d+)*)"

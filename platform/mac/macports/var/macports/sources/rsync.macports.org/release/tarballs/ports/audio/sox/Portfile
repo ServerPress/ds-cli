@@ -1,0 +1,76 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 118157 2014-03-24 01:09:19Z ryandesign@macports.org $
+
+PortSystem 1.0
+
+name             sox
+conflicts        play
+version          14.4.1
+revision         2
+categories       audio
+platforms        darwin
+maintainers      stare.cz:hans
+license          GPL-2+ LGPL-2.1+
+
+description      the Swiss Army knife of audio manipulation
+long_description \
+	SoX (also known as Sound eXchange) translates sound samples between \
+	different file formats, and optionally applies various sound \
+	effects. SoX is intended as the Swiss Army knife of sound processing \
+	tools. It doesn't do anything very well, but sooner or later it \
+	comes in very handy.
+
+homepage         http://sox.sourceforge.net/
+master_sites     sourceforge:project/sox/sox/${version}
+use_bzip2        yes
+checksums        sha1    4775f9e9eebb5a2fe79df548908a7a24088118d9 \
+                 rmd160  3ced9a5b4c9275961660bc1913b0d941cbdd0460
+
+# replaces wget(1) with ftp(1)
+patchfiles	patch-src-formats.c.diff
+
+depends_lib	port:libsndfile		\
+		port:libid3tag		\
+		port:libvorbis		\
+		port:libogg		\
+		port:libmad		\
+		port:lame		\
+		port:flac		\
+		port:wavpack		\
+		port:opencore-amr	\
+		port:twolame		\
+		port:libmagic		\
+		port:libpng		\
+		port:libiconv		\
+		port:zlib
+
+configure.args   		\
+	--enable-largefile	\
+	--enable-symlinks	\
+	--disable-gomp		\
+	--without-libltdl	\
+	--with-magic		\
+	--with-png		\
+	--without-ladspa	\
+	--with-gsm		\
+	--with-lpc10		\
+	--with-mad		\
+	--with-mp3		\
+	--with-id3tag		\
+	--with-lame		\
+	--with-twolame		\
+	--with-oggvorbis	\
+	--with-flac		\
+	--with-amrwb		\
+	--with-amrnb		\
+	--with-wavpack		\
+	--with-sndfile		\
+	--without-ffmpeg	\
+	--with-coreaudio	\
+	--without-sndio		\
+	--without-alsa		\
+	--without-ao		\
+	--without-pulseaudio	\
+	--without-waveaudio	\
+	--without-oss		\
+	--without-sunaudio

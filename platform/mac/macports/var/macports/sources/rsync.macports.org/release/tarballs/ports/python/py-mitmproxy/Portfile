@@ -1,0 +1,53 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135881 2015-05-06 11:36:01Z petr@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+set _name           mitmproxy
+set _n              [string index ${_name} 0]
+
+name                py-${_name}
+version             0.11.3
+categories-append   www
+platforms           darwin
+supported_archs     noarch
+license             {GPL-3+ OpenSSLException}
+maintainers         nomaintainer
+
+description         SSL-capable man-in-the-middle proxy for HTTP
+
+long_description    \
+    mitmproxy is an SSL-capable man-in-the-middle proxy for HTTP. It provides \
+    a console interface that allows traffic flows to be inspected and edited \
+    on the fly. mitmdump is the command-line version of mitmproxy, with the \
+    same functionality but without the user interface. Think tcpdump for HTTP.
+
+homepage            http://mitmproxy.org/
+master_sites        https://pypi.python.org/packages/source/${_n}/${_name}/
+distname            ${_name}-${version}
+
+checksums           md5     220650c20189af22179112fe0d20a94e \
+                    rmd160  3fc73300257cadc022b9915d7aa2bd46057ce56b \
+                    sha256  dc0b19c718f5912669441f67d205b8d2ea0bd4db814a0858cef802cb78e97e7c
+
+python.versions     27
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:py${python.version}-asn1 \
+                        port:py${python.version}-blinker \
+                        port:py${python.version}-configargparse \
+                        port:py${python.version}-netlib \
+                        port:py${python.version}-openssl \
+                        port:py${python.version}-pyperclip \
+                        port:py${python.version}-tornado \
+                        port:py${python.version}-lxml \
+                        port:py${python.version}-Pillow \
+                        port:py${python.version}-urwid
+
+    livecheck.type  none
+} else {
+    livecheck.type  regex
+    livecheck.url   https://pypi.python.org/pypi/${_name}/json
+    livecheck.regex "\"${_name}-(\[.\\d\]+)\\${extract.suffix}\""
+}

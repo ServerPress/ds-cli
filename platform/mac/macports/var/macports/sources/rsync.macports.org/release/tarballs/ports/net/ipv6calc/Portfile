@@ -1,0 +1,30 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135908 2015-05-06 20:44:31Z mf2k@macports.org $
+
+PortSystem       1.0
+
+name             ipv6calc
+version          0.94.1
+categories       net
+maintainers      nomaintainer
+
+description      A small utility to manipulate (not only) IPv6 addresses.
+long_description ipv6calc is a small utility written in programming languate C \
+                 to manipulate (not only) IPv6 addresses. Intentions were \
+                 convering a given IPv6 address into compressed format, \
+                 convering a given IPv6 address into the same format like shown \
+                 in /proc/net/if_inet6 and (because it was not difficulty) \
+                 migrating the Perl program ip6_int into. Now only one utiltity \
+                 is needed to do a lot.
+
+platforms        darwin
+homepage         http://www.deepspace6.net/projects/ipv6calc.html
+master_sites     ftp://ftp.bieringer.de/pub/linux/IPv6/ipv6calc/
+
+checksums        rmd160  f1baffbe2f1b3a71d85f311fe735b97e1d45d7da \
+                 sha256  3bd73fd92c1d971fadea41b39830975b4a20bbcd26587dfb2835964b33de4040
+
+patchfiles       patch-man__Makefile.in-add-prefix-variable.diff
+
+livecheck.regex  {Latest version since last update of this page is ([0-9.]+) \(}
+livecheck.type   regex

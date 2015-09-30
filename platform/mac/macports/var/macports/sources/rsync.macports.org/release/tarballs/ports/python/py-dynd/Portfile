@@ -1,0 +1,56 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 128359 2014-11-19 17:56:31Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+PortGroup           python 1.0
+PortGroup           cmake 1.0
+
+set git_sha1        d7ec36c6f1beb0621d6037ab0953db7e4c1b9150
+github.setup        ContinuumIO dynd-python 0.6.6 v
+
+name                py-dynd
+categories-append   devel
+platforms           darwin
+license             BSD
+
+python.versions     27 34
+
+maintainers         stromnov openmaintainer
+
+description         Dynamic multi-dimensional array library.
+
+long_description    DyND-Python, a component of the Blaze project, is the \
+                    Python exposure of the DyND dynamic multi-dimensional \
+                    array library.
+
+checksums           rmd160  490f6540ae67ab98430e4e433b9278b8f63e9237 \
+                    sha256  edf9206ee883cbc2251b9be7e305a0f805731d145a00c4220ab1a959b7f15a3a
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:libdynd \
+                        port:py${python.version}-numpy \
+                        port:py${python.version}-cython
+
+    patchfiles-append   patch-CMakeLists.txt.diff
+
+    post-patch {
+        reinplace "s|@@DYND_PYTHON_GIT_SHA1@@|${git_sha1}|g" ${worksrcpath}/CMakeLists.txt
+        reinplace "s|@@DYND_PYTHON_VERSION_STRING@@|v${version}|g" ${worksrcpath}/CMakeLists.txt
+    }
+
+    use_configure       yes
+    configure.args-append \
+                        -DUSE_SEPARATE_LIBDYND=ON \
+                        -DUSE_RELATIVE_RPATH=OFF \
+                        -DPYTHON_EXECUTABLE=${prefix}/bin/python${python.branch} \
+                        -DCYTHON_EXECUTABLE=${prefix}/bin/cython-${python.branch}
+
+    build.cmd           make
+    build.target        all
+
+    destroot.cmd        make
+    destroot.destdir    DESTDIR=${destroot}
+
+    livecheck.type      none
+}

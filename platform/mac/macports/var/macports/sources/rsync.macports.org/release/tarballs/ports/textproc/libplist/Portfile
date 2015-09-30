@@ -1,0 +1,54 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 122491 2014-07-23 06:45:28Z rmstonecipher@macports.org $
+
+PortSystem          1.0
+PortGroup           cmake 1.0
+
+name                libplist
+version             1.10
+categories          textproc multimedia
+maintainers         nomaintainer
+description         Library for working with Apple Binary and XML Property Lists
+long_description    ${description}
+platforms           darwin
+license             GPL-2+ LGPL-2.1+
+homepage            http://libimobiledevice.org/
+master_sites        http://libimobiledevice.org/downloads/
+use_bzip2           yes
+
+checksums           rmd160  b9d8d69a064054acd82d53cbb34d8a604dbaa915 \
+                    sha256  f44c52a0f8065d41d44772a7484f93bc5e7da21a8f4a9ad3f38a36b827eeff0b
+
+depends_lib         path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                    port:libxml2 \
+                    port:swig-python
+
+patchfiles          patch-iterator.diff
+
+configure.args-append   -DENABLE_CYTHON=OFF
+
+use_parallel_build  no
+
+variant python26 conflicts python27 description {Use Python 2.6} {
+    depends_lib-append  port:python26
+    configure.args-append -DPYTHON_EXECUTABLE=${prefix}/bin/python2.6 \
+                          -DPYTHON_INCLUDE_DIR=${frameworks_dir}/Python.framework/Versions/2.6/include/python2.6 \
+                          -DPYTHON_LIBRARY=${frameworks_dir}/Python.framework/Versions/2.6/Python
+}
+variant python27 conflicts python26 description {Use Python 2.7} {
+    depends_lib-append  port:python27
+    configure.args-append -DPYTHON_EXECUTABLE=${prefix}/bin/python2.7 \
+                          -DPYTHON_INCLUDE_DIR=${frameworks_dir}/Python.framework/Versions/2.7/include/python2.7 \
+                          -DPYTHON_LIBRARY=${frameworks_dir}/Python.framework/Versions/2.7/Python
+}
+if {![variant_isset python26]} {
+    default_variants    +python27
+}
+if {![variant_isset python26] && ![variant_isset python27]} {
+    depends_lib-delete port:swig-python
+    configure.args-append -DENABLE_SWIG=OFF
+}
+
+livecheck.type      regex
+livecheck.url       ${homepage}
+livecheck.regex     "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

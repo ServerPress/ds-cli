@@ -1,0 +1,212 @@
+0.9.7:
+	* winProductName: Better support for Windows Server 2012 variants.
+	* getVolInfo: Adapt to new w32api; avoid ddk.
+	* csih: Renamed csih_is_exactly_windows8server to csih_is_exactly_server2012.
+	* csih: Added csih_cygwin_is_64bit.
+	* Support cross-compilation; support cygwin64.
+	* Use mingw64 toolchains by default for "native" executables.
+0.9.6:
+	* Avoid language runtime dlls when compiling utility programs.
+
+0.9.5:
+	* winProductName now supports Windows 8 and Windows 8 Server.
+	* Remove various obsolete tests.
+
+0.9.4:
+	* New function csih_call_winsys32() for invoking programs
+	in C:\Windows\system32.
+	* New function csih_writable_tmpdir() echos path to a temporary
+	directory, using $TMP, $TEMP, $TMPDIR, $HOME, etc.
+	* New function csih_mktemp() safely wraps /usr/bin/mktemp.
+	* csih_sanity_check() deprecated (replaced by internal
+	function).
+	* csih_check_basic_mounts() deprecated (ditto).
+	* New mutable variables csih_sanity_check_server and
+	csih_required_commands[] for modifying the behavior of
+	the internal replacement function for csih_sanity_check().
+	* All external applications (mkpasswd, expr, tr, sed, etc)
+	are now called by their full path, to avoid conflicts in
+	the presence of unexpected $PATH contents.
+	* (internal): massive reorganization, changing the order
+	of intialization. Required because some initialization requires
+	calling external programs, and we now verify these programs
+	are accessible first.
+
+0.9.3:
+	* In csih_install_config(), don't treat as error when
+	user elects elects NOT to overwrite existing files; instead
+	return success. (Corinna Vinschen)
+
+0.9.2:
+	* Remove all vestiges of pre-NT support -- except
+	for failure message if used on 9x platforms.
+	* Update user messages and # comments to reflect new
+	information: csih_is_nt2003 returns true for 64bit XP
+	but not 32bit XP. This is because 64bit XP is actually
+	more similar to Windows NT Server 2003 than XP32:
+	especially with regards to the privileges of the SYSTEM
+	account.
+	* getVolInfo uses cygwin_create_path instead of deprecated
+	cygwin_conv_to_full_win32_path.
+
+0.9.1:
+	* getVolInfo doesn't need file access rights to get
+	just volume information. Open with reduced rights
+	to work around issue with HGFS. (Corinna Vinschen)
+
+0.9.0:
+	* On-going development on the trunk is specific
+	  for cygwin-1.7. Bump version number to reflect
+	  that, but...
+	* Only a few substantive changes relative to 0.2.0:
+	  -  use common version.h file in compiled programs,
+	     to avoid having to increment the version number
+	     in too many places.
+	  - new csih_win_product_name() function caches result
+	    of calling winProductName.
+	  - Verify that OS is at least WinNT, and that cygwin
+	    version is at least 1.7.0, or error. 
+
+0.2.0:
+	* Branch for cygwin-1.5-specific releases
+	* No other changes with respect to package 0.1.9-2
+
+0.1.9:
+	* correct csih_check_access behavior.
+	* suppress errors in _csih_setup
+	* No longer restrict contents of CYGWIN variable
+	* New -f option for csih_select_privileged_username to
+	  accomodate unattended installs
+	* New '-u default_username' for csih_select_privileged_username,
+	  for another way of accomodating unattended installs, AND to
+	  allow foo-config to specify explicitly the --service-account
+	  to use.  Note that csih_privileged_account_exists $username
+	  now returns true if $username exists, and has all necessary
+	  privileges, even if it is not one of the well-known cyg_server,
+	  cron_server, or sshd_server accounts.
+	* New '-u username' for csih_privileged_accounts. Also checks
+	  username as well as 'well known' accounts for (a) existence,
+	  and (b) having necessary privileges.
+	* Now warn user when an account is specified in /etc/passwd,
+	  but is not found in the SAM. This is ok if the account is
+	  a domain account, but the user should be aware of the issue.
+	* Updated winProductName to reflect Windows 7, Server 2008 R2.
+	* csih has new functions related to detecting Windows 7 and
+	  Server 2008 R2.
+
+0.1.8:
+	* explicitly set permissions on /var/[log|run|empty]
+	and /etc. This simplifies code in most callers.
+	* Better support for (pre-existing) domain accounts
+	as privileged and unprivileged users.
+
+0.1.7:
+	* bug fixes
+	* compatibility fixes and workarounds for cygwin-1.7
+
+0.1.6:
+	* more permissions tweaks for privileged user:
+	See http://cygwin.com/ml/cygwin/2008-06/msg00453.html
+	Users of earlier versions of csih may need to manually
+	adjust their existing privileged users. Again:
+		editrights -r SeDenyNetworkLogonRight -u cyg_server
+		editrights -r SeDenyInteractiveLogonRight -u cyg_server
+		editrights -r SeIncreaseQuotaPrivilege -u cyg_server
+
+	* Even on NT/2k/XP, prefer to use "privileged" user (cyg_server,
+	sshd_server, cron_server, etc) if a suitable such user already
+	exists.  If not, then for these older OS's, fall back to SYSTEM.
+	As always, by setting csih_FORCE_PRIVILEGED_USER -- usually done
+	by the calling script via a command line argument, such as
+	    /usr/bin/iu-config -privileged 
+	the user can force NT/2k/XP to behave as Vista or Server2008: a
+	privileged user is required, and if one does not exist it will
+	be created.
+
+	* Also accept privileged accounts that exist only in /etc/passwd and
+	are not present in the local SAM.  That is, accept pre-existing 
+	privileged domain accounts.
+
+	* New utility program: getVolInfo
+	http://cygwin.com/ml/cygwin/2007-08/msg00040.html
+
+	* New function: csih_path_supports_acls() returns 0 (success)
+	if the specified path is located on a volume that supports
+	ACLs. Uses getVolInfo. Behavior can be modified, when getVolInfo
+	is incorrect, by setting user-accessible variables:
+		csih_WIN32_VOLS_WITH_ACLS
+		csih_WIN32_VOLS_WITHOUT_ACLS
+	which each may contain ;-separated lists of win32 paths, 
+	specifying volumes in the relevant category.
+
+	* It is no longer a fatal error if, when checking the 
+	permissions or access rights of a file or directory, the
+	target is located on a volume that does not support ACLs.
+	A warning is issued, but operation continues.
+
+	* The Administrators group is no longer required to be in 
+	/etc/passwd. However, it is still required in /etc/group.
+	SYSTEM is (still) required in both /etc/passwd and /etc/group.
+
+0.1.5:
+	* tweak permissions for privileged user (no longer deny
+	NetworkLogonRight). Users of earlier versions may need to 
+	manually adjust their exising privileged users: that is,
+	as an Administrator (or, on Vista with UAC, from a console
+	launched via 'Run as Administrator' with valid UAC
+	authentication):
+		editrights -r SeDenyNetworkLogonRight -u cyg_server
+
+0.1.4:
+	* Add --help, --license, --version options to winProductName.
+	* Caller can now specify the password when calling 
+	  csih_create_privileged_user
+	* csih_should_run_as now accepts optional [service_name] argument.
+	  If specified, then checks to see if [service_name] is already 
+	  isntalled. If so, the user under which the service is installed
+	  is returned (if that user has the necessary privileges).
+	  Should call csih_select_privileged_username first, unless you are
+	  SURE that [service_name] has already been installed.
+	* Add [-q] and [service_name] options to csih_select_privileged_username
+	  + If the optional argument '-q' is specified, then 
+            csih_select_privileged_username will operate in query mode, which
+	    is more appropriate for user-config scripts that need information
+	    ABOUT a service, but do not themselves install the service or
+	    create privileged users.
+	  + If the optional [service_name] argument is present, then that
+	    value may be used in some of the messages. Also, 
+	    csih_select_privileged_username will then check to see if 
+	    [service_name] is already installed.  If so, it the
+	    account under which it is installed will be selected, assuming
+	    that account passes validation (has necessary permissions, group
+	    memberships, etc).
+	  + Usually [-q] and [service_name] should be specified together.
+	* Associated foo-config scripts that do not themselves install
+	  a service (such as ssh-user-config) can now query the 'expected'
+	  account that the associated service will run as. Recommended
+	  pattern:
+	    if csih_is_nt
+	    then
+	      if ! cygrunsrv -Q <service> >/dev/null 2>&1
+	      then
+	        csih_select_privileged_username -q <service>
+	      fi
+	      service_user=$(csih_service_should_run_as <service>)
+	      ... continue ...
+	    fi
+	* new functions for comparing x.y.z version numbers:
+	    csih_version_ge A B  --> A >= B
+	    csih_version_le A B  --> A <= B
+	    csih_version_gt A B  --> A >  B
+	    csih_version_lt A B  --> A <  B
+	    csih_version_ne A B  --> A == B
+	* Clarified licensing terms and attributions for csih.sh script
+	  Explicitly MIT/X.
+	* Removed any direct heritage from cygport due to licensing concerns.
+
+	For an example of the usage of the new facilities, see the (proposed)
+	ssh-host-config and ssh-user-config scripts:
+	+ host: http://cygwin.com/ml/cygwin/2008-04/msg00079.html
+	+ user: http://cygwin.com/ml/cygwin/2008-04/msg00219.html
+	(Note that the official ssh-[host|user]-config scripts may not look
+	anything like these two proposals...)

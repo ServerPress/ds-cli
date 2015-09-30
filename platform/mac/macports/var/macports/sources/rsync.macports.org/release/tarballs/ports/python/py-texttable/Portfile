@@ -1,0 +1,22 @@
+# $Id: Portfile 130831 2015-01-02 22:06:55Z larryv@macports.org $
+
+PortSystem 1.0
+PortGroup python 1.0
+
+name			py-texttable
+version			0.6.0
+revision		1
+categories-append	textproc
+license			GPL-2+
+platforms		darwin
+supported_archs	noarch
+maintainers		nomaintainer
+description		python module for creating simple ASCII tables
+long_description	${description}
+
+homepage		http://foutaise.org/code/
+master_sites	${homepage}texttable/ http://distfiles.macports.org/python/
+distname		texttable-${version}
+checksums		md5 1aa4621a36a97588754bd8087cd19226
+
+python.versions	27

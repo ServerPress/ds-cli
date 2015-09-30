@@ -1,0 +1,119 @@
+# $Id: Portfile 134598 2015-03-31 16:24:55Z dluke@macports.org $
+
+PortSystem 1.0
+
+name			subversion-perlbindings
+version			1.8.13
+categories		devel perl
+platforms		darwin
+maintainers		geeklair.net:dluke blair
+description		Perl bindings for the subversion version control system (svn)
+license			Apache-2
+
+long_description	Subversion (svn) is a version control system designed to be \
+			as similar to cvs(1) as possible, while fixing many \
+			outstanding problems with cvs(1). The perl bindings \
+			provide access to subversion API from perl.
+
+homepage		http://subversion.apache.org/
+
+set perl5.branches {5.16 5.18 5.20}
+foreach branch ${perl5.branches} {
+    set p_idx [lsearch ${perl5.branches} ${branch}]
+    set other_perls [lreplace ${perl5.branches} $p_idx $p_idx]
+
+    subport ${name}-${branch} {
+        set perl5.branch $branch
+	foreach c_perl ${other_perls} {
+            conflicts-append ${name}-${c_perl}
+        }
+    }
+}
+
+if {${subport} eq ${name}} {
+    distfiles
+    supported_archs noarch
+    # depend on a default perl version
+    depends_lib port:${name}-5.16
+    # avoid conflict with old version when upgrading
+    replaced_by ${name}-5.16
+    use_configure no
+    build {}
+    destroot {
+	xinstall -d ${destroot}${prefix}/share/doc/${name}
+        system "echo $name is a stub port > ${destroot}${prefix}/share/doc/${name}/README"
+    }
+	livecheck.type	regex
+	livecheck.url	http://svn.apache.org/repos/asf/subversion/tags/
+	livecheck.regex	"(\\d+\\.\\d+\\.\\d+)/"
+} else {
+
+master_sites		apache:subversion
+use_bzip2		yes
+checksums	sha1	aa0bd14ac6a8f0fb178cc9ff325387de01cd7452 \
+		rmd160	7d73be6695030b1eff81aad0b9a934886eaa73f2
+		
+distname		subversion-${version}
+dist_subdir		subversion
+
+test.run		yes
+test.target		check-swig-pl
+
+use_parallel_build	no
+
+depends_lib		port:expat \
+			port:apr port:apr-util \
+			port:db46 port:subversion \
+			port:perl${perl5.branch} \
+			port:gettext port:libiconv \
+			port:serf1 port:cyrus-sasl2 \
+			port:sqlite3 port:libmagic \
+			port:libcomerr \
+			port:zlib
+
+configure.args		--with-berkeley-db=:${prefix}/include/db46:${prefix}/lib/db46:db-4.6 \
+			--with-apr=${prefix}/bin/apr-1-config \
+			--with-apr-util=${prefix}/bin/apu-1-config --without-apxs \
+			--mandir=\\\${prefix}/share/man \
+			--with-serf=${prefix} \
+			--with-sasl=${prefix} \
+			--with-libmagic=${prefix} \
+			--without-gnome-keyring
+
+configure.env		ac_cv_path_PERL=${prefix}/bin/perl${perl5.branch}
+
+build.target		swig-pl
+destroot.target		install-swig-pl-lib DESTDIR=${destroot} && \
+        		cd "${worksrcpath}/subversion/bindings/swig/perl/native" &&\
+			make pure_install
+
+destroot.args		INSTALLDIRS=vendor
+
+pre-configure {		reinplace "s|hardcode_direct=yes|hardcode_direct=no|g" \
+				${worksrcpath}/configure
+			}
+
+post-configure {	reinplace "s|need_relink=yes|need_relink=no|g" \
+				${worksrcpath}/libtool
+			}
+
+variant no_bdb description {Build without support for BerkeleyDB repositories} {
+		        depends_lib-delete      port:db46
+                        configure.args-delete   --with-berkeley-db=:${prefix}/include/db46:${prefix}/lib/db46:db-4.6
+                        configure.args-append   --without-berkeley-db
+                        }
+
+post-destroot {
+                foreach packlist [exec find ${destroot} -name .packlist] {
+                        ui_info "Fixing packlist ${packlist}"
+                        reinplace "s|${destroot}||" ${packlist}
+                }
+        }
+
+# CarbonCore/MacTypes.h: No such file or directory
+platform puredarwin {		configure.args-append \
+					--disable-keychain
+				}
+
+livecheck.type  none
+}

@@ -1,0 +1,51 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=Portfile:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130546 2014-12-31 22:18:58Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           github 1.0
+PortGroup           select 1.0
+
+github.setup        jmdana memprof 0.3.3 v
+name                py-memprof
+categories-append   devel
+license             GPL-3
+platforms           darwin
+supported_archs     noarch
+
+maintainers         g5pw openmaintainer
+
+description         Memprof is a memory profiler for Python. 
+long_description    ${description} It logs and plots the memory usage of all\
+                    the variables during the execution of the decorated methods.
+
+homepage            http://jmdana.github.io/memprof/
+python.versions     26 27 33 34
+
+
+if {${name} ne ${subport}} {
+    depends_build       port:py${python.version}-cython
+    depends_run         port:py${python.version}-matplotlib \
+                        port:memprof_select
+
+    checksums           rmd160  41005a6271b3cdb19ac2e0e95565329bd0b98caf \
+                        sha256  c7093d6c65df0cec125752a1002db7130cde578828ae009e0f605cb8bf80501b
+
+    # The argparse module was included in the standard library from 2.7 onwards.
+    if { ${python.version} < 27 } {
+        depends_run-append  port:py26-argparse
+    } else {
+        patchfiles-append   setup.py.diff
+    }
+
+    select.group        memprof
+    select.file         ${filespath}/py${python.version}-memprof
+
+    notes "
+To make the Python ${python.branch} version of Memprof the one that is run when\
+you execute the commands without a version suffix, e.g. 'mp_plot', run:
+
+port select --set ${select.group} [file tail ${select.file}]
+"
+    livecheck.type      none
+}

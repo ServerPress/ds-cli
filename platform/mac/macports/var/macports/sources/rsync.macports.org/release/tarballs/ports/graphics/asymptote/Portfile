@@ -1,0 +1,101 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136519 2015-05-20 08:40:18Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           texlive 1.0
+
+name                asymptote
+version             2.35
+categories          graphics
+maintainers         mojca openmaintainer
+description         a vector graphics language
+long_description    Asymptote is a powerful descriptive \
+                    vector graphics language that provides a natural \
+                    coordinate-based framework for technical drawing. \
+                    Labels and equations are typeset with LaTeX, for \
+                    high-quality PostScript output.
+homepage            http://asymptote.sourceforge.net
+license             LGPL-3+
+platforms           darwin
+configure.args      --with-latex=${texlive_texmfports}/tex/latex \
+                    --with-context=${texlive_texmfports}/tex/context/third \
+                    --mandir=${prefix}/share/man \
+                    --disable-offscreen
+master_sites        sourceforge:project/asymptote/${version}/
+extract.suffix      .src.tgz
+checksums           rmd160  9ec4ff746f28c93ef4f0eb1e4585e9d9f6c4a80f \
+                    sha256  ff3cf5b6a6a65fb1fe5b3ef1e94bf9cff8c3376f0cd7be0fdd7079c0fb46c285
+
+# texlive-latex-recommended and texinfo are only used for building the docs
+# other relevant packages are:
+# - texlive-common
+# - texlive-bin
+# - texlive-basic
+# - texlive-latex
+# but they are already a dependency of latex-recommended
+#
+# one day we could split that into a separate +docs variant
+# or fetch the PDF from somewhere
+depends_build       port:ghostscript \
+                    port:texinfo \
+                    port:texlive-latex-recommended \
+                    port:texlive-fonts-recommended
+
+depends_lib         port:readline \
+                    port:fftw-3 \
+                    port:gsl \
+                    port:libsigsegv \
+                    port:ncurses \
+                    path:lib/libgc.dylib:boehmgc
+
+# Runtime dependencies really depend on user preferences.
+# Asy can draw graphics without any TeX or without LaTeX,
+# so one might just as well remove all deps (or add more)
+#
+# The hierarchy of dependencies goes as:
+# - texlive-latex-recommended [common, bin, basic, latex]
+# - texlive-latex             [common, bin, basic]
+# - texlive-basic             [common, bin]
+#
+# But then asy also supports luatex, context, etc.
+depends_run         port:ghostscript \
+                    port:texlive-basic
+
+depends_skip_archcheck-append \
+                    port:ghostscript \
+                    port:texinfo \
+                    port:texlive-basic \
+                    port:texlive-bin \
+                    port:texlive-latex-recommended
+
+post-destroot {
+    if {[variant_isset python27]} {
+        set python.branch   2.7
+        set python.bin      ${prefix}/bin/python${python.branch}
+        eval reinplace {"s|#!/usr/bin/env python|#!${python.bin}|"} \
+            [glob -directory ${destroot}${prefix}/share/${name}/GUI *.py]
+    } else {
+        delete ${destroot}${prefix}/bin/xasy
+    }
+}
+
+post-activate {
+    # run `mktexlsr` to make sure the asymptote files are found:
+    system "mktexlsr"
+}
+post-deactivate {
+    system "mktexlsr"
+}
+
+# asymptote's GUI needs either pyXY-pil or pyXY-Pillow
+# https://trac.macports.org/ticket/44284
+variant python27 description {Enable xasy GUI using Python 2.7} {
+    set python.version  27
+    set python.branch   2.7
+
+    depends_lib-append  port:py${python.version}-tkinter \
+                        path:${frameworks_dir}/Python.framework/Versions/${python.branch}/lib/python${python.branch}/site-packages/PIL:py${python.version}-Pillow
+}
+default_variants    +python27
+
+livecheck.regex     /${name}-(\[0-9.\]+)${extract.suffix}

@@ -1,0 +1,17 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134794 2015-04-07 16:28:55Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20
+perl5.setup         Devel-Size 0.80
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Perl extension for finding the memory usage of Perl variables
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  ca213b583fa27bfe5bcde5341e010e4df5049696 \
+                    sha256  ca3a089cb263ab6b9751df777cf6d3df3ba470d471d300a8076e4be6e288d057
