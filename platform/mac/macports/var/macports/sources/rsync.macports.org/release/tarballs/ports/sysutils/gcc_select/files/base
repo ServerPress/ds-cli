@@ -1,7 +1,0 @@
-bin/gcc
-bin/cpp
-bin/c++
-bin/g++
-bin/gcj
-bin/gcov
-bin/gfortran

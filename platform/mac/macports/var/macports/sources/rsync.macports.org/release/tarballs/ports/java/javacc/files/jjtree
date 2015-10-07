@@ -1,9 +1,0 @@
-#!/bin/sh
-JAR="@JAR@"
-
-case "`uname`" in
-     CYGWIN*) JAR="`cygpath --windows -- "$JAR"`" ;;
-esac
-
-java -classpath "$JAR" jjtree "$@"
-

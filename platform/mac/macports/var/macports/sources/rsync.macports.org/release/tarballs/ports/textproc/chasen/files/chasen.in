@@ -1,2 +1,0 @@
-#!/bin/sh
-chasen -i @NKF_ENCODING@ -r @RC_FILE@ "$@"

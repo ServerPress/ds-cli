@@ -1,2 +1,0 @@
-#!/bin/sh
-exec java -jar "@APGDIFF_JAR_PATH@" "$@"

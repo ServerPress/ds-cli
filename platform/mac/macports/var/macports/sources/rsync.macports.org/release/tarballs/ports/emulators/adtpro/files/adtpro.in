@@ -1,3 +1,0 @@
-#!/bin/bash
-
-exec @MY_DIR@/adtpro.sh
