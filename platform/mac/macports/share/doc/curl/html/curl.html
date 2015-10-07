@@ -250,10 +250,10 @@ p.roffit {
 <p class="level0"><a name="--capath"></a><span class="nroffip">--capath &lt;CA certificate directory&gt;</span> 
 <p class="level1">(SSL) Tells curl to use the specified certificate directory to verify the peer. Multiple paths can be provided by separating them with ":" (e.g. "path1:path2:path3"). The certificates must be in PEM format, and if curl is built against OpenSSL, the directory must have been processed using the c_rehash utility supplied with OpenSSL. Using <a class="emphasis" href="#--capath">--capath</a> can allow OpenSSL-powered curl to make SSL-connections much more efficiently than using <a class="emphasis" href="#--cacert">--cacert</a> if the <a class="emphasis" href="#--cacert">--cacert</a> file contains many CA certificates. 
 <p class="level1">If this option is set, the default capath value will be ignored, and if it is used several times, the last one will be used. 
-<p class="level0"><a name="--pinnedpubkey"></a><span class="nroffip">--pinnedpubkey &lt;pinned public key&gt;</span> 
-<p class="level1">(SSL) Tells curl to use the specified public key file to verify the peer. The file must contain a single public key in PEM or DER format. 
+<p class="level0"><a name="--pinnedpubkey"></a><span class="nroffip">--pinnedpubkey &lt;pinned public key (hashes)&gt;</span> 
+<p class="level1">(SSL) Tells curl to use the specified public key file (or hashes) to verify the peer. This can be a path to a file which contains a single public key in PEM or DER format, or any number of base64 encoded sha256 hashes preceded by &acute;sha256//&acute; and seperated by &acute;;&acute; 
 <p class="level1">When negotiating a TLS or SSL connection, the server sends a certificate indicating its identity. A public key is extracted from this certificate and if it does not exactly match the public key provided to this option, curl will abort the connection before sending or receiving any data. 
-<p class="level1">Added in 7.39.0 for OpenSSL, GnuTLS and GSKit. Added in 7.43.0 for NSS and wolfSSL/CyaSSL. Other SSL backends not supported. 
+<p class="level1">Added in 7.39.0 for OpenSSL, GnuTLS and GSKit. Added in 7.43.0 for NSS and wolfSSL/CyaSSL. sha256 support added in 7.44.0 for OpenSSL, GnuTLS, NSS and wolfSSL/CyaSSL. Other SSL backends not supported. 
 <p class="level1">If this option is used several times, the last one will be used. 
 <p class="level0"><a name="--cert-status"></a><span class="nroffip">--cert-status</span> 
 <p class="level1">(SSL) Tells curl to verify the status of the server certificate by using the Certificate Status Request (aka. OCSP stapling) TLS extension. 
@@ -270,7 +270,7 @@ p.roffit {
 <p class="level1">(HTTP) This lets curl emulate a filled-in form in which a user has pressed the submit button. This causes curl to POST data using the Content-Type multipart/form-data according to <a href="http://www.ietf.org/rfc/rfc2388.txt">RFC 2388</a>. This enables uploading of binary files etc. To force the 'content' part to be a file, prefix the file name with an @ sign. To just get the content part from a file, prefix the file name with the symbol &lt;. The difference between @ and &lt; is then that @ makes a file get attached in the post as a file upload, while the &lt; makes a text field and just get the contents for that text field from a file. 
 <p class="level1">Example, to send your password file to the server, where 'password' is the name of the form-field to which /etc/passwd will be the input: 
 <p class="level1"><span Class="bold">curl</span> -F password=@/etc/passwd www.mypasswords.com 
-<p class="level1">To read content from stdin instead of a file, use - as the filename. This goes for both @ and &lt; constructs. 
+<p class="level1">To read content from stdin instead of a file, use - as the filename. This goes for both @ and &lt; constructs. Unfortunately it does not support reading the file from a named pipe or similar, as it needs the full size before the transfer starts. 
 <p class="level1">You can also tell curl what Content-Type to use by using 'type=', in a manner similar to: 
 <p class="level1"><span Class="bold">curl</span> -F "web=@index.html;type=text/html" url.com 
 <p class="level1">or 
@@ -657,6 +657,8 @@ referer = "<a href="http://nowhereatall.com/">http://nowhereatall.com/</a>"
 <p class="level1">This option was formerly known as <span Class="emphasis">--ftp-ssl-reqd</span> (added in 7.15.5). That option name can still be used but will be removed in a future version. 
 <p class="level0"><a name="--ssl-allow-beast"></a><span class="nroffip">--ssl-allow-beast</span> 
 <p class="level1">(SSL) This option tells curl to not work around a security flaw in the SSL3 and TLS1.0 protocols known as BEAST.  If this option isn't used, the SSL layer may use workarounds known to cause interoperability problems with some older SSL implementations. WARNING: this option loosens the SSL security, and by using this flag you ask for exactly that.  (Added in 7.25.0) 
+<p class="level0"><a name="--ssl-no-revoke"></a><span class="nroffip">--ssl-no-revoke</span> 
+<p class="level1">(WinSSL) This option tells curl to disable certificate revocation checks. WARNING: this option loosens the SSL security, and by using this flag you ask for exactly that.  (Added in 7.44.0) 
 <p class="level0"><a name="--socks4"></a><span class="nroffip">--socks4 &lt;host[:port]&gt;</span> 
 <p class="level1">Use the specified SOCKS4 proxy. If the port number is not specified, it is assumed at port 1080. (Added in 7.15.2) 
 <p class="level1">This option overrides any previous use of <a class="emphasis" href="#-x">-x, --proxy</a>, as they are mutually exclusive. 

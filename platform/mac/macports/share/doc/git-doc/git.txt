@@ -43,9 +43,29 @@ unreleased) version of Git, that is available from the 'master'
 branch of the `git.git` repository.
 Documentation for older releases are available here:
 
-* link:v2.4.5/git.html[documentation for release 2.4.5]
+* link:v2.6.1/git.html[documentation for release 2.6.1]
 
 * release notes for
+  link:RelNotes/2.6.1.txt[2.6.1],
+  link:RelNotes/2.6.0.txt[2.6].
+
+* link:v2.5.4/git.html[documentation for release 2.5.4]
+
+* release notes for
+  link:RelNotes/2.5.4.txt[2.5.4],
+  link:RelNotes/2.5.3.txt[2.5.3],
+  link:RelNotes/2.5.2.txt[2.5.2],
+  link:RelNotes/2.5.1.txt[2.5.1],
+  link:RelNotes/2.5.0.txt[2.5].
+
+* link:v2.4.10/git.html[documentation for release 2.4.10]
+
+* release notes for
+  link:RelNotes/2.4.10.txt[2.4.10],
+  link:RelNotes/2.4.9.txt[2.4.9],
+  link:RelNotes/2.4.8.txt[2.4.8],
+  link:RelNotes/2.4.7.txt[2.4.7],
+  link:RelNotes/2.4.6.txt[2.4.6],
   link:RelNotes/2.4.5.txt[2.4.5],
   link:RelNotes/2.4.4.txt[2.4.4],
   link:RelNotes/2.4.3.txt[2.4.3],
@@ -53,9 +73,11 @@ Documentation for older releases are available here:
   link:RelNotes/2.4.1.txt[2.4.1],
   link:RelNotes/2.4.0.txt[2.4].
 
-* link:v2.3.8/git.html[documentation for release 2.3.8]
+* link:v2.3.10/git.html[documentation for release 2.3.10]
 
 * release notes for
+  link:RelNotes/2.3.10.txt[2.3.10],
+  link:RelNotes/2.3.9.txt[2.3.9],
   link:RelNotes/2.3.8.txt[2.3.8],
   link:RelNotes/2.3.7.txt[2.3.7],
   link:RelNotes/2.3.6.txt[2.3.6],
@@ -66,9 +88,10 @@ Documentation for older releases are available here:
   link:RelNotes/2.3.1.txt[2.3.1],
   link:RelNotes/2.3.0.txt[2.3].
 
-* link:v2.2.2/git.html[documentation for release 2.2.2]
+* link:v2.2.3/git.html[documentation for release 2.2.3]
 
 * release notes for
+  link:RelNotes/2.2.3.txt[2.2.3],
   link:RelNotes/2.2.2.txt[2.2.2],
   link:RelNotes/2.2.1.txt[2.2.1],
   link:RelNotes/2.2.0.txt[2.2].
@@ -773,7 +796,7 @@ The Git Repository
 ~~~~~~~~~~~~~~~~~~
 These environment variables apply to 'all' core Git commands. Nb: it
 is worth noting that they may be used/overridden by SCMS sitting above
-Git so take care if using Cogito etc.
+Git so take care if using a foreign front-end.
 
 'GIT_INDEX_FILE'::
 	This environment allows the specification of an alternate
@@ -838,6 +861,15 @@ Git so take care if using Cogito etc.
 	boundaries.  Like 'GIT_CEILING_DIRECTORIES', this will not affect
 	an explicit repository directory set via 'GIT_DIR' or on the
 	command line.
+
+'GIT_COMMON_DIR'::
+	If this variable is set to a path, non-worktree files that are
+	normally in $GIT_DIR will be taken from this path
+	instead. Worktree-specific files such as HEAD or index are
+	taken from $GIT_DIR. See linkgit:gitrepository-layout[5] and
+	linkgit:git-worktree[1] for
+	details. This variable has lower precedence than other path
+	variables such as GIT_INDEX_FILE, GIT_OBJECT_DIRECTORY...
 
 Git Commits
 ~~~~~~~~~~~
@@ -993,8 +1025,19 @@ Unsetting the variable, or setting it to empty, "0" or
 	Enables trace messages for all packets coming in or out of a
 	given program. This can help with debugging object negotiation
 	or other protocol issues. Tracing is turned off at a packet
-	starting with "PACK".
+	starting with "PACK" (but see 'GIT_TRACE_PACKFILE' below).
 	See 'GIT_TRACE' for available trace output options.
+
+'GIT_TRACE_PACKFILE'::
+	Enables tracing of packfiles sent or received by a
+	given program. Unlike other trace output, this trace is
+	verbatim: no headers, and no quoting of binary data. You almost
+	certainly want to direct into a file (e.g.,
+	`GIT_TRACE_PACKFILE=/tmp/my.pack`) rather than displaying it on
+	the terminal or mixing it with other trace output.
++
+Note that this is currently only implemented for the client side
+of clones and fetches.
 
 'GIT_TRACE_PERFORMANCE'::
 	Enables performance related trace messages, e.g. total execution
@@ -1052,6 +1095,33 @@ GIT_ICASE_PATHSPECS::
 	it yourself unless you want to be paranoid about making sure
 	an operation has touched every ref (e.g., because you are
 	cloning a repository to make a backup).
+
+`GIT_ALLOW_PROTOCOL`::
+	If set, provide a colon-separated list of protocols which are
+	allowed to be used with fetch/push/clone. This is useful to
+	restrict recursive submodule initialization from an untrusted
+	repository. Any protocol not mentioned will be disallowed (i.e.,
+	this is a whitelist, not a blacklist). If the variable is not
+	set at all, all protocols are enabled.  The protocol names
+	currently used by git are:
+
+	  - `file`: any local file-based path (including `file://` URLs,
+	    or local paths)
+
+	  - `git`: the anonymous git protocol over a direct TCP
+	    connection (or proxy, if configured)
+
+	  - `ssh`: git over ssh (including `host:path` syntax,
+	    `git+ssh://`, etc).
+
+	  - `rsync`: git over rsync
+
+	  - `http`: git over http, both "smart http" and "dumb http".
+	    Note that this does _not_ include `https`; if you want both,
+	    you should specify both as `http:https`.
+
+	  - any external helpers are named by their protocol (e.g., use
+	    `hg` to allow the `git-remote-hg` helper)
 
 
 Discussion[[Discussion]]

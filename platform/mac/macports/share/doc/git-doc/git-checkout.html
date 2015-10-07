@@ -739,7 +739,7 @@ git-checkout(1) Manual Page
 <h2>NAME</h2>
 <div class="sectionbody">
 <p>git-checkout -
-   Checkout a branch or paths to the working tree
+   Switch branches or restore working tree files
 </p>
 </div>
 </div>
@@ -845,6 +845,9 @@ be used to detach HEAD at the tip of the branch (<code>git checkout
         (i.e.  commit, tag or tree) to update the index for the given
         paths before updating the working tree.
 </p>
+<div class="paragraph"><p><em>git checkout</em> with &lt;paths&gt; or <code>--patch</code> is used to restore modified or
+deleted paths to their original contents from the index or replace paths
+with the contents from a named &lt;tree-ish&gt; (most often a commit-ish).</p></div>
 <div class="paragraph"><p>The index may contain unmerged entries because of a previous failed merge.
 By default, if you try to check out such an entry from the index, the
 checkout operation will fail and nothing will be checked out.
@@ -897,6 +900,19 @@ entries; instead, unmerged entries are ignored.</p></div>
         When checking out paths from the index, check out stage #2
         (<em>ours</em>) or #3 (<em>theirs</em>) for unmerged paths.
 </p>
+<div class="paragraph"><p>Note that during <code>git rebase</code> and <code>git pull --rebase</code>, <em>ours</em> and
+<em>theirs</em> may appear swapped; <code>--ours</code> gives the version from the
+branch the changes are rebased onto, while <code>--theirs</code> gives the
+version from the branch that holds your work that is being rebased.</p></div>
+<div class="paragraph"><p>This is because <code>rebase</code> is used in a workflow that treats the
+history at the remote as the shared canonical one, and treats the
+work done on the branch you are rebasing as the third-party work to
+be integrated, and you are temporarily assuming the role of the
+keeper of the canonical history during the rebase.  As the keeper of
+the canonical history, you need to view the history from the remote
+as <code>ours</code> (i.e. "our shared canonical history"), while what you did
+on your side branch as <code>theirs</code> (i.e. "one contributor&#8217;s work on top
+of it").</p></div>
 </dd>
 <dt class="hdlist1">
 -b &lt;new_branch&gt;
@@ -1059,6 +1075,17 @@ the conflicted merge in the specified paths.</p></div>
 <div class="paragraph"><p>This means that you can use <code>git checkout -p</code> to selectively discard
 edits from your current working tree. See the &#8220;Interactive Mode&#8221;
 section of <a href="git-add.html">git-add(1)</a> to learn how to operate the <code>--patch</code> mode.</p></div>
+</dd>
+<dt class="hdlist1">
+--ignore-other-worktrees
+</dt>
+<dd>
+<p>
+        <code>git checkout</code> refuses when the wanted ref is already checked
+        out by another worktree. This option makes it check the ref
+        out anyway. In other words, the ref can be held by more than one
+        worktree.
+</p>
 </dd>
 <dt class="hdlist1">
 &lt;branch&gt;
@@ -1363,7 +1390,7 @@ $ git add frotz</code></pre>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-06-25 12:14:51 PDT
+Last updated 2015-09-28 16:26:35 PDT
 </div>
 </div>
 </body>

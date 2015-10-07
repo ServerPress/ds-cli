@@ -124,7 +124,7 @@
 .\" ========================================================================
 .\"
 .IX Title "IO::Socket::SSL 3"
-.TH IO::Socket::SSL 3 "2015-05-26" "perl v5.16.3" "User Contributed Perl Documentation"
+.TH IO::Socket::SSL 3 "2015-09-20" "perl v5.16.3" "User Contributed Perl Documentation"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -316,10 +316,12 @@ much more. See documentation of methods for details.
 With protocols like \s-1SMTP\s0 it is necessary to upgrade an existing socket to \s-1SSL\s0.
 This can be done like this:
 .PP
-.Vb 7
+.Vb 9
 \&    my $client = IO::Socket::INET\->new(\*(Aqmx.example.com:25\*(Aq) or die $!;
-\&    # .. SMTP dialogs ... send STARTTLS and read reply ...
-\&    # SSL upgrade
+\&    # .. read greeting from server
+\&    # .. send EHLO and read response
+\&    # .. send STARTTLS command and read response
+\&    # .. if response was successful we can upgrade the socket to SSL now:
 \&    IO::Socket::SSL\->start_SSL($client,
 \&        # explicitly set hostname we should use for SNI
 \&        SSL_hostname => \*(Aqmx.example.com\*(Aq
@@ -527,7 +529,7 @@ IO::Socket::SSL tries to set these values to reasonable, secure values which
 are compatible with the rest of the world.
 But, there are some scripts or modules out there which tried to be smart and
 get more secure or compatible settings.
-Unfortunatly, they did this years ago and never updated these values, so they
+Unfortunately, they did this years ago and never updated these values, so they
 are still forced to do only 'TLSv1' (instead of also using TLSv12 or TLSv11).
 Or they set '\s-1HIGH\s0' as the cipher list and thought they were secure, but did not
 notice that '\s-1HIGH\s0' includes anonymous ciphers, e.g. without identification of
@@ -557,7 +559,7 @@ their own quirks. While most of these implementations work together, it often
 gets problematic with older versions, minimal versions in load balancers, or plain
 wrong setups.
 .PP
-Unfortunatly these problems are hard to debug.
+Unfortunately these problems are hard to debug.
 Helpful for debugging are a knowledge of \s-1SSL\s0 internals, wireshark and the use of
 the debug settings of IO::Socket::SSL and Net::SSLeay, which can both be
 set with \f(CW$IO::Socket::SSL::DEBUG\fR.
@@ -853,13 +855,19 @@ Usually you want to verify that the peer certificate has been signed by a
 trusted certificate authority. In this case you should use this option to
 specify the file (\f(CW\*(C`SSL_ca_file\*(C'\fR) or directory (\f(CW\*(C`SSL_ca_path\*(C'\fR) containing the
 certificate(s) of the trusted certificate authorities.
+.Sp
+\&\f(CW\*(C`SSL_ca_path\*(C'\fR can also be an array or a string containing multiple path, where
+the path are separated by the platform specific separator. This separator is
+\&\f(CW\*(C`;\*(C'\fR on \s-1DOS\s0, Windows, Netware, \f(CW\*(C`,\*(C'\fR on \s-1VMS\s0 and \f(CW\*(C`:\*(C'\fR for all the other systems.
+If multiple path are given at least one of these must be accessible.
+.Sp
 You can also give a list of X509* certificate handles (like you get from
 Net::SSLeay or IO::Socket::SSL::Utils::PEM_xxx2cert) with \f(CW\*(C`SSL_ca\*(C'\fR. These
 will be added to the \s-1CA\s0 store before path and file and thus take precedence.
 If neither SSL_ca, nor SSL_ca_file or SSL_ca_path are set it will use
 \&\f(CW\*(C`default_ca()\*(C'\fR to determine the user-set or system defaults.
 If you really don't want to set a \s-1CA\s0 set SSL_ca_file or SSL_ca_path to
-\&\f(CW\*(C`\eundef\*(C'\fR or SSL_ca to an empty list. (unfortunatly \f(CW\*(Aq\*(Aq\fR is used by some
+\&\f(CW\*(C`\eundef\*(C'\fR or SSL_ca to an empty list. (unfortunately \f(CW\*(Aq\*(Aq\fR is used by some
 modules using IO::Socket::SSL when \s-1CA\s0 is not exlicitly given).
 .IP "SSL_client_ca | SSL_client_ca_file" 2
 .IX Item "SSL_client_ca | SSL_client_ca_file"
@@ -990,6 +998,10 @@ disables known insecure ciphers like \s-1MD5\s0, \s-1DES\s0 etc. This gives a gr
 at the tests of \s-1SSL\s0 Labs.
 To use the less secure OpenSSL builtin default (whatever this is) set
 SSL_cipher_list to ''.
+.Sp
+In case different cipher lists are needed for different \s-1SNI\s0 hosts a hash can be
+given with the host as key and the cipher suite as value, similar to
+\&\fBSSL_cert*\fR.
 .IP "SSL_honor_cipher_order" 2
 .IX Item "SSL_honor_cipher_order"
 If this option is true the cipher order the server specified is used instead
@@ -1387,14 +1399,16 @@ requires OpenSSL 0.9.6a or later to work.
 This function gives you the number of bytes available without reading from the
 underlying socket object. This function is essential if you work with event
 loops, please see the section about polling \s-1SSL\s0 sockets.
-.IP "\fBget_fingerprint([algo])\fR" 4
-.IX Item "get_fingerprint([algo])"
-This methods returns the fingerprint of the peer certificate in the form
+.IP "\fBget_fingerprint([algo,certificate])\fR" 4
+.IX Item "get_fingerprint([algo,certificate])"
+This methods returns the fingerprint of the given certificate in the form
 \&\f(CW\*(C`algo$digest_hex\*(C'\fR, where \f(CW\*(C`algo\*(C'\fR is the used algorithm, default 'sha256'.
-.IP "\fBget_fingerprint_bin([algo])\fR" 4
-.IX Item "get_fingerprint_bin([algo])"
-This methods returns the binary fingerprint of the peer certificate by using the
-algorithm \f(CW\*(C`algo\*(C'\fR, default 'sha256'.
+If no certificate is given the peer certificate of the connection is used.
+.IP "\fBget_fingerprint_bin([algo,certificate])\fR" 4
+.IX Item "get_fingerprint_bin([algo,certificate])"
+This methods returns the binary fingerprint of the given certificate by using
+the algorithm \f(CW\*(C`algo\*(C'\fR, default 'sha256'.
+If no certificate is given the peer certificate of the connection is used.
 .IP "\fB\f(BIget_cipher()\fB\fR" 4
 .IX Item "get_cipher()"
 Returns the string form of the cipher that the IO::Socket::SSL object is using.
@@ -1441,6 +1455,13 @@ See Net::SSLeay::X509_get_subjectAltNames.
 .RE
 .RS 4
 .RE
+.IP "\fBsock_certificate($field)\fR" 4
+.IX Item "sock_certificate($field)"
+This is similar to \f(CW\*(C`peer_certificate\*(C'\fR but will return the sites own
+certificate. The same arguments for \fB\f(CB$field\fB\fR can be used.
+If no \fB\f(CB$field\fB\fR is given the certificate handle from the underlying OpenSSL will
+be returned. This handle will only be valid as long as the \s-1SSL\s0 connection exists
+and if used afterwards it might result in strange crashes of the application.
 .IP "\fBpeer_certificates\fR" 4
 .IX Item "peer_certificates"
 This returns all the certificates send by the peer, e.g. first the peers own
@@ -1647,12 +1668,12 @@ about the certificates) will be considered a hard error too.
 .Sp
 The \s-1OCSP\s0 resolving will stop on the first hard error.
 .Sp
-The method will return undef as long as no hard errors occured and still
+The method will return undef as long as no hard errors occurred and still
 requests to be resolved. If all requests got resolved and no hard errors
-occured the method will return \f(CW\*(Aq\*(Aq\fR.
+occurred the method will return \f(CW\*(Aq\*(Aq\fR.
 .IP "soft_error" 8
 .IX Item "soft_error"
-This returns the soft error(s) which occured when asking the \s-1OCSP\s0 responders.
+This returns the soft error(s) which occurred when asking the \s-1OCSP\s0 responders.
 .IP "requests" 8
 .IX Item "requests"
 This will return a hash consisting of \f(CW\*(C`(url,request)\*(C'\fR\-tuples, e.g. which
@@ -1670,7 +1691,7 @@ remaining requests.
 .IP "add_response($uri,$response)" 8
 .IX Item "add_response($uri,$response)"
 This method takes the \s-1HTTP\s0 body of the response which got received when sending
-the \s-1OCSP\s0 request to \f(CW$uri\fR. If no response was received or an error occured
+the \s-1OCSP\s0 request to \f(CW$uri\fR. If no response was received or an error occurred
 one should either retry or consider \f(CW$response\fR as empty which will trigger a
 soft error.
 .Sp

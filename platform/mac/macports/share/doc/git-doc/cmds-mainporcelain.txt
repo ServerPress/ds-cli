@@ -8,7 +8,7 @@ linkgit:git-archive[1]::
 	Create an archive of files from a named tree.
 
 linkgit:git-bisect[1]::
-	Find by binary search the change that introduced a bug.
+	Use binary search to find the commit that introduced a bug.
 
 linkgit:git-branch[1]::
 	List, create, or delete branches.
@@ -17,7 +17,7 @@ linkgit:git-bundle[1]::
 	Move objects and refs by archive.
 
 linkgit:git-checkout[1]::
-	Checkout a branch or paths to the working tree.
+	Switch branches or restore working tree files.
 
 linkgit:git-cherry-pick[1]::
 	Apply the changes introduced by some existing commits.
@@ -35,7 +35,7 @@ linkgit:git-commit[1]::
 	Record changes to the repository.
 
 linkgit:git-describe[1]::
-	Show the most recent tag that is reachable from a commit.
+	Describe a commit using the most recent tag reachable from it.
 
 linkgit:git-diff[1]::
 	Show changes between commits, commit and working tree, etc.
@@ -105,6 +105,9 @@ linkgit:git-submodule[1]::
 
 linkgit:git-tag[1]::
 	Create, list, delete or verify a tag object signed with GPG.
+
+linkgit:git-worktree[1]::
+	Manage multiple working trees.
 
 linkgit:gitk[1]::
 	The Git repository browser.

@@ -753,13 +753,13 @@ git-config(1) Manual Page
 <em>git config</em> [&lt;file-option&gt;] [type] --replace-all name value [value_regex]
 <em>git config</em> [&lt;file-option&gt;] [type] [-z|--null] --get name [value_regex]
 <em>git config</em> [&lt;file-option&gt;] [type] [-z|--null] --get-all name [value_regex]
-<em>git config</em> [&lt;file-option&gt;] [type] [-z|--null] --get-regexp name_regex [value_regex]
+<em>git config</em> [&lt;file-option&gt;] [type] [-z|--null] [--name-only] --get-regexp name_regex [value_regex]
 <em>git config</em> [&lt;file-option&gt;] [type] [-z|--null] --get-urlmatch name URL
 <em>git config</em> [&lt;file-option&gt;] --unset name [value_regex]
 <em>git config</em> [&lt;file-option&gt;] --unset-all name [value_regex]
 <em>git config</em> [&lt;file-option&gt;] --rename-section old_name new_name
 <em>git config</em> [&lt;file-option&gt;] --remove-section name
-<em>git config</em> [&lt;file-option&gt;] [-z|--null] -l | --list
+<em>git config</em> [&lt;file-option&gt;] [-z|--null] [--name-only] -l | --list
 <em>git config</em> [&lt;file-option&gt;] --get-color name [default]
 <em>git config</em> [&lt;file-option&gt;] --get-colorbool name [stdout-is-tty]
 <em>git config</em> [&lt;file-option&gt;] -e | --edit</pre>
@@ -1004,7 +1004,7 @@ from all available files.</p></div>
 </dt>
 <dd>
 <p>
-        List all variables set in config file.
+        List all variables set in config file, along with their values.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -1061,6 +1061,15 @@ from all available files.</p></div>
         key and value. This allows for secure parsing of the
         output without getting confused e.g. by values that
         contain line breaks.
+</p>
+</dd>
+<dt class="hdlist1">
+--name-only
+</dt>
+<dd>
+<p>
+        Output only the names of config variables for <code>--list</code> or
+        <code>--get-regexp</code>.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -1961,6 +1970,8 @@ core.worktree
 <dd>
 <p>
         Set the path to the root of the working tree.
+        If GIT_COMMON_DIR environment variable is set, core.worktree
+        is ignored and not used for determining the root of working tree.
         This can be overridden by the GIT_WORK_TREE environment
         variable and the <em>--work-tree</em> command-line option.
         The value can be an absolute path or relative to the path to
@@ -2195,6 +2206,17 @@ core.commentChar
 the beginning character of any line in existing commit messages.</p></div>
 </dd>
 <dt class="hdlist1">
+core.packedRefsTimeout
+</dt>
+<dd>
+<p>
+        The length of time, in milliseconds, to retry when trying to
+        lock the <code>packed-refs</code> file. Value 0 means not to retry at
+        all; -1 means to try indefinitely. Default is 1000 (i.e.,
+        retry for 1 second).
+</p>
+</dd>
+<dt class="hdlist1">
 sequence.editor
 </dt>
 <dd>
@@ -2422,6 +2444,19 @@ am.keepcr
 </p>
 </dd>
 <dt class="hdlist1">
+am.threeWay
+</dt>
+<dd>
+<p>
+        By default, <code>git am</code> will fail if the patch does not apply cleanly. When
+        set to true, this setting tells <code>git am</code> to fall back on 3-way merge if
+        the patch records the identity of blobs it is supposed to apply to and
+        we have those blobs available locally (equivalent to giving the <code>--3way</code>
+        option from the command line). Defaults to <code>false</code>.
+        See <a href="git-am.html">git-am(1)</a>.
+</p>
+</dd>
+<dt class="hdlist1">
 apply.ignoreWhitespace
 </dt>
 <dd>
@@ -2553,12 +2588,9 @@ branch.&lt;name&gt;.rebase
         "git pull" is run. See "pull.rebase" for doing this in a non
         branch-specific manner.
 </p>
-<div class="literalblock">
-<div class="content">
-<pre><code>When preserve, also pass `--preserve-merges` along to 'git rebase'
+<div class="paragraph"><p>When preserve, also pass <code>--preserve-merges</code> along to <em>git rebase</em>
 so that locally committed merge commits will not be flattened
-by running 'git pull'.</code></pre>
-</div></div>
+by running <em>git pull</em>.</p></div>
 <div class="paragraph"><p><strong>NOTE</strong>: this is a possibly dangerous operation; do <strong>not</strong> use
 it unless you understand the implications (see <a href="git-rebase.html">git-rebase(1)</a>
 for details).</p></div>
@@ -3512,6 +3544,11 @@ vimdiff3
 </li>
 <li>
 <p>
+winmerge
+</p>
+</li>
+<li>
+<p>
 xxdiff
 </p>
 </li>
@@ -3798,6 +3835,33 @@ filter.&lt;driver&gt;.smudge
 </p>
 </dd>
 <dt class="hdlist1">
+fsck.&lt;msg-id&gt;
+</dt>
+<dd>
+<p>
+        Allows overriding the message type (error, warn or ignore) of a
+        specific message ID such as <code>missingEmail</code>.
+</p>
+<div class="paragraph"><p>For convenience, fsck prefixes the error/warning with the message ID,
+e.g.  "missingEmail: invalid author/committer line - missing email" means
+that setting <code>fsck.missingEmail = ignore</code> will hide that issue.</p></div>
+<div class="paragraph"><p>This feature is intended to support working with legacy repositories
+which cannot be repaired without disruptive changes.</p></div>
+</dd>
+<dt class="hdlist1">
+fsck.skipList
+</dt>
+<dd>
+<p>
+        The path to a sorted list of object names (i.e. one SHA-1 per
+        line) that are known to be broken in a non-fatal way and should
+        be ignored. This feature is useful when an established project
+        should be accepted despite early commits containing errors that
+        can be safely ignored such as invalid committer email addresses.
+        Note: corrupt objects cannot be skipped with this setting.
+</p>
+</dd>
+<dt class="hdlist1">
 gc.aggressiveDepth
 </dt>
 <dd>
@@ -3869,8 +3933,22 @@ gc.pruneExpire
 <p>
         When <em>git gc</em> is run, it will call <em>prune --expire 2.weeks.ago</em>.
         Override the grace period with this config variable.  The value
-        "now" may be used to disable this  grace period and always prune
-        unreachable objects immediately.
+        "now" may be used to disable this grace period and always prune
+        unreachable objects immediately, or "never" may be used to
+        suppress pruning.
+</p>
+</dd>
+<dt class="hdlist1">
+gc.worktreePruneExpire
+</dt>
+<dd>
+<p>
+        When <em>git gc</em> is run, it calls
+        <em>git worktree prune --expire 3.months.ago</em>.
+        This config variable can be used to set a different grace
+        period. The value "now" may be used to disable the grace
+        period and prune $GIT_DIR/worktrees immediately, or "never"
+        may be used to suppress pruning.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -3882,7 +3960,9 @@ gc.&lt;pattern&gt;.reflogExpire
 <dd>
 <p>
         <em>git reflog expire</em> removes reflog entries older than
-        this time; defaults to 90 days.  With "&lt;pattern&gt;" (e.g.
+        this time; defaults to 90 days. The value "now" expires all
+        entries immediately, and "never" suppresses expiration
+        altogether. With "&lt;pattern&gt;" (e.g.
         "refs/stash") in the middle the setting applies only to
         the refs that match the &lt;pattern&gt;.
 </p>
@@ -3891,13 +3971,15 @@ gc.&lt;pattern&gt;.reflogExpire
 gc.reflogExpireUnreachable
 </dt>
 <dt class="hdlist1">
-gc.&lt;ref&gt;.reflogExpireUnreachable
+gc.&lt;pattern&gt;.reflogExpireUnreachable
 </dt>
 <dd>
 <p>
         <em>git reflog expire</em> removes reflog entries older than
         this time and are not reachable from the current tip;
-        defaults to 30 days.  With "&lt;pattern&gt;" (e.g. "refs/stash")
+        defaults to 30 days. The value "now" expires all entries
+        immediately, and "never" suppresses expiration altogether.
+        With "&lt;pattern&gt;" (e.g. "refs/stash")
         in the middle, the setting applies only to the refs that
         match the &lt;pattern&gt;.
 </p>
@@ -4425,6 +4507,74 @@ http.saveCookies
         If set, store cookies received during requests to the file specified by
         http.cookieFile. Has no effect if http.cookieFile is unset.
 </p>
+</dd>
+<dt class="hdlist1">
+http.sslVersion
+</dt>
+<dd>
+<p>
+        The SSL version to use when negotiating an SSL connection, if you
+        want to force the default.  The available and default version
+        depend on whether libcurl was built against NSS or OpenSSL and the
+        particular configuration of the crypto library in use. Internally
+        this sets the <em>CURLOPT_SSL_VERSION</em> option; see the libcurl
+        documentation for more details on the format of this option and
+        for the ssl version supported. Actually the possible values of
+        this option are:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+sslv2
+</p>
+</li>
+<li>
+<p>
+sslv3
+</p>
+</li>
+<li>
+<p>
+tlsv1
+</p>
+</li>
+<li>
+<p>
+tlsv1.0
+</p>
+</li>
+<li>
+<p>
+tlsv1.1
+</p>
+</li>
+<li>
+<p>
+tlsv1.2
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Can be overridden by the <em>GIT_SSL_VERSION</em> environment variable.
+To force git to use libcurl&#8217;s default ssl version and ignore any
+explicit http.sslversion option, set <em>GIT_SSL_VERSION</em> to the
+empty string.</p></div>
+</dd>
+<dt class="hdlist1">
+http.sslCipherList
+</dt>
+<dd>
+<p>
+  A list of SSL ciphers to use when negotiating an SSL connection.
+  The available ciphers depend on whether libcurl was built against
+  NSS or OpenSSL and the particular configuration of the crypto
+  library in use.  Internally this sets the <em>CURLOPT_SSL_CIPHER_LIST</em>
+  option; see the libcurl documentation for more details on the format
+  of this list.
+</p>
+<div class="paragraph"><p>Can be overridden by the <em>GIT_SSL_CIPHER_LIST</em> environment variable.
+To force git to use libcurl&#8217;s default cipher list and ignore any
+explicit http.sslCipherList option, set <em>GIT_SSL_CIPHER_LIST</em> to the
+empty string.</p></div>
 </dd>
 <dt class="hdlist1">
 http.sslVerify
@@ -5079,6 +5229,11 @@ vimdiff3
 </li>
 <li>
 <p>
+winmerge
+</p>
+</li>
+<li>
+<p>
 xxdiff
 </p>
 </li>
@@ -5220,6 +5375,28 @@ mergetool.prompt
 </p>
 </dd>
 <dt class="hdlist1">
+notes.mergeStrategy
+</dt>
+<dd>
+<p>
+        Which merge strategy to choose by default when resolving notes
+        conflicts.  Must be one of <code>manual</code>, <code>ours</code>, <code>theirs</code>, <code>union</code>, or
+        <code>cat_sort_uniq</code>.  Defaults to <code>manual</code>.  See "NOTES MERGE STRATEGIES"
+        section of <a href="git-notes.html">git-notes(1)</a> for more information on each strategy.
+</p>
+</dd>
+<dt class="hdlist1">
+notes.&lt;name&gt;.mergeStrategy
+</dt>
+<dd>
+<p>
+        Which merge strategy to choose when doing a notes merge into
+        refs/notes/&lt;name&gt;.  This overrides the more general
+        "notes.mergeStrategy".  See the "NOTES MERGE STRATEGIES" section in
+        <a href="git-notes.html">git-notes(1)</a> for more information on the available strategies.
+</p>
+</dd>
+<dt class="hdlist1">
 notes.displayRef
 </dt>
 <dd>
@@ -5259,8 +5436,8 @@ notes.rewriteMode
         When copying notes during a rewrite (see the
         "notes.rewrite.&lt;command&gt;" option), determines what to do if
         the target commit already has a note.  Must be one of
-        <code>overwrite</code>, <code>concatenate</code>, or <code>ignore</code>.  Defaults to
-        <code>concatenate</code>.
+        <code>overwrite</code>, <code>concatenate</code>, <code>cat_sort_uniq</code>, or <code>ignore</code>.
+        Defaults to <code>concatenate</code>.
 </p>
 <div class="paragraph"><p>This setting can be overridden with the <code>GIT_NOTES_REWRITE_MODE</code>
 environment variable.</p></div>
@@ -5495,12 +5672,9 @@ pull.rebase
         pull" is run. See "branch.&lt;name&gt;.rebase" for setting this on a
         per-branch basis.
 </p>
-<div class="literalblock">
-<div class="content">
-<pre><code>When preserve, also pass `--preserve-merges` along to 'git rebase'
+<div class="paragraph"><p>When preserve, also pass <code>--preserve-merges</code> along to <em>git rebase</em>
 so that locally committed merge commits will not be flattened
-by running 'git pull'.</code></pre>
-</div></div>
+by running <em>git pull</em>.</p></div>
 <div class="paragraph"><p><strong>NOTE</strong>: this is a possibly dangerous operation; do <strong>not</strong> use
 it unless you understand the implications (see <a href="git-rebase.html">git-rebase(1)</a>
 for details).</p></div>
@@ -5605,6 +5779,20 @@ push.followTags
 </p>
 </dd>
 <dt class="hdlist1">
+push.gpgSign
+</dt>
+<dd>
+<p>
+        May be set to a boolean value, or the string <em>if-asked</em>. A true
+        value causes all pushes to be GPG signed, as if <em>--signed</em> is
+        passed to <a href="git-push.html">git-push(1)</a>. The string <em>if-asked</em> causes
+        pushes to be signed if the server supports it, as if
+        <em>--signed=if-asked</em> is passed to <em>git push</em>. A false value may
+        override a value from a lower-priority config file. An explicit
+        command-line flag always overrides this config option.
+</p>
+</dd>
+<dt class="hdlist1">
 rebase.stat
 </dt>
 <dd>
@@ -5634,6 +5822,28 @@ rebase.autoStash
         Defaults to false.
 </p>
 </dd>
+<dt class="hdlist1">
+rebase.missingCommitsCheck
+</dt>
+<dd>
+<p>
+        If set to "warn", git rebase -i will print a warning if some
+        commits are removed (e.g. a line was deleted), however the
+        rebase will still proceed. If set to "error", it will print
+        the previous warning and stop the rebase, <em>git rebase
+        --edit-todo</em> can then be used to correct the error. If set to
+        "ignore", no checking is done.
+        To drop a commit without warning or error, use the <code>drop</code>
+        command in the todo-list.
+        Defaults to "ignore".
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><p>rebase.instructionFormat
+        A format string, as specified in <a href="git-log.html">git-log(1)</a>, to be used for
+        the instruction list during an interactive rebase.  The format will automatically
+        have the long commit hash prepended to the format.</p></div>
+<div class="dlist"><dl>
 <dt class="hdlist1">
 receive.advertiseAtomic
 </dt>
@@ -5693,6 +5903,37 @@ receive.fsckObjects
         broken link. The result of an abort are only dangling objects.
         Defaults to false. If not set, the value of <code>transfer.fsckObjects</code>
         is used instead.
+</p>
+</dd>
+<dt class="hdlist1">
+receive.fsck.&lt;msg-id&gt;
+</dt>
+<dd>
+<p>
+        When <code>receive.fsckObjects</code> is set to true, errors can be switched
+        to warnings and vice versa by configuring the <code>receive.fsck.&lt;msg-id&gt;</code>
+        setting where the <code>&lt;msg-id&gt;</code> is the fsck message ID and the value
+        is one of <code>error</code>, <code>warn</code> or <code>ignore</code>. For convenience, fsck prefixes
+        the error/warning with the message ID, e.g. "missingEmail: invalid
+        author/committer line - missing email" means that setting
+        <code>receive.fsck.missingEmail = ignore</code> will hide that issue.
+</p>
+<div class="paragraph"><p>This feature is intended to support working with legacy repositories
+which would not pass pushing when <code>receive.fsckObjects = true</code>, allowing
+the host to accept repositories with certain known issues but still catch
+other issues.</p></div>
+</dd>
+<dt class="hdlist1">
+receive.fsck.skipList
+</dt>
+<dd>
+<p>
+        The path to a sorted list of object names (i.e. one SHA-1 per
+        line) that are known to be broken in a non-fatal way and should
+        be ignored. This feature is useful when an established project
+        should be accepted despite early commits containing errors that
+        can be safely ignored such as invalid committer email addresses.
+        Note: corrupt objects cannot be skipped with this setting.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -5767,13 +6008,10 @@ receive.hideRefs
 </dt>
 <dd>
 <p>
-        String(s) <code>receive-pack</code> uses to decide which refs to omit
-        from its initial advertisement.  Use more than one
-        definitions to specify multiple prefix strings. A ref that
-        are under the hierarchies listed on the value of this
-        variable is excluded, and is hidden when responding to <code>git
-        push</code>, and an attempt to update or delete a hidden ref by
-        <code>git push</code> is rejected.
+        This variable is the same as <code>transfer.hideRefs</code>, but applies
+        only to <code>receive-pack</code> (and so affects pushes, but not fetches).
+        An attempt to update or delete a hidden ref by <code>git push</code> is
+        rejected.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -6349,10 +6587,18 @@ transfer.hideRefs
 </dt>
 <dd>
 <p>
-        This variable can be used to set both <code>receive.hideRefs</code>
-        and <code>uploadpack.hideRefs</code> at the same time to the same
-        values.  See entries for these other variables.
+        String(s) <code>receive-pack</code> and <code>upload-pack</code> use to decide which
+        refs to omit from their initial advertisements.  Use more than
+        one definition to specify multiple prefix strings. A ref that is
+        under the hierarchies listed in the value of this variable is
+        excluded, and is hidden when responding to <code>git push</code> or <code>git
+        fetch</code>.  See <code>receive.hideRefs</code> and <code>uploadpack.hideRefs</code> for
+        program-specific versions of this config.
 </p>
+<div class="paragraph"><p>You may also include a <code>!</code> in front of the ref name to negate the entry,
+explicitly exposing it, even if an earlier entry marked it as hidden.
+If you have multiple hideRefs values, later entries override earlier ones
+(and entries in more-specific config files override less-specific ones).</p></div>
 </dd>
 <dt class="hdlist1">
 transfer.unpackLimit
@@ -6381,17 +6627,14 @@ uploadpack.hideRefs
 </dt>
 <dd>
 <p>
-        String(s) <code>upload-pack</code> uses to decide which refs to omit
-        from its initial advertisement.  Use more than one
-        definitions to specify multiple prefix strings. A ref that
-        are under the hierarchies listed on the value of this
-        variable is excluded, and is hidden from <code>git ls-remote</code>,
-        <code>git fetch</code>, etc.  An attempt to fetch a hidden ref by <code>git
-        fetch</code> will fail.  See also <code>uploadpack.allowtipsha1inwant</code>.
+        This variable is the same as <code>transfer.hideRefs</code>, but applies
+        only to <code>upload-pack</code> (and so affects only fetches, not pushes).
+        An attempt to fetch a hidden ref by <code>git fetch</code> will fail.  See
+        also <code>uploadpack.allowTipSHA1InWant</code>.
 </p>
 </dd>
 <dt class="hdlist1">
-uploadpack.allowtipsha1inwant
+uploadpack.allowTipSHA1InWant
 </dt>
 <dd>
 <p>
@@ -6399,6 +6642,17 @@ uploadpack.allowtipsha1inwant
         to accept a fetch request that asks for an object at the tip
         of a hidden ref (by default, such a request is rejected).
         see also <code>uploadpack.hideRefs</code>.
+</p>
+</dd>
+<dt class="hdlist1">
+uploadpack.allowReachableSHA1InWant
+</dt>
+<dd>
+<p>
+        Allow <code>upload-pack</code> to accept a fetch request that asks for an
+        object that is reachable from any ref tip. However, note that
+        calculating object reachability is computationally expensive.
+        Defaults to <code>false</code>.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -6523,7 +6777,7 @@ web.browser
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-06-25 11:20:14 PDT
+Last updated 2015-09-28 19:14:32 PDT
 </div>
 </div>
 </body>

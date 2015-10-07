@@ -892,8 +892,8 @@ typed the branch name.</p></div>
         Interpret &lt;refname&gt; as a reference name pattern for a refspec
         (as used with remote repositories).  If this option is
         enabled, &lt;refname&gt; is allowed to contain a single <code>*</code>
-        in place of a one full pathname component (e.g.,
-        <code>foo/*/bar</code> but not <code>foo/bar*</code>).
+        in the refspec (e.g., <code>foo/bar*/baz</code> or <code>foo/bar*baz/</code>
+        but not <code>foo/bar*/baz*</code>).
 </p>
 </dd>
 <dt class="hdlist1">
@@ -948,7 +948,7 @@ die "we do not like '$newbranch' as a branch name."</code></pre>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-06-10 14:53:27 PDT
+Last updated 2015-09-28 19:14:32 PDT
 </div>
 </div>
 </body>

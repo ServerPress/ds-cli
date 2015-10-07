@@ -1035,7 +1035,7 @@ option can be used to override --squash.</p></div>
 will be appended to the specified message.</p></div>
 <div class="paragraph"><p>The <em>git fmt-merge-msg</em> command can be
 used to give a good default for automated <em>git merge</em>
-invocations.</p></div>
+invocations. The automated message can include the branch description.</p></div>
 </dd>
 <dt class="hdlist1">
 --[no-]rerere-autoupdate
@@ -1073,6 +1073,9 @@ commit or stash your changes before running <em>git merge</em>.</p></div>
 <div class="paragraph"><p>If no commit is given from the command line, merge the remote-tracking
 branches that the current branch is configured to use as its upstream.
 See also the configuration section of this manual page.</p></div>
+<div class="paragraph"><p>When <code>FETCH_HEAD</code> (and no other commit) is specified, the branches
+recorded in the <code>.git/FETCH_HEAD</code> file by the previous invocation
+of <code>git fetch</code> for merging are merged to the current branch.</p></div>
 </dd>
 </dl></div>
 </div>
@@ -1769,6 +1772,11 @@ vimdiff3
 </li>
 <li>
 <p>
+winmerge
+</p>
+</li>
+<li>
+<p>
 xxdiff
 </p>
 </li>
@@ -1849,7 +1857,7 @@ branch.&lt;name&gt;.mergeOptions
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-06-25 12:14:51 PDT
+Last updated 2015-09-28 19:14:32 PDT
 </div>
 </div>
 </body>

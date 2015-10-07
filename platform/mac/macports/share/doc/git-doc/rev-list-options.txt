@@ -58,9 +58,11 @@ endif::git-rev-list[]
 	more than one `--grep=<pattern>`, commits whose message
 	matches any of the given patterns are chosen (but see
 	`--all-match`).
+ifndef::git-rev-list[]
 +
 When `--show-notes` is in effect, the message from the notes is
 matched as if it were part of the log message.
+endif::git-rev-list[]
 
 --all-match::
 	Limit the commits output to ones that match all given `--grep`,
@@ -726,6 +728,11 @@ format, often found in email messages.
 `--date=short` shows only the date, but not the time, in `YYYY-MM-DD` format.
 +
 `--date=raw` shows the date in the internal raw Git format `%s %z` format.
++
+`--date=format:...` feeds the format `...` to your system `strftime`.
+Use `--date=format:%c` to show the date in your system locale's
+preferred format.  See the `strftime` manual for a complete list of
+format placeholders.
 +
 `--date=default` shows timestamps in the original time zone
 (either committer's or author's).

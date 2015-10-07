@@ -1037,7 +1037,7 @@ ancillary user utilities.</p></div>
 </dt>
 <dd>
 <p>
-        Find by binary search the change that introduced a bug.
+        Use binary search to find the commit that introduced a bug.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -1061,7 +1061,7 @@ ancillary user utilities.</p></div>
 </dt>
 <dd>
 <p>
-        Checkout a branch or paths to the working tree.
+        Switch branches or restore working tree files.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -1109,7 +1109,7 @@ ancillary user utilities.</p></div>
 </dt>
 <dd>
 <p>
-        Show the most recent tag that is reachable from a commit.
+        Describe a commit using the most recent tag reachable from it.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -1294,6 +1294,14 @@ ancillary user utilities.</p></div>
 <dd>
 <p>
         Create, list, delete or verify a tag object signed with GPG.
+</p>
+</dd>
+<dt class="hdlist1">
+<a href="git-worktree.html">git-worktree(1)</a>
+</dt>
+<dd>
+<p>
+        Manage multiple working trees.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -2355,7 +2363,7 @@ HEAD
 <h3 id="_the_git_repository">The Git Repository</h3>
 <div class="paragraph"><p>These environment variables apply to <em>all</em> core Git commands. Nb: it
 is worth noting that they may be used/overridden by SCMS sitting above
-Git so take care if using Cogito etc.</p></div>
+Git so take care if using a foreign front-end.</p></div>
 <div class="dlist"><dl>
 <dt class="hdlist1">
 <em>GIT_INDEX_FILE</em>
@@ -2464,6 +2472,20 @@ Git so take care if using Cogito etc.</p></div>
         boundaries.  Like <em>GIT_CEILING_DIRECTORIES</em>, this will not affect
         an explicit repository directory set via <em>GIT_DIR</em> or on the
         command line.
+</p>
+</dd>
+<dt class="hdlist1">
+<em>GIT_COMMON_DIR</em>
+</dt>
+<dd>
+<p>
+        If this variable is set to a path, non-worktree files that are
+        normally in $GIT_DIR will be taken from this path
+        instead. Worktree-specific files such as HEAD or index are
+        taken from $GIT_DIR. See <a href="gitrepository-layout.html">gitrepository-layout(5)</a> and
+        <a href="git-worktree.html">git-worktree(1)</a> for
+        details. This variable has lower precedence than other path
+        variables such as GIT_INDEX_FILE, GIT_OBJECT_DIRECTORY&#8230;
 </p>
 </dd>
 </dl></div>
@@ -2734,9 +2756,24 @@ into it.</p></div>
         Enables trace messages for all packets coming in or out of a
         given program. This can help with debugging object negotiation
         or other protocol issues. Tracing is turned off at a packet
-        starting with "PACK".
+        starting with "PACK" (but see <em>GIT_TRACE_PACKFILE</em> below).
         See <em>GIT_TRACE</em> for available trace output options.
 </p>
+</dd>
+<dt class="hdlist1">
+<em>GIT_TRACE_PACKFILE</em>
+</dt>
+<dd>
+<p>
+        Enables tracing of packfiles sent or received by a
+        given program. Unlike other trace output, this trace is
+        verbatim: no headers, and no quoting of binary data. You almost
+        certainly want to direct into a file (e.g.,
+        <code>GIT_TRACE_PACKFILE=/tmp/my.pack</code>) rather than displaying it on
+        the terminal or mixing it with other trace output.
+</p>
+<div class="paragraph"><p>Note that this is currently only implemented for the client side
+of clones and fetches.</p></div>
 </dd>
 <dt class="hdlist1">
 <em>GIT_TRACE_PERFORMANCE</em>
@@ -2839,6 +2876,58 @@ GIT_ICASE_PATHSPECS
         an operation has touched every ref (e.g., because you are
         cloning a repository to make a backup).
 </p>
+</dd>
+<dt class="hdlist1">
+<code>GIT_ALLOW_PROTOCOL</code>
+</dt>
+<dd>
+<p>
+        If set, provide a colon-separated list of protocols which are
+        allowed to be used with fetch/push/clone. This is useful to
+        restrict recursive submodule initialization from an untrusted
+        repository. Any protocol not mentioned will be disallowed (i.e.,
+        this is a whitelist, not a blacklist). If the variable is not
+        set at all, all protocols are enabled.  The protocol names
+        currently used by git are:
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<code>file</code>: any local file-based path (including <code>file://</code> URLs,
+            or local paths)
+</p>
+</li>
+<li>
+<p>
+<code>git</code>: the anonymous git protocol over a direct TCP
+            connection (or proxy, if configured)
+</p>
+</li>
+<li>
+<p>
+<code>ssh</code>: git over ssh (including <code>host:path</code> syntax,
+            <code>git+ssh://</code>, etc).
+</p>
+</li>
+<li>
+<p>
+<code>rsync</code>: git over rsync
+</p>
+</li>
+<li>
+<p>
+<code>http</code>: git over http, both "smart http" and "dumb http".
+            Note that this does <em>not</em> include <code>https</code>; if you want both,
+            you should specify both as <code>http:https</code>.
+</p>
+</li>
+<li>
+<p>
+any external helpers are named by their protocol (e.g., use
+            <code>hg</code> to allow the <code>git-remote-hg</code> helper)
+</p>
+</li>
+</ul></div>
 </dd>
 </dl></div>
 </div>
@@ -2948,7 +3037,7 @@ subscribed to the list to send a message there.</p></div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-06-25 12:14:52 PDT
+Last updated 2015-09-28 19:20:45 PDT
 </div>
 </div>
 </body>

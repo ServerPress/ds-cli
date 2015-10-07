@@ -743,7 +743,7 @@ callback function for every ref. The callback function has this
 signature:</p></div>
 <div class="literalblock">
 <div class="content">
-<pre><code>int handle_one_ref(const char *refname, const unsigned char *sha1,
+<pre><code>int handle_one_ref(const char *refname, const struct object_id *oid,
                    int flags, void *cb_data);</code></pre>
 </div></div>
 <div class="paragraph"><p>There are different kinds of iterate functions which all take a
@@ -856,7 +856,7 @@ will be available the same way as the superprojects objects.</p></div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-06-25 12:14:52 PDT
+Last updated 2015-09-28 16:26:35 PDT
 </div>
 </div>
 </body>

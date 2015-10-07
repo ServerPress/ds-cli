@@ -63,6 +63,10 @@ p.roffit {
 &nbsp;struct curl_slist *slist=NULL;
 &nbsp;
 &nbsp;slist = curl_slist_append(slist, "pragma:");
+&nbsp;
+&nbsp;if (slist == NULL)
+&nbsp;  return -1;
+&nbsp;
 &nbsp;curl_easy_setopt(handle, CURLOPT_HTTPHEADER, slist);
 &nbsp;
 &nbsp;curl_easy_perform(handle);

@@ -1101,6 +1101,14 @@ is not detected to lie in a Git repository or work tree
 print a message to stderr and exit with nonzero status.</p></div>
 </dd>
 <dt class="hdlist1">
+--git-common-dir
+</dt>
+<dd>
+<p>
+        Show <code>$GIT_COMMON_DIR</code> if defined, else <code>$GIT_DIR</code>.
+</p>
+</dd>
+<dt class="hdlist1">
 --is-inside-git-dir
 </dt>
 <dd>
@@ -1135,6 +1143,18 @@ print a message to stderr and exit with nonzero status.</p></div>
         points at a valid repository, and print the location of the
         repository.  If &lt;path&gt; is a gitfile then the resolved path
         to the real repository is printed.
+</p>
+</dd>
+<dt class="hdlist1">
+--git-path &lt;path&gt;
+</dt>
+<dd>
+<p>
+        Resolve "$GIT_DIR/&lt;path&gt;" and takes other path relocation
+        variables such as $GIT_OBJECT_DIRECTORY,
+        $GIT_INDEX_FILE&#8230; into account. For example, if
+        $GIT_OBJECT_DIRECTORY is set to /foo/bar then "git rev-parse
+        --git-path objects/abc" returns /foo/bar/abc.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -1377,6 +1397,34 @@ some output processing may assume ref names in UTF-8.</p></div>
   <code>branch.&lt;name&gt;.merge</code>).  A missing branchname defaults to the
   current one.
 </p>
+</dd>
+<dt class="hdlist1">
+<em>&lt;branchname&gt;@{push}</em>, e.g. <em>master@{push}</em>, <em>@{push}</em>
+</dt>
+<dd>
+<p>
+  The suffix <em>@{push}</em> reports the branch "where we would push to" if
+  <code>git push</code> were run while <code>branchname</code> was checked out (or the current
+  <em>HEAD</em> if no branchname is specified). Since our push destination is
+  in a remote repository, of course, we report the local tracking branch
+  that corresponds to that branch (i.e., something in <em>refs/remotes/</em>).
+</p>
+<div class="paragraph"><p>Here&#8217;s an example to make it more clear:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>$ git config push.default current
+$ git config remote.pushdefault myfork
+$ git checkout -b mybranch origin/master
+
+$ git rev-parse --symbolic-full-name @{upstream}
+refs/remotes/origin/master
+
+$ git rev-parse --symbolic-full-name @{push}
+refs/remotes/myfork/mybranch</code></pre>
+</div></div>
+<div class="paragraph"><p>Note in the example that we set up a triangular workflow, where we pull
+from one location and push to another. In a non-triangular workflow,
+<em>@{push}</em> is the same as <em>@{upstream}</em>, and there is no need for it.</p></div>
 </dd>
 <dt class="hdlist1">
 <em>&lt;rev&gt;&#94;</em>, e.g. <em>HEAD&#94;, v1.5.1&#94;0</em>
@@ -1668,8 +1716,8 @@ The lines after the separator describe the options.</p></div>
 <p>
         its format is the short option character, then the long option name
         separated by a comma. Both parts are not required, though at least one
-        is necessary. <code>h,help</code>, <code>dry-run</code> and <code>f</code> are all three correct
-        <code>&lt;opt-spec&gt;</code>.
+        is necessary. May not contain any of the <code>&lt;flags&gt;</code> characters.
+        <code>h,help</code>, <code>dry-run</code> and <code>f</code> are examples of correct <code>&lt;opt-spec&gt;</code>.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -1841,7 +1889,7 @@ Similar to above:
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-06-25 12:14:51 PDT
+Last updated 2015-09-28 16:26:35 PDT
 </div>
 </div>
 </body>

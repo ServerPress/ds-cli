@@ -801,24 +801,24 @@ and the "Subject:" of the message as the second line.</p></div>
 </p>
 </dd>
 <dt class="hdlist1">
---bcc=&lt;address&gt;
+--bcc=&lt;address&gt;,&#8230;
 </dt>
 <dd>
 <p>
         Specify a "Bcc:" value for each email. Default is the value of
         <em>sendemail.bcc</em>.
 </p>
-<div class="paragraph"><p>The --bcc option must be repeated for each user you want on the bcc list.</p></div>
+<div class="paragraph"><p>This option may be specified multiple times.</p></div>
 </dd>
 <dt class="hdlist1">
---cc=&lt;address&gt;
+--cc=&lt;address&gt;,&#8230;
 </dt>
 <dd>
 <p>
         Specify a starting "Cc:" value for each email.
         Default is the value of <em>sendemail.cc</em>.
 </p>
-<div class="paragraph"><p>The --cc option must be repeated for each user you want on the cc list.</p></div>
+<div class="paragraph"><p>This option may be specified multiple times.</p></div>
 </dd>
 <dt class="hdlist1">
 --compose
@@ -887,7 +887,7 @@ is not set, this will be prompted for.</p></div>
 </p>
 </dd>
 <dt class="hdlist1">
---to=&lt;address&gt;
+--to=&lt;address&gt;,&#8230;
 </dt>
 <dd>
 <p>
@@ -896,7 +896,7 @@ is not set, this will be prompted for.</p></div>
         value of the <em>sendemail.to</em> configuration value; if that is unspecified,
         and --to-cmd is not specified, this will be prompted for.
 </p>
-<div class="paragraph"><p>The --to option must be repeated for each user you want on the to list.</p></div>
+<div class="paragraph"><p>This option may be specified multiple times.</p></div>
 </dd>
 <dt class="hdlist1">
 --8bit-encoding=&lt;encoding&gt;
@@ -988,6 +988,23 @@ is not set, this will be prompted for.</p></div>
         to determine your FQDN automatically.  Default is the value of
         <em>sendemail.smtpDomain</em>.
 </p>
+</dd>
+<dt class="hdlist1">
+--smtp-auth=&lt;mechanisms&gt;
+</dt>
+<dd>
+<p>
+        Whitespace-separated list of allowed SMTP-AUTH mechanisms. This setting
+        forces using only the listed mechanisms. Example:
+</p>
+<div class="listingblock">
+<div class="content">
+<pre><code>$ git send-email --smtp-auth="PLAIN LOGIN GSSAPI" ...</code></pre>
+</div></div>
+<div class="paragraph"><p>If at least one of the specified mechanisms matches the ones advertised by the
+SMTP server and if it is supported by the utilized SASL library, the mechanism
+is used for authentication. If neither <em>sendemail.smtpAuth</em> nor <em>--smtp-auth</em>
+is specified, all mechanisms supported by the SASL library can be used.</p></div>
 </dd>
 <dt class="hdlist1">
 --smtp-pass[=&lt;password&gt;]
@@ -1392,8 +1409,48 @@ sendemail.aliasFileType
 <dd>
 <p>
         Format of the file(s) specified in sendemail.aliasesFile. Must be
-        one of <em>mutt</em>, <em>mailrc</em>, <em>pine</em>, <em>elm</em>, or <em>gnus</em>.
+        one of <em>mutt</em>, <em>mailrc</em>, <em>pine</em>, <em>elm</em>, or <em>gnus</em>, or <em>sendmail</em>.
 </p>
+<div class="paragraph"><p>What an alias file in each format looks like can be found in
+the documentation of the email program of the same name. The
+differences and limitations from the standard formats are
+described below:</p></div>
+<div class="openblock">
+<div class="content">
+<div class="dlist"><dl>
+<dt class="hdlist1">
+sendmail
+</dt>
+<dd>
+<div class="ulist"><ul>
+<li>
+<p>
+Quoted aliases and quoted addresses are not supported: lines that
+        contain a <code>"</code> symbol are ignored.
+</p>
+</li>
+<li>
+<p>
+Redirection to a file (<code>/path/name</code>) or pipe (<code>|command</code>) is not
+        supported.
+</p>
+</li>
+<li>
+<p>
+File inclusion (<code>:include: /path/name</code>) is not supported.
+</p>
+</li>
+<li>
+<p>
+Warnings are printed on the standard error output for any
+        explicitly unsupported constructs, and any other lines that are not
+        recognized by the parser.
+</p>
+</li>
+</ul></div>
+</dd>
+</dl></div>
+</div></div>
 </dd>
 <dt class="hdlist1">
 sendemail.multiEdit
@@ -1463,7 +1520,7 @@ $ git send-email outgoing/*</code></pre>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-06-25 12:14:51 PDT
+Last updated 2015-09-28 19:14:32 PDT
 </div>
 </div>
 </body>

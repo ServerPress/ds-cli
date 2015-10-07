@@ -830,7 +830,7 @@ way to clean up all obsolete remote-tracking branches.</p></div>
 </dt>
 <dd>
 <p>
-        Delete a branch irrespective of its merged status.
+        Shortcut for <code>--delete --force</code>.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -858,6 +858,10 @@ way to clean up all obsolete remote-tracking branches.</p></div>
 <p>
         Reset &lt;branchname&gt; to &lt;startpoint&gt; if &lt;branchname&gt; exists
         already. Without <code>-f</code> <em>git branch</em> refuses to change an existing branch.
+        In combination with <code>-d</code> (or <code>--delete</code>), allow deleting the
+        branch irrespective of its merged status. In combination with
+        <code>-m</code> (or <code>--move</code>), allow renaming the branch even if the new
+        branch name already exists.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -876,7 +880,7 @@ way to clean up all obsolete remote-tracking branches.</p></div>
 </dt>
 <dd>
 <p>
-        Move/rename a branch even if the new branch name already exists.
+        Shortcut for <code>--move --force</code>.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -1062,7 +1066,9 @@ start-point is either a local or remote-tracking branch.</p></div>
 <dd>
 <p>
         Open an editor and edit the text to explain what the branch is
-        for, to be used by various other commands (e.g. <code>request-pull</code>).
+        for, to be used by various other commands (e.g. <code>format-patch</code>,
+        <code>request-pull</code>, and <code>merge</code> (if enabled)). Multi-line explanations
+        may be used.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -1238,7 +1244,7 @@ a branch?&#8221;</a> in the Git User&#8217;s Manual.</p></div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-06-24 17:15:22 PDT
+Last updated 2015-09-28 19:14:32 PDT
 </div>
 </div>
 </body>

@@ -1,4 +1,4 @@
-# vim: set sts=4 sw=4 ts=8 ai:
+#vim: set sts=4 sw=4 ts=8 ai:
 #
 # IO::Socket::SSL:
 # provide an interface to SSL connections similar to IO::Socket modules
@@ -13,13 +13,13 @@
 
 package IO::Socket::SSL;
 
-our $VERSION = '2.016';
+our $VERSION = '2.020';
 
 use IO::Socket;
 use Net::SSLeay 1.46;
 use IO::Socket::SSL::PublicSuffix;
 use Exporter ();
-use Errno qw( EWOULDBLOCK ETIMEDOUT EINTR );
+use Errno qw( EWOULDBLOCK EAGAIN ETIMEDOUT EINTR );
 use Carp;
 use strict;
 
@@ -270,12 +270,20 @@ BEGIN {
 	require Socket;
 	Socket->VERSION(1.95);
 	my $ok = Socket::inet_pton( AF_INET6(),'::1') && AF_INET6();
-	$ok && Socket->import( qw/inet_pton getnameinfo NI_NUMERICHOST NI_NUMERICSERV/ );
+	$ok && Socket->import( qw/inet_pton NI_NUMERICHOST NI_NUMERICSERV/ );
+	# behavior different to Socket6::getnameinfo - wrap
+	*_getnameinfo = sub { 
+	    my ($err,$host,$port) = Socket::getnameinfo(@_) or return; 
+	    return if $err;
+	    return ($host,$port);
+	};
 	$ok;
     } || eval {
 	require Socket6;
 	my $ok = Socket6::inet_pton( AF_INET6(),'::1') && AF_INET6();
-	$ok && Socket6->import( qw/inet_pton getnameinfo NI_NUMERICHOST NI_NUMERICSERV/ );
+	$ok && Socket6->import( qw/inet_pton NI_NUMERICHOST NI_NUMERICSERV/ );
+	# behavior different to Socket::getnameinfo - wrap
+	*_getnameinfo = sub { return Socket6::getnameinfo(@_); };
 	$ok;
     };
 
@@ -351,10 +359,48 @@ BEGIN {
     *idn_to_unicode = \&IO::Socket::SSL::PublicSuffix::idn_to_unicode;
 }
 
+my $OPENSSL_LIST_SEPARATOR = $^O =~m{^(?:(dos|os2|mswin32|netware)|vms)$}i
+    ? $1 ? ';' : ',' : ':';
+my $CHECK_SSL_PATH = sub {
+    my %args = (@_ == 1) ? ('',@_) : @_;
+    for my $type (keys %args) {
+	my $path = $args{$type};
+	if (!$type) {
+	    delete $args{$type};
+	    $type = (ref($path) || -d $path) ? 'SSL_ca_path' : 'SSL_ca_file';
+	    $args{$type} = $path;
+	}
+
+	next if ref($path) eq 'SCALAR' && ! $$path;
+	if ($type eq 'SSL_ca_file') {
+	    die "SSL_ca_file $path does not exist" if ! -f $path;
+	    die "SSL_ca_file $path is not accessible: $!"
+		if ! open(my $fh,'<',$path);
+	} elsif ($type eq 'SSL_ca_path') {
+	    $path = [ split($OPENSSL_LIST_SEPARATOR,$path) ] if !ref($path);
+	    my @err;
+	    for my $d (ref($path) ? @$path : $path) {
+		if (! -d $d) {
+		    push @err, "SSL_ca_path $d does not exist";
+		} elsif (! opendir(my $dh,$d)) {
+		    push @err, "SSL_ca_path $d is not accessible: $!"
+		} else {
+		    @err = ();
+		    last
+		}
+	    }
+	    die "@err" if @err;
+	}
+    }
+    return %args;
+};
+
+
 {
     my %default_ca;
     my $ca_detected; # 0: never detect, undef: need to (re)detect
     my $openssldir;
+
     sub default_ca {
 	if (@_) {
 	    # user defined default CA or reset
@@ -362,10 +408,7 @@ BEGIN {
 		%default_ca = @_;
 		$ca_detected  = 0;
 	    } elsif ( my $path = shift ) {
-		%default_ca =
-		    -d $path ? ( SSL_ca_path => $path ) :
-		    -f $path ? ( SSL_ca_file => $path ) :
-		    die "no such file or directory $path";
+		%default_ca = $CHECK_SSL_PATH->($path);
 		$ca_detected  = 0;
 	    } else {
 		$ca_detected = undef;
@@ -764,7 +807,7 @@ sub connect_SSL {
 	    $DEBUG>=3 && DEBUG("got OCSP failure with stapling: %s",
 		$ocsp_result->[1]);
 	} else {
-	    # definitly revoked
+	    # definitely revoked
 	    $DEBUG>=3 && DEBUG("got OCSP revocation with stapling: %s",
 		$ocsp_result->[1]);
 	    $self->_internal_error($ocsp_result->[1],5);
@@ -804,7 +847,7 @@ sub _update_peer {
 	my $sockaddr = getpeername( $self );
 	my $af = sockaddr_family($sockaddr);
 	if( CAN_IPV6 && $af == AF_INET6 ) {
-	    my ($host, $port) = getnameinfo($sockaddr,
+	    my (undef, $host, $port) = _getnameinfo($sockaddr,
 		NI_NUMERICHOST | NI_NUMERICSERV);
 	    $arg_hash->{PeerAddr} = $host;
 	    $arg_hash->{PeerPort} = $port;
@@ -1111,7 +1154,7 @@ sub readline {
 	    my $rv = $self->sysread($buf,2**16,length($buf));
 	    if ( ! defined $rv ) {
 		next if $! == EINTR;       # retry
-		last if $! == EWOULDBLOCK; # use everything so far
+		last if $! == EWOULDBLOCK || $! == EAGAIN; # use everything so far
 		return;                    # return error
 	    } elsif ( ! $rv ) {
 		last
@@ -1141,7 +1184,7 @@ sub readline {
 	    my $rv = $self->sysread($buf,$size-length($buf),length($buf));
 	    if ( ! defined $rv ) {
 		next if $! == EINTR;       # retry
-		last if $! == EWOULDBLOCK; # use everything so far
+		last if $! == EWOULDBLOCK || $! == EAGAIN; # use everything so far
 		return;                    # return error
 	    } elsif ( ! $rv ) {
 		last
@@ -1494,6 +1537,21 @@ if ( defined &Net::SSLeay::get_peer_cert_chain
 	}
     }
 
+    sub sock_certificate {
+	my ($self,$field) = @_;
+	my $ssl = $self->_get_ssl_object || return;
+	my $cert = Net::SSLeay::get_certificate( $ssl ) || return;
+	if ($field) {
+	    my $sub = $dispatcher{$field} or croak
+		"invalid argument for sock_certificate, valid are: ".join( " ",keys %dispatcher ).
+		"\nMaybe you need to upgrade your Net::SSLeay";
+	    return $sub->($cert);
+	} else {
+	    return $cert
+	}
+    }
+
+
     # known schemes, possible attributes are:
     #  - wildcards_in_alt (0, 'full_label', 'anywhere')
     #  - wildcards_in_cn (0, 'full_label', 'anywhere')
@@ -1719,14 +1777,15 @@ sub get_servername {
 }
 
 sub get_fingerprint_bin {
-    my $cert = shift()->peer_certificate;
-    return Net::SSLeay::X509_digest($cert, $algo2digest->(shift() || 'sha256'));
+    my ($self,$algo,$cert) = @_;
+    $cert ||= $self->peer_certificate;
+    return Net::SSLeay::X509_digest($cert, $algo2digest->($algo || 'sha256'));
 }
 
 sub get_fingerprint {
-    my ($self,$algo) = @_;
+    my ($self,$algo,$cert) = @_;
     $algo ||= 'sha256';
-    my $fp = get_fingerprint_bin($self,$algo) or return;
+    my $fp = get_fingerprint_bin($self,$algo,$cert) or return;
     return $algo.'$'.unpack('H*',$fp);
 }
 
@@ -2082,24 +2141,17 @@ sub new {
 	 defined( my $file = $arg_hash->{$_} ) or next;
 	for my $f (ref($file) eq 'HASH' ? values(%$file):$file ) {
 	    die "$_ $f does not exist" if ! -f $f;
-	    die "$_ $f is not accessible" if ! -r _;
 	}
     }
 
-    my $verify_mode = $arg_hash->{SSL_verify_mode};
+    my $verify_mode = $arg_hash->{SSL_verify_mode} || 0;
     if ( $verify_mode != Net::SSLeay::VERIFY_NONE()) {
-	if ( defined( my $f = $arg_hash->{SSL_ca_file} )) {
-	    if ( ! ref($f) || $$f ) {
-		die "SSL_ca_file $f does not exist" if ! -f $f;
-		die "SSL_ca_file $f is not accessible" if ! -r _;
-	    }
+	for (qw(SSL_ca_file SSL_ca_path)) {
+	    $CHECK_SSL_PATH->($_ => $arg_hash->{$_} || next);
 	}
-	if ( defined( my $d = $arg_hash->{SSL_ca_path} )) {
-	    if ( ! ref($d) || $$d ) {
-		die "SSL_ca_path $d does not exist" if ! -d $d;
-		die "SSL_ca_path $d is not accessible" if ! -r _;
-	    }
-	}
+    } elsif ( $verify_mode ne '0' ) {
+	# some users use the string 'SSL_VERIFY_PEER' instead of the constant
+	die "SSL_verify_mode must be a number and not a string";
     }
 
     my $self = bless {},$class;
@@ -2141,24 +2193,6 @@ sub new {
 	    # verify name
 	    my $rv = IO::Socket::SSL::verify_hostname_of_cert(
 		$host,$cert,$vcn_scheme,$vcn_publicsuffix );
-	    if ( ! $rv && ! $vcn_scheme ) {
-		# For now we use the default hostname verification if none
-		# was specified and complain loudly but return ok if it does
-		# not match. In the future we will enforce checks and users
-		# should better specify and explicite verification scheme.
-		warn <<WARN;
-
-The verification of cert '$certname'
-failed against the host '$host' with the default verification scheme.
-
-   THIS MIGHT BE A MAN-IN-THE-MIDDLE ATTACK !!!!
-
-To stop this warning you might need to set SSL_verifycn_name to
-the name of the host you expect in the certificate.
-
-WARN
-		return $ok;
-	    }
 	    if ( ! $rv ) {
 		IO::Socket::SSL->_internal_error(
 		    "hostname verification failed",5);
@@ -2279,9 +2313,9 @@ WARN
 	    || defined $arg_hash->{SSL_ca_file}
 	    || defined $arg_hash->{SSL_ca_path} ) {
 	    my $file = $arg_hash->{SSL_ca_file};
-	    $file = undef if ref($file) && ! $$file;
+	    $file = undef if ref($file) eq 'SCALAR' && ! $$file;
 	    my $dir = $arg_hash->{SSL_ca_path};
-	    $dir = undef if ref($dir) && ! $$dir;
+	    $dir = undef if ref($dir) eq 'SCALAR' && ! $$dir;
 	    if ( $arg_hash->{SSL_ca} ) {
 		my $store = Net::SSLeay::CTX_get_cert_store($ctx);
 		for (@{$arg_hash->{SSL_ca}}) {
@@ -2290,6 +2324,7 @@ WARN
 			    "Failed to add certificate to CA store");
 		}
 	    }
+	    $dir = join($OPENSSL_LIST_SEPARATOR,@$dir) if ref($dir);
 	    if ( $file || $dir and ! Net::SSLeay::CTX_load_verify_locations(
 		$ctx, $file || '', $dir || '')) {
 		return IO::Socket::SSL->error(
@@ -2298,8 +2333,10 @@ WARN
 	    }
 	} elsif ( my %ca = IO::Socket::SSL::default_ca()) {
 	    # no CA path given, continue with system defaults
+	    my $dir = $ca{SSL_ca_path};
+	    $dir = join($OPENSSL_LIST_SEPARATOR,@$dir) if ref($dir);
 	    if (! Net::SSLeay::CTX_load_verify_locations( $ctx,
-		$ca{SSL_ca_file} || '',$ca{SSL_ca_path} || '')
+		$ca{SSL_ca_file} || '',$dir || '')
 		&& $verify_mode != Net::SSLeay::VERIFY_NONE()) {
 		return IO::Socket::SSL->error(
 		    "Invalid default certificate authority locations")
@@ -2502,14 +2539,14 @@ WARN
 		Net::SSLeay::X509_NAME_oneline(Net::SSLeay::X509_get_subject_name($cert));
 	    $error &&= Net::SSLeay::ERR_error_string($error);
 	}
-	$DEBUG>=3 && DEBUG( "ok=$ok cert=$cert" );
+	$DEBUG>=3 && DEBUG( "ok=$ok [$depth] $certname" );
 	$ok = $verify_cb->($ok,$ctx_store,$certname,$error,$cert,$depth) if $verify_cb;
 	$ok = $verify_fingerprint->($ok,$cert,$depth) if $verify_fingerprint && $cert;
 	return $ok;
     };
 
     if ( $^O eq 'darwin' ) {
-	# explicitely set error code to disable use of apples TEA patch
+	# explicitly set error code to disable use of apples TEA patch
 	# https://hynek.me/articles/apple-openssl-verification-surprises/
 	my $vcb = $verify_callback;
 	$verify_callback = sub {
@@ -2609,9 +2646,11 @@ WARN
     }
 
     if ( my $cl = $arg_hash->{SSL_cipher_list} ) {
-	for (values %ctx) {
-	    Net::SSLeay::CTX_set_cipher_list($_, $cl ) || return 
-		IO::Socket::SSL->error("Failed to set SSL cipher list");
+	for (keys %ctx) {
+	    Net::SSLeay::CTX_set_cipher_list($ctx{$_}, ref($cl) 
+		? $cl->{$_} || $cl->{''} || $DEFAULT_SSL_ARGS{SSL_cipher_list} || next 
+		: $cl
+	    ) || return IO::Socket::SSL->error("Failed to set SSL cipher list");
 	}
     }
 

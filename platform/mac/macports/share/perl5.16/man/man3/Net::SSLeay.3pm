@@ -124,7 +124,7 @@
 .\" ========================================================================
 .\"
 .IX Title "Net::SSLeay 3"
-.TH Net::SSLeay 3 "2015-05-28" "perl v5.16.3" "User Contributed Perl Documentation"
+.TH Net::SSLeay 3 "2015-08-19" "perl v5.16.3" "User Contributed Perl Documentation"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -7224,7 +7224,7 @@ Check openssl doc <http://www.openssl.org/docs/crypto/X509_NAME_ENTRY_get_object
 .IP "\(bu" 4
 X509_NAME_new
 .Sp
-\&\fB\s-1COMPATIBILITY:\s0\fR not available in Net\-SSLeay\-1.45 and before; requires at least openssl\-0.9.5
+\&\fB\s-1COMPATIBILITY:\s0\fR not available in Net\-SSLeay\-1.55 and before; requires at least openssl\-0.9.5
 .Sp
 Creates a new X509_NAME structure.
 Adds a field whose name is defined by a string \f(CW$field\fR. The field value to be added is in \f(CW$bytes\fR.
@@ -7237,7 +7237,7 @@ Adds a field whose name is defined by a string \f(CW$field\fR. The field value t
 .IP "\(bu" 4
 X509_NAME_hash
 .Sp
-\&\fB\s-1COMPATIBILITY:\s0\fR not available in Net\-SSLeay\-1.45 and before; requires at least openssl\-0.9.5
+\&\fB\s-1COMPATIBILITY:\s0\fR not available in Net\-SSLeay\-1.55 and before; requires at least openssl\-0.9.5
 .Sp
 Sort of a checksum of issuer name \f(CW$name\fR.
 The result is not a full hash (e.g. sha\-1), it is kind-of-a-hash truncated to the size of 'unsigned long' (32 bits).

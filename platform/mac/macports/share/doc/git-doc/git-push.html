@@ -750,7 +750,8 @@ git-push(1) Manual Page
 <div class="verseblock">
 <pre class="content"><em>git push</em> [--all | --mirror | --tags] [--follow-tags] [--atomic] [-n | --dry-run] [--receive-pack=&lt;git-receive-pack&gt;]
            [--repo=&lt;repository&gt;] [-f | --force] [--prune] [-v | --verbose]
-           [-u | --set-upstream] [--signed]
+           [-u | --set-upstream]
+           [--[no-]signed|--sign=(true|false|if-asked)]
            [--force-with-lease[=&lt;refname&gt;[:&lt;expect&gt;]]]
            [--no-verify] [&lt;repository&gt; [&lt;refspec&gt;&#8230;]]</pre>
 <div class="attribution">
@@ -920,14 +921,21 @@ already exists on the remote side.</p></div>
 </p>
 </dd>
 <dt class="hdlist1">
---signed
+--[no-]signed
+</dt>
+<dt class="hdlist1">
+--sign=(true|false|if-asked)
 </dt>
 <dd>
 <p>
         GPG-sign the push request to update refs on the receiving
         side, to allow it to be checked by the hooks and/or be
-        logged.  See <a href="git-receive-pack.html">git-receive-pack(1)</a> for the details
-        on the receiving end.
+        logged.  If <code>false</code> or <code>--no-signed</code>, no signing will be
+        attempted.  If <code>true</code> or <code>--signed</code>, the push will fail if the
+        server does not support signed pushes.  If set to <code>if-asked</code>,
+        sign if and only if the server supports signed pushes.  The push
+        will also fail if the actual call to <code>gpg --sign</code> fails.  See
+        <a href="git-receive-pack.html">git-receive-pack(1)</a> for the details on the receiving end.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -1740,7 +1748,7 @@ a <code>git gc</code> command on the origin repository.</p></div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-06-24 17:15:22 PDT
+Last updated 2015-09-28 19:14:32 PDT
 </div>
 </div>
 </body>

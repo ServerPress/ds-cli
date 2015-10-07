@@ -1,4 +1,4 @@
-set ::msgcat::header "Project-Id-Version: gitk\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2015-03-15 14:37+1100\nPO-Revision-Date: 2010-01-28 18:41+0100\nLast-Translator: Michele Ballabio <barra_cuda@katamail.com>\nLanguage-Team: Italian\nLanguage: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\n"
+set ::msgcat::header "Project-Id-Version: gitk\nReport-Msgid-Bugs-To: \nPOT-Creation-Date: 2015-05-17 14:32+1000\nPO-Revision-Date: 2010-01-28 18:41+0100\nLast-Translator: Michele Ballabio <barra_cuda@katamail.com>\nLanguage-Team: Italian\nLanguage: \nMIME-Version: 1.0\nContent-Type: text/plain; charset=UTF-8\nContent-Transfer-Encoding: 8bit\n"
 ::msgcat::mcset it "Couldn't get list of unmerged files:" "Impossibile ottenere l'elenco dei file in attesa di fusione:"
 ::msgcat::mcset it "Error parsing revisions:" "Errore nella lettura delle revisioni:"
 ::msgcat::mcset it "Error executing --argscmd command:" "Errore nell'esecuzione del comando specificato con --argscmd:"
@@ -8,6 +8,7 @@ set ::msgcat::header "Project-Id-Version: gitk\nReport-Msgid-Bugs-To: \nPOT-Crea
 ::msgcat::mcset it "Reading" "Lettura in corso"
 ::msgcat::mcset it "Reading commits..." "Lettura delle revisioni in corso..."
 ::msgcat::mcset it "No commits selected" "Nessuna revisione selezionata"
+::msgcat::mcset it "Command line" "Linea di comando"
 ::msgcat::mcset it "Can't parse git log output:" "Impossibile elaborare i dati di git log:"
 ::msgcat::mcset it "No commit information available" "Nessuna informazione disponibile sulle revisioni"
 ::msgcat::mcset it "OK" "OK"
@@ -272,4 +273,3 @@ set ::msgcat::header "Project-Id-Version: gitk\nReport-Msgid-Bugs-To: \nPOT-Crea
 ::msgcat::mcset it "Cannot find a git repository here." "Archivio git non trovato."
 ::msgcat::mcset it "Ambiguous argument '%s': both revision and filename" "Argomento ambiguo: '%s' \u00e8 sia revisione che nome di file"
 ::msgcat::mcset it "Bad arguments to gitk:" "Gitk: argomenti errati:"
-::msgcat::mcset it "Command line" "Linea di comando"

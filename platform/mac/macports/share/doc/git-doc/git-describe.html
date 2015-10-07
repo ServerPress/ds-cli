@@ -739,7 +739,7 @@ git-describe(1) Manual Page
 <h2>NAME</h2>
 <div class="sectionbody">
 <p>git-describe -
-   Show the most recent tag that is reachable from a commit
+   Describe a commit using the most recent tag reachable from it
 </p>
 </div>
 </div>
@@ -748,7 +748,7 @@ git-describe(1) Manual Page
 <h2 id="_synopsis">SYNOPSIS</h2>
 <div class="sectionbody">
 <div class="verseblock">
-<pre class="content"><em>git describe</em> [--all] [--tags] [--contains] [--abbrev=&lt;n&gt;] &lt;commit-ish&gt;&#8230;
+<pre class="content"><em>git describe</em> [--all] [--tags] [--contains] [--abbrev=&lt;n&gt;] [&lt;commit-ish&gt;&#8230;]
 <em>git describe</em> [--all] [--tags] [--contains] [--abbrev=&lt;n&gt;] --dirty[=&lt;mark&gt;]</pre>
 <div class="attribution">
 </div></div>
@@ -776,7 +776,7 @@ see the -a and -s options to <a href="git-tag.html">git-tag(1)</a>.</p></div>
 </dt>
 <dd>
 <p>
-        Commit-ish object names to describe.
+        Commit-ish object names to describe.  Defaults to HEAD if omitted.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -990,7 +990,7 @@ will be the smallest number of commits possible.</p></div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-06-25 12:14:51 PDT
+Last updated 2015-09-28 19:14:32 PDT
 </div>
 </div>
 </body>

@@ -1215,6 +1215,20 @@ override configuration settings.</p></div>
 </p>
 </dd>
 <dt class="hdlist1">
+--ws-error-highlight=&lt;kind&gt;
+</dt>
+<dd>
+<p>
+        Highlight whitespace errors on lines specified by &lt;kind&gt;
+        in the color specified by <code>color.diff.whitespace</code>.  &lt;kind&gt;
+        is a comma separated list of <code>old</code>, <code>new</code>, <code>context</code>.  When
+        this option is not given, only whitespace errors in <code>new</code>
+        lines are highlighted.  E.g. <code>--ws-error-highlight=new,old</code>
+        highlights whitespace errors on both deleted and added lines.
+        <code>all</code> can be used as a short-hand for <code>old,new,context</code>.
+</p>
+</dd>
+<dt class="hdlist1">
 --full-index
 </dt>
 <dd>
@@ -1791,7 +1805,10 @@ people using 80-column terminals.</p></div>
         in their encoding header; this option can be used to tell the
         command to re-code the commit log message in the encoding
         preferred by the user.  For non plumbing commands this
-        defaults to UTF-8.
+        defaults to UTF-8. Note that if an object claims to be encoded
+        in <code>X</code> and we are outputting in <code>X</code>, we will output the object
+        verbatim; this means that invalid sequences in the original
+        commit may be copied to the output.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -3052,7 +3069,7 @@ the pathname, but if that is <code>NUL</code>, the record will show two paths.</
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-05-19 21:21:21 PDT
+Last updated 2015-09-04 08:49:50 PDT
 </div>
 </div>
 </body>

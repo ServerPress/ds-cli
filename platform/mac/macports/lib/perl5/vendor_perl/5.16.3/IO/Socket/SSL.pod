@@ -218,8 +218,10 @@ With protocols like SMTP it is necessary to upgrade an existing socket to SSL.
 This can be done like this:
 
     my $client = IO::Socket::INET->new('mx.example.com:25') or die $!;
-    # .. SMTP dialogs ... send STARTTLS and read reply ...
-    # SSL upgrade
+    # .. read greeting from server
+    # .. send EHLO and read response
+    # .. send STARTTLS command and read response
+    # .. if response was successful we can upgrade the socket to SSL now:
     IO::Socket::SSL->start_SSL($client,
 	# explicitly set hostname we should use for SNI
 	SSL_hostname => 'mx.example.com'
@@ -435,7 +437,7 @@ L<IO::Socket::SSL> tries to set these values to reasonable, secure values which
 are compatible with the rest of the world.
 But, there are some scripts or modules out there which tried to be smart and
 get more secure or compatible settings.
-Unfortunatly, they did this years ago and never updated these values, so they
+Unfortunately, they did this years ago and never updated these values, so they
 are still forced to do only 'TLSv1' (instead of also using TLSv12 or TLSv11).
 Or they set 'HIGH' as the cipher list and thought they were secure, but did not
 notice that 'HIGH' includes anonymous ciphers, e.g. without identification of
@@ -474,7 +476,7 @@ their own quirks. While most of these implementations work together, it often
 gets problematic with older versions, minimal versions in load balancers, or plain
 wrong setups.
 
-Unfortunatly these problems are hard to debug.
+Unfortunately these problems are hard to debug.
 Helpful for debugging are a knowledge of SSL internals, wireshark and the use of
 the debug settings of L<IO::Socket::SSL> and L<Net::SSLeay>, which can both be
 set with C<$IO::Socket::SSL::DEBUG>.
@@ -821,13 +823,19 @@ Usually you want to verify that the peer certificate has been signed by a
 trusted certificate authority. In this case you should use this option to
 specify the file (C<SSL_ca_file>) or directory (C<SSL_ca_path>) containing the
 certificateZ<>(s) of the trusted certificate authorities.
+
+C<SSL_ca_path> can also be an array or a string containing multiple path, where
+the path are separated by the platform specific separator. This separator is
+C<;> on DOS, Windows, Netware, C<,> on VMS and C<:> for all the other systems.
+If multiple path are given at least one of these must be accessible.
+
 You can also give a list of X509* certificate handles (like you get from
 L<Net::SSLeay> or L<IO::Socket::SSL::Utils::PEM_xxx2cert>) with C<SSL_ca>. These
 will be added to the CA store before path and file and thus take precedence.
 If neither SSL_ca, nor SSL_ca_file or SSL_ca_path are set it will use
 C<default_ca()> to determine the user-set or system defaults.
 If you really don't want to set a CA set SSL_ca_file or SSL_ca_path to
-C<\undef> or SSL_ca to an empty list. (unfortunatly C<''> is used by some
+C<\undef> or SSL_ca to an empty list. (unfortunately C<''> is used by some
 modules using L<IO::Socket::SSL> when CA is not exlicitly given).
 
 =item SSL_client_ca | SSL_client_ca_file
@@ -964,6 +972,10 @@ disables known insecure ciphers like MD5, DES etc. This gives a grade A result
 at the tests of SSL Labs.
 To use the less secure OpenSSL builtin default (whatever this is) set
 SSL_cipher_list to ''.
+
+In case different cipher lists are needed for different SNI hosts a hash can be
+given with the host as key and the cipher suite as value, similar to
+B<SSL_cert*>.
 
 =item SSL_honor_cipher_order
 
@@ -1403,15 +1415,17 @@ This function gives you the number of bytes available without reading from the
 underlying socket object. This function is essential if you work with event
 loops, please see the section about polling SSL sockets.
 
-=item B<get_fingerprint([algo])>
+=item B<get_fingerprint([algo,certificate])>
 
-This methods returns the fingerprint of the peer certificate in the form
+This methods returns the fingerprint of the given certificate in the form
 C<algo$digest_hex>, where C<algo> is the used algorithm, default 'sha256'.
+If no certificate is given the peer certificate of the connection is used.
 
-=item B<get_fingerprint_bin([algo])>
+=item B<get_fingerprint_bin([algo,certificate])>
 
-This methods returns the binary fingerprint of the peer certificate by using the
-algorithm C<algo>, default 'sha256'.
+This methods returns the binary fingerprint of the given certificate by using
+the algorithm C<algo>, default 'sha256'.
+If no certificate is given the peer certificate of the connection is used.
 
 =item B<get_cipher()>
 
@@ -1467,6 +1481,14 @@ constants are exported from IO::Socket::SSL).
 See Net::SSLeay::X509_get_subjectAltNames.
 
 =back
+
+=item B<sock_certificate($field)>
+
+This is similar to C<peer_certificate> but will return the sites own
+certificate. The same arguments for B<$field> can be used.
+If no B<$field> is given the certificate handle from the underlying OpenSSL will
+be returned. This handle will only be valid as long as the SSL connection exists
+and if used afterwards it might result in strange crashes of the application.
 
 =item B<peer_certificates>
 
@@ -1701,13 +1723,13 @@ about the certificates) will be considered a hard error too.
 
 The OCSP resolving will stop on the first hard error.
 
-The method will return undef as long as no hard errors occured and still
+The method will return undef as long as no hard errors occurred and still
 requests to be resolved. If all requests got resolved and no hard errors
-occured the method will return C<''>.
+occurred the method will return C<''>.
 
 =item soft_error
 
-This returns the soft error(s) which occured when asking the OCSP responders.
+This returns the soft error(s) which occurred when asking the OCSP responders.
 
 =item requests
 
@@ -1727,7 +1749,7 @@ remaining requests.
 =item add_response($uri,$response)
 
 This method takes the HTTP body of the response which got received when sending
-the OCSP request to C<$uri>. If no response was received or an error occured
+the OCSP request to C<$uri>. If no response was received or an error occurred
 one should either retry or consider C<$response> as empty which will trigger a
 soft error.
 

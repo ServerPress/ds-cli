@@ -23,8 +23,8 @@ dependency_libs=''
 weak_library_names=''
 
 # Version information for libcurl.
-current=7
-age=3
+current=8
+age=4
 revision=0
 
 # Is this an already installed library?
