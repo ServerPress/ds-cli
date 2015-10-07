@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138301 2015-07-05 07:16:55Z ryandesign@macports.org $
+# $Id: Portfile 140614 2015-09-28 05:47:26Z ryandesign@macports.org $
 
 PortSystem          1.0
 
 name                youtube-dl
-version             2015.07.04
+version             2015.09.28
 categories          net
 platforms           darwin
 maintainers         ryandesign openmaintainer
@@ -18,8 +18,8 @@ long_description    ${name} is a small ${description}.
 homepage            http://rg3.github.com/youtube-dl/
 master_sites        http://youtube-dl.org/downloads/${version}
 
-checksums           rmd160  aa85d2ab5f5189c10893d8e5bb9922b6b5251b84 \
-                    sha256  cad69f6343c8e2f285ff2ff1b1b2d1631d6f28ac773555082a0f9c214d69dca5
+checksums           rmd160  a1b663ed17d38dc69acfb3021fdbb26a5f4259dc \
+                    sha256  6396ee3150f51bd6ca2717b7d09f9524fbab22c04c3d2b560b99061d92127a60
 
 depends_build       bin:zip:zip
 
@@ -63,19 +63,24 @@ variant ffmpeg description {Add ffmpeg dependency, used to extract audio} {
 
 default_variants    +ffmpeg
 
-variant python27 conflicts python34 description {Use Python 2.7} {
+variant python27 conflicts python34 python35 description {Use Python 2.7} {
     depends_run-append  port:python27
     configure.python    ${prefix}/bin/python2.7
 }
 
 variant python33 requires python34 description {Legacy compatibility variant} {}
 
-variant python34 conflicts python27 description {Use Python 3.4} {
+variant python34 conflicts python27 python35 description {Use Python 3.4} {
     depends_run-append  port:python34
     configure.python    ${prefix}/bin/python3.4
 }
 
-if {![variant_isset python27] && ![variant_isset python34]} {
+variant python35 conflicts python27 python34 description {Use Python 3.5} {
+    depends_run-append  port:python35
+    configure.python    ${prefix}/bin/python3.5
+}
+
+if {![variant_isset python27] && ![variant_isset python34] && ![variant_isset python35]} {
     default_variants +python27
 }
 

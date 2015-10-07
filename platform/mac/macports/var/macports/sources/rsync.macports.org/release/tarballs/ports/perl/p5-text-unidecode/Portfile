@@ -1,19 +1,19 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+# $Id: Portfile 139809 2015-08-28 13:14:23Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           perl5 1.0
 
-perl5.branches      5.16 5.18 5.20
-perl5.setup         Text-Unidecode 1.23
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Text-Unidecode 1.24
 license             {Artistic-1 GPL}
-maintainers         devans openmaintainer
+maintainers         nomaintainer
 description         Text::Unidecode -- plain ASCII transliterations of Unicode text
 long_description    ${description}
 
 platforms           darwin
 
-checksums           rmd160  888ed310339265dd74e44201b9c4d6bf81f9530a \
-                    sha256  cb1d761edcd4ea25763726434713c3157d48ac7d75be27bed10bc0aa4ec1d6d6
+checksums           rmd160  601464595b2e0942c72e74cf0e09d4ea3f930b8b \
+                    sha256  30efa496757f22e1d1d511c3d6a8f20d45b2ab932edb90ccffe0481fdd0f9888
 
 supported_archs     noarch

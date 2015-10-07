@@ -1,9 +1,10 @@
-# $Id: Portfile 124880 2014-08-30 02:53:52Z jmr@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 
 name			aewan
 version			1.0.01
+revision        1
 categories		editors
 license			GPL-2+
 platforms		darwin

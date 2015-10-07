@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 135064 2015-04-14 16:20:40Z devans@macports.org $
+# $Id: Portfile 140172 2015-09-11 01:34:10Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           perl5 1.0
 
-perl5.branches      5.16 5.18 5.20
+perl5.branches      5.16 5.18 5.20 5.22
 perl5.setup         Class-C3 0.28
 license             {Artistic-1 GPL}
 maintainers         nomaintainer
@@ -23,10 +23,6 @@ checksums           rmd160  6dd084d6905917ca4f31758be51d6047d7eab284 \
 
 if {${perl5.major} != ""} {
     patchfiles      patch-Makefile.PL.diff
-
-    depends_build-append  \
-                    port:p${perl5.major}-extutils-makemaker \
-                    port:p${perl5.major}-extutils-cbuilder
 
     depends_lib-append  \
                     port:p${perl5.major}-algorithm-c3 \

@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138185 2015-07-01 16:13:06Z snc@macports.org $
+# $Id: Portfile 140803 2015-10-03 13:11:42Z snc@macports.org $
 
 PortSystem          1.0
 
 name                lilypond-devel
 set my_name         lilypond
-version             2.19.22
+version             2.19.28
 set branch          [join [lrange [split ${version} .] 0 1] .]
 categories          textproc
 maintainers         snc openmaintainer
@@ -22,8 +22,8 @@ conflicts           lilypond
 platforms           darwin
 master_sites        http://download.linuxaudio.org/lilypond/sources/v${branch}/
 distname            ${my_name}-${version}
-checksums           rmd160  86c6c7b60fe59dc37b376819279a7fdb9e9918f3 \
-                    sha256  ecc56e27749c4c45344076154d583bfb0a5460f242f1c838eb5f95baa53c0eaa
+checksums           rmd160  2616b5b75043d6cf3b8f95cd6406ae16fef0e47c \
+                    sha256  362d29e8ac8a1ee0a48fb98cabe7ae3ae6b289079261fc5bf4b2a309ec6de600
 
 depends_build       port:t1utils \
                     port:bison \
@@ -45,10 +45,10 @@ depends_lib         port:fontconfig \
                     port:flex \
                     port:t1utils \
                     port:texlive \
+                    port:texlive-fonts-recommended \
                     port:texlive-lang-cyrillic \
                     port:texlive-metapost \
                     port:dblatex \
-                    port:urw-fonts \
                     port:libtool \
                     port:python27
 
@@ -63,7 +63,7 @@ post-patch {
         ${worksrcpath}/lily/include/lily-guile.hh
 }
 
-configure.args-append  --with-ncsb-dir=${prefix}/share/fonts/urw-fonts \
+configure.args-append  --with-texgyre-dir=${prefix}/share/texmf-texlive/fonts/opentype/public/tex-gyre \
     --enable-documentation
 configure.env       LTDL_LIBRARY_PATH=${prefix}/lib \
     PYTHON_CONFIG=${configure.python}-config \

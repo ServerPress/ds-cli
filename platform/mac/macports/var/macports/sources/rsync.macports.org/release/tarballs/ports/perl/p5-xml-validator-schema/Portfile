@@ -1,9 +1,9 @@
-# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
 
 PortSystem		1.0
 PortGroup		perl5 1.0
 
-perl5.branches      5.16 5.18 5.20
+perl5.branches      5.16 5.18 5.20 5.22
 perl5.setup         XML-Validator-Schema 1.10
 maintainers		nomaintainer
 categories-append	textproc

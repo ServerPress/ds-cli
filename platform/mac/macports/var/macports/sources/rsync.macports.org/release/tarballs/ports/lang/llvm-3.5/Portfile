@@ -1,4 +1,4 @@
-# $Id: Portfile 137992 2015-06-24 16:17:51Z mww@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem              1.0
 PortGroup select        1.0
@@ -7,9 +7,9 @@ PortGroup compiler_blacklist_versions 1.0
 set llvm_version        3.5
 set llvm_version_no_dot 35
 name                    llvm-${llvm_version}
-revision                4
+revision                5
 subport                 clang-${llvm_version} {
-    revision            5
+    revision            6
 }
 set suffix              mp-${llvm_version}
 set sub_prefix          ${prefix}/libexec/llvm-${llvm_version}
@@ -196,6 +196,13 @@ if {${subport} eq "llvm-${llvm_version}"} {
 # XCode 4.5's clang (421.11.66) fails due to http://llvm.org/bugs/show_bug.cgi?id=20184
 # Xcode 4.6.x's clang (425.0.28) works, assuming 425.0.24 from 4.6.0 works too
 compiler.blacklist *gcc* macports-clang-2.9 macports-clang-3.0 macports-clang-3.1 {clang < 425.0.24}
+
+if {${subport} eq "clang-${llvm_version}"} {
+    # Don't self-host.  We may have issues if we have a slightly newer llvm version that
+    # is not binary compatible with the older clang version we're trying to use.
+
+    compiler.blacklist-append macports-clang-${llvm_version}
+}
 
 platform darwin {
     # Note that we are forcing this choice.  This means that anything linking

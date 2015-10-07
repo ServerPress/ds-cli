@@ -1,12 +1,13 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136184 2015-05-11 22:51:13Z devans@macports.org $
+# $Id: Portfile 140899 2015-10-04 20:27:48Z devans@macports.org $
 
 PortSystem          1.0
 
 name                gitg
-# latest version 3.16.1 requires webkit2-gtk3
+# latest version 3.17.1 requires webkit2gtk-3.0 or webkit2gtk-4.0
+# upstream trunk working to remove webkit dependency in next stable version
 version             0.2.7
-revision            1
+revision            2
 license             GPL-2
 set branch          [join [lrange [split ${version} .] 0 1] .]
 description         GNOME git repository viewer.
@@ -38,7 +39,6 @@ depends_build       port:pkgconfig \
                     port:libtool
 
 depends_lib         port:desktop-file-utils \
-                    port:gnome-icon-theme \
                     port:gtk3 \
                     port:gtksourceview3 \
                     port:gsettings-desktop-schemas \

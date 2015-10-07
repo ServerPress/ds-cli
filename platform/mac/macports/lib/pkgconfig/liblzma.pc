@@ -13,7 +13,7 @@ includedir=/opt/local/include
 Name: liblzma
 Description: General purpose data compression library
 URL: http://tukaani.org/xz/
-Version: 5.2.1
+Version: 5.2.2
 Cflags: -I${includedir}
 Libs: -L${libdir} -llzma
 Libs.private: -D_THREAD_SAFE -pthread 

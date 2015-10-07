@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 96640 2012-08-16 05:31:20Z jmr@macports.org $
+# $Id: Portfile 138639 2015-07-14 13:28:47Z michaelld@macports.org $
 
 PortSystem 1.0
 
@@ -8,7 +8,7 @@ version             2.9.0
 categories          lang
 platforms           darwin
 license             GPL-3+
-maintainers         michaelld openmaintainer
+maintainers         nomaintainer
 description         ANSI C compiler targeting Intel 8051, Maxim 80DS390, Zilog Z80
 long_description    SDCC is a freeware, retargettable, optimizing ANSI C \
                     compiler that targets the Intel 8051, Maxim 80DS390, and \

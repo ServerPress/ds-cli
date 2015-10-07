@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 128249 2014-11-17 11:09:34Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 
@@ -29,7 +29,7 @@ distname            ${distname}-src
 checksums           rmd160  00a307f7efae7c441a7f62e38850ead053158f6a \
                     sha256  e09a7bdca9302e704cc62067399e0b584488f825b0e58c82ad6d54cd2e899fad
 
-depends_lib         port:openssl
+depends_lib         path:lib/libssl.dylib:openssl
 
 use_autoreconf      yes
 

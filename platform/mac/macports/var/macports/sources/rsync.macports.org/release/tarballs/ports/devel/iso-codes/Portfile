@@ -1,15 +1,15 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138250 2015-07-03 00:16:33Z larryv@macports.org $
+# $Id: Portfile 140771 2015-10-02 12:58:33Z ryandesign@macports.org $
 
 PortSystem          1.0
 
 name                iso-codes
-version             3.59
+version             3.62
 categories          devel
 platforms           darwin
 supported_archs     noarch
 license             LGPL-2.1+
-maintainers         nomaintainer
+maintainers         ryandesign openmaintainer
 
 description         ISO country, language and currency codes and translations
 long_description    This package aims to provide the list of the country and \
@@ -21,8 +21,8 @@ master_sites        debian:i/iso-codes/
 use_xz              yes
 distfiles           ${name}_${version}.orig${extract.suffix}
 
-checksums           rmd160  32cb62f2b73b096c4ae610b7c7e28f9051f2e810 \
-                    sha256  63d5ef035a96223f1fc8f36b711082f806e1666852dfc4149eeca8fd435d76ed
+checksums           rmd160  ccfbf923e6e7cfaa8a096ffa1d088ac8694a1f76 \
+                    sha256  0f8eced37ce95cf6a3bccaa836667d19e165b7f3c4e33d61581b61e668be6491
 
 depends_build       port:gettext
 

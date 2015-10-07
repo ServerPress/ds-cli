@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137347 2015-06-09 20:08:02Z devans@macports.org $
+# $Id: Portfile 140858 2015-10-04 19:14:09Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           gobject_introspection 1.0
 
 name                evolution-data-server
-version             3.16.3
+version             3.18.0
 set branch          [join [lrange [split ${version} .] 0 1] .]
 description         Addressbook and calender libs for GNOME.
 long_description    Evolution Data Server provides a central location for \
@@ -19,8 +19,8 @@ master_sites        gnome:sources/${name}/${branch}/
 
 use_xz              yes
 
-checksums           rmd160  026a539e6f8157305fa91cab94780300703e8996 \
-                    sha256  ee68a114012a7410559e712a0603f0ae7734a34f15c224da9cb7088829dcaca5
+checksums           rmd160  a8e4e9306a26b2704f8b8ab6d39ebad604e8fffc \
+                    sha256  ca4273b888912cadc474c1c2aebd2f02639381a9ddfa516a46cf9abd3dbc11f7
 
 depends_build       port:pkgconfig \
                     port:intltool \

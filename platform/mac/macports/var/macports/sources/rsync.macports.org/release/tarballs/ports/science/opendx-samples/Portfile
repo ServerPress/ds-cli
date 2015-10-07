@@ -1,10 +1,13 @@
-# $Id: Portfile 123356 2014-08-08 17:33:44Z mf2k@macports.org $
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 140799 2015-10-03 04:05:01Z dstrubbe@macports.org $
 
 PortSystem 1.0
 name		opendx-samples
 version		4.4.0
 revision	1
 categories	science
+license         Permissive
+# "IBM PUBLIC LICENSE", http://opendx.org/dlSource.html
 maintainers	nomaintainer
 platforms	darwin
 supported_archs	noarch
@@ -34,4 +37,3 @@ post-extract	{ set fixers [ exec find ${worksrcpath} -type f | xargs grep -l /us
 			reinplace "s|/usr/lpp|${prefix}|g" ${fil}
 		  }
 		}
-

@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138344 2015-07-06 06:07:06Z stromnov@macports.org $
+# $Id: Portfile 139366 2015-08-14 12:11:40Z stromnov@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-rasterio
-version             0.24.1
+version             0.26.0
 revision            0
 categories-append   gis
 platforms           darwin
@@ -23,8 +23,8 @@ master_sites        https://pypi.python.org/packages/source/r/rasterio/
 
 distname            rasterio-${version}
 
-checksums           rmd160  3a0a4f04514055c4741f3762f31869111a439fe8 \
-                    sha256  764adbeaf9b8abf7dde9ce0609a3321d45981a4349b9170dcfa6a75f5984675c
+checksums           rmd160  3b2e7833c8b67510af6a221bdb9b0bd74f2f05c4 \
+                    sha256  ace6cc310303bc17af984b1762709a5a8a9bff36f8f61ec1ba7dbf48c29f2373
 
 if {${name} ne ${subport}} {
     depends_build-append \
@@ -32,6 +32,7 @@ if {${name} ne ${subport}} {
 
     depends_lib-append  port:py${python.version}-setuptools \
                         port:py${python.version}-affine \
+                        port:py${python.version}-click-plugins \
                         port:py${python.version}-cligj \
                         port:py${python.version}-numpy \
                         port:py${python.version}-snuggs \

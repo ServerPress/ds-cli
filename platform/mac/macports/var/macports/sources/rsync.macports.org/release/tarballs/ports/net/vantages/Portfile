@@ -1,4 +1,4 @@
-# $Id: Portfile 123019 2014-08-03 21:04:11Z devans@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem              1.0
 
@@ -48,7 +48,7 @@ depends_lib             port:expat \
                         port:libgpg-error \
                         port:libtool \
                         port:libpcap \
-                        port:openssl \
+                        path:lib/libssl.dylib:openssl \
                         port:p5.16-term-readkey \
                         port:sqlite3
 

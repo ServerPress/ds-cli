@@ -1,12 +1,12 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 133665 2015-03-08 17:04:33Z khindenburg@macports.org $
+# $Id: Portfile 139403 2015-08-16 02:41:51Z khindenburg@macports.org $
 
 PortSystem          1.0
 PortGroup           perl5 1.0
 
 epoch               1
-perl5.branches      5.16 5.18 5.20
-perl5.setup         Perl-Critic 1.125
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Perl-Critic 1.126
 license             {Artistic-1 GPL}
 maintainers         khindenburg openmaintainer
 supported_archs     noarch
@@ -16,8 +16,8 @@ long_description    ${description}
 
 platforms           darwin
 
-checksums           rmd160  9d97b77b1ebf4c703e4b574081babf161677f6d1 \
-                    sha256  503b718356b14d4c00ed486b66a0f622f4bef2b206be406ee7922c8270463fa1
+checksums           rmd160  48b0dbc3b38d7593fbb3360c22c0237afe814efd \
+                    sha256  b1a6151cb3603aef8555195b807e831655c83003b81e2f64fff095ff7114f5af
 
 if {${perl5.major} != ""} {
 depends_build-append  port:p${perl5.major}-test-deep

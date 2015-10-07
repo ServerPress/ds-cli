@@ -1,4 +1,4 @@
-#!/var/macports/opt/local/libexec/macports/bin/tclsh8.5
+#!/opt/local/libexec/macports/bin/tclsh8.5
 #
 # $Id: upgrade_sources_conf_default.tcl.in 119170 2014-04-18 21:57:35Z cal@macports.org $
 #

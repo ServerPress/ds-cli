@@ -1,4 +1,4 @@
-# $Id: Portfile 127995 2014-11-10 16:48:36Z mf2k@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 
@@ -23,7 +23,7 @@ master_sites        ftp://ftp.proftpd.org/distrib/source/ \
 checksums           rmd160 12eef0bd466cdb1dbdd342cda8e93c1cb619dd07 \
                     sha256 f6c65fe9fea6577ac309f4e9e36c80def271fa5c91c4053fb0758824506127b6
                     
-depends_lib         port:openssl
+depends_lib         path:lib/libssl.dylib:openssl
 use_bzip2           yes
 
 configure.args      --sysconfdir=${prefix}/etc --localstatedir=${prefix}/var/run \

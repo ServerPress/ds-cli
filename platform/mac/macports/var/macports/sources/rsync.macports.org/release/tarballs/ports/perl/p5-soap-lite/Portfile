@@ -1,22 +1,21 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 135058 2015-04-14 10:00:39Z devans@macports.org $
+# $Id: Portfile 139815 2015-08-28 15:16:18Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           perl5 1.0
 
-perl5.branches      5.16 5.18 5.20
-perl5.setup         SOAP-Lite 1.14
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         SOAP-Lite 1.19
 
 license             {Artistic-1 GPL}
 maintainers         nomaintainer
-homepage            http://www.soaplite.com/
 description         A simple interface to the Simple Object Access Protocol
 long_description    ${description}
 
 platforms           darwin
 
-checksums           rmd160  6413442e367fc056de84f791a1c2587676a5310f \
-                    sha256  a201bed80db9b76a4ada9768281489c070fb8a25f4481d1296c92a5111ce1756
+checksums           rmd160  447b61bad18ba669cd53ad5ca7b4987a723b94d8 \
+                    sha256  f56d8d2ea51832a317020f635e584e38515b6d60526fd722aca360b367f23729
 
 if {${perl5.major} != ""} {
     depends_build-append \

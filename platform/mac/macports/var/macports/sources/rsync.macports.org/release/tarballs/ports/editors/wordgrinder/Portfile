@@ -1,9 +1,10 @@
-# $Id: Portfile 114431 2013-12-08 09:48:42Z and.damore@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 
 name                wordgrinder
 version             0.3.3
+revision            1
 categories          editors
 license             MIT
 platforms           darwin

@@ -1,9 +1,10 @@
-# $Id: Portfile 131332 2015-01-09 23:19:24Z mf2k@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 
 name		herrie
 version		2.2
+revision    1
 categories	audio
 maintainers	nomaintainer
 description	Small command line interface music player

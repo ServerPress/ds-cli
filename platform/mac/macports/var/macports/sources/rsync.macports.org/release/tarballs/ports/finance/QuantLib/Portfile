@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138049 2015-06-27 00:34:52Z ryandesign@macports.org $
+# $Id: Portfile 140242 2015-09-14 08:54:01Z ryandesign@macports.org $
 
 PortSystem          1.0
 
 name                QuantLib
-version             1.6
+version             1.6.2
 categories          finance
 platforms           darwin
 maintainers         ryandesign openmaintainer
@@ -20,8 +20,8 @@ long_description    The QuantLib project is aimed at providing a \
 homepage            http://quantlib.org/
 master_sites        sourceforge:project/quantlib/QuantLib/${version}
 
-checksums           rmd160  d9aad42f4f452aa49528e747db716b82866d3eea \
-                    sha256  a135d424a59cbb00a75d7f7ac3a181d49e804abae1776b555ec0183e309f81ce
+checksums           rmd160  573b957d36e60bed77c92f6578b49cacd09d0848 \
+                    sha256  049481a7b7e6f19792ab7e3985a8dd058fb2972b28086999b083010d4dd27d14
 
 depends_lib         port:boost
 

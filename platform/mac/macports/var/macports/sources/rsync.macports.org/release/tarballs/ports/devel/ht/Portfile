@@ -1,9 +1,10 @@
-# $Id: Portfile 84853 2011-10-03 17:30:16Z jmr@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 
 name		ht
 version		2.0.18
+revision    1
 categories	devel editors
 license		GPL-2
 maintainers	landonf

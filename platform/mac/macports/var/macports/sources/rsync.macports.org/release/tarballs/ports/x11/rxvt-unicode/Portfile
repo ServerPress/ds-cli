@@ -1,4 +1,4 @@
-# $Id: Portfile 130530 2014-12-31 18:04:47Z mf2k@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 ####################################################################
 # Marc Lehmann, the developer of rxvt-unicode, has no interest in  #
@@ -13,6 +13,7 @@ PortSystem      1.0
 PortGroup       compiler_blacklist_versions 1.0
 name            rxvt-unicode
 version         9.20
+revision        1
 categories      x11
 license         GPL-2+
 maintainers     nomaintainer

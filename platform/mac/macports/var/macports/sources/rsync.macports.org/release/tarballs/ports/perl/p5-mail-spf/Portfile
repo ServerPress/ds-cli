@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+# $Id: Portfile 138587 2015-07-13 01:59:38Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           perl5 1.0
 
-perl5.branches      5.16 5.18 5.20
+perl5.branches      5.16 5.18 5.20 5.22
 perl5.setup         Mail-SPF 2.9.0
 categories-append   mail
 license             BSD
@@ -13,7 +13,6 @@ description         Object oriented implementation of SPF
 long_description    Mail-SPF provides an object oriented interface to \
                     the Sender Policy Framework, also knows as SPF.
 
-homepage            http://search.cpan.org/~jmehnle/${distname}
 platforms           darwin
 supported_archs     noarch
 distname            ${perl5.module}-v${perl5.moduleversion}
@@ -35,5 +34,8 @@ if {${perl5.major} != ""} {
                     port:p${perl5.major}-uri \
                     port:p${perl5.major}-version \
                     port:p${perl5.major}-net-dns-resolver-programmable
+    
+    perl5.use_module_build
 }
+
 livecheck.version   v${perl5.moduleversion}

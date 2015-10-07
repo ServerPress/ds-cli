@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136550 2015-05-21 18:16:09Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem              1.0
 
@@ -35,7 +35,7 @@ depends_lib             port:clang-${llvm_version} \
                         port:libmicrohttpd \
                         port:libsndfile \
                         port:llvm-${llvm_version} \
-                        port:openssl
+                        path:lib/libssl.dylib:openssl
 
 post-patch {
     eval reinplace "s|/usr/local|${prefix}|g" \

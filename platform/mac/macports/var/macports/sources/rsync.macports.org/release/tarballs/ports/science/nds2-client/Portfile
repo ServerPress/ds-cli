@@ -1,10 +1,10 @@
-# $Id: Portfile 137156 2015-06-05 18:45:20Z ryandesign@macports.org $
+# $Id: Portfile 139106 2015-08-02 18:32:13Z ionic@macports.org $
 
 PortSystem        1.0
 
 name              nds2-client
 version           0.11.6
-revision          0
+revision          1
 categories        science
 platforms         darwin
 license           GPL-2
@@ -26,7 +26,7 @@ depends_build-append \
 
 default_variants  +doc +gssapi +swig_python27 +swig_java
 
-configure.javac   /usr/bin/javac
+configure.javac   /usr/bin/javac -source 1.5 -target 1.5
 configure.args    --disable-silent-rules \
                   --disable-doc \
                   --disable-swig-python \

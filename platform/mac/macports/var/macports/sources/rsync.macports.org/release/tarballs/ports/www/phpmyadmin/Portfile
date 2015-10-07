@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137778 2015-06-19 14:34:39Z ryandesign@macports.org $
+# $Id: Portfile 140608 2015-09-27 08:49:42Z ryandesign@macports.org $
 
 PortSystem          1.0
 
 name                phpmyadmin
 set my_name         phpMyAdmin
-version             4.4.10
+version             4.5.0.2
 categories          www php databases
 platforms           darwin freebsd
 maintainers         ryandesign openmaintainer
@@ -21,14 +21,14 @@ long_description    phpMyAdmin is a tool written in PHP intended to handle \
                     interface (managing databases, tables, fields, relations, \
                     indexes, users, permissions, etc), while you still have \
                     the ability to directly execute any SQL statement.
-homepage            http://www.phpmyadmin.net/
-master_sites        sourceforge:project/phpmyadmin/phpMyAdmin/${version}
+homepage            https://www.phpmyadmin.net/
+master_sites        https://files.phpmyadmin.net/phpMyAdmin/${version}/
 distname            ${my_name}-${version}-all-languages
 use_xz              yes
 
-checksums           md5     f10d5e1ca966a2e5edf13f0ebc80f639 \
-                    rmd160  94af6af126f946cae07356ce4bc6898f20985f5e \
-                    sha256  8048f112876fb49c44136f23d7fc101a3637f908944a6c85263248222c48008b
+checksums           sha1    1397f06cab46ed27b3a7c40931fd9716604c1baf \
+                    rmd160  27b357302a6e6b71203101294df29a8a6f173d60 \
+                    sha256  d2e90ea486d90b4ebe5eb02d7ad349ad2916c12a8981f98553395ef78d22a8ec
 
 # The php variants deliberately do not conflict
 
@@ -57,7 +57,7 @@ build               {}
 
 destroot {
     xinstall -d -m 0755 ${docroot}
-    eval copy [glob ${worksrcpath}/*] ${docroot}
+    copy {*}[glob ${worksrcpath}/*] ${docroot}
 }
 
 notes "

@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137410 2015-06-11 04:13:01Z devans@macports.org $
+# $Id: Portfile 140906 2015-10-04 21:58:28Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           archcheck 1.0
@@ -10,15 +10,16 @@ PortGroup           active_variants 1.1
 name                gtk3
 set real_name       gtk+
 epoch               1
-version             3.16.4
+# version 3.18.0+ requires glib-2.0 >= 2.45.8
+version             3.16.7
 set branch          [join [lrange [split ${version} .] 0 1] .]
 categories          gnome x11
 license             LGPL-2.1+
 maintainers         cal devans openmaintainer
 platforms           darwin
 
-checksums           rmd160  c727780d1802c2e7a710bc42c9e7a1d85dfce65a \
-                    sha256  1ee5dbd7a4cb81a91eaa1b7ae64ba5a3eab6a3c0a764155583ab96524590fc8e
+checksums           rmd160  76f61945a73d3ff62c25b55b7ad2206f4f2f9f22 \
+                    sha256  19689d14de54d182fad538153dbff6d41f53841f940aa871585fdea0306c7fba
 
 description         GTK+ widget toolkit
 

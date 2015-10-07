@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136115 2015-05-11 19:40:37Z sean@macports.org $
+# $Id: Portfile 140114 2015-09-09 21:27:38Z sean@macports.org $
 
 PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           compilers 1.0
 
-github.setup        JuliaLang julia 0.3.8 v
+github.setup        JuliaLang julia 0.3.11 v
 categories-append   lang math science
 maintainers         sean openmaintainer
 platforms           darwin
@@ -22,24 +22,28 @@ long_description    Julia is a high-level, high-performance dynamic programming 
 
 github.tarball_from releases
 
-distfiles           ${name}-${version}_79599ada44${extract.suffix}
+distfiles           ${name}-${version}_483dbf5279${extract.suffix}
 distname            ${name}
 
-checksums           rmd160  8ebe445b3cf33ea0a64091ac821cd02463e2c60a \
-                    sha256  729a91a93126b4a81bf05fc8514465b98dfe855feacb13840854f44b5899369d
+checksums           rmd160  69f75ef559605c8c8494b06a9c6e87c0ac11fd4a \
+                    sha256  9953cdd8e0b2b3dd52bfe787830133ac30177d0ffd98f049fc18e6228419b1b3
 
 # Force buildbot to skip this since julia builds its own blas; see #45101
 archive_sites
 
-depends_lib-append  port:llvm-3.5 \
+# julia still relies on the jit implementation of LLVM <= 3.5 (officially on
+# version 3.3, though) and won't be changing that until the 0.4 branch
+set llvm_ver        3.5
+
+depends_lib-append  port:llvm-${llvm_ver} \
     port:curl \
     port:pcre \
-    port:readline \
     port:gmp \
     port:mpfr \
     port:SuiteSparse \
     port:fftw-3 \
-    port:fftw-3-single
+    port:fftw-3-single \
+    port:ncurses
 
 use_configure       no
 # use_parallel_build  no
@@ -50,7 +54,6 @@ post-extract {
     ln -s ${prefix}/lib/libfftw3_threads.dylib ${worksrcpath}/usr/lib/
     ln -s ${prefix}/lib/libfftw3f.dylib ${worksrcpath}/usr/lib/
     ln -s ${prefix}/lib/libfftw3f_threads.dylib ${worksrcpath}/usr/lib/
-    ln -s ${prefix}/lib/libreadline.dylib ${worksrcpath}/usr/lib/
     ln -s ${prefix}/lib/libpcre.dylib ${worksrcpath}/usr/lib/
     ln -s ${prefix}/lib/libgmp.dylib ${worksrcpath}/usr/lib/
     ln -s ${prefix}/lib/libmpfr.dylib ${worksrcpath}/usr/lib/
@@ -73,13 +76,12 @@ pre-destroot {
         CXX=${configure.cxx} \
         FC=${configure.fc} \
         USE_SYSTEM_LLVM=1 \
-        LLVM_CONFIG=llvm-config-mp-3.5 \
+        LLVM_CONFIG=llvm-config-mp-${llvm_ver} \
         USE_SYSTEM_LIBUNWIND=1 \
         USE_SYSTEM_LIBM=1 \
         USE_SYSTEM_GMP=1 \
         USE_SYSTEM_MPFR=1 \
         USE_SYSTEM_ZLIB=1 \
-        USE_SYSTEM_READLINE=1 \
         USE_SYSTEM_PCRE=1 \
         USE_SYSTEM_FFTW=1 \
         USE_SYSTEM_ARPACK=1 \
@@ -101,3 +103,5 @@ post-destroot {
         system -W ${destroot}${prefix}/bin "install_name_tool -add_rpath ${prefix}/lib $b"
     }
 }
+
+livecheck.regex     archive/[join ${github.tag_prefix} ""](\[^"-\]+)${extract.suffix}

@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 111355 2013-09-19 07:29:32Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 
@@ -19,7 +19,7 @@ platforms           darwin
 checksums           rmd160  437048d16e5887c79008f2023256dccd176b3192 \
                     sha256  400a16cbe5cb2bf8a9eec4a43ef3546e0329f248bbd2a79f6d9a1ebc0b503308
 
-depends_lib         port:openssl \
+depends_lib         path:lib/libssl.dylib:openssl \
                     port:zlib \
                     port:bzip2
 

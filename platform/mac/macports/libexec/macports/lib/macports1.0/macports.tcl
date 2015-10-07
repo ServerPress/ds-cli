@@ -1,6 +1,6 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
 # macports.tcl
-# $Id: macports.tcl 120383 2014-05-26 09:58:13Z cal@macports.org $
+# $Id: macports.tcl 134513 2015-03-27 21:27:54Z cal@macports.org $
 #
 # Copyright (c) 2002 - 2003 Apple Inc.
 # Copyright (c) 2004 - 2005 Paul Guyot, <pguyot@kallisys.net>.
@@ -75,6 +75,19 @@ namespace eval macports {
     variable current_phase main
 
     variable ui_prefix "---> "
+}
+
+##
+# Return the version of MacPorts you are running
+#
+# This proc never fails and always returns the current version in the format
+# major.minor.patch. Note that the value of patch will not be meaningful for
+# trunk releases, but we guarantee that it will compare to be greater than any
+# released versions from the same major.minor.x series. You should use the
+# MacPorts-provided Tcl extension "vercmp" to do version number comparisons on
+# the return value of this function.
+proc macports::version {} {
+    return ${macports::autoconf::macports_version}
 }
 
 # Provided UI instantiations
@@ -1278,6 +1291,7 @@ proc macports::worker_init {workername portpath porturl portbuildpath options va
     $workername alias ui_warn_once ui_warn_once
 
     # Export some utility functions defined here.
+    $workername alias macports_version macports::version
     $workername alias macports_create_thread macports::create_thread
     $workername alias getportworkpath_from_buildpath macports::getportworkpath_from_buildpath
     $workername alias getportresourcepath macports::getportresourcepath

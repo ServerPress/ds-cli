@@ -1,9 +1,9 @@
-# $Id: Portfile 138422 2015-07-07 19:45:48Z dluke@macports.org $
+# $Id: Portfile 140282 2015-09-16 14:55:50Z dluke@macports.org $
 
 PortSystem 1.0
 
 name			bind9
-version			9.10.2-P2
+version			9.10.3
 categories		net
 maintainers		geeklair.net:dluke
 platforms		darwin freebsd sunos
@@ -27,11 +27,11 @@ homepage		http://www.isc.org
 distname		bind-${version}
 master_sites		isc:${name}/${version}
 
-checksums	md5	55d8f094bc10baae0e23e5e9100ba320 \
-		sha1	45be116f7d1f55abc09b36b2d69b46f8a53e1589 \
-		rmd160	60bd4d0483192bb381271671c372c11f8eadf543
+checksums	md5	d8cbf04a62a139a841d4bf878087a555 \
+		sha1	44db4949dc63fc7c4c50d1cd3bb978648ceacdd7 \
+		rmd160	5520c961621846d3ea8aa941353346a2cc0907c8
 
-depends_lib		port:openssl port:libxml2
+depends_lib		path:lib/libssl.dylib:openssl port:libxml2
 
 patchfiles-append	gssapi-link.patch
 

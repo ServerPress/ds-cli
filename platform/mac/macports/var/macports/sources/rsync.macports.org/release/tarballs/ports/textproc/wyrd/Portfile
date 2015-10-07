@@ -1,11 +1,12 @@
-# $Id: Portfile 138058 2015-06-27 05:49:28Z jmr@macports.org $
+# $Id: Portfile 139940 2015-09-03 23:34:13Z jmr@macports.org $
 
 PortSystem        1.0
 
 name              wyrd
 version           1.4.4
-revision          3
+revision          4
 categories        textproc pim
+license           GPL-2
 maintainers       hjst.org:henry
 platforms         darwin
 

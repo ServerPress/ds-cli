@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137822 2015-06-20 21:14:23Z snc@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
@@ -32,7 +32,7 @@ checksums           md5     842b44f8c95517ed5b792081a2370da1 \
                     sha256  6acf9abbbe757ef75dc2ecd9d91ba749547941abaffbe69ff2086a9e37d4904c
 
 if {${name} ne ${subport}} {
-    depends_lib-append  port:openssl
+    depends_lib-append  path:lib/libssl.dylib:openssl
 
     patchfiles      patch-setup.cfg.diff
 

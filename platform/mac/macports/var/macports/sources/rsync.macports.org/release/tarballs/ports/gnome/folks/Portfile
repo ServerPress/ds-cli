@@ -1,11 +1,12 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136774 2015-05-26 09:59:52Z devans@macports.org $
+# $Id: Portfile 140399 2015-09-18 21:07:33Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           gobject_introspection 1.0
 
 name                folks
 version             0.11.1
+revision            2
 epoch               1
 license             LGPL-2.1
 set branch          [join [lrange [split ${version} .] 0 1] .]
@@ -38,10 +39,14 @@ depends_lib         path:lib/pkgconfig/glib-2.0.pc:glib2 \
                     port:libgee \
                     port:libsocialweb \
                     port:libxml2 \
+                    port:ncurses \
                     port:readline \
                     port:telepathy-glib \
                     port:vala \
-                    port:zeitgeist \
+                    port:zeitgeist
+
+# telepathy backend requires telepathy-mission-control at run time
+depends_run         port:telepathy-mission-control
 
 # the dummy backend is broken as are tests based on it
 patchfiles          patch-disable-dummy-backend.diff

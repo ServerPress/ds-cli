@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 96353 2012-08-07 20:20:00Z pixilla@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem              1.0
 
@@ -42,7 +42,7 @@ checksums \
     md5 37b4479951fa0cf052269d27c41ca200
 
 depends_lib \
-    port:openssl
+    path:lib/libssl.dylib:openssl
 
 set dbdir               ${prefix}/var/db/mysql
 

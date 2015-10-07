@@ -30,7 +30,10 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 #
-# This PortGroup sets up default variants for projects that want m
+# This PortGroup sets up default variants for projects that want multiple
+# compilers for providing options for, example, different optimizations. More
+# importantly, this port group provides the ability to interact with packages
+# that need MPI since MPI is juat a wrapper around a compiler.
 #
 # Usage:
 #
@@ -48,6 +51,9 @@ default compilers.require_fortran 0
 default compilers.setup_done 0
 default compilers.required_c {}
 default compilers.required_f {}
+
+# also set a default gcc version
+set compilers.gcc_default gcc5
 
 set compilers.list {cc cxx cpp objc fc f77 f90}
 
@@ -77,7 +83,7 @@ foreach v ${gcc_versions} {
     set cdb(gcc$v,f90)      ${prefix}/bin/gfortran-mp-$version
 }
 
-set clang_versions {33 34 35}
+set clang_versions {33 34 35 36 37 38}
 foreach v ${clang_versions} {
     # if the string is more than one character insert a '.' into it: e.g 33 -> 3.3
     set version $v
@@ -141,22 +147,21 @@ set cdb(llvm,f90)      ""
 
 # and lastly we add a gfortran and g95 variant for use with clang* and llvm; note that
 # we don't need gfortran when we are in an "only-fortran" mode
-set compilers.gfortran_equiv    gcc49
 set cdb(gfortran,variant)  gfortran
-set cdb(gfortran,compiler) $cdb(${compilers.gfortran_equiv},compiler)
-set cdb(gfortran,descrip)  $cdb(${compilers.gfortran_equiv},descrip)
-set cdb(gfortran,depends)  $cdb(${compilers.gfortran_equiv},depends)
-set cdb(gfortran,dependsl) $cdb(${compilers.gfortran_equiv},dependsl)
-set cdb(gfortran,dependsd) $cdb(${compilers.gfortran_equiv},dependsd)
-set cdb(gfortran,dependsa) $cdb(${compilers.gfortran_equiv},dependsa)
-set cdb(gfortran,conflict) $cdb(${compilers.gfortran_equiv},conflict)
-set cdb(gfortran,cc)       $cdb(${compilers.gfortran_equiv},cc)
-set cdb(gfortran,cxx)      $cdb(${compilers.gfortran_equiv},cxx)
-set cdb(gfortran,cpp)      $cdb(${compilers.gfortran_equiv},cpp)
-set cdb(gfortran,objc)     $cdb(${compilers.gfortran_equiv},objc)
-set cdb(gfortran,fc)       $cdb(${compilers.gfortran_equiv},fc)
-set cdb(gfortran,f77)      $cdb(${compilers.gfortran_equiv},f77)
-set cdb(gfortran,f90)      $cdb(${compilers.gfortran_equiv},f90)
+set cdb(gfortran,compiler) gfortran
+set cdb(gfortran,descrip)  "Fortran compiler from gcc49"
+set cdb(gfortran,depends)  $cdb(${compilers.gcc_default},depends)
+set cdb(gfortran,dependsl) $cdb(${compilers.gcc_default},dependsl)
+set cdb(gfortran,dependsd) $cdb(${compilers.gcc_default},dependsd)
+set cdb(gfortran,dependsa) $cdb(${compilers.gcc_default},dependsa)
+set cdb(gfortran,conflict) $cdb(${compilers.gcc_default},conflict)
+set cdb(gfortran,cc)       ""
+set cdb(gfortran,cxx)      ""
+set cdb(gfortran,cpp)      ""
+set cdb(gfortran,objc)     ""
+set cdb(gfortran,fc)       $cdb(${compilers.gcc_default},fc)
+set cdb(gfortran,f77)      $cdb(${compilers.gcc_default},f77)
+set cdb(gfortran,f90)      $cdb(${compilers.gcc_default},f90)
 
 set cdb(g95,variant)  g95
 set cdb(g95,compiler) g95
@@ -457,7 +462,7 @@ proc compilers.enforce_fortran {args} {
 }
 
 proc compilers.action_enforce_f {args} {
-    global compilers.gfortran_equiv
+    global compilers.gcc_default
     foreach portname $args {
         if {![catch {set result [active_variants $portname "" ""]}]} {
             set otf  [fortran_active_variant_name $portname]
@@ -465,8 +470,8 @@ proc compilers.action_enforce_f {args} {
 
             # gfortran is nothing more than the fortran compiler from a default version of gcc
             set equiv 0
-            if {($otf eq ${compilers.gfortran_equiv} || $otf eq "gfortran") &&
-                ($myf eq ${compilers.gfortran_equiv} || $myf eq "gfortran")} {
+            if {($otf eq ${compilers.gcc_default} || $otf eq "gfortran") &&
+                ($myf eq ${compilers.gcc_default} || $myf eq "gfortran")} {
                 set equiv 1
             }
 
@@ -484,6 +489,7 @@ proc compilers.setup {args} {
     global cdb compilers.variants compilers.clang_variants compilers.gcc_variants
     global compilers.dragonegg_variants compilers.fortran_variants
     global compilers.require_fortran compilers.setup_done compilers.list
+    global compilers.gcc_default
     global compiler.blacklist
 
     if {!${compilers.setup_done}} {
@@ -569,23 +575,30 @@ proc compilers.setup {args} {
         set compilers.variants [lsort [concat [remove_from_list $remove_list $duplicates] $add_list]]
         eval compilers.setup_variants ${compilers.variants}
 
+        # reverse the gcc list so that the higher numbered ones are default
+        set ordered_variants {gfortran}
+        set seen 0
+        for {set i [llength ${compilers.gcc_variants}]} {[incr i -1] >= 0} {} {
+            # only add entries after the default gcc (the ones before are
+            # considered beta)
+            set v [lindex ${compilers.gcc_variants} $i]
+            if {${compilers.gcc_default} eq $v} {
+                set seen 1
+            }
+
+            if {$seen} {
+                lappend ordered_variants $v
+            }
+        }
+        lappend ordered_variants {g95}
+
         if {${compilers.require_fortran} && ![fortran_variant_isset]} {
-            if {[lsearch -exact ${compilers.variants} gfortran] > -1} {
-                default_variants-append +gfortran
-            } elseif {[lsearch -exact ${compilers.variants} gcc49] > -1} {
-                default_variants-append +gcc49
-            } elseif {[lsearch -exact ${compilers.variants} gcc48] > -1} {
-                default_variants-append +gcc48
-            } elseif {[lsearch -exact ${compilers.variants} gcc47] > -1} {
-                default_variants-append +gcc47
-            } elseif {[lsearch -exact ${compilers.variants} gcc46] > -1} {
-                default_variants-append +gcc46
-            } elseif {[lsearch -exact ${compilers.variants} gcc45] > -1} {
-                default_variants-append +gcc45
-            } elseif {[lsearch -exact ${compilers.variants} gcc44] > -1} {
-                default_variants-append +gcc44
-            } elseif {[lsearch -exact ${compilers.variants} g95] > -1} {
-                default_variants-append +g95
+            foreach fv $ordered_variants {
+                # if the variant exists, then make it default
+                if {[lsearch -exact ${compilers.variants} $fv] > -1} {
+                    default_variants-append +$fv
+                    break
+                }
             }
         }
 

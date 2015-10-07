@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138050 2015-06-27 00:38:34Z ryandesign@macports.org $
+# $Id: Portfile 140773 2015-10-02 15:01:25Z ryandesign@macports.org $
 
 PortSystem              1.0
 PortGroup               php 1.1
@@ -90,36 +90,37 @@ switch ${subport_branch} {
     }
     5.4 {
         epoch           1
-        version         5.4.42
+        version         5.4.45
         use_bzip2       yes
-        checksums       rmd160  5b91d856f8637abe1cdbb37adc2f43e3ceef8317 \
-                        sha256  6285b2e64bfaa69e5d983d7d981b4f254f5259ad3fd591ca832722a4cc1ae0f9
+        checksums       rmd160  352a0ea8fb75a447301c1434609ac0e4b96acc0c \
+                        sha256  4e0d28b1554c95cfaea6fa2b64aac85433f158ce72bb571bcd5574f98f4c6582
     }
     5.5 {
         epoch           2
-        version         5.5.26
+        version         5.5.30
         use_xz          yes
-        checksums       rmd160  aa78b8cc3cb3b3331e4ee88a199d2c1671e80fee \
-                        sha256  97672c41cf2f95628dbffb63648147b43b23ea41b99ad22ccf5f4fe9b6e91b51
+        checksums       rmd160  4da82b68d8f5a3e6abe0fe60bb8314c402170083 \
+                        sha256  d00dc06fa5e0f3de048fb0cf940b3cc59b43b3f8cad825d4fffb35503cf2e8f2
     }
     5.6 {
         epoch           2
-        version         5.6.10
+        version         5.6.14
         use_xz          yes
-        checksums       rmd160  f5dbf5fd8ed76b20429187cdde1558be63009f3a \
-                        sha256  1af720c955b0a57aa47606e928616e84c78868aff2a5f269c70601a77d6da8c1
+        checksums       rmd160  29e033b73673a819fa7eb558ceee3c1a4496d6d2 \
+                        sha256  c8edf6b05fd8a69ebd88d90c5c0975ee168502204622ad5cfcd550bc222632d9
     }
     7.0 {
         # When this becomes a stable version, remove the overrides for homepage,
         # master_sites and livecheck, and update php.latest_stable_branch in the
         # php-1.1 portgroup.
-        version         7.0.0alpha2
+        epoch           1
+        version         7.0.0RC4
         homepage        http://qa.php.net/
         master_sites    http://downloads.php.net/~ab/
         use_xz          yes
-        checksums       md5     050a0353e9999ec7b472aa73b58f1cfe \
-                        rmd160  17c0ec1da846bd376c99c2198d0eafb5669196a3 \
-                        sha256  0c16c3f3e488edbddf1de4b1d5b2758e7f5805705bed84cbe9410631be3efd4d
+        checksums       md5     4a0af8c5f4f2133eb2eb6cf79d14cf64 \
+                        rmd160  e4bda84ead7f9a906c342e69f51a95889ec4a50d \
+                        sha256  d4cb3fd02f3f58ccc372da100757e900ddb9cfec118ba695382755a9f1c8215b
         livecheck.url   ${homepage}
         livecheck.regex php-([strsed ${subport_branch} {g/\\./\\./}](?:\\.\[0-9.\]+)*(?:(?:alpha|beta|RC)\\d+|-latest))\\.tar
     }
@@ -167,7 +168,7 @@ if {[is_sapi_subport]} {
                         patch-${php}-libxml-2.9.diff \
                         patch-${php}-pcre-8.30.diff
     }
-    
+
     # https://trac.macports.org/ticket/31590
     # Tested all subports (except oracle) and they built with clang-425.  The reported failure was with Xcode 4.2.
     # Xcode 4.3 may work, but leaving it blacklisted due to lack of testing
@@ -276,8 +277,9 @@ if {[is_sapi_subport]} {
 subport ${php} {
     PortGroup               select 1.0
     
-    if {[vercmp ${branch} 5.2] == 0} {
-        revision            10
+    switch -- ${version} {
+        5.2.17              {revision 11}
+        5.3.29              {revision 1}
     }
     
     depends_run             port:php_select
@@ -322,11 +324,11 @@ subport ${php} {
     # On the other hand we want libedit to be the default because its license
     # is compatible with PHP's which means PHP can be distributable.
     variant libedit conflicts readline description {Build readline extension using libedit library} {
-        depends_lib-append      port:libedit
+        depends_lib-append      port:libedit port:ncurses
         configure.args-append   --with-libedit=${prefix}
     }
     variant readline conflicts libedit description {Build readline extension using readline library} {
-        depends_lib-append      port:readline
+        depends_lib-append      port:ncurses port:readline
         configure.args-append   --with-readline=${prefix}
     }
     if {![variant_isset readline]} {
@@ -384,7 +386,7 @@ ${phpinidir}/php.ini-recommended.
     }
     
     # Enable livecheck for the two most recent stable PHP branches and the development branch.
-    if {[vercmp ${branch} [lindex ${php.branches} end-2]] >= 0} {
+    if {[vercmp ${branch} [lindex ${php.branches} end-3]] >= 0} {
         livecheck.type      regex
         default livecheck.url   ${homepage}downloads.php
         default livecheck.regex {get/php-([strsed ${branch} {g/\\./\\./}](?:\\.\[0-9.\]+)*)\\.tar}
@@ -598,7 +600,7 @@ subport ${php}-ftp {
     
     long_description        ${description}
     
-    depends_lib-append      port:openssl
+    depends_lib-append      path:lib/libssl.dylib:openssl
     
     configure.args-append   --with-openssl-dir=${prefix}
 }
@@ -622,6 +624,11 @@ subport ${php}-gd {
                             --with-png-dir=${prefix} \
                             --with-zlib-dir=${prefix} \
                             --enable-gd-native-ttf
+
+    if {[vercmp ${branch} 7.0] >= 0} {
+        depends_lib-append  port:webp
+        configure.args-append --with-webp-dir=${prefix}
+    }
     
     if {[vercmp ${branch} 7] < 0} {
     variant t1lib description {Add PostScript Type 1 font support with t1lib} {
@@ -694,8 +701,8 @@ subport ${php}-imap {
 
 if {[vercmp ${branch} 5.3] >= 0} {
 subport ${php}-intl {
-    if {[vercmp ${branch} 5.3] == 0} {
-        revision            2
+    switch -- ${version} {
+        5.3.29              {revision 2}
     }
     
     categories-append       devel
@@ -961,11 +968,6 @@ subport ${php}-odbc {
     }
 }
 
-# php70-opcache @7.0.0alpha2 fails:
-# too few arguments provided to function-like macro invocation
-# use of undeclared identifier 'accel_xlat_get'
-# too many arguments to function call, expected 4, have 5
-if {[vercmp ${branch} 7] < 0} {
 if {[vercmp ${branch} 5.5] >= 0} {
     subport ${php}-opcache {
         php.extensions.zend opcache
@@ -985,7 +987,6 @@ if {[vercmp ${branch} 5.5] >= 0} {
         }
     }
 }
-}
 
 subport ${php}-openssl {
     categories-append       devel security
@@ -998,7 +999,7 @@ subport ${php}-openssl {
     
     depends_lib-append      port:kerberos5 \
                             port:libcomerr \
-                            port:openssl
+                            path:lib/libssl.dylib:openssl
     
     post-extract {
         move ${php.build_dirs}/config0.m4 ${php.build_dirs}/config.m4
@@ -1208,8 +1209,10 @@ subport ${php}-sqlite {
 }
 
 subport ${php}-tidy {
-    if {[vercmp ${branch} 5.3] <= 0} {
-        revision            1
+    switch -- ${version} {
+        5.2.17              {revision 2}
+        5.3.29              {revision 2}
+        5.4.45              {revision 1}
     }
     
     categories-append       www
@@ -1220,6 +1223,10 @@ subport ${php}-tidy {
     long_description        ${description}
     
     depends_lib-append      port:tidy
+    
+    if {[vercmp ${branch} 7.0] <= 0} {
+        patchfiles-append   patch-${php}-ext-tidy-tidy.c.diff
+    }
     
     configure.args-append   --with-tidy=${prefix}
 }

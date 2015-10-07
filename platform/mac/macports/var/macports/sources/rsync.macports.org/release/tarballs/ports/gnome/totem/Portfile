@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138128 2015-06-29 22:48:08Z devans@macports.org $
+# $Id: Portfile 140869 2015-10-04 19:18:39Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           gobject_introspection 1.0
 
 name                totem
-version             3.16.2
+version             3.18.0
 set branch          [join [lrange [split ${version} .] 0 1] .]
 categories          gnome
 # also has an exception allowing use of non-GPL-compatible plugins
@@ -26,8 +26,8 @@ master_sites        gnome:sources/${name}/${branch}/
 
 use_xz              yes
 
-checksums           rmd160  7bd0aad3b1c4cebe1dc0dddbf6ef5f956c71baaa \
-                    sha256  8e9150d104499500939499e29d56b1593ca49777f35ad5a7a02192e23d811f32
+checksums           rmd160  f8563b59531f8e5f72a80a0c86333118a976c32a \
+                    sha256  1b6a7e66414df4b2e2427a9c5f1fee5a5f286beb098fdbe0902e37e3663e3e89
 
 depends_build       port:pkgconfig \
                     port:intltool \

@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136970 2015-06-01 14:38:39Z mf2k@macports.org $
+# $Id: Portfile 140938 2015-10-06 01:39:53Z khindenburg@macports.org $
 
 PortSystem          1.0
 
@@ -19,8 +19,9 @@ long_description    Pike is a dynamic programming language with a syntax \
                     built-in data types allowing simple and really fast \
                     data manipulation.
 
-homepage            http://pike.ida.liu.se/
+homepage            http://pike.lysator.liu.se/
 master_sites        ${homepage}pub/pike/all/${version}/
+
 distname            Pike-v${version}
 
 checksums           md5     3ba03096741d6df839d32a940f4a865c \
@@ -141,3 +142,6 @@ post-destroot {
             ${destroot}${prefix}/share/doc/pike-${version}
     }
 }
+
+livecheck.url       http://pike.lysator.liu.se/download/pub/pike/latest-stable/
+livecheck.regex     Pike-v(\[0-9.\]+)${extract.suffix}

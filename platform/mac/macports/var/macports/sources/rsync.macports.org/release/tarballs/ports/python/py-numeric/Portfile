@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 130639 2015-01-02 04:50:21Z larryv@macports.org $
+# $Id: Portfile 138963 2015-07-25 05:03:09Z jmr@macports.org $
 
 PortSystem      1.0
 PortGroup       python 1.0
@@ -28,7 +28,7 @@ checksums       md5 2ae672656e06716a149acb048cca3093 \
 
 python.versions 26 27
 
-if {${name} ne ${subport}} {
+if {$subport ne $name} {
     patchfiles      patch-ranf.c.diff \
                     patch-Src-arrayobject.c.diff \
                     patch-Packages-dotblas-_dotblas.c.diff \
@@ -57,7 +57,7 @@ if {${name} ne ${subport}} {
     post-destroot {
         set docdir ${prefix}/share/doc/${subport}
     
-        eval xinstall -d \
+        xinstall -d \
             ${destroot}${docdir}/dotblas \
             ${destroot}${docdir}/MA \
             ${destroot}${docdir}/RNG

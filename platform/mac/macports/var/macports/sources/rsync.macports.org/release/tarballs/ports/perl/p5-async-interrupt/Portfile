@@ -1,13 +1,13 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 135817 2015-05-04 15:56:16Z devans@macports.org $
+# $Id: Portfile 139806 2015-08-28 03:21:03Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           perl5 1.0
 
-perl5.branches      5.16 5.18 5.20
+perl5.branches      5.16 5.18 5.20 5.22
 perl5.setup         Async-Interrupt 1.21
 license             {Artistic-1 GPL}
-maintainers         devans openmaintainer
+maintainers         nomaintainer
 description         Async::Interrupt - allow C/XS libraries to interrupt perl asynchronously
 long_description    ${description}
 

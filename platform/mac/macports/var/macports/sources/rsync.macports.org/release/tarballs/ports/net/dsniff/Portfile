@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 132320 2015-01-28 23:19:14Z cal@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem              1.0
 PortGroup               active_variants 1.1
@@ -32,7 +32,7 @@ checksums               rmd160  4d5dee193f0d252d22cfe2417f067460db9638b1 \
                         sha256  a9803a7a02ddfe5fb9704ce86f0ffc48453c321e88db85810db411ba0841152a
 
 depends_lib             port:libpcap \
-                        port:openssl \
+                        path:lib/libssl.dylib:openssl \
                         port:libnids \
                         port:xorg-libXmu
 

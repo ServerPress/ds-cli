@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 134853 2015-04-08 20:11:54Z ryandesign@macports.org $
+# $Id: Portfile 140597 2015-09-27 02:16:30Z ryandesign@macports.org $
 
 PortSystem          1.0
 
 name                autoconf-archive
-version             2015.02.24
+version             2015.09.25
 categories          devel
 platforms           darwin
 license             Permissive
@@ -12,8 +12,6 @@ maintainers         nomaintainer
 
 supported_archs     noarch
 installs_libs       no
-
-conflicts           gnome-common
 
 description         A collection of more than 450 macros for GNU Autoconf
 long_description    The GNU Autoconf Archive is a collection of more \
@@ -28,5 +26,17 @@ homepage            http://www.gnu.org/software/autoconf-archive/
 master_sites        gnu
 use_xz              yes
 
-checksums           rmd160  dc234daf67003d1e27cfe81d61b51942a3c1d49e \
-                    sha256  69715bdd078f552ca85e498a94543e11cb8bcdf0359e659b84d84d19372b0dc5
+checksums           rmd160  21e2f8e43e55f122df5612c4d255457350c1a535 \
+                    sha256  7c0467a5dbd2340153bca5a477bd92fbc951d9ee3cbed92f16f6bf08ac0c350a
+
+# deactivate versions of gnome-common < 3.18.0 when updating
+# to avoid collisions on activation
+
+pre-activate {
+    if {![catch {set installed [lindex [registry_active gnome-common] 0]}]} {
+        set _version [lindex $installed 1]
+        if {[vercmp $_version 3.18.0] < 0} {
+            registry_deactivate_composite gnome-common "" [list ports_nodepcheck 1]
+        }
+    }
+}

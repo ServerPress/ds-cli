@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136804 2015-05-27 15:58:16Z devans@macports.org $
+# $Id: Portfile 139333 2015-08-13 04:36:57Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           gobject_introspection 1.0
 
-github.setup        hughsie appstream-glib 0_4_0 appstream_glib_
+github.setup        hughsie appstream-glib 0_5_0 appstream_glib_
 version             [string map {_ .} ${version}]
 license             LGPL-2+
 categories          devel
@@ -18,8 +18,8 @@ description         This library provides objects and helper methods to help \
 
 long_description    ${description}
 
-checksums           rmd160  963f0cf6d0af5b680a750c28c642fbf7fa65b8fd \
-                    sha256  568fffad494651710a13cd5131495ecdeb8c0e4332f38bac6050751c794e36a5
+checksums           rmd160  9c6e2e2e21c5d58b6c142b538fd03bd165cbd6fa \
+                    sha256  7d5c968eb4751cd3c0eda9592cae97547a30b5fd95d0ec699f4ee38a645b05f1
 
 depends_build       port:pkgconfig \
                     port:intltool \

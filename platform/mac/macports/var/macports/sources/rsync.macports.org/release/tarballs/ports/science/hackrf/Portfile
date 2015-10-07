@@ -1,14 +1,14 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138418 2015-07-07 18:56:33Z michaelld@macports.org $
+# $Id: Portfile 138969 2015-07-25 13:34:22Z michaelld@macports.org $
 
 PortSystem          1.0
 PortGroup           cmake 1.0
 PortGroup           github 1.0
 
-github.setup        mossmann hackrf bfc004b95ee4e5a122a2bb828515376e7e8ae0ed
-version             20150707
-checksums           rmd160 f0c9f0e83cbf7a6acbfe77c3d0016fd99634dce5 \
-                    sha256 a4dc717e00f7757b5284cc8f3789925780b134ad14fd2c2565800ffe80c955d3
+github.setup        mossmann hackrf 90e16536130fdc88c3b8a039acc1b7218783973d
+version             20150724
+checksums           rmd160 7b3a616788355f4591ae4c43d95ebd774877f348 \
+                    sha256 52c46df96dd8f186bc565bd7408c06bc1cc80ec11f0e728e2add0a8e7b8ff71a
 
 maintainers         michaelld openmaintainer
 

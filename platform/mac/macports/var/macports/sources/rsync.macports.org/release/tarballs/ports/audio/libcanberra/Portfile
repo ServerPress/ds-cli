@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 115644 2014-01-07 19:50:17Z cal@macports.org $
+# $Id: Portfile 139037 2015-07-30 09:29:13Z devans@macports.org $
 
 PortSystem          1.0
 
 name                libcanberra
 version             0.30
-revision            4
+revision            5
 license             LGPL-2.1+
 categories          audio devel
 maintainers         nomaintainer
@@ -23,9 +23,10 @@ checksums           rmd160  f5a800f50ae185d9ec12c284298c20fd60f70a8c \
 
 depends_build       port:pkgconfig
 
-depends_lib         port:gstreamer1 \
-                    port:libtool \
+depends_lib         port:pulseaudio \
                     port:libvorbis
+
+depends_run         port:sound-theme-freedesktop
 
 patchfiles          patch-configure.diff \
                     patch-gtkquartz.diff \
@@ -36,7 +37,7 @@ configure.args      --disable-alsa \
                     --disable-oss \
                     --disable-lynx \
                     --disable-null \
-                    --disable-pulse \
+                    --disable-gstreamer \
                     --disable-silent-rules \
                     --disable-tdb \
                     --disable-udev \

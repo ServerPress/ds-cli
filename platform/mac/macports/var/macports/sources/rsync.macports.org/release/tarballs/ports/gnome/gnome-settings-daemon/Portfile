@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136364 2015-05-15 10:54:33Z devans@macports.org $
+# $Id: Portfile 140845 2015-10-04 19:10:56Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           active_variants 1.1
 
 name                gnome-settings-daemon
-version             3.16.2
+version             3.18.0
 license             GPL-2 LGPL-2.1
 set branch          [join [lrange [split ${version} .] 0 1] .]
 description         Gnome 3 settings daemon.
@@ -18,8 +18,8 @@ master_sites        gnome:sources/${name}/${branch}/
 
 use_xz              yes
 
-checksums           rmd160  a663b5ccefcace3c6c0f50507e4b3446a838d804 \
-                    sha256  d8d536584ebb8fb1403050eb65e7ee3328eba14b123542369ff1917e727fa69a
+checksums           rmd160  6384f5a309302fe7cf611130df77a719f05a313a \
+                    sha256  8d3ef9c18538831ed89122fee0bdaca68b0e482a18b3c4388c4e672aba1b3cd5
 
 depends_build       port:pkgconfig \
                     port:intltool \

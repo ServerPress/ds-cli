@@ -1,4 +1,4 @@
-# $Id: Portfile 92837 2012-05-09 00:51:48Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 
@@ -45,7 +45,7 @@ variant no_startupitem description {Do not create a startup item} {
 }
 
 variant ssl description {Add SSL (HTTPS) support to the server} {
-    depends_lib-append port:openssl
+    depends_lib-append path:lib/libssl.dylib:openssl
     configure.args-append --enable-tls=openssl \
                           --with-openssl=${prefix}/include/openssl
 }

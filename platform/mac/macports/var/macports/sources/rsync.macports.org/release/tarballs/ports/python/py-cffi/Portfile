@@ -1,17 +1,17 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137573 2015-06-14 22:11:15Z stromnov@macports.org $
+# $Id: Portfile 140633 2015-09-28 12:11:00Z stromnov@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-cffi
-version             1.1.2
+version             1.2.1
 revision            0
 categories-append   devel
 platforms           darwin
 license             MIT
 
-python.versions     26 27 33 34
+python.versions     26 27 33 34 35
 
 maintainers         stromnov openmaintainer
 
@@ -22,12 +22,12 @@ long_description    Foreign Function Interface for Python calling C code. \
                     reliable way of calling C code from Python.
 
 homepage            http://cffi.readthedocs.org/
-master_sites        https://pypi.python.org/packages/source/c/cffi/
+master_sites        pypi:[string index ${python.rootname} 0]/${python.rootname}
 
 distname            cffi-${version}
 
-checksums           rmd160  d3a138b528a25f7ad3abc125a35b3f656a9291f7 \
-                    sha256  390970b602708c91ddc73953bb6929e56291c18a4d80f360afa00fad8b6f3339
+checksums           rmd160  3629cda4d6252a356ceb1b66f78a7aed5fbcec88 \
+                    sha256  eab571deb0a152e2f53c404c08a94870a131526896cad08cd43bf86ce3771e3d
 
 if {${name} ne ${subport}} {
     depends_build-append \
@@ -38,7 +38,5 @@ if {${name} ne ${subport}} {
 
     livecheck.type      none
 } else {
-    livecheck.type      regex
-    livecheck.url       https://pypi.python.org/pypi/cffi/json
-    livecheck.regex     {cffi-(\d+(?:\.\d+)*)\.[tz]}
+    livecheck.type      pypi
 }

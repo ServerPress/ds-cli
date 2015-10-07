@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 134404 2015-03-25 01:18:16Z ryandesign@macports.org $
+# $Id: Portfile 140561 2015-09-22 23:03:45Z ryandesign@macports.org $
 
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        vasi pixz 1.0.2 v
+github.setup        vasi pixz 1.0.5 v
 categories          archivers
 platforms           darwin
 maintainers         ryandesign openmaintainer
@@ -24,35 +24,25 @@ long_description    The existing XZ Utils provide great compression in the .xz \
                     \
                     \n\nWith pixz, both these problems are solved.
 
-master_sites        sourceforge:pixz
-extract.suffix      .tgz
+github.tarball_from releases
+use_xz              yes
 
-checksums           rmd160  e9aa82f0f72b786d5ea07e8d9bdd88f10ef30f06 \
-                    sha256  af9dac41edd6bf57953471f7fcbd4793810003bf911593ba4c84f7cccb5f74af
+checksums           rmd160  a11857d8de6b0b05dad7ae98d038e12c0d293ee5 \
+                    sha256  398426317522cb755cb7ff69ce8cec08b5ba5b891bf0affbb95e6e77f7c01685
+
+depends_build       port:asciidoc \
+                    port:pkgconfig
 
 depends_lib         port:libarchive \
                     port:xz
 
-use_configure       no
-
-variant universal {}
-
-build.args          CC="${configure.cc}" \
-                    CFLAGS="${configure.cppflags} [get_canonical_archflags cc]" \
-                    LDFLAGS="${configure.ldflags} [get_canonical_archflags ld]" \
-                    OPT="${configure.optflags}"
-
-destroot {
-    xinstall ${worksrcpath}/${name} ${destroot}${prefix}/bin/
-
-    xinstall -m 644 ${worksrcpath}/${name}.1 ${destroot}${prefix}/share/man/man1/
-
+post-destroot {
     set docdir ${prefix}/share/doc/${subport}
     xinstall -d ${destroot}${docdir}
     xinstall -m 644 -W ${worksrcpath} \
         LICENSE \
         NEWS \
-        README \
+        README.md \
         TODO \
         ${destroot}${docdir}
 }

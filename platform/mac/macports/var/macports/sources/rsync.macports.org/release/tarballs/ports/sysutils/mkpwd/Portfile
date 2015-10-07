@@ -1,32 +1,30 @@
-# $Id: Portfile 110905 2013-09-09 19:27:28Z jmr@macports.org $
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139965 2015-09-04 18:25:13Z ionic@macports.org $
 
-PortSystem 1.0
+PortSystem          1.0
 
-name			mkpwd
-version			0.7
-categories		sysutils
-license			Permissive
-platforms		darwin
-maintainers		nomaintainer
-description		mkpwd is a scalable password generator
-long_description	${description}
+name                mkpwd
+version             1.6
+categories          sysutils
+license             Permissive
+platforms           darwin
+maintainers         nomaintainer
 
-homepage		http://www.o-schroeder.de/
-master_sites	        ${homepage}/download/${name}/
-distfiles		mkpwd-0-7.tgz
-checksums		md5 2317f750932342d521819bd7c52cd300
+description         mkpwd is a scalable password generator
+long_description    ${description}
 
-patchfiles		patch-Makefile
+homepage            http://www.o-schroeder.de/
+master_sites        ${homepage}/download/${name}/
 
-worksrcdir		${name}
+checksums           rmd160 a438113a4fc823ae9e884c1d530fbe5689077432 \
+                    sha256 6db5032fa6e2bc3ebd499ebf2b94f8df5b3ce64760d84fda7101e951bfb5c88a
 
-use_configure	        no
+patchfiles          patch-configure.diff \
+                    patch-Makefile.am.diff \
+                    patch-Makefile.in.diff \
+                    patch-mkpwd.c.diff \
+                    patch-mkpwd.1.diff
 
-build.target
-
-destroot.args	        PREFIX=${prefix}
-
-livecheck.type          regex
-livecheck.url           ${master_sites}
-livecheck.regex         href="/download/mkpwd/mkpwd-(\\d-\\d).tgz"
-livecheck.version       0-7
+livecheck.type      regex
+livecheck.url       ${master_sites}
+livecheck.regex     ${name}-(\[0-9.\].\[0-9.\]+)\\${extract.suffix}

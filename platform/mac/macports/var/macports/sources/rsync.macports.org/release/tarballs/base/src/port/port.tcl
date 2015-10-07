@@ -1,6 +1,6 @@
 #!@TCLSH@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: port.tcl 126864 2014-10-16 18:16:23Z jmr@macports.org $
+# $Id: port.tcl 140688 2015-09-30 06:26:04Z jmr@macports.org $
 #
 # Copyright (c) 2004-2013 The MacPorts Project
 # Copyright (c) 2004 Robert Shaw <rshaw@opendarwin.org>
@@ -3666,7 +3666,7 @@ proc action_search { action portlist opts } {
 
         set res {}
         set portfound 0
-        foreach { opt } [array get filters] {
+        foreach { opt } [array names filters] {
             # Map from friendly name
             set opt [map_friendly_field_names $opt]
 

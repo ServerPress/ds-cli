@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136062 2015-05-11 15:39:54Z michaelld@macports.org $
+# $Id: Portfile 139217 2015-08-07 20:39:37Z michaelld@macports.org $
 
 PortSystem          1.0
 PortGroup           cmake 1.0
@@ -7,12 +7,13 @@ PortGroup           github 1.0
 
 github.setup        bistromath gr-ais 56abd162cf4add878dbfa3bd60215001d4ae83ea
 version             20150414
+revision            1
 checksums           rmd160 7f32129d62958856aa4645681651167ec4d3ce01 \
                     sha256 cf8bfbf297e57b4c3f0fe987b5a7d244ccab240911c08f8abd0e8530e07810ff
 
-# required volk
+# required volk or volk-devel
 
-depends_lib-append  port:volk
+depends_lib-append  path:lib/libvolk.dylib:volk
 
 # allow gr-ais to work with both gnuradio and gnuradio-devel ...
 

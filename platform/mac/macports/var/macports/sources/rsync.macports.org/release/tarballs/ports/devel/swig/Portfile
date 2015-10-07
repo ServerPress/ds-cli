@@ -1,12 +1,12 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138373 2015-07-06 17:23:22Z michaelld@macports.org $
+# $Id: Portfile 139159 2015-08-04 19:14:26Z michaelld@macports.org $
 
 PortSystem 1.0
 
 name            swig
-version         3.0.6
-checksums       rmd160 95e165861e9bc85aab776f9df89b7baa15786b5e \
-                sha256 c67f63ea11956106e4cda66416d5020330dc4ce2ee45057d39a9494ce33eca05
+version         3.0.7
+checksums       rmd160 3ebccac0a4bd7167ac844184a5cd7f61df0aaf21 \
+                sha256 06dc8816a225667ce1eee545af3caf87e1bbaa379c32838d4cea53152514348d
 
 categories      devel
 maintainers     michaelld openmaintainer

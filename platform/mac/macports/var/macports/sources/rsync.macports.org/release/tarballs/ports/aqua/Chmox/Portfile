@@ -1,4 +1,4 @@
-# $Id: Portfile 125271 2014-09-12 07:51:08Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 PortGroup xcode 1.0
@@ -32,7 +32,7 @@ post-patch {
 	reinplace s|@PREFIX@|${prefix}| ${worksrcpath}/chmox.xcode/project.pbxproj
 }
 
-depends_lib	port:openssl \
+depends_lib	path:lib/libssl.dylib:openssl \
 			port:libxml2
 
 xcode.build.settings	LIBRARY_SEARCH_PATHS=${prefix}/lib \

@@ -1,12 +1,12 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 135020 2015-04-13 12:07:08Z ryandesign@macports.org $
+# $Id: Portfile 140482 2015-09-20 08:33:08Z ryandesign@macports.org $
 
 PortSystem          1.0
 PortGroup           kde4   1.1
 
 name                kde4-baseapps
 version             4.14.3
-revision            1
+revision            2
 categories          kde kde4
 maintainers         nicos
 license             GPL-2+ LGPL-2+ GFDL-1.2
@@ -35,6 +35,7 @@ depends_lib-append  port:kdelibs4 \
                     port:perl5
 
 patchfiles-append   patch-cmake-baloo.diff
+patchfiles-append   patch-konq-plugins-validators-tidy_validator.cpp.diff
 
 configure.args-append   -DWITH_XKB=OFF
 

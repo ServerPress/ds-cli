@@ -1,10 +1,11 @@
 # -*- Mode: Tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:et:sw=4:ts=4:sts=4
-# $Id: Portfile 125003 2014-09-02 15:02:29Z mf2k@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 
 name                robotfindskitten
 version             1.4142135.349
+revision            1
 categories          games
 platforms           darwin
 maintainers         nomaintainer

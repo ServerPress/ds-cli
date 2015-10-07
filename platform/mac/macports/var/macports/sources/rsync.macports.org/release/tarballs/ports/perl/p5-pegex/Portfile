@@ -1,13 +1,13 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 132318 2015-01-28 23:02:54Z devans@macports.org $
+# $Id: Portfile 140480 2015-09-20 00:28:34Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           perl5 1.0
 
-perl5.branches      5.16 5.18 5.20
+perl5.branches      5.16 5.18 5.20 5.22
 perl5.setup         Pegex 0.60 ../../authors/id/I/IN/INGY/
 license             {Artistic-1 GPL}
-maintainers         devans openmaintainer
+maintainers         nomaintainer
 description         Pegex - Acmeist PEG Parser Framework
 long_description    Pegex is an Acmeist parser framework. It allows you to easily create \
                     parsers that will work equivalently in lots of programming languages!

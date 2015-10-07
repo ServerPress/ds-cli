@@ -39,15 +39,15 @@
 VERSION=2.3.1
 
 # Abstraction variables:
-PREFIX=/var/macports/opt/local
+PREFIX=/opt/local
 BINPATH=${PREFIX}/bin
 SBINPATH=${PREFIX}/sbin
 CONFIGPATH=${PREFIX}/etc/macports
 MANPAGES=${PREFIX}/share/man
 DSCL=/usr/bin/dscl
 RUNUSR=macports
-TCLSH=/var/macports/opt/local/libexec/macports/bin/tclsh8.5
-TCL_PACKAGE_PATH=/var/macports/opt/local/libexec/macports/lib
+TCLSH=/opt/local/libexec/macports/bin/tclsh8.5
+TCL_PACKAGE_PATH=/opt/local/libexec/macports/lib
 TIMESTAMP=$(date +"%Y-%m-%d_at_%H:%M:%S")
 BACKUP_SUFFIX=macports-saved_${TIMESTAMP}
 OUR_STRING="MacPorts Installer addition on ${TIMESTAMP}"

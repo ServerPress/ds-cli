@@ -1,11 +1,13 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 131054 2015-01-05 13:06:29Z devans@macports.org $
+# $Id: Portfile 139879 2015-08-31 12:07:53Z jmr@macports.org $
 
 PortSystem          1.0
 PortGroup           perl5 1.0
 
-perl5.branches      5.16 5.18 5.20
+perl5.branches      5.16 5.18 5.20 5.22
 perl5.setup         Curses 1.32
+revision            1
+license             {Artistic-1 GPL}
 checksums           rmd160  694b0d0fddadc2256d1f0eaf29c4f25549b5652d \
                     sha256  5dba44fd7964806d9765e6692bc7eb8eb30aeced2740f28b9a4070a5d14ba650
 extract.suffix      .tgz

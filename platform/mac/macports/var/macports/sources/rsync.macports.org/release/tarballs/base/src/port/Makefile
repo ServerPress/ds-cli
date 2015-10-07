@@ -40,8 +40,8 @@ install: all mkdirs
 	$(INSTALL) -o ${DSTUSR} -g ${DSTGRP} -m 444 $(srcdir)/port-help.tcl  ${INSTALLDIR}/var/macports/
 	cd ${INSTALLDIR}/bin && $(LN_S) -f port portf
 	cd ${INSTALLDIR}/bin && $(LN_S) -f ${TCLSH} port-tclsh
-ifneq (,$(findstring darwin,linux-gnu))
-ifneq (8,2)
+ifneq (,$(findstring darwin,darwin12.0.0))
+ifneq (8,12)
 	chmod -h 555 ${INSTALLDIR}/bin/portf ${INSTALLDIR}/bin/port-tclsh
 endif
 endif

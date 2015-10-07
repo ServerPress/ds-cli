@@ -1,4 +1,4 @@
-# $Id: Portfile 131049 2015-01-05 12:19:46Z jeremyhu@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 
@@ -28,7 +28,7 @@ patchfiles      patch-SConstruct.diff
 platforms       darwin
 
 depends_build   port:scons
-depends_lib     port:apr port:apr-util port:openssl port:zlib
+depends_lib     port:apr port:apr-util path:lib/libssl.dylib:openssl port:zlib
 
 use_configure   no
 

@@ -1,6 +1,6 @@
 # et:ts=4
 # portinstall.tcl
-# $Id: portinstall.tcl 117407 2014-02-25 18:28:14Z jmr@macports.org $
+# $Id: portinstall.tcl 134503 2015-03-27 19:48:17Z cal@macports.org $
 #
 # Copyright (c) 2002 - 2004 Apple Inc.
 # Copyright (c) 2004 Robert Shaw <rshaw@opendarwin.org>
@@ -262,12 +262,14 @@ proc portinstall::create_archive {location archive.type} {
 
     # also save the contents for our own use later
     set installPlist {}
+    set destpathLen [string length $destpath]
     fs-traverse -depth fullpath $destpath {
         if {[file type $fullpath] eq "directory"} {
             continue
         }
-        set relpath [strsed $fullpath "s|^$destpath/||"]
-        if {![regexp {^[+]} $relpath]} {
+
+        set relpath [string range $fullpath $destpathLen+1 end]
+        if {[string index $relpath 0] ne "+"} {
             puts $fd "$relpath"
             lappend installPlist [file join [file separator] $relpath]
             if {[file isfile $fullpath]} {

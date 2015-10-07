@@ -1,13 +1,13 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 133347 2015-02-26 21:29:20Z devans@macports.org $
+# $Id: Portfile 140430 2015-09-19 16:39:32Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup perl5     1.0
 
-perl5.branches      5.16 5.18 5.20
-perl5.setup         Net-DNS 0.83
-license             {Artistic-1 GPL}
-maintainers         nomaintainer
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Net-DNS 1.02
+license             MIT
+maintainers         devans openmaintainer
 description         Perl interface to the DNS resolver
 long_description    Net::DNS is a DNS resolver implemented in Perl.  It \
                     allows the programmer to perform nearly any type of \
@@ -15,12 +15,10 @@ long_description    Net::DNS is a DNS resolver implemented in Perl.  It \
 
 platforms           darwin
 
-checksums           rmd160  7c9b84f82f4b39fdbb333f240bb49c5e18ed1df5 \
-                    sha256  8e1108d1801b9695909859323e1ed2f7ffb3b03dd3d2028a19fb79fc1a1d7c39
+checksums           rmd160  50d85345a79855a4a525d6cdfba05b08f457d617 \
+                    sha256  9473c322b036592663bb20383e85190a682d142688b162efc975a61bcc7534f2
 
 if {${perl5.major} != ""} {
     depends_lib-append \
                     port:p${perl5.major}-digest-hmac \
-                    port:p${perl5.major}-io-socket-inet6 \
-                    port:p${perl5.major}-net-ip
 }

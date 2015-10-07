@@ -1,18 +1,18 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 133672 2015-03-08 18:34:01Z devans@macports.org $
+# $Id: Portfile 140473 2015-09-19 23:44:50Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           perl5 1.0
 
-perl5.branches      5.16 5.18 5.20
-perl5.setup         File-LibMagic 1.12
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         File-LibMagic 1.15 ../by-authors/id/D/DR/DROLSKY
 license             {Artistic-1 GPL}
 maintainers         nomaintainer
 description         Perl wrapper for libmagic
 long_description    ${description}
 
-checksums           rmd160  860c83af8f3eeecfd4ca70014e5143cc8c35c7b4 \
-                    sha256  e206e0b82a56afb74bcf4db705c8ec68ad2c5ff13dd73d2ce041752741428bab
+checksums           rmd160  405f93b616b39ca5bb1f350761fb8d4dad174083 \
+                    sha256  2c7fb54912caf2c22d06b02d6a88edad970e0f8b017634dc30eec46e53763e84
 
 platforms           darwin
 

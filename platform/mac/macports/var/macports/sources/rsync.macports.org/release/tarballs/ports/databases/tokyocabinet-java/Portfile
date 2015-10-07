@@ -1,12 +1,12 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 84550 2011-09-27 21:05:11Z snc@macports.org $
+# $Id: Portfile 138661 2015-07-15 04:23:39Z ryandesign@macports.org $
 
 PortSystem          1.0
 
 name                tokyocabinet-java
 version             1.18
 categories          databases java
-maintainers         ieure
+maintainers         nomaintainer
 description         Java API for Tokyo Cabinet, a modern DBM
 long_description    Clojure is a dynamic programming language for the JVM.
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 131797 2015-01-18 20:29:16Z michaelld@macports.org $
+# $Id: Portfile 140538 2015-09-22 02:10:38Z michaelld@macports.org $
 
 PortSystem              1.0
 PortGroup               python 1.0
@@ -7,7 +7,8 @@ PortGroup               active_variants 1.1
 PortGroup               compilers 1.0
 
 name                    py-scipy
-version                 0.15.1
+version                 0.16.0
+revision                1
 platforms               darwin
 license                 BSD
 maintainers             sean michaelld openmaintainer
@@ -18,10 +19,10 @@ homepage                http://www.scipy.org/
 master_sites            sourceforge:project/scipy/scipy/${version}/
 distname                scipy-${version}
 
-checksums               rmd160  8c7a6468c0f796e0770d920d17829ea4e2cb89a9 \
-                        sha256  a212cbc3b79e9a563aa45fc5c517b3499198bd7eb7e7be1e047568a5f48c259a
+checksums               rmd160 7d2d078e2a9920f6cb19c132284ed9a83babb537 \
+                        sha256 92592f40097098f3fdbe7f5855d535b29bb16719c2bb59c728bce5e7a28790e0
 
-python.versions         26 27 33 34
+python.versions         26 27 33 34 35
 
 python.add_archflags    no
 universal_variant       no
@@ -39,21 +40,6 @@ if {${name} ne ${subport}} {
     build.env-append        CCFLAGS="-I${prefix}/include -L${prefix}/lib"
     destroot.env-append     CCFLAGS="-I${prefix}/include -L${prefix}/lib"
     configure.fflags-append -fno-second-underscore
-
-    # https://trac.macports.org/ticket/46395
-    # https://trac.macports.org/ticket/46428
-    # https://github.com/scipy/scipy/issues/4383
-    # remove this patch after next version update
-    patch.pre_args          -p1
-    patchfiles-append       patch-accelerate.diff
-
-    post-patch {
-        if {![variant_isset atlas] && [gcc_variant_isset]} {
-            reinplace "s,#include <Accelerate/Accelerate.h>,#include <cblas.h>,g" \
-                ${worksrcpath}/scipy/_build_utils/src/wrap_accelerate_c.c \
-                ${worksrcpath}/scipy/_build_utils/src/wrap_g77_abi_c.c
-        }
-    }
 
     pre-configure {
         set fc_options      "config_fc --fcompiler gnu95 --f77exec ${configure.f77} --f77flags='${configure.f77_archflags} ${configure.fflags}' --f90exec ${configure.f90} --f90flags='${configure.f90_archflags} ${configure.fflags}'"
@@ -78,17 +64,22 @@ if {${name} ne ${subport}} {
         system "chmod -R a+r ${destroot}${prefix}"
     }
 
-    variant atlas description "Use MacPorts ATLAS libraries" {
+    variant atlas conflicts openblas description "Use MacPorts ATLAS libraries" {
         depends_lib-append  port:atlas
+    }
 
-        require_active_variants port:py${python.version}-numpy atlas
+    variant openblas conflicts atlas description "Use MacPorts OpenBLAS Libraries" {
+        depends_lib-append  path:lib/libopenblas.dylib:openblas
     }
 
     if {[variant_isset atlas]} {
-        build.env-append    ATLAS=${prefix}/lib \
+        # use MacPorts atlas
+        build.env-append    OPENBLAS=None \
+                            ATLAS=${prefix}/lib \
                             LAPACK=${prefix}/lib \
                             BLAS=${prefix}/lib
-        destroot.env-append ATLAS=${prefix}/lib \
+        destroot.env-append OPENBLAS=None \
+                            ATLAS=${prefix}/lib \
                             LAPACK=${prefix}/lib \
                             BLAS=${prefix}/lib
 
@@ -128,11 +119,20 @@ have the +atlas variant active. Please ensure that numpy is activated with the\
 
         }
 
+    } elseif {[variant_isset openblas]} {
+        # use MacPorts OpenBLAS
+        build.env-append    OPENBLAS=${prefix}/lib \
+                            ATLAS=None
+        destroot.env-append OPENBLAS=${prefix}/lib \
+                            ATLAS=None
     } else {
-        build.env-append    ATLAS=None \
+        # use Accelerate BLAS
+        build.env-append    OPENBLAS=None \
+                            ATLAS=None \
                             LAPACK=/usr/lib \
                             BLAS=/usr/lib
-        destroot.env-append ATLAS=None \
+        destroot.env-append OPENBLAS=None \
+                            ATLAS=None \
                             LAPACK=/usr/lib \
                             BLAS=/usr/lib
     }

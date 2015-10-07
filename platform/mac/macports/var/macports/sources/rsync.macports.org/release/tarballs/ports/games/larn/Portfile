@@ -1,9 +1,10 @@
-# $Id: Portfile 119214 2014-04-20 19:31:11Z ryandesign@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
+
 name		larn
 version     12
-revision    2
+revision    3
 categories	games
 maintainers	nomaintainer
 description	Text-based cavern exploring game

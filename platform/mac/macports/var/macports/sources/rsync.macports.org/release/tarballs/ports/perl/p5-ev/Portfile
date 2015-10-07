@@ -1,20 +1,20 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137909 2015-06-22 22:09:51Z devans@macports.org $
+# $Id: Portfile 140480 2015-09-20 00:28:34Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           perl5 1.0
 
-perl5.branches      5.16 5.18 5.20
-perl5.setup         EV 4.20 ../by-authors/id/M/ML/MLEHMANN
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         EV 4.21 ../by-authors/id/M/ML/MLEHMANN
 license             {Artistic-1 GPL}
-maintainers         devans openmaintainer
+maintainers         nomaintainer
 description         EV - perl interface to libev, a high performance full-featured event loop
 long_description    ${description}
 
 platforms           darwin
 
-checksums           rmd160  c69a2343bfd0853b8dc7c94fc9ab712bc667dc24 \
-                    sha256  471a66468787a29233bc2ea69fffb1a3d95f8ab8f755c835f845b1e6d7c6647f
+checksums           rmd160  09cf456597a7488f3fa5f3cdaaa0495ce381ee72 \
+                    sha256  48ddccedbd0b8b44894df04db92f0d1148e4bcf8a219847125e70263552a2185
 
 if {${perl5.major} != ""} {
     depends_build-append \

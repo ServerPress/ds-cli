@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 132417 2015-01-31 21:30:47Z stromnov@macports.org $
+# $Id: Portfile 139759 2015-08-26 10:24:20Z stromnov@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-shove
-version             0.5.6
+version             0.6.4
 revision            0
 categories-append   devel
 license             BSD
@@ -25,10 +25,10 @@ master_sites        https://pypi.python.org/packages/source/s/shove/
 
 distname            shove-${version}
 
-checksums           rmd160  7b616f02a13f0b17cfb6594eef9205b6ed9372cb \
-                    sha256  f1441dfff8d8706c552c9d8619ee9b0ed645823a074eba37eb320f3d13732db9
+checksums           rmd160  768c3ece5c561ac46039506c4959c482e22c0a1b \
+                    sha256  f132c2d22749e9c30421dcc59fa2edb63bea2acd29b7fdc61f37dca984dc5498
 
-python.versions     26 27
+python.versions     26 27 34
 
 if {${name} ne ${subport}} {
     depends_lib-append  port:py${python.version}-setuptools

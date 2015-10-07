@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136067 2015-05-11 16:31:52Z jeremyhu@macports.org $
+# $Id: Portfile 140718 2015-10-01 02:29:01Z dstrubbe@macports.org $
 
 PortSystem 1.0
 
@@ -178,3 +178,7 @@ variant gcc40 description {build against gcc-4.0.x} {
     patchfiles-delete   patch-lang.opt.diff patch-darwin.h.diff
     patchfiles-append   patch-host-darwin.c.diff patch-darwin-fallback.c.diff
 }
+
+livecheck.type      regex
+livecheck.url       http://g95.org/downloads.shtml
+livecheck.regex     Stable version (\[0-9.\]+)

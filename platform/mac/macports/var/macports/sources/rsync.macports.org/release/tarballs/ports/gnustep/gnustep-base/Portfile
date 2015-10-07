@@ -1,4 +1,4 @@
-# $Id: Portfile 93824 2012-06-01 03:40:42Z rmstonecipher@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 PortGroup   gnustep 1.0
@@ -28,7 +28,7 @@ checksums           md5     100e433a7e0624a6e4e5727b87e48c82 \
 
 depends_lib         port:gnustep-make \
                     port:libxslt \
-                    port:openssl
+                    path:lib/libssl.dylib:openssl
 
 universal_variant   no
 

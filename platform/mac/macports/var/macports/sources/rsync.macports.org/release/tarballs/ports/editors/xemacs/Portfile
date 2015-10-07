@@ -1,11 +1,11 @@
-# $Id: Portfile 133937 2015-03-15 23:10:32Z khindenburg@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem      1.0
 
 name            xemacs
 conflicts       emacs
 version         21.4.22
-revision        9
+revision        10
 set sumo_date   2009-02-17
 categories      editors x11
 platforms       darwin

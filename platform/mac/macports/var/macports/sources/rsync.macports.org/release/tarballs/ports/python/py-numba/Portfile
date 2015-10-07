@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138399 2015-07-07 13:11:48Z stromnov@macports.org $
+# $Id: Portfile 140504 2015-09-21 11:07:13Z stromnov@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-numba
-version             0.20.0
+version             0.21.0
 revision            0
 categories-append   devel
 platforms           darwin
@@ -26,8 +26,8 @@ master_sites        https://pypi.python.org/packages/source/n/numba/
 
 distname            numba-${version}
 
-checksums           rmd160  2aa784dc92a5dfcd232b306e5b0726da1050a69d \
-                    sha256  6e26608bd8ce42dc513f129040e8258a66e0a6ebdfbd0376b31c80f26976a7f2
+checksums           rmd160  36f1f6832d06e05d71de82fac6a2204880438c1f \
+                    sha256  1806d2f6ad49ad891e9ac6fed0cc0b0489cbfcd9ba2dc81081c1c30091e77604
 
 if {${name} ne ${subport}} {
     depends_build-append \

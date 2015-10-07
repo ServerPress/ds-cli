@@ -1,9 +1,10 @@
-# $Id: Portfile 110456 2013-08-31 07:41:38Z jeremyhu@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem      1.0
 
 name            pwman
 version         0.4.4
+revision        1
 categories      security
 platforms       darwin
 maintainers     oaf.dk:mni

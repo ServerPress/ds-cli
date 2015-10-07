@@ -1,11 +1,12 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 126690 2014-10-13 20:34:27Z mf2k@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem          1.0
 
 name                bacula5
 set realname        bacula
 version             5.2.13
+revision            1
 categories          sysutils
 platforms           darwin
 license             {AGPL-3 OpenSSLException}
@@ -29,7 +30,7 @@ depends_lib         port:gawk \
                     port:gettext \
                     port:libiconv \
                     port:ncurses \
-                    port:openssl \
+                    path:lib/libssl.dylib:openssl \
                     port:tcp_wrappers \
                     port:zlib
 

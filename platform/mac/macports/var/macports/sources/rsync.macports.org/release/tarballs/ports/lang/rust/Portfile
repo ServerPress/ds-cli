@@ -1,12 +1,12 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=portfile:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137324 2015-06-09 06:08:03Z larryv@macports.org $
+# $Id: Portfile 140142 2015-09-09 21:28:15Z sean@macports.org $
 
 PortSystem          1.0
 PortGroup           active_variants 1.1
 PortGroup           compiler_blacklist_versions 1.0
 
 name                rust
-version             1.0.0
+version             1.2.0
 categories          lang devel
 platforms           darwin
 supported_archs     i386 x86_64
@@ -46,16 +46,18 @@ distfiles               ${name}c-${version}-src${extract.suffix}:main
 worksrcdir              ${name}c-${version}
 
 checksums               ${name}c-${version}-src${extract.suffix} \
-                            rmd160  b1127e616619fcd981e33896d4f00c4bf548ce6b \
-                            sha256  c304cbd4f7b25d116b73c249f66bdb5c9da8645855ce195a41bda5077b995eba
+                            rmd160  83a98c67a0aca97467d21150fa6a95fc77d10cc1 \
+                            sha256  ea6eb983daf2a073df57186a58f0d4ce0e85c711bec13c627a8c85d51b6a6d78
 
+# stage0 is found from
+# https://github.com/rust-lang/rust/blob/${version}/src/snapshots.txt
 set stage0(distdir)     rust-stage0
-set stage0(date)        2015-03-27
-set stage0(rev)         5520801
+set stage0(date)        2015-05-24
+set stage0(rev)         ba0e1cd
 set stage0(platform)    macos-${configure.build_arch}
 set stage0(hash)        [expr {${configure.build_arch} eq "i386" ?
-                                "0310b1a970f2da7e61770fd14dbbbdca3b518234" :
-                                "5f35d9c920b8083a7420ef8cf5b00d5ef3085dfa"}]
+                                "9a273324a6b63a40f67a553029c0a9fb692ffd1f" :
+                                "e5b12cb7c179fc98fa905a3c84803645d946a6ae"}]
 
 set stage0_name         [join "rust stage0 ${stage0(date)}
                                            ${stage0(rev)}
@@ -66,11 +68,11 @@ distfiles-append        ${stage0_name}:snap
 
 switch ${configure.build_arch} {
     i386    {checksums-append   ${stage0_name} \
-                            rmd160  15a0ffbcee0def1a056d69aa851edf2b8ca490b6 \
-                            sha256  0cc20c5f3c808d6332bcc192b60d6a1e9ee313d481030d8d07ff42a831492ba2}
+                            rmd160  17b8833991e1de538296a50358cb33ce239c2545 \
+                            sha256  ac813d953082a8eb0a3361e0a0bd157cc4fac94c9a0ccabc6cfb7d5895b1cbf7}
     default {checksums-append   ${stage0_name} \
-                            rmd160  a5ef6ad68e6e49b40d045e45227ad858b0935988 \
-                            sha256  38076751be5a52a61285cced36879832a7a106d7ce0bfd2b2080c3cfc42de1ce}
+                            rmd160  0809c31f03be0b867dadcdee87b836d053a2e56f \
+                            sha256  0573607585c9ec8e75b384b07f2aed1c8d686593bc98482b14ae91c19bf2f2b1}
 }
 
 # Only use compilers supported by upstream
@@ -133,11 +135,38 @@ test.env            VERBOSE=1
 
 destroot.args       VERBOSE=1
 post-destroot {
-    xinstall -d ${destroot}${prefix}/share/${name}
-    xinstall -m 644 ${worksrcpath}/src/etc/ctags.rust \
-        ${destroot}${prefix}/share/${name}
+    if {${subport} eq ${name}} {
+        xinstall -d ${destroot}${prefix}/share/${name}
+        xinstall -m 644 ${worksrcpath}/src/etc/ctags.rust \
+            ${destroot}${prefix}/share/${name}
+    }
 }
 
 livecheck.type      regex
 livecheck.url       ${homepage}/install.html
 livecheck.regex     {dist/rust-(\d\.\d)}
+
+subport rust-src {
+    # remove dependencies
+    depends_build
+    depends_lib
+
+    description     Source code for the rust programming language
+    long_description ${description}
+
+    use_configure no
+
+    build {}
+
+    destroot {
+        xinstall -d ${destroot}${prefix}/share/rust
+        move ${worksrcpath}/src ${destroot}${prefix}/share/rust/src
+
+        # correct the permissions
+        system -W ${destroot}${prefix}/share/rust "find . -type d -exec chmod 755 {} \\;"
+        system -W ${destroot}${prefix}/share/rust "find . -type f -exec chmod 644 {} \\;"
+
+        # delete the test directories (which for some god awful reason contains binaries)
+        system -W ${destroot}${prefix}/share/rust "find . -type d -name test -print0 | xargs -0 rm -rf"
+    }
+}

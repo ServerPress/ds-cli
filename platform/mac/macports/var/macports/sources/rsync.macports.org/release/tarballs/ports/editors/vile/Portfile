@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 105973 2013-05-11 12:30:56Z ryandesign@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem          1.0
 
 name                vile
 version             9.8
-revision            1
+revision            2
 categories          editors
 platforms           darwin
 maintainers         nomaintainer

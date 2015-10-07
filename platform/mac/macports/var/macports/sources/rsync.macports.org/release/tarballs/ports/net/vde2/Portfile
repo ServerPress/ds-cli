@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 83162 2011-08-26 19:17:26Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 
@@ -23,7 +23,7 @@ use_bzip2           yes
 checksums           sha1    10e199a2dbc3d207ee29269e34f05cc5140878d9 \
                     rmd160  a1d0055422f34871ad3762b6093b1d39d9657184
 
-depends_lib         port:openssl
+depends_lib         path:lib/libssl.dylib:openssl
 
 patchfiles          patch-configure.ac.diff
 

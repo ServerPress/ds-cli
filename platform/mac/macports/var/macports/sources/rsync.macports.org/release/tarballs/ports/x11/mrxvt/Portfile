@@ -1,9 +1,10 @@
-# $Id: Portfile 115336 2013-12-31 10:58:58Z jmr@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 
 name                mrxvt
 version             0.5.4
+revision            1
 categories          x11
 license             GPL-2+
 platforms           darwin

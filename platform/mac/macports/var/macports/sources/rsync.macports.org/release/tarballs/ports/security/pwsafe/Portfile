@@ -1,10 +1,10 @@
-# $Id: Portfile 107023 2013-06-14 16:09:07Z jmr@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem              1.0
 
 name                    pwsafe
 version                 0.2.0
-revision                3
+revision                4
 categories              security
 license                 GPL-2+
 maintainers             nomaintainer
@@ -20,7 +20,7 @@ checksums \
 
 depends_lib \
     port:readline \
-    port:openssl \
+    path:lib/libssl.dylib:openssl \
     port:ncurses \
     port:xorg-libXmu
 

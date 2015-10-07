@@ -1,9 +1,10 @@
-# $Id: Portfile 96414 2012-08-09 09:20:52Z mww@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 
 name                cscope
 version             15.8a
+revision            1
 categories          devel
 platforms           darwin freebsd
 maintainers         mww openmaintainer

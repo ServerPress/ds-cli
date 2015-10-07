@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 114325 2013-12-05 09:20:31Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 
@@ -23,7 +23,7 @@ depends_lib         port:bzip2 \
                     port:gettext \
                     port:libiconv \
                     port:libidn \
-                    port:openssl \
+                    path:lib/libssl.dylib:openssl \
                     port:spidermonkey \
                     port:tre \
                     port:zlib
@@ -113,7 +113,7 @@ variant fsp description {Enable support for FSP (File Service Protocol)} {
 }
 
 variant gnutls description {Use GnuTLS instead of OpenSSL} {
-    depends_lib-delete      port:openssl
+    depends_lib-delete      path:lib/libssl.dylib:openssl
     depends_lib-append      port:gnutls \
                             port:libtasn1
 

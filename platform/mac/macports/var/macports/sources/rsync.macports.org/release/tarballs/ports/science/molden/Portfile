@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138336 2015-07-06 00:49:17Z ryandesign@macports.org $
+# $Id: Portfile 140607 2015-09-27 08:46:53Z ryandesign@macports.org $
 
 # Previous maintainer Jochen Küpper got explicit permission to distribute molden
 # as a MacPorts port, given that the source code is always downloaded from the
@@ -10,7 +10,7 @@ PortGroup xcodeversion 1.0
 PortGroup compilers 1.0
 
 name                molden
-version             5.4-20150703122800
+version             5.4-20150923182500
 set version_number  [lindex [split ${version} -] 0]
 set branch          [join [lrange [split ${version_number} .] 0 1] .]
 categories          science graphics chemistry
@@ -22,8 +22,8 @@ worksrcdir          ${name}${branch}
 dist_subdir         ${name}/${version}
 master_sites        ftp://ftp.cmbi.ru.nl/pub/molgraph/molden/
 
-checksums           rmd160  4d3688454bc7152141d18014984f05e28e214fa3 \
-                    sha256  1b03e0ac140f458adaa1f6befe8427b7b806d62bed0288fa377f36237ff4a069
+checksums           rmd160  18a81d67432465ea33df480efb5d236b98c94da7 \
+                    sha256  f4e2b9a88a98f04ad23947676f0dd42abc4b5de805e5fdbbb2d2a82abbf29f8b
 
 description         Molecular graphics visualisation tool
 long_description    Molden is a package for displaying Molecular Density from \

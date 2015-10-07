@@ -1,10 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 95805 2012-07-23 02:01:11Z jmr@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem          1.0
 
 name                nmh
 version             1.5
+revision            1
 categories          mail
 platforms           darwin
 maintainers         pobox.com:kenh
@@ -34,7 +35,7 @@ variant sasl description {Add support for SASL authentication in POP and SMTP} {
 }
 
 variant tls description {Add support for TLS encryption in SMTP} {
-    depends_lib-append      port:openssl
+    depends_lib-append      path:lib/libssl.dylib:openssl
     configure.args-append   --with-tls
     configure.env-append    OPENSSL_CPPFLAGS=-I${prefix}/include OPENSSL_LDFLAGS=-L${prefix}/lib
 }

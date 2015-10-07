@@ -1,4 +1,4 @@
-# $Id: Portfile 114325 2013-12-05 09:20:31Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 
@@ -16,7 +16,7 @@ homepage	http://www.ex-parrot.com/~chris/tpop3d/
 master_sites	${homepage}
 checksums	md5 dd920c49f4e5879eb3caf7ea047622e9
 
-depends_lib	port:openssl
+depends_lib	path:lib/libssl.dylib:openssl
 
 
 configure.args	--enable-auth-pam \

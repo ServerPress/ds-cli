@@ -1,4 +1,4 @@
-# $Id: Portfile 134266 2015-03-20 19:21:30Z ciserlohn@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 
@@ -31,7 +31,7 @@ depends_build       port:git
 depends_lib         port:erlang \
                     port:expat \
                     port:libyaml \
-                    port:openssl \
+                    path:lib/libssl.dylib:openssl \
                     port:libiconv \
                     port:zlib
 

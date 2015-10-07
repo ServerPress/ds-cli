@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137158 2015-06-05 18:50:29Z ryandesign@macports.org $
+# $Id: Portfile 140554 2015-09-22 20:51:33Z ryandesign@macports.org $
 
 PortSystem 1.0
 
 name            spring-boot-cli
-version         1.2.4
+version         1.2.6
 
 categories      java
 platforms       darwin
@@ -29,8 +29,8 @@ master_sites    http://repo.spring.io/release/org/springframework/boot/${name}/$
 
 distname        ${name}-${version}.RELEASE-bin
 
-checksums       rmd160  3633b1be71f10b3f09028daee070ac64155a4b94 \
-                sha256  2f26bbdda913d55283d9e6d15ab639caa25ac622f96fa5d0efd7bc0206acfb6a
+checksums       rmd160  838c362adbef7181c97cbd8bcff7f4868657ee8e \
+                sha256  e6dd2c08e693133c62445ae0bf8da0f9c42d2e56c0d780fc8424d565eb8d4d75
 
 worksrcdir      spring-${version}.RELEASE
 

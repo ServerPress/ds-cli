@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136062 2015-05-11 15:39:54Z michaelld@macports.org $
+# $Id: Portfile 139217 2015-08-07 20:39:37Z michaelld@macports.org $
 
 PortSystem          1.0
 PortGroup           cmake 1.0
@@ -22,7 +22,7 @@ if {${subport} eq ${name}} {
 
     set commit          44ab02f671dbc8765391a83d8186779fbb38baea
     version             20140825
-    revision            3
+    revision            4
     checksums           rmd160 8ec7b22e2ac37c972c4f7df187f66830ab38cb1e \
                         sha256 e2c8f0ecc97eaebdf0178a5375181c957484c02985c8e3d018dac1cc14567232
 

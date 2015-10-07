@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138131 2015-06-30 01:06:38Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        mongodb mongo-c-driver 1.1.9
+github.setup        mongodb mongo-c-driver 1.1.10
 categories          devel databases
 platforms           darwin
 maintainers         ryandesign openmaintainer
@@ -16,14 +16,14 @@ long_description    ${name} is a ${description}.
 
 github.tarball_from releases
 
-checksums           rmd160  f05b91e75a42733042fef708cdb680711d58e629 \
-                    sha256  78273e7850f0e75ba6f56516de9e840f63f566e537cd39ad6ce40520152c8628
+checksums           rmd160  bac46fb98ab0bed5c2e826691af2a3a0bb8acd4c \
+                    sha256  19c076fcca1e7b22a731f10b757a049fd94b4aee6bbd0d7b7a0bcbd454e9dee8
 
 depends_build       port:pkgconfig
 
 depends_lib         port:cyrus-sasl2 \
                     port:libbson \
-                    port:openssl
+                    path:lib/libssl.dylib:openssl
 
 configure.args      --disable-silent-rules \
                     --enable-sasl \

@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137441 2015-06-11 18:44:41Z jmr@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem          1.0
 
 name                asterisk
 version             1.6.2.20
-revision            1
+revision            2
 categories          net
 platforms           darwin
 universal_variant   no
@@ -28,7 +28,7 @@ depends_lib         port:bison \
                     port:lua \
                     port:ncurses \
                     port:openldap \
-                    port:openssl \
+                    path:lib/libssl.dylib:openssl \
                     port:popt \
                     port:portaudio \
                     port:spandsp-devel \

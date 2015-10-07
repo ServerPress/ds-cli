@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138419 2015-07-07 19:17:03Z michaelld@macports.org $
+# $Id: Portfile 140897 2015-10-04 19:51:15Z michaelld@macports.org $
 
 PortSystem          1.0
 PortGroup           cmake 1.0
@@ -21,7 +21,8 @@ dist_subdir         gnuradio
 
 if {${subport} eq ${name}} {
 
-    github.setup    gnuradio gnuradio 3.7.7.1 v
+    github.setup    gnuradio gnuradio 3.7.8 v
+    revision        2
 
     long_description    ${description}: \
         This port is kept up with the GNU Radio release, currently ${version}, which is typically updated every few months.
@@ -29,8 +30,8 @@ if {${subport} eq ${name}} {
     conflicts       gnuradio-legacy gnuradio-next gnuradio-devel
 
     checksums \
-        rmd160 18383f299f75ecc8d11345872b9991f7eb44f321 \
-        sha256 461681cd7bdff80d07ba24c9b420f4ddcd5f869fc1c4ff671d2f155ff44d14ec
+        rmd160 8b56a2d372d967263470263344a281f16df20df2 \
+        sha256 e2db7cdb3231894e965540cec5930bfdbcaed952e0701e244fd72cb0961d3fef
 
     # overload the github livecheck regex to look for versions that
     # are just numbers and '.', no letters (e.g., "3.7.3git").
@@ -43,7 +44,7 @@ subport gnuradio-legacy {
 
     name            gnuradio-legacy
     github.setup    gnuradio gnuradio 3.6.5.1 v
-    revision        12
+    revision        14
 
     long_description    ${description}: \
         This port is for GNU Radio ${version}, reflecting the final release in the 3.6 API series.  It is for legacy purposes only\; please consider updating your code to the GNU Radio 3.7 API.
@@ -91,11 +92,11 @@ subport gnuradio-devel {
     name                gnuradio-devel
     conflicts           gnuradio-legacy gnuradio gnuradio-next
 
-    github.setup        gnuradio gnuradio 1185d401caf8f420b93754398675d012f08ef68f
-    version             20150706
+    github.setup        gnuradio gnuradio 8a4904d7f3c5878c42d1c0589e6ef7b1afd4a6be
+    version             20151003
     checksums \
-        rmd160 b88a5f38a7a5a3fffc5f439fd613e2cc73f1e4ae \
-        sha256 e6d460fb08711516014611595f6581dc080032659c5a4bb51ff549ee6bfe12a0
+        rmd160 0c2e0eaa8d1bbc612ce82fc6bee722ef2af1fb43 \
+        sha256 59539bec7ed0f24caef001bbc4fbedec9965cef2b19cf2b47c98f312dc0e320f
 
 }
 
@@ -107,11 +108,11 @@ subport gnuradio-next {
     name                gnuradio-next
     conflicts           gnuradio-legacy gnuradio gnuradio-devel
 
-    github.setup        gnuradio gnuradio 876e3f7b59d010663a18113294ed6778f39aa5f3
-    version             20150706
+    github.setup        gnuradio gnuradio c8342fd9aed8ed1bcf0062dc02637ad11269642e
+    version             20151003
     checksums \
-        rmd160 682ca60355820b57cf770ff36c50ad3f61089f4c \
-        sha256 b4f1486969873ead7a349b736f101db2a3c7387c930b979e4e331aa2a7c37cea
+        rmd160 3ec8c462ecd839c922a849987b7d11afa168f968 \
+        sha256 bc0869be7990ffb87142729417e360fdff7e216e74ccb4ebba45d2299aca8562
 
     # overload the github livecheck URL with the correct branch
 
@@ -127,7 +128,7 @@ if {${subport} eq "gnuradio-legacy"} {
 
     # now conflicts with the Volk port
 
-    conflicts volk
+    conflicts volk volk-devel
 
     # always enable VOLK, with or without orc
 
@@ -153,7 +154,17 @@ if {${subport} eq "gnuradio-legacy"} {
     }
 } else {
 
-    depends_lib-append port:volk
+    if {${subport} eq "gnuradio"} {
+
+        # release can use either the Volk release or devel port
+        depends_lib-append path:lib/libvolk.dylib:volk
+
+    } else {
+
+        # devel and next need to use the volk-devel port
+        depends_lib-append port:volk-devel
+
+    }
 
     configure.args-append \
         -DENABLE_INTERNAL_VOLK=OFF
@@ -170,14 +181,6 @@ if {${subport} ne "gnuradio-legacy"} {
     # features that 3.6 does not have.
 
     depends_lib-append port:log4cpp
-
-    # remove SIZE_T_32 check for SWIG; seems to help on older
-    # 32/64 OSs; this is fixed for SWIG >= 3.0.0 in GNU Radio
-    # devel and next as of 2015-04-28 (6277665c).
-
-    if {${subport} eq "gnuradio"} {
-        patchfiles-append patch-remove-SIZE_T_32.diff
-    }
 
     # temporary patch to fix header creation to be before dependencies
     # are determined, such that local (to the build) headers are found

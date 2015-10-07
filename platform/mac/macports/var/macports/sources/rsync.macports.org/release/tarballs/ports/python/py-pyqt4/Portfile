@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138421 2015-07-07 19:28:44Z michaelld@macports.org $
+# $Id: Portfile 139661 2015-08-23 22:36:34Z ionic@macports.org $
 
 PortSystem      1.0
 PortGroup       qt4 1.0
@@ -20,7 +20,7 @@ long_description \
 homepage        http://www.riverbankcomputing.co.uk/software/pyqt/intro
 
 version         4.11.4
-revision        2
+revision        3
 
 set branch      [join [lrange [split ${version} .] 0 1] .]
 set patch       [lindex [split ${version} .] 2]

@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 134778 2015-04-07 05:25:02Z sean@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem              1.0
 PortGroup               python 1.0
@@ -9,6 +9,7 @@ set realname            crecord
 bitbucket.setup         edgimar $realname 5cfaabfe9cb9
 name                    py-hg$realname
 version                 0.1.20150311
+revision                1
 
 categories-append       devel
 platforms               darwin

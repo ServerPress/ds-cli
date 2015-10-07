@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137999 2015-06-25 00:13:47Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 PortGroup           cmake 1.0
@@ -22,7 +22,7 @@ checksums           rmd160  1b6c096562ac4873fe0243b9410ea0afc191cc32 \
 depends_build-append \
                     port:xmlto
 
-depends_lib         port:openssl \
+depends_lib         path:lib/libssl.dylib:openssl \
                     port:popt
 
 configure.args-append \

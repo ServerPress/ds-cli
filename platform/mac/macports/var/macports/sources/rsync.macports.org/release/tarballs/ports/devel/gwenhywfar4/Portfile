@@ -1,6 +1,6 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
 # kate: backspace-indents true; indent-pasted-text true; indent-width 4; keep-extra-spaces true; remove-trailing-spaces modified; replace-tabs true; replace-tabs-save true; syntax Tcl/Tk; tab-indents true; tab-width 4;
-# $Id: Portfile 138053 2015-06-27 00:55:29Z mk@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem        1.0
 
@@ -21,7 +21,7 @@ homepage          http://www2.aquamaniac.de/sites/aqbanking/index.php
 
 conflicts         gwenhywfar gwenhywfar4 gwenhywfar4-devel gwenhywfar4-gtk gwenhywfar4-gtk-devel
 
-depends_lib       port:openssl \
+depends_lib       path:lib/libssl.dylib:openssl \
                   port:libgcrypt \
                   port:gettext \
                   port:libxml2 \

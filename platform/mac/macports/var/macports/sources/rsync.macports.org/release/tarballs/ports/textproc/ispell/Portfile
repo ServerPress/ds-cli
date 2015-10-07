@@ -1,10 +1,10 @@
-# $Id: Portfile 96282 2012-08-07 03:12:46Z jmr@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 
 name            ispell
 version         3.3.02
-revision        2
+revision        3
 categories      textproc spelling
 license         Restrictive/Distributable
 platforms       darwin freebsd

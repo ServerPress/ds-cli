@@ -1,15 +1,15 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136796 2015-05-27 10:12:27Z smaret@macports.org $
+# $Id: Portfile 140074 2015-09-08 15:13:08Z smaret@macports.org $
 
 PortSystem          1.0
 PortGroup           compilers 1.0
 
 name                gildas
-version             201505a
+version             201508b
 set my_version      [string tolower [clock format [clock scan 2000-[string range ${version} 4 5]-10] -format %b]][string range ${version} 2 3][string range ${version} 6 end]
 categories          science
 platforms           darwin
-maintainers         gmail.com:sebastien.maret
+maintainers         smaret
 license             permissive
 
 description         Radioastronomy data analysis software
@@ -28,8 +28,8 @@ homepage            http://www.iram.fr/IRAMFR/GILDAS/gildas.html
 master_sites        http://www.iram.fr/~gildas/dist/
 distname            ${name}-src-${my_version}
 
-checksums           rmd160  c56761c34d62287b7245ab43b9ce362a1d6f8206 \
-                    sha256  6ab6635f5edd0c16e7699fce96094da87194ca467c6e73cef19dbd1d7b9d91d3
+checksums           rmd160  60fd6c21d03177a400f37b6810016e4b6f0ddfb7 \
+                    sha256  5cb460afb14a67738b4b2528089ca1bff16b03f263e496407367c5a68d9fde03
 
 patch.pre_args      -p1
 patchfiles          patch-admin-Makefile.def.diff \

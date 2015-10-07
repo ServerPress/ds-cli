@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137725 2015-06-18 04:27:43Z devans@macports.org $
+# $Id: Portfile 140757 2015-10-02 05:49:12Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           gobject_introspection 1.0
@@ -7,6 +7,7 @@ PortGroup           gobject_introspection 1.0
 name                libgda5
 set gname           libgda
 version             5.2.4
+revision            2
 license             {GPL-2 LGPL}
 set branch          [join [lrange [split ${version} .] 0 1] .]
 description         GDA provides uniform access to different kinds of data sources.
@@ -45,7 +46,8 @@ depends_lib         port:desktop-file-utils \
                     port:libsoup \
                     port:libgcrypt \
                     port:libxml2 \
-                    port:libxslt
+                    port:libxslt \
+                    port:ncurses
 
 depends_run         port:gnome-settings-daemon \
                     port:yelp
@@ -86,7 +88,7 @@ configure.args      --enable-system-sqlite=no \
 variant vala description {Build vala bindings and extensions} {
     depends_lib-append      port:vala \
                             port:libgee
-    configure.env-append    VALA_API_VERSION=0.28
+    configure.env-append    VALA_API_VERSION=0.30
     configure.args-append   --enable-vala=yes \
                             --enable-gdaui-vala=yes \
                             --enable-vala-extensions=yes

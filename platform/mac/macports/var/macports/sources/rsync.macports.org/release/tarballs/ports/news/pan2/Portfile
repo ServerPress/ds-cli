@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 113485 2013-11-17 16:07:08Z ryandesign@macports.org $
+# $Id: Portfile 140047 2015-09-08 01:31:41Z ryandesign@macports.org $
 
 PortSystem          1.0
 
@@ -24,8 +24,12 @@ use_bzip2           yes
 checksums           rmd160  e0e2963b2d11b362201639ca755ad9ae43581c2f \
                     sha256  bf5f320f997f582d7ac823e3e854393307161a92e7014d2135e6e2674d144bb9
 
-depends_build       port:intltool \
-                    port:pkgconfig
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:gnome-common \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
 
 depends_lib         port:pcre \
                     port:gmime \
@@ -34,6 +38,19 @@ depends_lib         port:pcre \
                     port:libiconv
 
 patchfiles          patch-pan-gui-gui.cc.diff
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+}
+
+# Build failure with libc++: https://bugzilla.gnome.org/show_bug.cgi?id=712539
+# Forcing the use of libstdc++ is acceptable because pan2 does not provide any
+# C++ libraries and does not link with any C++ libraries.
+configure.cxx_stdlib libstdc++
+
+configure.cmd       ./autogen.sh
 
 configure.args      --disable-silent-rules
 

@@ -1,10 +1,10 @@
-# $Id: Portfile 92837 2012-05-09 00:51:48Z ryandesign@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 
 name                tintinxx
 version             2.00.7
-revision            1
+revision            2
 categories          net games
 platforms           darwin
 maintainers         otherware.org:nefar

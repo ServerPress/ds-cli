@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 135232 2015-04-20 00:15:39Z ryandesign@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 # The Tin development model is based on patchsets, as indicated in
 # the doc/CHANGES file.  There are:
@@ -73,7 +73,7 @@ PortSystem          1.0
 
 name                tin-recent
 version             1.9.6
-revision            9
+revision            10
 categories          news
 platforms           darwin
 maintainers         nomaintainer

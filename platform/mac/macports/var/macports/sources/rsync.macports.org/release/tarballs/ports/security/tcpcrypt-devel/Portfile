@@ -1,4 +1,4 @@
-# $Id: Portfile 99643 2012-11-13 04:26:02Z singingwolfboy@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 
@@ -25,7 +25,7 @@ git.url             git://github.com/sorbo/${real_name}.git
 git.branch          07d75864a38d853316d4
 use_configure       no
 build.dir           ${worksrcpath}/user
-depends_lib         port:openssl
+depends_lib         path:lib/libssl.dylib:openssl
 
 destroot {
   set docdir  ${destroot}${prefix}/share/doc/${real_name}

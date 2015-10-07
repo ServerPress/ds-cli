@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 120653 2014-06-04 19:22:31Z mf2k@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 
@@ -25,7 +25,7 @@ checksums           rmd160  8b0cc785a8e025b5b77aabc3546e4295b96ea85a \
 
 depends_build       port:pkgconfig
 depends_lib         port:lzo2 \
-                    port:openssl
+                    path:lib/libssl.dylib:openssl
 
 configure.args      --program-suffix=2 \
                     --docdir=${prefix}/share/doc/${name}

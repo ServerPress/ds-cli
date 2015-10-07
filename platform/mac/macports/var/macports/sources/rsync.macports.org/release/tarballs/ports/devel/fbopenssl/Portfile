@@ -1,4 +1,4 @@
-# $Id: Portfile 118422 2014-04-01 21:51:42Z jmr@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 
@@ -19,7 +19,7 @@ platforms        darwin
 master_sites     sourceforge:project/modgssapache/fbopenssl/${version}
 checksums        sha1 3fd9a08670ded86f60106d0d583655bca15aea9a
 
-depends_lib      port:openssl
+depends_lib      path:lib/libssl.dylib:openssl
 
 worksrcdir       ${name}
 

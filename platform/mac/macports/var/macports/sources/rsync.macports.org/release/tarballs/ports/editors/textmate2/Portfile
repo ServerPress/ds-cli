@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136712 2015-05-24 22:26:31Z cal@macports.org $
+# $Id: Portfile 140345 2015-09-18 12:34:15Z ryandesign@macports.org $
 
 PortSystem              1.0
 PortGroup               github 1.0
 PortGroup               xcodeversion 1.0
 
-github.setup            textmate textmate 2.0-beta.7.1 v
+github.setup            textmate textmate 2.0-beta.7.8 v
 epoch                   4
 
 maintainers             cal openmaintainer
@@ -34,8 +34,8 @@ post-fetch {
 patchfiles              patch-configure-versionnumber.diff \
                         patch-create_default_bundles_tbz-verbose.diff \
                         patch-bin__gen_build-avoid-ninja-pool-console.diff \
-                        patch-target-isystem.diff \
-                        172ce9d4282e408fe60b699c432390b9f6e3f74a.patch
+                        patch-target.diff \
+                        patch-Frameworks-crash-target.diff
 
 # The build will fail with deployment target set to 10.8
 macosx_deployment_target 10.7
@@ -52,6 +52,7 @@ post-patch {
 
 depends_build-append    port:ninja \
                         port:ragel \
+                        port:sparsehash \
                         port:proctools
 
 depends_skip_archcheck  ninja ragel proctools
@@ -59,7 +60,7 @@ depends_skip_archcheck  ninja ragel proctools
 depends_lib-append      port:boost \
                         port:multimarkdown \
                         port:curl \
-                        port:openssl \
+                        path:lib/libssl.dylib:openssl \
                         port:libiconv \
                         port:zlib \
                         port:capnproto

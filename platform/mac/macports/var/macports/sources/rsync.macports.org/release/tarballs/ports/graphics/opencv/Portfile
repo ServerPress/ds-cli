@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138361 2015-07-06 06:52:04Z jeremyhu@macports.org $
+# $Id: Portfile 140315 2015-09-17 08:29:01Z stromnov@macports.org $
 
 PortSystem          1.0
 PortGroup           cmake 1.0
@@ -7,7 +7,7 @@ PortGroup           compiler_blacklist_versions 1.0
 
 name                opencv
 version             3.0.0
-revision            0
+revision            1
 categories          graphics science
 platforms           darwin
 license             BSD
@@ -25,12 +25,19 @@ long_description    OpenCV is a library that is mainly aimed at real time \
                     Robotics.
 
 homepage            http://opencv.org
-master_sites        sourceforge:project/opencvlibrary/opencv-unix/${version}
+master_sites        sourceforge:project/opencvlibrary/opencv-unix/${version}:opencv \
+                    https://github.com/Itseez/opencv_contrib/archive:opencv_contrib
+
+distfiles           ${distname}.zip:opencv
 
 use_zip             yes
 
-checksums           rmd160  7b4dff26502e71e6570c2452c35fd03a1982bc7e \
-                    sha256  07094ea2f996f2622d572f0f3a162d698c8a547520341ca9109fbaf9363fb001
+checksums           ${distname}${extract.suffix} \
+                        rmd160  7b4dff26502e71e6570c2452c35fd03a1982bc7e \
+                        sha256  07094ea2f996f2622d572f0f3a162d698c8a547520341ca9109fbaf9363fb001 \
+                    ${version}.zip \
+                        rmd160  b257895ab529db2354f17c87b9f02d53625bb5e2 \
+                        sha256  77b28692b9e477a8554dd5b2180211dd86b6fd69d98e6896b6a7e1753e5f7e8f
 
 depends_build-append \
                     port:pkgconfig
@@ -47,7 +54,8 @@ depends_lib-append  port:zlib \
 
 patchfiles-append   patch-install_name.diff \
                     patch-modules_python_CMakeLists.txt.diff \
-                    patch-modules_java_CMakeLists.txt.diff
+                    patch-modules_java_CMakeLists.txt.diff \
+                    patch-modules_imgcodecs_src_grfmt_tiff.cpp.diff
 
 # TODO: check and adapt those patches
 #                    patch-modules_core_src_parallel.cpp.diff \
@@ -251,6 +259,11 @@ variant vtk description {Include VTK support.} {
     depends_lib-append      port:vtk
     configure.args-replace  -DWITH_VTK=OFF \
                             -DWITH_VTK=ON
+}
+
+variant contrib description {Build OpenCV with extra modules.} {
+    distfiles-append        ${version}.zip:opencv_contrib
+    configure.args-append   -DOPENCV_EXTRA_MODULES_PATH=${workpath}/opencv_contrib-${version}/modules
 }
 
 platform darwin {

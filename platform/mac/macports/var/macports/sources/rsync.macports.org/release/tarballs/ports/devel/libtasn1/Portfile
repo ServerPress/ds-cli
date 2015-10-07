@@ -1,16 +1,16 @@
 # -*- Mode: Tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:et:sw=4:ts=4:sts=4
-# $Id: Portfile 135723 2015-04-30 15:40:49Z larryv@macports.org $
+# $Id: Portfile 140312 2015-09-17 06:45:30Z ryandesign@macports.org $
 
 PortSystem      1.0
 
 name            libtasn1
-version         4.5
+version         4.7
 categories      devel
 # libs are LGPL; executables, examples and tests are GPL
 license         {LGPL-2.1+ GPL-3+}
 maintainers     gmail.com:mschamschula openmaintainer
 description     ASN.1 structure parser library
-homepage        http://josefsson.org/libtasn1/
+homepage        http://www.gnu.org/software/libtasn1/
 platforms       darwin
 
 long_description \
@@ -19,9 +19,9 @@ long_description \
 
 master_sites    gnu
 
-checksums       md5     81d272697545e82d39f6bd14854b68f0 \
-                rmd160  1060f96cab7f4580f76cbb5b632b7a6376576544 \
-                sha256  89b3b5dce119273431544ecb305081f3530911001bb12e5d76588907edb71bda
+checksums       md5     12d10ca4ae0a3b95f7aa06a076da39ec \
+                rmd160  e18e35c293fb1b79a150c22d9bc18526c9806e15 \
+                sha256  a40780dc93fc6d819170240e8ece25352058a85fd1d2347ce0f143667d8f11c9
 
 livecheck.type  regex
 livecheck.url   http://ftp.gnu.org/pub/gnu/libtasn1/

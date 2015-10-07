@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137065 2015-06-04 00:47:29Z mmoll@macports.org $
+# $Id: Portfile 140147 2015-09-09 23:20:32Z sean@macports.org $
 
 PortSystem          1.0
 PortGroup           conflicts_build 1.0
@@ -30,7 +30,7 @@ master_sites \
     ftp://ftp.hdfgroup.org/HDF5/prev-releases/hdf5-${version}/src/
 checksums           rmd160  74e9d6d6f247259f72a78bcda03f91e72adb14c3 \
                     sha256  a5afc630c4443547fff15e9637b5b10404adbed4c00206d89517d32d6668fb32
-mpi.setup
+mpi.setup           -gcc44 -gcc45
 
 use_bzip2           yes
 depends_lib         port:zlib

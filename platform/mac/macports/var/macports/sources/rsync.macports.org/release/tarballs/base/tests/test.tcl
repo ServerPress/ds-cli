@@ -19,7 +19,7 @@ set test_suite {
     variants
     xcodeversion
 }
-if {0 != 0} {
+if {1 != 0} {
 	lappend test_suite trace
 }
 set arguments ""

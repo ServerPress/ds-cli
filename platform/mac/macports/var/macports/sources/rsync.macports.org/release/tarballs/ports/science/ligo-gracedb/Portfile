@@ -1,10 +1,11 @@
-# $Id: Portfile 136787 2015-05-26 22:30:51Z ram@macports.org $
+# $Id: Portfile 139857 2015-08-29 22:06:58Z ram@macports.org $
 
 PortSystem    1.0
 PortGroup     python 1.0
 
 name          ligo-gracedb
-version       1.18
+version       1.19
+revision      1
 categories    science
 platforms     darwin
 supported_archs noarch
@@ -21,14 +22,15 @@ long_description \
 homepage      https://www.lsc-group.phys.uwm.edu/daswg/projects/gracedb.html
 master_sites  http://software.ligo.org/lscsoft/source/
 
-checksums     rmd160 4fda6ac9dead53c561cb206402470ab6beba088a \
-              sha256 1b2a86b9d93be6d0af2bf9782f2e66e586c09c343355402e1aee7fed79117d3d
+checksums     rmd160 770245cd2a56c24fb64a9f44e9d41f21333631aa \
+              sha256 78c07dd0677b1e82d86320fd6dcc523ca7204b171069263e463b5c56f67046f9
 
 python.default_version  27
 
 depends_lib-append port:ligo-common \
                    port:py${python.version}-m2crypto \
-                   port:py${python.version}-cjson
+                   port:py${python.version}-cjson \
+                   port:py${python.version}-setuptools
 
 python.link_binaries_suffix
 

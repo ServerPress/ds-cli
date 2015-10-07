@@ -1,11 +1,11 @@
-# $Id: Portfile 115203 2013-12-28 03:52:59Z larryv@macports.org $
+# $Id: Portfile 138746 2015-07-18 01:20:31Z khindenburg@macports.org $
 
 PortSystem          1.0
 
 name                maven-ant-tasks
 version             2.1.3
 categories          devel java
-maintainers         ieure
+maintainers         nomaintainer
 license             Apache-2
 description         Use many of Maven's artifact handling features from Ant.
 long_description    ${description}
@@ -36,3 +36,7 @@ destroot {
     xinstall -m 0755 -d ${jardir}
     xinstall -m 0644 ${worksrcpath}/target/${jarfile} ${jardir}
 }
+
+livecheck.type      regex
+livecheck.url       ${homepage}download.html
+livecheck.regex     ${name}-(2\\.\[0-9.\]+).jar

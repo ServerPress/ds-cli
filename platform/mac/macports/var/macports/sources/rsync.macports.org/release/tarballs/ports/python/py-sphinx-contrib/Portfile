@@ -5,9 +5,9 @@ PortSystem          1.0
 PortGroup           python 1.0
 PortGroup           bitbucket 1.0
 
-bitbucket.setup     birkenfeld sphinx-contrib bb88d36e1ac8
+bitbucket.setup     birkenfeld sphinx-contrib 48a1fb36d33f
 name                py-sphinx-contrib
-version             0.0.20150508
+version             0.0.20150908
 categories-append   textproc devel
 license             BSD
 maintainers         sean openmaintainer
@@ -19,8 +19,8 @@ long_description \
 platforms           darwin
 supported_archs     noarch
 
-checksums           rmd160  d9487618d884ff4123db203a89887324770130a7 \
-                    sha256  4dda5b5445648fb4983387ccc970ed82a146eb24a6176e5029022cac3468cf15
+checksums           rmd160  d3a311f6720877df18f3fd4fd4de07e6318dc076 \
+                    sha256  9af5246a7c76dba40f780400f2046edd59b2fe1ee07fc416d441265b1c2600fe
 
 python.versions     26 27
 
@@ -34,7 +34,6 @@ if {$subport ne $name} {
         reinplace -W ${worksrcpath}/cheeseshop "s,README,README.rst," setup.py
         reinplace -W ${worksrcpath}/clearquest "s,README,README.rst," setup.py
         reinplace -W ${worksrcpath}/email "s,README,README.rst," setup.py
-        reinplace -W ${worksrcpath}/googleanalytics "s,README,README.rst," setup.py
         reinplace -W ${worksrcpath}/hyphenator "s,README,README.rst," setup.py
     }
 

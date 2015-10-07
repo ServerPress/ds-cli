@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 114324 2013-12-05 08:44:51Z ryandesign@macports.org $
+# $Id: Portfile 139786 2015-08-26 19:11:29Z jwa@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
@@ -7,7 +7,7 @@ PortGroup           python 1.0
 name				py-robotframework-selenium2library
 set internal_name	robotframework-selenium2library
 
-version             1.1.0
+version             1.7.4
 categories-append   devel
 maintainers         jwa
 description         Robot Framework library to run web-based tests
@@ -21,11 +21,11 @@ platforms           darwin
 python.versions		26 27
 python.default_version	27
 
-master_sites        https://github.com/downloads/rtomac/${internal_name}/
+master_sites        https://pypi.python.org/packages/source/r/${internal_name}/
 distname            ${internal_name}-${version}
 
-checksums           rmd160  bd65fdf7983374609d81b2941d4b1d3486c31ace \
-                    sha256  7c0d024687307b4cf757da62739e0a72af7826110d37891b971ca1f2ca69923d
+checksums           rmd160  630099c1ccdcbde1c4330da03f47e0b05c504579 \
+                    sha256  4332e3021c6e4ba4a04f4dd99c4fb970315d9fc0fe31bcb62aad2fe833ad9400
 
 if {${name} ne ${subport}} {
     depends_lib-append	port:py${python.version}-robotframework \
@@ -40,7 +40,7 @@ if {${name} ne ${subport}} {
 
 if {${name} eq ${subport}} {
     livecheck.type     regex
-    livecheck.url      ${homepage}
+    livecheck.url      https://pypi.python.org/pypi/${internal_name}
     livecheck.regex    ${internal_name}-(\[0-9\]\\.\[0-9.\]+)\\.tar\\.\[bg\]z
 } else {
     livecheck.type	none

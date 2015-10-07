@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 129680 2014-12-18 21:56:53Z devans@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 PortGroup           github 1.0
@@ -19,7 +19,7 @@ long_description    ghsum allows you to easily print MacPorts checksums for tagg
                     can be useful for updating Portfiles.
 
 depends_lib         port:wget \
-                    port:openssl \
+                    path:lib/libssl.dylib:openssl \
                     port:p5.16-getopt-long-descriptive
 
 checksums           rmd160 8135a086a7ba075d5ce3596caaa46cd21705bb64 \

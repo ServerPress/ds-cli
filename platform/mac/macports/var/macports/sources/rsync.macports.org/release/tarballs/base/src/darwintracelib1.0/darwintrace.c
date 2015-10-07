@@ -4,7 +4,7 @@
  * All rights reserved.
  * Copyright (c) 2006-2013 The MacPorts Project
  *
- * $Id: darwintrace.c 126893 2014-10-16 22:17:14Z cal@macports.org $
+ * $Id: darwintrace.c 138531 2015-07-11 11:35:44Z cal@macports.org $
  *
  * @APPLE_BSD_LICENSE_HEADER_START@
  *
@@ -132,6 +132,13 @@ pthread_key_t sock_key;
  */
 static char *filemap;
 
+static void __darwintrace_sock_destructor(FILE *dtsock) {
+	__darwintrace_close_sock = fileno(dtsock);
+	fclose(dtsock);
+	__darwintrace_close_sock = -1;
+	pthread_setspecific(sock_key, NULL);
+}
+
 /**
  * Setup method called as constructor to set up thread-local storage for the
  * thread id and the darwintrace socket.
@@ -141,7 +148,7 @@ static void __darwintrace_setup_tls() {
 		perror("darwintrace: pthread_key_create");
 		abort();
 	}
-	if (0 != (errno = pthread_key_create(&sock_key, NULL))) {
+	if (0 != (errno = pthread_key_create(&sock_key, (void (*)(void *)) __darwintrace_sock_destructor))) {
 		perror("darwintrace: pthread_key_create");
 		abort();
 	}

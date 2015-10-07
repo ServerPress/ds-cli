@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 128356 2014-11-19 17:29:26Z petr@macports.org $
+# $Id: Portfile 140414 2015-09-19 13:32:11Z ryandesign@macports.org $
 
 PortSystem          1.0
 
@@ -30,9 +30,6 @@ checksums           md5     240d4ccb54b167f3baf55313411d6b92 \
                     sha1    c01e0dc5886631250c786251c009324064dfde97 \
                     rmd160  017cbdfa178216ec5f97ef0a4848813ac35550e1
 
-pre-configure {
-    system "open /Applications/Utilities/X11.app"
-}
 post-destroot {
     xinstall -m 755 -d ${destroot}${prefix}/share/texmf-dist/tex/latex/whizzytex
     xinstall -m 644 ${worksrcpath}/src/${distname}.sty \

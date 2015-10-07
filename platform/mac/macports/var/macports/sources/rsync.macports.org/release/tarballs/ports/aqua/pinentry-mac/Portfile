@@ -1,13 +1,13 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 128479 2014-11-22 02:41:35Z ionic@macports.org $
+# $Id: Portfile 139058 2015-07-30 20:59:41Z ionic@macports.org $
 
 PortSystem              1.0
 PortGroup               github 1.0
 PortGroup               xcode 1.0
 PortGroup               xcodeversion 1.0
 
-github.setup            GPGTools pinentry-mac 0.8.1 v
-revision                1
+github.setup            GPGTools pinentry-mac 0.9.4 v
+revision                0
 categories              aqua security
 license                 GPL-3+
 maintainers             ionic
@@ -19,8 +19,8 @@ long_description        ${description} \
                         custom interface based on Cocoa for OS X look and feel.
 homepage                https://github.com/GPGTools/pinentry-mac
 
-checksums               rmd160 3cbe052b88eb2ed1e0309c2716c8672958f6c82a \
-                        sha256 43da01553740354f221eab69d9ba0843fac6d3a0455494342ab60e14425c6bed
+checksums               rmd160 b4023708d1320bd1b0ad5ce0dc35ec71fc68b33c \
+                        sha256 73e649213e17dd46340f202453ed835166245b63f0cf2a78203d51d620b2742c
 
 # Utilizes ARC which is x86_64-only. #45949
 supported_archs         x86_64
@@ -39,18 +39,18 @@ pre-fetch {
 
 platform macosx {
     notes   "
-             If you previously didn't have pinentry or gpg-agent installed
-             and ${name} has been installed as a dependency of gpg-agent,
+             If you previously didn't have pinentry or gpg-agent installed \
+             and ${name} has been installed as a dependency of gpg-agent, \
              you don't need to do anything to use ${name}.
 
-             If you want to switch to the GTK2, ncurses or Qt4 based pinentry
-             program, please install pinentry with the correct use flags and
-             follow the instructions below substituting the ${name} program
+             If you want to switch to the GTK2, ncurses or Qt4 based pinentry \
+             program, please install pinentry with the correct use flags and \
+             follow the instructions below substituting the ${name} program \
              path with ${prefix}/bin/pinentry.
 
 
-             If you previously had pinentry and gpg-agent installed and would
-             like to switch to ${name}, you will have to set
+             If you previously had pinentry and gpg-agent installed and would \
+             like to switch to ${name}, you will have to set \
              it as your pinentry program in \$HOME/.gnupg/gpg-agent.conf.
 
              Add the following line to the mentioned file:

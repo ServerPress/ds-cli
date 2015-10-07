@@ -1,14 +1,16 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138412 2015-07-07 16:58:33Z cal@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem      1.0
 PortGroup       github 1.0
 
 github.setup    tmux tmux 2.0
+revision        1
 conflicts       tmux-devel
 subport tmux-devel {
     github.setup    tmux tmux 9a0ce98c54897f042f4fd3eced6503397f3aa5d2
     version         20150707-[string range ${github.version} 0 6]
+    revision        1
     conflicts       tmux
 }
 categories      sysutils

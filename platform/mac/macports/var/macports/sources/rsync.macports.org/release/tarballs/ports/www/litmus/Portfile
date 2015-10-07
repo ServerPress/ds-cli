@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 134052 2015-03-17 19:43:36Z mf2k@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 
@@ -21,5 +21,5 @@ master_sites        ${homepage}
 checksums           rmd160  f84d738abe7f23be4d70af8fd8fe23d59ef265f5 \
                     sha256  09d615958121706444db67e09c40df5f753ccf1fa14846fdeb439298aa9ac3ff
 
-depends_lib         port:expat port:neon port:openssl
+depends_lib         port:expat port:neon path:lib/libssl.dylib:openssl
 configure.args      --with-expat --with-ssl=openssl

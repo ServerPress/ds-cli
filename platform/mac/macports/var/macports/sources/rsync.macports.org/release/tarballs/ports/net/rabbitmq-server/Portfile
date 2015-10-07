@@ -1,17 +1,15 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 134318 2015-03-22 06:42:51Z ionic@macports.org $
+# $Id: Portfile 139972 2015-09-04 19:43:25Z cal@macports.org $
 
 PortSystem          1.0
 
 name                rabbitmq-server
-version             3.1.5
-revision            2
+version             3.5.4
 categories          net
 platforms           darwin
+maintainers         gmail.com:hayder.net
 license             MPL-1.1 MIT Apache-2
 supported_archs     noarch
-
-maintainers         paperplanes.de:meyer openmaintainer
 
 description         The RabbitMQ AMQP Server
 long_description    \
@@ -27,15 +25,18 @@ distfiles           ${name}-${version}${extract.suffix} \
 
 checksums \
         ${name}-${version}${extract.suffix} \
-                    rmd160  b486ce1289fb721b63d9401b3f9994adeba1c053 \
-                    sha256  c6952bdd0f0d9551fa4a068e65ad6506583a3e81babbb4e4747e0073366a6c35 \
+                    rmd160  4e1cf0ca1889673c56872a6dfaf9e688899d1eda \
+                    sha256  f79814d5fd5574734f599ef570ddace02ce4e47a1441cd052c568cde4d6ca3a4 \
         ${name}-generic-unix-${version}${extract.suffix} \
-                    rmd160  84b4cab15893eedfa2fbce80e7dfdbcc9cb4e536 \
-                    sha256  bf76aa8bdb59a412187c66a7a0739f2b18b069fd3af3fc6e1f66b0518d73978f
+                    rmd160  f178b3cb8d4ab9299f8ecabe338d2d2f79e82fb3 \
+                    sha256  24b6a4c0d5fec0ed63b756cdf96964d1729be88d5ec7934d4b4723ecdf9d3e2b
+
 
 depends_lib         port:erlang
 depends_build       port:libxslt \
                     port:git
+# no code from git is incorporated, so its license doesn't prevent distribution
+set license_noconflict git
 
 platform darwin 8 {
     depends_build-append port:py26-simplejson
@@ -48,6 +49,10 @@ platform darwin 9 {
 }
 # no need for simplejson on Snow Leopard or higher
 
+if {${os.major} > 9 && ${os.platform} eq "darwin"} {
+    # python3.X doesn't work
+    build.args      PYTHON=python2.7
+}
 
 set serveruser      rabbitmq
 set servergroup     rabbitmq
@@ -84,12 +89,17 @@ destroot.keepdirs \
     ${destroot}${logdir} \
     ${destroot}${mnesiadbdir}
 
-pre-destroot {
-    addgroup    ${servergroup}
-    add_users   ${serveruser} gid=[existsgroup ${servergroup}] realname=RabbitMQ\ Server home=${serverhome}
-}
+add_users ${serveruser} group=${servergroup} realname=RabbitMQ\ Server home=${serverhome}
 
 post-destroot {
+    # This is a hack: We need to patch the startupitem, so generate it manually
+    # here, then define the function to empty to avoid overwriting it later
+    package require portstartupitem 1.0
+    portstartupitem::startupitem_create
+    proc portstartupitem::startupitem_create {args} {}
+    system -W "${destroot}${plistloc}" "patch <${filespath}/patch-org.macports.rabbitmq-server.plist.diff"
+
+
     xinstall -d -m 775 ${destroot}${confdir}
     xinstall -d -g [existsgroup ${servergroup}] -m 775 ${destroot}${logdir}
     xinstall -d -g [existsgroup ${servergroup}] -m 775 ${destroot}${serverhome}
@@ -111,14 +121,12 @@ post-destroot {
 
     file copy ${wrappersbin}/rabbitmq-server ${wrappersbin}/rabbitmqctl
     file copy ${wrappersbin}/rabbitmq-server ${wrappersbin}/rabbitmq-plugins
+    file attributes ${destroot}${serverhome} -owner ${serveruser} -group ${servergroup}
+    file attributes ${destroot}${logdir} -owner ${serveruser} -group ${servergroup}
 
     xinstall -m 644 -W ${mansrc}/man1 rabbitmq-server.1.gz rabbitmqctl.1.gz rabbitmq-plugins.1.gz \
         ${mandest}/man1/
     xinstall -m 644 -W ${mansrc}/man5 rabbitmq-env.conf.5.gz ${mandest}/man5/
-}
-
-pre-install {
-    system "cd ${destroot}${plistloc}; patch <${filespath}/patch-org.macports.rabbitmq-server.plist.diff"
 }
 
 startupitem.create  yes

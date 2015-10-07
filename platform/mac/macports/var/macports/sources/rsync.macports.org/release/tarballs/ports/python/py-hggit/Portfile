@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136107 2015-05-11 19:40:24Z sean@macports.org $
+# $Id: Portfile 140122 2015-09-09 21:27:48Z sean@macports.org $
 
 PortSystem              1.0
 PortGroup               python 1.0
@@ -28,19 +28,19 @@ long_description        This is the Hg-Git plugin for Mercurial, adding the abil
 subport py27-$realname-devel {}
 
 if {[string match "*-devel" $subport]} {
-    bitbucket.setup     durin42 hg-git 5cc2ad8a162b
+    bitbucket.setup     durin42 hg-git 596a721949bc
     name                py-$realname-devel
     version             0.8.99
-    revision            3
+    revision            6
 
-    checksums           rmd160  70f26f5687a91beb0b10b0c1597e20bb8427e9d6 \
-                        sha256  2492d7d10ad5180df187300563e29d5879b2e42b5a7d6cfcd1b6208ce7855e2c
+    checksums           rmd160  bb1f139a965f0ff517c09dd2cf0df3bca0452ac1 \
+                        sha256  d10b378650e7a53fb5f351a02edee838009b9888ae5e62a16e46991d4592e580
 } else {
-    bitbucket.setup     durin42 hg-git 0.8.0
+    bitbucket.setup     durin42 hg-git 0.8.2
     name                py-${realname}
 
-    checksums           rmd160  9d1633caf93404ef0eb5d8e435bfa47c01a6995e \
-                        sha256  d96cbfba63cc270eb6b97dac12c5cf6d3872a246f54cee9c1786848f3d12a41b
+    checksums           rmd160  82716b8185b9a0b7c1b872399cc1e68647fac9c8 \
+                        sha256  f26028124a7673e3206b71c9ef5b1dd3bd32a9847e0c1431be6ba3bd14f74b3e
 }
 
 python.versions         27

@@ -1,25 +1,26 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137215 2015-06-06 21:34:56Z devans@macports.org $
+# $Id: Portfile 140480 2015-09-20 00:28:34Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           perl5 1.0
 
-perl5.branches      5.16 5.18 5.20
-perl5.setup         Dancer2 0.160003
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Dancer2 0.162000
 license             {Artistic-1 GPL}
-maintainers         devans openmaintainer
+maintainers         nomaintainer
 description         Dancer2 - Lightweight yet powerful web application framework
 long_description    ${description}
 
 platforms           darwin
 
-checksums           rmd160  e091a6a6c2724de5198c66be4082919b8b7965de \
-                    sha256  43373271bb560e4b8f30594c65160ddc6e6032f67a4fe5d17700ca1734a41ed5
+checksums           rmd160  8b3fa8dd0e193b092fb6de65ff2d18775642562b \
+                    sha256  428d0226be050fc8e87282a055c530f864759712447807be0473a69e877264f3
 
 if {${perl5.major} != ""} {
     depends_build-append \
                     port:p${perl5.major}-capture-tiny \
                     port:p${perl5.major}-file-sharedir-install \
+                    port:p${perl5.major}-test-fatal \
                     port:p${perl5.major}-test-memory-cycle \
                     port:p${perl5.major}-test-mocktime
 
@@ -31,7 +32,6 @@ if {${perl5.major} != ""} {
                     port:p${perl5.major}-config-any \
                     port:p${perl5.major}-crypt-urandom \
                     port:p${perl5.major}-data-dumper \
-                    port:p${perl5.major}-digest-sha \
                     port:p${perl5.major}-encode \
                     port:p${perl5.major}-file-sharedir \
                     port:p${perl5.major}-hash-merge-simple \
@@ -55,10 +55,10 @@ if {${perl5.major} != ""} {
                     port:p${perl5.major}-scope-upper \
                     port:p${perl5.major}-template-toolkit \
                     port:p${perl5.major}-template-tiny \
+                    port:p${perl5.major}-try-tiny \
                     port:p${perl5.major}-uri \
                     port:p${perl5.major}-url-encode-xs \
                     port:p${perl5.major}-yaml
 
-    perl5.use_module_build
     supported_archs noarch
 }

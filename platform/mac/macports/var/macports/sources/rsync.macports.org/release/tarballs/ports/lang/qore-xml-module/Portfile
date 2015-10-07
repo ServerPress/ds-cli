@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 111908 2013-10-05 18:34:33Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 
@@ -21,6 +21,6 @@ checksums           md5 63f6f620dd50421d0ba43815f4201026 \
 
 depends_lib         port:qore \
                     port:libxml2 \
-                    port:openssl
+                    path:lib/libssl.dylib:openssl
 
 configure.args      --disable-debug

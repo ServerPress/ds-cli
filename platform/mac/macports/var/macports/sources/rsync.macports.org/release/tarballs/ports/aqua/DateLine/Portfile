@@ -1,4 +1,4 @@
-# $Id: Portfile 99643 2012-11-13 04:26:02Z singingwolfboy@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem              1.0
 PortGroup               xcode 1.0
@@ -28,7 +28,7 @@ checksums               md5 dde69a24fb0bfe2aad1edd0d15ff96af \
 
 supported_archs         i386 ppc
 
-depends_lib             port:openssl
+depends_lib             path:lib/libssl.dylib:openssl
 
 patchfiles              project.pbxproj.patch
 post-patch {

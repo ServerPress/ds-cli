@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138403 2015-07-07 14:41:31Z stromnov@macports.org $
+# $Id: Portfile 139933 2015-09-03 20:30:30Z stromnov@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-bokeh
-version             0.9.1
+version             0.9.3
 revision            0
 categories-append   devel
 platforms           darwin
@@ -21,13 +21,13 @@ long_description    Bokeh (pronounced boh-Kay) is an implementation of \
                     Grammar of Graphics for Python, that also supports \
                     the customized rendering flexibility of Protovis and d3.
 
-homepage            https://github.com/ContinuumIO/Bokeh
-master_sites        https://pypi.python.org/packages/source/b/bokeh/
+homepage            http://github.com/bokeh/bokeh
+master_sites        pypi:[string index ${python.rootname} 0]/${python.rootname}
 
-distname            bokeh-${version}
+distname            ${python.rootname}-${version}
 
-checksums           rmd160  d2fc668ad4f4dab0105aeeb5481366e06aa91778 \
-                    sha256  b7d6df1ec065fb0049fa110abf025b30b114b21893882f673132cddb9b797fc4
+checksums           rmd160  a87348951897ef5d04e3747526330e6520f90c75 \
+                    sha256  e164666e2d4b4a72c858d3b6bf4a9b07e6c3727f078b63e36f3a097c3f77831f
 
 if {${name} ne ${subport}} {
     depends_lib-append  port:py${python.version}-flask \
@@ -58,7 +58,5 @@ if {${name} ne ${subport}} {
 
     livecheck.type      none
 } else {
-    livecheck.type      regex
-    livecheck.url       https://pypi.python.org/pypi/bokeh/json
-    livecheck.regex     {bokeh-(\d+(?:\.\d+)*)\.[tz]}
+    livecheck.type      pypi
 }

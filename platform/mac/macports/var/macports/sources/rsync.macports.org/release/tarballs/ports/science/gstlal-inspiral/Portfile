@@ -1,9 +1,9 @@
-# $Id: Portfile 137294 2015-06-08 17:58:37Z ram@macports.org $
+# $Id: Portfile 140791 2015-10-02 19:28:50Z ram@macports.org $
 
 PortSystem    1.0
 
 name          gstlal-inspiral
-version       0.5.2
+version       0.6.4
 categories    science
 platforms     darwin
 maintainers   ram
@@ -20,8 +20,8 @@ long_description \
 homepage      https://www.lsc-group.phys.uwm.edu/daswg/projects/gstlal.html
 master_sites  http://software.ligo.org/lscsoft/source/
 
-checksums     rmd160 808d57524d590c04387c9f09e2a1ed4eb959d68c \
-              sha256 647295c6cdce3ff51ccd0e5e9ba649cc1d8972bafc0140981ccedbd0ce78ff06
+checksums     rmd160 2eb7ac90643c9bf440f768acd78d4cf3970d8657 \
+              sha256 6bdb1d94ecd3778411b9c156d5b8f62115666e799edbec5a6d2773354b294e1e
 
 depends_build port:pkgconfig
 
@@ -40,8 +40,7 @@ depends_lib   port:gstlal \
               port:lal \
               port:lalmetaio \
               port:lalinspiral \
-              port:gsl \
-              port:doxygen
+              port:gsl
 
 # pylal is not universal
 universal_variant no
@@ -54,6 +53,8 @@ use_parallel_build yes
 
 # needs an openmp enabled compiler
 configure.compiler macports-gcc-4.8
+
+configure.args --without-doxygen
 
 set pythondir "${frameworks_dir}/Python.framework/Versions/2.7/lib/python2.7/site-packages"
 destroot.args-append \

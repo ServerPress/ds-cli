@@ -1,10 +1,10 @@
-# $Id: Portfile 137472 2015-06-12 07:04:11Z jeremyhu@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 
 name                        aalib
 version                     1.4rc5
-revision                    4
+revision                    5
 categories                  graphics
 license                     LGPL
 maintainers                 ccc.de:tim

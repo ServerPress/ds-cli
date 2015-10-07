@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 134448 2015-03-25 18:54:19Z larryv@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 
@@ -21,7 +21,7 @@ checksums           rmd160  fabdde99e66f38df686e9484a11ba2c98d671f33 \
 
 depends_lib         port:libpcap \
                     port:libsmi \
-                    port:openssl
+                    path:lib/libssl.dylib:openssl
 
 configure.args      --disable-smb --disable-universal
 

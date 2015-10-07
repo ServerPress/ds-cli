@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 132500 2015-02-02 19:27:09Z devans@macports.org $
+# $Id: Portfile 140316 2015-09-17 08:29:58Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           perl5 1.0
 
-perl5.branches      5.16 5.18 5.20
-perl5.setup         HTTP-Server-Simple 0.50
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         HTTP-Server-Simple 0.51
 license             {Artistic-1 GPL}
 maintainers         nomaintainer
 description         A very simple standalone HTTP daemon
@@ -13,8 +13,8 @@ long_description    ${description}
 
 platforms           darwin
 
-checksums           rmd160  adf4d966610dc780509f50a230647f7e99442f6f \
-                    sha256  5bd8117f469f566f55ee12406a1f9e03942d6f64e42f6e7461051e738bc27602
+checksums           rmd160  2f58d08b37e498b65da61a98ca06f7f9aae4643a \
+                    sha256  b9dc5c9f12c16ca39a96f0ede1e27a18a5594274ff8f583000788a7fca136dfb
 
 supported_archs     noarch
 

@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136143 2015-05-11 20:51:18Z devans@macports.org $
+# $Id: Portfile 140872 2015-10-04 19:21:10Z devans@macports.org $
 
 PortSystem          1.0
 
 name                eog-plugins
-version             3.16.0
+version             3.16.2
 license             GPL-2+
 set branch          [join [lrange [split ${version} .] 0 1] .]
 description         Extra plugins for the Eye of GNOME image viewer
@@ -17,8 +17,8 @@ master_sites        gnome:sources/${name}/${branch}/
 
 use_xz              yes
 
-checksums           rmd160  25e15727c066b0bd3fc3c48927ed06e600d35551 \
-                    sha256  6fab1c1e0705fc2b0e4a63caf3ba1c5b64b4eaa1301e4cbc04bb934428b68450
+checksums           rmd160  6c86da34f05f52bf88462f638b68309e2f92ae51 \
+                    sha256  f33de3c78d6a7d8a89441daa9c3e49e043dcdc527b0b7d477f0bf2d3af08e534
 
 depends_build       port:pkgconfig \
                     port:intltool \
@@ -37,9 +37,8 @@ depends_lib         port:eog \
                     port:libexif \
                     port:gsettings-desktop-schemas
 
-# map plugin uses "gnome-mime-image" from gnome-icon-theme
-
-depends_lib-append  port:gnome-icon-theme
+patchfiles          patch-plugins-pythonconsole.diff \
+                    patch-plugins-slideshowshuffle.diff
 
 # reconfigure using upstream autogen.sh for intltool 0.51 compatibility
 

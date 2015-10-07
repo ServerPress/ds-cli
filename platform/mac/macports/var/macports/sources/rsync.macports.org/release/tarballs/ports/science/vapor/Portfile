@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136416 2015-05-16 16:52:31Z mmoll@macports.org $
+# $Id: Portfile 139308 2015-08-12 02:46:18Z jmr@macports.org $
 
 PortSystem          1.0
 
 name                vapor
 version             2.2.4
-revision            7
+revision            8
 categories          science
 maintainers         nomaintainer
 description         interactive 3D scientific visualization environment

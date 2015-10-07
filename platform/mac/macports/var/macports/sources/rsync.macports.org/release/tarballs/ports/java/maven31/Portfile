@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 134171 2015-03-19 16:52:03Z blair@macports.org $
+# $Id: Portfile 138774 2015-07-18 20:36:39Z blair@macports.org $
 
 PortSystem 1.0
 PortGroup select 1.0
@@ -111,6 +111,7 @@ notes \
 "To make maven $version the default, please run
 \tsudo port select --set ${select.group} $name"
 
+
 livecheck.type  regex
-livecheck.url   ${homepage}download.html
-livecheck.regex apache-maven-(3\\.1\\.\[0-9.\]+)-bin\\.tar
+livecheck.url   ${homepage}docs/history.html
+livecheck.regex >(3\\.1\\.\[0-9.\]+)</

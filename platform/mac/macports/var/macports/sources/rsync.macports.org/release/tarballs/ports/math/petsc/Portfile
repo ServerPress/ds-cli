@@ -1,12 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136416 2015-05-16 16:52:31Z mmoll@macports.org $
+# $Id: Portfile 140503 2015-09-21 06:53:50Z sean@macports.org $
 
 PortSystem          1.0
 PortGroup           bitbucket 1.0
 PortGroup           mpi 1.0
 
-bitbucket.setup     petsc petsc 3.5.3 v
-revision            2
+bitbucket.setup     petsc petsc 3.6.1 v
 categories          math science
 maintainers         sean
 license             BSD
@@ -19,8 +18,8 @@ long_description    PETSc, pronounced PET-see (the S is silent), is a suite \
 platforms           darwin
 universal_variant   no
 
-checksums           rmd160  f9a607e0ccdcf5576122a9085992a3a1abafbaec \
-                    sha256  9f32de5e9fa8b5f2fe3ea4c63d89f9eaec4a1f7eea2d353ab15eaef3fdbf2517
+checksums           rmd160  8a36126369ccdb829b0f9df1f3b0107e9c1755c3 \
+                    sha256  dc48cdef80c4efb818f5439bf8ae7692eb48d35c7704406f6580e2de63be3f32
 
 mpi.setup
 
@@ -30,7 +29,10 @@ depends_build-append \
                     port:sowing \
                     port:c2html
 
-patchfiles-append   patch-env.diff
+post-extract {
+    # superlu 4.1 works with 3.6.1, can remove this after next update
+    reinplace "s,4\.0,4.1,g" ${worksrcpath}/config/BuildSystem/config/packages/SuperLU_DIST.py
+}
 
 pre-configure {
     configure.args-append \
@@ -62,16 +64,14 @@ pre-configure {
 }
 
 subport petsc-devel {
-    bitbucket.setup     petsc petsc 06ca8cadc435
+    bitbucket.setup     petsc petsc 09b4d96fa574
     bitbucket.livecheck master
-    version             3.5.99
-    revision            14
+    version             3.6.99
+    revision            2
     name                petsc-devel
 
-    checksums           rmd160  e3588c14d28a54a0ec2e0f8aa6376b1b87b05d0d \
-                        sha256  b553a2b508b1a7ee4f24594c81247a5906fd92e3afd8b1d18a8a58ac050a2260
-
-    patchfiles-delete   patch-env.diff
+    checksums           rmd160  4e2f609e53dbc546e837ff7a054f2f34ace072d0 \
+                        sha256  c0480695731b78ea143d02cbaa34cbbf824c602d656c6ec2eb76ee7d7764f74e
 }
 
 notes               "Add the following line to your .bash_profile if you plan to use\

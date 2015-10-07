@@ -1,13 +1,13 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138005 2015-06-25 16:58:51Z larryv@macports.org $
+# $Id: Portfile 140502 2015-09-21 06:53:49Z sean@macports.org $
 
 PortSystem          1.0
 PortGroup           compiler_blacklist_versions 1.0
 PortGroup           select 1.0
 
 name                openmpi
-version             1.7.5
-revision            5
+version             1.10.0
+revision            0
 set branch          [join [lrange [split ${version} .] 0 1] .]
 categories          science parallel net
 platforms           darwin
@@ -31,35 +31,31 @@ set subdir          ompi/v${branch}/downloads/
 master_sites        http://www.open-mpi.org/software/${subdir} \
                     http://www.open-mpi.de/software/${subdir} \
                     http://icl.cs.utk.edu/open-mpi/${subdir}
-# keep md5 & sha1 checksums as they are published on http://www.open-mpi.org/software/ompi/v1.7/
-checksums           md5     321ab81147ac69a5bbca72652fb3b468 \
-                    sha1    4a0de91c50a51e588810cc03d48c03429f3c1006 \
-                    rmd160  ee410ead12a4c26afb76aaeef87304b78ce4ad8a \
-                    sha256  cb3eef6880537d341d5d098511d390ec853716a6ec94007c03a0d1491b2ac8f2
+
+checksums           rmd160  9c4b2b3f5b72968c24243b80cf597af87d4d9ef3 \
+                    sha256  26b432ce8dcbad250a9787402f2c999ecb6c25695b00c9c6ee05a306c78b6490
 use_bzip2           yes
 
 livecheck.type      regex
-livecheck.url       http://www.open-mpi.org/software/ompi/v1.7/
+livecheck.url       http://www.open-mpi.org/software/ompi
 livecheck.regex     openmpi-(\[0-9\.\]+).tar.bz2
 
 if {[string first "-devel" $subport] > 0} {
     name                openmpi-devel
-    version             1.9a1
+    version             1.10.99
     # openmpi switched to git and reset their revision number;
     # remove this when for next release
     set base            32546
-    set tag             ga5cfbdd
-    set newrev          1932
+    set tag             g13def2a
+    set newrev          2571
     revision            [expr {$base + $newrev + 2}]
     distname            openmpi-dev-${newrev}-${tag}
 
     master_sites        http://www.open-mpi.org/nightly/master \
                         http://www.open-mpi.de/nightly/master
 
-    checksums           md5     ef25c4dbc928f31dd665b91da291ca82 \
-                        sha1    cfb670dd0c636d24429559a82842fe5e6b5267fc \
-                        rmd160  d87f67284f1e2d4b4589498406207c9625fc2a58 \
-                        sha256  9d23275fab424cb78b996208ecc7a1fbd4861c8e48f36452d3a5f2bce2b1e4d7
+    checksums           rmd160  49c80b2e76f1719d13f9f196b52c0d782279f45d \
+                        sha256  c00c433225bc1eb4eb85399a5f44bb07f98b2a7114116488e19442b5359505aa
 
     livecheck.version   ${newrev}-${tag}
     livecheck.url       [lindex ${master_sites} 0]
@@ -77,6 +73,7 @@ array set clist {
     clang35 {macports-clang-3.5}
     clang36 {macports-clang-3.6}
     clang37 {macports-clang-3.7}
+    clang38 {macports-clang-3.8}
     gcc43   {macports-gcc-4.3}
     gcc44   {macports-gcc-4.4}
     gcc45   {macports-gcc-4.5}
@@ -108,9 +105,7 @@ compiler.blacklist-append  llvm-gcc-4.2 macports-llvm-gcc-4.2
 configure.dir       ${workpath}/build
 configure.cmd       ${worksrcpath}/configure
 configure.args      --enable-mpi-fortran \
-                    "FFLAGS='' F77=''" \
-                    --with-wrapper-ldflags="-Wl,-flat_namespace" \
-                    LIBS="-Wl,-flat_namespace"
+                    "FFLAGS='' F77=''"
 
 # remove -arch from ldflags, ticket #22833
 configure.ld_archflags
@@ -303,7 +298,7 @@ you execute 'mpicc' etc.) please run:
 "
 
     variant threads description {enable threads for MPI applications} {
-        configure.args-append --enable-opal-multi-threads --enable-orte-progress-threads --enable-mpi-thread-multiple
+        configure.args-append --enable-osx-builtin-atomics --enable-mpi-thread-multiple --with-threads
     }
 
     variant valgrind description {enable valgrind support} {

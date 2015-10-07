@@ -1,10 +1,10 @@
-# $Id: Portfile 137185 2015-06-05 22:17:18Z ram@macports.org $
+# $Id: Portfile 140788 2015-10-02 19:28:46Z ram@macports.org $
 
 PortSystem         1.0
 PortGroup          python 1.0
 
 name               pylal
-version            0.7.2
+version            0.8.1
 categories         science
 platforms          darwin
 maintainers        ram
@@ -29,8 +29,8 @@ long_description \
 homepage           https://www.lsc-group.phys.uwm.edu/daswg/projects/pylal.html
 master_sites       http://software.ligo.org/lscsoft/source/
 
-checksums          rmd160 321cff402e089e40d23c78837f52a2a6c269a755 \
-                   sha256 2fa602053571308e83e937c5399e0cdca8973c5a9e5597493eafbfefac690190
+checksums          rmd160 924dc6f97100001e331cb4abf36f39b5824f507b \
+                   sha256 cebf4b768506f1faf83a8144966423218bc24a3a130abdb92be4ad0f1cb62435
 
 python.default_version 27
 

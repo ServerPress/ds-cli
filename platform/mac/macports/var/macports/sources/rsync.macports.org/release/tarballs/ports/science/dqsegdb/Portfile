@@ -1,11 +1,12 @@
-# $Id: Portfile 136785 2015-05-26 22:30:46Z ram@macports.org $
+# $Id: Portfile 140033 2015-09-07 14:42:19Z ram@macports.org $
 
 PortSystem    1.0
 PortGroup     python 1.0
 
 name          dqsegdb
-version       1.1.4
+version       1.2.2
 categories    science
+license       GPL-3+
 platforms     darwin
 supported_archs noarch
 maintainers   ram
@@ -17,8 +18,8 @@ long_description \
 homepage      https://www.lsc-group.phys.uwm.edu/daswg/projects/dqsegdb.html
 master_sites  http://software.ligo.org/lscsoft/source/
 
-checksums     rmd160 78d5d6bd09b2bf232f1b38ffe2e809b07bcfecc3 \
-              sha256 c74587dac320f10b5a87f6b6b0ca137ade9b9c9c87d585c6658d4eb747405f87
+checksums     rmd160 04268a3945f2178a2f79a0195397b408b15e5fd6 \
+              sha256 e1f31033c881d966367d9c00663cc1cf06f213750123ad9614c99c27376ec819
 
 python.default_version 27
 

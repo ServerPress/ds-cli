@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136085 2015-05-11 19:14:36Z devans@macports.org $
+# $Id: Portfile 140706 2015-09-30 16:58:17Z mcalhoun@macports.org $
 
 PortSystem          1.0
 
 name                vala
-version             0.28.0
+version             0.30.0
 set branch          [join [lrange [split ${version} .] 0 1] .]
 categories          lang
 maintainers         nomaintainer
@@ -23,8 +23,8 @@ master_sites        gnome:sources/${name}/${branch}/
 
 use_xz              yes
 
-checksums           rmd160  c4aab364d9ef9c93adda752ffdb8feb37a8d33c5 \
-                    sha256  0d9e3bd3f82145664875f7c29b2f544ba92d2814f75412948f774c0727fc977f
+checksums           rmd160  0b2fd611c878acbe5603789cd2b54572a00a7e4f \
+                    sha256  61f0337b000f7ed6ef8c1fea87e0047d9bd7c0f91dd9c5b4eb70fd3fb883dedf
 
 depends_build       path:bin/pkg-config:pkgconfig \
                     port:libxslt

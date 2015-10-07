@@ -1,4 +1,4 @@
-# $Id: Portfile 110183 2013-08-28 08:36:36Z jmr@macports.org $
+# $Id: Portfile 139374 2015-08-14 17:36:52Z ryandesign@macports.org $
 
 PortSystem 1.0
 
@@ -35,3 +35,9 @@ destroot.destdir	TOPDIR=${destroot}${prefix} \
 
 test.run		yes
 test.target		test
+
+# conflicts with argyll on ${prefix}/bin/average
+conflicts-append    argyll
+
+# conflicts with normalize on ${prefix}/bin/normalize
+conflicts-append    normalize

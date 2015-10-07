@@ -1,9 +1,9 @@
-# $Id: Portfile 135118 2015-04-15 19:54:00Z ryandesign@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 name			trafshow
 version			5.2.3
-revision		1
+revision		2
 categories		net
 maintainers		noses.com:noses
 description		continuous network traffic display

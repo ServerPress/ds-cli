@@ -1,9 +1,10 @@
-# $Id: Portfile 109805 2013-08-20 09:49:09Z g5pw@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 
 name            cgdb
 version         0.6.7
+revision        1
 categories      devel
 platforms       darwin
 maintainers     gmail.com:jfrederich

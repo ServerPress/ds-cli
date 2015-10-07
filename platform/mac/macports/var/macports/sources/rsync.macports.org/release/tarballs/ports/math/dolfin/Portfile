@@ -1,13 +1,12 @@
 # -*- coding: utf-8; mode: tcl; c-basic-offset: 4; indent-tabs-mode: nil; tab-width: 4; truncate-lines: t -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136416 2015-05-16 16:52:31Z mmoll@macports.org $
+# $Id: Portfile 140112 2015-09-09 21:27:34Z sean@macports.org $
 
 PortSystem          1.0
 PortGroup           bitbucket 1.0
 PortGroup           cmake 1.0
 PortGroup           mpi 1.0
 
-bitbucket.setup     fenics-project dolfin 1.5.0 dolfin-
-revision            2
+bitbucket.setup     fenics-project dolfin 1.6.0 dolfin-
 categories          math
 license             LGPL-3+
 platforms           darwin
@@ -16,8 +15,8 @@ maintainers         sean openmaintainer
 description         DOLFIN is a part of FEniCS
 long_description    DOLFIN is a library that functions as the main user interface of FEniCS
 
-checksums           rmd160  45400509a40502ade98c70ded7df823125533753 \
-                    sha256  9dd915b44fd833f16121dbb14b668795ab276ada40a111d9366261077200bed3
+checksums           rmd160  dfbfdacc10158c63c791f12c689529041728557b \
+                    sha256  67f66c39983a8c5a1ba3c0787fa9b9082778bc7227b25c7cad80dc1299e0a201
 
 mpi.setup           require
 
@@ -134,6 +133,12 @@ variant petsc description {Build with PETSc interface} {
     configure.args-append -DDOLFIN_ENABLE_PETSC:BOOL=ON
     configure.env-append  PETSC_DIR=${prefix}/lib/petsc PETSC_ARCH=
     mpi.enforce_variant   petsc
+}
+
+variant petsc4py description {Build with PETSc4py interface} requires petsc {
+    depends_lib-append    port:py27-petsc4py
+    configure.args-delete -DDOLFIN_ENABLE_PETSC4PY:BOOL=OFF
+    configure.args-append -DDOLFIN_ENABLE_PETSC4PY:BOOL=ON
 }
 
 variant slepc description {Build with SLEPc interface} requires petsc {

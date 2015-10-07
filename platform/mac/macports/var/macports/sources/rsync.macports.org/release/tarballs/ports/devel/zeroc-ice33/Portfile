@@ -1,4 +1,4 @@
-# $Id: Portfile 110496 2013-08-31 18:19:02Z blair@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 
@@ -52,7 +52,7 @@ platforms       darwin
 depends_lib     port:libiconv \
                 port:db46 \
                 port:expat \
-                port:openssl \
+                path:lib/libssl.dylib:openssl \
                 port:readline \
                 port:mcpp
 

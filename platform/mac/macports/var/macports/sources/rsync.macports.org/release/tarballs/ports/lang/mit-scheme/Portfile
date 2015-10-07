@@ -1,11 +1,12 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 120343 2014-05-24 00:32:08Z dports@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 
 name                    mit-scheme
 epoch                   1
 version                 9.2
+revision                1
 categories              lang
 license                 {GPL-2+ OpenSSLException}
 platforms               darwin
@@ -31,7 +32,7 @@ checksums               rmd160  a8028230d500855fe1864e2ad7f8210810296ec5 \
 depends_lib \
     port:xorg-libX11 \
     port:ncurses \
-    port:openssl
+    path:lib/libssl.dylib:openssl
 
 post-patch  {
     reinplace "s|/usr/local|${prefix}|g" \

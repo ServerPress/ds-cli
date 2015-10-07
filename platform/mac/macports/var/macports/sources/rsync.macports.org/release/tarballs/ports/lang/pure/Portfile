@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 127988 2014-11-10 07:23:15Z ryandesign@macports.org $
+# $Id: Portfile 140525 2015-09-21 19:46:32Z ryandesign@macports.org $
 
 PortSystem              1.0
 PortGroup               bitbucket 1.0
@@ -40,13 +40,14 @@ set llvm_prefix         ${prefix}/libexec/llvm-${llvm_version}
 configure.env           PATH=${llvm_prefix}/bin:$env(PATH)
 
 if {${name} eq ${subport}} {
-    revision                    1
+    revision                    2
     
     depends_lib                 port:gmp \
                                 port:libiconv \
                                 port:libtool \
                                 port:llvm-${llvm_version} \
                                 port:mpfr \
+                                port:ncurses \
                                 port:readline
     
     depends_run                 port:w3m

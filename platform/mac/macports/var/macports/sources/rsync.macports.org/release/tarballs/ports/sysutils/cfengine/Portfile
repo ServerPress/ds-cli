@@ -1,4 +1,4 @@
-# $Id: Portfile 122882 2014-08-01 19:05:59Z jmr@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem		1.0
 
@@ -22,7 +22,7 @@ checksums		sha1 ce4954174110c43541d25775747ae65ada30063d
 platforms		darwin
 
 depends_lib		port:db44 \
-				port:openssl \
+				path:lib/libssl.dylib:openssl \
 				port:pcre
 
 patchfiles		patch-pub__getopt.c

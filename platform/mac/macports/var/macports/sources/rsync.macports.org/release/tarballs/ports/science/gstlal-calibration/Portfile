@@ -1,9 +1,9 @@
-# $Id: Portfile 137189 2015-06-05 22:17:43Z ram@macports.org $
+# $Id: Portfile 140792 2015-10-02 19:28:52Z ram@macports.org $
 
 PortSystem    1.0
 
 name          gstlal-calibration
-version       0.3.0
+version       0.5.3
 categories    science
 platforms     darwin
 maintainers   ram
@@ -17,8 +17,8 @@ long_description \
 homepage      https://www.lsc-group.phys.uwm.edu/daswg/projects/gstlal.html
 master_sites  http://software.ligo.org/lscsoft/source/
 
-checksums     rmd160 b26d64494c8f0191aae0def16c95771683dbf7f1 \
-              sha256 f592b1af80a74992e96067bb198e5235744eab0900f91c6d997dca86dee9f710
+checksums     rmd160 79114bbfff8be1b2905a79faae4d776faf97bf20 \
+              sha256 f124feb21a58ad369ac40a33407e1cc9fdac85bfd40f77fe7627f80e836e4cf5
 
 depends_build port:pkgconfig
 

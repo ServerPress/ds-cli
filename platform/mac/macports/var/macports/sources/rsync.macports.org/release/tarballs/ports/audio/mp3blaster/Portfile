@@ -1,9 +1,10 @@
-# $Id: Portfile 114119 2013-11-29 22:31:11Z jmr@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem          1.0
 
 name                mp3blaster
 version             3.2.3
+revision            1
 categories          audio
 maintainers         web.de:marioscheel
 description         Full-screen console mp3 and Ogg Vorbis player

@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136101 2015-05-11 19:40:13Z sean@macports.org $
+# $Id: Portfile 140403 2015-09-19 00:12:52Z sean@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
 PortGroup           bitbucket 1.0
 
-bitbucket.setup     seanfarley mercurial 3.4
+bitbucket.setup     seanfarley mercurial 3.5.1
 categories          devel python
 license             GPL-2+
 maintainers         sean openmaintainer
@@ -26,8 +26,8 @@ long_description    Mercurial is a fast, lightweight Source Control Management \
 
 homepage            http://www.selenic.com/mercurial/
 platforms           darwin
-checksums           rmd160  a32416d3eb81c3f68e49b1c8139fec446c1ca35b \
-                    sha256  44ea0ca36dc4a83ecc1e814c351dcc11efb5c792e601a9724ccf6809914748f7
+checksums           rmd160  a6fc004dd41c3e87ada3d54ac04395d594a6e1b4 \
+                    sha256  507cceebe3ea246c63610b714af6eef108d94b68daec867c3d00f9b6747621c3
 
 depends_build       port:py27-docutils
 
@@ -43,14 +43,15 @@ build.cmd           make
 build.target        all PYTHON=${python.bin}
 
 subport mercurial-devel {
-    bitbucket.setup     seanfarley mercurial 015adbcd92f3
+    bitbucket.setup     seanfarley mercurial a0eff7ebc2ae
     name                mercurial-devel
-    version             3.4.99
+    version             3.5.99
+    revision            1
 
     conflicts           mercurial
 
-    checksums           rmd160  1b6545b29f16a763327ae21cd16687433543b780 \
-                        sha256  d8a0508b1cb5e98a0ab3e7a24d893743715037cc99ae766a57c6be2b2469eb72
+    checksums           rmd160  685c00123761623123601c2a39d8fada26373908 \
+                        sha256  55d3389e8be89af6b639bd92b9e007fbcdba9ac07ff146d6273312bee02dd60a
 }
 
 post-destroot {

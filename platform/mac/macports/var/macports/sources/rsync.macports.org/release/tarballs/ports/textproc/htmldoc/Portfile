@@ -1,4 +1,4 @@
-# $Id: Portfile 115019 2013-12-22 09:29:46Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 
@@ -54,7 +54,7 @@ destroot.destdir prefix=${destroot}${prefix} exec_prefix=${destroot}${prefix} \
 		 bindir=${destroot}${prefix}/bin mandir=${destroot}${prefix}/share/man
 
 variant ssl conflicts gnutls cdsassl {
-	depends_lib-append	port:openssl
+	depends_lib-append	path:lib/libssl.dylib:openssl
 	configure.args-delete	--disable-ssl
 	configure.args-append	--enable-openssl --disable-gnutls --disable-cdsassl
 }

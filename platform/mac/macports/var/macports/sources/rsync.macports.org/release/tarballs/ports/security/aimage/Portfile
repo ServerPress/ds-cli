@@ -1,4 +1,4 @@
-# $Id: Portfile 117535 2014-03-03 07:50:13Z jeremyhu@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 
@@ -21,7 +21,7 @@ checksums	rmd160  ddf2a0686116230f771007f73bf3d4f3a2bc2ea9 \
 
 depends_lib	port:libewf	\
 		port:afflib		\
-		port:openssl	\
+		path:lib/libssl.dylib:openssl	\
 		port:zlib
 
 post-extract {

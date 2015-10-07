@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136803 2015-05-27 15:48:13Z devans@macports.org $
+# $Id: Portfile 140818 2015-10-04 06:50:04Z ryandesign@macports.org $
 
 PortSystem          1.0
 PortGroup           compiler_blacklist_versions 1.0
@@ -18,6 +18,8 @@ homepage            http://mesa3d.sourceforge.net/
 platforms           macosx darwin
 use_xz              yes
 master_sites        ftp://ftp.freedesktop.org/pub/mesa/${version}/
+fetch.use_epsv      no
+
 checksums           sha1    3ccd3bab83032d225d9e28522358c8c231d33a0b \
                     rmd160  74b0ff9ef6824ae8e0657b70aba61beceb9fbbb1 \
                     sha256  b51e723f3a20d842c88a92d809435b229fc4744ca0dbec0317d9d4a3ac4c6803

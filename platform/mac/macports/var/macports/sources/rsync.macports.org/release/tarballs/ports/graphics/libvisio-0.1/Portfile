@@ -1,12 +1,12 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137831 2015-06-20 23:34:41Z devans@macports.org $
+# $Id: Portfile 139798 2015-08-27 18:47:00Z devans@macports.org $
 
 PortSystem          1.0
 
 name                libvisio-0.1
 set dname           libvisio
-version             0.1.1
-revision            2
+version             0.1.3
+revision            1
 categories          graphics
 platforms           darwin
 maintainers         devans openmaintainer
@@ -24,8 +24,8 @@ use_xz              yes
 
 distname            ${dname}-${version}
 
-checksums           sha256  4b510168d1465516fdf6e57c01e2f9eae1fc0ae232c74e44e70693bbc49227f1 \
-                    rmd160  46bab63e5bcef89eea264411afdbe1b2fb716d61
+checksums           sha256  943e03b1e6c969af4c2133a6671c9630adf3aaf8d460156744a28f58c9f47cd8 \
+                    rmd160  18e1b9c30f8ae34d3461e8a2f912243417d4d1fd
 
 depends_build       port:pkgconfig
 
@@ -36,7 +36,7 @@ depends_lib         port:librevenge \
                     port:libxml2 \
                     port:zlib
 
-patchfiles          patch-src-lib-VSDMetaData.cpp.diff
+patchfiles          patch-ambiguous-pow.diff
 
 # Version 0.1.1's glibtool doesn't know to pass -stdlib=... to the linker
 use_autoreconf      yes
@@ -45,6 +45,23 @@ autoreconf.args     -fvi
 configure.args      --without-docs \
                     --disable-silent-rules \
                     --disable-werror
+
+# In boost 1.59.0, a number of symbols related to the Boost.System library have been renamed
+# for compatibility with the C++ committee's standard library specs.  The old symbols have been deprecated
+# and aliases to the new symbols are provided.  When boost headers are included, these aliases 
+# can create dependencies on the Boost.System library even if no Boost.System symbols are actually used.
+# Typically this causes missing symbol errors during linking when LDFLAGS (legitimately) does not 
+# include -lboost_system-mt.
+#
+# Asserting BOOST_SYSTEM_NO_DEPRECATED deactivates these aliases allowing this and other effected
+# ports to build as before.
+#
+# See http://www.boost.org/doc/libs/1_59_0/libs/system/doc/reference.html#Deprecated-names for details
+#
+# This workaround can be removed when the offending deprecation aliases are removed in a future
+# version of boost.
+
+configure.cppflags-append "-DBOOST_SYSTEM_NO_DEPRECATED"
 
 # delete binaries that conflict with libvisio
 

@@ -1,11 +1,11 @@
-# $Id: Portfile 137992 2015-06-24 16:17:51Z mww@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem          1.0
 
 name                omake
 conflicts           osh
 version             0.9.8.6-0.rc1
-revision            6
+revision            7
 platforms           darwin
 categories          devel
 maintainers         nomaintainer

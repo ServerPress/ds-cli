@@ -1,13 +1,13 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136522 2015-05-20 16:41:00Z michaelld@macports.org $
+# $Id: Portfile 140707 2015-09-30 17:28:23Z michaelld@macports.org $
 
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        jgaeddert liquid-dsp 934029c00f3cd75c4cdc918cbe6ca5efe8cdb261
-version             20150516
-checksums           rmd160 ca4c349e79aebc0702fcf2694b7c8430e81ca31e \
-                    sha256 6e5b8d4896195037f22dc88a6e8c84191a700bb15d69168c0728932f3ca4b378
+github.setup        jgaeddert liquid-dsp df5a459fa05dba4199c1299555891104cc1fdca7
+version             20150929
+checksums           rmd160 0008a380477875456966b324bd6aa8deef46170d \
+                    sha256 543da752a341152394c41754ce1ec14524ae0a972be8a43ceb4d13500d63f494
 
 maintainers         michaelld openmaintainer
 

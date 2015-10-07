@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 96474 2012-08-11 00:07:53Z dports@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 
@@ -28,7 +28,7 @@ platforms       darwin
 homepage        http://ipmitool.sourceforge.net/
 master_sites    sourceforge
 
-depends_lib     port:openssl
+depends_lib     path:lib/libssl.dylib:openssl
 
 checksums       rmd160  4dea7c7c985083ae8acf2680d5446d81b3c2cf7c \
                 sha256  d4425c00c84633cd7d3cd46af74889e0638e4e245be3e7870a9043d31399a0d3

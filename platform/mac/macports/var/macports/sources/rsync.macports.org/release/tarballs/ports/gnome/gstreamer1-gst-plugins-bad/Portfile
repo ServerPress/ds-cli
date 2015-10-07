@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137658 2015-06-16 16:32:00Z devans@macports.org $
+# $Id: Portfile 140713 2015-09-30 19:31:53Z devans@macports.org $
 
 PortSystem          1.0
 
@@ -9,8 +9,7 @@ PortGroup           gobject_introspection 1.0
 
 name                gstreamer1-gst-plugins-bad
 set my_name         gst-plugins-bad
-version             1.4.5
-revision            3
+version             1.6.0
 description         A set of plug-ins for GStreamer that need more quality.
 long_description    GStreamer Bad Plug-ins is a set of plug-ins that aren't up to par compared \
                     to the rest. They might be close to being good quality, but they're missing \
@@ -25,8 +24,8 @@ master_sites        http://gstreamer.freedesktop.org/src/${my_name}/
 distname            ${my_name}-${version}
 use_xz              yes
 
-checksums           rmd160  e3f594636e0b3bd9d3e70c779d4878ce4b06a587 \
-                    sha256  152fad7250683d72f9deb36c5685428338365fe4a4c87ffe15e38783b14f983c
+checksums           rmd160  8c9c053c2bef3455367aadf0704cb39eada8c8a3 \
+                    sha256  d8ff26128d4ecd2ffeb28e14843808d2d971b09056b7cee6f08afcae01fc0f49
 
 depends_build       port:pkgconfig
 depends_lib         port:gstreamer1-gst-plugins-base \
@@ -50,6 +49,7 @@ depends_lib         port:gstreamer1-gst-plugins-base \
                     port:mesa \
                     port:libGLU \
                     port:mpg123 \
+                    port:nettle \
                     port:openal-soft \
                     port:openexr \
                     port:openjpeg15 \
@@ -70,6 +70,14 @@ autoreconf.args     -fvi
 patchfiles          modplug.patch \
                     openal.patch
 
+# applemedia: restore upstream files missing from 1.6.0 tarball
+post-patch {
+    xinstall -m 644 ${filespath}/avsamplevideosink.h \
+                    ${filespath}/corevideotexturecache.h \
+                    ${worksrcpath}/sys/applemedia
+}
+
+
 #
 # could depend on tons for multimedia stuff +variants
 # the following ports are available but don't configure
@@ -86,9 +94,9 @@ patchfiles          modplug.patch \
 #
 
 configure.args      --disable-silent-rules \
+                    --disable-fatal-warnings \
                     --disable-dc1394 \
                     --disable-frei0r \
-                    --disable-quicktime \
                     --disable-lv2 \
                     --disable-mpeg2enc \
                     --disable-mplex \
@@ -99,8 +107,9 @@ configure.args      --disable-silent-rules \
 
 #
 # port:soundtouch (fails on autoreconf on darwin 8 & 9, see #27533) disable soundtouch on these platforms
-# plugin applemedia (Apple video) only builds on darwin 13 and later due to use of
-#     constant kVTCompressionPropertyKey_RealTime introduced in OSX 10.9
+# gl cocoa build continues to fail due to use of API not available on darwin 10 or earlier
+# plugin applemedia (Apple video) now only builds on darwin 14 and later due to use of
+#     constant AVQueuedSampleBufferRenderingStatusFailed introduced in OSX 10.10
 #
 
 platform darwin {
@@ -108,19 +117,12 @@ platform darwin {
         depends_lib-delete      port:soundtouch
         configure.args-append   --disable-soundtouch --disable-opengl
     }
-    if {${os.major} < 13} {
+    if {${os.major} < 11 } {
+        configure.args-append   --disable-cocoa
+    }
+    if {${os.major} < 14} {
         configure.args-append   --disable-apple_media
     }
-}
-
-#
-# applemedia video plugin uses CoreMedia which is not available on darwin 10 or earlier
-# gl cocoa build continues to fail due to use of API not available on darwin 10 or earlier
-#
-
-if { ${os.major} < 11 } {
-    configure.args-append   --disable-apple_media \
-                            --disable-cocoa
 }
 
 #

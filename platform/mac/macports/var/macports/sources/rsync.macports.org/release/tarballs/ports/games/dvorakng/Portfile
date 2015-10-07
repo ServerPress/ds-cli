@@ -1,9 +1,10 @@
-# $Id: Portfile 90445 2012-03-05 22:08:09Z cal@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem          1.0 
 
 name                dvorakng
 version             0.6.0rc1
+revision            1
 categories          games
 maintainers         stereo.lu:macports
 description         A Dvorak typing tutor

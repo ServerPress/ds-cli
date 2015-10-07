@@ -1,10 +1,9 @@
-# $Id: Portfile 136935 2015-05-30 21:25:50Z devans@macports.org $
+# $Id: Portfile 139822 2015-08-28 17:35:46Z jmr@macports.org $
 
 PortSystem 1.0
-PortGroup               conflicts_build 1.0
 
 name			libidn
-version			1.30
+version			1.32
 categories		mail
 license			{LGPL-2.1+ GPL-3+}
 description		international domain name library
@@ -21,17 +20,20 @@ long_description	Libidn is an implementation of the Stringprep, \
 homepage		http://www.gnu.org/software/libidn/
 platforms		darwin
 maintainers		foellinger.de:olaf openmaintainer
-master_sites	gnu
+master_sites		gnu
 
-checksums           rmd160  8fb47a04c456ed586e7a3b2fe0b45bb15943770d \
-                    sha256  39b9fc94d74081c185757b12e0891ce5a22db55268e7d1bb24533ff4432eb053
+checksums           	rmd160  35564ab88310df83d0527c10ca07850a9219b86a \
+                    	sha256  ba5d5afee2beff703a34ee094668da5c6ea5afa38784cebba8924105e185c4f5
 
 depends_lib		port:libiconv port:gettext
 
-# nawk: syntax error at source line 1 source file
-conflicts_build         nawk
+patchfiles		configure-no-nawk.patch
+post-patch {
+    # avoid automake invocation
+    touch ${worksrcpath}/doc/Makefile.gdoc ${worksrcpath}/doc/Makefile.in
+}
 
-configure.args  --disable-csharp
+configure.args  --disable-csharp --disable-silent-rules
 
 use_parallel_build	yes
 

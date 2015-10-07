@@ -1,10 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 126004 2014-10-01 20:54:44Z dports@macports.org $
+# $Id: Portfile 139016 2015-07-28 20:06:10Z dports@macports.org $
 
 PortSystem 1.0
 
 name            xindy
 version         2.5.1
+revision        1
 
 categories      tex textproc
 license         GPL-2+
@@ -24,8 +25,8 @@ platforms       darwin
 homepage        http://www.xindy.org/
 master_sites    tex_ctan:indexing/${name}/base/
 
-# requires clisp, which does not support 64-bit
-supported_archs i386 ppc
+# requires clisp, which only supports these architectures
+supported_archs i386 ppc x86_64
 
 depends_lib     port:clisp
 

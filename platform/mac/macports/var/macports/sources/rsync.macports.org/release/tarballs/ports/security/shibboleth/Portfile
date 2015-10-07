@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 134208 2015-03-20 03:08:45Z scantor@macports.org $
+# $Id: Portfile 138819 2015-07-21 01:15:29Z scantor@macports.org $
 
 PortSystem          1.0
 PortGroup           active_variants 1.1
 
 name                shibboleth
-version             2.5.4
+version             2.5.5
 categories          security www shibboleth
 license             Apache
 maintainers         snc scantor
@@ -30,8 +30,8 @@ master_sites        http://shibboleth.net/downloads/service-provider/${version}/
 distname            ${name}-sp-${version}
 use_bzip2           yes
 worksrcdir          ${name}-sp-${version}
-checksums           rmd160  45015d1b52ff186ed6044046006357ea06b60e17 \
-                    sha256  6b8ce87acefd209c0abcb31bcf6cc50bdb3c0b24a30376028047ea3e9b302bba
+checksums           rmd160  c7dd5ac6fbc329cc8d273ed58501f27197faeca4 \
+                    sha256  ada880dd7d8a0f5c357fc303cb540b8c94fba98190a02524a7f54ed3e62883ad
 
 require_active_variants curl ssl
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138275 2015-07-03 20:45:51Z michaelld@macports.org $
+# $Id: Portfile 139661 2015-08-23 22:36:34Z ionic@macports.org $
 
 PortSystem          1.0
 
@@ -16,6 +16,7 @@ name                qt4-mac
 #conflicts           qt3 qt3-mac qt4-mac-devel
 conflicts           qt3 qt3-mac qt5-mac
 version             4.8.7
+revision            1
 set branch          [join [lrange [split ${version} .] 0 1] .]
 
 categories          aqua
@@ -40,7 +41,7 @@ minimum_xcodeversions   {8 2.5}
 
 depends_lib-append  port:zlib \
                     path:bin/dbus-daemon:dbus \
-                    port:openssl \
+                    path:lib/libssl.dylib:openssl \
                     port:tiff \
                     port:libpng \
                     port:libmng \

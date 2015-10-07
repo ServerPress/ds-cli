@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 135991 2015-05-09 07:07:09Z ryandesign@macports.org $
+# $Id: Portfile 139098 2015-08-01 21:02:30Z khindenburg@macports.org $
 
 PortSystem 1.0
 
 name            GiNaC
-version         1.6.4
+version         1.6.5
 categories      math
 platforms       darwin
 license         GPL-2
@@ -37,8 +37,8 @@ distname        ginac-${version}
 homepage        http://www.ginac.de/
 master_sites    ${homepage}
 
-checksums       rmd160  5777307b3b8b29a4b59657be7addac5e47ba696e \
-                sha256  6241158216b4f68c625ce7d843d5b6b070304f87e7fc8f4075b76501ca0f3c60
+checksums       rmd160  357cd7537950c4d59202ace260b92a88affa2de3 \
+                sha256  e8630e186d9846123c58de7e0edcfd11b68d3831a84ae7c039c0606397b01444
 
 depends_build   port:pkgconfig
 depends_lib     port:readline \

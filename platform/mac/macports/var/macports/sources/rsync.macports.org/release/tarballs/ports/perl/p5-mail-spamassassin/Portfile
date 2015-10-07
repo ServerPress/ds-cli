@@ -1,11 +1,12 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136218 2015-05-12 13:17:08Z devans@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 PortGroup           perl5 1.0
 
-perl5.branches      5.16 5.18 5.20
+perl5.branches      5.16 5.18 5.20 5.22
 perl5.setup         Mail-SpamAssassin 3.4.1
+revision            1
 categories-append   mail
 license             Apache-2
 platforms           darwin
@@ -41,6 +42,7 @@ if {${perl5.major} != ""} {
                     port:p${perl5.major}-net-patricia \
                     port:p${perl5.major}-geo-ip \
                     port:p${perl5.major}-io-compress \
+                    port:p${perl5.major}-io-socket-inet6 \
                     port:p${perl5.major}-io-zlib \
                     port:p${perl5.major}-time-hires
 
@@ -116,7 +118,7 @@ if {${perl5.major} != ""} {
     }
 
     variant ssl description {Encrypt communication from spamc to spamd} {
-        depends_lib-append  port:openssl \
+        depends_lib-append  path:lib/libssl.dylib:openssl \
                             port:p${perl5.major}-io-socket-ssl
         configure.args-append ENABLE_SSL=yes
     }

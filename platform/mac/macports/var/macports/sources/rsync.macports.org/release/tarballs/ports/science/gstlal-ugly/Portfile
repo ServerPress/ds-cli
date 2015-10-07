@@ -1,9 +1,9 @@
-# $Id: Portfile 137187 2015-06-05 22:17:29Z ram@macports.org $
+# $Id: Portfile 140790 2015-10-02 19:28:48Z ram@macports.org $
 
 PortSystem    1.0
 
 name          gstlal-ugly
-version       0.8.0
+version       0.9.2
 categories    science
 platforms     darwin
 maintainers   ram
@@ -20,8 +20,8 @@ long_description \
 homepage      https://www.lsc-group.phys.uwm.edu/daswg/projects/gstlal.html
 master_sites  http://software.ligo.org/lscsoft/source/
 
-checksums     rmd160 3c4673492d5fdf71cce87121002cbf41706cb911 \
-              sha256 407aef48f9f164a91b720dca086f98909c6193e57eba1378205fed296f53ff61
+checksums     rmd160 e0c9f71d6353d59aef98465229a957921a41fe28 \
+              sha256 235682d4c6a1f249ab6fef971f0ae8d64bc05c65494d3b3b3cb38bdef83b11bc
 
 depends_build port:pkgconfig
 

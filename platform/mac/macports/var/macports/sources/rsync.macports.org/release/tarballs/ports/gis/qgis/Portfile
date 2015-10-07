@@ -1,13 +1,12 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137656 2015-06-16 16:22:13Z vince@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 PortGroup           cmake   1.0
 PortGroup           qt4     1.0
 
 name                qgis
-version             2.8.2
-revision            1
+version             2.10.1
 categories          gis
 maintainers         vince
 description         QGIS is a user-friendly GIS based on Qt 4
@@ -26,9 +25,9 @@ distname            ${name}-${version}
 master_sites        http://qgis.org/downloads/
 use_bzip2           yes
 
-checksums           md5     48a3eb71cdbaec523b8341726015d5db \
-                    sha1    f3f25a89dc2ed8dfd773ef18d0119e7d8ec71fc9 \
-                    rmd160  7893e4af1aa073c00ca593bae8c1ca5a195e071f
+checksums           md5     8d719b6013ba0e2adb9a2dd642e9e9c5 \
+                    sha1    a5a6afd61a35fc8a02468d9087c2d9c5817b5ac2 \
+                    rmd160  b51f63144a95b6574567eb2dd84e8c5777e7c55e
 
 patchfiles          patch-app_info_plist_in.diff
 
@@ -36,7 +35,7 @@ worksrcdir          ${name}-${version}
 
 depends_lib-append  port:libiconv \
                     port:expat \
-                    port:openssl \
+                    path:lib/libssl.dylib:openssl \
                     port:proj \
                     port:geos \
                     port:gdal \
@@ -85,6 +84,8 @@ configure.args-append  "-DPYUIC4_PROGRAM=${prefix}/bin/pyuic4-2.7"
 configure.args-append  "-DPYRCC4_PROGRAM=${prefix}/bin/pyrcc4-2.7"
 configure.args-append  "-DPYTHON_CUSTOM_FRAMEWORK=${Py_FRM}"
 configure.args-append  "-DSIP_BINARY_PATH=${prefix}/bin/sip-2.7"
+configure.args-append  "-DWITH_GRASS=OFF"
+configure.args-append  "-DWITH_GRASS7=OFF"
 
 pre-configure {
     reinplace -E "s|Versions/Current|Versions/2.7|" \
@@ -112,6 +113,8 @@ variant postgresql94    conflicts postgresql93 \
 variant grass               description "Build Grass (6.43) plugin" {
 
     #depends_lib-append      port:grass
+    configure.args-delete  "-DWITH_GRASS=OFF"
+    configure.args-append  "-DWITH_GRASS=ON"
     configure.args-append   \
                 "-DGRASS_PREFIX=${prefix}/share/grass-6.4.3"
 }

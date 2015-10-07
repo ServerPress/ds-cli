@@ -1,10 +1,10 @@
-# $Id: Portfile 104435 2013-03-25 18:49:57Z sean@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 
 name		bitchx
 version		1.1
-revision	1
+revision	2
 categories	irc
 maintainers	fuzzymagic.com:sean
 description	BitchX - An IRC Client based on ircII w/ ANSI color and much much more.

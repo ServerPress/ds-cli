@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 123696 2014-08-12 21:43:57Z mf2k@macports.org $
+# $Id: Portfile 138527 2015-07-11 06:42:32Z ryandesign@macports.org $
 
 PortSystem 1.0
 
@@ -34,16 +34,17 @@ master_sites    http://pqxx.org/download/software/libpqxx/
 checksums       rmd160  7fae516d6aa59dac0d2403c6a979c5c3d9fb3fce \
                 sha256  097ceda2797761ce517faa5bee186c883df1c407cb2aada613a16773afeedc38
 
-if {![variant_isset postgresql83] && ![variant_isset postgresql84] && ![variant_isset postgresql90] && ![variant_isset postgresql91] && ![variant_isset postgresql92] && ![variant_isset postgresql93]} {
-    default_variants +postgresql93
+if {![variant_isset postgresql83] && ![variant_isset postgresql84] && ![variant_isset postgresql90] && ![variant_isset postgresql91] && ![variant_isset postgresql92] && ![variant_isset postgresql93] && ![variant_isset postgresql94]} {
+    default_variants +postgresql94
 }
 
-variant postgresql83 conflicts postgresql84 postgresql90 postgresql91 postgresql92 postgresql93 description {Use postgresql83} {}
-variant postgresql84 conflicts postgresql83 postgresql90 postgresql91 postgresql92 postgresql93 description {Use postgresql84} {}
-variant postgresql90 conflicts postgresql83 postgresql84 postgresql91 postgresql92 postgresql93 description {Use postgresql90} {}
-variant postgresql91 conflicts postgresql83 postgresql84 postgresql90 postgresql92 postgresql93 description {Use postgresql91} {}
-variant postgresql92 conflicts postgresql83 postgresql84 postgresql90 postgresql91 postgresql93 description {Use postgresql92} {}
-variant postgresql93 conflicts postgresql83 postgresql84 postgresql90 postgresql91 postgresql92 description {Use postgresql93} {}
+variant postgresql83 conflicts postgresql84 postgresql90 postgresql91 postgresql92 postgresql93 postgresql94 description {Use postgresql83} {}
+variant postgresql84 conflicts postgresql83 postgresql90 postgresql91 postgresql92 postgresql93 postgresql94 description {Use postgresql84} {}
+variant postgresql90 conflicts postgresql83 postgresql84 postgresql91 postgresql92 postgresql93 postgresql94 description {Use postgresql90} {}
+variant postgresql91 conflicts postgresql83 postgresql84 postgresql90 postgresql92 postgresql93 postgresql94 description {Use postgresql91} {}
+variant postgresql92 conflicts postgresql83 postgresql84 postgresql90 postgresql91 postgresql93 postgresql94 description {Use postgresql92} {}
+variant postgresql93 conflicts postgresql83 postgresql84 postgresql90 postgresql91 postgresql92 postgresql94 description {Use postgresql93} {}
+variant postgresql94 conflicts postgresql83 postgresql84 postgresql90 postgresql91 postgresql92 postgresql93 description {Use postgresql94} {}
 
 if {[variant_isset postgresql83]} {
     set server postgresql83
@@ -57,6 +58,8 @@ if {[variant_isset postgresql83]} {
     set server postgresql92
 } elseif {[variant_isset postgresql93]} {
     set server postgresql93
+} elseif {[variant_isset postgresql94]} {
+    set server postgresql94
 }
 
 platforms       darwin

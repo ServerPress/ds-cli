@@ -1,22 +1,21 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 134712 2015-04-03 18:08:48Z ctreleaven@macports.org $
+# $Id: Portfile 140340 2015-09-17 19:38:04Z ctreleaven@macports.org $
 
 PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           qt4 1.0
 PortGroup           compiler_blacklist_versions 1.0
 
-set shorthash       f1115fcd
-# set fullhash      f1115fcd2b5cef93e870f926f53bf32cf546da9d
+set shorthash       e9b577d3
+# set fullhash      e9b577d3e9865fd51ffb385c3317448ac3771124
 set majorversion    .27
-set minorversion    .4
-revision            2
+set minorversion    .5
 github.setup        MythTV mythtv ${shorthash}
-checksums           rmd160  192da2f27a4ee9a5079896ca51aff80413dfeab3 \
-                    sha256  6eec6b1d09b914028a3ac0ec3664519ca1e805b21708bf6bff9a0f658f666865
+checksums           rmd160  e2fad7b18484641487ce37d743ab552adeab4825 \
+                    sha256  e1013b560e319702d0f7cc901b3403e028f1ca8b2ba076b3a158e566e9d79a6a
 
 name                mythtv-core${majorversion}
-version             0${majorversion}${minorversion}-Fixes-20150304
+version             0${majorversion}${minorversion}-Fixes-20150909
 categories          multimedia
 platforms           darwin
 # i386 unsupported -- https://trac.macports.org/ticket/40337
@@ -61,7 +60,7 @@ depends_lib         port:bzip2 \
                     port:lame \
                     port:faac \
                     port:x264 \
-                    port:openssl \
+                    path:lib/libssl.dylib:openssl \
                     port:qt4-mac \
                     port:qt4-mac-${mysqlver}-plugin \
                     port:taglib \

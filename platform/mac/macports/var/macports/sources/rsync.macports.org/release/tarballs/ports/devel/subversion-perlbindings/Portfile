@@ -1,9 +1,9 @@
-# $Id: Portfile 134598 2015-03-31 16:24:55Z dluke@macports.org $
+# $Id: Portfile 140574 2015-09-23 21:56:26Z dluke@macports.org $
 
 PortSystem 1.0
 
 name			subversion-perlbindings
-version			1.8.13
+version			1.9.2
 categories		devel perl
 platforms		darwin
 maintainers		geeklair.net:dluke blair
@@ -17,7 +17,7 @@ long_description	Subversion (svn) is a version control system designed to be \
 
 homepage		http://subversion.apache.org/
 
-set perl5.branches {5.16 5.18 5.20}
+set perl5.branches {5.16 5.18 5.20 5.22}
 foreach branch ${perl5.branches} {
     set p_idx [lsearch ${perl5.branches} ${branch}]
     set other_perls [lreplace ${perl5.branches} $p_idx $p_idx]
@@ -50,8 +50,8 @@ if {${subport} eq ${name}} {
 
 master_sites		apache:subversion
 use_bzip2		yes
-checksums	sha1	aa0bd14ac6a8f0fb178cc9ff325387de01cd7452 \
-		rmd160	7d73be6695030b1eff81aad0b9a934886eaa73f2
+checksums	sha1	fb9db3b7ddf48ae37aa8785872301b59bfcc7017 \
+		rmd160	f713ed3687d7e92bb72c935ac5a2f3c25fafec4a
 		
 distname		subversion-${version}
 dist_subdir		subversion

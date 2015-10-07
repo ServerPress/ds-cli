@@ -1,4 +1,4 @@
-# $Id: Portfile 85609 2011-10-15 07:59:13Z jmr@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 
@@ -21,7 +21,7 @@ long_description    A console-based emulator for the IBM3270 terminal. \
 homepage            http://x3270.bgp.nu/index.html
 master_sites        sourceforge:x3270
 
-depends_lib         port:openssl  \
+depends_lib         path:lib/libssl.dylib:openssl  \
                     port:readline \
                     port:libiconv
 

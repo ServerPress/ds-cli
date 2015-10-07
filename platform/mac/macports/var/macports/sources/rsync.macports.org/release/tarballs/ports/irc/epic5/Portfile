@@ -1,8 +1,9 @@
-# $Id: Portfile 125724 2014-09-24 23:43:58Z toby@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 name             epic5
 version          1.1.10
+revision         1
 categories       irc
 maintainers      toby
 description      (E)nhanced (P)rogrammable (I)RC-II (C)lient 5
@@ -37,7 +38,7 @@ configure.args   --mandir=${prefix}/share/man \
 
 destroot.destdir IP=${destroot}
 
-depends_lib      port:libarchive port:ncurses port:openssl port:libiconv
+depends_lib      port:libarchive port:ncurses path:lib/libssl.dylib:openssl port:libiconv
 
 livecheck.type   regex
 livecheck.url    ${master_sites}

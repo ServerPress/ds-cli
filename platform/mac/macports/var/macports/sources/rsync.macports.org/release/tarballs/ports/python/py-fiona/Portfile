@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 134345 2015-03-23 14:36:20Z stromnov@macports.org $
+# $Id: Portfile 139367 2015-08-14 12:13:22Z stromnov@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-fiona
-version             1.5.1
+version             1.6.1
 revision            0
 categories-append   gis
 platforms           darwin
@@ -26,8 +26,8 @@ master_sites        https://pypi.python.org/packages/source/F/Fiona/
 
 distname            Fiona-${version}
 
-checksums           rmd160  f64ccbc3d6d53a833e63705d2ae1b82c77d4f7b2 \
-                    sha256  2e2469190107dc671b4aa05d5b8bed5c01ffeb9de79525c91129bad76915e095
+checksums           rmd160  06276e52fe869e8961dc5b44993e6c4688c279f7 \
+                    sha256  ac05e4937a8c320f301fcf3192b934df95d8f50e0755acd0a7e0f1d3a8f32993
 
 if {${name} ne ${subport}} {
     depends_lib-append  port:py${python.version}-setuptools \

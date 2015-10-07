@@ -1,9 +1,10 @@
-# $Id: Portfile 137684 2015-06-17 12:44:26Z ram@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem       1.0
 PortGroup        github 1.0
 
 github.setup     ckolivas cgminer 4.9.2 v
+revision         1
 categories       finance
 platforms        darwin
 maintainers      ram openmaintainer

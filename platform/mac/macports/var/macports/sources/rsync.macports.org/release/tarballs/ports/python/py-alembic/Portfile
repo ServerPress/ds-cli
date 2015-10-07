@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim: fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 135885 2015-05-06 14:32:27Z stromnov@macports.org $
+# $Id: Portfile 139757 2015-08-26 10:22:27Z stromnov@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-alembic
-version             0.7.6
+version             0.8.2
 revision            0
 categories-append   databases
 platforms           darwin
@@ -24,8 +24,8 @@ master_sites        https://pypi.python.org/packages/source/a/alembic/
 
 distname            alembic-${version}
 
-checksums           rmd160  ee9d67e2025745a8e08a7c49d7b99f11b00b700e \
-                    sha256  864fa461265d6c97bcefee603e9ef0b6385bda9063d41b3db3e010abbba5ef61
+checksums           rmd160  c8d812ee5b6eb5d7e7838aef710cb5bb82dc72f0 \
+                    sha256  a69d65a766801c40e921ca24ae358bf081a990f54b867bbdc3e2a73e975550be
 
 if {${name} ne ${subport}} {
     depends_build-append \

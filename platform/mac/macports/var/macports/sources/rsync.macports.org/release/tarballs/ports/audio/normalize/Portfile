@@ -1,4 +1,4 @@
-# $Id: Portfile 89889 2012-02-14 05:03:02Z rmstonecipher@macports.org $
+# $Id: Portfile 139374 2015-08-14 17:36:52Z ryandesign@macports.org $
 
 PortSystem 1.0
 
@@ -48,6 +48,9 @@ variant xmms description {Build an xmms plugin} {
 	configure.args-delete	--disable-xmms
 	configure.args-append	--enable-xmms
 }
+
+# conflicts with num-utils on ${prefix}/bin/normalize
+conflicts-append    num-utils
 
 livecheck.type	regex
 livecheck.regex	${name}-(\[0-9.\]+)\\.tar

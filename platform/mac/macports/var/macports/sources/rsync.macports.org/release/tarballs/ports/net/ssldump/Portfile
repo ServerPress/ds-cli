@@ -1,4 +1,4 @@
-# $Id: Portfile 135114 2015-04-15 19:46:43Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 
@@ -26,7 +26,7 @@ checksums			md5 ac8c28fe87508d6bfb06344ec496b1dd \
 depends_build		port:libtool
 
 depends_lib			port:libpcap \
-					port:openssl
+					path:lib/libssl.dylib:openssl
 
 patchfiles			patch-ssl_ssldecode_c
 pre-configure {

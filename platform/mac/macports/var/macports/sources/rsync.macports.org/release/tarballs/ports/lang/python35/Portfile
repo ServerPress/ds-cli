@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138363 2015-07-06 10:41:47Z jwa@macports.org $
+# $Id: Portfile 140531 2015-09-21 23:39:33Z eborisch@macports.org $
 
 PortSystem 1.0
 PortGroup select 1.0
@@ -7,9 +7,9 @@ PortGroup select 1.0
 name                    python35
 
 # Remember to keep py35-tkinter and py35-gdbm's versions sync'd with this
-version                 3.5.0b3
+version                 3.5.0
 
-epoch                   20150706
+epoch                   20150913
 
 set major               [lindex [split $version .] 0]
 set branch              [join [lrange [split ${version} .] 0 1] .]
@@ -30,8 +30,8 @@ distname                Python-${version}
 
 use_xz					yes
 
-checksums           rmd160  0e801a937c0e99a2de358615abaec31cef7cc7ab \
-                    sha256  28e2e71dabbe6043495181965b034e6d3a5a4798c113f1459e0994b0e99d4bfa
+checksums           rmd160  3f9c287549eacd4aa95a03cc03954ef35546a3a3 \
+                    sha256  d6d7aa1634a5eeeca6ed4fca266982a04f84bd8f3945a9179e20b24ad2e2be91
 
 patchfiles              patch-setup.py.diff \
                         patch-Lib-cgi.py.diff \
@@ -41,7 +41,7 @@ patchfiles              patch-setup.py.diff \
                         patch-libedit.diff \
                         omit-local-site-packages.patch
 
-depends_lib             port:zlib port:openssl \
+depends_lib             port:zlib path:lib/libssl.dylib:openssl \
                         port:sqlite3 port:ncurses \
                         port:bzip2 port:libedit port:gettext \
                         port:xz
@@ -139,6 +139,12 @@ platform darwin {
    }
 }
 
+variant readline description {Use readline instead of libedit} {
+    patchfiles-delete       patch-libedit.diff
+    depends_lib-append      port:readline
+    depends_lib-delete      port:libedit
+}
+
 variant universal {
     post-patch {
         set universal_arch_flags {}
@@ -177,6 +183,6 @@ variant universal {
 livecheck.type          regex
 #livecheck.url           ${homepage}download/releases/
 livecheck.url           ${homepage}downloads/source/
-#livecheck.regex         Python (${branch}(?:\\.\\d+)*)
+livecheck.regex         Python (${branch}(?:\\.\\d+)*)
 #regex below just for test releases, proper above
-livecheck.regex         Python\[ 	\]+(3.5.0\[abrc\]+\[0-9\])
+#livecheck.regex         Python\[ 	\]+(3.5.0\[abrc\]+\[0-9\])

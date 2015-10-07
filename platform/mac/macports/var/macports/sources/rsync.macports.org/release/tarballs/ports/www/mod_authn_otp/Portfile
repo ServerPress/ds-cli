@@ -1,4 +1,4 @@
-# $Id: Portfile 87327 2011-11-17 07:51:19Z jmr@macports.org $
+# $Id: Portfile 139750 2015-08-26 09:48:49Z ryandesign@macports.org $
 
 PortSystem 1.0
 
@@ -6,9 +6,9 @@ name                mod_authn_otp
 version             1.1.1
 
 categories          www
-license             Apache-2
 platforms           darwin
-maintainers         gmail.com:Markus.Ueberall
+maintainers         nomaintainer
+license             Apache-2
 
 description         module for one-time password authentication
 long_description    mod_authn_otp is an Apache web server module for two-factor \
@@ -27,7 +27,7 @@ checksums           md5         50ddc1cacde9be8e8c20eb0e253267cf \
                     rmd160      b812f5ff1e041635746ba662ee7431332bf00dec
 
 depends_build       port:gsed
-depends_lib         port:apache2 port:openssl
+depends_lib         port:apache2 path:lib/libssl.dylib:openssl
 
 patchfiles          otptool.h.patch
 

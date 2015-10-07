@@ -1,4 +1,4 @@
-# $Id: Portfile 69520 2010-07-08 20:19:52Z jmr@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 
@@ -18,7 +18,7 @@ platforms	darwin
 master_sites	\
 	http://www.webdav.org/cadaver/
 checksums	md5 5ac79e41f3b7b4f68bf4003beed5dc26
-depends_lib	port:expat port:openssl port:neon
+depends_lib	port:expat path:lib/libssl.dylib:openssl port:neon
 configure.cppflags-append "-no-cpp-precomp"
 configure.args	--with-expat --with-ssl --with-force-ssl
 destroot.destdir prefix=${destroot}${prefix}

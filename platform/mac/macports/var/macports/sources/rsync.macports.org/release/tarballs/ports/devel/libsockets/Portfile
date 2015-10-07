@@ -1,4 +1,4 @@
-# $Id: Portfile 132558 2015-02-04 20:14:05Z mww@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 PortGroup           muniversal 1.0
@@ -21,7 +21,7 @@ checksums           rmd160  9507b1b7e0a4e6a9471c90b2ee8efd73017e58b9 \
 patchfiles          patch-HttpRequest.cpp.diff \
                     patch-Makefile.diff
 
-depends_lib         port:openssl port:libxml2
+depends_lib         path:lib/libssl.dylib:openssl port:libxml2
 
 distname            Sockets-${version}
 

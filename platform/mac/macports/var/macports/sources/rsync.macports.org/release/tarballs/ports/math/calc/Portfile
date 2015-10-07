@@ -1,9 +1,10 @@
-# $Id: Portfile 133408 2015-02-28 21:54:25Z khindenburg@macports.org $
+# $Id: Portfile 139558 2015-08-20 14:04:27Z khindenburg@macports.org $
 
 PortSystem          1.0
 
 name                calc
 version             2.12.5.0
+revision            1
 categories          math
 license             LGPL-2.1
 maintainers         nomaintainer
@@ -40,6 +41,8 @@ use_configure       no
 use_parallel_build  no
 
 variant universal {}
+
+build.args-append   CC=${configure.cc}
 
 test.run            yes
 test.target         check

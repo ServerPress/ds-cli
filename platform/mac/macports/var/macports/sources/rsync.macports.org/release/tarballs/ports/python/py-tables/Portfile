@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136416 2015-05-16 16:52:31Z mmoll@macports.org $
+# $Id: Portfile 140591 2015-09-25 16:44:12Z mmoll@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
@@ -7,8 +7,8 @@ PortGroup           mpi 1.0
 
 set realname        tables
 name                py-${realname}
-version             3.2.0
-revision            1
+version             3.2.2
+revision            0
 categories-append   science
 platforms           darwin
 license             BSD
@@ -23,10 +23,11 @@ long_description    PyTables is a package for managing hierarchical datasets \
                     extremely large amounts of data
 
 homepage            https://pytables.github.io/
-master_sites        http://sourceforge.net/projects/pytables/files/pytables/${version}
+master_sites        https://pypi.python.org/packages/source/t/tables/ \
+                    http://sourceforge.net/projects/pytables/files/pytables/${version}
 
-checksums           rmd160  141f2241a5f5a7f737bb191c9e77f009620eb587 \
-                    sha256  60980e44676bfe463cdd2582ecdacc0b0763b259477015e866f8af72b4cdba44
+checksums           rmd160  ca0f9f40c7471d45d5febcac0f4ef8d4fb6153ee \
+                    sha256  3564b351a71ec1737b503b001eb7ceae1f65d5d6e3ffe1ea75aafba10f37fa84
 
 distname            ${realname}-${version}
 
@@ -44,6 +45,7 @@ if {${name} ne ${subport}} {
                         --bzip2=${prefix} \
                         --lzo=${prefix} \
                         --blosc=${prefix}
+
     pre-destroot {
         # need to wrap this in a pre-destroot phase so that ${mpi.cc} expands to the right value
         if {[mpi_variant_isset]} {
@@ -66,8 +68,19 @@ if {${name} ne ${subport}} {
     }
 
     post-extract {
+        # Fix permissions
+        fs-traverse item ${worksrcpath} {
+            if {[file isdirectory ${item}]} {
+                file attributes ${item} -permissions a+rx
+            } elseif {[file isfile ${item}]} {
+                file attributes ${item} -permissions a+r
+            }
+        }
+
         file rename ${worksrcpath}/src/utils.h ${worksrcpath}/src/xxx_utils.h
     }
+
+    patchfiles-append   patch-c-blosc_hdf5_blosc_filter.c.diff
 
     post-patch {
         eval reinplace "s:utils.h:xxx_utils.h:" [glob ${worksrcpath}/{src,tables}/*.c]

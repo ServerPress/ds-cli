@@ -1,11 +1,12 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136172 2015-05-11 22:41:17Z devans@macports.org $
+# $Id: Portfile 140830 2015-10-04 19:00:56Z devans@macports.org $
 
 PortSystem          1.0
 
 name                gvfs
 epoch               1
-version             1.24.1
+# update to version 1.26.0+ requires glib-2.0 >= 2.45.7
+version             1.24.2
 set branch          [join [lrange [split ${version} .] 0 1] .]
 maintainers         devans openmaintainer
 categories          devel
@@ -35,8 +36,8 @@ master_sites        gnome:sources/${name}/${branch}/
 
 use_xz              yes
 
-checksums           rmd160  1953f37b01f203196c049d65ab15e73c2f71119b \
-                    sha256  d38367ce189415c36fd19dca478bc9b80694b495c3458e74fb0f13d1ac9df1f9
+checksums           rmd160  7e6dfc01bc63c1c9f206ce6bdd3fa9da0b8834ed \
+                    sha256  0949eaedd1df7175f8d7ee2700df8210d1f854b8ee37d963bc32ee7091eeb228
 
 depends_build       port:pkgconfig \
                     port:intltool \

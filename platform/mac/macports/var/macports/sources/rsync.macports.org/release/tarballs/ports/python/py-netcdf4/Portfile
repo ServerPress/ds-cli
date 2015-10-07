@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 134776 2015-04-07 05:24:59Z sean@macports.org $
+# $Id: Portfile 140527 2015-09-21 20:42:06Z ryandesign@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-netcdf4
-version             1.1.7.1
+version             1.1.9
 categories-append   science
 platforms           darwin
 maintainers         sean \
@@ -25,8 +25,8 @@ homepage            http://code.google.com/p/netcdf4-python/
 master_sites        http://pypi.python.org/packages/source/n/netCDF4
 distname            netCDF4-${version}
 
-checksums           rmd160  168a0f13092a4d78e4219e8f12b6cc93553a4d82 \
-                    sha256  74dc9bdc066455c230f4e09a7443641b9612d02a2c055b0294d8ca924a0f577a
+checksums           rmd160  0d7eba9e58893418315814e9a894af53ff869bd6 \
+                    sha256  af426cf567c70f4205f6fa4d813aac32d495528691dd559415dd280e0b2558ed
 
 build.env-append    USE_NCCONFIG=1
 destroot.env-append USE_NCCONFIG=1
@@ -39,7 +39,7 @@ if {${name} ne ${subport}} {
 
     pre-configure {
         # py-netcdf4's setup.py uses nc-config for flags and libs but not compiler
-        configure.cc        [exec ${prefix}/bin/nc-config --cc]
+        configure.cc    {*}[exec ${prefix}/bin/nc-config --cc]
     }
 
     livecheck.type      none

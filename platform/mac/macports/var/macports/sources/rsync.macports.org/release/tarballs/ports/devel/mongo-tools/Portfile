@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138044 2015-06-26 23:24:11Z ryandesign@macports.org $
+# $Id: Portfile 140611 2015-09-27 21:44:11Z ryandesign@macports.org $
 
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        mongodb mongo-tools 3.1.5 r
+github.setup        mongodb mongo-tools 3.1.9 r
 categories          devel
 platforms           darwin
 maintainers         ryandesign openmaintainer
@@ -27,8 +27,8 @@ long_description    mongo-tools is a collection of utilities for working with \
                     \n* mongooplog: Replay oplog entries between MongoDB servers \
                     \n* mongotop: Monitor read/write activity on a mongo server
 
-checksums           rmd160  f1aa6c092a48bca47be68734ae7fc4512f70f000 \
-                    sha256  0271fa871473e5e1c0eeafeb872a5c4b70208695efb4fbd5ff1ae5042fa2fa9f
+checksums           rmd160  be6efb48492f72dc4bb9c7ecb5fbe2aac17f18ad \
+                    sha256  62d63f7c250866bc0e80425d4eaac9da7ee2de5dbf616a2217267389af8b9ae2
 
 depends_build       port:go
 

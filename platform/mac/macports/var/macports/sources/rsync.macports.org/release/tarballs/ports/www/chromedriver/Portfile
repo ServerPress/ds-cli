@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 135780 2015-05-02 22:41:42Z khindenburg@macports.org $
+# $Id: Portfile 140747 2015-10-02 00:34:18Z khindenburg@macports.org $
 
 PortSystem          1.0
 
 name                chromedriver
-version             2.15
+version             2.19
 categories          www
 platforms           darwin
 maintainers         nomaintainer
@@ -25,8 +25,8 @@ dist_subdir         ${name}/${version}
 distname            ${name}_mac32
 use_zip             yes
 
-checksums           rmd160  1c2125856bea0ef7d6da51e40b73ae6c563a5077 \
-                    sha256  37f7ed1cb1bbafd2139486f44c81ebe0b1561c594d2ad2004bd66c3b07453427
+checksums           rmd160  acc0bd24d26193594b4027d0b6c9121631334ef1 \
+                    sha256  7bce0af6739db1a21086dd509a1d382796f254e063de58344c9071bb7b49c91b
 
 extract.mkdir       yes
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 122412 2014-07-22 12:41:54Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem                  1.0
 
@@ -61,7 +61,7 @@ configure.ldflags-append    -L${prefix}/lib/nss -L${prefix}/lib/nspr
 universal_variant           no
 
 # Add openssl support.
-depends_lib-append          port:openssl
+depends_lib-append          path:lib/libssl.dylib:openssl
 # Do not specify the path to openssl or it will try to link with the
 # static library instead of the dynamic one, and it will fail when
 # openssl is installed universal.

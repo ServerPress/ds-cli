@@ -1,9 +1,9 @@
-# $Id: Portfile 97142 2012-08-28 00:57:23Z ryandesign@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 PortSystem	  1.0
 
 name		  frotz
 version		  2.43
-revision	  1
+revision	  2
 categories	  games
 platforms	  darwin
 maintainers	  rattus.net:pack-darwinports

@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 133852 2015-03-13 07:42:29Z jmr@macports.org $
+# $Id: Portfile 140700 2015-09-30 13:03:52Z stromnov@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-babel
-version             1.3
+version             2.1.1
 revision            0
 categories-append   devel
 platforms           darwin
@@ -23,12 +23,12 @@ long_description    Babel is an integrated collection of utilities that \
                     applications, with an emphasis on web-based applications.
 
 homepage            http://babel.pocoo.org/
-master_sites        https://pypi.python.org/packages/source/B/Babel/
+master_sites        pypi:B/Babel
 
 distname            Babel-${version}
 
-checksums           rmd160  ea1796b29a8bd563d78e9848416e9c72332f8826 \
-                    sha256  9f02d0357184de1f093c10012b52e7454a1008be6a5c185ab7a3307aceb1d12e
+checksums           rmd160  2da072e11e407027f2fb09e23eecc70bd3013177 \
+                    sha256  7fb6d50effe88a087feb2036cb972fd7a893bf338361516f1a55a820bf7b5248
 
 if {${name} ne ${subport}} {
     depends_lib-append  port:py${python.version}-setuptools \
@@ -36,7 +36,6 @@ if {${name} ne ${subport}} {
 
     livecheck.type      none
 } else {
-    livecheck.type      regex
-    livecheck.url       https://pypi.python.org/pypi/babel/json
-    livecheck.regex     {Babel-(\d+(?:\.\d+)*)\.[tz]}
+    livecheck.type      pypi
+    livecheck.name      Babel
 }

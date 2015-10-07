@@ -1,4 +1,4 @@
-# $Id: Portfile 69520 2010-07-08 20:19:52Z jmr@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem      1.0
 
@@ -49,7 +49,7 @@ if {[info exists build_arch]} {
 destroot.post_args-append	PREFIX=${prefix}
 
 depends_lib-append	port:sqlite3 \
-			port:openssl
+			path:lib/libssl.dylib:openssl
 
 use_configure 	no
 

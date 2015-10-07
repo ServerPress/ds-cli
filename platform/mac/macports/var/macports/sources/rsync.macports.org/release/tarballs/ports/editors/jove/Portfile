@@ -1,8 +1,9 @@
-# $Id: Portfile 93388 2012-05-21 14:47:19Z jmr@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 name		jove
 version		4.16.0.70
+revision    1
 worksrcdir	${name}${version}
 configure	{
 		   reinplace "s|__PREFIX|${prefix}|g" ${worksrcpath}/Makefile

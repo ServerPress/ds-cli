@@ -1,4 +1,4 @@
-# $Id: Portfile 133726 2015-03-09 16:57:29Z raimue@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 
@@ -29,7 +29,7 @@ patchfiles		patch-afppasswd.c \
 				patch-usockfd.c
 
 depends_lib		port:db47 \
-				port:openssl \
+				path:lib/libssl.dylib:openssl \
 				path:bin/perl:perl5 \
 				port:libiconv
 

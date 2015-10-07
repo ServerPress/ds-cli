@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 125155 2014-09-08 02:20:40Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 
@@ -76,7 +76,7 @@ variant openldap description \
 # heimdal fails with openssl-1.0.0a due to removal of md2
 #variant openssl description \
 #    {Use OpenSSL libraries instead of internal ones for crypto and ssl related functions} {
-#    depends_lib-append     port:openssl
+#    depends_lib-append     path:lib/libssl.dylib:openssl
 #    configure.args-delete  --without-openssl
 #    configure.args-append  --with-openssl=${prefix}
 #}

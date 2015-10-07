@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 135563 2015-04-26 14:32:16Z devans@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem      1.0
 PortGroup       muniversal 1.0
@@ -38,7 +38,7 @@ depends_build   port:pkgconfig \
 depends_lib     port:desktop-file-utils \
                 port:gconf \
                 port:gnome-mime-data \
-                port:openssl \
+                path:lib/libssl.dylib:openssl \
                 port:libxml2
 
 depends_run     port:shared-mime-info

@@ -1,12 +1,12 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 121682 2014-07-04 04:51:53Z dports@macports.org $
+# $Id: Portfile 138601 2015-07-13 21:24:18Z dports@macports.org $
 
 PortSystem          1.0
 PortGroup           texlive 1.0
 
 name                texlive-lang-portuguese
 version             31125
-revision            0
+revision            1
 
 categories          tex
 maintainers         dports

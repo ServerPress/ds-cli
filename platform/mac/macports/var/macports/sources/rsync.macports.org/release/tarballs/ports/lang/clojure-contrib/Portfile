@@ -1,4 +1,4 @@
-# $Id: Portfile 84907 2011-10-04 14:47:13Z and.damore@macports.org $
+# $Id: Portfile 138661 2015-07-15 04:23:39Z ryandesign@macports.org $
 
 PortSystem          1.0
 
@@ -6,7 +6,7 @@ name                clojure-contrib
 conflicts           clojure-contrib-devel
 version             1.2.0
 categories          lang java
-maintainers         ieure
+maintainers         nomaintainer
 description         The Clojure programming language - Contrib
 long_description    Clojure is a dynamic programming language for the JVM. \
                     It is interactive, yet compiled, with a robust \

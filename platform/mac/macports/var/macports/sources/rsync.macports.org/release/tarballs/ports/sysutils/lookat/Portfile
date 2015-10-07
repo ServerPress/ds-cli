@@ -1,9 +1,10 @@
-# $Id: Portfile 111163 2013-09-16 03:09:36Z jmr@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 
 name            lookat
 version         1.4.0
+revision        1
 description     A program to view textfiles and man-pages.
 long_description \
     ${description}

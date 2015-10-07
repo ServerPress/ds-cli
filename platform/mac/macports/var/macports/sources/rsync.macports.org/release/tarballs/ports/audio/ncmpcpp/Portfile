@@ -1,11 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136716 2015-05-25 00:59:24Z khindenburg@macports.org $
+# $Id: Portfile 140400 2015-09-18 22:46:38Z rmstonecipher@macports.org $
 
 PortSystem          1.0
 
 name                ncmpcpp
-version             0.6.4
-revision            1
+version             0.6.7
 categories          audio
 maintainers         rmstonecipher openmaintainer
 description         an ncurses mpd client inspired by ncmpc
@@ -18,8 +17,8 @@ license             GPL-2+
 platforms           darwin
 master_sites        http://ncmpcpp.rybczak.net/stable/
 use_bzip2           yes
-checksums           rmd160  dd6d1448d47369b91d4a151e0d27a5abf3f1f139 \
-                    sha256  757e2e06b7e17009c24e2b46a69f008e61aa679476f93e00dc602ca087c805f1
+checksums           rmd160  8b78327b2063a04f6da16d6db389278a73ab2cc9 \
+                    sha256  08807dc515b4e093154a6e91cdd17ba64ebedcfcd7aa34d0d6eb4d4cc28a217b
 
 depends_build       port:pkgconfig
 

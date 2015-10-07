@@ -1,4 +1,4 @@
-# $Id: Portfile 101085 2013-01-04 05:55:46Z jwa@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 
@@ -27,7 +27,7 @@ checksums           md5     8287efcb6d4d0f2a631fd35149e8b8d2 \
 use_bzip2		yes
 
 depends_lib		port:readline \
-				port:openssl \
+				path:lib/libssl.dylib:openssl \
 				port:zlib \
 				port:bison
 

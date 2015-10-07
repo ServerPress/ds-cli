@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 125475 2014-09-18 12:24:38Z ryandesign@macports.org $
+# $Id: Portfile 140245 2015-09-14 09:45:17Z ryandesign@macports.org $
 
 PortSystem          1.0
 PortGroup           active_variants 1.1
@@ -9,7 +9,7 @@ PortGroup           conflicts_build 1.0
 
 name                magic
 conflicts           magic-devel
-version             7.5.241
+version             8.0.210
 set branch          [join [lrange [split ${version} .] 0 1] .]
 categories          science
 # mostly very permissively licensed, but includes a copy of GNU readline
@@ -34,10 +34,8 @@ depends_lib         port:tcl port:tk port:blt port:mesa
 
 require_active_variants tk x11
 
-checksums           rmd160  b5b66569c832957f9d28346f92fb3b1624bc08f6 \
-                    sha256  78123806eaf5679c200354b4677ca3884af8a2a843150643c425790399a6b6d5
-
-patchfiles          patch-scripts-configure.in.diff
+checksums           rmd160  35e1abd565eae6549ec81fd117d1f925fc3d1ec2 \
+                    sha256  5344a0c591ce9c39fa739e9e7909884520e6315b19d4c229afddaa1562b2ed04
 
 universal_variant   no
 

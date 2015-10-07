@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138191 2015-07-01 19:48:58Z larryv@macports.org $
+# $Id: Portfile 140755 2015-10-02 04:34:50Z ryandesign@macports.org $
 
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        OpenLightingProject ola 0.9.6
+github.setup        OpenLightingProject ola 0.9.8
 categories          net comms
 platforms           darwin
 license             GPL-2+ LGPL-2.1+
@@ -20,8 +20,8 @@ long_description    The Open Lighting Architecture (OLA) provides a plugin \
 
 homepage            http://www.openlighting.org/ola/
 
-checksums           rmd160  62ff588952effc7445d83eebc8e4fa5e7a37ccf3 \
-                    sha256  e1bbc7ed833d64107f13d64274ff92b0a0dfc6c1e2f6def18c6ad4b6fa2be744
+checksums           rmd160 1c646800b73b586b572c44320909ef264d980c6e \
+                    sha256 1c1e0fc1810b0c0857563bc481c872b8ed5d2e62c97c1083c82eabd7ebbd70a6
 
 github.tarball_from releases
 

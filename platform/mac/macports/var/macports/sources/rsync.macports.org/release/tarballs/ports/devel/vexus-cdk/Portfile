@@ -1,13 +1,14 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
 # vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 74143 2010-12-06 01:24:56Z jmr@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem        1.0
 
 name              vexus-cdk
 version           4.9.13
+revision          1
 categories        devel
-maintainers       theonelab.com:june
+maintainers       nomaintainer
 description       Curses Development Kit -- widgets for curses
 long_description  \
      CDK is a C based curses widget library. CDK sits on top of the curses  \

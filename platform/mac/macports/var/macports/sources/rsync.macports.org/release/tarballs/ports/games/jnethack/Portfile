@@ -1,4 +1,4 @@
-# $Id: Portfile 137621 2015-06-15 14:56:57Z mf2k@macports.org $
+# $Id: Portfile 139525 2015-08-19 20:42:04Z ryandesign@macports.org $
 
 PortSystem      1.0
 
@@ -6,8 +6,9 @@ name            jnethack
 set ver_main    3.4.3
 set ver_patch   0.11
 version         ${ver_main}-${ver_patch}
+revision        1
 categories      games japanese
-maintainers     rutiler.net:kyut openmaintainer
+maintainers     nomaintainer
 description     Classic dungeon adventure game, translated in Japanese.
 long_description \
                 ${description}

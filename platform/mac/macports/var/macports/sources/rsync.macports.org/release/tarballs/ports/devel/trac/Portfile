@@ -1,10 +1,10 @@
-# $Id: Portfile 134456 2015-03-25 22:16:44Z dluke@macports.org $
+# $Id: Portfile 140206 2015-09-11 21:13:13Z dluke@macports.org $
 
 PortSystem 1.0
 PortGroup python 1.0
 
 name			trac
-version			1.0.5
+version			1.0.9
 categories		devel python
 platforms		darwin
 maintainers		geeklair.net:dluke
@@ -22,9 +22,9 @@ homepage	http://projects.edgewall.com/trac/
 master_sites	http://ftp.edgewall.com/pub/trac/
 distname	Trac-${version}
 
-checksums	md5	1146c849f926f9eeb8448569159b29e0 \
-		sha1	83d27bbdd62691a5f8e5ca83c3e28187004c8ebe \
-		rmd160	2ec75ff3d21cc8ea016b97accbf5f0e88d7d8da0
+checksums	md5	429d9aa79e3d939add7963ca9a7deb57 \
+		sha1	a22c4f648c2f0adf7ca166aa5c01b0142bccbef0 \
+		rmd160	d6a2cfa1ed235cb36677d255f9e574dd230cbe53
 
 python.versions 26 27
 

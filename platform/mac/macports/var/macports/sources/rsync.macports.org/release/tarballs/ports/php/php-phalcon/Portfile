@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137454 2015-06-12 00:04:22Z ryandesign@macports.org $
+# $Id: Portfile 140612 2015-09-28 00:08:14Z ryandesign@macports.org $
 
 PortSystem              1.0
 PortGroup               github 1.0
 PortGroup               php 1.1
 
-github.setup            phalcon cphalcon 2.0.3 phalcon-v
+github.setup            phalcon cphalcon 2.0.8 phalcon-v
 name                    php-phalcon
 platforms               darwin
 maintainers             ryandesign openmaintainer
@@ -25,8 +25,8 @@ long_description        Phalcon is an open source, full stack framework for \
 
 homepage                http://www.phalconphp.com/
 
-checksums               rmd160  4d91fbf5f69bf37ce73970203de00c842ee5a9a6 \
-                        sha256  3df3b7a686ae71893a7defc2c3cdc9c7968c7352acba652b5324efd9bba3a836
+checksums               rmd160  370d4372a668c5a020f25fe75707cc71c1484fb4 \
+                        sha256  f6051d352cf38a9c151eee235f783e6cbb82accba84de1d81e0f746380798c1a
 
 if {${name} ne ${subport}} {
     # The build/install script makes all sorts of assumptions I don't like

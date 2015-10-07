@@ -1,12 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136459 2015-05-17 11:16:07Z ciserlohn@macports.org $
+# $Id: Portfile 140481 2015-09-20 07:35:11Z ciserlohn@macports.org $
 
 PortSystem              1.0
 PortGroup               compiler_blacklist_versions 1.0
 
 name                    iojs
-version                 2.0.2
-
+version                 3.3.1
 categories              devel net
 platforms               darwin
 license                 {MIT BSD}
@@ -23,8 +22,8 @@ conflicts               nodejs nodejs-devel
 homepage                https://iojs.org/
 master_sites            ${homepage}dist/v${version}
 
-checksums               rmd160  941827c19707667c83a82e55e155fc76b0571466 \
-                        sha256  31cc88739c368ddc1c0d259ab8dc3f2040649f5e4e91456f6fdb3be8815e3ae3
+checksums               rmd160  6564642581abcc97fabd8e8736e2349306440f27 \
+                        sha256  b1ce0bb2ddb5d012bd9f22c787a4c74ce5d1546553086e40785be91489fee1d1
 
 distname                iojs-v${version}
 
@@ -32,7 +31,7 @@ depends_build           port:pkgconfig
 
 depends_lib             port:icu \
                         port:python27 \
-                        port:openssl
+                        path:lib/libssl.dylib:openssl
 
 configure.python ${prefix}/bin/python2.7
 
@@ -161,7 +160,6 @@ destroot {
         src/node_watchdog.h \
         src/node_wrap.h \
         src/pipe_wrap.h \
-        src/smalloc.h \
         src/spawn_sync.h \
         src/stream_wrap.h \
         src/string_bytes.h \

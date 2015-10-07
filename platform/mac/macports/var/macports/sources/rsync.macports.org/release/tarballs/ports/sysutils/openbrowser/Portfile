@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 131840 2015-01-19 18:31:50Z mojca@macports.org $
+# $Id: Portfile 138633 2015-07-14 09:13:35Z mojca@macports.org $
 
 PortSystem              1.0
 PortGroup               perl5 1.0
@@ -27,7 +27,7 @@ distfiles
 
 perl5.require_variant   yes
 perl5.conflict_variants yes
-perl5.branches          5.16 5.18 5.20
+perl5.branches          5.16 5.18 5.20 5.22
 perl5.create_variants   ${perl5.branches}
 
 depends_lib

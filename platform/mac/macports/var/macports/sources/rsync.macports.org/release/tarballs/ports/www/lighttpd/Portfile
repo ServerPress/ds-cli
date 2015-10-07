@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 117859 2014-03-15 07:29:11Z ryandesign@macports.org $
+# $Id: Portfile 140353 2015-09-18 15:09:10Z ryandesign@macports.org $
 
 PortSystem                  1.0
 
 name                        lighttpd
-version                     1.4.35
+version                     1.4.37
 set branch                  [join [lrange [split ${version} .] 0 1] .]
 categories                  www
 platforms                   darwin
@@ -23,8 +23,8 @@ homepage                    http://www.lighttpd.net/
 master_sites                http://download.lighttpd.net/lighttpd/releases-${branch}.x/
 use_xz                      yes
 
-checksums                   rmd160  939810abca3551e2498cf794acd88f72632eee21 \
-                            sha256  113e9b72ccbd1da5deb0774bf93cf0ca15dc82aad2da0f04e5ab27d37d3f30a3
+checksums                   rmd160  60c1bc2065f1b6263f1553fa7a202748a4820df6 \
+                            sha256  804e6f60567ca1da2b3927f92b7e9332b93aca9560f282ca135b86b7558979bd
 
 depends_build-append        port:pkgconfig
 
@@ -122,7 +122,7 @@ variant mysql5 conflicts mysql4 description {Enable MySQL 5 support} {
 }
 
 variant ssl description {Enable serving secure web sites with SSL} {
-    depends_lib-append      port:openssl
+    depends_lib-append      path:lib/libssl.dylib:openssl
     configure.args-append   --with-openssl
 }
 

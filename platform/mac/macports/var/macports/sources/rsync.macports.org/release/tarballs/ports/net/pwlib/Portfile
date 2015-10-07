@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 107061 2013-06-16 23:03:43Z jmr@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 
@@ -26,7 +26,7 @@ checksums           md5     0fa33ba1b32b254abe0b731a52c0f2f9
 depends_lib         port:openldap \
                     port:libsdl \
                     port:expat \
-                    port:openssl
+                    path:lib/libssl.dylib:openssl
 
 worksrcdir          pwlib
 

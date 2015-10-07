@@ -1,4 +1,4 @@
-# $Id: Portfile 99047 2012-10-25 02:01:31Z ryandesign@macports.org $
+# $Id: Portfile 140677 2015-09-30 04:28:27Z ryandesign@macports.org $
 
 PortSystem          1.0
 
@@ -6,7 +6,7 @@ name                md5deep
 version             4.3
 categories          security sysutils
 license             public-domain
-maintainers         gmail.com:jessekornblum
+maintainers         nomaintainer
 description         Recursively compute digests on files/directories
 long_description \
    md5deep and hashdeep are a cross-platform set of programs to recursively \

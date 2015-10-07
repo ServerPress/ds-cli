@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136483 2015-05-18 22:05:38Z mf2k@macports.org $
+# $Id: Portfile 140599 2015-09-27 02:21:53Z ryandesign@macports.org $
 
 PortSystem          1.0
 
 name                multitail
-version             6.4.1
+version             6.4.2
 categories          sysutils
 license             GPL-2
 maintainers         nomaintainer
@@ -27,12 +27,10 @@ homepage            http://www.vanheusden.com/multitail/
 master_sites        ${homepage}
 extract.suffix      .tgz
 
-checksums           rmd160  bb5057dbd20ac920ef9f848f37c461bf42389477 \
-                    sha256  8a6baecf3537c791f70645f3613bfea0c91a22040f2531bfe03b6d0cdd112134
+checksums           rmd160  dcaf3855bd862c4b2924c9313f16d8a369e22400 \
+                    sha256  af1d5458a78ad3b747c5eeb135b19bdca281ce414cefdc6ea0cff6d913caa1fd
 
 depends_lib         port:ncurses
-
-patchfiles          patch-makefile.macosx-add-xclip.o.diff
 
 post-patch {
     reinplace "s|\$(DESTDIR)/usr|\$(DESTDIR)${prefix}|g" \

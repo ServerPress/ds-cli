@@ -1,11 +1,13 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 114676 2013-12-13 19:49:42Z ryandesign@macports.org $
+# $Id: Portfile 139865 2015-08-30 22:27:41Z jmr@macports.org $
 
 PortSystem          1.0
 
 name                despotify
 version             20110115
+revision            1
 categories          multimedia
+license             BSD MIT
 maintainers         carljohancrafoord.se:mail
 description         Open source Spotify client
 long_description    An open source Spotify client and gateway to their service
@@ -14,7 +16,7 @@ homepage            http://despotify.se/
 platforms           darwin
 depends_build       port:libtool
 depends_lib         port:ncurses \
-                    port:openssl \
+                    path:lib/libssl.dylib:openssl \
                     port:zlib \
                     port:libvorbis \
                     port:expat

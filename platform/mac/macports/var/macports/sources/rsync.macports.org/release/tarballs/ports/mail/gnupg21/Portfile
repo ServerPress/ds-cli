@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138203 2015-07-01 23:29:36Z jann@macports.org $
+# $Id: Portfile 140817 2015-10-03 22:15:09Z jann@macports.org $
 
 PortSystem          1.0
 
 name                gnupg21
-version             2.1.6
+version             2.1.8
 categories          mail security
 maintainers         jann ionic openmaintainer
 license             GPL-3+
@@ -23,9 +23,9 @@ master_sites        gnupg:gnupg
 
 use_bzip2           yes
 
-checksums           rmd160  42db712fe0669caf246dbf46aca429b392614e2b \
-                    sha256  5e599ad542199f3bd733eed2b88a539d1b4c3beda2dbab0ff69f1896f52e92fd \
-                    sha1    9e8157b3386da04760657ce3117fc4dc570c57c5
+checksums           rmd160  ed38a905580249d41e60276220190754c7dc2c7d \
+                    sha256  a3b8d01e4690715d42e8f289493c85413766f3fa935e4fe7e5ff5b0f6e2781a3 \
+                    sha1    61f5bc656dd7fddd4ab67b720d47ef0651bfb727
 
 notes               "GPG 2.1 uses a new format for its key files. Therefore you cannot\
                     use it together with any earlier version of GPG. Neither can you easily go\

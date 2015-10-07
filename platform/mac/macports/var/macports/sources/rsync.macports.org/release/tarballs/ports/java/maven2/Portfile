@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 134045 2015-03-17 18:41:42Z blair@macports.org $
+# $Id: Portfile 138773 2015-07-18 20:35:12Z blair@macports.org $
 
 PortSystem 1.0
 PortGroup select 1.0
@@ -91,5 +91,5 @@ notes \
 \tsudo port select --set ${select.group} $name"
 
 livecheck.type  regex
-livecheck.url   ${homepage}download.html
-livecheck.regex apache-maven-(2\\.\[0-9.\]+)-bin\\.tar
+livecheck.url   ${homepage}docs/history.html
+livecheck.regex >(2\\.\[0-9.\]+)</

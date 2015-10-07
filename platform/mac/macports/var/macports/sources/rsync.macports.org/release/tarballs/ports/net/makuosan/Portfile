@@ -1,4 +1,4 @@
-# $Id: Portfile 69520 2010-07-08 20:19:52Z jmr@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem              1.0
 
@@ -34,7 +34,7 @@ checksums \
     rmd160  a54673a46f9c6d79c5c4d024e391d065ff37c2af
 
 depends_lib \
-    port:openssl
+    path:lib/libssl.dylib:openssl
 
 
 variant server description {add a startup item} {

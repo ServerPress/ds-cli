@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 122412 2014-07-22 12:41:54Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 
@@ -42,7 +42,7 @@ build.args          PREFIX=${prefix} ETCDIR=${prefix}/etc/vpnc CC="${configure.c
 destroot.args       PREFIX=${prefix} ETCDIR=${prefix}/etc/vpnc
 
 variant             hybrid_cert description "Enable the support for hybrid and cert modes in vpnc" {
-    depends_lib-append port:openssl
+    depends_lib-append path:lib/libssl.dylib:openssl
     build.args-append  "OPENSSL_GPL_VIOLATION=-DOPENSSL_GPL_VIOLATION OPENSSLLIBS=-lcrypto"
 }
 livecheck.type  regex

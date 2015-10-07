@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 122667 2014-07-26 12:03:22Z mojca@macports.org $
+# $Id: Portfile 140604 2015-09-27 03:29:51Z ryandesign@macports.org $
 
 PortSystem          1.0
 
 name                ace
 set name_package    ACE
-version             6.2.6
+version             6.3.3
 distname            ${name_package}-${version}
 categories          devel
 maintainers         gmail.com:tlockhart1976 openmaintainer
@@ -39,8 +39,8 @@ patch.pre_args      -p1
 patchfiles          patch-ace-config.h.diff \
                     patch-include-makeinclude-platform_macros.GNU.diff
 
-checksums           rmd160  7b788efdbc792e95d0fc8971c9105c7bc883a3fc \
-                    sha256  725de58f4c1ffd7109c6f8d205d7abeba48144eb4a4d34944eba2a806f354fbe
+checksums           rmd160  01e77b057b9533fb61d05185bda03a8e019c949f \
+                    sha256  f362e45f624db3343db529654b601d5df69b5f56fa4597cf453da35d80989888
 
 set os.name "mavericks"
 array set os.names {
@@ -102,7 +102,7 @@ variant universal {
 }
 
 variant ssl description {Enable SSL} {
-    depends_lib-append port:openssl
+    depends_lib-append path:lib/libssl.dylib:openssl
 
     post-patch {
         reinplace "s|ssl=0|ssl=1|g" \

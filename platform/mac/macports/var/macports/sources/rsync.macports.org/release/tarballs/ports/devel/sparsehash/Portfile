@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 127035 2014-10-19 19:52:41Z mmoll@macports.org $
+# $Id: Portfile 140743 2015-10-01 23:57:02Z mcalhoun@macports.org $
 
 PortSystem          1.0
 
@@ -27,4 +27,8 @@ checksums           rmd160  4da86c970e66c4fd3abb82d9b800267175a18bea \
                     sha256  2ed639a7155607c097c2029af5f4287296595080b2e5dd2e2ebd9bbb7450b87c
 # see https://code.google.com/p/sparsehash/issues/detail?id=100
 patchfiles          allocator.patch
+# see
+#     https://github.com/sparsehash/sparsehash/issues/111
+#     https://github.com/sparsehash/sparsehash/commit/7f6351fb06241b96fdb39ae3aff53c2acb1cd7a4
+patchfiles-append   patch-hashtable_test.cc.diff
 patch.pre_args      -p1

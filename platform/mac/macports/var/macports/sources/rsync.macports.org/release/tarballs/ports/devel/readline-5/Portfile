@@ -1,10 +1,10 @@
-# $Id: Portfile 74590 2010-12-22 18:05:50Z ryandesign@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 name		readline-5
 set shortname	readline
 version		5.2.014
-revision	1
+revision	2
 distname	${shortname}-5.2
 categories	devel
 platforms	darwin

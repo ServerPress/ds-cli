@@ -1,14 +1,15 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137681 2015-06-17 11:28:00Z ryandesign@macports.org $
+# $Id: Portfile 140526 2015-09-21 19:46:53Z ryandesign@macports.org $
 
 PortSystem          1.0
 PortGroup           compiler_blacklist_versions 1.0
 PortGroup           conflicts_build 1.0
+PortGroup           cxx11 1.0
 PortGroup           muniversal 1.0
 
 name                mongodb
 epoch               1
-version             3.0.4
+version             3.0.6
 license             {AGPL-3 OpenSSLException}
 categories          databases
 maintainers         ryandesign
@@ -22,14 +23,14 @@ homepage            http://www.mongodb.org/
 master_sites        http://downloads.mongodb.org/src/
 distname            ${name}-src-r${version}
 
-checksums           rmd160  e67ad3559cbe1c2ee56ed4f5b33cf1901c0b76c2 \
-                    sha256  6de7aa8b12ad892ee3852ac949069fda8cb87b3ee606a88226817505e2864360
+checksums           rmd160  3e3dc920c0790826b54d02e5a82faace48da9e9f \
+                    sha256  609f6bd416ed11898b49406332b8ff301de239ba72df0bdbf1603233229c822d
 
 depends_build       port:scons
 
 depends_lib         port:boost \
                     port:libpcap \
-                    port:openssl \
+                    path:lib/libssl.dylib:openssl \
                     port:pcre \
                     port:snappy
 
@@ -39,7 +40,7 @@ patchfiles-append   patch-src-mongo-util-compress.cpp.diff
 
 use_configure       no
 
-compiler.blacklist  *gcc* {clang < 503.0.40} macports-clang-3.3
+compiler.blacklist-append *gcc* {clang < 503.0.40} macports-clang-3.3
 
 # TODO: fix me
 conflicts_build     libbson mongo-c-driver mongo-cxx-driver v8
@@ -50,7 +51,9 @@ build.cmd           ${prefix}/bin/scons
 build.target        all mongobridge mongosniff
 build.args          --cc=${configure.cc} \
                     --cxx=${configure.cxx} \
+                    --c++11 \
                     --cpppath=${prefix}/include \
+                    --disable-warnings-as-errors \
                     --libpath=${prefix}/lib \
                     --osx-version-min=${macosx_deployment_target} \
                     --ssl \
@@ -59,6 +62,11 @@ build.args          --cc=${configure.cc} \
                     --use-system-pcre \
                     --use-system-snappy \
                     --extralib=pcre,pcrecpp,snappy
+
+# Specify a short variant dir because the default variant dir is deeply nested
+# and can be very long, so long that on some systems the build will fail with
+# "Argument list too long"; see https://jira.mongodb.org/browse/SERVER-13829
+build.args-append   --variant-dir=MP
 
 supported_archs     i386 x86_64
 lappend merger_build_args(i386) --32

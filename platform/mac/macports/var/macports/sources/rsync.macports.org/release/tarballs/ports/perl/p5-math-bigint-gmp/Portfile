@@ -1,20 +1,20 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 131031 2015-01-05 10:21:43Z devans@macports.org $
+# $Id: Portfile 140450 2015-09-19 19:23:07Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           perl5 1.0
 
-perl5.branches      5.16 5.18 5.20
-perl5.setup         Math-BigInt-GMP 1.38
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Math-BigInt-GMP 1.42
 license             {Artistic-1 GPL}
-maintainers         devans openmaintainer
+maintainers         nomaintainer
 description         Math::BigInt::GMP - Use the GMP library for Math::BigInt routines
 long_description    ${description}
 
 platforms           darwin
 
-checksums           rmd160  2f9da7eee96440200d3664bcf8295316474658de \
-                    sha256  1ad0cac911a08f150c5e5a8286aec20de21c863bd27b8f002456cff11e086f15
+checksums           rmd160  d1993699eb8078ce58b99c299aea5d4a0aac00c9 \
+                    sha256  d89c2b71ca46079052d41482b99bff513fb1ce8859e5b7a2520c872cd2966c5b
 
 if {${perl5.major} != ""} {
     depends_lib-append \

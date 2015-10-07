@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 102822 2013-02-09 00:51:24Z jmr@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem                  1.0
 PortGroup                   cmake 1.0
@@ -26,7 +26,7 @@ git.branch                  7b8df5940eeecfcd91ab3922a65303a0cadf3e24
 
 depends_lib                 port:zlib \
                             port:jpeg \
-                            port:openssl \
+                            path:lib/libssl.dylib:openssl \
                             port:python26
 
 patchfiles                  patch-endian.diff

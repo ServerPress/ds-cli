@@ -1,9 +1,10 @@
-# $Id: Portfile 111980 2013-10-08 02:18:10Z jmr@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 
 name            kcd
 version         7.6.2
+revision        1
 categories      sysutils
 license         GPL-2+
 platforms       darwin

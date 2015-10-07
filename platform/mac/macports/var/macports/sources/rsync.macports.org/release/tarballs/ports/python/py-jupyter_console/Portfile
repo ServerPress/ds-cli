@@ -1,0 +1,38 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim: fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 140628 2015-09-28 11:41:34Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-jupyter_console
+version             4.0.2
+revision            0
+categories-append   devel
+platforms           darwin
+license             BSD
+supported_archs     noarch
+
+python.versions     27 34 35
+
+maintainers         stromnov openmaintainer
+
+description         Jupyter terminal console.
+long_description    ${description}
+
+homepage            http://jupyter.org
+master_sites        pypi:[string index ${python.rootname} 0]/${python.rootname}
+
+distname            ${python.rootname}-${version}
+
+checksums           rmd160  2145cb5246a0514f9a811b26958883612aa7b417 \
+                    sha256  97e27e1c27a6dd04d166b7a4c81d717becdd979a0879a628e08f295a43a2bc58
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:py${python.version}-jupyter_client \
+                        port:py${python.version}-ipython \
+                        port:py${python.version}-ipykernel
+
+    livecheck.type      none
+} else {
+    livecheck.type      pypi
+}

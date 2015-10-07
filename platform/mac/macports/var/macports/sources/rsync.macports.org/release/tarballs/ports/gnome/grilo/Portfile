@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136156 2015-05-11 22:37:37Z devans@macports.org $
+# $Id: Portfile 140283 2015-09-16 15:01:42Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           gobject_introspection 1.0
 
 name                grilo
-version             0.2.12
+version             0.2.14
 license             LGPL-2.1
 set branch          [join [lrange [split ${version} .] 0 1] .]
 description         Framework for discovering and browsing media.
@@ -20,8 +20,8 @@ master_sites        gnome:sources/${name}/${branch}/
 
 use_xz              yes
 
-checksums           rmd160  0e717b9ee892a46221cd3455ba5cdb2a37d28d64 \
-                    sha256  55b4663550bc8185f8db232e96b9ba99fbfa9175e31e7321fa5ccaacf3617b85
+checksums           rmd160  73fd5efe13358384a9023efaa8b8ba8d73236b94 \
+                    sha256  79c82ea1747ae7430a648aa9660e44d88d48c968bcdaeb3b2c5cb97e1c921ccd
 
 depends_build       port:pkgconfig \
                     port:intltool \

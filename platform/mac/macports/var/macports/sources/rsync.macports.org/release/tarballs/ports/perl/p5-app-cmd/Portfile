@@ -1,20 +1,20 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 133282 2015-02-24 18:21:05Z devans@macports.org $
+# $Id: Portfile 140177 2015-09-11 02:02:34Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           perl5 1.0
 
-perl5.branches      5.16 5.18 5.20
-perl5.setup         App-Cmd 0.327
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         App-Cmd 0.328
 license             {Artistic-1 GPL}
-maintainers         devans openmaintainer
+maintainers         nomaintainer
 description         App::Cmd - write command line apps with less suffering
 long_description    ${description}
 
 platforms           darwin
 
-checksums           rmd160  1a9b7085ee010c01f16e43ffaa15c7d8042f071c \
-                    sha256  424e1d607ceafc914d5a8d0990b46503a178c5588cf96df0fccad07ae6cbd0f0
+checksums           rmd160  a4460239101b2fa07c3adf3b29d79eb86b2c57d7 \
+                    sha256  6a7e4392153e515a2beca3e45bcf85803a8f18f9b402b4e6767d90f1851df454
 
 if {${perl5.major} != ""} {
     depends_build-append \

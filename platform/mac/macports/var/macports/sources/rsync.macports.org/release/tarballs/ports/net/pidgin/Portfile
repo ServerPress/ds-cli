@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 134962 2015-04-12 08:20:29Z devans@macports.org $
+# $Id: Portfile 139801 2015-08-28 00:40:03Z devans@macports.org $
 
 PortSystem          1.0
 
 name                pidgin
 version             2.10.11
-revision            1
+revision            4
 categories          net
 platforms           darwin
 license             GPL-2+
@@ -30,6 +30,11 @@ use_bzip2           yes
 # Python is only required if --enable-dbus is used, and only for
 # the build process to generate the dbus code, not for running pidgin.
 
+# set 'pbranch' to desired perl version for perl plugin support
+# currently 5.22 (#48365)
+
+set pbranch          5.22
+
 depends_build       port:pkgconfig \
                     port:intltool \
                     port:autoconf \
@@ -43,32 +48,13 @@ depends_lib         path:lib/pkgconfig/glib-2.0.pc:glib2 \
                     port:gconf \
                     port:libidn \
                     port:gnutls \
-                    port:perl5.16
-
-if {${subport} ne "libpurple"} {
-    depends_lib-append \
-                    port:libpurple \
-                    port:audiofile \
-                    port:gtk2 \
-                    port:libao
-
-    post-destroot {
-        foreach file [glob -nocomplain -directory ${destroot}${prefix}/bin purple-*] {
-            delete $file
-        }
-        foreach file [glob -nocomplain -directory ${destroot}${prefix}/lib pkgconfig/purple.pc libpurple* purple-2] {
-            delete $file
-        }
-        delete ${destroot}${prefix}/include/libpurple \
-               ${destroot}${prefix}/share/aclocal \
-               ${destroot}${prefix}/share/man/man3/Purple.3pm \
-               ${destroot}${prefix}/share/purple \
-               ${destroot}${prefix}/share/sounds/purple \
-    }
-}
+                    port:perl${pbranch}
 
 patchfiles          patch-configure.ac.diff \
-                    patch-libpurple-internal.h.diff
+                    patch-libpurple-internal.h.diff \
+                    patch-pidgin-gtkdocklet-gtk.c.diff \
+                    patch-finch_libgnt_Makefile.am.diff \
+                    patch-finch_libgnt_gntwm.c.diff
 
 # reconfigure using upstream autogen.sh for intltool 0.51 compatibility
 
@@ -100,7 +86,7 @@ configure.args      --disable-avahi \
                     --disable-dependency-tracking \
                     --without-x
 
-configure.args-append ac_cv_path_perlpath=${prefix}/bin/perl5.16
+configure.args-append ac_cv_path_perlpath=${prefix}/bin/perl${pbranch}
 
 configure.ldflags-append    -bind_at_load
 configure.cppflags-append   -no-cpp-precomp
@@ -119,16 +105,24 @@ subport libpurple {
     }
 }
 
+subport finch {
+    depends_lib-append      port:libpurple \
+                            port:ncurses
+
+    configure.args-delete   --disable-consoleui
+    configure.args-append   --disable-gtkui \
+                            --disable-pixmaps-install \
+                            --disable-nls \
+                            --disable-gestures \
+                            --enable-consoleui \
+                            --with-ncurses-headers=${prefix}/include
+}
+
 if {${subport} eq $name} {
-
-    variant finch_only requires finch description {Build without pidgin} {
-        configure.args-append   --disable-gtkui
-    }
-
-    variant finch description {Build with finch} {
-        configure.args-delete   --disable-consoleui
-        patchfiles-append       patch-finch_libgnt_Makefile.in.diff patch-finch_libgnt_gntwm.c
-    }
+    depends_lib-append      port:libpurple \
+                            port:audiofile \
+                            port:gtk2 \
+                            port:libao
 
     variant x11 conflicts no_x11 quartz {
         depends_lib-append      port:xorg-libX11 \
@@ -174,6 +168,22 @@ if {${subport} eq $name} {
     }
 }
     
+if {${subport} ne "libpurple"} {
+    post-destroot {
+        foreach file [glob -nocomplain -directory ${destroot}${prefix}/bin purple-*] {
+            delete $file
+        }
+        foreach file [glob -nocomplain -directory ${destroot}${prefix}/lib pkgconfig/purple.pc libpurple* purple-2] {
+            delete $file
+        }
+        delete ${destroot}${prefix}/include/libpurple \
+               ${destroot}${prefix}/share/aclocal \
+               ${destroot}${prefix}/share/man/man3/Purple.3pm \
+               ${destroot}${prefix}/share/purple \
+               ${destroot}${prefix}/share/sounds/purple \
+    }
+}
+
 post-destroot {
     fs-traverse file ${destroot}${prefix}/lib/perl5 {
         if {[file tail ${file}] == "perllocal.pod"} {

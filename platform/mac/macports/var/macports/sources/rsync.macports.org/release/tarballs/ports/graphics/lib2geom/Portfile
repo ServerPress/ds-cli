@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136679 2015-05-24 01:11:32Z devans@macports.org $
+# $Id: Portfile 139917 2015-09-02 02:45:16Z devans@macports.org $
 
 PortSystem      1.0
 PortGroup       cmake 1.0
@@ -7,7 +7,7 @@ PortGroup       cmake 1.0
 cmake.out_of_source yes
 
 name            lib2geom
-bzr.revision    2409
+bzr.revision    2424
 version         0.3-${bzr.revision}
 license         {LGPL-2.1 MPL-1.1}
 maintainers     devans openmaintainer

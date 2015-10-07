@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: portutil.tcl 126901 2014-10-17 01:24:39Z jmr@macports.org $
+# $Id: portutil.tcl 140690 2015-09-30 06:31:15Z jmr@macports.org $
 #
 # Copyright (c) 2002-2003 Apple Inc.
 # Copyright (c) 2004 Robert Shaw <rshaw@opendarwin.org>
@@ -2132,7 +2132,8 @@ proc check_variants {target} {
 
         array set oldvariations {}
         if {[check_statefile_variants variations oldvariations $state_fd]} {
-            ui_error "Requested variants \"[canonicalize_variants [array get variations]]\" do not match original selection \"[canonicalize_variants [array get oldvariations]]\".\nPlease use the same variants again, perform 'port clean [option subport]' or specify the force option (-f)."
+            ui_error "Requested variants \"[canonicalize_variants [array get variations]]\" do not match those the build was started with: \"[canonicalize_variants [array get oldvariations]]\"."
+            ui_error "Please use the same variants again, or run 'port clean [option subport]' first to remove the existing partially completed build."
             set result 1
         } elseif {!([info exists ports_dryrun] && $ports_dryrun eq "yes")} {
             # Write variations out to the statefile
@@ -2357,7 +2358,7 @@ proc adduser {name args} {
         }
     }
 
-    if {[existsuser ${name}] != 0 || [existsuser ${uid}] != 0} {
+    if {[existsuser ${name}] != -1 || [existsuser ${uid}] != -1} {
         return
     }
 
@@ -2465,7 +2466,7 @@ proc addgroup {name args} {
         }
     }
 
-    if {[existsgroup ${name}] != 0 || [existsgroup ${gid}] != 0} {
+    if {[existsgroup ${name}] != -1 || [existsgroup ${gid}] != -1} {
         return
     }
 
@@ -3033,7 +3034,7 @@ proc dropPrivileges {} {
 proc validate_macportsuser {} {
     global macportsuser
     if {[getuid] == 0 && $macportsuser ne "root" && 
-        ([existsuser $macportsuser] == 0 || [existsgroup $macportsuser] == 0 )} {
+        ([existsuser $macportsuser] == -1 || [existsgroup $macportsuser] == -1)} {
         ui_warn "configured user/group $macportsuser does not exist, will build as root"
         set macportsuser "root"
     }

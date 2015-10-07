@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138352 2015-07-06 06:10:57Z stromnov@macports.org $
+# $Id: Portfile 140286 2015-09-16 15:36:02Z stromnov@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
@@ -8,14 +8,14 @@ PortGroup           select 1.0
 set realname        pip
 
 name                py-${realname}
-version             7.1.0
+version             7.1.2
 revision            0
 categories-append   www
 platforms           darwin
 license             MIT
 supported_archs     noarch
 
-python.versions     26 27 33 34
+python.versions     26 27 33 34 35
 
 maintainers         stromnov openmaintainer
 
@@ -31,8 +31,8 @@ master_sites        https://pypi.python.org/packages/source/p/pip/
 
 distname            ${realname}-${version}
 
-checksums           rmd160  3af0746024f769ded40b2018bfdc979a22f9daa3 \
-                    sha256  d5275ba3221182a5dd1b6bcfbfc5ec277fb399dd23226d6fa018048f7e0f10f2
+checksums           rmd160  3d748862e9db0b975db9a51105a4ca151c302a4a \
+                    sha256  ca047986f0528cfa975a14fb9f7f106271d4e0c3fe1ddced6c1db2e7ae57a477
 
 if {${name} ne ${subport}} {
     depends_lib-append  port:py${python.version}-setuptools

@@ -1,4 +1,4 @@
-# $Id: Portfile 127348 2014-10-26 01:06:37Z larryv@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 PortGroup python 1.0
@@ -26,7 +26,7 @@ if {${name} ne ${subport}} {
     patchfiles		patch-setup.py
     
     depends_lib-append	port:py${python.version}-libxml2 \
-                    port:openssl \
+                    path:lib/libssl.dylib:openssl \
                     port:xmlsec
     
     post-destroot	{

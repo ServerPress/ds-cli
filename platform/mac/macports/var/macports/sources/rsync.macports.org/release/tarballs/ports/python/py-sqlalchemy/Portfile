@@ -1,17 +1,17 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138402 2015-07-07 14:37:58Z stromnov@macports.org $
+# $Id: Portfile 140668 2015-09-29 11:41:49Z stromnov@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-sqlalchemy
-version             1.0.6
+version             1.0.8
 revision            0
 categories-append   databases
 platforms           darwin
 license             MIT
 
-python.versions     26 27 33 34
+python.versions     26 27 33 34 35
 
 maintainers         landonf openmaintainer
 
@@ -26,8 +26,8 @@ master_sites        https://pypi.python.org/packages/source/S/SQLAlchemy/
 
 distname            SQLAlchemy-${version}
 
-checksums           rmd160  f9c610d0c255ee91c7d1c2d26b02e53a4062efc0 \
-                    sha256  99a8a54bec4988f704c54ee9f769aa196db43a5ef7ed655b78a80a129c9c65f3
+checksums           rmd160  652214402f8c9b6487750e7000bc1c06952a5c5e \
+                    sha256  950c79c0abf9e9f99c43c627c51d40d14a946810a90c35e7cd827bfd0bffe46f
 
 if {${name} ne ${subport}} {
     depends_build-append    port:py${python.version}-setuptools

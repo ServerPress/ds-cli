@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136493 2015-05-19 07:44:51Z stromnov@macports.org $
+# $Id: Portfile 140204 2015-09-11 20:10:15Z stromnov@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-bcolz
-version             0.9.0
+version             0.11.0
 revision            0
 categories-append   devel
 platforms           darwin
@@ -31,8 +31,8 @@ master_sites        https://pypi.python.org/packages/source/b/bcolz/
 
 distname            bcolz-${version}
 
-checksums           rmd160  e3fdcc7f2f373994ce0860e8c3bc998a23421202 \
-                    sha256  086b1ad62accf6b45e9386edfa23ccc9f8a1feaec5803e7f39753139eb016a50
+checksums           rmd160  bd6e08d26407d77e76f0ec51ef4a9468137a7234 \
+                    sha256  76e68253de2cffb907f4e59e9f47e41b7e4ae89a290dd40fa4719a29d7635ece
 
 if {${name} ne ${subport}} {
     # Fix permissions

@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 135581 2015-04-26 21:02:24Z ionic@macports.org $
+# $Id: Portfile 139494 2015-08-18 20:26:42Z devans@macports.org $
 
 PortSystem          1.0
 
@@ -10,7 +10,7 @@ PortGroup           compiler_blacklist_versions 1.0
 name                gstreamer010-gst-plugins-good
 set my_name         gst-plugins-good
 version             0.10.31
-revision            8
+revision            9
 description         \
     A set of good-quality plug-ins for GStreamer under GStreamer's preferred \
     license, LGPL.

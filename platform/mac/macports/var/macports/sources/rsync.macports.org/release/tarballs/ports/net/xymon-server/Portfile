@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 115019 2013-12-22 09:29:46Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem              1.0
 
@@ -34,7 +34,7 @@ depends_lib             port:rrdtool \
                         port:fping \
                         port:pcre \
                         port:libpng \
-                        port:openssl \
+                        path:lib/libssl.dylib:openssl \
                         port:openldap
 
 universal_variant       no

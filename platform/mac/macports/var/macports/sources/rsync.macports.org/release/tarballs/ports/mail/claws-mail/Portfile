@@ -1,11 +1,12 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137249 2015-06-07 12:58:27Z khindenburg@macports.org $
+# $Id: Portfile 139278 2015-08-10 21:25:01Z devans@macports.org $
 
 PortSystem      1.0
 PortGroup       active_variants 1.1
 
 name            claws-mail
 version         3.11.1
+revision        1
 categories      mail news
 platforms       darwin
 license         GPL-3+
@@ -69,6 +70,7 @@ configure.args  --disable-jpilot \
                 --disable-python-plugin \
                 --disable-spamassassin-plugin \
                 --disable-spam_report-plugin \
+                --disable-startup-notification \
                 --disable-tnef_parse-plugin \
                 --enable-manual \
                 --enable-ipv6 \

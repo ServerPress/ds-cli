@@ -1,9 +1,10 @@
-# $Id: Portfile 95154 2012-07-06 06:30:21Z mww@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 
 name			pdc
 version			0.9
+revision        1
 categories		math
 platforms		darwin
 license			GPL-2

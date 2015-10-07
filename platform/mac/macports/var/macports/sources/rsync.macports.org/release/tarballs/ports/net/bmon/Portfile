@@ -1,8 +1,10 @@
-# $Id: Portfile 134953 2015-04-11 19:27:15Z khindenburg@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem              1.0
+
 name                  	bmon
 version                	2.1.0
+revision                1
 categories              net
 maintainers             nomaintainer
 description		An interface bandwidth monitor

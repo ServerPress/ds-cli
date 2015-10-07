@@ -1,4 +1,4 @@
-# $Id: Portfile 130583 2015-01-02 00:23:58Z larryv@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 PortGroup python 1.0
@@ -31,7 +31,7 @@ if {${name} ne ${subport}} {
     patchfiles		patch-setup.cfg.diff patch-constants.c.diff \
                     patch-options.c.diff
 
-    depends_lib-append	port:openldap port:openssl port:cyrus-sasl2
+    depends_lib-append	port:openldap path:lib/libssl.dylib:openssl port:cyrus-sasl2
 
     configure {
         reinplace "s|__LIBDIR__|${prefix}/lib|g" ${worksrcpath}/setup.cfg

@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 95112 2012-07-05 20:53:50Z mww@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 
@@ -22,4 +22,4 @@ use_bzip2           yes
 checksums           rmd160  3fcd5908273087858dca8162c8440760774d8bf0 \
                     sha256  a0d26931bf731f97514da266d079d8bc7d73c65b3499ed080576ab606b21c0ce
 
-depends_lib         port:libesmtp port:openssl
+depends_lib         port:libesmtp path:lib/libssl.dylib:openssl

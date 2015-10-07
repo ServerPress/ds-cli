@@ -1,9 +1,10 @@
-# $Id: Portfile 107635 2013-07-03 13:26:30Z raimue@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem      1.0
 
 name            less
 version         458
+revision        1
 categories      textproc
 platforms       darwin
 license         {GPL-3+ BSD}

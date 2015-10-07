@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 134440 2015-03-25 17:59:01Z snc@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 
 name                unbound
-version             1.5.3
+version             1.5.4
 categories          net
 license             BSD
 maintainers         snc
@@ -13,7 +13,7 @@ description         Validating, recursive, and caching DNS resolver.
 
 homepage            http://unbound.net/
 platforms           darwin
-depends_lib         port:openssl port:expat
+depends_lib         path:lib/libssl.dylib:openssl port:expat
 
 set unbounduser     unbound
 set unboundgroup    unbound
@@ -30,8 +30,8 @@ long_description    Unbound is a validating, recursive, and caching DNS \
 
 master_sites        http://unbound.net/downloads/
 
-checksums           rmd160  37c7b000aee6ca260467b83168f4dd13b1bffc4f \
-                    sha256  76bdc875ed4d1d3f8e4cfe960e6df78ee5c6c7c18abac11331cf93a7ae129eca
+checksums           rmd160  0d77e595ae80191d382b44c89365ef9054f374df \
+                    sha256  a1e1c1a578cf8447cb51f6033714035736a0f04444854a983123c094cc6fb137
 
 configure.args-append   --with-pidfile=${prefix}/var/run/${name}/${name}.pid \
                         --with-rootkey-file=${prefix}/var/run/${name}/root.key
@@ -40,6 +40,8 @@ variant libevent description {Build with libevent (slower, but allows use of lar
     depends_lib-append      port:libevent
     configure.args-append   --with-libevent=${prefix}
 }
+
+test.run            yes
 
 add_users ${unbounduser} group=${unboundgroup} home=/dev/null realname=Unbound\ Resolver
 post-destroot {

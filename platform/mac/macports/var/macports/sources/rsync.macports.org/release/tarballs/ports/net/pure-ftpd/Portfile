@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 96135 2012-08-01 20:08:37Z pixilla@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 
@@ -114,7 +114,7 @@ variant postgresql84 conflicts mysql5 postgresql82 postgresql83 description "Use
 }
 
 variant tls description "Encryption of ftp control and data channels using SSL/TLS" {
-    depends_lib-append      port:openssl
+    depends_lib-append      path:lib/libssl.dylib:openssl
     configure.args-append   --with-tls \
                             --with-certfile=${prefix}/etc/${name}/ssl/pure-ftpd.pem
 }

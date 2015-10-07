@@ -1,14 +1,16 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 131079 2015-01-05 20:56:20Z mojca@macports.org $
+# $Id: Portfile 139878 2015-08-31 12:02:41Z jmr@macports.org $
 
 PortSystem          1.0
 PortGroup           perl5 1.0
 
-perl5.branches      5.16 5.18 5.20
+perl5.branches      5.16 5.18 5.20 5.22
 perl5.setup         LJ-Simple 0.15
 revision            3
+license             BSD
 platforms           darwin
-maintainers         genetikayos.com:kayos
+maintainers         nomaintainer
+
 description         Simple perl module for managing your LiveJournal account
 long_description    "LJ::Simple" is an object based "perl" module \
                     which is used to access LiveJournal-based web \

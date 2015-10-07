@@ -1,4 +1,4 @@
-# $Id: Portfile 77830 2011-04-14 08:48:08Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem			1.0
 
@@ -46,7 +46,7 @@ depends_build			port:bdftopcf \
 				port:mkfontdir
 
 depends_lib			port:libiconv \
-				port:openssl \
+				path:lib/libssl.dylib:openssl \
 				port:xorg-libXaw
 
 patchfiles			patch-Makefile.in.diff

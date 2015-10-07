@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138376 2015-07-06 17:59:34Z michaelld@macports.org $
+# $Id: Portfile 140780 2015-10-02 18:23:52Z michaelld@macports.org $
 
 PortSystem          1.0
 PortGroup           octave 1.0
 PortGroup           compilers 1.0
 
-octave.setup        control 2.8.3
+octave.setup        control 2.8.5
 platforms           darwin
 license             GPL-3+
 maintainers         gmail.com:mschamschula openmaintainer
@@ -14,8 +14,8 @@ description         Computer-Aided Control System Design (CACSD) \
                     SLICOT Library.
 long_description    ${description}
 
-checksums           rmd160 170376788ffd4fd76ac461fd14bda761e7892d8b \
-		            sha256 75a047704be2a4e0aff7bdffc7918eee2f28e33ce730e18764540330e3439480
+checksums           rmd160 63a04539b9e508a476a0c78661a69704593267c2 \
+		            sha256 255f36d377f9e74949d81210f5c285f2d017031b864e0cfd96607f9ea79e256b
 
 compilers.choose    fc f77 f90
 compilers.setup     require_fortran -dragonegg

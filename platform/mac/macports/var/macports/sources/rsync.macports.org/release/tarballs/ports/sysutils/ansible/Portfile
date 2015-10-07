@@ -1,16 +1,19 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136244 2015-05-13 06:22:14Z larryv@macports.org $
+# $Id: Portfile 140733 2015-10-01 14:31:12Z adfernandes@macports.org $
 
 PortSystem      1.0
 PortGroup       python 1.0
+PortGroup       github 1.0
 
 name            ansible
 epoch           1
-version         1.9.1
 categories      sysutils
-supported_archs noarch
 
-maintainers     blair gmail.com:pedro.salgado
+github.setup    ${name} ${name} 1.9.3-1 v
+version         [string map {- .} ${version}]
+fetch.type      git
+
+maintainers     adfernandes blair gmail.com:pedro.salgado
 
 homepage        https://github.com/ansible/ansible
 description     SSH-based configuration management and deployment system
@@ -21,15 +24,10 @@ long_description \
     or daemons to be installed on remote nodes.  Extension modules can \
     be written in any language and are transferred to managed machines \
     automatically.
-
 license         GPL-3+
 
 platforms       darwin
-
-master_sites    http://releases.ansible.com/ansible \
-                http://pypi.python.org/packages/source/a/ansible
-checksums       rmd160 fe490e5339290fb7adb98338ff66a74beaccfb92 \
-                sha256 a6f975d565723765a4d490ff40cede96833a745f38908def4950a0075f1973f5
+supported_archs noarch
 
 python.default_version  27
 depends_lib-append      port:py${python.version}-httplib2 \
@@ -37,9 +35,14 @@ depends_lib-append      port:py${python.version}-httplib2 \
                         port:py${python.version}-paramiko \
                         port:py${python.version}-yaml
 
+post-fetch {
+    # fetch submodules (https://github.com/ansible/ansible/issues/11199)
+    system -W ${worksrcpath} "git submodule update --init"
+}
+
 patch {
     fs-traverse f ${worksrcpath} {
-        if {[file isfile ${f}]} {
+        if {[file isfile ${f}] && ![regexp {\.(ico|png|eot|ttf|woff)$} ${f} match] && ![regexp {\.git} ${f} match] && ![regexp {v2/test/test.yml} ${f} match]} {
             reinplace "s#/etc/ansible#${prefix}/etc/ansible#g" ${f}
             reinplace "s#/usr/share/ansible#${prefix}/share/ansible#g" ${f}
         }

@@ -1,6 +1,6 @@
 /*
  * Pextlib.c
- * $Id: Pextlib.c 120070 2014-05-14 22:27:37Z cal@macports.org $
+ * $Id: Pextlib.c 135852 2015-05-05 17:36:35Z cal@macports.org $
  *
  * Copyright (c) 2002 - 2003 Apple Inc.
  * Copyright (c) 2004 - 2005 Paul Guyot <pguyot@kallisys.net>
@@ -216,7 +216,7 @@ int ExistsuserCmd(ClientData clientData UNUSED, Tcl_Interp *interp, int objc, Tc
     free(user);
 
     if (pwent == NULL)
-        tcl_result = Tcl_NewIntObj(0);
+        tcl_result = Tcl_NewIntObj(-1);
     else
         tcl_result = Tcl_NewIntObj(pwent->pw_uid);
 
@@ -243,7 +243,7 @@ int ExistsgroupCmd(ClientData clientData UNUSED, Tcl_Interp *interp, int objc, T
     free(group);
 
     if (grent == NULL)
-        tcl_result = Tcl_NewIntObj(0);
+        tcl_result = Tcl_NewIntObj(-1);
     else
         tcl_result = Tcl_NewIntObj(grent->gr_gid);
 

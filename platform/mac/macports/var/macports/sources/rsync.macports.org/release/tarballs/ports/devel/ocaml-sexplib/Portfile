@@ -1,4 +1,4 @@
-# $Id: Portfile 137992 2015-06-24 16:17:51Z mww@macports.org $
+# $Id: Portfile 139871 2015-08-31 10:47:07Z jmr@macports.org $
 
 PortSystem          1.0
 PortGroup           ocaml 1.0
@@ -10,7 +10,7 @@ name                ocaml-sexplib
 revision            1
 categories          devel ml
 maintainers         nomaintainer
-license             Apache-2.0
+license             Apache-2
 description         Automated code generation for converting OCaml-values to S-expressions
 long_description    ${description}
 platforms           darwin

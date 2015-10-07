@@ -1,4 +1,4 @@
-# $Id: Portfile 115019 2013-12-22 09:29:46Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 PortGroup app 1.0
@@ -23,7 +23,7 @@ depends_lib		port:jpeg \
 				port:net-snmp \
 				port:libpng \
 				path:include/qt3/private/qt_x11_p.h:qt3 \
-				port:openssl \
+				path:lib/libssl.dylib:openssl \
 				port:zlib
 
 patchfiles		patch-configure \

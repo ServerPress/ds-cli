@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: portconfigure.tcl 126863 2014-10-16 18:13:52Z jmr@macports.org $
+# $Id: portconfigure.tcl 140691 2015-09-30 06:32:34Z jmr@macports.org $
 #
 # Copyright (c) 2007 - 2014 The MacPorts Project
 # Copyright (c) 2007 Markus W. Weissmann <mww@macports.org>
@@ -430,8 +430,6 @@ proc portconfigure::get_compiler_fallback {} {
         return $default_compilers
     } elseif {$xcodeversion eq "none" || $xcodeversion eq ""} {
         return {cc}
-    } elseif {[vercmp $xcodeversion 6.0] >= 0 && [vercmp $macosx_deployment_target 10.10] >= 0} {
-        return {clang macports-clang-3.4 macports-clang-3.3}
     } elseif {[vercmp $xcodeversion 5.0] >= 0} {
         return {clang macports-clang-3.4 macports-clang-3.3 macports-llvm-gcc-4.2 apple-gcc-4.2}
     } elseif {[vercmp $xcodeversion 4.3] >= 0} {
@@ -713,7 +711,7 @@ proc portconfigure::configure_main {args} {
         # add SDK flags if cross-compiling (or universal on ppc tiger)
         if {${configure.sdkroot} ne ""} {
             foreach env_var {CPPFLAGS CFLAGS CXXFLAGS OBJCFLAGS OBJCXXFLAGS} {
-                append_to_environment_value configure $env_var -isysroot ${configure.sdkroot}
+                append_to_environment_value configure $env_var -isysroot${configure.sdkroot}
             }
             append_to_environment_value configure "LDFLAGS" -Wl,-syslibroot,${configure.sdkroot}
         }

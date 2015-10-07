@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 127699 2014-11-01 12:55:10Z devans@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 
@@ -27,7 +27,7 @@ depends_build   port:pkgconfig \
                 port:gtk-doc
 
 depends_lib     port:telepathy-glib \
-                port:openssl \
+                path:lib/libssl.dylib:openssl \
                 port:py27-twisted
 
 patchfiles      patch-configure.diff \

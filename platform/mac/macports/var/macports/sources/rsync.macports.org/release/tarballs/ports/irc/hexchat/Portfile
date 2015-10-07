@@ -1,10 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137194 2015-06-05 22:43:39Z raimue@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 
 name                hexchat
 version             2.10.2
+revision            1
 set branch          [join [lrange [split ${version} .] 0 1] .]
 categories          irc
 maintainers         raimue \
@@ -63,11 +64,14 @@ variant xft conflicts quartz description "Enable Xft2 font support" {
 
 variant ssl description "Enable SSL using openssl" {
     configure.args-replace --disable-openssl --enable-openssl
-    depends_lib-append port:openssl
+    depends_lib-append path:lib/libssl.dylib:openssl
 }
 
 variant quartz conflicts xft {
     configure.args-append --disable-xlib
+    depends_lib-append port:gtk-osx-application-gtk2
+    patchfiles-append patch-gtk-mac-integration-gtk2.diff
+    use_autoreconf yes
 }
 
 variant python27 description "Enable Python plugin, using python27" conflicts python33 python34 {

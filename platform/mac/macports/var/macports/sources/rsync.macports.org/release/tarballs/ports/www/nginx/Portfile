@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 135802 2015-05-03 21:53:49Z cal@macports.org $
+# $Id: Portfile 140600 2015-09-27 02:24:34Z ryandesign@macports.org $
 
 PortSystem          1.0
 
 name                nginx
-version             1.9.0
+version             1.9.5
 categories          www mail
 platforms           darwin
 license             BSD
@@ -34,8 +34,8 @@ master_sites        http://nginx.org/download:nginx \
 
 distfiles           ${name}-${version}${extract.suffix}:nginx
 checksums           ${name}-${version}${extract.suffix} \
-                    rmd160  348d9d708e3988139808586b2027a492078e3dd2 \
-                    sha256  e12aa1d5b701edde880ebcc7be47ca171c3fbeed8fa7c8c62054a6f19d27f248
+                    rmd160  a186f01bb27a7164b2d2ab5cb20d9f2dbf39f3db \
+                    sha256  48e2787a6b245277e37cb7c5a31b1549a0bbacf288aa4731baacf9eaacdb481b
 
 depends_lib         port:pcre \
                     port:zlib
@@ -212,7 +212,7 @@ variant secure_link description {Protect pages with a secret key} {
 
 variant ssl description {Add SSL (HTTPS) support to the server, and also to the mail proxy if that is enabled} {
     configure.args-append   --with-http_ssl_module
-    depends_lib-append      port:openssl
+    depends_lib-append      path:lib/libssl.dylib:openssl
 }
 
 variant spdy requires ssl description {Add SPDY support to the server} {

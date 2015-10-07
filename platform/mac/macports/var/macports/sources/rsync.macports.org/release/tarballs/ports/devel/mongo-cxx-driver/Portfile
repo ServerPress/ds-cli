@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137452 2015-06-11 23:54:19Z ryandesign@macports.org $
+# $Id: Portfile 139521 2015-08-19 20:25:00Z ryandesign@macports.org $
 
 PortSystem          1.0
 #PortGroup           compiler_blacklist_versions 1.0
@@ -7,7 +7,7 @@ PortGroup           github 1.0
 PortGroup           muniversal 1.0
 
 epoch               1
-github.setup        mongodb mongo-cxx-driver 1.0.3 legacy-
+github.setup        mongodb mongo-cxx-driver 1.0.5 legacy-
 license             Apache-2
 categories          devel databases
 platforms           darwin
@@ -17,8 +17,8 @@ description         library for using mongodb from C++ code
 
 long_description    ${name} is a ${description}.
 
-checksums           rmd160  54f229df81fc77c8c1bbf1f12b7f8db9ca5b866c \
-                    sha256  93ee7203b39b5e99696ba1e5740352a9e6ce3c64ed97e8e831456d10ed35d0fe
+checksums           rmd160  f368356c8bd31dab6242f05c413b7a9172817048 \
+                    sha256  0eff8b2e9c52f836bc6912488e9ea6937d6bfa0f2589eedb152f85f5dbc9dc49
 
 depends_build       port:scons
 

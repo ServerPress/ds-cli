@@ -1,9 +1,10 @@
-# $Id: Portfile 103279 2013-02-20 03:59:28Z jmr@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 
 name                zile
 version             2.3.23
+revision            1
 categories          editors
 license             GPL-3+
 platforms           darwin

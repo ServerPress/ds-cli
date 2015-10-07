@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 126417 2014-10-09 20:09:06Z rmstonecipher@macports.org $
+# $Id: Portfile 139536 2015-08-19 21:53:46Z ryandesign@macports.org $
 
 PortSystem 1.0
 PortGroup  cmake  1.0
@@ -26,6 +26,8 @@ depends_lib-append  port:zlib
 platform darwin 8 {
     configure.ldflags-append -lz
 }
+
+cmake.out_of_source yes
 
 configure.args-append  ../${distname} \
                        -DWITH_ASF=On -DWITH_MP4=On

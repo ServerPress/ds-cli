@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 133922 2015-03-15 20:08:09Z stromnov@macports.org $
+# $Id: Portfile 139114 2015-08-03 07:42:32Z stromnov@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-astroid
-version             1.3.6
+version             1.3.8
 revision            0
 categories-append   devel
 platforms           darwin
@@ -29,8 +29,8 @@ master_sites        https://pypi.python.org/packages/source/a/astroid/
 
 distname            astroid-${version}
 
-checksums           rmd160  25ef4d30a9bb5f6cccdeba7d5e8e581450c0fe6e \
-                    sha256  1241ef961448c57b4616beb8dcc959724641dca1e22914663f79d67fec26f854
+checksums           rmd160  63bba513e70eb30cab8e3b0147d9d73b290f2346 \
+                    sha256  3971c35c675dc7acfceb636eb1758b7df9fc3ad75b5f81ca89f57ccf51719442
 
 if {${name} ne ${subport}} {
     depends_build-append \

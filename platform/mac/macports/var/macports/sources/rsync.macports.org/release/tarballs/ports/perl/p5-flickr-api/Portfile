@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137423 2015-06-11 05:28:25Z devans@macports.org $
+# $Id: Portfile 140434 2015-09-19 16:42:21Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           perl5 1.0
 
-perl5.branches      5.16 5.18 5.20
-perl5.setup         Flickr-API 1.13 ../by-authors/id/L/LB/LBMOORE
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Flickr-API 1.19
 platforms           darwin
 maintainers         nomaintainer
 license             Artistic-2
@@ -14,15 +14,18 @@ supported_archs     noarch
 description         Perl interface to the Flickr API
 long_description    ${description}
 
-checksums           rmd160  582e196302ee93349cba034f1f4f89e1e8d58217 \
-                    sha256  958f2b2cc77340e1a079e9438c19dc0cef5c2a21a237d3048a5c2a75a69e31e9
+checksums           rmd160  ada3df1c04b3d00cea2e24adfe63985b67018da4 \
+                    sha256  6e62ce5a8a9ae945b32fd7df60c0458076b3f90656c7f22d18ae6fd75d596835
 
 if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-test-script
+
     depends_lib-append \
                     port:p${perl5.major}-http-message \
                     port:p${perl5.major}-libwww-perl \
                     port:p${perl5.major}-net-oauth \
                     port:p${perl5.major}-uri \
                     port:p${perl5.major}-xml-parser-lite-tree \
-                    port:p${perl5.major}-xml-simple
+                    port:p${perl5.major}-xml-libxml-simple
 }

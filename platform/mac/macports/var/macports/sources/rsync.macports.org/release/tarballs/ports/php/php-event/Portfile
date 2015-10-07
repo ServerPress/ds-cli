@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 128164 2014-11-15 08:04:54Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem              1.0
 PortGroup               php 1.1
@@ -23,7 +23,7 @@ checksums               rmd160  1ca3c58e1e97d8a986dec8432027f8428d2c3490 \
 
 if {${name} ne ${subport}} {
     depends_lib-append  port:libevent \
-                        port:openssl \
+                        path:lib/libssl.dylib:openssl \
                         port:${php}-sockets
 
     configure.args-append \

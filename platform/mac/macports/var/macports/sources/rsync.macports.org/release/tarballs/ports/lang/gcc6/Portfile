@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138395 2015-07-07 03:11:46Z ryandesign@macports.org $
+# $Id: Portfile 140673 2015-09-29 19:31:31Z ryandesign@macports.org $
 
 PortSystem 1.0
 PortGroup select 1.0
@@ -9,7 +9,7 @@ name                gcc6
 subport             libgcc-devel {}
 
 epoch               1
-version             6-20150705
+version             6-20150927
 platforms           darwin
 categories          lang
 maintainers         mww openmaintainer
@@ -31,8 +31,8 @@ master_sites        http://gcc.petsads.us/snapshots/${version} \
 distname            gcc-${version}
 use_bzip2           yes
 
-checksums           rmd160  d12d87775cf3b88e3116acd8b2cf07fe7ecae0f5 \
-                    sha256  4eee1ba56c9db35a3ff139e4090eb0f93f0b777f39d30e8dc2109a8aead3ef78
+checksums           rmd160  6f3f133f3c0792b9de57bda4cd812697f72f1967 \
+                    sha256  115f5799ba1725173aea1d6cfa4b33bbd69b17420182ec2a4e49ef569f0a622b
 
 depends_lib         port:cctools \
                     port:gmp \

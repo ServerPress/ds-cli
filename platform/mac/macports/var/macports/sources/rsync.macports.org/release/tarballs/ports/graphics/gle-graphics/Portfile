@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136285 2015-05-14 03:21:00Z ionic@macports.org $
+# $Id: Portfile 140326 2015-09-17 09:32:36Z ryandesign@macports.org $
 
 PortSystem          1.0
 
@@ -63,7 +63,10 @@ configure.args      --with-jpeg=${prefix} \
 universal_variant   no
 
 if {${name} eq ${subport}} {
-    revision                4
+    revision                5
+
+    depends_lib-append      port:ncurses
+
     categories-append       aqua
     
     post-destroot {

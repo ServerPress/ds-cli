@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136358 2015-05-15 10:33:30Z devans@macports.org $
+# $Id: Portfile 140832 2015-10-04 19:04:46Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           gobject_introspection 1.0
@@ -7,7 +7,7 @@ PortGroup           gobject_introspection 1.0
 name                gdk-pixbuf2
 set my_name         gdk-pixbuf
 epoch               2
-version             2.31.4
+version             2.32.1
 license             LGPL
 set branch          [join [lrange [split ${version} .] 0 1] .]
 categories          graphics
@@ -23,8 +23,8 @@ long_description    ${description}
 
 master_sites        gnome:sources/${my_name}/${branch}/
 
-checksums           rmd160  be5ea041c959e1bfdc9609de52012669a9744ba4 \
-                    sha256  e5d9977493f8188baa6f432c5015c9937f0f67d29e0b6bccd3fae23126a47a15
+checksums           rmd160  e78b300ef06e0a1df35d5f9b4eaa0efda3e135aa \
+                    sha256  4432b74f25538c7d6bcb3ca51adabdd666168955f25812a2568dc9637697f3bc
 
 depends_build       port:pkgconfig
 
@@ -35,15 +35,15 @@ depends_lib         path:lib/pkgconfig/glib-2.0.pc:glib2 \
                     port:jpeg \
                     port:tiff
 
-patchfiles          patch-configure.ac.diff \
-                    patch-tests-pixbuf-readonly-to-mutable.c.diff
+patchfiles          patch-tests-pixbuf-readonly-to-mutable.c.diff
 
 gobject_introspection yes
 
 use_autoreconf      yes
 autoreconf.args     -fvi
 
-configure.args      --with-libjasper
+configure.args      --with-libjasper \
+                    --disable-silent-rules
 
 test.run            yes
 test.target         check
@@ -63,5 +63,5 @@ variant x11 {
 
 default_variants    +x11
 
-livecheck.type      gnome-with-unstable
+livecheck.type      gnome
 livecheck.name      ${my_name}

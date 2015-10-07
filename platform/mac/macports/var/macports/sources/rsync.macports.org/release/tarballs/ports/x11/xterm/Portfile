@@ -1,9 +1,10 @@
-# $Id: Portfile 134406 2015-03-25 01:55:09Z jeremyhu@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem          1.0
 
 name                xterm
 version             316
+revision            1
 categories          x11
 license             X11
 platforms           darwin

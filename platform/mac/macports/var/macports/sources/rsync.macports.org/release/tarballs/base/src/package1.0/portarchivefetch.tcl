@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: portarchivefetch.tcl 117044 2014-02-13 21:46:10Z cal@macports.org $
+# $Id: portarchivefetch.tcl 140689 2015-09-30 06:27:47Z jmr@macports.org $
 #
 # Copyright (c) 2002 - 2003 Apple Inc.
 # Copyright (c) 2004 - 2013 The MacPorts Project
@@ -284,7 +284,7 @@ proc portarchivefetch::fetchfiles {args} {
         }
         return 0
     }
-    if {[info exists ports_binary_only] && $ports_binary_only eq "yes"} {
+    if {([info exists ports_binary_only] && $ports_binary_only eq "yes") || [_archive_available]} {
         return -code error "archivefetch failed for [option subport] @[option version]_[option revision][option portvariants]"
     } else {
         return 0

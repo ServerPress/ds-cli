@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 135414 2015-04-23 15:57:06Z michaelld@macports.org $
+# $Id: Portfile 139217 2015-08-07 20:39:37Z michaelld@macports.org $
 
 PortSystem          1.0
 PortGroup           cmake 1.0
@@ -7,7 +7,7 @@ PortGroup           github 1.0
 
 github.setup        drmpeg gr-dvbs2 5d075c64146bfb2ae45b1426ffcbf3faa8e0da3d
 version             20140903
-revision            1
+revision            2
 checksums           rmd160 ac23c16cc262eb9071eb96350ef46dd81aa9c6b5 \
                     sha256 3f83593d33cc3a1411b1539b958a34fa87891262041cd34915fe6209a41eb083
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 129787 2014-12-20 19:53:31Z jwa@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 PortGroup           wxWidgets 1.0
@@ -31,7 +31,7 @@ checksums           rmd160  3f2902b68a915d88bc93c10b897f4c163459b03e \
 
 wxWidgets.use       wxWidgets-3.0
 
-depends_lib         port:openssl \
+depends_lib         path:lib/libssl.dylib:openssl \
                     port:libxml2 \
                     port:libxslt \
                     port:${wxWidgets.port}
@@ -50,6 +50,7 @@ universal_variant   no
 
 post-configure {
     system -W ${worksrcpath} "patch -p0 <${filespath}/patch-Makefile.diff"
+    reinplace "s;wxrc;${wxWidgets.wxrc};" ${worksrcpath}/pgadmin/ui/embed-xrc
 }
 
 destroot.violate_mtree yes

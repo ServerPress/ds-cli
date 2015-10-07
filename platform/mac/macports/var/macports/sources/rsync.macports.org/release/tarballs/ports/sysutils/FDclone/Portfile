@@ -1,9 +1,10 @@
-# $Id: Portfile 137621 2015-06-15 14:56:57Z mf2k@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem      1.0
 
 name            FDclone
 version         3.01a
+revision        1
 categories      sysutils shells
 maintainers     nomaintainer
 description     File & Directory Maintenance Tool

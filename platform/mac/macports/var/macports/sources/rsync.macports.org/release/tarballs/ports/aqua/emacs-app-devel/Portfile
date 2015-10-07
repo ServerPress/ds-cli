@@ -1,9 +1,10 @@
-# $Id: Portfile 90331 2012-03-02 13:09:25Z css@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 
 name            emacs-app-devel
 version         20091101
+revision        1
 
 categories      aqua editors
 maintainers     css openmaintainer

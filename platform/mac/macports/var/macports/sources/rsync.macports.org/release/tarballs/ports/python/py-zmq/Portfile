@@ -1,17 +1,17 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137984 2015-06-24 07:24:20Z stromnov@macports.org $
+# $Id: Portfile 140623 2015-09-28 11:13:46Z stromnov@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-zmq
 version             14.7.0
-revision            0
+revision            1
 categories-append   devel net
 platforms           darwin
 license             LGPL
 
-python.versions     26 27 33 34
+python.versions     26 27 33 34 35
 
 maintainers         gmail.com:jrjsmrtn openmaintainer
 

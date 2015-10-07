@@ -1,5 +1,5 @@
 # -*- mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*-
-# $Id: Portfile 125003 2014-09-02 15:02:29Z mf2k@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 
@@ -36,7 +36,7 @@ checksums       ${cgit_distfile} \
                     sha256  8e260b9e5dfb46a35f26e3db450c2dabb4d1df254bfb2820779945a1ecbcef51
 
 depends_lib     port:git \
-                port:openssl \
+                path:lib/libssl.dylib:openssl \
                 port:zlib \
                 port:libiconv
 

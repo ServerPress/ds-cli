@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 135020 2015-04-13 12:07:08Z ryandesign@macports.org $
+# $Id: Portfile 140482 2015-09-20 08:33:08Z ryandesign@macports.org $
 
 PortSystem      1.0
 
 name            xqilla
 version         2.3.0
-revision        1
+revision        2
 license         Apache-2
 categories      textproc devel
 platforms       darwin
@@ -26,6 +26,8 @@ checksums       rmd160  32886123cf910c7d031b526ea010336b465bc80a \
 depends_lib \
     port:xercesc3 \
     port:tidy
+
+patchfiles      patch-src-functions-FunctionParseHTML.cpp.diff
 
 configure.cppflags  -isystem${prefix}/include
 

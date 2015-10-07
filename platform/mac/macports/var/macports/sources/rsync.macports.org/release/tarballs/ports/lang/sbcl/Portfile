@@ -1,12 +1,12 @@
 # -*- mode: tcl; coding: utf-8; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- # vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138155 2015-06-30 18:41:19Z easieste@macports.org $
+# $Id: Portfile 140027 2015-09-07 10:20:53Z easieste@macports.org $
 
 PortSystem      1.0
 
 name            sbcl
 
 # Please revbump ../../math/maxima when this port changes
-version         1.2.13
+version         1.2.15
 
 categories      lang
 license         BSD
@@ -35,8 +35,8 @@ distname        ${name}-${version}-source
 worksrcdir      ${name}-${version}
 
 checksums       sbcl-${version}-source.tar.bz2 \
-    rmd160  d9aafb7494e414d948b26dfd5dadf42713a02031 \
-    sha256  e6d93a94cbf821b2c500a9440ca640588e9ac6914dba2f6b5445a5e14eeb1205
+    rmd160  6e981559c32d326b651e3570ff2a117597202d0c \
+    sha256  d95a6e8a4b658f9973825f8d44d6195a645b0d6a33d865324c0c658b8bcb1651 
 
 platform powerpc {
     set bootversion 1.0.47

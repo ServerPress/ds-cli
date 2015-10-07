@@ -1,8 +1,9 @@
-# $Id: Portfile 125703 2014-09-24 11:02:22Z ryandesign@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 name		pinfo
 version             0.6.10
+revision            1
 set download_id     3351
 categories	textproc
 maintainers	iaas.msu.ru:master

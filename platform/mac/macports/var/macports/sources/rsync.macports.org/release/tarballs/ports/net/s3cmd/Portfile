@@ -1,11 +1,12 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 132842 2015-02-11 16:57:04Z khindenburg@macports.org $
+# $Id: Portfile 139349 2015-08-14 03:59:51Z khindenburg@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
 
 name                s3cmd
 version             1.5.2
+revision            1
 categories          net
 license             GPL-2
 maintainers         nomaintainer
@@ -28,6 +29,8 @@ python.default_version  27
 python.link_binaries_suffix
 
 depends_build-append    port:py27-setuptools
+depends_run-append      port:py27-dateutil \
+                        port:py27-magic
 
 livecheck.type      regex
 livecheck.url       http://sourceforge.net/projects/s3tools/files/s3cmd/

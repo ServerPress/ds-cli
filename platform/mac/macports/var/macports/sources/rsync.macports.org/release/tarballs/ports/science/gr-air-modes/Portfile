@@ -1,15 +1,14 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138215 2015-07-02 15:00:58Z michaelld@macports.org $
+# $Id: Portfile 139958 2015-09-04 15:10:20Z michaelld@macports.org $
 
 PortSystem          1.0
 PortGroup           cmake 1.0
 PortGroup           github 1.0
 
-github.setup        bistromath gr-air-modes d810ed75a81fd204d7907239ab063586b956b7ca
-version             20150526
-revision            1
-checksums           rmd160 27b9247c93d6e4d62398a5cbcbbc655a456566a0 \
-                    sha256 a08332232784ceb01a346ddfdcbd38bc0137623535de68f414b1a76f069dbf91
+github.setup        bistromath gr-air-modes 514414f6b3caed015176549a8ee75c456cd1567a
+version             20150903
+checksums           rmd160 c52aa6aeba38f7733cca1629ac54351aa6f7ad5d \
+                    sha256 bf104f99bd2f64cef1ff732b514c28cb984b6f09c2c443159b251da0524a684b
 
 # allow gr-air-modes to work with both gnuradio and gnuradio-devel ...
 

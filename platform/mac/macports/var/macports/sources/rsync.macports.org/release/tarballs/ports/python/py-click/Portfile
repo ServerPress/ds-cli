@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 134605 2015-03-31 20:28:01Z stromnov@macports.org $
+# $Id: Portfile 139498 2015-08-19 06:45:14Z stromnov@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-click
-version             4.0
+version             5.1
 revision            0
 categories-append   devel
 platforms           darwin
@@ -24,8 +24,8 @@ master_sites        https://pypi.python.org/packages/source/c/click/
 
 distname            click-${version}
 
-checksums           rmd160  82cf40c5808514ea7c30ba23103830bff95debcc \
-                    sha256  f49e03611f5f2557788ceeb80710b1c67110f97c5e6740b97edf70245eea2409
+checksums           rmd160  df1ba056f9abe21c458afd9a7ded96a535497bd4 \
+                    sha256  678c98275431fad324275dec63791e4a17558b40e5a110e20a82866139a85a5a
 
 if {${name} ne ${subport}} {
     depends_build-append \

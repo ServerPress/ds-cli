@@ -1,10 +1,10 @@
-# $Id: Portfile 116913 2014-02-10 09:06:04Z jmr@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem          1.0
 
 name                freesci
 version             0.6.4
-revision            4
+revision            5
 categories          emulators
 license             GPL-2
 maintainers         nomaintainer

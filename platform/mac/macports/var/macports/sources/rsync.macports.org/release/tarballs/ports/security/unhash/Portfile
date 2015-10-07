@@ -1,4 +1,4 @@
-# $Id: Portfile 86403 2011-10-25 08:40:03Z mww@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 
@@ -21,7 +21,7 @@ checksums           md5     b0cce452ec2eb64c4e0a8ec1b04a32d5 \
                     rmd160  4f6a896783073249b5b3b8021f61b57943146d93
 use_bzip2           yes
 
-depends_lib         port:openssl
+depends_lib         path:lib/libssl.dylib:openssl
 
 patchfiles          patch-Makefile
 

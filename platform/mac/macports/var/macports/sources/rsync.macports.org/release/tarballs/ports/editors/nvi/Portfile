@@ -1,10 +1,10 @@
-# $Id: Portfile 120056 2014-05-14 20:50:53Z toby@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem      1.0
 
 name            nvi
 version         1.81.6
-revision        1
+revision        2
 categories      editors
 license         BSD
 maintainers     toby

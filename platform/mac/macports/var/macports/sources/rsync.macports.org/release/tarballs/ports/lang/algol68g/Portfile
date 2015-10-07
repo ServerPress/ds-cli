@@ -1,9 +1,10 @@
-# $Id: Portfile 132553 2015-02-04 19:57:25Z mww@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem          1.0
 
 name                algol68g
 version             2.8.1
+revision            1
 categories          lang devel
 platforms           darwin
 license             GPL-3

@@ -1,11 +1,11 @@
-# $Id: Portfile 114328 2013-12-05 10:21:52Z ryandesign@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 
 name			ruby186
 conflicts               ruby
 version			1.8.6-p420
-revision        0
+revision        1
 
 categories		lang ruby
 maintainers		kimuraw openmaintainer
@@ -33,7 +33,7 @@ platforms		darwin
 
 depends_lib		port:libiconv \
 				port:readline \
-				port:openssl \
+				path:lib/libssl.dylib:openssl \
 				port:zlib \
 				port:ncurses \
 				port:gdbm

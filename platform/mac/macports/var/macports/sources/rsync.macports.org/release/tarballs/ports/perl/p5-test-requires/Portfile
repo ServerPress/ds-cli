@@ -1,12 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 130129 2014-12-27 11:23:11Z mojca@macports.org $
+# $Id: Portfile 139654 2015-08-23 06:16:31Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           perl5 1.0
 
-perl5.branches      5.16 5.18 5.20
-perl5.setup         Test-Requires 0.08
-revision            1
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Test-Requires 0.10
 license             {Artistic-1 GPL}
 maintainers         nomaintainer
 description         Checks to see if the module can be loaded
@@ -14,7 +13,12 @@ long_description    ${description}
 
 platforms           darwin
 
-checksums           rmd160  f1ceb081090f8703ec18a2975ee16fe33eab6666 \
-                    sha256  e7b1b4b30b90d530aea68205c0e65cf7a784d6a218df5a2b41830cdb404d8221
+checksums           rmd160  90af1042e41da20b8416595d46d573083cdde6e0 \
+                    sha256  2768a391d50ab94b95cefe540b9232d7046c13ee86d01859e04c044903222eb5
 
-supported_archs     noarch
+if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-extutils-makemaker
+
+    supported_archs noarch
+}

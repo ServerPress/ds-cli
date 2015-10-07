@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137105 2015-06-04 23:40:53Z michaelld@macports.org $
+# $Id: Portfile 140710 2015-09-30 17:34:07Z michaelld@macports.org $
 
 PortSystem      1.0
 PortGroup       github 1.0
@@ -24,9 +24,9 @@ subport libusb-devel {}
 
 if {${subport} eq ${name}} {
 
-    github.setup    libusb libusb 1.0.19 v
-    checksums       rmd160 c1ebcb76759695ef288bf1137e131ca1fa3456df \
-                    sha256 5b743a35a13af01f965818ca4a5f78d56b0335426632a6dc5820f5f66fd4edd4
+    github.setup    libusb libusb 1.0.20 v
+    checksums       rmd160 c374de2c67b47877bfc3a9be3291b4acc6f62935 \
+                    sha256 c3aeb2d7abad759f0f7e9456cccd1d911ebbf285e0b2f77fc2c3b990ca87d621
 
     conflicts      libusb-devel
 
@@ -40,10 +40,10 @@ if {${subport} eq ${name}} {
     long_description ${long_description} \
         This port provides devel version of ${name}, updated weekly to monthly.
 
-    github.setup   libusb libusb c141457debff6156b83786eb69b46d873634e5bd
-    version        20150513
-    checksums      rmd160 d0006a4b6ae77975fbb95dba1f48376fc03a5de3 \
-                   sha256 613793e6334d72f0b6fd7b216af3c9b18f702f453749f39dbc503b8b955736db
+    github.setup   libusb libusb 960a6e7506c4d0d59052056ae2ebfffbe8587175
+    version        20150921
+    checksums      rmd160 ba8ec7c89992e201287e129f7648e0a32b35f94a \
+                   sha256 a4895d98259082d4033873a22ccba4bfe4bff9335f8e8a06a854fc2cca5f35f1
 
     conflicts      libusb
 

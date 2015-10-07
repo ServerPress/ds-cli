@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138039 2015-06-26 18:27:05Z snc@macports.org $
+# $Id: Portfile 140303 2015-09-16 19:39:02Z snc@macports.org $
 
 PortSystem          1.0
 
 name                ZendFramework2
-version             2.4.3
+version             2.4.8
 categories          www lang
 license             BSD
 maintainers         snc openmaintainer
@@ -24,8 +24,8 @@ if {$subport eq $name} {
     master_sites        https://packages.zendframework.com/releases/ZendFramework-${version}/
     extract.suffix      .tgz
 
-    checksums           rmd160  9e5394e38408c5fad4f7a6fa34b571f6596aa861 \
-                        sha256  95074a20a11c03da298ac802679a22f45dfa0e92334db16394d6f603b1140ff7
+    checksums           rmd160  6460a34506414b7d32d1ac6a9c474a62d9dc5eab \
+                        sha256  1bac9d0242594459fb127dcac9e54eb699175192165b1fb3dbbf0ba2a3166492
 
     livecheck.regex     {Zend Framework (2\.\d+\.\d+) Full}
 }
@@ -33,15 +33,14 @@ if {$subport eq $name} {
 subport ZendFramework1 {
     conflicts ZendFramework2
 
-    version             1.12.13
+    version             1.12.16
     revision            0
 
     distname            ZendFramework-${version}
     master_sites        https://packages.zendframework.com/releases/ZendFramework-${version}/
 
-    checksums           rmd160  994d2ff96a4a6f297fdb67ce2d501ad67a46dd1b \
-                        sha256  5b127f08393b2c378297529b5a779656939da88de841ecc55edec75652ef453b
-
+    checksums           rmd160  63989b69e6a8e610bc99f17d5b8bc1a5cb6c1754 \
+                        sha256  9dcd5296836ac814cb0fe81d1c51c8ae617debda0bf30a7cb1d15784618d57dd
 
     livecheck.regex     {Zend Framework (1\.\d+\.\d+) Full}
 }

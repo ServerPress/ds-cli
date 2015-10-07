@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 135237 2015-04-20 04:02:33Z ionic@macports.org $
+# $Id: Portfile 140753 2015-10-02 02:59:35Z khindenburg@macports.org $
 
 PortSystem          1.0
 
 name                wcd
-version             5.2.7
+version             5.3.0
 categories          sysutils
 maintainers         gmail.com:mschamschula openmaintainer
 platforms           darwin
@@ -23,8 +23,8 @@ long_description    Wcd is a command-line program to change directory fast. It \
 homepage            http://waterlan.home.xs4all.nl/
 master_sites        ${homepage}wcd
 
-checksums           rmd160  7acd779c68710671724677890fc0565f0a0c5925 \
-                    sha256  e5f56824e054c6726186271b20a5de3c5b167116b97785a925907981cf3e3b39
+checksums           rmd160  aa571dbb1ed299a2d750ab6edc3d4acbfd6e5af6 \
+                    sha256  9375c9b055e0ebff8d0b0a11673229bb9770071bda76249cf2494532794ecd9b
 
 depends_lib         port:gettext \
                     port:ncurses

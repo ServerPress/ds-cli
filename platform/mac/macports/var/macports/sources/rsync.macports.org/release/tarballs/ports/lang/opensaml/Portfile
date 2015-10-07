@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 134207 2015-03-20 02:45:35Z scantor@macports.org $
+# $Id: Portfile 138818 2015-07-21 01:15:21Z scantor@macports.org $
 
 PortSystem          1.0
 
 name                opensaml
-version             2.5.4
+version             2.5.5
 categories          lang shibboleth security xml
 license             Apache-2
 maintainers         snc scantor
@@ -21,8 +21,8 @@ depends_lib         port:xmltooling \
                     port:log4shib \
                     port:boost
 
-checksums           rmd160  51b2a560adbbb428702aa3ae4edaa07717ae0abc \
-                    sha256  3d33e21509b3a617f748ad8d6737332cac617643845ef2b3e51bdc6bd4a10314
+checksums           rmd160  3f7d5b626024d83ad8bb4743422b6ee5288166be \
+                    sha256  acb37b1d55e0ba9ea15f3c79595a79b852d12f19b81d00bd61b13e83c9c6accc
 
 configure.args      --disable-static \
                     --with-boost=${prefix} \

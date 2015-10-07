@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 120250 2014-05-20 14:03:05Z mf2k@macports.org $
+# $Id: Portfile 139539 2015-08-19 22:06:59Z ryandesign@macports.org $
 
 PortSystem          1.0
 PortGroup           cmake 1.0
@@ -31,13 +31,7 @@ default_variants    +ssl +readline
 
 patchfiles          patch-cmake-XRootDOSDefs.cmake.diff
 
-# do a out of place build
-pre-configure {
-    file mkdir ${workpath}/build
-}
-configure.dir       ${workpath}/build
-configure.post_args ${worksrcpath}
-build.dir           ${workpath}/build
+cmake.out_of_source yes
 
 configure.args-append -DENABLE_CRYPTO=False \
                       -DENABLE_READLINE=False \
@@ -61,7 +55,7 @@ variant readline description {Build with Readline Support} {
 variant ssl description {Build with OpenSSL Support} {
     configure.args-delete   -DENABLE_CRYPTO=False
     configure.args-append   -DENABLE_CRYPTO=True -DOPENSSL_ROOT_DIR="${prefix}"
-    depends_lib-append      port:openssl
+    depends_lib-append      path:lib/libssl.dylib:openssl
 }
 
 variant kerberos description {Build with Kerberos 5 Support} {

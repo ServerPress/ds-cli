@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 135203 2015-04-19 04:22:36Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem      1.0
 
@@ -25,7 +25,7 @@ depends_lib     path:lib/pkgconfig/glib-2.0.pc:glib2 \
                 port:gtk2 \
                 port:expat \
                 port:openldap \
-                port:openssl \
+                path:lib/libssl.dylib:openssl \
                 port:libgnome-keyring \
                 port:libglade2 \
                 port:libiconv

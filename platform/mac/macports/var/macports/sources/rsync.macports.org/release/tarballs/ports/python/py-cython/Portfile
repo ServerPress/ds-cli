@@ -1,18 +1,18 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137985 2015-06-24 07:30:40Z stromnov@macports.org $
+# $Id: Portfile 140665 2015-09-29 11:31:15Z stromnov@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
 PortGroup           select 1.0
 
 name                py-cython
-version             0.22.1
+version             0.23.3
 revision            0
 categories-append   devel
 platforms           darwin
 license             Apache-2
 
-python.versions     26 27 33 34
+python.versions     26 27 33 34 35
 
 maintainers         stromnov openmaintainer
 
@@ -29,8 +29,8 @@ master_sites        ${homepage}release/ \
 
 distname            Cython-${version}
 
-checksums           rmd160  b4e5b28c2e3af0465eb639f16a6102ed0d61d3d6 \
-                    sha256  7fff120e65e7b66edb4a42823f5642bad3bc1e5601bf882d66aee50248cf0682
+checksums           rmd160  8ad6371b7f3657ff199be6e675c27dfb25c62a75 \
+                    sha256  590274ac8dbd1e62cc79d94eb2e2f4ae60cea91a9f8d50b8697d39aba451e82e
 
 if {${name} ne ${subport}} {
     post-destroot {

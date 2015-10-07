@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 135012 2015-04-13 07:45:11Z ryandesign@macports.org $
+# $Id: Portfile 140610 2015-09-27 08:53:24Z ryandesign@macports.org $
 
 PortSystem      1.0
 PortGroup       php 1.1
 
 name            php-http2
-version         2.4.3
+version         2.5.3
 categories      php www
 platforms       darwin
 maintainers     ryandesign openmaintainer
@@ -33,8 +33,8 @@ long_description \
 
 dist_subdir     php5-http
 
-checksums       rmd160  7de8495e55295139ef93d2b93a636e68e1b22354 \
-                sha256  2d9f3713331cf35b4a0162bd8b294683a67fecb5223e50978661acccd30c6c39
+checksums       rmd160  de92119a3d56e87133c4f08f2da9d40a1ee3a39c \
+                sha256  713790881f0308fceff0177340cb8b1ab3f7cb1c2b7906e06146399c7fdc6094
 
 if {${name} ne ${subport}} {
     conflicts           ${php}-http

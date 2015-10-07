@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136285 2015-05-14 03:21:00Z ionic@macports.org $
+# $Id: Portfile 140051 2015-09-08 02:32:12Z ryandesign@macports.org $
 
 PortSystem          1.0
 PortGroup           muniversal 1.0
@@ -41,10 +41,14 @@ depends_lib-append  port:cfitsio \
                     port:wget \
                     port:libxml2
 
+patchfiles          patch-configure.diff
+
 post-patch {
     reinplace "s|USRDIR=/usr/local|USRDIR=${prefix}|g" \
                 ${worksrcpath}/Makefile.skel
 }
+
+build.env           CC="${configure.cc}"
 
 livecheck.type      regex
 livecheck.url       [lindex ${master_sites} 0]

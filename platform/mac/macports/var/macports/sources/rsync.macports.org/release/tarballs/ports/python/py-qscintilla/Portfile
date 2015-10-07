@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 135263 2015-04-20 19:29:38Z michaelld@macports.org $
+# $Id: Portfile 139661 2015-08-23 22:36:34Z ionic@macports.org $
 
 PortSystem          1.0
 PortGroup           qt4 1.0
@@ -12,6 +12,7 @@ name                py-qscintilla
 #          will fail with strange error messages.
 
 version             2.9
+revision            1
 checksums           rmd160 3b3682a578a988466ef35aeab757466ea908934f \
                     sha256 d7c32e32582f93779de861006d87467b38b9ebc06e3d0b32e981cb24369fa417
 

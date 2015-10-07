@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 129166 2014-12-08 02:55:33Z khindenburg@macports.org $
+# $Id: Portfile 139526 2015-08-19 20:45:46Z ryandesign@macports.org $
 
 PortSystem          1.0
 
 name                nethack
 version             3.4.3
-revision            3
+revision            4
 categories          games
 maintainers         nomaintainer
 description         Classic dungeon adventure game.
@@ -20,6 +20,8 @@ extract.suffix      .tgz
 checksums           ${distfiles} md5 21479c95990eefe7650df582426457f9 \
                     ${distfiles} sha1 c26537093c38152bc0fbcec20468d975b35f59fd \
                     ${distfiles} rmd160 42f600d24715a0b7e631b357c135761410b3ca95
+
+depends_lib         port:ncurses
 
 worksrcdir          ${name}-${version}
 

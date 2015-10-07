@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136365 2015-05-15 10:54:34Z devans@macports.org $
+# $Id: Portfile 140849 2015-10-04 19:12:11Z devans@macports.org $
 
 PortSystem          1.0
 
 name                gnome-getting-started-docs
-version             3.16.2
+version             3.18.0
 set branch          [join [lrange [split ${version} .] 0 1] .]
 description         GNOME Help Getting Started
 long_description    This package adds getting started topics to \
@@ -12,7 +12,7 @@ long_description    This package adds getting started topics to \
 
 maintainers         nomaintainer
 categories          gnome
-license             CC-BY-SA-3.0
+license             CC-BY-SA-3
 installs_libs       no
 platforms           darwin
 supported_archs     noarch
@@ -21,8 +21,8 @@ master_sites        gnome:sources/${name}/${branch}/
 
 use_xz              yes
 
-checksums           sha256  ded7d7eea9c74f8b58289f43dad45f83abf5ad845b7ac6a1a6dba66b72199f1f \
-                    rmd160  1ff3577c9142dfe2ca08d186fb739ef541bb0793
+checksums           sha256  5ef0373c5a864fefdecb17bffdfc2cca00fb2abf93756b1df9062e12208925d6 \
+                    rmd160  67702a1fd2485cac75adb3920c0fc4f1f68d9bd4
 
 depends_build       port:pkgconfig \
                     port:itstool \

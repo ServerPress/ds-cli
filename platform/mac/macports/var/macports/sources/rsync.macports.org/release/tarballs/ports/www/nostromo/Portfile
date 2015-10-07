@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 110199 2013-08-28 10:26:22Z jmr@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem              1.0
 
@@ -21,7 +21,7 @@ master_sites            http://www.nazgul.ch/dev
 checksums               sha1    962085f807c7b42e615fbea13d4cc347660f8454 \
                         rmd160  2099287e18c7703e63d225f7e37c1cb23db2ffc2
 
-depends_lib             port:openssl
+depends_lib             path:lib/libssl.dylib:openssl
 
 use_configure           no
 

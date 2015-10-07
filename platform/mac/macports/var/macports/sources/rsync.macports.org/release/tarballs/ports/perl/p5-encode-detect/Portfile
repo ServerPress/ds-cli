@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 131134 2015-01-06 11:49:10Z mojca@macports.org $
+# $Id: Portfile 140422 2015-09-19 16:29:13Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           perl5 1.0
 
-perl5.branches      5.16 5.18 5.20
+perl5.branches      5.16 5.18 5.20 5.22
 perl5.setup         Encode-Detect 1.01 
 revision            3
 license             {MPL-1.1 LGPL-2.1+}
@@ -25,6 +25,7 @@ checksums           rmd160  30264410aa80ea030932b8c310b117d4acf25cbe \
 
 if {${perl5.major} != ""} {
     depends_lib-append \
-                    port:p${perl5.major}-encode \
-                    port:p${perl5.major}-extutils-cbuilder
+                    port:p${perl5.major}-encode
+    
+    perl5.use_module_build
 }

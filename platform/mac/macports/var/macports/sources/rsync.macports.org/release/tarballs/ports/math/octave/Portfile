@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138295 2015-07-04 15:27:54Z ionic@macports.org $
+# $Id: Portfile 140918 2015-10-05 15:01:55Z michaelld@macports.org $
 
 PortSystem          1.0
 PortGroup           active_variants 1.1
@@ -9,7 +9,7 @@ PortGroup           compilers 1.0
 name                octave
 
 version             3.8.2
-revision            10
+revision            12
 #conflicts           octave-devel
 categories          math science
 maintainers         michaelld openmaintainer
@@ -233,8 +233,17 @@ if {![variant_isset x11]} {
 
 variant glgui conflicts x11 description {Enable OpenGL GUI (via FLTK) as the default graphical front-end} {
 
-    depends_lib-append path:lib/libfltk.dylib:fltk \
-                       port:fontconfig \
+    # for now on OSX 10.11, just use fltk-devel since fltk does not
+    # build; remove this condition with the next fltk release (noted
+    # in that Portfile too).
+
+    if {${os.major} == 15} {
+        depends_lib-append port:fltk-devel
+    } else {
+        depends_lib-append path:lib/libfltk.dylib:fltk
+    }
+
+    depends_lib-append port:fontconfig \
                        port:freetype \
                        port:gl2ps
 

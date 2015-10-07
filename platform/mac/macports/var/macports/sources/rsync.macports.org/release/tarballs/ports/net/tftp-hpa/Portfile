@@ -1,9 +1,10 @@
-# $Id: Portfile 125738 2014-09-25 14:43:03Z mf2k@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 
 name                tftp-hpa
 version             5.2
+revision            1
 categories          net
 maintainers         nomaintainer
 description         Enhanced port of the BSD TFTP server

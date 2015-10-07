@@ -1,4 +1,4 @@
-# $Id: Portfile 96427 2012-08-09 20:34:08Z jmr@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 
@@ -24,4 +24,4 @@ checksums \
 	rmd160 05af142d8ecc582677909087bd53129561c86135	\
 	sha256 296bdb718eaba9ca938bee56f0976622006c956980ab7fc7a339530d88f51eb8
 
-depends_lib	port:openssl
+depends_lib	path:lib/libssl.dylib:openssl

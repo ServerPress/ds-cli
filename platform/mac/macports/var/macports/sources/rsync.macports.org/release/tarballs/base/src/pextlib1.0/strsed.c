@@ -1,6 +1,6 @@
 /*
  * Strsed.c
- * $Id: strsed.c 120070 2014-05-14 22:27:37Z cal@macports.org $
+ * $Id: strsed.c 134503 2015-03-27 19:48:17Z cal@macports.org $
  *
  *     ed(1)/tr(1)-like search, replace, transliterate. See the
  *     manpage for details. See the README for copyright information.
@@ -133,6 +133,8 @@
 
 /* required for strdup(3) on Linux and OS X */
 #define _XOPEN_SOURCE 600L
+/* we're using this on raw strings, no escape sequences allowed */
+#define ESCAPED_STRING
 
 #include <ctype.h>
 #include <string.h>

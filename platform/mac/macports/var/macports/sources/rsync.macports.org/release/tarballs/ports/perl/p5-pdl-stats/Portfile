@@ -1,12 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136944 2015-05-31 01:47:04Z devans@macports.org $
+# $Id: Portfile 140438 2015-09-19 16:46:26Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           perl5 1.0
 
-perl5.branches      5.16 5.18 5.20
-perl5.setup         PDL-Stats 0.6.5
-revision            1
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         PDL-Stats 0.72
 
 platforms           darwin
 maintainers         nomaintainer
@@ -16,12 +15,10 @@ description         PDL::Stats - a collection of statistics modules in Perl Data
                     with a quick-start guide for non-PDL people.
 long_description    ${description}
 
-checksums           rmd160  affd279f2de37270cd49fe417f2ab9d302575191 \
-                    sha256  6051cc714b562e98383bd57449eca03bbf63e9f4070ee624cf8a0246cc2b47d1
+checksums           rmd160  8367f56eef482b77ff75b2528fa0d01cc6df493b \
+                    sha256  8a1f4d075ea5705ca5fbd900bb3e11396d8815183dd2cfae2a0bd97efbd2c900
 
 if {${perl5.major} != ""} {
     depends_lib-append \
                     port:p${perl5.major}-pdl
-
-    patchfiles      patch-GLM-glm.pp.diff
 }

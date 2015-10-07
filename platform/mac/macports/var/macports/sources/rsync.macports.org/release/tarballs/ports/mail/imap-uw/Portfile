@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 125400 2014-09-16 21:28:51Z mf2k@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 
@@ -24,7 +24,7 @@ extract.suffix      .tar.Z
 checksums           rmd160    14f40284e9e164c0ed7677f1e5d8e3309c7c58c1 \
                     sha256  870e95f6bd19265832a88fd89b77c54c841c59022fd21e69254050c8b1005e3c
 
-depends_lib         port:openssl port:gss
+depends_lib         path:lib/libssl.dylib:openssl port:gss
 
 use_configure       no
 use_parallel_build  no
@@ -114,9 +114,7 @@ destroot {
     xinstall -m 0755 ${worksrcpath}/src/dmail/dmail.1 ${destroot}${prefix}/share/man/man1
     xinstall -m 0644 ${worksrcpath}/docs/RELNOTES ${destroot}${prefix}/share/doc/${name}
     xinstall -m 0644 ${worksrcpath}/docs/FAQ.html ${destroot}${prefix}/share/doc/${name}
-    foreach file [glob ${worksrcpath}/docs/*.txt] {
-        xinstall -m 0644 ${file} ${destroot}${prefix}/share/doc/${name}
-    }
+    xinstall -m 0644 {*}[glob ${worksrcpath}/docs/*.txt] ${destroot}${prefix}/share/doc/${name}
 }
 
 

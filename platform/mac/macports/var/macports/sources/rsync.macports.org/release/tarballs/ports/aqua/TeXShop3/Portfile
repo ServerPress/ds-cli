@@ -1,12 +1,12 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 135075 2015-04-15 07:20:07Z jwa@macports.org $
+# $Id: Portfile 140692 2015-09-30 06:49:13Z jwa@macports.org $
 
 PortSystem      1.0
 PortGroup       xcode 1.0
 
 name            TeXShop3
 conflicts	TeXShop
-version         3.51
+version         3.54
 
 set major       [lindex [split ${version} .] 0]
 categories      aqua editors
@@ -28,8 +28,8 @@ dist_subdir     TeXShop/
 worksrcdir      texshopsource[strsed ${version} {/\.//}]
 set propername	TeXShop
 
-checksums           rmd160  8c8fb2f6a897aa421c5d2e8036bb7034b079f44e \
-                    sha256  9d9d1686550a081c566d777e0f7b0891e4b08939fe42e28644da6e969e7d0a89
+checksums           rmd160  4150370b744473cc79b9dcfc21fe285851e7dbae \
+                    sha256  cdc33bb75696399824d410b4244fcc484c2d7a95653bbd83af0e088f176b70fb
 
 pre-fetch {
     platform darwin {
@@ -41,11 +41,15 @@ pre-fetch {
 }
 
 platform darwin 12 {
-    patchfiles-append	patch-MyPDFKitView.m.diff
+    patchfiles-append	patch-MyPDFKitView.m.diff patch-TSAppDelegate.m.diff
 }
 
 platform darwin 13 {
-    patchfiles-append	patch-MyPDFKitView.m.diff
+    patchfiles-append	patch-MyPDFKitView.m.diff patch-TSAppDelegate.m.diff
+}
+
+platform darwin 14 {
+    patchfiles-append	patch-TSAppDelegate.m.diff
 }
 
 post-extract    {

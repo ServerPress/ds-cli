@@ -1,12 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138237 2015-07-02 21:05:54Z devans@macports.org $
+# $Id: Portfile 140879 2015-10-04 19:23:39Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           active_variants 1.1
 
 name                gedit
-version             3.16.2
-revision            1
+version             3.18.0
 license             GPL-2
 set branch          [join [lrange [split ${version} .] 0 1] .]
 description         GNOME editor.
@@ -19,8 +18,8 @@ master_sites        gnome:sources/${name}/${branch}/
 
 use_xz              yes
 
-checksums           rmd160  bee1d4e80d4954f87f881b05e64ab684f13ab6cb \
-                    sha256  db60a9408711b00f3780f5f5b657e9f44722c88c683ba6e9f2b4885631f429aa
+checksums           rmd160  0e4d6c1451b2a21c6630dc4943607f821ed15fe0 \
+                    sha256  9abd4f1478385f8b6c983298206f4ab1a25c682b9c87fb00d759b7db5b949533
 
 depends_build       port:pkgconfig \
                     port:intltool \

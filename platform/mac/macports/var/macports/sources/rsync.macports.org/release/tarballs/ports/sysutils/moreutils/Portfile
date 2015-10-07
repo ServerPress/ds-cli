@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 133406 2015-02-28 21:35:49Z khindenburg@macports.org $
+# $Id: Portfile 139401 2015-08-16 02:16:16Z khindenburg@macports.org $
 
 PortSystem              1.0
 
 name                    moreutils
 conflicts               ts
-version                 0.55
+version                 0.57
 categories              sysutils
 platforms               darwin
 maintainers             khindenburg openmaintainer
@@ -35,16 +35,20 @@ master_sites            debian:m/${name}
 distname                ${name}_${version}.orig
 worksrcdir              ${name}-${version}
 
-checksums               rmd160  4f07155a02eca200b27b88010477fc6066b05080 \
-                        sha256  da9d5cd145ceea967a65dd50031d168d66199c3eb41b9390b57f35d4a5808ab5
+checksums               rmd160  eaa8acf97057e302f940b35101c9fb7a193953f5 \
+                        sha256  3a7d54b0634e5eda8c3c43490d47cea189156700892dea6d876867cef9bc0d1d
 
-depends_run             port:perl5.16 \
-                        port:p5.16-ipc-run
+# set pbranch to desired perl version
+# currently 5.22 (#48365)
+set pbranch             5.22
+
+depends_run             port:perl${pbranch} \
+                        port:p${pbranch}-ipc-run
 
 patchfiles              patch-Makefile.diff
 
 post-patch {
-    reinplace "s|/usr/bin/perl|${prefix}/bin/perl5.16|" \
+    reinplace "s|/usr/bin/perl|${prefix}/bin/perl${pbranch}|" \
         ${worksrcpath}/vidir ${worksrcpath}/vipe \
         ${worksrcpath}/ts ${worksrcpath}/combine \
         ${worksrcpath}/zrun ${worksrcpath}/chronic

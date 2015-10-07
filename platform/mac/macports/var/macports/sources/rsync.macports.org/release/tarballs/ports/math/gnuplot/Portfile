@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137550 2015-06-14 11:54:21Z mojca@macports.org $
+# $Id: Portfile 140264 2015-09-15 17:02:13Z mojca@macports.org $
 
 PortSystem          1.0
 PortGroup           texlive         1.0
@@ -8,6 +8,7 @@ PortGroup           wxWidgets       1.0
 
 name                gnuplot
 version             5.0.1
+revision            2
 categories          math science
 # the license has some inconvenient requirements that we're not meeting
 # to be allowed to distribute binaries
@@ -49,6 +50,9 @@ depends_lib         port:expat \
 
 minimum_xcodeversions \
                     {9 3.1}
+
+patchfiles          patch-configure.diff \
+                    patch-term-lua.trm.diff
 
 configure.args      --with-caca=${prefix} \
                     --with-gd=${prefix} \

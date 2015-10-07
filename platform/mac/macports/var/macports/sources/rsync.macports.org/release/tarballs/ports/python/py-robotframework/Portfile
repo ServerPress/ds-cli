@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 131715 2015-01-16 10:44:08Z jwa@macports.org $
+# $Id: Portfile 139824 2015-08-28 17:47:50Z jwa@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
@@ -7,7 +7,7 @@ PortGroup           python 1.0
 name                py-robotframework
 set internal_name   robotframework
 
-version             2.8.7
+version             2.9.1
 license             Apache-2
 
 categories-append   devel
@@ -26,8 +26,8 @@ universal_variant	yes
 master_sites        https://pypi.python.org/packages/source/r/robotframework
 distname            ${internal_name}-${version}
 
-checksums           rmd160  c55452ff843f9a42cee2cb75c88e4c1aeff5f1ff \
-                    sha256  a8b0dff36129fa262a393965071940a2072f35278b028ce8cd72c8849206cd55
+checksums           rmd160  185ba84fd6646f79bd2e459629afa9d4e1942937 \
+                    sha256  67b2b6e40be8dceb003d7ea7ba2b19d0e414e865535f5935538996bf656b0e9f
 
 if {${name} ne ${subport}} {
     post-destroot		{

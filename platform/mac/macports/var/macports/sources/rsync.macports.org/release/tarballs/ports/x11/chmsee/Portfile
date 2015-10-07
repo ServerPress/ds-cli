@@ -1,4 +1,4 @@
-# $Id: Portfile 122807 2014-07-30 15:13:41Z jmr@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 
@@ -22,7 +22,7 @@ depends_build   port:intltool
 depends_lib     port:gtk2 \
                 port:libglade2 \
                 port:chmlib \
-                port:openssl \
+                path:lib/libssl.dylib:openssl \
                 port:firefox-x11
 configure.args  --with-openssl=${prefix}
 configure.cflags-append -I${prefix}/include/openssl

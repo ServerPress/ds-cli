@@ -1,4 +1,4 @@
-# $Id: texlive-1.0.tcl 129183 2014-12-08 21:07:39Z jmr@macports.org $
+# $Id: texlive-1.0.tcl 138721 2015-07-17 05:17:17Z dports@macports.org $
 #
 # Copyright (c) 2010 Dan R. K. Ports <dports@macports.org>
 # All rights reserved.
@@ -256,7 +256,7 @@ proc texlive.texmfport {} {
                     switch [lindex $splitline 0] {
                         "texmf"      {lset splitline 0 ${texlive_texmfmain}}
                         "texmf-dist" {lset splitline 0 ${texlive_texmfdist}}
-                        default { ui_msg "warning: unknown file destination" }
+                        default { ui_msg "warning: unknown file destination: $line" }
                     }
                     set dstfile [join $splitline "/"]
 

@@ -1,9 +1,10 @@
-# $Id: Portfile 87424 2011-11-21 00:36:43Z ryandesign@macports.org $
+# $Id: Portfile 140774 2015-10-02 15:31:37Z dstrubbe@macports.org $
 PortSystem 1.0
 name		abiword
 version		2.4.5
 description	A word processor with gnome support.
 long_description        A word processor with gnome support.
+license         GPL-3
 maintainers	nomaintainer
 categories	editors textproc aqua
 platforms	darwin 

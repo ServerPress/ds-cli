@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136169 2015-05-11 22:41:14Z devans@macports.org $
+# $Id: Portfile 140867 2015-10-04 19:18:37Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           compiler_blacklist_versions 1.0
 
 name                grilo-plugins
-version             0.2.14
+version             0.2.16
 license             LGPL-2.1
 set branch          [join [lrange [split ${version} .] 0 1] .]
 description         Framework for discovering and browsing media - Plugins.
@@ -20,8 +20,8 @@ master_sites        gnome:sources/${name}/${branch}/
 
 use_xz              yes
 
-checksums           rmd160  8ec4a1f6afe2daeaa392133d3956cdf110d77d90 \
-                    sha256  d0f18116675058c7e8c178b1fe26d6d73998a0452f85a73b1696df740c83d3ab
+checksums           rmd160  f6611c42e0b29cae93032f143da9b649dd7ab347 \
+                    sha256  80b4571f9db6df0d5f0873d30f2ee475204f5831d2974b89c58423d6ffac5203
 
 depends_build       port:pkgconfig \
                     port:intltool \
@@ -35,7 +35,6 @@ depends_build       port:pkgconfig \
 depends_lib         path:lib/pkgconfig/glib-2.0.pc:glib2 \
                     port:libxml2 \
                     port:grilo \
-                    port:gnome-online-accounts \
                     port:totem-pl-parser \
                     port:libgdata \
                     port:libmediaart \
@@ -61,38 +60,34 @@ configure.cmd       ./autogen.sh
 compiler.blacklist  *gcc* {clang < 300}
 
 configure.args      --disable-silent-rules \
-                    --enable-compile-warnings=no \
                     --disable-debug \
-                    --enable-goa \
+                    --enable-compile-warnings=no \
                     --enable-filesystem \
                     --enable-optical-media \
                     --enable-jamendo \
                     --enable-lastfm-albumart \
                     --enable-youtube \
                     --enable-flickr \
-                    --disable-pocket \
                     --enable-podcasts \
-                    --disable-bookmarks \
                     --enable-shoutcast \
-                    --enable-apple-trailers \
                     --enable-magnatune \
                     --enable-metadata-store \
                     --enable-vimeo \
                     --enable-gravatar \
-                    --disable-tracker \
-                    --enable-bliptv \
                     --enable-raitv \
                     --enable-localmetadata \
-                    --disable-dmap \
                     --enable-tmdb \
                     --enable-freebox \
-                    --disable-dleyna 
+                    --disable-dleyna \
+                    --disable-goa \
+                    --disable-bookmarks \
+                    --disable-dmap \
+                    --disable-tracker
 
-#                    --enable-pocket \ # requires goa-1.0 >= 3.11.4
-#                    --enable-tracker \
 #                    --enable-dmap \ # apparently there is a bug in libdmapsharing
 #                    --enable-bookmarks \ # requires gom
 #                    --enable-dleyna \ # requires python-dbusmock
+#                    --enable-goa \ # as of grilo-plugins 0.2.15 requires goa-1.0 >= 3.17.91
+#                    --enable-tracker \
 
 livecheck.type      gnome
-

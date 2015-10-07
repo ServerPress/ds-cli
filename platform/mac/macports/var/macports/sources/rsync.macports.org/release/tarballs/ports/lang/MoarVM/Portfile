@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138108 2015-06-29 04:41:55Z larryv@macports.org $
+# $Id: Portfile 140395 2015-09-18 20:03:03Z ionic@macports.org $
 
 PortSystem          1.0
 
 name                MoarVM
-version             2015.06
+version             2015.09
 categories          lang devel
 platforms           darwin
 license             Artistic-2 MIT BSD ISC public-domain
@@ -19,8 +19,8 @@ master_sites        http://moarvm.org/releases/
 # openssl dgst -rmd160 <file>
 # openssl dgst -sha256 <file>
 
-checksums           rmd160  62f49d1f5c3f1156089bdf8de87f3efc6cfd55da \
-                    sha256  8dfe52630a3fcc749b653591f8a4e7fa723cd204cf0f6133b62b70d1b9c5980f
+checksums           rmd160  c74a3ac21b5c1647aaf7451a97709fdc46e567f1 \
+                    sha256  e93d1d2e918764971fd9e9fd68de73ad900abb25d224a5049a105aae54dba7d3
 
 # FIXME: may need ExtUtil::Command if by chance our default perl5 binary
 # does not match what Apple ships.

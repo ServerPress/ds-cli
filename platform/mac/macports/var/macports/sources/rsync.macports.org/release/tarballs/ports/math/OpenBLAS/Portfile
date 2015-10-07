@@ -1,12 +1,12 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136955 2015-05-31 13:39:50Z nicos@macports.org $
+# $Id: Portfile 140759 2015-10-02 09:44:40Z nicos@macports.org $
 
 PortSystem          1.0
 PortGroup           github 1.0
 PortGroup           muniversal 1.0
 
 github.setup        xianyi OpenBLAS 0.2.14 v
-revision            1
+revision            2
 
 conflicts           OpenBLAS-devel
 categories          math science
@@ -21,7 +21,9 @@ platforms           darwin
 archive_sites
 
 patchfiles          patch-libnoarch.diff \
-                    patch-linkLib.diff
+                    patch-linkLib.diff \
+                    patch-broadwell.diff \
+                    patch-deployTarget.diff
 
 checksums           rmd160  b8a5bbcdf1816a061e45aa086a9caa8540a45f6d \
                     sha256  aba5088534719cefd77e4155c281c56a3accd3eea218574c2c3d236952bb632b
@@ -139,6 +141,10 @@ pre-build {
             puts $makeINC "NO_LAPACK = 1"
         }
         if {![variant_isset clang]} {
+            if { ![catch {sysctl hw.optional.avx1_0} has_avx] && $has_avx == 1 } {
+                ui_msg "Warning: the chosen compiler cannot handle advanced optimisation instructions."
+                ui_msg "         AVX instructions are disabled."
+            }
             puts $makeINC "NO_AVX = 1"
         }
         close $makeINC

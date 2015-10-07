@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 90629 2012-03-10 18:20:20Z ecronin@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem      1.0
 
@@ -27,7 +27,7 @@ extract.suffix  .tgz
 checksums       rmd160  17553b3ff06d19f353dbadc0166b7dceaa11c271 \
                 sha256  1328b010477259c4767276dbfebab6580e883336cc9d25696c39991b09cc6d32
 
-depends_lib     path:bin/perl:perl5 port:openssl port:libedit
+depends_lib     path:bin/perl:perl5 path:lib/libssl.dylib:openssl port:libedit
 
 configure.args      --sysconfdir=${prefix}/etc \
                     --localstatedir=${prefix}/var/bbackupd \

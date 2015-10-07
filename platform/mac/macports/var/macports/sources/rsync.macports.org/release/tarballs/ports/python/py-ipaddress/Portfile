@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137928 2015-06-23 08:15:42Z stromnov@macports.org $
+# $Id: Portfile 138801 2015-07-20 11:07:21Z stromnov@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-ipaddress
-version             1.0.7
+version             1.0.14
 revision            0
 categories-append   devel
 platforms           darwin
@@ -24,8 +24,8 @@ master_sites        pypi:[string index ${python.rootname} 0]/${python.rootname}
 
 distname            ${python.rootname}-${version}
 
-checksums           rmd160  e974dfbbc2b0c3dbdb46cc5cd4a21802a65582c4 \
-                    sha256  2c99e9eaea2dacbe4038b3be772ec650f5b4f4c8cc479c3704b81673d96849d7
+checksums           rmd160  1dbdfe44939d9ee9e1b3327b43d01f09cd952a94 \
+                    sha256  226f4be44c6cb64055e23060848266f51f329813baae28b53dc50e93488b3b3e
 
 if {${name} ne ${subport}} {
     depends_build-append \

@@ -1,11 +1,14 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 125566 2014-09-21 12:26:53Z petr@macports.org $
+# $Id: Portfile 140164 2015-09-10 23:10:54Z petr@macports.org $
 
 PortSystem          1.0
 PortGroup python    1.0
 
+set _name           pyOpenSSL
+set _n              [string index ${_name} 0]
+
 name                py-openssl
-version             0.14
+version             0.15.1
 categories-append   devel security
 license             Apache-2
 maintainers         mcalhoun openmaintainer
@@ -18,19 +21,19 @@ long_description    \
     nothing more than calling a corresponding function in the OpenSSL library.
 
 homepage            https://github.com/pyca/pyopenssl
-master_sites        http://pypi.python.org/packages/source/p/pyOpenSSL/
-distname            pyOpenSSL-${version}
+distname            ${_name}-${version}
+master_sites        https://pypi.python.org/packages/source/${_n}/${_name}/
 
-checksums           md5     8579ff3a1d858858acfba5f046a4ddf7 \
-                    sha1    eb51f23f29703b647b0f194beaa9b2412c05e0f6 \
-                    rmd160  19169cb1d5969a130173174e1fdd90311bd35fc7
+checksums           md5     f447644afcbd5f0a1f47350fec63a4c6 \
+                    sha1    e4d752de1fea5a40a982d4d55004cfb14109ba99 \
+                    rmd160  e3161873d453b5653705711a9f2cc8500ea6c94f
 
-python.versions     26 27 33 34
+python.versions     26 27 34
 
 if {${name} ne ${subport}} {
     depends_build-append    port:py${python.version}-setuptools
 
-    depends_lib-append      port:openssl \
+    depends_lib-append      path:lib/libssl.dylib:openssl \
                             port:py${python.version}-cryptography \
                             port:py${python.version}-six
 
@@ -41,29 +44,23 @@ if {${name} ne ${subport}} {
     post-destroot {
         xinstall -m 644 -W ${worksrcpath} \
             ChangeLog \
-            INSTALL \
+            INSTALL.rst \
             LICENSE \
-            README \
+            README.rst \
             TODO \
                 ${destroot}${prefix}/share/doc/${subport}
 
         file delete ${destroot}${prefix}/share/doc/${subport}/examples
-        file copy ${worksrcpath}/examples ${destroot}${prefix}/share/doc/${subport}
+        copy ${worksrcpath}/examples ${destroot}${prefix}/share/doc/${subport}
     }
 
     variant doc description {build html documentation} {
-        depends_build-append port:latex2html
+        depends_build-append    port:py${python.version}-sphinx
+        #depends_build-append port:latex2html
 
         post-patch {
-            # Ensure that the correct binaries are used.
-            # Some are not actually invoked because only the html documentation is created.
-            foreach bin {bibtex dvips latex latex2html lynx makeindex pdflatex perl python} {
-                reinplace "s| = \"${bin}\"| = \"${prefix}/bin/${bin}\"|" ${worksrcpath}/doc/tools/mkhowto
-            }
-
-            # Ensure that the correct python is used.
-            reinplace "s|${prefix}/bin/python|${python.bin}|" ${worksrcpath}/doc/tools/mkhowto
-            reinplace "s| python | ${python.bin} |" ${worksrcpath}/doc/Makefile
+            # Ensure that the correct sphinx-build is used.
+            reinplace "s|sphinx-build|sphinx-build-${python.branch}|" ${worksrcpath}/doc/Makefile
         }
 
         post-build {
@@ -71,13 +68,13 @@ if {${name} ne ${subport}} {
         }
 
         post-destroot {
-            file copy ${worksrcpath}/doc/html ${destroot}${prefix}/share/doc/${subport}
+            copy ${worksrcpath}/doc/_build/html ${destroot}${prefix}/share/doc/${subport}
         }
     }
 
     livecheck.type      none
 } else {
     livecheck.type      regex
-    livecheck.url       ${master_sites}
-    livecheck.regex     "pyOpenSSL-(\\d+(?:\\.\\d+)*)${extract.suffix}"
+    livecheck.url       https://pypi.python.org/pypi/${_name}/json
+    livecheck.regex     "\"${_name}-(\[.\\d\]+)\\${extract.suffix}\""
 }

@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137734 2015-06-18 06:55:50Z stromnov@macports.org $
+# $Id: Portfile 139950 2015-09-04 10:36:00Z stromnov@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-psutil
-version             3.0.1
+version             3.2.1
 revision            0
 categories-append   devel sysutils
 platforms           darwin
@@ -25,18 +25,16 @@ long_description    psutil is a module providing an interface for retrieving \
                     kill, free, lsof, free, netstat, ifconfig, nice, ionice, \
                     iostato, iotop, uptime, tty.
 
-homepage            http://code.google.com/p/psutil/
-master_sites        https://pypi.python.org/packages/source/p/psutil/
+homepage            https://github.com/giampaolo/psutil
+master_sites        pypi:[string index ${python.rootname} 0]/${python.rootname}
 
-distname            psutil-${version}
+distname            ${python.rootname}-${version}
 
-checksums           rmd160  4ef96eed3fceff74d16938564bc758c1cd860b7e \
-                    sha256  3f213b9ceed3c3068a973e04d7a8b2a29d1076abcb5ef45382517bfc6b808801
+checksums           rmd160  41e235aefdd9e107fb4ff3e465efc2a14fd8b582 \
+                    sha256  7f6bea8bfe2e5cfffd0f411aa316e837daadced1893b44254bb9a38a654340f7
 
 if {${name} ne ${subport}} {
     livecheck.type      none
 } else {
-    livecheck.type      regex
-    livecheck.url       https://pypi.python.org/pypi/psutil/json
-    livecheck.regex     {psutil-(\d+(?:\.\d+)*)\.[tz]}
+    livecheck.type      pypi
 }

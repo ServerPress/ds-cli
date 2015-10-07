@@ -1,13 +1,13 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 105745 2013-05-04 09:42:45Z ryandesign@macports.org $
+# $Id: Portfile 140911 2015-10-05 09:42:32Z ryandesign@macports.org $
 
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        joelthelion autojump 21.5.8 release-v
+github.setup        wting autojump 22.2.4 release-v
 categories          sysutils
 platforms           darwin
-maintainers         gmail.com:johnny.kuan
+maintainers         nomaintainer
 license             GPL-3+
 supported_archs     noarch
 
@@ -15,8 +15,8 @@ description         a cd command that learns
 
 long_description    ${name} is ${description}.
 
-checksums           rmd160  aec113b3663da4c420ceb3efaa54394f80dcbb03 \
-                    sha256  e70973cd4624398f186da112459b30e2430f2144f6f0535d06d219e502d22bbe
+checksums           rmd160  b6a285644cb77d9bea61cc587fdff26524548003\
+                    sha256  24f356a64b64708b7a34d65f210b01036b56342f5a3e56ee329e86ba897f1399
 
 depends_run         port:python27
 

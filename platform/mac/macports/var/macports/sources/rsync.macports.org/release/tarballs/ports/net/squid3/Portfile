@@ -1,11 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136919 2015-05-30 02:23:13Z jmr@macports.org $
+# $Id: Portfile 140797 2015-10-03 03:17:26Z jmr@macports.org $
 
 PortSystem 1.0
 
 name            squid3
-version         3.5.5
-revision        1
+version         3.5.10
 set branch      [join [lrange [split ${version} .] 0 1] .]
 categories      net
 platforms       darwin
@@ -32,9 +31,9 @@ master_sites    http://mirror.aarnet.edu.au/pub/squid/squid/ \
 
 distname        squid-${version}
 use_xz          yes
-checksums       md5 9a323a97753143ddd935aed58a0193ae \
-                sha1 2c168e8b13251ed8050d9e780127c4de016dcb61 \
-                rmd160 b08a0f3be548873b14353a96d694e7999e0021d1
+checksums       md5 5ddc53bd6ff78234691a7ebbcbc6aa38 \
+                sha1 804bbf5ef6ccdc277dacde83e086fad30d02da60 \
+                rmd160 09b80781488f0c5eed663bdc49efada8c2143af0
 
 patchfiles      patch-cf.data.pre.diff \
                 patch-compat_types.h.diff \
@@ -127,7 +126,7 @@ post-activate {
 }
 
 variant openssl description "Enable SSL/TLS support using OpenSSL" {
-    depends_lib-append      port:openssl
+    depends_lib-append      path:lib/libssl.dylib:openssl
     configure.args-append   --with-openssl=${prefix}
 }
 

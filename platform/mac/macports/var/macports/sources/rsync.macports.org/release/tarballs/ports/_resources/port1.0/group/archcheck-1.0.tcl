@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: archcheck-1.0.tcl 96776 2012-08-19 05:52:01Z blair@macports.org $
+# $Id: archcheck-1.0.tcl 140049 2015-09-08 02:15:29Z ionic@macports.org $
 #
 # Copyright (c) 2009 The MacPorts Project
 # All rights reserved.
@@ -45,7 +45,7 @@
 options archcheck.files
 default archcheck.files {}
 
-if {"darwin" == ${os.platform}} {
+if {"darwin" eq ${os.platform}} {
 pre-configure {
     if {[variant_exists universal] && [variant_isset universal]} {
         set requested_archs ${configure.universal_archs}

@@ -1,4 +1,4 @@
-# $Id: Portfile 124173 2014-08-20 05:33:30Z afb@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem 1.0
 
@@ -33,7 +33,7 @@ depends_lib		lib:libhistory.5:readline port:gettext \
 			port:popt port:sqlite3 port:xar-devel \
 			port:xz port:pcre port:ossp-uuid
 
-depends_run		port:openssl \
+depends_run		path:lib/libssl.dylib:openssl \
 			bin:gzip:gzip \
                         bin:bzip2:bzip2 \
                         bin:unzip:unzip

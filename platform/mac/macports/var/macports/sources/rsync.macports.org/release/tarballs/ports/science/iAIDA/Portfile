@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 135525 2015-04-25 14:20:44Z mojca@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 PortGroup           cmake 1.0
@@ -26,7 +26,7 @@ checksums           rmd160  5afdd32b3edae8464cef317bff05f0bcb57abbc9 \
 
 depends_lib         port:aida \
                     port:boost \
-                    port:openssl \
+                    path:lib/libssl.dylib:openssl \
                     port:expat \
                     port:zlib
 

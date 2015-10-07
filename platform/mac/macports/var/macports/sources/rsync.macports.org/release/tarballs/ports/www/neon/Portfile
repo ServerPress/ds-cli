@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 113924 2013-11-25 21:48:19Z devans@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem      1.0
 
@@ -27,7 +27,7 @@ depends_lib     port:expat \
                 port:kerberos5 \
                 port:libcomerr \
                 port:libproxy \
-                port:openssl \
+                path:lib/libssl.dylib:openssl \
                 port:zlib
 
 checksums       rmd160  59054ca749fa40308138c44b710990f637fb7c6d \

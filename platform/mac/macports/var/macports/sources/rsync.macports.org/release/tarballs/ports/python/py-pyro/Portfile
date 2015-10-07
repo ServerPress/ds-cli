@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136733 2015-05-25 12:12:13Z stromnov@macports.org $
+# $Id: Portfile 138848 2015-07-21 16:28:11Z snc@macports.org $
 PortSystem          1.0
 PortGroup           python 1.0
 PortGroup           github 1.0
 
-github.setup        irmen Pyro4 4.35
+github.setup        irmen Pyro4 4.38
 
 name                py-pyro
 description         Distributed object middleware for Python (RPC)
@@ -23,8 +23,8 @@ platforms           darwin
 supported_archs     noarch
 maintainers         fusion.gat.com:smithsp openmaintainer
 
-checksums           rmd160  c1ad1eff1bd0a8131112756a3316d870f66c9698 \
-                    sha256  31ad0af131e394a46ee48c0731c61f9049713e9af7e56382f4a61b166294e8dc
+checksums           rmd160  91f221b6f24b4707d94b3bd95e6e72830ff6e706 \
+                    sha256  b194e71f2d830d747015cd47b9fc79776e4933406894645f6c7fc76f45738753
 
 python.versions     26 27 33 34
 

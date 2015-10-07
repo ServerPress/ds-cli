@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137595 2015-06-15 07:31:58Z stromnov@macports.org $
+# $Id: Portfile 139952 2015-09-04 10:43:10Z stromnov@macports.org $
 
 PortSystem          1.0
 PortGroup           github 1.0
 
-github.setup        facebook rocksdb 3.11.2 rocksdb-
+github.setup        facebook rocksdb 3.13.1 rocksdb-
 
 revision            0
 categories          databases devel
@@ -18,8 +18,8 @@ long_description    ${description}
 
 homepage            http://rocksdb.org/
 
-checksums           rmd160  34a53453b1781a7d08d71e325ef886afe0e874f8 \
-                    sha256  f953e4065b9baf97baebdb2be508dd86a279e6b32b8141dacf91df81fdc47c82
+checksums           rmd160  7c33dbaaebce86d591b8bc615cac83bad2c9ca94 \
+                    sha256  421ee55edec9ae6b3a1d5e69fbaf23dacaf92a21d6fe3d1d5b6da00ac59d2c42
 
 depends_lib-append  port:gflags \
                     port:zlib \

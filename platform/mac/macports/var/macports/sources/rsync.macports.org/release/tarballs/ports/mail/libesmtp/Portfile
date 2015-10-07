@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 101398 2013-01-10 04:22:44Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 
@@ -31,7 +31,7 @@ use_bzip2           yes
 checksums           rmd160  7489ef298b56085f8788a3af4d17aed4ef0f1077 \
                     sha256  d0a61a5c52d99fa7ce7d00ed0a07e341dbda67101dbed1ab0cdae3f37db4eb0b
 
-depends_lib         port:openssl
+depends_lib         path:lib/libssl.dylib:openssl
 
 post-extract {
     # aclocal: error: couldn't open directory 'm4': No such file or directory

@@ -1,0 +1,48 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim: fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 140628 2015-09-28 11:41:34Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-notebook
+version             4.0.5
+revision            0
+categories-append   devel science
+platforms           darwin
+license             BSD
+supported_archs     noarch
+
+python.versions     27 34 35
+
+maintainers         stromnov openmaintainer
+
+description         Web-based notebook environment for interactive computing.
+long_description    ${description}
+
+homepage            http://jupyter.org
+master_sites        pypi:[string index ${python.rootname} 0]/${python.rootname}
+
+distname            ${python.rootname}-${version}
+
+checksums           rmd160  407c84ef5f6c7a63a33eee50935d879d66acb664 \
+                    sha256  84cdc8b9e6a3e0acfb753f5ab15a79797883f575931203a2133973fd96c1e78c
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:py${python.version}-setuptools \
+                        port:py${python.version}-jinja2 \
+                        port:py${python.version}-tornado \
+                        port:py${python.version}-ipython_genutils \
+                        port:py${python.version}-traitlets \
+                        port:py${python.version}-jupyter_core \
+                        port:py${python.version}-jupyter_client \
+                        port:py${python.version}-nbformat \
+                        port:py${python.version}-nbconvert \
+                        port:py${python.version}-ipykernel \
+                        port:py${python.version}-terminado
+
+    patchfiles-append   patch-setup.py.diff
+
+    livecheck.type      none
+} else {
+    livecheck.type      pypi
+}

@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137679 2015-06-17 10:00:02Z ryandesign@macports.org $
+# $Id: Portfile 140348 2015-09-18 14:16:31Z ryandesign@macports.org $
 
 PortSystem 1.0
 
 name                file
-version             5.23
+version             5.25
 categories          sysutils
 license             BSD
 maintainers         ryandesign openmaintainer
@@ -26,8 +26,8 @@ master_sites        freebsd \
                     ftp://ftp.astron.com/pub/${name}/ \
                     ftp://ftp.gw.com/mirrors/pub/unix/${name}/
 
-checksums           rmd160  e91b06714c708cdd094f29c697cf57694ca60016 \
-                    sha256  2c8ab3ff143e2cdfb5ecee381752f80a79e0b4cfe9ca4cc6e1c3e5ec15e6157c
+checksums           rmd160  94c14b8a76e65ad52349b9b3f3da835f97b642a3 \
+                    sha256  3735381563f69fb4239470b8c51b876a80425348b8285a7cded8b61d6b890eca
 
 patchfiles          patch-magic-Makefile.am.diff \
                     patch-getline.diff

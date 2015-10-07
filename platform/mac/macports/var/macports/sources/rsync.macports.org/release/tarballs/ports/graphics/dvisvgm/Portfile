@@ -1,9 +1,10 @@
-# $Id: Portfile 115949 2014-01-15 09:19:31Z mww@macports.org $
+# $Id: Portfile 138602 2015-07-13 21:37:27Z dports@macports.org $
 
 PortSystem 1.0
 
 name                dvisvgm
 version             1.5.2
+revision            1
 categories          graphics textproc
 platforms           darwin
 license             GPL-3+

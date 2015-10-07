@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim: fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 135631 2015-04-28 13:07:29Z stromnov@macports.org $
+# $Id: Portfile 140293 2015-09-16 16:23:35Z stromnov@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-blaze
-version             0.8.0
+version             0.8.3
 revision            0
 categories-append   devel
 platforms           darwin
@@ -28,8 +28,8 @@ master_sites        https://pypi.python.org/packages/source/b/blaze/
 
 distname            blaze-${version}
 
-checksums           rmd160  dedd4b87da11823ee1bbc6e3583a438c55af1dbe \
-                    sha256  c10e5c7e15a889abf4195846c1ff1f9c870340e3381937c58836a8df341272ae
+checksums           rmd160  264c7e5ffe709345c718f0f985c5fb21c7b1f6a4 \
+                    sha256  4f8ceb1248ba44f833f5a46a18b6ea44130a5999d5234324d0456b5f9ffe716b
 
 if {${name} ne ${subport}} {
     depends_lib-append  port:py${python.version}-datashape \

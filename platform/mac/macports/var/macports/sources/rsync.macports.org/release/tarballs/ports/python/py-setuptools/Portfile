@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138059 2015-06-27 06:25:13Z jmr@macports.org $
+# $Id: Portfile 140541 2015-09-22 03:31:44Z jmr@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-setuptools
-version             18.0.1
+version             18.3.2
 categories-append   devel
 license             {PSF ZPL}
 maintainers         jmr openmaintainer
@@ -22,11 +22,11 @@ homepage            https://pypi.python.org/pypi/setuptools/
 master_sites        https://pypi.python.org/packages/source/s/setuptools/
 distname            setuptools-${version}
 
-checksums           md5    cecd172c9ff7fd5f2e16b2fcc88bba51 \
-                    rmd160 ccd96318084e58b3d74229da383d8e482323f97a \
-                    sha256 4d49c99fd51edf22baa997fb6105b07482feaebcb174b7d348a4307c29264b94
+checksums           md5    d30c969065bd384266e411c446a86623 \
+                    rmd160 7b3d1baafa445784820f7bae00cb619bc41997e3 \
+                    sha256 8c4ab0c4f227730519dc1e020f875b3ef97e643c8f43a98a4fa0c46fbad12450
 
-python.versions     26 27 33 34
+python.versions     26 27 33 34 35
 python.link_binaries no
 
 if {$subport ne $name} {

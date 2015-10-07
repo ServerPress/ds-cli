@@ -1,9 +1,9 @@
-# $Id: Portfile 137949 2015-06-23 18:31:44Z larryv@macports.org $
+# $Id: Portfile 140752 2015-10-02 02:51:26Z khindenburg@macports.org $
 
 PortSystem          1.0
 name                logtalk
 conflicts           logtalk-devel
-version             3.00.4
+version             3.01.1
 
 categories          lang
 maintainers         logtalk.org:pmoura
@@ -31,8 +31,8 @@ homepage            http://logtalk.org/
 master_sites        ${homepage}files/
 
 checksums           \
-    sha256          676db2c2ddd4c9982f6a9955785f83e62427616def37c63d9b295b08a9b99cf6  \
-    rmd160          4a79a261c35a35dbcaae1ed38123666aa43061ac
+    sha256          62aa3e28fc7da27f71fcd71b4eaa5313258e566c3cd4dfb036a77cc90676455b  \
+    rmd160          dc214f528b2f98a9091589e7b1621d8457e75a59
 
 use_bzip2           yes
 

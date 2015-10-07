@@ -1,10 +1,12 @@
-# $Id: Portfile 119007 2014-04-15 03:54:28Z aschenke@macports.org $
+# $Id: Portfile 139866 2015-08-30 22:30:28Z jmr@macports.org $
 
 PortSystem       1.0
+
 name		     rogue
 version		     5.4.4
-revision		 2
+revision		 3
 categories	     games
+license		     BSD
 platforms	     darwin
 maintainers	     nomaintainer
 

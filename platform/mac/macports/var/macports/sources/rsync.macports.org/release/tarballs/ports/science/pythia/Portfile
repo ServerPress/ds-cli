@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 121649 2014-07-03 13:31:09Z mojca@macports.org $
+# $Id: Portfile 140075 2015-09-08 15:23:59Z mf2k@macports.org $
 
 PortSystem          1.0
 
@@ -8,7 +8,7 @@ version             8.185
 set my_version      [strsed ${version} g/\\.//]
 categories          science
 platforms           darwin
-maintainers         gmail.com:mattiafrancescomoro
+maintainers         nomaintainer
 license             LGPL-2.1
 description         Generator of high-energy physics events
 long_description    PYTHIA is a program for the generation of high-energy physics events, \

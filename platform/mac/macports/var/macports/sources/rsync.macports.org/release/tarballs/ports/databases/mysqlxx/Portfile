@@ -1,12 +1,13 @@
-# $Id: Portfile 57749 2009-09-16 04:30:02Z ryandesign@macports.org $
+# $Id: Portfile 139758 2015-08-26 10:24:03Z ryandesign@macports.org $
 
 PortSystem 1.0
 
 name		mysqlxx
 version		3.0.8
 categories	databases
-maintainers	genetikayos.com:kayos
 platforms	darwin freebsd
+maintainers	nomaintainer
+
 description	C++ wrapper for MySQL's C API
 long_description	MySQL++ is a C++ wrapper for MySQL's C API. It is \
 			built around STL principles, to make dealing with \

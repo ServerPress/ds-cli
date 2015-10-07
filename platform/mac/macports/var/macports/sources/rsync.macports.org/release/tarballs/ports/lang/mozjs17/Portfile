@@ -1,15 +1,15 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim: fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136465 2015-05-17 23:43:55Z ryandesign@macports.org $
+# $Id: Portfile 139871 2015-08-31 10:47:07Z jmr@macports.org $
 
-PortSystem 1.0
-PortGroup  muniversal 1.0
+PortSystem          1.0
+PortGroup           muniversal 1.0
 
 name                mozjs17
 version             17.0.0
-revision            2
+revision            3
 categories          lang
 platforms           darwin
-license             MPL-2.0
+license             MPL-2
 maintainers         juanrgar devans openmaintainer
 description         JavaScript-C Engine
 long_description    SpiderMonkey is Mozilla's JavaScript engine written in C/C++. \
@@ -23,9 +23,15 @@ master_sites        http://ftp.mozilla.org/pub/mozilla.org/js/ \
 checksums           rmd160  2fa3a891da2a7a09019f67c1555c03bcdc51e6c5 \
                     sha256  321e964fe9386785d3bf80870640f2fa1c683e32fe988eeb201b04471c172fba
 
+# set pbranch to desired perl version
+# currently 5.22 (#48365)
+
+set pbranch         5.22
+
 depends_build       port:autoconf213 \
                     port:xorg-libXt \
-                    port:pkgconfig
+                    port:pkgconfig \
+                    port:perl${pbranch}
 
 depends_lib         port:nspr \
                     port:libffi
@@ -39,6 +45,8 @@ build.dir           ${configure.dir}
 use_autoconf        yes
 autoconf.cmd        autoconf213
 compiler.blacklist  *llvm-gcc-*
+
+configure.perl      ${prefix}/bin/perl${pbranch}
 configure.args      --with-system-nspr \
                     --enable-system-ffi \
                     --disable-readline \
@@ -48,7 +56,8 @@ configure.ccache    no
 
 patchfiles          patch-js-src-configure.diff \
                     patch-js-src-jsinterp.cpp.diff \
-                    patch-mfbt-double-conversion-utils.h.diff
+                    patch-mfbt-double-conversion-utils.h.diff \
+                    patch-js-src-config-milestone.pl.diff
 
 variant readline description {Link js shell to system readline library} {
     depends_lib-append port:readline

@@ -1,15 +1,15 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137343 2015-06-09 17:54:50Z pixilla@macports.org $
+# $Id: Portfile 140737 2015-10-01 18:18:09Z pixilla@macports.org $
 
 PortSystem          1.0
 PortGroup           compiler_blacklist_versions 1.0
 
 name                mysql56
 set name_mysql      ${name}
-version             5.6.25
+version             5.6.27
 # Set revision_client, revision_server and revision_innodb_memcached_plugin to 0 on
 # version bump.
-set revision_client 1
+set revision_client 0
 set revision_server 0
 set revision_innodb_memcached_plugin 0
 set version_branch  [join [lrange [split ${version} .] 0 1] .]
@@ -59,8 +59,8 @@ if {$subport eq $name} {
         configure.compiler gcc
     }
 
-    checksums           rmd160  a65b1aa209cb2f08295db7cb7259a7ce294c0713 \
-                        sha256  15079c0b83d33a092649cbdf402c9225bcd3f33e87388407be5cdbf1432c7fbd
+    checksums           rmd160  c714adee04dcf1387cde40044e7a4fd007db1204 \
+                        sha256  8356bba23f3f6c0c2d4806110c41d1c4d6a4b9c50825e11c5be4bbee2b20b71d
 
     depends_lib-append  port:zlib port:tcp_wrappers
     depends_run-append  port:mysql_select
@@ -112,7 +112,8 @@ if {$subport eq $name} {
                         -DENABLE_DTRACE:BOOL=OFF \
                         -DWITH_LIBWRAP:BOOL=ON \
                         -DWITH_SSL:STRING=bundled \
-                        -DWITH_INNODB_MEMCACHED=1
+                        -DWITH_INNODB_MEMCACHED=1 \
+                        -DWITH_PARTITION_STORAGE_ENGINE=1
     configure.cppflags-delete \
                         -I${prefix}/include
 
@@ -178,7 +179,7 @@ if {$subport eq $name} {
     if { true || [variant_isset openssl] } {
         configure.args-delete   -DWITH_SSL:STRING=bundled
         configure.args-append   -DWITH_SSL:STRING=${prefix}
-        depends_lib-append      port:openssl
+        depends_lib-append      path:lib/libssl.dylib:openssl
         archcheck.files-append  lib/libssl.dylib
     }
 

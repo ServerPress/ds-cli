@@ -1,30 +1,24 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 131688 2015-01-15 18:56:59Z devans@macports.org $
+# $Id: Portfile 139596 2015-08-21 08:02:41Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           perl5 1.0
 
-perl5.branches      5.16 5.18 5.20
-perl5.setup         MooseX-ConfigFromFile 0.13
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         MooseX-ConfigFromFile 0.14
 license             {Artistic-1 GPL}
-maintainers         devans openmaintainer
+maintainers         nomaintainer
 description         MooseX::ConfigFromFile - An abstract Moose role for setting attributes from a configfile
 long_description    ${description}
 
 platforms           darwin
 
-checksums           rmd160  465083a0a8582c39b785f2f4abec054d488e51c3 \
-                    sha256  e7db92c99e127b92b992cf7a1f01227f1fd71b0c5c276e5931270a0d0b70c55d
-
-#Warning: prerequisite Moose::Role 0 not found.
-#Warning: prerequisite MooseX::Types::Moose 0 not found.
-#Warning: prerequisite MooseX::Types::Path::Tiny 0.005 not found.
-#Warning: prerequisite namespace::autoclean 0 not found.
+checksums           rmd160  bd7cd6f70ca8494c6c3347bede9e0d4e73ef5b9b \
+                    sha256  9ad343cd9f86d714be9b54b9c68a443d8acc6501b6ad6b15e9ca0130b2e96f08
 
 if {${perl5.major} != ""} {
     depends_build-append \
                     port:p${perl5.major}-module-build-tiny \
-                    port:p${perl5.major}-moosex-getopt \
                     port:p${perl5.major}-test-deep \
                     port:p${perl5.major}-test-fatal \
                     port:p${perl5.major}-test-requires \

@@ -1,10 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137663 2015-06-16 19:02:04Z larryv@macports.org $
+# $Id: Portfile 139971 2015-09-04 19:35:32Z ionic@macports.org $
 
 PortSystem          1.0
 
 name                stunnel
-version             5.19
+version             5.23
 set major           [lindex [split ${version} .] 0]
 categories          security net
 platforms           darwin
@@ -25,13 +25,13 @@ master_sites        http://mirrors.zerg.biz/stunnel/ \
                     http://mirrors.zerg.biz/stunnel/archive/${major}.x/ \
                     ftp://ftp.stunnel.org/stunnel/
 
-checksums           rmd160  af9772602340d07961b3f8c2eaaa2aae0d3aab82 \
-                    sha256  0b543242cf26649acfdd9f00de564c3e8de7ac2237d53935ffdc7eb24f4d556d
+checksums           rmd160  7eef7bfe5f4bcabc3f97295a60c466b52d27077f \
+                    sha256  0fc4a702afd2e857bae8ad1f39c51546eb282c3d0ff4f4d55d62aece7328ddea
 
-depends_lib         port:openssl
+depends_lib         path:lib/libssl.dylib:openssl
 
 patchfiles          patch-configure \
-                    patch-tools-stunnel.cnf
+                    patch-tools-openssl.cnf.diff
 
 configure.args      --disable-libwrap \
                     --with-ssl=${prefix}

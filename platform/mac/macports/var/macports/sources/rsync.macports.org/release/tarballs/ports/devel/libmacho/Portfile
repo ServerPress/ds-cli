@@ -1,11 +1,10 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 131810 2015-01-19 08:18:58Z jeremyhu@macports.org $
+# $Id: Portfile 140775 2015-10-02 15:48:12Z jeremyhu@macports.org $
 
 PortSystem              1.0
 name                    libmacho
-version                 862
-revision                3
-subport ${name}-headers { revision 2 }
+version                 870
+subport ${name}-headers { }
 categories              devel
 platforms               darwin
 maintainers             jeremyhu openmaintainer
@@ -18,16 +17,14 @@ long_description        ${description} \
 homepage                http://opensource.apple.com/source/cctools/
 master_sites            http://opensource.apple.com/tarballs/cctools/
 
-dist_subdir             cctools
+# https://trac.macports.org/ticket/49020
+dist_subdir             cctools/870_stealth
 distname                cctools-${version}
 
-checksums               rmd160  21ca74a5f9d04c37c2310f107e21a0f3713360dd \
-                        sha256  1bf29f620b91c901ad3116b47738ab5076c1aed75d13869cd3bc7f067b4aaadb
+checksums               rmd160  1e3a2c0b8227ed1462e8097d8f99fb1af803d834 \
+                        sha256  81a12e325255ea683447aff5f4d93f53e2498edcfdd4bb43996a21ef7f00b267
 
 use_configure           no
-
-patchfiles \
-    ld64-getsectiondata.patch
 
 if {${subport} == "${name}-headers"} {
     supported_archs         noarch

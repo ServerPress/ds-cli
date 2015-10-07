@@ -1,10 +1,10 @@
-# $Id: Portfile 137621 2015-06-15 14:56:57Z mf2k@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem      1.0
 
 name            lv
 version         4.51
-revision        3
+revision        4
 categories      textproc
 maintainers     nomaintainer
 description     Powerful Multilingual File Viewer / Grep

@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 132508 2015-02-02 21:05:30Z devans@macports.org $
+# $Id: Portfile 140437 2015-09-19 16:45:42Z devans@macports.org $
 
 PortSystem          1.0
 PortGroup           perl5 1.0
 
-perl5.branches      5.16 5.18 5.20
-perl5.setup         Term-ReadLine-Gnu 1.26
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Term-ReadLine-Gnu 1.27
 
 license             {Artistic-1 GPL}
 maintainers         nomaintainer
@@ -14,10 +14,11 @@ long_description    This is an implementation of Term::ReadLine using the \
                     GNU Readline/History Library.
 platforms           darwin
 
-checksums           rmd160  6cec79f27277b3c2f03a219b55174f8c66efe90a \
-                    sha256  f8f075eef6056e0649cce355af2b8695ea1c793dc15d5834012c800297dc4de8
+checksums           rmd160  1b59ebdda962602bd655bf9429c90f84d40450a5 \
+                    sha256  05c9332ecea8880244f459b8f37a3c9b3cf76f0aaa23e97532ed152dae01e558
 
 if {${perl5.major} != ""} {
     depends_lib-append \
-                    port:readline
+                    port:readline \
+                    port:ncurses
 }

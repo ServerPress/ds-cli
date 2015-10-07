@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 129765 2014-12-20 02:02:42Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem              1.0
 
@@ -60,7 +60,7 @@ configure.args          --with-defaults \
 # Remove no_ssl variant after December 2015
 variant no_ssl conflicts ssl description {Legacy compatibility variant} {}
 variant ssl conflicts no_ssl description {Enable ssl support} {
-    depends_lib-append  port:openssl
+    depends_lib-append  path:lib/libssl.dylib:openssl
     configure.args-replace --without-openssl --with-openssl=${prefix}
 }
 if {[variant_isset no_ssl]} {

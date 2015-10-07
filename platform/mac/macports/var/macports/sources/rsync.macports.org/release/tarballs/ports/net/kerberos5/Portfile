@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 136471 2015-05-18 03:08:51Z ryandesign@macports.org $
+# $Id: Portfile 139737 2015-08-25 22:38:02Z ryandesign@macports.org $
 
 PortSystem                  1.0
 PortGroup                   github 1.0
@@ -8,6 +8,7 @@ PortGroup                   compiler_blacklist_versions 1.0
 github.setup                krb5 krb5 1.13.2-final krb5-
 name                        kerberos5
 version                     1.13.2
+revision                    1
 conflicts                   fbopenssl
 set branch                  [join [lrange [split ${version} .] 0 1] .]
 categories                  net security
@@ -31,9 +32,11 @@ checksums                   rmd160  0d3248b49ac3bb08d6e5b0fdc3d8fd9168e293c7 \
 
 depends_build               port:python27
 
-depends_lib                 port:openssl \
+depends_lib                 port:gettext \
                             port:libcomerr \
-                            port:libedit
+                            port:libedit \
+                            port:ncurses \
+                            path:lib/libssl.dylib:openssl
 
 worksrcdir                  ${worksrcdir}/src
 

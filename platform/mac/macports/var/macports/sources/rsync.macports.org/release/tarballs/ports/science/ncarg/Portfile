@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138308 2015-07-05 12:20:59Z takeshi@macports.org $
+# $Id: Portfile 139021 2015-07-29 11:43:04Z ryandesign@macports.org $
 
 PortSystem                  1.0
 PortGroup                   active_variants 1.1
@@ -14,7 +14,7 @@ version                     6.3.0
 revision                    2
 categories                  science
 platforms                   darwin
-maintainers                 takeshi openmaintainers
+maintainers                 takeshi openmaintainer
 license                     {UCAR-Unidata public-domain BSD LGPL-3 GPL-3}
 
 description                 language for scientific data processing and visualization
@@ -62,7 +62,8 @@ depends_lib                 path:lib/pkgconfig/cairo.pc:cairo \
                             port:xorg-libXaw
 depends_build               port:triangle \
                             port:flex
-depends_run                 bin:ESMF_RegridWeightGen:esmf
+depends_run                 bin:ESMF_RegridWeightGen:esmf \
+                            port:rangs-gshhs-ncarg
 
 use_parallel_build          no
 universal_variant           no

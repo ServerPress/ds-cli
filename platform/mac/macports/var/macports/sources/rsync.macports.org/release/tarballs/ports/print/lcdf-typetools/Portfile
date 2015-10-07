@@ -1,10 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137625 2015-06-15 15:51:07Z mojca@macports.org $
+# $Id: Portfile 138602 2015-07-13 21:37:27Z dports@macports.org $
 
 PortSystem          1.0
 
 name                lcdf-typetools
 version             2.99
+revision            1
 categories          print tex
 platforms           darwin
 license             GPL-2+

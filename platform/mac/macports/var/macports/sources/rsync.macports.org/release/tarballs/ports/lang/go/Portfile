@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 134659 2015-04-02 13:26:18Z ciserlohn@macports.org $
+# $Id: Portfile 140822 2015-10-04 07:29:13Z ciserlohn@macports.org $
 
 PortSystem          1.0
 
 name                go
 epoch               2
-version             1.4.2
+version             1.5.1
 categories          lang
 platforms           darwin freebsd linux
 license             BSD
@@ -28,32 +28,25 @@ master_sites        https://storage.googleapis.com/golang/
 distfiles           ${name}${version}.src.tar.gz
 worksrcdir          ${name}
 
-checksums           rmd160  dea15b3b4c31554a47b40799f4b9a926ea760e70 \
-                    sha256  299a6fd8f8adfdce15bc06bde926e7b252ae8e24dd5b16b7d8791ed79e7b5e9b
+checksums           rmd160  751d078789bcd6ec0d85e09f5f40d9959877e202 \
+                    sha256  a889873e98d9a72ae396a9b7dd597c29dcd709cafa9097d9c4ba04cff0ec436b
+
+depends_run         port:go-1.4
 
 set GOROOT          ${worksrcpath}
-set GOROOT_FINAL    ${prefix}/go
+set GOROOT_FINAL    ${prefix}/lib/${name}
+
+supported_archs     i386 x86_64
 
 switch ${build_arch} {
     i386 {
         set GOARCH 386
-        set cmd_prefix 8
     }
     x86_64 {
         set GOARCH amd64
-        set cmd_prefix 6
     }
     default {
-        # unsupported arch, but GOARCH needs to be set to something to prevent errors
-        set GOARCH x
-        set cmd_prefix 6
-    }
-}
-
-pre-fetch {
-    if {"big" == ${os.endian}} {
-        ui_error "${name} can only be used on an Intel Mac or other computer with a little-endian processor."
-        return -code error "incompatible processor"
+        set GOARCH {}
     }
 }
 
@@ -62,46 +55,47 @@ use_configure       no
 build.dir           ${worksrcpath}/src
 build.cmd           ./make.bash
 build.target
-build.env           GOROOT=${GOROOT} GOBIN= GOARCH=${GOARCH} \
+build.env           GOROOT_BOOTSTRAP=${prefix}/lib/go-1.4 \
+                    GOROOT=${GOROOT} \
+                    GOARCH=${GOARCH} \
+                    GOOS=darwin \
                     GOROOT_FINAL=${GOROOT_FINAL} \
-                    CC=${configure.cc} \
-                    GCC=${configure.cc}
+                    CC=${configure.cc}
 
 use_parallel_build  no
-post-build {
-    # remove mercurial extras
-    system "find ${worksrcpath} -type d -name .hg -print0 | xargs -0 rm -rf"
-}
 
-test.run            yes
-test.dir            ${worksrcpath}/src
-test.cmd            ./run.bash
-test.target
-test.env            ${build.env}
+post-build {
+    system "find ${worksrcpath} -type d -name .hg* -print0 | xargs -0 rm -rf"
+    delete ${worksrcpath}/pkg/bootstrap
+}
 
 destroot {
-    # standard distribution
-    file copy ${worksrcpath} ${destroot}${GOROOT_FINAL}
 
-    # binary symlinks
-    foreach f [list go gofmt] {
-        system "cd ${destroot}${prefix}/bin/ && ln -s ../go/bin/$f ./$f"
+    set grfdir ${destroot}${GOROOT_FINAL}
+    set docdir ${destroot}${prefix}/share/doc/${name}
+    
+    xinstall -d ${grfdir}
+    xinstall -d ${docdir}
+    
+    foreach f {api bin lib misc pkg src test} {
+        copy ${worksrcpath}/${f} ${grfdir}
     }
-}
 
-destroot.violate_mtree     yes
+    foreach f {go gofmt} {
+        system -W ${destroot}${prefix}/bin/ "ln -s ../lib/${name}/bin/$f ./$f"
+    }
 
-platform darwin {
-    build.env-append GOOS=darwin
-    test.env-append GOOS=darwin
-}
-platform freebsd {
-    build.env-append GOOS=freebsd
-    test.env-append GOOS=freebsd
-}
-platform linux {
-    build.env-append GOOS=linux
-    test.env-append GOOS=linux
+    xinstall -m 644 -W ${worksrcpath} \
+        AUTHORS \
+        CONTRIBUTING.md \
+        CONTRIBUTORS \
+        LICENSE \
+        README.md \
+        PATENTS \
+        VERSION \
+        ${docdir}
+
+    copy {*}[glob -directory ${worksrcpath}/doc *] ${docdir}
 }
 
 livecheck.type      regex

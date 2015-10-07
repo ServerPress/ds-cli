@@ -1,11 +1,12 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138052 2015-06-27 00:47:28Z ryandesign@macports.org $
+# $Id: Portfile 140009 2015-09-06 00:49:54Z ionic@macports.org $
 
 PortSystem      1.0
 PortGroup       muniversal 1.0
 
 name            gdb
 version         7.9.1
+revision        3
 categories      devel
 license         GPL-3+
 maintainers     gmail.com:stuartwesterman openmaintainer
@@ -35,12 +36,23 @@ master_sites    gnu
 checksums       rmd160  0dee316b422399512a8f604d169d217ba84ea2cc \
                 sha256  4994ad986726ac4128a6f1bd8020cd672e9a92aa76b80736563ef992992764ef
 
-depends_build   port:gettext port:zlib
+# these dependencies are listed under depends_lib rather than depends_build
+# because gdb will link with libraries they provide if installed.
+# there may be more. See variable host_libs in configure.ac.
+# port:guile should also be a dependency, but currently does not build universally. (#48767)
+
+depends_lib     port:boehmgc \
+                port:expat \
+                port:gettext \
+                port:libiconv \
+                port:ncurses \
+                port:zlib
 
 configure.args \
     --infodir=${prefix}/share/info \
     --mandir=${prefix}/share/man \
     --with-docdir=${prefix}/share/doc \
+    --without-guile \
     --program-prefix=g \
     --disable-werror
 

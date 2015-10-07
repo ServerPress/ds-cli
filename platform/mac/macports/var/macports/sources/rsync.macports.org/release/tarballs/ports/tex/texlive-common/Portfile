@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 121682 2014-07-04 04:51:53Z dports@macports.org $
+# $Id: Portfile 138825 2015-07-21 03:38:11Z dports@macports.org $
 
 PortSystem          1.0
 PortGroup           texlive 1.0
 
 name                texlive-common
-version             2014
+version             2015
 
 categories          tex
 maintainers         dports
@@ -23,8 +23,8 @@ master_sites        http://giraffe.cs.washington.edu/texlive/
 worksrcdir          ${distname}
 use_xz              yes
 
-checksums           rmd160  b53c31d0ed27e7172e255444f7d9ac13e2664bbf \
-                    sha256  c1be021f039a03af14b56b8126d4c68f1c5630ca60c1da9b8cce39149a2251b4
+checksums           rmd160  49e2bf64d45b643427f9d33c00ba8e286fb8caee \
+                    sha256  aa5ddb1bdd614214c084c2f770f3f2b02791e3f470a95e8591475354b99d5c05
 
 livecheck.type  regex
 livecheck.url   ${master_sites}
@@ -133,7 +133,10 @@ post-activate {
 
     # run mktexlsr if it exists (i.e. if we are upgrading an existing
     # installation)
+    #
+    # Note that this could fail if mktexlsr is installed but broken
+    # during an upgrade, but that's ok (see #48358)
     if [file exists ${prefix}/bin/mktexlsr] {
-        texlive.mktexlsr
+        catch {texlive.mktexlsr}
     }
 }

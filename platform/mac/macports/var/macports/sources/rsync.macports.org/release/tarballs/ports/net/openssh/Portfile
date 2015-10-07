@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138238 2015-07-02 21:22:22Z ionic@macports.org $
+# $Id: Portfile 139487 2015-08-18 17:59:17Z devans@macports.org $
 
 PortSystem          1.0
 
 name                openssh
 version             6.9p1
-revision            0
+revision            2
 categories          net
 platforms           darwin
 maintainers         nomaintainer
@@ -38,7 +38,9 @@ master_sites        openbsd:OpenSSH/portable \
                     ftp://openbsd.mirrors.pair.com/ftp/OpenSSH/portable \
                     ftp://openbsd.secsup.org/pub/openbsd/OpenSSH/portable/
 
-depends_lib         port:openssl \
+depends_lib         path:lib/libssl.dylib:openssl \
+                    port:libedit \
+                    port:ncurses \
                     port:zlib
 
 # the HPN patch needs this, so rewrite all other patches to support it, too
@@ -221,7 +223,7 @@ startupitem.start   \
             ${prefix}/bin/ssh-keygen -t ecdsa -f \\
             ${prefix}/etc/ssh/ssh_host_ecdsa_key -N \"\" -C `hostname`
         fi
-        if \[ ! -f ${prefix}/etc/ssh/ssh_ed25519_rsa_key \]; then
+        if \[ ! -f ${prefix}/etc/ssh/ssh_host_ed25519_key \]; then
             ${prefix}/bin/ssh-keygen -t ed25519 -f \\
             ${prefix}/etc/ssh/ssh_host_ed25519_key -N \"\" -C `hostname`
         fi

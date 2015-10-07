@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 115019 2013-12-22 09:29:46Z ryandesign@macports.org $
+# $Id: Portfile 140754 2015-10-02 04:19:40Z dstrubbe@macports.org $
 
 PortSystem          1.0
 PortGroup           github 1.0
@@ -10,6 +10,7 @@ revision            1
 set branch          [join [lrange [split ${version} .] 0 1] .]
 categories          graphics
 platforms           darwin
+license             AGPL
 maintainers         nomaintainer
 
 description         Persistence Of Vision RAYtracer
@@ -60,7 +61,7 @@ pre-configure {
 }
 
 configure.env       COMPILED_BY="MacPorts <https://www.macports.org/>"
-configure.libs      -lboost_system-mt
+configure.libs      -lboost_system-mt -lboost_thread-mt
 configure.args      --with-boost=${prefix} \
                     --with-boost-thread \
                     --with-libjpeg=${prefix}/lib \

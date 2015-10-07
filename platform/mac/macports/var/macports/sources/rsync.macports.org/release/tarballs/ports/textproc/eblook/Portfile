@@ -1,4 +1,4 @@
-# $Id: Portfile 85968 2011-10-17 23:01:38Z takanori@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem      1.0
 
@@ -7,6 +7,7 @@ set ver_main    1.6.1
 set ver_media   20110801
 version         ${ver_main}-media-${ver_media}
 set my_version  ${ver_main}+media-${ver_media}
+revision        1
 categories      textproc japanese
 maintainers     nomaintainer
 description     Interactive EB interface command for searching words in CD-ROM books.

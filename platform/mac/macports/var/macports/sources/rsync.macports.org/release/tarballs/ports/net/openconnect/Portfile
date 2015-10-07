@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137056 2015-06-03 19:46:03Z ryandesign@macports.org $
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
 
 PortSystem          1.0
 
@@ -46,7 +46,7 @@ configure.args      --disable-silent-rules \
                     --without-gnutls
 
 variant ssl conflicts gnutls description {Allow secure connections using OpenSSL} {
-    depends_lib-append      port:openssl
+    depends_lib-append      path:lib/libssl.dylib:openssl
     configure.args-replace  --without-openssl --with-openssl
 }
 

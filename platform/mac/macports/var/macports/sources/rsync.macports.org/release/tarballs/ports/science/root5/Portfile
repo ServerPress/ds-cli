@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 137951 2015-06-23 18:48:35Z larryv@macports.org $
+# $Id: Portfile 140075 2015-09-08 15:23:59Z mf2k@macports.org $
 
 PortSystem          1.0
 
@@ -18,7 +18,7 @@ checksums           rmd160  2274c6e970da504a4adcf8e39eedecdee9e59521 \
 
 name                root${version_major}
 categories          science
-maintainers         hep.phy.cam.ac.uk:jonesc gmail.com:mattiafrancescomoro
+maintainers         hep.phy.cam.ac.uk:jonesc
 license             LGPL-2.1+
 
 description         ROOT is a data analysis framework from CERN
@@ -360,7 +360,7 @@ variant ssl description {Build with ssl support} {
                             --with-ssl-shared=yes \
                             --with-ssl-incdir="${prefix}/include" \
                             --with-ssl-libdir="${prefix}/lib"
-    depends_lib-append      port:openssl
+    depends_lib-append      path:lib/libssl.dylib:openssl
 }
 
 variant xml description {Build with xml support} {

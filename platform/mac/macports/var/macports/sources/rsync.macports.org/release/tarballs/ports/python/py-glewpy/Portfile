@@ -1,11 +1,11 @@
-# $Id: Portfile 132263 2015-01-28 16:19:55Z jmr@macports.org $
+# $Id: Portfile 139308 2015-08-12 02:46:18Z jmr@macports.org $
 
 PortSystem              1.0
 PortGroup               python 1.0
 
 name                    py-glewpy
 version                 0.7.4
-revision                9
+revision                10
 maintainers             nomaintainer
 description             Python bindings for GLEW (OpenGL Extension Wrangler)
 long_description        GLEWpy aims to bring advanced OpenGL extensions to Python. \

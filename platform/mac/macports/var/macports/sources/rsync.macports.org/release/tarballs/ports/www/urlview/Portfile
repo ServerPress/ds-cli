@@ -1,10 +1,11 @@
-# $Id: Portfile 103726 2013-03-05 19:52:24Z jmr@macports.org $
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
 
 PortSystem 1.0
 
 name                urlview
 set base_version    0.9
 version             ${base_version}-19
+revision            1
 categories          www
 license             GPL-2+
 platforms           darwin

@@ -1,5 +1,5 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 138015 2015-06-26 00:47:26Z ryandesign@macports.org $
+# $Id: Portfile 140562 2015-09-23 00:14:29Z ryandesign@macports.org $
 
 PortSystem                  1.0
 PortGroup                   compiler_blacklist_versions 1.0
@@ -10,6 +10,10 @@ PortGroup                   conflicts_build 1.0
 name                        glib2-devel
 conflicts                   glib2
 set my_name                 glib
+# Don't upgrade to 2.45.3 or newer because it requires OS X 10.9 or later.
+# Discussing what to do about this:
+# https://mail.gnome.org/archives/gtk-devel-list/2015-September/msg00025.html
+# https://bugzilla.gnome.org/show_bug.cgi?id=747146
 version                     2.45.2
 revision                    1
 set branch                  [join [lrange [split ${version} .] 0 1] .]

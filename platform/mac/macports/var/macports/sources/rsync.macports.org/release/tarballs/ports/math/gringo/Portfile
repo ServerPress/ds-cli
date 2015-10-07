@@ -1,6 +1,7 @@
-# $Id: Portfile 132557 2015-02-04 20:08:06Z mww@macports.org $
+# $Id: Portfile 140440 2015-09-19 16:50:27Z ryandesign@macports.org $
 
 PortSystem 1.0
+PortGroup           cxx11 1.0
 
 name                gringo
 version             4.4.0
@@ -15,7 +16,7 @@ long_description \
     processed further with answer set solvers like clasp, cmodels, or smodels.
 
 homepage            http://potassco.sourceforge.net/
-master_sites        sourceforge:potassco
+master_sites        sourceforge:project/potassco/gringo/${version}/
 
 distname            ${name}-${version}-source
 
@@ -30,9 +31,12 @@ worksrcdir          ${name}-${version}-source
 use_configure       no
 use_parallel_build  no
 
-# needs compiler with C++11 support -- currently does not build on OS X < 10.9
-build.cmd           scons --build-dir=release gringo clingo
-build.target
+variant universal {}
+
+build.cmd           ${prefix}/bin/scons
+build.target        gringo clingo
+build.args          --build-dir=release \
+                    CXX="${configure.cxx} [get_canonical_archflags cxx]"
 
 destroot {
     xinstall -d -m 0755 ${destroot}${prefix}/share/doc/${name} \

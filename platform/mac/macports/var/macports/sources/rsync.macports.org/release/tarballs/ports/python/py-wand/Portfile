@@ -1,11 +1,11 @@
 # -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim: fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
-# $Id: Portfile 133143 2015-02-21 11:50:45Z stromnov@macports.org $
+# $Id: Portfile 139116 2015-08-03 07:48:47Z stromnov@macports.org $
 
 PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-wand
-version             0.4.0
+version             0.4.1
 revision            0
 categories-append   graphics
 platforms           darwin
@@ -24,8 +24,8 @@ master_sites        https://pypi.python.org/packages/source/W/Wand/
 
 distname            Wand-${version}
 
-checksums           rmd160  b9d36a8a446bac8170f792ab8d509cc8920147bf \
-                    sha256  3ef8cbadb122808c123b33d34a9cc833a91eebb700ebea1d5d610fa807f55a89
+checksums           rmd160  2e8e0ae7a55763c64f97fadf6bac026c12136a81 \
+                    sha256  a152891be252fe7751d8029ddfb28033e4553ae9602b48b6a9a8985788ab24e0
 
 if {${name} ne ${subport}} {
     depends_build-append \
