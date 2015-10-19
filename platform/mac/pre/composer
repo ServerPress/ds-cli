@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+php /Applications/XAMPP/ds-plugins/ds-cli/platform/all/composer.phar "$@"
