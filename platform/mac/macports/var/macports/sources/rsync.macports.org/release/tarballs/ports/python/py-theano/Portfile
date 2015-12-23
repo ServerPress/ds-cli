@@ -1,0 +1,50 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142759 2015-11-22 19:37:48Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-theano
+version             0.7.0
+revision            0
+categories-append   devel
+platforms           darwin
+license             BSD
+
+python.versions     27 33 34 35
+
+maintainers         stromnov openmaintainer
+
+description         Optimizing compiler for evaluating mathematical expressions on CPUs and GPUs.
+long_description    ${description}
+
+homepage            http://deeplearning.net/software/theano/
+master_sites        pypi:T/Theano
+
+distname            Theano-${version}
+
+checksums           rmd160  5efeb3896c9d06c685ba59edfad0a6a3316c462c \
+                    sha256  05b0f6d2467735abea13bdc5c2c1ce3c53f1b89f9ebc5a43abdf71f88cf818b3
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-setuptools
+    depends_lib-append  port:py${python.version}-numpy \
+                        port:py${python.version}-scipy
+
+    # Fix permissions (#43188)
+    post-extract {
+        fs-traverse item ${worksrcpath} {
+            if {[file isdirectory ${item}]} {
+                file attributes ${item} -permissions a+rx
+            } elseif {[file isfile ${item}]} {
+                file attributes ${item} -permissions a+r
+            }
+        }
+    }
+
+    livecheck.type      none
+} else {
+    livecheck.name      Theano
+    livecheck.type      pypi
+}

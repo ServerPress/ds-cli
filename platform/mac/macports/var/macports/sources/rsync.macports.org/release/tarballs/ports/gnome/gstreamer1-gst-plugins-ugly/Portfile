@@ -1,0 +1,75 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142114 2015-11-04 02:37:13Z devans@macports.org $
+
+PortSystem          1.0
+
+# https://bugzilla.gnome.org/show_bug.cgi?id=636134
+PortGroup           muniversal 1.0
+
+name                gstreamer1-gst-plugins-ugly
+set my_name         gst-plugins-ugly
+version             1.6.1
+description         A set of good-quality plug-ins for GStreamer that might pose distribution \
+                    problems.
+long_description    GStreamer Ugly Plug-ins is a set of plug-ins that have good quality and \
+                    correct functionality, but distributing them might pose problems. The \
+                    license on either the plug-ins or the supporting libraries might not be how \
+                    we'd like. The code might be widely known to present patent problems.
+maintainers         nomaintainer
+categories          gnome
+platforms           darwin
+homepage            http://gstreamer.freedesktop.org/modules/${my_name}.html
+master_sites        http://gstreamer.freedesktop.org/src/${my_name}/
+distname            ${my_name}-${version}
+license             GPL-2+ LGPL-2+
+use_xz              yes
+
+checksums           rmd160  4f17d166e349a1fcb5cc6b244512dbfe6beea3fe \
+                    sha256  0cc3f90e4322efe1f774272e8fe5c185be37cf7999cd5ca7e0e0607e03d56a57
+
+depends_build       port:pkgconfig
+depends_lib         port:gstreamer1-gst-plugins-base \
+                    port:a52dec \
+                    port:lame \
+                    port:libcdio \
+                    port:libdvdread \
+                    port:libid3tag \
+                    port:libmad \
+                    port:libmpeg2 \
+                    port:opencore-amr \
+                    port:twolame \
+                    port:x264
+
+configure.args-append \
+                    --disable-fatal-warnings \
+                    --disable-silent-rules \
+                    --enable-static
+
+configure.cflags-append     -funroll-loops -fstrict-aliasing
+
+# pkg-config --cflags opencore-amr* incorrectly returns just -I${prefix}/include
+configure.env-append \
+                    AMRNB_CFLAGS=-I${prefix}/include/opencore-amrnb \
+                    AMRWB_CFLAGS=-I${prefix}/include/opencore-amrwb
+
+if {[variant_isset universal]} {
+    set merger_host(x86_64) x86_64-apple-${os.platform}${os.major}
+    set merger_host(i386) i686-apple-${os.platform}${os.major}
+    set merger_configure_args(x86_64) --build=x86_64-apple-${os.platform}${os.major}
+    set merger_configure_args(i386) --build=i686-apple-${os.platform}${os.major}
+} else {
+
+    if {${build_arch} eq "i386"} {
+        configure.args-append \
+            --host=i686-apple-${os.platform}${os.major} \
+            --build=i686-apple-${os.platform}${os.major}
+    } elseif {${build_arch} eq "x86_64"} {
+        configure.args-append \
+            --host=${build_arch}-apple-${os.platform}${os.major} \
+            --build=${build_arch}-apple-${os.platform}${os.major}
+    }
+}
+
+livecheck.type      regex
+livecheck.url       ${master_sites}
+livecheck.regex     "${my_name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

@@ -1,0 +1,36 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8::et:sw=4:ts=4:sts=4
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        tstack lnav 0.7.2 v
+revision            1
+
+maintainers         g5pw openmaintainer
+categories          sysutils
+description         An advanced log file viewer for the small-scale.
+long_description    Many logging tools, like Splunk, provide great features but \
+                    are optimized for large-scale deployments.  They require \
+                    installing and configuring servers before they can be \
+                    effectively used.  There is still a need for a robust log \
+                    file analyzer for the terminal.
+platforms           darwin
+license             BSD
+homepage            http://lnav.org
+
+depends_lib			port:pcre \
+                    port:sqlite3 \
+                    port:ncurses \
+                    port:readline \
+                    port:zlib \
+                    port:bzip2 \
+                    path:lib/libssl.dylib:openssl
+
+checksums           rmd160  513d70fbc21959d32b6dce75cf95920291684189 \
+                    sha256  86209bc7da555197025387b973a1712b5e171f25d15bc82bd644db27e1af018b
+
+configure.args      --with-ncurses \
+                    --with-pcre \
+                    --with-readline \
+                    --with-sqlite3

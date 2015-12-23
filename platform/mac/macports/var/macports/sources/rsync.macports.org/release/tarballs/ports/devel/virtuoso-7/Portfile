@@ -1,0 +1,62 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143543 2015-12-14 22:54:48Z snc@macports.org $
+
+PortSystem          1.0
+PortGroup           conflicts_build 1.0
+
+name                virtuoso-7
+set myname          virtuoso
+version             7.2.2
+categories          devel
+maintainers         snc openmaintainer
+license             GPL
+description         a high-performance object-relational SQL database
+long_description    Virtuoso is an enterprise-grade server that delivers a platform \
+                    for Data Access, Integration and Management.
+platforms           darwin
+homepage            http://${myname}.openlinksw.com/dataspace/dav/wiki/Main/
+master_sites        sourceforge:project/${myname}/${myname}/${version}
+distname            ${myname}-opensource-${version}
+
+checksums           rmd160  4af90ad754aa0ee38bf8c84d1cdb1d4ae00ccafe \
+                    sha256  b9324201906c5cdf24db2ea039976b6ee5afe842231d9c542c210cf2a3e65e44
+
+supported_archs     x86_64
+conflicts           virtuoso-6
+
+depends_build       port:gawk
+
+depends_lib         port:ImageMagick \
+                    port:openldap \
+                    path:lib/libssl.dylib:openssl
+
+conflicts_build     unixODBC
+
+configure.args-append   --disable-all-vads
+post-configure {
+    reinplace "s|\"gcc\"|\"${configure.cc}\"|" ${worksrcpath}/bin/libtool.macosx
+    foreach note $PortInfo(notes) {
+        ui_msg $note
+    }
+}
+
+post-build {
+    touch ${worksrcpath}/docsrc/html_virt/test.html
+}
+
+pre-activate {
+    if {[file exists ${prefix}/bin/inifile]
+        && ![catch {set vers [lindex [registry_active $myname ] 0]}]} {
+        registry_deactivate_composite ${myname} "" [list ports_nodepcheck 1]
+    }
+}
+
+notes "
+Some antivirus software can cause the virtuoso build to hang indefinitely.\
+If you have any antivirus software installed, please disable it while\
+building virtuoso; it can be re-enabled after virtuoso has been installed.
+"
+
+livecheck.url       http://sourceforge.net/api/file/index/project-id/161622/mtime/desc/rss?path=/virtuoso
+livecheck.type      regex
+livecheck.regex     ${myname}/(\\d+(\\.\\d+)+)/${myname}-opensource-(\\d+(\\.\\d+)+)

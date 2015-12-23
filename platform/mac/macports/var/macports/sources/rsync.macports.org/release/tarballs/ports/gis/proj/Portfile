@@ -1,0 +1,43 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 140598 2015-09-27 02:19:46Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                proj
+version             4.9.2
+set datumgrid_version 1.5
+categories          gis
+platforms           darwin
+license             MIT
+maintainers         nomaintainer
+
+description         PROJ.4 - Cartographic Projections Library
+long_description    PROJ.4 is a library for converting data between \
+                    cartographic projections.
+homepage            http://trac.osgeo.org/proj/
+
+master_sites        http://download.osgeo.org/proj/
+distfiles-append    ${name}-datumgrid-${datumgrid_version}.zip
+checksums           ${name}-${version}.tar.gz \
+                        rmd160  23e669036bcf2aae6438e44c1ac8c3e45c976d2e \
+                        sha256  60bf9ad1ed1c18158e652dfff97865ba6fb2b67f1511bc8dceae4b3c7e657796 \
+                    proj-datumgrid-${datumgrid_version}.zip \
+                        rmd160  f5deacd0242557c92c35d43941cd52a7e4096467 \
+                        sha256  723c4017d95d7a8abdf3bda4e18d3c15d79b00f9326d453da5fdf13f96c287db
+
+extract.only        ${name}-${version}.tar.gz
+
+post-extract {
+    set datumgrid ${distpath}/${name}-datumgrid-${datumgrid_version}.zip
+    system "unzip '$datumgrid' -d '${worksrcpath}/nad'"
+}
+
+pre-destroot {
+    file copy ${worksrcpath}/src/projects.h ${destroot}${prefix}/include
+}
+
+configure.args      --mandir=${prefix}/share/man
+
+livecheck.type      regex
+livecheck.url       ${master_sites}
+livecheck.regex     "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

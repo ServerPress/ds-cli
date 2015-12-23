@@ -1,0 +1,66 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134962 2015-04-12 08:20:29Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           active_variants 1.1
+PortGroup           gobject_introspection 1.0
+
+name                libwnck3
+set gname           libwnck
+version             3.14.0
+set branch          [join [lrange [split ${version} .] 0 1] .]
+maintainers         nomaintainer
+categories          gnome
+platforms           darwin
+license             LGPL-2+
+description         Library used for writing pagers and taskslists.
+
+long_description    libwnck is a Window Navigator Construction Kit, i.e. a library \
+                    to use for writing pagers and taskslists and stuff.  It is \
+                    needed for the GNOME 3.0 desktop.
+
+homepage            http://www.gnome.org/
+master_sites        gnome:sources/${gname}/${branch}/
+
+use_xz              yes
+
+distname            ${gname}-${version}
+
+checksums           rmd160  94dc1e5e63c7a68a2ed1d7332c54b8cf070218a9 \
+                    sha256  f5080076346609b4c36394b879f3a86b92ced3b90a37cb54c8e9a14f00e7921c
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:gtk-doc \
+                    port:gnome-common \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         port:startup-notification \
+                    port:gtk3 \
+                    port:xorg-libX11 \
+                    port:xorg-libXres
+
+require_active_variants gtk3 x11
+gobject_introspection yes
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+}
+
+configure.cmd       ./autogen.sh
+
+configure.args      --x-includes=${prefix}/include \
+                    --x-libraries=${prefix}/lib \
+                    --disable-silent-rules
+
+post-destroot {
+    move ${destroot}${prefix}/bin/wnck-urgency-monitor ${destroot}${prefix}/bin/wnck-urgency-monitor-3.0
+    move ${destroot}${prefix}/bin/wnckprop ${destroot}${prefix}/bin/wnckprop-3.0
+}
+
+livecheck.type      gnome
+livecheck.name      ${gname}

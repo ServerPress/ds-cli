@@ -1,0 +1,38 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         MHonArc 2.6.19 ../../authors/id/E/EH/EHOOD/
+maintainers         nomaintainer
+supported_archs     noarch
+
+description         MHonArc - mail and news munging
+long_description    A Perl program for converting mail or news messages into \
+                    HTML archives, converting individual messages into \
+                    HTML documents, and also MIME support.
+
+platforms           darwin
+
+checksums           rmd160  6c2edc1574a423719b77acfbbcc378ea79711d9d \
+                    sha256  f8bf2874e6ea37830b0d5155fb99acf788005877df7573f1276344e947da8352
+
+homepage        http://www.mhonarc.org/
+
+if {${perl5.major} != ""} {
+use_configure       no
+build {}
+
+destroot {
+        xinstall -m 755 -d ${destroot}${perl5.archlib}
+        system -W ${worksrcpath} "${perl5.bin} install.me \
+            -prefix=${destroot} \
+            -binpath ${destroot}${prefix}/bin \
+            -libpath ${destroot}${perl5.archlib} \
+            -docpath ${destroot}${prefix}/share/doc/mhonarc \
+            -manpath ${destroot}${prefix}/share/man \
+            -perl ${perl5.bin}"
+}
+}

@@ -1,0 +1,26 @@
+# $Id: Portfile 112449 2013-10-23 14:35:18Z kimuraw@macports.org $
+
+PortSystem		1.0
+PortGroup		ruby 1.0
+
+ruby.setup		nokogiri 1.6.0 gem {} rubygems
+revision		0
+maintainers		kimuraw openmaintainer
+description		Nokogiri is an HTML, XML, SAX, and Reader parser.
+long_description	Nokogiri is an HTML, XML, SAX, and Reader parser. \
+				Among Nokogiri's many features is the ability to search \
+				documents via XPath or CSS3 selectors.
+license			MIT
+platforms		darwin
+homepage		http://nokogiri.org/
+checksums           md5     3f60f47e19e5e7ebff3f9480305de1ed \
+                    sha1    ce635b121e9bc621794a54e610bcf7fe4b7d7e82 \
+                    sha256  abc5f9acb29a92d041ce7ed1a0ea6ca7e4bf66c3bc60cf4ebda041c193b799c5 \
+                    rmd160  e5aab115eb2be18b8cfd08f0fd785aad243d31dd
+
+depends_lib-append  port:libxml2 \
+                    port:libxslt \
+                    port:zlib \
+                    port:libiconv \
+					port:rb-mini_portile
+destroot.env-append NOKOGIRI_USE_SYSTEM_LIBRARIES=YES

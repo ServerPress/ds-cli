@@ -1,0 +1,25 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Class-Inspector 1.28 ../by-authors/id/A/AD/ADAMK/
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Get information about a class and its structure
+long_description    Class::Inspector allows you to get information about a \
+                    loaded class. Most or all of this information can be \
+                    found in other ways, but they aren't always very \
+                    friendly, and usually involve a relatively high level of \
+                    Perl wizardry, or strange and unusual looking code. \
+                    Class::Inspector attempts to provide an easier, more \
+                    friendly interface to this information.
+
+platforms           darwin
+
+checksums           rmd160  d50ef0aff1cd0565a4908bfa713acf1c766b3c5d \
+                    sha256  3ca4b7a3ed1f4cc846c9a3c08f9a6e9ec07a9cbfd92510dea9513db61a923112
+
+supported_archs     noarch

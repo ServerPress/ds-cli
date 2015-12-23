@@ -1,0 +1,44 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139769 2015-08-26 16:21:11Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Finance-Quote 1.38
+categories          perl
+maintainers         nomaintainer
+description         Perl module that allows for grabbing stock quotes.
+long_description    Finance::Quote is a perl module which can be used to \
+                    obtain information from a variety of sources, including markets in \
+                    Australia, USA, Canada, Europe, and a number of managed funds.
+                
+homepage            http://finance-quote.sourceforge.net/
+platforms           darwin
+license             GPL-2+
+
+checksums           rmd160  7742c4a5e97c55cb3518a70cca21f5e9f78472f5 \
+                    sha256  a95427729e069095aab4cb7bcfa4072739417faa7c0a6d0eb1bd6de28f58187e
+
+if {${perl5.major} != ""} {
+    depends_lib-append  \
+                    port:p${perl5.major}-cgi \
+                    port:p${perl5.major}-datetime \
+                    port:p${perl5.major}-encode \
+                    port:p${perl5.major}-html-parser \
+                    port:p${perl5.major}-html-tableextract \
+                    port:p${perl5.major}-html-tree \
+                    port:p${perl5.major}-http-cookies \
+                    port:p${perl5.major}-http-message \
+                    port:p${perl5.major}-json \
+                    port:p${perl5.major}-libwww-perl \
+                    port:p${perl5.major}-mozilla-ca \
+                    port:p${perl5.major}-time-piece \
+                    port:p${perl5.major}-uri
+
+    supported_archs noarch
+}
+
+livecheck.type      regex
+livecheck.url       http://search.cpan.org/~ecocode
+livecheck.regex     "Finance-Quote-(\\d+(?:\\.\\d+)*)"

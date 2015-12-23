@@ -1,0 +1,38 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139829 2015-08-29 05:09:16Z davidnichols@macports.org $
+
+PortSystem          1.0
+
+name                qore
+version             0.8.11.1
+categories          lang
+license             {LGPL-2.1 MIT}
+maintainers         davidnichols
+use_bzip2           yes
+description         multi-threaded embedable scripting language
+long_description    Qore is a scripting language designed for multi-threading and SMP scalability
+homepage            http://qore.org
+platforms           darwin
+master_sites        https://github.com/qorelanguage/qore/releases/download/release-${version}
+conflicts           qore-devel
+
+checksums           md5 45af0ccd92399e976b532f8c46e900ae \
+                    sha1 341e843e7a765c3692093d301d74e725ec6494f9 \
+                    rmd160 d46f2cae6d948402c63ebf58c6bca8641093d614
+
+depends_build       port:flex \
+                    port:bison
+
+depends_lib         path:lib/libssl.dylib:openssl \
+                    port:pcre \
+                    port:zlib \
+                    port:bzip2 \
+                    port:gmp \
+                    port:mpfr
+
+# --disable-dependency-tracking is safe here. The build is always done in one run.
+#                               It's required to prevent autotools from using -M* options for multiple -arch options
+configure.args      --disable-debug --disable-static --disable-dependency-tracking
+
+# the autoconf check for iconv() in libiconv fails with GNU iconv, but we need it, so we turn it on anyway
+configure.ldflags   -liconv

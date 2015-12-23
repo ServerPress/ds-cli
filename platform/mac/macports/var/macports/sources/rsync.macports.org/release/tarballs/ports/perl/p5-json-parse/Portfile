@@ -1,0 +1,24 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142818 2015-11-24 03:26:50Z khindenburg@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         JSON-Parse 0.39
+
+platforms           darwin
+maintainers         khindenburg openmaintainer
+license             {Artistic-1 GPL}
+
+supported_archs     noarch
+
+description         Read JSON into a Perl variable
+long_description    JSON::Parse converts JSON into the nearest equivalent Perl.
+
+checksums           rmd160  e3fbee3f882b1a3c7c2cb78f86e3bff0827519f2 \
+                    sha256  8ca48d1887a846ed834cc985a4e29e3ccaccb5b2cb99e2595c5bd119ffd0be20
+
+if {$subport ne $name} {
+    livecheck.type  none
+}

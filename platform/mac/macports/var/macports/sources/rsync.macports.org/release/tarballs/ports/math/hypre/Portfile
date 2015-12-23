@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 140096 2015-09-09 21:27:11Z sean@macports.org $
+
+PortSystem          1.0
+PortGroup           mpi 1.0
+
+name                hypre
+version             2.10.0b
+categories          math
+license             LGPL-2.1
+platforms           darwin
+maintainers         sean openmaintainer
+description         hypre is a linear solver
+long_description    hypre is a library for solving large, sparse linear \
+                    systems of equations on massively parallel computers.
+
+homepage            http://acts.nersc.gov/hypre/
+master_sites        http://ftp.mcs.anl.gov/pub/petsc/externalpackages/
+
+checksums           rmd160  ac82ba4e473a6fa5742ce68ddb7cf33f884717ce \
+                    sha256  b55dbdc692afe5a00490d1ea1c38dd908dae244f7bdd7faaf711680059824c11
+
+universal_variant   no
+worksrcdir          ${distname}/src
+
+mpi.setup
+
+configure.args      --with-blas --with-lapack --without-superlu \
+                    --without-fei --without-mli --without-babel
+
+destroot.destdir    prefix=${destroot}${prefix}
+
+variant longindex description {Build with 64 bit ints} {
+  configure.args-append   --enable-bigint
+}
+
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     $name-(\[0-9\.\]+\[a-e\])${extract.suffix}

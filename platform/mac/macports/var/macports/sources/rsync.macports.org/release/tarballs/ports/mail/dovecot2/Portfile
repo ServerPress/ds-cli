@@ -1,0 +1,232 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 140794 2015-10-02 21:03:17Z pixilla@macports.org $
+
+PortSystem          1.0
+
+name                dovecot2
+set base_name       dovecot
+# Please revbump port:dovecot2-sieve and port:dovecot2-antispam
+# on port:dovecot2 version changes.
+version             2.2.19
+# set hg.tag to tag or rev.
+hg.tag              ${version}
+#hg.tag              69630e6048fd
+set branch          [join [lrange [split ${version} .] 0 1] .]
+categories          mail
+maintainers         pixilla openmaintainer
+platforms           darwin
+license             LGPL-2.1
+
+description         Secure, fast imap and pop3 server
+long_description    Dovecot is an IMAP and POP3 server for Linux/UNIX-like \
+                    systems, written with security primarily in mind. Although \
+                    it is written in C, it uses several coding techniques to \
+                    avoid most of the common pitfalls.
+
+homepage            http://dovecot.org/
+master_sites        http://dovecot.org/releases/${branch}
+
+distname            ${base_name}-${version}
+
+use_parallel_build  no
+
+depends_build       port:pkgconfig
+depends_lib         port:libiconv \
+                    port:zlib \
+                    port:xz \
+                    port:bzip2 \
+                    path:lib/libssl.dylib:openssl
+
+if {${hg.tag} ne ${version}} {
+
+    master_sites        http://hg.dovecot.org/dovecot-${branch}/archive
+    distname            ${hg.tag}
+    use_bzip2           yes
+    worksrcdir          dovecot-[join [split ${branch} .] -]-${hg.tag}
+    depends_lib-append  port:gettext port:mercurial
+}
+
+set default_internal_user   _dovecot
+set default_login_user      _dovenull
+add_users ${default_internal_user} group=${default_internal_user} realname=Dovecot
+add_users ${default_login_user}    group=${default_login_user}    realname=Dovenull
+
+patch.pre_args      -p1
+patchfiles          patch-doc-example-config-conf.d-10-master.conf.diff
+
+checksums           rmd160  cb21bccf69c17e4188dc2834fb9ae11d42c638b8 \
+                    sha256  759e1e3f9d907cdaabad1f5fbacc793ca191d234c084bec3bba42966952a4e9f
+
+post-patch {
+    reinplace "s|@@default_internal_user@@|${default_internal_user}|g" \
+        ${worksrcpath}/doc/example-config/conf.d/10-master.conf
+    reinplace "s|@@default_login_user@@|${default_login_user}|g" \
+        ${worksrcpath}/doc/example-config/conf.d/10-master.conf
+}
+
+pre-configure {
+    if {${hg.tag} ne ${version}} {
+
+        system -W ${worksrcpath} "gettextize -f"
+        system -W ${worksrcpath} "./autogen.sh"
+    }
+}
+
+configure.args      --sysconfdir=${prefix}/etc \
+                    --localstatedir=${prefix}/var \
+                    --with-ssl=openssl \
+                    --with-zlib \
+                    --with-bzlib \
+                    --with-ssldir=${prefix}/etc/ssl \
+                    --enable-shared \
+                    --disable-static \
+                    --with-shared-libs
+
+# Do not build with kqueue or poll support prior to Darwin 10.7.0 (Mac OS X 10.6)
+if {${os.platform} eq "darwin" && [vercmp ${os.version} 10.7.0] < 0} {
+    configure.args-append \
+                    --with-ioloop=select
+}
+configure.cppflags  -I${prefix}/include/openssl
+
+variant postgresql82  \
+    conflicts postgresql83 postgresql84 postgresql90 postgresql91 postgresql92 \
+    description "Enable PostgreSQL 8.2 support" {
+
+    depends_lib-append          port:postgresql82
+    configure.env-append        PG_CONFIG=${prefix}/lib/postgresql82/bin/pg_config
+    configure.args-append       --with-pgsql
+}
+
+variant postgresql83 \
+    conflicts postgresql82 postgresql84 postgresql90 postgresql91 postgresql92 \
+    description "Enable PostgreSQL 8.3 support" {
+
+    depends_lib-append          port:postgresql83
+    configure.env-append        PG_CONFIG=${prefix}/lib/postgresql83/bin/pg_config
+    configure.args-append       --with-pgsql
+}
+
+variant postgresql84 \
+    conflicts postgresql82 postgresql83 postgresql90 postgresql91 postgresql92 \
+    description "Enable PostgreSQL 8.4 support" {
+
+    depends_lib-append          port:postgresql84
+    configure.env-append        PG_CONFIG=${prefix}/lib/postgresql84/bin/pg_config
+    configure.args-append       --with-pgsql
+}
+
+variant postgresql90 \
+    conflicts postgresql82 postgresql83 postgresql84 postgresql91 postgresql92 \
+    description "Enable PostgreSQL 9.0 support" {
+
+    depends_lib-append          port:postgresql90
+    configure.env-append        PG_CONFIG=${prefix}/lib/postgresql90/bin/pg_config
+    configure.args-append       --with-pgsql
+}
+
+variant postgresql91 \
+    conflicts postgresql82 postgresql83 postgresql84 postgresql90 postgresql92 \
+    description "Enable PostgreSQL 9.1 support" {
+
+    depends_lib-append          port:postgresql91
+    configure.env-append        PG_CONFIG=${prefix}/lib/postgresql91/bin/pg_config
+    configure.args-append       --with-pgsql
+}
+
+variant postgresql92 \
+    conflicts postgresql82 postgresql83 postgresql84 postgresql90 postgresql91 \
+    description "Enable PostgreSQL 9.2 support" {
+
+    depends_lib-append          port:postgresql92
+    configure.env-append        PG_CONFIG=${prefix}/lib/postgresql92/bin/pg_config
+    configure.args-append       --with-pgsql
+}
+
+variant mysql5 \
+    conflicts mysql51 mysql55 mysql56 mariadb percona \
+    description "Enable MySQL 5.1 support" {
+
+    depends_lib-append          port:mysql5
+    configure.env-append        MYSQL_CONFIG=${prefix}/lib/mysql5/bin/mysql_config
+    configure.args-append       --with-mysql
+}
+
+variant mysql51 \
+    conflicts mysql5 mysql55 mysql56 mariadb percona \
+    description "Enable MySQL 5.1 support" {
+
+    depends_lib-append          port:mysql51
+    configure.env-append        MYSQL_CONFIG=${prefix}/lib/mysql51/bin/mysql_config
+    configure.args-append       --with-mysql
+}
+
+variant mysql55 \
+    conflicts mysql5 mysql51 mysql56 mariadb percona \
+    description "Enable MySQL 5.5 support" {
+
+    depends_lib-append          port:mysql55
+    configure.env-append        MYSQL_CONFIG=${prefix}/lib/mysql55/bin/mysql_config
+    configure.args-append       --with-mysql
+}
+
+variant mysql56 \
+    conflicts mysql5 mysql51 mysql55 mariadb percona \
+    description "Enable MySQL 5.6 support" {
+
+    depends_lib-append          port:mysql56
+    configure.env-append        MYSQL_CONFIG=${prefix}/lib/mysql56/bin/mysql_config
+    configure.args-append       --with-mysql
+}
+
+variant mariadb \
+    conflicts mysql5 mysql51 mysql55 mysql56 percona \
+    description "Enable MariaDB (MySQL) support" {
+
+    depends_lib-append          port:mariadb
+    configure.env-append        MYSQL_CONFIG=${prefix}/lib/mariadb/bin/mysql_config
+    configure.args-append       --with-mysql
+}
+
+variant percona \
+    conflicts mysql5 mysql51 mysql55 mysql56 mariadb \
+    description "Enable Percona (MySQL) support" {
+        depends_lib-append          port:percona
+        configure.env-append        MYSQL_CONFIG=${prefix}/lib/percona/bin/mysql_config
+        configure.args-append       --with-mysql
+}
+
+variant ldap description {Enable LDAP support} {
+
+    depends_lib-append          port:openldap
+    configure.args-append       --with-ldap
+}
+
+variant lucene description {Enable lucene support} {
+
+    depends_lib-append          port:clucene
+    configure.args-append       --with-lucene
+}
+
+variant libstemmer description {Use libstemmer for full-text search} {
+    depends_lib-append          port:libstemmer
+    configure.args-append       --with-libstemmer
+}
+
+variant solr description {Enable apache-solr support} {
+
+    depends_lib-append          port:expat port:curl
+    configure.args-append       --with-solr
+}
+
+variant no_startupitem description {Do not install a launchd plist} {}
+
+if {![variant_isset "no_startupitem"]} {
+    startupitem.create      yes
+    startupitem.executable  ${prefix}/sbin/${base_name}
+    startupitem.pidfile     auto ${prefix}/var/run/${base_name}/master.pid
+}
+
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.type      regex
+livecheck.regex     "${base_name}-(\\d+\\.\\d+(\[0-9rc.\]+)?).tar.gz"

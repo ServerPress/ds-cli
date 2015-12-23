@@ -1,0 +1,37 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim: fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135268 2015-04-21 10:17:33Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-marisa-trie
+version             0.7.2
+revision            0
+categories-append   devel
+platforms           darwin
+license             LGPL
+
+python.versions     27 34
+
+maintainers         stromnov openmaintainer
+
+description         Static memory-efficient & fast Trie structures for Python (based on marisa-trie C++ library)
+long_description    ${description}
+
+homepage            https://github.com/kmike/marisa-trie
+master_sites        https://pypi.python.org/packages/source/m/marisa-trie/
+
+distname            marisa-trie-${version}
+
+checksums           rmd160  1870f40be7ca5ef8dbd540224cc4ba7fbfa21630 \
+                    sha256  4b39f84c511a6e8e3a060b20bc41ff3b5393cb46381336e2156dc9b2290506b3
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-setuptools
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/marisa-trie/json
+    livecheck.regex     {marisa-trie-(\d+(?:\.\d+)*)\.[tz]}
+}

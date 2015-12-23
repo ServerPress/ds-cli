@@ -1,0 +1,49 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141124 2015-10-11 14:26:19Z mcalhoun@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-beaker
+version             1.7.0
+revision            0
+python.versions     26 27 33 34 35
+categories-append   www
+license             BSD MIT
+platforms           darwin
+supported_archs     noarch
+
+maintainers         nomaintainer
+
+description         A Session and Caching library with WSGI Middleware
+
+long_description    \
+    Beaker is a web session and general caching library that includes WSGI \
+    middleware for use in web applications. \
+    \
+    As a general caching library, Beaker can handle storing for various times \
+    any Python object that can be pickled with optional back-ends on a fine-\
+    grained basis. \
+    \
+    Beaker was built largely on the code from MyghtyUtils, then refactored and \
+    extended with database support. \
+    \
+    Beaker includes Cache and Session WSGI middleware to ease integration with \
+    WSGI capable frameworks, and is automatically used by Pylons.
+
+homepage            http://beaker.groovie.org
+master_sites        http://pypi.python.org/packages/source/B/Beaker/
+
+distname            Beaker-${version}
+
+checksums           rmd160  faad4dcaf59c659fc74d2bfc9a0c86f5841dbd16 \
+                    sha256  98eec7e4cdba442079d0871fea6853627c8fd87ed0da644510c1d3b184f0646f
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:py${python.version}-setuptools
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/Beaker/json
+    livecheck.regex     {Beaker-(\d+(?:\.\d+)*)\.[tz]}
+}

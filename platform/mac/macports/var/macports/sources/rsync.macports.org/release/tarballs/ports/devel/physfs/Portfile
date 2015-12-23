@@ -1,0 +1,37 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139622 2015-08-21 21:30:12Z jeremyhu@macports.org $
+
+PortSystem      1.0
+PortGroup       cmake 1.0
+
+name            physfs
+version         2.0.3
+revision        1
+categories      devel
+license         zlib
+maintainers     users.sourceforge.net:luiji
+platforms       darwin
+description     PhysicsFS is a library providing abstract archive access
+
+long_description \
+    PhysicsFS is a library to provide abstract access \
+    to various archives. It is intended for use in \
+    video games, and the design was somewhat inspired \
+    by Quake 3's file subsystem.
+
+homepage        http://icculus.org/physfs/
+master_sites    ${homepage}downloads/ gentoo
+use_bzip2       yes
+
+checksums       sha1    327308c777009a41bbabb9159b18c4c0ac069537 \
+                rmd160  a6122fe69bdb213409dbfc4927c7a5782e063e21
+
+depends_lib     port:zlib port:readline port:ncurses
+
+patchfiles      patch-CMakeLists.txt.diff
+
+configure.args-append -DPHYSFS_BUILD_WX_TEST=FALSE
+
+livecheck.type  regex
+livecheck.url   $master_sites
+livecheck.regex $name-(\\d+(?:\\.\\d+)*)

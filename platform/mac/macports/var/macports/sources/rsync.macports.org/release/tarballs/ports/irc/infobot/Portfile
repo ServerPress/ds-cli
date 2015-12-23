@@ -1,0 +1,28 @@
+# $Id: Portfile 112159 2013-10-14 04:55:04Z jmr@macports.org $
+
+PortSystem      1.0
+
+name            infobot
+version         0.45.3
+categories      irc
+license         {Artistic-1 GPL}
+maintainers     nomaintainer
+description     IRC Bot written in Perl with a rabid AI
+long_description        The infobot connects to an Internet Relay Chat (IRC) server, joins \
+                        some channels (maybe), and begins accumulating factoids. To run one, \
+                        download the source, uncompress it, untar it, edit the config files, \
+                        and it up.
+
+platforms       darwin freebsd
+homepage        http://www.infobot.org/
+master_sites    ${homepage}src/
+checksums       md5 897a005182928613eadd30c267ce9c5b
+use_configure   no
+build           {}
+destroot        { xinstall -m 755 -d ${destroot}${prefix}/bin
+                  set script [open "${prefix}/bin/infobot" w 0755]
+                  puts $script "#!/bin/sh"
+                  puts $script "cd ${prefix}/share/infobot && perl infobot"
+                  close $script
+                  xinstall -m 755 -d ${destroot}${prefix}/share/infobot
+                  eval file copy [glob ${worksrcpath}/*] ${destroot}${prefix}/share/infobot }

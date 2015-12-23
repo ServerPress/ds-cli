@@ -1,0 +1,31 @@
+# $Id: Portfile 129873 2014-12-22 02:05:08Z jmr@macports.org $
+
+PortSystem        1.0
+PortGroup         python 1.0
+
+name              flagpoll
+version           0.9.1
+revision          1
+categories        devel
+license           GPL-2+
+platforms         darwin
+supported_archs   noarch
+maintainers       iastate.edu:mccdo
+description       a python based replacement for pkgconfig
+long_description  Flagpoll is a tool for developers to use \
+                  meta-data files for storing information \
+                  on what is needed to compile their software.\
+                  Think of it as the rpm of software development.\
+                  It enables developers total control over \
+                  which packages, versions, architectures, etc. \
+                  that they want to use meta-data from.
+homepage          https://realityforge.vrsource.org/view/FlagPoll
+master_sites      https://realityforge.vrsource.org/twiki/pub/FlagPoll/FlagpollDownloads/ \
+                  http://distfiles.macports.org/python/
+checksums         md5 c4ac50ae99a880704abfc62a64ed16aa
+
+fetch.ignore_sslcert    yes
+
+destroot.destdir        --prefix=${destroot}${prefix}
+
+python.default_version  27

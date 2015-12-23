@@ -1,0 +1,43 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143601 2015-12-15 18:35:56Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+
+perl5.setup         Mojolicious 6.37
+epoch               2
+categories-append   www
+platforms           darwin
+maintainers         nomaintainer
+# Contains content licensed under all of these licenses (no choosing)
+license             Artistic-2 CC-BY-SA-4 MIT Apache-2
+homepage            http://mojolicio.us/
+
+description         An MVC web framework emphasizing minimalism and simplicity
+
+long_description    The Mojolicious MVC web framework is all about minimalism \
+                    and simplicity.  Features include: A simplified single \
+                    file mode through Mojolicious::Lite * Very clean, \
+                    portable and Object Oriented pure Perl API without any \
+                    hidden magic * Full stack HTTP 1.1 and WebSocket client/server \
+                    implementation with TLS, Bonjour, IDNA, Comet, chunking \
+                    and multipart support * Builtin async IO web server \
+                    supporting epoll, kqueue, UNIX domain sockets and hot \
+                    deployment, perfect for embedding * Automatic CGI, \
+                    FastCGI and PSGI detection * Powerful out of the box \
+                    with RESTful routes, plugins, Perl-ish templates, \
+                    session management, signed cookies, testing framework, \
+                    static file server, I18N, first class Unicode support \
+                    and much more for you to discover.
+
+checksums           rmd160  647e9a26bfed969a6e3447d49189edf3c68a1d6e \
+                    sha256  17aeba9e2a14754c1028b6119c613901899ba2dad40d881a3516e01757018c66
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-io-socket-ip
+
+    supported_archs noarch
+}

@@ -1,0 +1,42 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130979 2015-01-04 18:47:12Z khindenburg@macports.org $
+
+PortSystem              1.0
+PortGroup               python 1.0
+PortGroup               github 1.0
+
+github.setup            mstamy2 PyPDF2 2f499c55d575be976c0984a5e1047f99a6f7667f
+name                    py-pypdf2
+version                 1.23
+categories-append       devel
+platforms               darwin
+supported_archs         noarch
+license                 BSD
+maintainers             nomaintainer
+
+description             A utility to read and write pdfs with Python
+long_description        A Pure-Python PDF toolkit. It is capable of \
+                        extracting document information, splitting \
+                        documents page by page, merging documents page \
+                        by page, cropping pages, merging multiple pages \
+                        into a single page, and encrypting and \
+                        decrypting PDF files.
+
+checksums               rmd160  15953f4bc160a060ec5e9772dec4e802c7e22415 \
+                        sha256  f007889cbaa19f9fd4c69b37eb2f28a8ddc995ad29a1c906546529b9a80f6373
+
+python.versions         26 27 34
+
+if {${name} ne ${subport}} {
+    post-destroot {
+        xinstall -d -m 755 ${destroot}${prefix}/share/doc/${subport}
+        xinstall -m 644 -W ${worksrcpath} CHANGELOG LICENSE README.md \
+            ${destroot}${prefix}/share/doc/${subport}
+    }
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       ${github.raw}/master/CHANGELOG
+    livecheck.version   ${version}
+    livecheck.regex     {Version (\d+\.\d+)}
+}

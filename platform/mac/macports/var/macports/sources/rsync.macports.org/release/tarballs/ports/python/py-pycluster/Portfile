@@ -1,0 +1,29 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 114324 2013-12-05 08:44:51Z ryandesign@macports.org $
+
+PortSystem         1.0
+PortGroup          python 1.0
+
+name               py-pycluster
+version            1.50
+revision           1
+license            PSF
+maintainers        nomaintainer
+platforms          darwin
+
+description        Python module for clustering
+long_description   Open source clustering software that implements hierarchical\
+                    clustering, k-means, k-medians, and 2D self organizing maps.
+
+homepage           http://bonsai.ims.u-tokyo.ac.jp/~mdehoon/software/cluster
+
+master_sites       ${homepage}
+distname           Pycluster-${version}
+checksums           md5     39e995256456ddec1f15ad31882fc338 \
+                    sha1    c53596e8bd8f64f24ddc9cb0c3fda2855e104d8f
+
+python.versions     26 27
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:py${python.version}-numpy
+}

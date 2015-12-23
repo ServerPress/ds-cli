@@ -1,0 +1,42 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138662 2015-07-15 04:37:01Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        technomancy leiningen 2.5.0
+categories          devel java
+maintainers         nomaintainer
+platforms           darwin
+supported_archs     noarch
+
+description         A build tool for Clojure designed to not set your hair on fire.
+long_description    ${description}
+
+checksums           rmd160  3900b5a12171362e483fc016bd1838ded08188a3 \
+                    sha256  55ff713f2ed15199fdd29fd87f76f2cb93ce308aa0483324edb1ca03e1db0f13
+
+depends_build       port:clojure \
+                    port:clojure-contrib \
+                    port:apache-ant \
+                    port:maven2 \
+                    port:maven-ant-tasks
+depends_run         port:jline
+
+post-patch {
+    copy ${filespath}/build.xml ${worksrcpath}
+    reinplace "s|__PREFIX__|${prefix}/share/java|" ${worksrcpath}/build.xml
+}
+
+use_configure       no
+
+build.cmd           ant
+build.target        jar
+
+destroot {
+    set javadir ${prefix}/share/java
+    reinplace "s|__PREFIX__|${javadir}|" ${worksrcpath}/bin/lein
+    xinstall -m 0755 -d ${destroot}${javadir}
+    xinstall -m 0755 ${worksrcpath}/bin/lein ${destroot}${prefix}/bin
+    xinstall -m 0644 ${worksrcpath}/leiningen.jar ${destroot}${javadir}
+}

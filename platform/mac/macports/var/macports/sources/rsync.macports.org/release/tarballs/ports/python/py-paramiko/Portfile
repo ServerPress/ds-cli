@@ -1,0 +1,43 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142306 2015-11-09 22:05:11Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-paramiko
+version             1.16.0
+revision            0
+categories-append   net security
+platforms           darwin
+license             LGPL-2.1+
+supported_archs     noarch
+
+python.versions     27 34 35
+
+maintainers         stromnov openmaintainer
+
+description         Native Python SSHv2 protocol library
+
+long_description    This is a library for making SSH2 connections (client \
+                    or server).  Emphasis is on using SSH2 as an alternative \
+                    to SSL for making secure connections between python \
+                    scripts.  All major ciphers and hash methods are \
+                    supported.  SFTP client and server mode are both \
+                    supported too.
+
+homepage            https://github.com/paramiko/paramiko/
+master_sites        pypi:[string index ${python.rootname} 0]/${python.rootname}
+
+distname            ${python.rootname}-${version}
+
+checksums           rmd160  1d5373c68776af26d24dc92e135b7c7c4c40b8c3 \
+                    sha256  3297ebd3cd072f573772f7c7426939a443c62c458d54bb632ff30fd6ecf96892
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:py${python.version}-ecdsa \
+                        port:py${python.version}-crypto
+
+    livecheck.type      none
+} else {
+    livecheck.type      pypi
+}

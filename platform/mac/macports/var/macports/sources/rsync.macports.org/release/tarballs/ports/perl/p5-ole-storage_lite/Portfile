@@ -1,0 +1,21 @@
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         OLE-Storage_Lite 0.19
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Simple Class for OLE document interface
+long_description    OLE::Storage_Lite allows you to read and \
+                    write an OLE structured file.
+homepage            http://search.cpan.org/~jmcnamara/OLE-Storage_Lite
+
+platforms           darwin
+
+checksums           md5 1a713f5342c7d90e54ab0d9659650296 \
+                    sha1 2206af4474b11efb4400b02e6714e64cfcb14d66 \
+                    rmd160 4a4d463847ae1ffaedd0927950ee3880721eae2c
+
+supported_archs noarch

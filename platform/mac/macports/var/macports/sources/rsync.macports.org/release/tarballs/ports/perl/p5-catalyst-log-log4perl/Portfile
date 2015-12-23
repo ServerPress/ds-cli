@@ -1,0 +1,28 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Catalyst-Log-Log4perl 1.06
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Log::Log4perl logging for Catalyst
+long_description    This module provides a Catalyst::Log implementation \
+                    that uses Log::Log4perl as the underlying log mechanism.
+
+platforms           darwin
+supported_archs     noarch
+
+checksums           rmd160  d7d5ff66e1ae8bdb8e7189e867cf74de4542514f \
+                    sha256  2ddf38bf249ebed86a97997024ca52f4273375496e8d730ef00af190b21a40db
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-catalyst-runtime \
+                    port:p${perl5.major}-data-dump \
+                    port:p${perl5.major}-log-log4perl \
+                    port:p${perl5.major}-mro-compat \
+                    port:p${perl5.major}-params-validate
+}

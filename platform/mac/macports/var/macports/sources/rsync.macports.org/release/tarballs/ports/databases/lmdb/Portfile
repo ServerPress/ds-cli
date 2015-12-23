@@ -1,0 +1,64 @@
+# -*- coding: utf-8; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem          1.0
+
+name                lmdb
+version             0.9.14
+set commit          985bbbbdd5d64e57f55249ffdeb7c08035b240b2
+categories          databases
+maintainers         hum openmaintainer
+
+description         Symas Lightning Memory-Mapped Database (LMDB)
+
+long_description    LMDB is an ultra-fast, ultra-compact key-value embedded data \
+                    store developed by Symas for the OpenLDAP Project. It uses \
+                    memory-mapped files, so it has the read performance of a \
+                    pure in-memory database while still offering the persistence \
+                    of standard disk-based databases, and is only limited to the \
+                    size of the virtual address space, (it is not limited to the \
+                    size of physical RAM). Note: LMDB was originally called MDB, \
+                    but was renamed to avoid confusion with other software \
+                    associated with the name MDB.
+
+homepage            http://symas.com/mdb/
+platforms           darwin
+license             OpenLDAP-2.8+
+
+set repo_url        https://gitorious.org/mdb/mdb/
+master_sites        ${repo_url}archive/
+checksums           rmd160  6a4c63e972b79e17560c1de028f6fb44aa588328 \
+                    sha256  95a134d97ef9f03682fbc9ae4c8dfd724b623d0ee6470b3d70491e8cdc82e4f3
+
+patchfiles          patch-Makefile.diff
+
+distname            ${commit}
+
+worksrcdir          mdb-mdb/libraries/liblmdb
+
+use_configure       no
+
+variant universal {}
+
+build.args          CC="${configure.cc}" \
+                    CFLAGS="${configure.cflags} [get_canonical_archflags]"
+
+destroot.args-append  prefix=${prefix}
+                    
+post-destroot {
+    # set install name to the library
+    set dylib ${prefix}/lib/liblmdb.dylib
+    system "install_name_tool -id ${dylib} ${destroot}${dylib}"
+
+    # install additional documents
+    set docdir ${prefix}/share/doc/${name}
+    xinstall -d ${destroot}${docdir}
+    xinstall -m 644 -W ${worksrcpath} \
+        CHANGES COPYRIGHT LICENSE \
+        ${destroot}${docdir}
+}
+
+livecheck.type      regexm
+livecheck.version   ${commit}
+livecheck.url       ${repo_url}
+livecheck.regex     archive/(\[0-9a-f\]*)${extract.suffix}

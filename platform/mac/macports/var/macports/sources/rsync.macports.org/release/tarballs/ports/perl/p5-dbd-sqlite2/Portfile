@@ -1,0 +1,21 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143278 2015-12-09 21:03:15Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         DBD-SQLite2 0.37
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         perl dbd interface to SQLite (old version 2)
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  2a887eff48412550fe3741e45b8d1cf804f29f82 \
+                    sha256  8948fa682607ebbeb0fad5abf12aab4085deb4388a4dec06a65896dc340fd07f
+
+if {${perl5.major} != ""} {
+    depends_lib-append  port:p${perl5.major}-dbi
+}

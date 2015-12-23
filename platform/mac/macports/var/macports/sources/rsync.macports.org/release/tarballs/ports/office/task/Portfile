@@ -1,0 +1,48 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143190 2015-12-07 09:32:53Z raimue@macports.org $
+
+PortSystem          1.0
+PortGroup           cmake 1.0
+
+name                task
+version             2.5.0
+maintainers         nomaintainer
+
+categories          office
+description         Taskwarrior is a command-line task management tool
+long_description    Taskwarrior is a command-line todo list manager \
+                    with an interactive interface, GTD features, color themes, \
+                    data synchronization, dependencies, custom reports, and \
+                    charts.
+
+platforms           darwin
+license             MIT
+
+homepage            http://taskwarrior.org/
+master_sites        http://taskwarrior.org/download/
+
+checksums           sha1    d319f872ae74c541c7a257e75ee531b67783678b \
+                    rmd160  5e4908027a073627184868346819afdd975595c6 \
+                    sha256  4d8e67415a6993108c11b8eeef99b76a991af11b22874adbb7ae367e09334636
+
+depends_lib         port:gnutls
+
+cmake.out_of_source yes
+
+post-destroot {
+    # Install bash completions
+    xinstall -d ${destroot}${prefix}/share/bash-completion/completions
+    xinstall ${worksrcpath}/scripts/bash/task.sh ${destroot}${prefix}/share/bash-completion/completions/task
+
+    # Install zsh completions
+    set site-functions ${destroot}${prefix}/share/zsh/site-functions
+    xinstall -d ${site-functions}
+    xinstall ${worksrcpath}/scripts/zsh/_task ${site-functions}/_task
+
+    # Install vim runtime files
+    set vim-files ${destroot}${prefix}/share/vim
+    xinstall -d ${vim-files}
+    copy ${worksrcpath}/scripts/vim ${vim-files}/vimfiles
+    # Delete README with install instructions due to its generic filename
+    delete ${vim-files}/vimfiles/README
+}

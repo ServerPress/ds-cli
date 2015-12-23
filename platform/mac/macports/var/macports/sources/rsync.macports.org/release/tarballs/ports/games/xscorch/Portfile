@@ -1,0 +1,42 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 83930 2011-09-13 03:30:07Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                xscorch
+version             0.2.1
+categories          games
+platforms           darwin
+maintainers         nomaintainer
+license             GPL-2
+
+description         multiplayer tank shoot-em-up game
+
+long_description    XScorch is a clone of the olden-days DOS game Scorch. \
+                    It is an extremely addictive war game where any mixture \
+                    of human and computer AIs control separate tanks (teams \
+                    are possible) and attempt to blow up or arrange to blow \
+                    up the other tanks on the field.  The last tank on the \
+                    field is the winner.
+
+homepage            http://www.xscorch.org/
+master_sites        ${homepage}releases/
+
+checksums           rmd160  ac8688e40162834db064c2aa18f904748ef56d0e \
+                    sha256  a315f7001a020c6b8f644db1c1dc56ccfbb9e3efcbf12c41ac9eb4e5e75cb5f7
+
+depends_build       port:pkgconfig
+
+depends_lib         port:gtk2 \
+                    port:libmikmod
+
+patchfiles          patch-configure.diff
+
+configure.args      --mandir=${prefix}/share/man \
+                    --disable-warn \
+                    --disable-network \
+                    --enable-opt
+
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     ${name}-(\[0-9.\]+)${extract.suffix}

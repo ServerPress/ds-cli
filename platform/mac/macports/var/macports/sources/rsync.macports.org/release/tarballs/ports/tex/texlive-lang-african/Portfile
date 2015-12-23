@@ -1,0 +1,36 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138601 2015-07-13 21:24:18Z dports@macports.org $
+
+PortSystem          1.0
+PortGroup           texlive 1.0
+
+name                texlive-lang-african
+version             32796
+revision            1
+
+categories          tex
+maintainers         dports
+license             Copyleft Permissive
+description         TeX Live: African scripts
+long_description    Support for African scripts.
+
+checksums           texlive-lang-african-32796-run.tar.xz \
+                    rmd160  b7578abcfd1fa31811488446d999414b2c23a3f9 \
+                    sha256  ce7c2f2fa1aa0f89fc1a8c05826aaffd25373bbbfdb573357dc58157026bbed3 \
+                    texlive-lang-african-32796-doc.tar.xz \
+                    rmd160  8b22d7655342bf7f92089da944111ab18bf65514 \
+                    sha256  b8b38c716b5282c4e6d04f028c3275a2d5c9dac97d14ca6b88c50736b38fc4b6 \
+                    texlive-lang-african-32796-src.tar.xz \
+                    rmd160  dbf430bd8eae20ae4bcdd97d7d6e0a7b422d3a0f \
+                    sha256  8669452ff73b8fae605bc04a2ec0b2554cffb3832e8efbe99cd66765d2d58b07
+
+depends_lib         port:texlive-basic
+
+texlive.languages      \
+    {ethiopic loadhyph-mul-ethi.tex 1 1 {amharic geez} {hyph-mul-ethi.pat.txt} {} {} }
+
+texlive.maps      \
+    {MixedMap ethiop.map}
+
+
+texlive.texmfport

@@ -1,0 +1,51 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136699 2015-05-24 19:01:01Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-gevent
+version             1.0.2
+revision            0
+categories-append   devel
+platforms           darwin
+license             MIT
+supported_archs     i386 x86_64
+
+python.versions     26 27 33 34
+
+maintainers         stromnov openmaintainer
+
+description         Coroutine-based Python networking library.
+
+long_description    gevent is a coroutine-based Python networking \
+                    library that uses greenlet to provide a high-level \
+                    synchronous API on top of libevent event loop.
+
+homepage            http://gevent.org
+master_sites        https://pypi.python.org/packages/source/g/gevent/
+
+distname            gevent-${version}
+
+checksums           rmd160  23b65838002182a435cfa68e63efc36883d185a7 \
+                    sha256  3ae1ca0f533ddcb17aab16ce66b424b3f3b855ff3b9508526915d3c6b73fba31
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-setuptools
+    depends_lib-append  port:libev \
+                        port:c-ares \
+                        port:py${python.version}-greenlet
+
+    build.env-append    LIBEV_EMBED=0 \
+                        CARES_EMBED=0
+
+    destroot.env-append LIBEV_EMBED=0 \
+                        CARES_EMBED=0
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/gevent/json
+    livecheck.regex     {gevent-(\d+(?:\.\d+)*)\.[tz]}
+}

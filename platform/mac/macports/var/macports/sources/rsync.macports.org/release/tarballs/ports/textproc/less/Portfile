@@ -1,0 +1,48 @@
+# $Id: Portfile 142227 2015-11-07 14:17:59Z raimue@macports.org $
+
+PortSystem      1.0
+
+name            less
+version         481
+categories      textproc
+platforms       darwin
+license         {GPL-3+ BSD}
+maintainers     raimue openmaintainer
+description     Less is a program similar to more, which allows backward movement.
+long_description \
+                Less is a program similar to more, but which allows backward \
+                movement in the file as well as forward movement. Also, less does \
+                not have to read the entire input file before starting, so with \
+                large input files it starts up faster than text editors like vi. \
+                Less uses termcap (or terminfo on some systems), so it can run on \
+                a variety of terminals. There is even limited support for \
+                hardcopy terminals.
+homepage        http://www.greenwoodsoftware.com/less/
+master_sites    ${homepage}
+
+checksums       rmd160  1454dcb430b49ae9724350d99b9a4e2e50660b7e \
+                sha256  3fa38f2cf5e9e040bb44fffaa6c76a84506e379e47f5a04686ab78102090dda5
+
+depends_build   bin:grep:grep
+depends_lib     port:ncurses \
+                port:gettext
+
+configure.args  --with-regex=posix
+
+post-destroot {
+    set docdir ${prefix}/share/doc/${name}-${version}
+
+    xinstall -d ${destroot}${docdir}
+    xinstall -m 0644 -W ${worksrcpath} NEWS README ${destroot}${docdir}
+}
+
+default_variants +pcre
+
+variant pcre description {Use PCRE regular expressions} {
+    depends_lib-append port:pcre
+    configure.args-replace --with-regex=posix --with-regex=pcre
+}
+
+livecheck.type  regex
+livecheck.url   ${homepage}
+livecheck.regex "The current released version is ${name}-(\\d+)\\."

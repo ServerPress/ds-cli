@@ -1,43 +1,29 @@
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
 #ifndef SRC_NODE_CRYPTO_BIO_H_
 #define SRC_NODE_CRYPTO_BIO_H_
 
 #include "openssl/bio.h"
-#include <assert.h>
+#include "env.h"
+#include "env-inl.h"
+#include "util.h"
+#include "util-inl.h"
+#include "v8.h"
 
 namespace node {
 
 class NodeBIO {
  public:
-  NodeBIO() : initial_(kInitialBufferLength),
+  NodeBIO() : env_(nullptr),
+              initial_(kInitialBufferLength),
               length_(0),
-              read_head_(NULL),
-              write_head_(NULL) {
+              read_head_(nullptr),
+              write_head_(nullptr) {
   }
 
   ~NodeBIO();
 
   static BIO* New();
+
+  void AssignEnvironment(Environment* env);
 
   // Move read head to next buffer if needed
   void TryMoveReadHead();
@@ -88,7 +74,7 @@ class NodeBIO {
   }
 
   static inline NodeBIO* FromBIO(BIO* bio) {
-    assert(bio->ptr != NULL);
+    CHECK_NE(bio->ptr, nullptr);
     return static_cast<NodeBIO*>(bio->ptr);
   }
 
@@ -109,17 +95,25 @@ class NodeBIO {
 
   class Buffer {
    public:
-    explicit Buffer(size_t len) : read_pos_(0),
-                                  write_pos_(0),
-                                  len_(len),
-                                  next_(NULL) {
+    Buffer(Environment* env, size_t len) : env_(env),
+                                           read_pos_(0),
+                                           write_pos_(0),
+                                           len_(len),
+                                           next_(nullptr) {
       data_ = new char[len];
+      if (env_ != nullptr)
+        env_->isolate()->AdjustAmountOfExternalAllocatedMemory(len);
     }
 
     ~Buffer() {
       delete[] data_;
+      if (env_ != nullptr) {
+        const int64_t len = static_cast<int64_t>(len_);
+        env_->isolate()->AdjustAmountOfExternalAllocatedMemory(-len);
+      }
     }
 
+    Environment* env_;
     size_t read_pos_;
     size_t write_pos_;
     size_t len_;
@@ -127,6 +121,7 @@ class NodeBIO {
     char* data_;
   };
 
+  Environment* env_;
   size_t initial_;
   size_t length_;
   Buffer* read_head_;

@@ -1,0 +1,182 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=2:ts=2:sts=2
+# $Id: Portfile 136514 2015-05-20 06:03:24Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+PortGroup           wxWidgets 1.0
+
+# alternative unofficial mirror to allow fetching from a tarball
+# or: https://cgit.jenslody.de/codeblocks/snapshot/codeblocks-<checksum>.tar.xz
+github.setup        obfuscated codeblocks_sf 33d975c
+name                codeblocks
+version             13.12
+revision            3
+
+# fetch.type        svn
+# svn.url           https://svn.code.sf.net/p/codeblocks/code/trunk
+# svn.revision      10305
+# worksrcdir        trunk
+
+platforms           darwin freebsd
+categories          devel aqua x11
+license             GPL-3+
+license_noconflict  boost
+# I'm looking for a volunteer to take the port over
+maintainers         mojca openmaintainer
+description         Open Source, Cross-platform, Free C/C++/D IDE
+long_description    Code::Blocks is a free C++ IDE built specifically \
+                    to meet the most demanding needs of its users. \
+                    It was designed, right from the start, to be \
+                    extensible and configurable.
+
+homepage            http://www.codeblocks.org/
+
+checksums           rmd160  9af61b95628df2cbab91335f51f2402444c1e64c \
+                    sha256  730be0560e57e9b3de8e7ad29f90e6794b6ba78bfc6429e49439c4975b178d02
+
+depends_build       port:autoconf \
+                    port:automake \
+                    port:libtool \
+                    port:pkgconfig
+
+depends_lib         port:boost \
+                    port:hunspell
+
+patchfiles          patch-sdk-configmanager.cpp
+
+use_autoconf        yes
+autoconf.cmd        ./bootstrap
+
+# FileManager requires "gamin" to be installed when using wxGTK,
+# not sure whether it works with Carbon/Cocoa at all,
+# so it was disabled for now
+configure.args      --with-contrib-plugins=all,-FileManager
+
+post-destroot {
+    # TODO: this might need a review
+    system "strip -S ${destroot}${prefix}/bin/codeblocks"
+    system "strip -S ${destroot}${prefix}/lib/libcodeblocks*.so || true"
+    system "strip -S ${destroot}${prefix}/lib/libcodeblocks*.dylib || true"
+    system "strip -S ${destroot}${prefix}/lib/libwxsmithlib*.so || true"
+    system "strip -S ${destroot}${prefix}/lib/libwxsmithlib*.dylib || true"
+    system "strip -S ${destroot}${prefix}/lib/wxSmithContribItems/lib*.so || true"
+    system "strip -S ${destroot}${prefix}/lib/wxSmithContribItems/lib*.dylib || true"
+    system "strip -S ${destroot}${prefix}/lib/codeblocks/plugins/*.so"
+
+    set appPath ${destroot}${applications_dir}/CodeBlocks.app/Contents
+    xinstall -d -m 0755 ${destroot}${applications_dir}
+    xinstall -d -m 0755 ${appPath}
+    xinstall -d -m 0755 ${appPath}/Resources
+    file copy -force ${worksrcpath}/codeblocks.plist ${appPath}/Info.plist
+    foreach {icn} {app cbp csd c cg cpp d f h rc} {
+        file copy -force ${worksrcpath}/src/src/resources/icons/${icn}.icns ${appPath}/Resources
+    }
+
+    xinstall -d -m 0755 ${appPath}/MacOS
+    ln -sf ${prefix}/bin/codeblocks ${appPath}/MacOS/CodeBlocks
+    xinstall -d -m 0755 ${appPath}/Resources/share
+    ln -sf ${prefix}/share/codeblocks ${appPath}/Resources/share/codeblocks
+    xinstall -d -m 0755 ${appPath}/Resources/lib
+    ln -sf ${prefix}/lib/codeblocks ${appPath}/Resources/lib/codeblocks
+
+    delete ${destroot}${prefix}/share/applications/codeblocks.desktop
+    delete ${destroot}${prefix}/share/icons/hicolor
+    delete ${destroot}${prefix}/share/mime/packages/codeblocks.xml
+    delete ${destroot}${prefix}/share/pixmaps/codeblocks.png
+
+    # TODO without the following block the app fails to start and throws the following error:
+    #
+    # Cannot find resources...
+    # Code::Blocks was configured to be installed in '/Applications/MacPorts/CodeBlocks.app/Contents/MacOS/share/codeblocks'.
+    # Please use the command-line switch '--prefix' or set the CODEBLOCKS_DATA_DIR environment variable to point where Code::Blocks is installed,
+    # or try re-installing the application...
+    #
+    # but this seems like a bug
+    xinstall -d -m 0755 ${appPath}/MacOS/share
+    ln -sf ${prefix}/share/codeblocks ${appPath}/MacOS/share
+}
+
+# disable precompiled headers for the universal build
+variant universal {
+    configure.args-append   --disable-pch
+}
+
+# TODO: keep the old variants/descriptions?
+# variant aqua / x11
+# variant aqua conflicts x11 description "Use the wxMac port of wxWidgets"
+# variant x11 description "Use the wxGTK port of wxWidgets"
+
+variant aqua {}
+variant x11 {}
+
+variant wxwidgets30 conflicts wxwidgets28 wxgtk30 wxgtk28 description {Use Cocoa-based wxWidgets 3.0} {
+    wxWidgets.use           wxWidgets-3.0
+    depends_lib-append      port:${wxWidgets.port}
+    autoconf.env-append     ACLOCAL_PATH=${wxWidgets.prefix}/share/aclocal
+    configure.args-append   --with-wxdir=${wxWidgets.wxdir}
+}
+
+variant wxwidgets28 conflicts wxwidgets30 wxgtk30 wxgtk28 description {Use 32-bit Carbon-based wxWidgets 2.8} {
+    wxWidgets.use           wxWidgets-2.8
+    depends_lib-append      port:${wxWidgets.port}
+    autoconf.env-append     ACLOCAL_PATH=${wxWidgets.prefix}/share/aclocal
+    configure.args-append   --with-wxdir=${wxWidgets.wxdir}
+
+    if {${wxWidgets.sdk} ne ""} {
+        configure.sdkroot ${wxWidgets.sdk}
+    }
+}
+
+variant wxgtk30 conflicts wxwidgets30 wxwidgets28 wxgtk28 description {Use wxWidgets 3.0 with GTK} {
+    wxWidgets.use           wxGTK-3.0
+    depends_lib-append      port:${wxWidgets.port}
+    autoconf.env-append     ACLOCAL_PATH=${wxWidgets.prefix}/share/aclocal
+    configure.args-append   --with-wxdir=${wxWidgets.wxdir}
+}
+
+variant wxgtk28 conflicts wxwidgets30 wxwidgets28 wxgtk30 description {Use wxWidgets 2.8 with GTK} {
+    wxWidgets.use           wxGTK-2.8
+    depends_lib-append      port:${wxWidgets.port}
+    autoconf.env-append     ACLOCAL_PATH=${wxWidgets.prefix}/share/aclocal
+    configure.args-append   --with-wxdir=${wxWidgets.wxdir}
+}
+
+if {[variant_isset wxgtk28] || [variant_isset wxgtk30]} {
+    # TODO: someone needs to do a careful check of this list of dependencies
+    # codeblocks ends up linking against these, but it is quite possible that
+    # some of them are also needed when liking against Carbon/Cocoa-based wxWidgets
+    depends_lib-append      path:lib/pkgconfig/cairo.pc:cairo \
+                            path:lib/pkgconfig/pango.pc:pango \
+                            path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                            port:atk \
+                            port:fontconfig \
+                            port:freetype \
+                            port:gdk-pixbuf2 \
+                            port:gettext \
+                            port:gtk2 \
+                            port:xorg-libX11 \
+                            port:xorg-libXcomposite \
+                            port:xorg-libXcursor \
+                            port:xorg-libXdamage \
+                            port:xorg-libXdmcp \
+                            port:xorg-libXext \
+                            port:xorg-libXfixes \
+                            port:xorg-libXi \
+                            port:xorg-libXinerama \
+                            port:xorg-libXrandr \
+                            port:xrender
+}
+
+if {![variant_isset wxwidgets30] && ![variant_isset wxwidgets28] && ![variant_isset wxgtk30] && ![variant_isset wxgtk28]} {
+    if {[variant_isset aqua]} {
+        default_variants +wxwidgets28
+    } elseif {[variant_isset x11]} {
+        default_variants +wxgtk28
+    } else {
+        default_variants +wxwidgets30
+    }
+}
+
+livecheck.type      regex
+livecheck.url       ${homepage}/downloads/source
+livecheck.regex     <p>${name}_(\[0-9.\]+)-\\d+${extract.suffix}</p>

@@ -1,0 +1,45 @@
+# -*- Mode: Tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130929 2015-01-04 03:42:00Z larryv@macports.org $
+
+PortSystem 1.0
+PortGroup python 1.0
+
+name	    	py-xdg
+set gname       pyxdg
+version	    	0.25
+license         LGPL-2
+categories-append 	textproc
+platforms       darwin
+maintainers     aronnax openmaintainer
+
+supported_archs noarch
+
+description     Python module implementing various freedesktop.org standards
+long_description    \
+    PyXDG is a python library to access freedesktop.org standards. Currently \
+    supported standards are: \
+    \
+    *   Base Directory Specification Version 0.6 \
+    *   Menu Specification Version 1.0 \
+    *   Desktop Entry Specification Version 1.0 \
+    *   Icon Theme Specification Version 0.8 \
+    *   Recent File Spec 0.2 \
+    *   Shared-MIME-Database Specification 0.13
+
+homepage        http://www.freedesktop.org/wiki/Software/${gname}
+master_sites    http://www.freedesktop.org/~takluyver/
+distname        ${gname}-${version}
+
+checksums       md5     bedcdb3a0ed85986d40044c87f23477c \
+                sha1    1272ee62b8c3909ac4844a34a95f8b1fb3398af2
+
+python.versions 26 27 33 34
+
+
+if {${name} ne ${subport}} {
+    livecheck.type     none
+} else {
+    livecheck.type     regex
+    livecheck.url      http://www.freedesktop.org/~takluyver/
+    livecheck.regex    "${gname}-(\\d+(?:\\.\\d+)*)${extract.suffix}"
+}

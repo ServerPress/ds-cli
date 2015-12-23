@@ -1,0 +1,36 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141207 2015-10-12 20:21:37Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-acora
+version             1.9
+revision            0
+categories-append   textproc devel
+platforms           darwin
+license             BSD
+
+python.versions     27 33 34 35
+
+maintainers         stromnov openmaintainer
+
+description         Fast multi-keyword search engine for text strings.
+long_description    ${description}
+
+homepage            http://pypi.python.org/pypi/acora
+master_sites        pypi:[string index ${python.rootname} 0]/${python.rootname}
+
+distname            ${python.rootname}-${version}
+
+checksums           rmd160  07e69d5a988d0253bfd1da9f5d08341de656d28f \
+                    sha256  b9e180b953c929f2ef4754fe87f708976af9a17054e8f4e9f25c54b6e0f2935c
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-setuptools
+
+    livecheck.type      none
+} else {
+    livecheck.type      pypi
+}

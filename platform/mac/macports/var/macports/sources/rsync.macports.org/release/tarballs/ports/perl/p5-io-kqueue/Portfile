@@ -1,0 +1,21 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         IO-KQueue 0.34
+revision            1
+
+platforms           darwin
+maintainers         nomaintainer
+license             {Artistic-1 GPL}
+supported_archs     noarch
+
+description         Perl interface to the BSD kqueue system call
+long_description    This module provides a fairly low level interface to the BSD kqueue() system call, allowing you to monitor for \
+                    changes on sockets, files, processes and signals.
+
+checksums           rmd160 c3110d99a29057e33d341b0c532c4331ee52ffe2 \
+                    sha256 444f8e859a0f82afecb368762f7d868fc37144f70d1cae2910e8cb22a19c6274

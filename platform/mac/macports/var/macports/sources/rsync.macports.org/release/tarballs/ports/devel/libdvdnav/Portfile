@@ -1,0 +1,54 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139303 2015-08-11 19:37:23Z ctreleaven@macports.org $
+
+PortSystem          1.0
+
+name                libdvdnav
+version             5.0.3
+categories          devel multimedia
+license             GPL-2+
+maintainers         nomaintainer
+
+description         DVD navigation library
+
+long_description    libdvdnav is a library that allows easy use of \
+                    sophisticated DVD navigation features such as DVD menus, \
+                    multiangle playback and even interactive DVD games. All \
+                    this functionality is provided through a simple API which \
+                    provides the DVD playback as a single logical stream of \
+                    blocks, intermitted by special dvdnav events to report \
+                    certain conditions. The main usage of libdvdnav is a loop \
+                    regularly calling a function to get the next block, \
+                    surrounded by additional calls to tell the library of \
+                    user interaction. The whole DVD virtual machine and \
+                    internal playback states are completely encapsulated.
+
+platforms           darwin
+
+depends_lib         port:libdvdread
+
+use_autoreconf      yes
+
+homepage            http://dvdnav.mplayerhq.hu/
+master_sites        http://download.videolan.org/pub/videolan/${name}/${version}/
+use_bzip2           yes
+checksums           rmd160  e69bb0d9ea1e1f6b27f3442773f7e341abdeeb69 \
+                    sha256  5097023e3d2b36944c763f1df707ee06b19dc639b2b68fb30113a5f2cbf60b6d
+
+depends_build-append \
+                    port:pkgconfig
+
+configure.args-append   --disable-silent-rules
+
+# Fix build failure when upgrading from previous version.
+configure.cppflags-replace -I${prefix}/include -isystem${prefix}/include
+
+post-destroot {
+    xinstall -m 755 -d ${destroot}${prefix}/share/doc/${name}
+    xinstall -m 644 -W ${worksrcpath} AUTHORS COPYING ChangeLog \
+        README TODO ${destroot}${prefix}/share/doc/${name}
+}
+
+livecheck.type      regex
+livecheck.url       http://download.videolan.org/pub/videolan/${name}/
+livecheck.regex     {>([0-9.]+)/<}

@@ -1,0 +1,41 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
+
+PortSystem              1.0
+
+name                    clex
+epoch                   1
+version                 4.6.patch6
+revision                2
+categories              sysutils
+platforms               darwin
+maintainers             ryandesign openmaintainer
+license                 GPL-2
+
+description             file manager with curses interface
+
+long_description \
+    CLEX is a file manager with a full-screen user interface. It        \
+    displays directory contents including the file status details and   \
+    provides features like command history, filename insertion, or name \
+    completion in order to help users to create commands to be executed \
+    by the shell.
+
+homepage                http://www.clex.sk/
+master_sites            ${homepage}download/
+
+# 4.6.patch6 was stealth-updated 2013-09-01
+dist_subdir             ${name}/${version}_1
+
+checksums               rmd160  4e90038d665bb227e0240917d8e01f0e96b3433d \
+                        sha256  772d9c02a57c2e4f3b3098bcd32f5909be7f8b3aac78ed98302d889318140a2f
+
+depends_lib             port:ncurses
+
+use_parallel_build      yes
+
+test.run                yes
+test.target             check
+
+livecheck.type          regex
+livecheck.regex         {latest stable version is ([0-9]+(\.[0-9a-z]+)+)}

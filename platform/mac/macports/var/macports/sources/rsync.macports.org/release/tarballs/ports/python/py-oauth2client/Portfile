@@ -1,0 +1,46 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 127310 2014-10-25 03:22:43Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-oauth2client
+set realname        oauth2client
+version             1.2
+
+python.versions     27
+
+categories-append   www
+maintainers         nomaintainer
+license             Apache-2
+description         client library for OAuth 2.0
+long_description    ${description}
+
+platforms           darwin
+supported_archs     noarch
+
+homepage            http://pypi.python.org/pypi/${realname}
+master_sites        http://pypi.python.org/packages/source/o/${realname}
+distname            ${realname}-${version}
+
+if {${name} ne ${subport}} {
+    depends_build-append port:py${python.version}-setuptools
+    depends_lib-append   port:py${python.version}-httplib2 \
+                         port:py${python.version}-uritemplate
+
+    post-destroot {
+        delete ${destroot}${python.pkgd}/uritemplate
+
+        set egg-info ${destroot}${python.pkgd}/${realname}-${version}-py${python.branch}.egg-info
+        foreach d [glob -dir ${egg-info} *] {
+            file attributes ${d} -permissions 0644
+        }
+    }
+}
+
+checksums           rmd160  949cd82932f126194bfd53eadf92829ee2152e04 \
+                    sha256  7ed84c327d61284bb32158ef1b3723106861efd64a8cc07e918a1db33d88fdbd
+
+livecheck.type      regex
+livecheck.url       http://pypi.python.org/pypi/${realname}
+livecheck.regex     "${realname} (\[1-9\]+\.\[0-9\]+)"

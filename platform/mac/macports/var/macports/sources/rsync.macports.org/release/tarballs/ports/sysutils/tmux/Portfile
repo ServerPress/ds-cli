@@ -1,0 +1,72 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141515 2015-10-19 23:38:51Z ryandesign@macports.org $
+
+PortSystem      1.0
+PortGroup       github 1.0
+
+github.setup    tmux tmux 2.1
+if {${subport} eq ${name}} {
+    revision        0
+    conflicts       tmux-devel
+}
+subport tmux-devel {
+    github.setup    tmux tmux 7120ab2f161a5762d16aba54451d29dcd0fbbeeb
+    version         20150926-[string range ${github.version} 0 6]
+    revision        0
+    conflicts       tmux
+}
+categories      sysutils
+maintainers     evermeet.cx:tessarek
+description     terminal multiplexer
+long_description \
+    tmux is a \"terminal multiplexer\", it enables a number of terminals \
+    (or windows) to be accessed and controlled from a single terminal. \
+    tmux is intended to be a simple, modern, BSD-licensed alternative \
+    to programs such as GNU screen.
+homepage        https://tmux.github.io
+platforms       darwin
+license         BSD
+
+depends_lib     port:libevent port:ncurses
+
+if {${subport} eq ${name}} {
+    github.tarball_from     releases
+    checksums               rmd160  db078b7149e009aecb200c4cbb39be72190a14dc \
+                            sha256  31564e7bf4bcef2defb3cb34b9e596bd43a3937cad9e5438701a81a5a9af6176
+}
+subport tmux-devel {
+    checksums               rmd160  75deb03c7b1aadd65699d0616180f7448e4672c7 \
+                            sha256  a88e5bad3db5547df7bcdf6eef9dde1bc76822f722c2126cfd6a5d482de0c763
+
+    use_autoreconf          yes
+    autoreconf.cmd          ./autogen.sh
+    autoreconf.args
+    depends_build           port:autoconf \
+                            port:automake \
+                            port:libtool \
+                            port:pkgconfig
+}
+
+platform darwin 8 {
+    # On Mac OS X 10.4 there's no libproc.h, so we use a previous version of osdep-darwin.c (c1b9948)
+    post-extract {
+        file copy -force ${filespath}/osdep-darwin.8.c ${worksrcpath}/osdep-darwin.c
+    }
+}
+
+post-destroot {
+    xinstall -m 0755 -d ${destroot}${prefix}/share/doc/tmux
+    xinstall -m 0644 {*}[glob ${worksrcpath}/examples/*.conf] ${destroot}${prefix}/share/doc/tmux
+    xinstall -m 0755 -d ${destroot}${prefix}/share/vim/vimfiles/syntax
+    xinstall -m 0644 ${worksrcpath}/examples/tmux.vim ${destroot}${prefix}/share/vim/vimfiles/syntax
+    xinstall -m 0755 -d ${destroot}${prefix}/share/vim/vimfiles/ftdetect
+    xinstall -m 0644 ${filespath}/ftdetect-tmux.vim ${destroot}${prefix}/share/vim/vimfiles/ftdetect/tmux.vim
+}
+
+variant screen description "behave more like screen" {
+    post-destroot {
+        xinstall -m 0644 ${worksrcpath}/examples/screen-keys.conf ${destroot}${prefix}/etc/tmux.conf
+    }
+}
+
+notes "If you want integration with system pasteboard consider installing port tmux-pasteboard as well"

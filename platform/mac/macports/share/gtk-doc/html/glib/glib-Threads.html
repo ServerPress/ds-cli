@@ -8,7 +8,7 @@
 <link rel="up" href="glib-core.html" title="GLib Core Application Support">
 <link rel="prev" href="glib-The-Main-Event-Loop.html" title="The Main Event Loop">
 <link rel="next" href="glib-Thread-Pools.html" title="Thread Pools">
-<meta name="generator" content="GTK-Doc V1.21.1 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -607,7 +607,19 @@ you must coordinate accesses to the same <a class="link" href="glib-Hash-Tables.
 threads. The two notable exceptions from this rule are <a class="link" href="glib-The-Main-Event-Loop.html#GMainLoop" title="GMainLoop"><span class="type">GMainLoop</span></a>
 and <a class="link" href="glib-Asynchronous-Queues.html#GAsyncQueue" title="GAsyncQueue"><span class="type">GAsyncQueue</span></a>, which are thread-safe and need no further
 application-level locking to be accessed from multiple threads.
-Most refcounting functions such as <a href="https://developer.gnome.org/gobject/unstable/gobject-The-Base-Object-Type.html#g-object-ref"><code class="function">g_object_ref()</code></a> are also thread-safe.</p>
+Most refcounting functions such as <code class="function">g_object_ref()</code> are also thread-safe.</p>
+<p>A common use for <a href="glib-Threads.html#GThread"><span class="type">GThreads</span></a> is to move a long-running blocking operation out
+of the main thread and into a worker thread. For GLib functions, such as
+single GIO operations, this is not necessary, and complicates the code.
+Instead, the <code class="literal">…<code class="function">_async()</code></code> version of the function should be used from the main
+thread, eliminating the need for locking and synchronisation between multiple
+threads. If an operation does need to be moved to a worker thread, consider
+using <code class="function">g_task_run_in_thread()</code>, or a <a class="link" href="glib-Thread-Pools.html#GThreadPool" title="struct GThreadPool"><span class="type">GThreadPool</span></a>. <a class="link" href="glib-Thread-Pools.html#GThreadPool" title="struct GThreadPool"><span class="type">GThreadPool</span></a> is often a
+better choice than <a class="link" href="glib-Threads.html#GThread" title="GThread"><span class="type">GThread</span></a>, as it handles thread reuse and task queueing;
+<span class="type">GTask</span> uses this internally.</p>
+<p>However, if multiple blocking operations need to be performed in sequence,
+and it is not possible to use <span class="type">GTask</span> for them, moving them to a worker thread
+can clarify the code.</p>
 </div>
 <div class="refsect1">
 <a name="glib-Threads.functions_details"></a><h2>Functions</h2>
@@ -636,7 +648,6 @@ or <a class="link" href="glib-Threads.html#g-thread-try-new" title="g_thread_try
 <div class="refsect3">
 <a name="id-1.4.3.7.2.6"></a><h4>Returns</h4>
 <p> the return value of the thread</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -661,10 +672,13 @@ Some systems restrict the length of <em class="parameter"><code>name</code></em>
  to 16 bytes.</p>
 <p>If the thread can not be created the program aborts. See
 <a class="link" href="glib-Threads.html#g-thread-try-new" title="g_thread_try_new ()"><code class="function">g_thread_try_new()</code></a> if you want to attempt to deal with failures.</p>
+<p>If you are using threads to offload (potentially many) short-lived tasks,
+<a class="link" href="glib-Thread-Pools.html#GThreadPool" title="struct GThreadPool"><span class="type">GThreadPool</span></a> may be more appropriate than manually spawning and tracking
+multiple <a href="glib-Threads.html#GThread"><span class="type">GThreads</span></a>.</p>
 <p>To free the struct returned by this function, use <a class="link" href="glib-Threads.html#g-thread-unref" title="g_thread_unref ()"><code class="function">g_thread_unref()</code></a>.
 Note that <a class="link" href="glib-Threads.html#g-thread-join" title="g_thread_join ()"><code class="function">g_thread_join()</code></a> implicitly unrefs the <a class="link" href="glib-Threads.html#GThread" title="GThread"><span class="type">GThread</span></a> as well.</p>
 <div class="refsect3">
-<a name="id-1.4.3.7.3.8"></a><h4>Parameters</h4>
+<a name="id-1.4.3.7.3.9"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -691,11 +705,10 @@ Note that <a class="link" href="glib-Threads.html#g-thread-join" title="g_thread
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.4.3.7.3.9"></a><h4>Returns</h4>
+<a name="id-1.4.3.7.3.10"></a><h4>Returns</h4>
 <p> the new <a class="link" href="glib-Threads.html#GThread" title="GThread"><span class="type">GThread</span></a></p>
-<p></p>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -745,9 +758,8 @@ it allows for the possibility of failure.</p>
 <div class="refsect3">
 <a name="id-1.4.3.7.4.7"></a><h4>Returns</h4>
 <p> the new <a class="link" href="glib-Threads.html#GThread" title="GThread"><span class="type">GThread</span></a>, or <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a> if an error occurred</p>
-<p></p>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -775,9 +787,8 @@ g_thread_ref (<em class="parameter"><code><a class="link" href="glib-Threads.htm
 <a name="id-1.4.3.7.5.6"></a><h4>Returns</h4>
 <p> a new reference to <em class="parameter"><code>thread</code></em>
 </p>
-<p></p>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -805,7 +816,7 @@ if you don't need it anymore.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -849,7 +860,6 @@ want to keep the GThread alive beyond the <a class="link" href="glib-Threads.htm
 <div class="refsect3">
 <a name="id-1.4.3.7.7.9"></a><h4>Returns</h4>
 <p> the return value of the thread</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -912,7 +922,6 @@ as <a class="link" href="glib-Threads.html#g-thread-join" title="g_thread_join 
 <div class="refsect3">
 <a name="id-1.4.3.7.10.6"></a><h4>Returns</h4>
 <p> the <a class="link" href="glib-Threads.html#GThread" title="GThread"><span class="type">GThread</span></a> representing the current thread</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -938,15 +947,15 @@ statically allocated.</p>
 7
 8
 9</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="cbracket">{</span>
-<span class="normal">  </span><span class="usertype">GMutex</span><span class="normal"> m</span><span class="symbol">;</span>
-<span class="normal">  </span><span class="symbol">...</span>
-<span class="cbracket">}</span><span class="normal"> Blob</span><span class="symbol">;</span>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwc">typedef</span> <span class="gtkdoc kwb">struct</span> <span class="gtkdoc opt">{</span>
+  GMutex m<span class="gtkdoc opt">;</span>
+  <span class="gtkdoc opt">...</span>
+<span class="gtkdoc opt">}</span> Blob<span class="gtkdoc opt">;</span>
 
-<span class="usertype">Blob</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">b</span><span class="symbol">;</span>
+Blob <span class="gtkdoc opt">*</span>b<span class="gtkdoc opt">;</span>
 
-<span class="normal">b </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="glib-Memory-Allocation.html#g-new">g_new</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">Blob</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
-<span class="function"><a href="glib-Threads.html#g-mutex-init">g_mutex_init</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">b</span><span class="symbol">-&gt;</span><span class="normal">m</span><span class="symbol">);</span></pre></td>
+b <span class="gtkdoc opt">=</span> <span class="function"><a href="glib-Memory-Allocation.html#g-new">g_new</a></span> <span class="gtkdoc opt">(</span>Blob<span class="gtkdoc opt">,</span> <span class="number">1</span><span class="gtkdoc opt">);</span>
+<span class="function"><a href="glib-Threads.html#g-mutex-init">g_mutex_init</a></span> <span class="gtkdoc opt">(&amp;</span>b<span class="gtkdoc opt">-&gt;</span>m<span class="gtkdoc opt">);</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -972,7 +981,7 @@ to undefined behaviour.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1066,7 +1075,6 @@ already been locked by the same thread results in undefined behaviour
 <a name="id-1.4.3.7.14.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>mutex</code></em>
 could be locked</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -1137,29 +1145,29 @@ will only work with those compilers:</p>
 21
 22
 23</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="symbol">...</span>
-<span class="normal">  </span><span class="usertype">GMutex</span><span class="normal"> mutex</span><span class="symbol">;</span>
-<span class="normal">  </span><span class="symbol">...</span>
-<span class="cbracket">}</span><span class="normal"> MyObject</span><span class="symbol">;</span>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwc">typedef</span> <span class="gtkdoc kwb">struct</span>
+<span class="gtkdoc opt">{</span>
+  <span class="gtkdoc opt">...</span>
+  GMutex mutex<span class="gtkdoc opt">;</span>
+  <span class="gtkdoc opt">...</span>
+<span class="gtkdoc opt">}</span> MyObject<span class="gtkdoc opt">;</span>
 
-<span class="keyword">static</span><span class="normal"> </span><span class="type">void</span>
-<span class="function">my_object_do_stuff</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">MyObject</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">self</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="function"><a href="glib-Miscellaneous-Macros.html#g-autoptr">g_autoptr</a></span><span class="symbol">(</span><span class="normal"><a href="glib-Threads.html#GMutexLocker">GMutexLocker</a></span><span class="symbol">)</span><span class="normal"> locker </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="glib-Threads.html#g-mutex-locker-new">g_mutex_locker_new</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">self</span><span class="symbol">-&gt;</span><span class="normal">mutex</span><span class="symbol">);</span>
+<span class="gtkdoc kwb">static void</span>
+<span class="function">my_object_do_stuff</span> <span class="gtkdoc opt">(</span>MyObject <span class="gtkdoc opt">*</span>self<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  <span class="function"><a href="glib-Miscellaneous-Macros.html#g-autoptr">g_autoptr</a></span><span class="gtkdoc opt">(</span>GMutexLocker<span class="gtkdoc opt">)</span> locker <span class="gtkdoc opt">=</span> <span class="function"><a href="glib-Threads.html#g-mutex-locker-new">g_mutex_locker_new</a></span> <span class="gtkdoc opt">(&amp;</span>self<span class="gtkdoc opt">-&gt;</span>mutex<span class="gtkdoc opt">);</span>
 
-<span class="normal">  </span><span class="comment">// Code with mutex locked here</span>
+  <span class="gtkdoc slc">// Code with mutex locked here</span>
 
-<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">cond</span><span class="symbol">)</span>
-<span class="normal">    </span><span class="comment">// No need to unlock</span>
-<span class="normal">    </span><span class="keyword">return</span><span class="symbol">;</span>
+  <span class="keyword">if</span> <span class="gtkdoc opt">(</span>cond<span class="gtkdoc opt">)</span>
+    <span class="gtkdoc slc">// No need to unlock</span>
+    <span class="keyword">return</span><span class="gtkdoc opt">;</span>
 
-<span class="normal">  </span><span class="comment">// Optionally early unlock</span>
-<span class="normal">  </span><span class="function"><a href="glib-Memory-Allocation.html#g-clear-pointer">g_clear_pointer</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">locker</span><span class="symbol">,</span><span class="normal"> <a href="glib-Threads.html#g-mutex-locker-free">g_mutex_locker_free</a></span><span class="symbol">);</span>
+  <span class="gtkdoc slc">// Optionally early unlock</span>
+  <span class="function"><a href="glib-Memory-Allocation.html#g-clear-pointer">g_clear_pointer</a></span> <span class="gtkdoc opt">(&amp;</span>locker<span class="gtkdoc opt">,</span> g_mutex_locker_free<span class="gtkdoc opt">);</span>
 
-<span class="normal">  </span><span class="comment">// Code with mutex unlocked here</span>
-<span class="cbracket">}</span></pre></td>
+  <span class="gtkdoc slc">// Code with mutex unlocked here</span>
+<span class="gtkdoc opt">}</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -1184,9 +1192,8 @@ will only work with those compilers:</p>
 <div class="refsect3">
 <a name="id-1.4.3.7.16.9"></a><h4>Returns</h4>
 <p> a <a class="link" href="glib-Threads.html#GMutexLocker" title="GMutexLocker"><span class="type">GMutexLocker</span></a></p>
-<p></p>
 </div>
-<p class="since">Since 2.44</p>
+<p class="since">Since: <a class="link" href="api-index-2-44.html#api-index-2.44">2.44</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1210,7 +1217,7 @@ g_mutex_locker_free (<em class="parameter"><code><a class="link" href="glib-Thre
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.44</p>
+<p class="since">Since: <a class="link" href="api-index-2-44.html#api-index-2.44">2.44</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1245,20 +1252,20 @@ of the variable you intend to protect with the lock. Look at our
 12
 13
 14</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="glib-Threads.html#G-LOCK-DEFINE:CAPS">G_LOCK_DEFINE</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">current_number</span><span class="symbol">);</span>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="glib-Threads.html#G-LOCK-DEFINE:CAPS">G_LOCK_DEFINE</a></span> <span class="gtkdoc opt">(</span>current_number<span class="gtkdoc opt">);</span>
 
-<span class="type">int</span>
-<span class="function">give_me_next_number</span><span class="normal"> </span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="keyword">static</span><span class="normal"> </span><span class="type">int</span><span class="normal"> current_number </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
-<span class="normal">  </span><span class="type">int</span><span class="normal"> ret_val</span><span class="symbol">;</span>
+<span class="gtkdoc kwb">int</span>
+<span class="function">give_me_next_number</span> <span class="gtkdoc opt">(</span><span class="gtkdoc kwb">void</span><span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  <span class="gtkdoc kwb">static int</span> current_number <span class="gtkdoc opt">=</span> <span class="number">0</span><span class="gtkdoc opt">;</span>
+  <span class="gtkdoc kwb">int</span> ret_val<span class="gtkdoc opt">;</span>
 
-<span class="normal">  </span><span class="function"><a href="glib-Threads.html#G-LOCK:CAPS">G_LOCK</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">current_number</span><span class="symbol">);</span>
-<span class="normal">  ret_val </span><span class="symbol">=</span><span class="normal"> current_number </span><span class="symbol">=</span><span class="normal"> </span><span class="function">calc_next_number</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">current_number</span><span class="symbol">);</span>
-<span class="normal">  </span><span class="function"><a href="glib-Threads.html#G-UNLOCK:CAPS">G_UNLOCK</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">current_number</span><span class="symbol">);</span>
+  <span class="function"><a href="glib-Threads.html#G-LOCK:CAPS">G_LOCK</a></span> <span class="gtkdoc opt">(</span>current_number<span class="gtkdoc opt">);</span>
+  ret_val <span class="gtkdoc opt">=</span> current_number <span class="gtkdoc opt">=</span> <span class="function">calc_next_number</span> <span class="gtkdoc opt">(</span>current_number<span class="gtkdoc opt">);</span>
+  <span class="function"><a href="glib-Threads.html#G-UNLOCK:CAPS">G_UNLOCK</a></span> <span class="gtkdoc opt">(</span>current_number<span class="gtkdoc opt">);</span>
 
-<span class="normal">  </span><span class="keyword">return</span><span class="normal"> ret_val</span><span class="symbol">;</span>
-<span class="cbracket">}</span></pre></td>
+  <span class="keyword">return</span> ret_val<span class="gtkdoc opt">;</span>
+<span class="gtkdoc opt">}</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -1374,7 +1381,6 @@ module.</p>
 <div class="refsect3">
 <a name="id-1.4.3.7.22.6"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a>, if the lock could be locked.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -1424,15 +1430,15 @@ statically allocated.</p>
 7
 8
 9</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="cbracket">{</span>
-<span class="normal">  </span><span class="usertype">GRecMutex</span><span class="normal"> m</span><span class="symbol">;</span>
-<span class="normal">  </span><span class="symbol">...</span>
-<span class="cbracket">}</span><span class="normal"> Blob</span><span class="symbol">;</span>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwc">typedef</span> <span class="gtkdoc kwb">struct</span> <span class="gtkdoc opt">{</span>
+  GRecMutex m<span class="gtkdoc opt">;</span>
+  <span class="gtkdoc opt">...</span>
+<span class="gtkdoc opt">}</span> Blob<span class="gtkdoc opt">;</span>
 
-<span class="usertype">Blob</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">b</span><span class="symbol">;</span>
+Blob <span class="gtkdoc opt">*</span>b<span class="gtkdoc opt">;</span>
 
-<span class="normal">b </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="glib-Memory-Allocation.html#g-new">g_new</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">Blob</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
-<span class="function"><a href="glib-Threads.html#g-rec-mutex-init">g_rec_mutex_init</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">b</span><span class="symbol">-&gt;</span><span class="normal">m</span><span class="symbol">);</span></pre></td>
+b <span class="gtkdoc opt">=</span> <span class="function"><a href="glib-Memory-Allocation.html#g-new">g_new</a></span> <span class="gtkdoc opt">(</span>Blob<span class="gtkdoc opt">,</span> <span class="number">1</span><span class="gtkdoc opt">);</span>
+<span class="function"><a href="glib-Threads.html#g-rec-mutex-init">g_rec_mutex_init</a></span> <span class="gtkdoc opt">(&amp;</span>b<span class="gtkdoc opt">-&gt;</span>m<span class="gtkdoc opt">);</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -1458,7 +1464,7 @@ is no longer needed, use <a class="link" href="glib-Threads.html#g-rec-mutex-cle
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1519,7 +1525,7 @@ as many times as it has been locked.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1551,9 +1557,8 @@ it locks <em class="parameter"><code>rec_mutex</code></em>
 <a name="id-1.4.3.7.27.6"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>rec_mutex</code></em>
 could be locked</p>
-<p></p>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1583,7 +1588,7 @@ locked by the current thread leads to undefined behaviour.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1608,15 +1613,15 @@ allocated.</p>
 7
 8
 9</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span><span class="normal"> </span><span class="cbracket">{</span>
-<span class="normal">  </span><span class="usertype">GRWLock</span><span class="normal"> l</span><span class="symbol">;</span>
-<span class="normal">  </span><span class="symbol">...</span>
-<span class="cbracket">}</span><span class="normal"> Blob</span><span class="symbol">;</span>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwc">typedef</span> <span class="gtkdoc kwb">struct</span> <span class="gtkdoc opt">{</span>
+  GRWLock l<span class="gtkdoc opt">;</span>
+  <span class="gtkdoc opt">...</span>
+<span class="gtkdoc opt">}</span> Blob<span class="gtkdoc opt">;</span>
 
-<span class="usertype">Blob</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">b</span><span class="symbol">;</span>
+Blob <span class="gtkdoc opt">*</span>b<span class="gtkdoc opt">;</span>
 
-<span class="normal">b </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="glib-Memory-Allocation.html#g-new">g_new</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">Blob</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
-<span class="function"><a href="glib-Threads.html#g-rw-lock-init">g_rw_lock_init</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">b</span><span class="symbol">-&gt;</span><span class="normal">l</span><span class="symbol">);</span></pre></td>
+b <span class="gtkdoc opt">=</span> <span class="function"><a href="glib-Memory-Allocation.html#g-new">g_new</a></span> <span class="gtkdoc opt">(</span>Blob<span class="gtkdoc opt">,</span> <span class="number">1</span><span class="gtkdoc opt">);</span>
+<span class="function"><a href="glib-Threads.html#g-rw-lock-init">g_rw_lock_init</a></span> <span class="gtkdoc opt">(&amp;</span>b<span class="gtkdoc opt">-&gt;</span>l<span class="gtkdoc opt">);</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -1642,7 +1647,7 @@ to undefined behaviour.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1697,7 +1702,7 @@ until all other threads have dropped their locks on <em class="parameter"><code>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1729,9 +1734,8 @@ Otherwise it locks <em class="parameter"><code>rw_lock</code></em>
 <a name="id-1.4.3.7.32.6"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>rw_lock</code></em>
 could be locked</p>
-<p></p>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1757,7 +1761,7 @@ by the current thread leads to undefined behaviour.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1786,7 +1790,7 @@ hold read locks on the same lock simultaneously.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1816,9 +1820,8 @@ returns <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE
 <a name="id-1.4.3.7.35.6"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>rw_lock</code></em>
 could be locked</p>
-<p></p>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1844,7 +1847,7 @@ by the current thread leads to undefined behaviour.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1874,7 +1877,7 @@ to undefined behaviour.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1901,7 +1904,7 @@ blocking leads to undefined behaviour.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2003,7 +2006,6 @@ and <a class="link" href="glib-Date-and-Time-Functions.html#g-time-val-add" titl
 <a name="id-1.4.3.7.40.10"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>cond</code></em>
 was signalled, or <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> on timeout</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2055,31 +2057,31 @@ documentation for <a class="link" href="glib-Threads.html#GCond" title="struct G
 23
 24
 25</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="normal"><a href="glib-Basic-Types.html#gpointer">gpointer</a></span>
-<span class="function">pop_data_timed</span><span class="normal"> </span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="usertype">gint64</span><span class="normal"> end_time</span><span class="symbol">;</span>
-<span class="normal">  </span><span class="usertype">gpointer</span><span class="normal"> data</span><span class="symbol">;</span>
+        <td class="listing_code"><pre class="programlisting">gpointer
+<span class="function">pop_data_timed</span> <span class="gtkdoc opt">(</span><span class="gtkdoc kwb">void</span><span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  gint64 end_time<span class="gtkdoc opt">;</span>
+  gpointer data<span class="gtkdoc opt">;</span>
 
-<span class="normal">  </span><span class="function"><a href="glib-Threads.html#g-mutex-lock">g_mutex_lock</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">data_mutex</span><span class="symbol">);</span>
+  <span class="function"><a href="glib-Threads.html#g-mutex-lock">g_mutex_lock</a></span> <span class="gtkdoc opt">(&amp;</span>data_mutex<span class="gtkdoc opt">);</span>
 
-<span class="normal">  end_time </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="glib-Date-and-Time-Functions.html#g-get-monotonic-time">g_get_monotonic_time</a></span><span class="normal"> </span><span class="symbol">()</span><span class="normal"> </span><span class="symbol">+</span><span class="normal"> </span><span class="number">5</span><span class="normal"> </span><span class="symbol">*</span><span class="normal"> <a href="glib-GDateTime.html#G-TIME-SPAN-SECOND:CAPS">G_TIME_SPAN_SECOND</a></span><span class="symbol">;</span>
-<span class="normal">  </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">current_data</span><span class="symbol">)</span>
-<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="function"><a href="glib-Threads.html#g-cond-wait-until">g_cond_wait_until</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">data_cond</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">data_mutex</span><span class="symbol">,</span><span class="normal"> end_time</span><span class="symbol">))</span>
-<span class="normal">      </span><span class="cbracket">{</span>
-<span class="normal">        </span><span class="comment">// timeout has passed.</span>
-<span class="normal">        </span><span class="function"><a href="glib-Threads.html#g-mutex-unlock">g_mutex_unlock</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">data_mutex</span><span class="symbol">);</span>
-<span class="normal">        </span><span class="keyword">return</span><span class="normal"> <a href="glib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">;</span>
-<span class="normal">      </span><span class="cbracket">}</span>
+  end_time <span class="gtkdoc opt">=</span> <span class="function"><a href="glib-Date-and-Time-Functions.html#g-get-monotonic-time">g_get_monotonic_time</a></span> <span class="gtkdoc opt">() +</span> <span class="number">5</span> <span class="gtkdoc opt">*</span> G_TIME_SPAN_SECOND<span class="gtkdoc opt">;</span>
+  <span class="keyword">while</span> <span class="gtkdoc opt">(!</span>current_data<span class="gtkdoc opt">)</span>
+    <span class="keyword">if</span> <span class="gtkdoc opt">(!</span><span class="function"><a href="glib-Threads.html#g-cond-wait-until">g_cond_wait_until</a></span> <span class="gtkdoc opt">(&amp;</span>data_cond<span class="gtkdoc opt">, &amp;</span>data_mutex<span class="gtkdoc opt">,</span> end_time<span class="gtkdoc opt">))</span>
+      <span class="gtkdoc opt">{</span>
+        <span class="gtkdoc slc">// timeout has passed.</span>
+        <span class="function"><a href="glib-Threads.html#g-mutex-unlock">g_mutex_unlock</a></span> <span class="gtkdoc opt">(&amp;</span>data_mutex<span class="gtkdoc opt">);</span>
+        <span class="keyword">return</span> NULL<span class="gtkdoc opt">;</span>
+      <span class="gtkdoc opt">}</span>
 
-<span class="normal">  </span><span class="comment">// there is data for us</span>
-<span class="normal">  data </span><span class="symbol">=</span><span class="normal"> current_data</span><span class="symbol">;</span>
-<span class="normal">  current_data </span><span class="symbol">=</span><span class="normal"> <a href="glib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">;</span>
+  <span class="gtkdoc slc">// there is data for us</span>
+  data <span class="gtkdoc opt">=</span> current_data<span class="gtkdoc opt">;</span>
+  current_data <span class="gtkdoc opt">=</span> NULL<span class="gtkdoc opt">;</span>
 
-<span class="normal">  </span><span class="function"><a href="glib-Threads.html#g-mutex-unlock">g_mutex_unlock</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">data_mutex</span><span class="symbol">);</span>
+  <span class="function"><a href="glib-Threads.html#g-mutex-unlock">g_mutex_unlock</a></span> <span class="gtkdoc opt">(&amp;</span>data_mutex<span class="gtkdoc opt">);</span>
 
-<span class="normal">  </span><span class="keyword">return</span><span class="normal"> data</span><span class="symbol">;</span>
-<span class="cbracket">}</span></pre></td>
+  <span class="keyword">return</span> data<span class="gtkdoc opt">;</span>
+<span class="gtkdoc opt">}</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -2122,9 +2124,8 @@ time of more than 5 seconds).</p>
 <div class="refsect3">
 <a name="id-1.4.3.7.41.12"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> on a signal, <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> on a timeout</p>
-<p></p>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2229,35 +2230,35 @@ examples below.</p>
 27
 28
 29</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="keyword">static</span><span class="normal"> </span><span class="usertype">GPrivate</span><span class="normal"> name_key </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="glib-Threads.html#G-PRIVATE-INIT:CAPS">G_PRIVATE_INIT</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal"><a href="glib-Memory-Allocation.html#g-free">g_free</a></span><span class="symbol">);</span>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwb">static</span> GPrivate name_key <span class="gtkdoc opt">=</span> <span class="function"><a href="glib-Threads.html#G-PRIVATE-INIT:CAPS">G_PRIVATE_INIT</a></span> <span class="gtkdoc opt">(</span>g_free<span class="gtkdoc opt">);</span>
 
-<span class="comment">// return value should not be freed</span>
-<span class="keyword">const</span><span class="normal"> <a href="glib-Basic-Types.html#gchar">gchar</a> </span><span class="symbol">*</span>
-<span class="function">get_local_name</span><span class="normal"> </span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="keyword">return</span><span class="normal"> </span><span class="function"><a href="glib-Threads.html#g-private-get">g_private_get</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">name_key</span><span class="symbol">);</span>
-<span class="cbracket">}</span>
+<span class="gtkdoc slc">// return value should not be freed</span>
+<span class="gtkdoc kwb">const</span> gchar <span class="gtkdoc opt">*</span>
+<span class="function">get_local_name</span> <span class="gtkdoc opt">(</span><span class="gtkdoc kwb">void</span><span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  <span class="keyword">return</span> <span class="function"><a href="glib-Threads.html#g-private-get">g_private_get</a></span> <span class="gtkdoc opt">(&amp;</span>name_key<span class="gtkdoc opt">);</span>
+<span class="gtkdoc opt">}</span>
 
-<span class="type">void</span>
-<span class="function">set_local_name</span><span class="normal"> </span><span class="symbol">(</span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">gchar</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">name</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="function"><a href="glib-Threads.html#g-private-replace">g_private_replace</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">name_key</span><span class="symbol">,</span><span class="normal"> </span><span class="function"><a href="glib-String-Utility-Functions.html#g-strdup">g_strdup</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">name</span><span class="symbol">));</span>
-<span class="cbracket">}</span>
+<span class="gtkdoc kwb">void</span>
+<span class="function">set_local_name</span> <span class="gtkdoc opt">(</span><span class="gtkdoc kwb">const</span> gchar <span class="gtkdoc opt">*</span>name<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  <span class="function"><a href="glib-Threads.html#g-private-replace">g_private_replace</a></span> <span class="gtkdoc opt">(&amp;</span>name_key<span class="gtkdoc opt">,</span> <span class="function"><a href="glib-String-Utility-Functions.html#g-strdup">g_strdup</a></span> <span class="gtkdoc opt">(</span>name<span class="gtkdoc opt">));</span>
+<span class="gtkdoc opt">}</span>
 
 
-<span class="keyword">static</span><span class="normal"> </span><span class="usertype">GPrivate</span><span class="normal"> count_key</span><span class="symbol">;</span><span class="normal">   </span><span class="comment">// no free function</span>
+<span class="gtkdoc kwb">static</span> GPrivate count_key<span class="gtkdoc opt">;</span>   <span class="gtkdoc slc">// no free function</span>
 
-<span class="normal"><a href="glib-Basic-Types.html#gint">gint</a></span>
-<span class="function">get_local_count</span><span class="normal"> </span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="keyword">return</span><span class="normal"> </span><span class="function"><a href="glib-Type-Conversion-Macros.html#GPOINTER-TO-INT:CAPS">GPOINTER_TO_INT</a></span><span class="normal"> </span><span class="symbol">(</span><span class="function"><a href="glib-Threads.html#g-private-get">g_private_get</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">count_key</span><span class="symbol">));</span>
-<span class="cbracket">}</span>
+gint
+<span class="function">get_local_count</span> <span class="gtkdoc opt">(</span><span class="gtkdoc kwb">void</span><span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  <span class="keyword">return</span> <span class="function"><a href="glib-Type-Conversion-Macros.html#GPOINTER-TO-INT:CAPS">GPOINTER_TO_INT</a></span> <span class="gtkdoc opt">(</span><span class="function"><a href="glib-Threads.html#g-private-get">g_private_get</a></span> <span class="gtkdoc opt">(&amp;</span>count_key<span class="gtkdoc opt">));</span>
+<span class="gtkdoc opt">}</span>
 
-<span class="type">void</span>
-<span class="function">set_local_count</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">gint</span><span class="normal"> count</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="function"><a href="glib-Threads.html#g-private-set">g_private_set</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">count_key</span><span class="symbol">,</span><span class="normal"> </span><span class="function"><a href="glib-Type-Conversion-Macros.html#GINT-TO-POINTER:CAPS">GINT_TO_POINTER</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">count</span><span class="symbol">));</span>
-<span class="cbracket">}</span></pre></td>
+<span class="gtkdoc kwb">void</span>
+<span class="function">set_local_count</span> <span class="gtkdoc opt">(</span>gint count<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  <span class="function"><a href="glib-Threads.html#g-private-set">g_private_set</a></span> <span class="gtkdoc opt">(&amp;</span>count_key<span class="gtkdoc opt">,</span> <span class="function"><a href="glib-Type-Conversion-Macros.html#GINT-TO-POINTER:CAPS">GINT_TO_POINTER</a></span> <span class="gtkdoc opt">(</span>count<span class="gtkdoc opt">));</span>
+<span class="gtkdoc opt">}</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -2279,7 +2280,7 @@ examples below.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2309,7 +2310,6 @@ created, for example).</p>
 <div class="refsect3">
 <a name="id-1.4.3.7.45.7"></a><h4>Returns</h4>
 <p> the thread-local value</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2384,7 +2384,7 @@ the previous value was non-<a class="link" href="glib-Standard-Macros.html#NULL:
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2417,15 +2417,15 @@ that the initialization is serialized across multiple threads.</p>
 7
 8
 9</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="normal"><a href="glib-Basic-Types.html#gpointer">gpointer</a></span>
-<span class="function">get_debug_flags</span><span class="normal"> </span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="keyword">static</span><span class="normal"> </span><span class="usertype">GOnce</span><span class="normal"> my_once </span><span class="symbol">=</span><span class="normal"> <a href="glib-Threads.html#G-ONCE-INIT:CAPS">G_ONCE_INIT</a></span><span class="symbol">;</span>
+        <td class="listing_code"><pre class="programlisting">gpointer
+<span class="function">get_debug_flags</span> <span class="gtkdoc opt">(</span><span class="gtkdoc kwb">void</span><span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  <span class="gtkdoc kwb">static</span> GOnce my_once <span class="gtkdoc opt">=</span> G_ONCE_INIT<span class="gtkdoc opt">;</span>
 
-<span class="normal">  </span><span class="function"><a href="glib-Threads.html#g-once">g_once</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">my_once</span><span class="symbol">,</span><span class="normal"> parse_debug_flags</span><span class="symbol">,</span><span class="normal"> <a href="glib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">);</span>
+  <span class="function"><a href="glib-Threads.html#g-once">g_once</a></span> <span class="gtkdoc opt">(&amp;</span>my_once<span class="gtkdoc opt">,</span> parse_debug_flags<span class="gtkdoc opt">,</span> NULL<span class="gtkdoc opt">);</span>
 
-<span class="normal">  </span><span class="keyword">return</span><span class="normal"> my_once</span><span class="symbol">.</span><span class="normal">retval</span><span class="symbol">;</span>
-<span class="cbracket">}</span></pre></td>
+  <span class="keyword">return</span> my_once<span class="gtkdoc opt">.</span>retval<span class="gtkdoc opt">;</span>
+<span class="gtkdoc opt">}</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -2463,7 +2463,7 @@ its associated <a class="link" href="glib-Threads.html#GOnce" title="struct GOnc
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.4</p>
+<p class="since">Since: <a class="link" href="api-index-2-4.html#api-index-2.4">2.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2495,16 +2495,16 @@ like this:</p>
 8
 9
 10</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="keyword">static</span><span class="normal"> </span><span class="usertype">gsize</span><span class="normal"> initialization_value </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwb">static</span> gsize initialization_value <span class="gtkdoc opt">=</span> <span class="number">0</span><span class="gtkdoc opt">;</span>
 
-<span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function"><a href="glib-Threads.html#g-once-init-enter">g_once_init_enter</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">initialization_value</span><span class="symbol">))</span>
-<span class="normal">  </span><span class="cbracket">{</span>
-<span class="normal">    </span><span class="usertype">gsize</span><span class="normal"> setup_value </span><span class="symbol">=</span><span class="normal"> </span><span class="number">42</span><span class="symbol">;</span><span class="normal"> </span><span class="comment">// initialization code here</span>
+<span class="keyword">if</span> <span class="gtkdoc opt">(</span><span class="function"><a href="glib-Threads.html#g-once-init-enter">g_once_init_enter</a></span> <span class="gtkdoc opt">(&amp;</span>initialization_value<span class="gtkdoc opt">))</span>
+  <span class="gtkdoc opt">{</span>
+    gsize setup_value <span class="gtkdoc opt">=</span> <span class="number">42</span><span class="gtkdoc opt">;</span> <span class="gtkdoc slc">// initialization code here</span>
 
-<span class="normal">    </span><span class="function"><a href="glib-Threads.html#g-once-init-leave">g_once_init_leave</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">initialization_value</span><span class="symbol">,</span><span class="normal"> setup_value</span><span class="symbol">);</span>
-<span class="normal">  </span><span class="cbracket">}</span>
+    <span class="function"><a href="glib-Threads.html#g-once-init-leave">g_once_init_leave</a></span> <span class="gtkdoc opt">(&amp;</span>initialization_value<span class="gtkdoc opt">,</span> setup_value<span class="gtkdoc opt">);</span>
+  <span class="gtkdoc opt">}</span>
 
-<span class="comment">// use initialization_value here</span></pre></td>
+<span class="gtkdoc slc">// use initialization_value here</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -2530,9 +2530,8 @@ like this:</p>
 <a name="id-1.4.3.7.49.8"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if the initialization section should be entered,
 <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> and blocks otherwise</p>
-<p></p>
 </div>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2568,7 +2567,7 @@ initialization variable.</p>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2614,7 +2613,7 @@ reliably.</p>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2662,9 +2661,8 @@ reliably.</p>
 <div class="refsect3">
 <a name="id-1.4.3.7.52.9"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if the lock was acquired</p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2704,7 +2702,7 @@ reliably.</p>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2738,7 +2736,7 @@ the pointer.</p>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.30</p>
+<p class="since">Since: <a class="link" href="api-index-2-30.html#api-index-2.30">2.30</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2775,9 +2773,8 @@ the pointer.</p>
 <div class="refsect3">
 <a name="id-1.4.3.7.55.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if the lock was acquired</p>
-<p></p>
 </div>
-<p class="since">Since 2.30</p>
+<p class="since">Since: <a class="link" href="api-index-2-30.html#api-index-2.30">2.30</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2811,7 +2808,7 @@ the pointer.</p>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.30</p>
+<p class="since">Since: <a class="link" href="api-index-2-30.html#api-index-2.30">2.30</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2825,9 +2822,8 @@ similar cases.</p>
 <div class="refsect3">
 <a name="id-1.4.3.7.57.5"></a><h4>Returns</h4>
 <p> Number of schedulable threads, always greater than 0</p>
-<p></p>
 </div>
-<p class="since">Since 2.36</p>
+<p class="since">Since: <a class="link" href="api-index-2-36.html#api-index-2.36">2.36</a></p>
 </div>
 </div>
 <div class="refsect1">
@@ -2901,17 +2897,17 @@ access.</p>
 9
 10
 11</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="type">int</span>
-<span class="function">give_me_next_number</span><span class="normal"> </span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="keyword">static</span><span class="normal"> </span><span class="type">int</span><span class="normal"> current_number </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwb">int</span>
+<span class="function">give_me_next_number</span> <span class="gtkdoc opt">(</span><span class="gtkdoc kwb">void</span><span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  <span class="gtkdoc kwb">static int</span> current_number <span class="gtkdoc opt">=</span> <span class="number">0</span><span class="gtkdoc opt">;</span>
 
-<span class="normal">  </span><span class="comment">// now do a very complicated calculation to calculate the new</span>
-<span class="normal">  </span><span class="comment">// number, this might for example be a random number generator</span>
-<span class="normal">  current_number </span><span class="symbol">=</span><span class="normal"> </span><span class="function">calc_next_number</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">current_number</span><span class="symbol">);</span>
+  <span class="gtkdoc slc">// now do a very complicated calculation to calculate the new</span>
+  <span class="gtkdoc slc">// number, this might for example be a random number generator</span>
+  current_number <span class="gtkdoc opt">=</span> <span class="function">calc_next_number</span> <span class="gtkdoc opt">(</span>current_number<span class="gtkdoc opt">);</span>
 
-<span class="normal">  </span><span class="keyword">return</span><span class="normal"> current_number</span><span class="symbol">;</span>
-<span class="cbracket">}</span></pre></td>
+  <span class="keyword">return</span> current_number<span class="gtkdoc opt">;</span>
+<span class="gtkdoc opt">}</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -2938,19 +2934,19 @@ access. A <a class="link" href="glib-Threads.html#GMutex" title="union GMutex"><
 11
 12
 13</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="type">int</span>
-<span class="function">give_me_next_number</span><span class="normal"> </span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="keyword">static</span><span class="normal"> </span><span class="usertype">GMutex</span><span class="normal"> mutex</span><span class="symbol">;</span>
-<span class="normal">  </span><span class="keyword">static</span><span class="normal"> </span><span class="type">int</span><span class="normal"> current_number </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
-<span class="normal">  </span><span class="type">int</span><span class="normal"> ret_val</span><span class="symbol">;</span>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwb">int</span>
+<span class="function">give_me_next_number</span> <span class="gtkdoc opt">(</span><span class="gtkdoc kwb">void</span><span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  <span class="gtkdoc kwb">static</span> GMutex mutex<span class="gtkdoc opt">;</span>
+  <span class="gtkdoc kwb">static int</span> current_number <span class="gtkdoc opt">=</span> <span class="number">0</span><span class="gtkdoc opt">;</span>
+  <span class="gtkdoc kwb">int</span> ret_val<span class="gtkdoc opt">;</span>
 
-<span class="normal">  </span><span class="function"><a href="glib-Threads.html#g-mutex-lock">g_mutex_lock</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">mutex</span><span class="symbol">);</span>
-<span class="normal">  ret_val </span><span class="symbol">=</span><span class="normal"> current_number </span><span class="symbol">=</span><span class="normal"> </span><span class="function">calc_next_number</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">current_number</span><span class="symbol">);</span>
-<span class="normal">  </span><span class="function"><a href="glib-Threads.html#g-mutex-unlock">g_mutex_unlock</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">mutex</span><span class="symbol">);</span>
+  <span class="function"><a href="glib-Threads.html#g-mutex-lock">g_mutex_lock</a></span> <span class="gtkdoc opt">(&amp;</span>mutex<span class="gtkdoc opt">);</span>
+  ret_val <span class="gtkdoc opt">=</span> current_number <span class="gtkdoc opt">=</span> <span class="function">calc_next_number</span> <span class="gtkdoc opt">(</span>current_number<span class="gtkdoc opt">);</span>
+  <span class="function"><a href="glib-Threads.html#g-mutex-unlock">g_mutex_unlock</a></span> <span class="gtkdoc opt">(&amp;</span>mutex<span class="gtkdoc opt">);</span>
 
-<span class="normal">  </span><span class="keyword">return</span><span class="normal"> ret_val</span><span class="symbol">;</span>
-<span class="cbracket">}</span></pre></td>
+  <span class="keyword">return</span> ret_val<span class="gtkdoc opt">;</span>
+<span class="gtkdoc opt">}</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -2970,7 +2966,7 @@ then it must be explicitly initialised using <a class="link" href="glib-Threads.
 <pre class="programlisting">typedef void GMutexLocker;
 </pre>
 <p>Opaque type. See <a class="link" href="glib-Threads.html#g-mutex-locker-new" title="g_mutex_locker_new ()"><code class="function">g_mutex_locker_new()</code></a> for details.</p>
-<p class="since">Since 2.44</p>
+<p class="since">Since: <a class="link" href="api-index-2-44.html#api-index-2.44">2.44</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2988,7 +2984,7 @@ without initialisation.  Otherwise, you should call
 <a class="link" href="glib-Threads.html#g-rec-mutex-init" title="g_rec_mutex_init ()"><code class="function">g_rec_mutex_init()</code></a> on it and <a class="link" href="glib-Threads.html#g-rec-mutex-clear" title="g_rec_mutex_clear ()"><code class="function">g_rec_mutex_clear()</code></a> when done.</p>
 <p>A GRecMutex should only be accessed with the
 g_rec_mutex_ functions.</p>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3043,39 +3039,39 @@ simultaneous read-only access (by holding the 'reader' lock via
 31
 32
 33</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="usertype">GRWLock</span><span class="normal"> lock</span><span class="symbol">;</span>
-<span class="usertype">GPtrArray</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">array</span><span class="symbol">;</span>
+        <td class="listing_code"><pre class="programlisting">GRWLock lock<span class="gtkdoc opt">;</span>
+GPtrArray <span class="gtkdoc opt">*</span>array<span class="gtkdoc opt">;</span>
 
-<span class="normal"><a href="glib-Basic-Types.html#gpointer">gpointer</a></span>
-<span class="function">my_array_get</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">guint</span><span class="normal"> index</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="usertype">gpointer</span><span class="normal"> retval </span><span class="symbol">=</span><span class="normal"> <a href="glib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">;</span>
+gpointer
+<span class="function">my_array_get</span> <span class="gtkdoc opt">(</span>guint index<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  gpointer retval <span class="gtkdoc opt">=</span> NULL<span class="gtkdoc opt">;</span>
 
-<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">array</span><span class="symbol">)</span>
-<span class="normal">    </span><span class="keyword">return</span><span class="normal"> <a href="glib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">;</span>
+  <span class="keyword">if</span> <span class="gtkdoc opt">(!</span>array<span class="gtkdoc opt">)</span>
+    <span class="keyword">return</span> NULL<span class="gtkdoc opt">;</span>
 
-<span class="normal">  </span><span class="function"><a href="glib-Threads.html#g-rw-lock-reader-lock">g_rw_lock_reader_lock</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">lock</span><span class="symbol">);</span>
-<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">index </span><span class="symbol">&lt;</span><span class="normal"> array</span><span class="symbol">-&gt;</span><span class="normal">len</span><span class="symbol">)</span>
-<span class="normal">    retval </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="glib-Pointer-Arrays.html#g-ptr-array-index">g_ptr_array_index</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">array</span><span class="symbol">,</span><span class="normal"> index</span><span class="symbol">);</span>
-<span class="normal">  </span><span class="function"><a href="glib-Threads.html#g-rw-lock-reader-unlock">g_rw_lock_reader_unlock</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">lock</span><span class="symbol">);</span>
+  <span class="function"><a href="glib-Threads.html#g-rw-lock-reader-lock">g_rw_lock_reader_lock</a></span> <span class="gtkdoc opt">(&amp;</span>lock<span class="gtkdoc opt">);</span>
+  <span class="keyword">if</span> <span class="gtkdoc opt">(</span>index <span class="gtkdoc opt">&lt;</span> array<span class="gtkdoc opt">-&gt;</span>len<span class="gtkdoc opt">)</span>
+    retval <span class="gtkdoc opt">=</span> <span class="function"><a href="glib-Pointer-Arrays.html#g-ptr-array-index">g_ptr_array_index</a></span> <span class="gtkdoc opt">(</span>array<span class="gtkdoc opt">,</span> index<span class="gtkdoc opt">);</span>
+  <span class="function"><a href="glib-Threads.html#g-rw-lock-reader-unlock">g_rw_lock_reader_unlock</a></span> <span class="gtkdoc opt">(&amp;</span>lock<span class="gtkdoc opt">);</span>
 
-<span class="normal">  </span><span class="keyword">return</span><span class="normal"> retval</span><span class="symbol">;</span>
-<span class="cbracket">}</span>
+  <span class="keyword">return</span> retval<span class="gtkdoc opt">;</span>
+<span class="gtkdoc opt">}</span>
 
-<span class="type">void</span>
-<span class="function">my_array_set</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">guint</span><span class="normal"> index</span><span class="symbol">,</span><span class="normal"> </span><span class="usertype">gpointer</span><span class="normal"> data</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="function"><a href="glib-Threads.html#g-rw-lock-writer-lock">g_rw_lock_writer_lock</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">lock</span><span class="symbol">);</span>
+<span class="gtkdoc kwb">void</span>
+<span class="function">my_array_set</span> <span class="gtkdoc opt">(</span>guint index<span class="gtkdoc opt">,</span> gpointer data<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  <span class="function"><a href="glib-Threads.html#g-rw-lock-writer-lock">g_rw_lock_writer_lock</a></span> <span class="gtkdoc opt">(&amp;</span>lock<span class="gtkdoc opt">);</span>
 
-<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">array</span><span class="symbol">)</span>
-<span class="normal">    array </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="glib-Pointer-Arrays.html#g-ptr-array-new">g_ptr_array_new</a></span><span class="normal"> </span><span class="symbol">();</span>
+  <span class="keyword">if</span> <span class="gtkdoc opt">(!</span>array<span class="gtkdoc opt">)</span>
+    array <span class="gtkdoc opt">=</span> <span class="function"><a href="glib-Pointer-Arrays.html#g-ptr-array-new">g_ptr_array_new</a></span> <span class="gtkdoc opt">();</span>
 
-<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">index </span><span class="symbol">&gt;=</span><span class="normal"> array</span><span class="symbol">-&gt;</span><span class="normal">len</span><span class="symbol">)</span>
-<span class="normal">    </span><span class="function"><a href="glib-Pointer-Arrays.html#g-ptr-array-set-size">g_ptr_array_set_size</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">array</span><span class="symbol">,</span><span class="normal"> index</span><span class="symbol">+</span><span class="number">1</span><span class="symbol">);</span>
-<span class="normal">  </span><span class="function"><a href="glib-Pointer-Arrays.html#g-ptr-array-index">g_ptr_array_index</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">array</span><span class="symbol">,</span><span class="normal"> index</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> data</span><span class="symbol">;</span>
+  <span class="keyword">if</span> <span class="gtkdoc opt">(</span>index <span class="gtkdoc opt">&gt;=</span> array<span class="gtkdoc opt">-&gt;</span>len<span class="gtkdoc opt">)</span>
+    <span class="function"><a href="glib-Pointer-Arrays.html#g-ptr-array-set-size">g_ptr_array_set_size</a></span> <span class="gtkdoc opt">(</span>array<span class="gtkdoc opt">,</span> index<span class="gtkdoc opt">+</span><span class="number">1</span><span class="gtkdoc opt">);</span>
+  <span class="function"><a href="glib-Pointer-Arrays.html#g-ptr-array-index">g_ptr_array_index</a></span> <span class="gtkdoc opt">(</span>array<span class="gtkdoc opt">,</span> index<span class="gtkdoc opt">) =</span> data<span class="gtkdoc opt">;</span>
 
-<span class="normal">  </span><span class="function"><a href="glib-Threads.html#g-rw-lock-writer-unlock">g_rw_lock_writer_unlock</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">lock</span><span class="symbol">);</span>
-<span class="cbracket">}</span></pre></td>
+  <span class="function"><a href="glib-Threads.html#g-rw-lock-writer-unlock">g_rw_lock_writer_unlock</a></span> <span class="gtkdoc opt">(&amp;</span>lock<span class="gtkdoc opt">);</span>
+<span class="gtkdoc opt">}</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -3092,7 +3088,7 @@ functions is fully multi-thread safe now.</p>
 without initialisation.  Otherwise, you should call
 <a class="link" href="glib-Threads.html#g-rw-lock-init" title="g_rw_lock_init ()"><code class="function">g_rw_lock_init()</code></a> on it and <a class="link" href="glib-Threads.html#g-rw-lock-clear" title="g_rw_lock_clear ()"><code class="function">g_rw_lock_clear()</code></a> when done.</p>
 <p>A GRWLock should only be accessed with the g_rw_lock_ functions.</p>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3142,33 +3138,33 @@ is satisfied:</p>
 25
 26
 27</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="usertype">gpointer</span><span class="normal"> current_data </span><span class="symbol">=</span><span class="normal"> <a href="glib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">;</span>
-<span class="usertype">GMutex</span><span class="normal"> data_mutex</span><span class="symbol">;</span>
-<span class="usertype">GCond</span><span class="normal"> data_cond</span><span class="symbol">;</span>
+        <td class="listing_code"><pre class="programlisting">gpointer current_data <span class="gtkdoc opt">=</span> NULL<span class="gtkdoc opt">;</span>
+GMutex data_mutex<span class="gtkdoc opt">;</span>
+GCond data_cond<span class="gtkdoc opt">;</span>
 
-<span class="type">void</span>
-<span class="function">push_data</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">gpointer</span><span class="normal"> data</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="function"><a href="glib-Threads.html#g-mutex-lock">g_mutex_lock</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">data_mutex</span><span class="symbol">);</span>
-<span class="normal">  current_data </span><span class="symbol">=</span><span class="normal"> data</span><span class="symbol">;</span>
-<span class="normal">  </span><span class="function"><a href="glib-Threads.html#g-cond-signal">g_cond_signal</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">data_cond</span><span class="symbol">);</span>
-<span class="normal">  </span><span class="function"><a href="glib-Threads.html#g-mutex-unlock">g_mutex_unlock</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">data_mutex</span><span class="symbol">);</span>
-<span class="cbracket">}</span>
+<span class="gtkdoc kwb">void</span>
+<span class="function">push_data</span> <span class="gtkdoc opt">(</span>gpointer data<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  <span class="function"><a href="glib-Threads.html#g-mutex-lock">g_mutex_lock</a></span> <span class="gtkdoc opt">(&amp;</span>data_mutex<span class="gtkdoc opt">);</span>
+  current_data <span class="gtkdoc opt">=</span> data<span class="gtkdoc opt">;</span>
+  <span class="function"><a href="glib-Threads.html#g-cond-signal">g_cond_signal</a></span> <span class="gtkdoc opt">(&amp;</span>data_cond<span class="gtkdoc opt">);</span>
+  <span class="function"><a href="glib-Threads.html#g-mutex-unlock">g_mutex_unlock</a></span> <span class="gtkdoc opt">(&amp;</span>data_mutex<span class="gtkdoc opt">);</span>
+<span class="gtkdoc opt">}</span>
 
-<span class="normal"><a href="glib-Basic-Types.html#gpointer">gpointer</a></span>
-<span class="function">pop_data</span><span class="normal"> </span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="usertype">gpointer</span><span class="normal"> data</span><span class="symbol">;</span>
+gpointer
+<span class="function">pop_data</span> <span class="gtkdoc opt">(</span><span class="gtkdoc kwb">void</span><span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  gpointer data<span class="gtkdoc opt">;</span>
 
-<span class="normal">  </span><span class="function"><a href="glib-Threads.html#g-mutex-lock">g_mutex_lock</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">data_mutex</span><span class="symbol">);</span>
-<span class="normal">  </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(!</span><span class="normal">current_data</span><span class="symbol">)</span>
-<span class="normal">    </span><span class="function"><a href="glib-Threads.html#g-cond-wait">g_cond_wait</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">data_cond</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">data_mutex</span><span class="symbol">);</span>
-<span class="normal">  data </span><span class="symbol">=</span><span class="normal"> current_data</span><span class="symbol">;</span>
-<span class="normal">  current_data </span><span class="symbol">=</span><span class="normal"> <a href="glib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">;</span>
-<span class="normal">  </span><span class="function"><a href="glib-Threads.html#g-mutex-unlock">g_mutex_unlock</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">data_mutex</span><span class="symbol">);</span>
+  <span class="function"><a href="glib-Threads.html#g-mutex-lock">g_mutex_lock</a></span> <span class="gtkdoc opt">(&amp;</span>data_mutex<span class="gtkdoc opt">);</span>
+  <span class="keyword">while</span> <span class="gtkdoc opt">(!</span>current_data<span class="gtkdoc opt">)</span>
+    <span class="function"><a href="glib-Threads.html#g-cond-wait">g_cond_wait</a></span> <span class="gtkdoc opt">(&amp;</span>data_cond<span class="gtkdoc opt">, &amp;</span>data_mutex<span class="gtkdoc opt">);</span>
+  data <span class="gtkdoc opt">=</span> current_data<span class="gtkdoc opt">;</span>
+  current_data <span class="gtkdoc opt">=</span> NULL<span class="gtkdoc opt">;</span>
+  <span class="function"><a href="glib-Threads.html#g-mutex-unlock">g_mutex_unlock</a></span> <span class="gtkdoc opt">(&amp;</span>data_mutex<span class="gtkdoc opt">);</span>
 
-<span class="normal">  </span><span class="keyword">return</span><span class="normal"> data</span><span class="symbol">;</span>
-<span class="cbracket">}</span></pre></td>
+  <span class="keyword">return</span> data<span class="gtkdoc opt">;</span>
+<span class="gtkdoc opt">}</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -3251,7 +3247,7 @@ is <a class="link" href="glib-Threads.html#G-ONCE-STATUS-READY:CAPS"><code class
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.4</p>
+<p class="since">Since: <a class="link" href="api-index-2-4.html#api-index-2.4">2.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3291,7 +3287,7 @@ controlled by a <a class="link" href="glib-Threads.html#GOnce" title="struct GOn
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.4</p>
+<p class="since">Since: <a class="link" href="api-index-2-4.html#api-index-2.4">2.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3304,14 +3300,14 @@ controlled by a <a class="link" href="glib-Threads.html#GOnce" title="struct GOn
     <tbody>
       <tr>
         <td class="listing_lines" align="right"><pre>1</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="usertype">GOnce</span><span class="normal"> my_once </span><span class="symbol">=</span><span class="normal"> <a href="glib-Threads.html#G-ONCE-INIT:CAPS">G_ONCE_INIT</a></span><span class="symbol">;</span></pre></td>
+        <td class="listing_code"><pre class="programlisting">GOnce my_once <span class="gtkdoc opt">=</span> G_ONCE_INIT<span class="gtkdoc opt">;</span></pre></td>
       </tr>
     </tbody>
   </table>
 </div>
 
 <p></p>
-<p class="since">Since 2.4</p>
+<p class="since">Since: <a class="link" href="api-index-2-4.html#api-index-2.4">2.4</a></p>
 </div>
 </div>
 <div class="refsect1">
@@ -3320,7 +3316,6 @@ controlled by a <a class="link" href="glib-Threads.html#GOnce" title="struct GOn
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21.1</div>
+<hr>Generated by GTK-Doc V1.24</div>
 </body>
 </html>

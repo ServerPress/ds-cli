@@ -1,0 +1,29 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130843 2015-01-02 22:24:35Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-transaction
+set real_name       transaction
+version             1.2.0
+python.versions     27 34
+categories-append   databases
+maintainers         nomaintainer
+license             ZPL-2.1
+description         generic transaction implementation for Python
+long_description    \
+    ${description}
+
+platforms           darwin
+
+homepage            http://pypi.python.org/pypi/${real_name}
+master_sites        http://pypi.python.org/packages/source/t/${real_name}/
+distname            ${real_name}-${version}
+
+checksums           rmd160  a042c6f7f49f7aa7fb3ca1f71573cc7f917ca806 \
+                    sha256  41ac906c58c4cbf3635956f0cf5b4dee783dec285ac037852484f0a21181c773
+
+if {${name} ne ${subport}} {
+    depends_build       port:py${python.version}-setuptools
+}

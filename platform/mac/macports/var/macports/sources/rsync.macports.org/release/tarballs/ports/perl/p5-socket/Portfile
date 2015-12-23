@@ -1,0 +1,17 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142675 2015-11-19 19:16:52Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Socket 2.021
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Socket - networking constants and support functions
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  1f224f0becbfe1fd23fb855d09d24689b576b8d0 \
+                    sha256  1ef59ca106b7ed3b3481266fe8d98ecc94790dd87f35aa09b8a09202eb01a5ec

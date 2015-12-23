@@ -1,0 +1,40 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141324 2015-10-15 23:53:39Z devans@macports.org $
+
+PortSystem          1.0
+
+name                at-spi2-atk
+# you probably want to keep this at the same version as at-spi2-core
+version             2.18.1
+
+checksums           rmd160  e762b507a6c6db52821d462f56be965ba5e356ce \
+                    sha256  c4b15f9386d34d464ddad5f6cc85669742c016df87141ceee93513245979c12d
+
+license             LGPL
+set branch          [join [lrange [split ${version} .] 0 1] .]
+description         Gnome Accesibility Technology Service
+long_description \
+   'at-spi' is a part of the Gnome Accessibility Project.  It provides a \
+   Service Provider Interface for the Assistive Technologies available on \
+   the GNOME platform, and a library against which applications can be linked.
+maintainers         devans openmaintainer
+categories          gnome
+platforms           darwin
+homepage            http://a11y.org/
+master_sites        gnome:sources/${name}/${branch}/
+
+use_xz              yes
+
+depends_build       port:pkgconfig
+
+depends_lib         path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                    port:dbus \
+                    port:atk \
+                    port:at-spi2-core
+
+patchfiles          configure.ac.patch
+
+use_autoreconf      yes
+autoreconf.args     -fvi
+
+livecheck.type      gnome

@@ -1,0 +1,53 @@
+# -*- Mode: Tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141089 2015-10-10 14:02:50Z mcalhoun@macports.org $
+
+PortSystem 1.0
+PortGroup python 1.0
+
+# Please keep the version of the libxml2 and py-libxml2 ports the same.
+
+name                    py-libxml2
+version                 2.9.2
+categories-append       textproc
+license                 MIT
+platforms               darwin
+maintainers             mcalhoun openmaintainer
+description             Python bindings for libxml2
+long_description        ${description}
+
+homepage                http://xmlsoft.org/python.html
+
+master_sites            http://www.xmlsoft.org/sources/ \
+                        ftp://gd.tuwien.ac.at/pub/libxml/ \
+                        ftp://xmlsoft.org/libxml2/
+
+distname                libxml2-${version}
+dist_subdir             libxml2
+
+checksums               rmd160  969b4ed8782f455fd4a6ca1c1b4ffa7651090070 \
+                        sha256  5178c30b151d044aefb1b08bf54c3003a0ac55c59c866763997529d60770d5bc
+
+python.versions         27 34 35
+
+if {${name} ne ${subport}} {
+    depends_lib-append      port:libxml2
+
+    worksrcdir              ${worksrcdir}/python
+
+    post-patch {
+      reinplace "s|@PREFIX@|$prefix|" ${worksrcpath}/setup.py
+    }
+
+    patchfiles              patch-setup.py.diff
+
+    post-destroot {
+      set docdir ${prefix}/share/doc/${subport}
+      xinstall -d ${destroot}${docdir}
+      xinstall -m 644 -W ${worksrcpath} README TODO \
+        ${destroot}${docdir}
+    }
+}
+
+livecheck.type  regex
+livecheck.url   http://www.xmlsoft.org/news.html
+livecheck.regex {<h3>(\d+(?:\.\d+)*): .*</h3>}

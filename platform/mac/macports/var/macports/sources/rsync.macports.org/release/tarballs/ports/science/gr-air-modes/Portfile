@@ -1,0 +1,100 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143585 2015-12-15 12:49:29Z michaelld@macports.org $
+
+PortSystem          1.0
+PortGroup           cmake 1.0
+PortGroup           github 1.0
+
+github.setup        bistromath gr-air-modes 514414f6b3caed015176549a8ee75c456cd1567a
+version             20150903
+revision            1
+checksums           rmd160 c52aa6aeba38f7733cca1629ac54351aa6f7ad5d \
+                    sha256 bf104f99bd2f64cef1ff732b514c28cb984b6f09c2c443159b251da0524a684b
+
+# allow gr-air-modes to work with both gnuradio and gnuradio-devel ...
+
+depends_lib-append  path:lib/libgnuradio-runtime.dylib:gnuradio
+
+# ... but not with gnuradio-legacy or gnuradio-next
+
+pre-fetch {
+    if {![catch {set installed [lindex [registry_active gnuradio-legacy] 0]}]} {
+        # gnuradio-legacy is installed; this version of gr-air-modes does not work with gnuradio-legacy
+        ui_msg "\nError: ${name} requires the gnuradio or gnuradio-devel port, and will not work with the gnuradio-legacy port.  deactivate gnuradio-legacy, and then install or activate gnuradio or gnuradio-devel.\n"
+        return -code error "Invalid port dependency: gnuradio-legacy"
+    }
+    if {![catch {set installed [lindex [registry_active gnuradio-next] 0]}]} {
+        # gnuradio-next is installed; this version of gr-air-modes does not work with gnuradio-next
+        ui_msg "\nError: ${name} requires the gnuradio or gnuradio-devel port, and will not work with the gnuradio-next port.  deactivate gnuradio-next, and then install or activate gnuradio or gnuradio-devel.\n"
+            return -code error "Invalid port dependency: gnuradio-next"
+    }
+}
+
+categories          science comms
+maintainers         michaelld openmaintainer
+description         Provides augmented functionality (blocks, GRC definitions, apps, etc) for GNU Radio.
+long_description    ${description}
+license             GPL-3
+platforms           darwin
+
+# disable parallel build for now
+
+use_parallel_build  no
+
+depends_build-append port:pkgconfig
+depends_lib-append	port:boost port:cppzmq
+
+# Requires qwt >= 5.2, so not the "qwt" port.  Also requires
+# py*-pyqwt which does not compile with qwt >= 6.0; so -have- to
+# use qwt52 for now.
+
+depends_lib-append  port:qwt52
+depends_run-append  port:py27-pyqwt
+
+# do VPATH (out of source tree) build
+
+cmake.out_of_source yes
+
+# temporary patch to fix CMake stuff on OSX
+
+patchfiles-append   patch-CMakeLists.txt.diff
+
+# temporary patch to fix Python handling
+
+patchfiles-append   patch-cmake_Modules_GrPython.cmake.diff
+
+# temporary patch to fix use of pyuic
+
+patchfiles-append   patch-cmake_Modules_FindPyQt4.cmake.diff
+
+# remove top-level library path, such that internal libraries are used
+# instead of any already-installed ones.
+
+configure.ldflags-delete -L${prefix}/lib
+
+# specify the Python dependencies
+
+depends_lib-append \
+    port:python27
+
+# pyzmq is not checked for at configure, but is
+# required for runtime; so use depends_run.
+
+depends_run-append \
+    port:py27-zmq
+
+# pyqt4 is checked for at configure, then required for
+# runtime; so use depends_lib to get both.  Can use
+# either py*-pyqt4 or py*-pyqt4-devel.
+
+depends_lib-append \
+    path:share/py27-sip/PyQt4:py27-pyqt4
+
+# specify the Python version to use
+
+configure.args-append \
+    -DPYTHON_EXECUTABLE=${prefix}/Library/Frameworks/Python.framework/Versions/2.7/bin/python2.7 \
+    -DPYTHON_INCLUDE_DIR=${prefix}/Library/Frameworks/Python.framework/Versions/2.7/Headers \
+    -DPYTHON_LIBRARY=${prefix}/Library/Frameworks/Python.framework/Versions/2.7/Python \
+    -DGR_PYTHON_DIR=${frameworks_dir}/Python.framework/Versions/2.7/lib/python2.7/site-packages \
+    -DPYUIC4_EXECUTABLE=${prefix}/Library/Frameworks/Python.framework/Versions/2.7/bin/pyuic4

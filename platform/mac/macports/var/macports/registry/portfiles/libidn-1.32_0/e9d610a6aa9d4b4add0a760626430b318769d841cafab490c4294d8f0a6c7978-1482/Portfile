@@ -1,0 +1,44 @@
+# $Id: Portfile 139822 2015-08-28 17:35:46Z jmr@macports.org $
+
+PortSystem 1.0
+
+name			libidn
+version			1.32
+categories		mail
+license			{LGPL-2.1+ GPL-3+}
+description		international domain name library
+long_description	Libidn is an implementation of the Stringprep, \
+			Punycode and IDNA specifications defined by the IETF \
+			Internationalized Domain Names (IDN) working group, \
+			used for internationalized domain names. The library \
+			contains a generic Stringprep implementation that does \
+			Unicode 3.2 NFKC normalization, mapping and \
+			prohibitation of characters, and bidirectional \
+			character handling. Profiles for iSCSI, Kerberos 5, \
+			Nameprep, SASL and XMPP are included. Punycode and \
+			ASCII Compatible Encoding (ACE) via IDNA are supported.
+homepage		http://www.gnu.org/software/libidn/
+platforms		darwin
+maintainers		foellinger.de:olaf openmaintainer
+master_sites		gnu
+
+checksums           	rmd160  35564ab88310df83d0527c10ca07850a9219b86a \
+                    	sha256  ba5d5afee2beff703a34ee094668da5c6ea5afa38784cebba8924105e185c4f5
+
+depends_lib		port:libiconv port:gettext
+
+patchfiles		configure-no-nawk.patch
+post-patch {
+    # avoid automake invocation
+    touch ${worksrcpath}/doc/Makefile.gdoc ${worksrcpath}/doc/Makefile.in
+}
+
+configure.args  --disable-csharp --disable-silent-rules
+
+use_parallel_build	yes
+
+test.run        yes
+
+livecheck.type	regex
+livecheck.url	http://ftp.gnu.org/pub/gnu/$name/
+livecheck.regex	$name-(\\d+(?:\\.\\d+)*)

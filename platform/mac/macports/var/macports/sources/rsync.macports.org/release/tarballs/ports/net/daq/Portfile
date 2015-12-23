@@ -1,0 +1,27 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143107 2015-12-04 06:28:31Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                daq
+version             2.0.6
+categories          net
+license             GPL-2
+maintainers         jann openmaintainer
+description         A Data Acquisition library, for packet I/O
+long_description    DAQ is an abstraction layer for PCAP. It is part of snort.
+homepage            https://www.snort.org/
+master_sites        ${homepage}downloads/snort/
+
+platforms           macosx
+depends_lib         port:pcre \
+                    port:libdnet
+
+checksums           rmd160  cf3a9df96829f63324a44dae5f2248d835e6ac4d \
+                    sha256  b40e1d1273e08aaeaa86e69d4f28d535b7e53bdb3898adf539266b63137be7cb
+
+patchfiles          patch-sfbpf-Makefile.in.diff
+
+livecheck.type      regex
+livecheck.url       ${homepage}downloads
+livecheck.regex     >${name}-(\[0-9.\]+)${extract.suffix}<

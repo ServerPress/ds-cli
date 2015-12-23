@@ -1,0 +1,60 @@
+# $Id: Portfile 139847 2015-08-29 18:29:12Z ram@macports.org $
+
+PortSystem    1.0
+PortGroup     active_variants 1.1
+
+name          lalstochastic
+version       1.1.16
+revision      1
+categories    science
+platforms     darwin
+maintainers   ram
+license       GPL-2+
+
+description   LSC Algorithm Library - Stochastic
+long_description \
+  LIGO Scientific Collaboration Algorithm Library  - Stochastic, \
+  containing routines for stochastic gravitational wave background \
+  data analysis.
+
+homepage      https://www.lsc-group.phys.uwm.edu/daswg/projects/lalsuite.html
+master_sites  http://software.ligo.org/lscsoft/source/lalsuite
+
+checksums     rmd160 402407d451a438a8d10afd538c136e898f390286 \
+              sha256 90de172dc5c08378df7f1fb6032fa18817f313c16d17b8f05f46e466ecd49f43
+
+depends_build-append port:pkgconfig
+
+depends_lib   port:python27 \
+              port:lal \
+              port:lalmetaio \
+              port:metaio
+
+configure.python ${prefix}/bin/python2.7
+configure.args --mandir=${prefix}/share/man \
+               --disable-silent-rules \
+               --disable-gcc-flags \
+               --disable-debug
+
+use_parallel_build yes
+
+set pythondir "${frameworks_dir}/Python.framework/Versions/2.7/lib/python2.7/site-packages"
+destroot.args-append \
+              pythondir="${pythondir}" \
+              pyexecdir="${pythondir}" \
+              pkgpythondir="${pythondir}/${name}" \
+              pkgpyexecdir="${pythondir}/${name}"
+
+variant swig_python description {Build python SWIG bindings} {
+  require_active_variants lal swig_python
+  require_active_variants lalmetaio swig_python
+  depends_build-append  port:swig-python
+  depends_lib-append    port:py27-numpy
+  configure.args-append --enable-swig-python
+}
+
+default_variants +swig_python
+
+livecheck.type   regex
+livecheck.url    ${master_sites}
+livecheck.regex  {lalstochastic-(\d+(?:\.\d+)*).tar.gz}

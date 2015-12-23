@@ -1,0 +1,11 @@
+bin/mpicc-openmpi-llvm
+-
+bin/mpicxx-openmpi-llvm
+bin/mpiexec-openmpi-llvm
+bin/mpirun-openmpi-llvm
+-
+-
+-
+lib/openmpi-llvm/pkgconfig/ompi.pc
+lib/openmpi-llvm/pkgconfig/orte.pc
+-

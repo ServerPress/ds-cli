@@ -1,0 +1,227 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143713 2015-12-18 15:52:56Z michaelld@macports.org $
+
+PortSystem              1.0
+PortGroup               python 1.0
+PortGroup               github 1.0
+PortGroup               compilers 1.0
+
+github.setup            numpy numpy 1.10.2 v
+name                    py-numpy
+categories-append       math
+license                 BSD
+platforms               darwin
+maintainers             dh michaelld openmaintainer
+description             The core utilities for the scientific library scipy for Python
+long_description        ${description}
+
+checksums               rmd160 cb11ea77f74ae47d1df4842f4273610b736b3d81 \
+                        sha256 d3a61c824efa385ebf6f3fd1d6b9a8d39d2c68bd8e744702b9ad7e7051e021e0
+
+if {${name} ne ${subport}} {
+    # the python PortGroup puts compiler names in build.env and destroot.env
+    # for this to be done correctly, the following must be located before python.versions
+    pre-build    { set_compilers }
+    pre-destroot { set_compilers }
+}
+
+python.versions         26 27 33 34 35
+
+# respect ${build_arch} value
+compilers.clear_archflags  no
+
+# http://trac.macports.org/ticket/34562
+python.consistent_destroot yes
+
+# TODO: Fix the +universal variant.  This port is a fairly deep dependency and needs to be able to support +universal.
+# https://trac.macports.org/ticket/48263
+#universal_variant no
+
+if {${name} ne ${subport}} {
+    compilers.setup         -dragonegg -gcc44 -gcc45 -gcc46 -g95
+
+    patchfiles              patch-f2py_setup.py.diff \
+                            patch-fcompiler_g95.diff \
+                            patch-numpy_core_setup.py.diff
+
+    depends_lib-append      port:fftw-3 \
+                            port:py${python.version}-nose \
+                            port:py${python.version}-cython
+
+    pre-build {
+        build.env-append        ARCHFLAGS="[get_canonical_archflags ld]"
+    }
+
+    pre-destroot {
+        destroot.env-append     ARCHFLAGS="[get_canonical_archflags ld]"
+    }
+
+    variant atlas description conflicts openblas {Use MacPorts ATLAS Libraries} {
+        depends_lib-append      port:atlas
+    }
+
+    variant openblas conflicts atlas description "Use MacPorts OpenBLAS Libraries" {
+        depends_lib-append  path:lib/libopenblas.dylib:openblas
+    }
+
+    # when using ATLAS (whether by default or specified by the user via
+    # the +atlas variant) ...
+    if {[variant_isset atlas]} {
+
+        # when using non-Apple GCC for universal install, it can
+        # create binaries only for the native OS architecture, at
+        # either 32 or 64 bits.  Restrict the supported archs
+        # accordingly.
+        if {${os.arch} eq "i386"} {
+            supported_archs         i386 x86_64
+        } elseif {${os.arch} eq "powerpc"} {
+            supported_archs         ppc ppc64
+        }
+
+        # force LDFLAGS for correct linking of the linalg module
+        # for non-Apple GCC compilers
+        patchfiles-append       patch-numpy_linalg_setup.py.diff
+
+        pre-fetch {
+            # get the c compiler name
+            set cc [c_variant_name]
+
+            # check the C compiler for atlas: if not the same then error out; we
+            # don't need to check the fortran compiler because if atlas is compiled
+            # with +clang then gcc48 (+gfortran in the compilers portgroup
+            # language) is used for fortran. If a +gcc variant is used to compile
+            # atlas, then that gcc's fortran is used so the c compiler check will
+            # suffice.
+            if {![catch {set result [active_variants atlas $cc ""]}]} {
+                if {!$result} {
+                    return -code error \
+"You have selected the $cc compiler (either directly or indirectly) and the\
++atlas variant, which does not match the $cc compiler. Please ensure that both\
+are compiled with the same one."
+                }
+            }
+        }
+
+        # use MacPorts atlas
+        build.env-append    OPENBLAS=None \
+                            ATLAS=${prefix}/lib \
+                            LAPACK=${prefix}/lib \
+                            BLAS=${prefix}/lib
+        destroot.env-append OPENBLAS=None \
+                            ATLAS=${prefix}/lib \
+                            LAPACK=${prefix}/lib \
+                            BLAS=${prefix}/lib
+
+    } elseif {[variant_isset openblas]} {
+
+        # use MacPorts OpenBLAS
+        build.env-append    OPENBLAS=${prefix}/lib \
+                            ATLAS=None
+        destroot.env-append OPENBLAS=${prefix}/lib \
+                            ATLAS=None
+        # force LDFLAGS for correct linking of the modules
+        # for non-Apple GCC compilers
+        patchfiles-append   patch-numpy_linalg_setup.py.diff
+
+    } else {
+        # use Accelerate BLAS
+        build.env-append    OPENBLAS=None \
+                            ATLAS=None \
+                            LAPACK=/usr/lib \
+                            BLAS=/usr/lib
+        destroot.env-append OPENBLAS=None \
+                            ATLAS=None \
+                            LAPACK=/usr/lib \
+                            BLAS=/usr/lib
+    }
+
+    post-patch {
+        reinplace "s|@@MPORTS_PYTHON@@|${python.bin}|" \
+            ${worksrcpath}/numpy/f2py/setup.py
+
+        # https://trac.macports.org/ticket/46392
+        if {${os.arch} eq "powerpc"} {
+            reinplace "s,'-O3','-O2'," \
+                ${worksrcpath}/numpy/distutils/fcompiler/gnu.py
+        }
+
+        if { [use_wrapper] } {
+            # Prepare wrappers
+            file copy -force ${filespath}/wrapper-template \
+                ${worksrcpath}/c-wrapper
+            file copy -force ${filespath}/wrapper-template \
+                ${worksrcpath}/f-wrapper
+            file copy -force ${filespath}/wrapper-template \
+                ${worksrcpath}/cxx-wrapper
+
+            reinplace   "s|@@@|${configure.cc}|" ${worksrcpath}/c-wrapper
+            reinplace   "s|---|\\\\.c|" ${worksrcpath}/c-wrapper
+            reinplace   "s|&&&|${prefix}|" ${worksrcpath}/c-wrapper
+
+            reinplace   "s|@@@|${configure.cxx}|" ${worksrcpath}/cxx-wrapper
+            reinplace   "s#---#(\\\\.C|\\\\.cpp|\\\\.cc)#" \
+                ${worksrcpath}/cxx-wrapper
+            reinplace   "s|&&&|${prefix}|" ${worksrcpath}/cxx-wrapper
+
+            reinplace   "s|@@@|${configure.f90}|" ${worksrcpath}/f-wrapper
+            reinplace   "s|---|\\\\.f|" ${worksrcpath}/f-wrapper
+            reinplace   "s|&&&|${prefix}|" ${worksrcpath}/f-wrapper
+        }
+
+        if {[variant_isset atlas]} {
+            # We must link against libSatlas or libTatlas, not libAtlas
+            if {[file exists ${prefix}/lib/libtatlas.dylib]} {
+                reinplace -E \
+                    "s|_lib_atlas = \\\['atlas'\\\]|_lib_atlas = \\\['tatlas'\\\]|" \
+                    ${worksrcpath}/numpy/distutils/system_info.py
+            } elseif {[file exists ${prefix}/lib/libsatlas.dylib]} {
+                reinplace -E \
+                    "s|_lib_atlas = \\\['atlas'\\\]|_lib_atlas = \\\['satlas'\\\]|" \
+                    ${worksrcpath}/numpy/distutils/system_info.py
+            } else {
+                return -code error "Unable to find Atlas dylibs. Bailing out."
+            }
+        }
+    }
+
+    if {![fortran_variant_isset]} {
+        default_variants      +gfortran
+    }
+
+    # determine if special wrapper values are needed for compiler names
+    # a procedure is needed since variants from PortGroup compilers must
+    #    be evaluated before it can be determined if clang is being used
+    proc use_wrapper {} {
+        global configure.cc
+
+        if {[variant_isset universal]} {
+            if {[variant_isset atlas]} {
+                # uses fortran as a linker, which does not handle multile -arch values properly
+                return 1
+            }
+            if {![string match *clang* ${configure.cc}]} {
+                # gcc compilers do not handle multile -arch values properly
+                return 1
+            }
+        }
+        return 0
+    }
+
+    # set compiler names
+    proc set_compilers {} {
+        global configure.cc configure.cxx configure.fc worksrcpath
+
+        if {[use_wrapper]} {
+            # override values set in compilers PortGroup
+            configure.cc  ${worksrcpath}/c-wrapper
+            configure.cxx ${worksrcpath}/cxx-wrapper
+            configure.fc  ${worksrcpath}/f-wrapper
+            configure.f77 ${worksrcpath}/f-wrapper
+            configure.f90 ${worksrcpath}/f-wrapper
+        }
+    }
+
+    livecheck.type        none
+} else {
+    livecheck.regex       archive/[join ${github.tag_prefix} ""](\[\\d+(?:\\.\\d+)*"\]+)${extract.suffix}"
+}

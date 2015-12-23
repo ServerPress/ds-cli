@@ -1,0 +1,37 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141811 2015-10-29 12:37:28Z nicos@macports.org $
+
+PortSystem          1.0
+PortGroup           kde4   1.1
+
+name                cantor
+version             4.14.3
+revision            1
+categories          kde kde4
+license             GPL-2+
+maintainers         nicos
+description         Frontend to Mathematical Software
+long_description    KDE ${description}
+homepage            http://www.kde.org
+
+platforms           darwin
+depends_lib-append  port:libkdeedu port:analitza port:libqalculate \
+                    port:libspectre
+
+master_sites        kde:stable/${version}/src/
+use_xz              yes
+
+checksums           rmd160  eb7e59e11c2d7582110f392f29d62391940d5c2d \
+                    sha256  8fc81454666aa082ab392ae796f233acfb83a46fd9064952c643d89bed4565e1
+
+#Binaries do not link to openssl, nor use the ssl backend of kdelibs4
+license_noconflict  openssl
+
+patchfiles          patch-deactivateBackends.diff
+
+if {![variant_isset docs]} {
+    patchfiles-append   patch-CMakeLists.txt.diff
+}
+
+livecheck.url       http://kde.mirrors.hoobly.com/stable/
+livecheck.regex     (\\d+(\\.\\d+)+)

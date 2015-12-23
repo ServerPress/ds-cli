@@ -1,0 +1,31 @@
+# $Id: Portfile 132798 2015-02-11 02:51:29Z jeremyhu@macports.org $
+
+PortSystem          1.0
+
+name                bdftopcf
+version             1.0.5
+categories          x11
+license             X11
+platforms           darwin
+maintainers         jeremyhu openmaintainer
+description         X11 bdftopcf
+long_description    Convert X font from BDF to PCF
+
+homepage            http://www.x.org/
+master_sites        xorg:individual/app/
+
+checksums           md5     53a48e1fdfec29ab2e89f86d4b7ca902 \
+                    sha1    93fca9876367b0950b57680237a7dfc1a520ffac \
+                    rmd160  996829d8eb375690a5c0f2525625ccf9e7991d47
+use_bzip2	    yes
+use_parallel_build  yes
+
+depends_build \
+	port:pkgconfig
+
+depends_lib \
+	port:xorg-libXfont
+
+livecheck.type  regex
+livecheck.url   http://xorg.freedesktop.org/archive/individual/app/?C=M&O=D
+livecheck.regex ${name}-(\\d+(?:\\.\\d+)*)

@@ -1,0 +1,24 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141986 2015-11-01 17:59:37Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Dancer-Plugin-Database-Core 0.13
+license             Artistic-2
+maintainers         nomaintainer
+description         Shared core library for Dancer and Dancer2 database plugins
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  38fc2038e28908cfde333b7c53fec10a02e0c460 \
+                    sha256  e070d60b26873876c4377b977c902680cfac0c31fbbee93c4b2fc0e10d79d5a1
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-dbi
+    
+    supported_archs noarch
+}

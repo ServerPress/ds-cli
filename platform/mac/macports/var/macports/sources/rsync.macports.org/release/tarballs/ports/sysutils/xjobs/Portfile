@@ -1,0 +1,21 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 95834 2012-07-24 11:42:01Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                xjobs
+version             20120412
+categories          sysutils
+maintainers         gmail.com:ingo.richter+macports
+license             GPL-2
+
+description         Execute Jobs in parallel
+long_description    xjobs reads job descriptions line by line and executes them in parallel
+homepage            http://www.maier-komor.de/xjobs.html
+platforms           darwin
+master_sites        http://www.maier-komor.de/xjobs
+
+checksums           rmd160  d657b21900783ea00f03e153c9cf5322201c5ec7 \
+                    sha256  a27df96bce241974c444beb63ebe62ba638654619b6a8012523eca93a0f7cbef
+
+extract.suffix      .tgz

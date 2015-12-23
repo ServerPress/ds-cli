@@ -1,0 +1,25 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137565 2015-06-14 17:54:43Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Font-TTF 1.05
+license             Artistic-2
+maintainers         nomaintainer
+description         TTF font support for Perl
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  04f22870496a73d22879ca47479acfd830751c7b \
+                    sha256  26c48e4e76e00f0ac00766b3cfba79f0cb8cbf005b7a39033f0e8e0d9eeafb50
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-io-string
+    
+    supported_archs noarch
+}
+

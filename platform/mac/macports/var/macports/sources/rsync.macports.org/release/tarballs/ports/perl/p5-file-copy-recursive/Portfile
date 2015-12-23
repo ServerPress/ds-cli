@@ -1,0 +1,22 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         File-Copy-Recursive 0.38
+revision            4
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Perl extension for recursively copying files and directories
+long_description    This module copies and moves directories recursively \
+                    (or single files, well... singley) to an optional depth \
+                    and attempts to preserve each file or directory's mode.
+
+platforms           darwin
+
+checksums           rmd160  b2d3a9f1f9682ae9ca8a74f30c2716bf0220a71c \
+                    sha256  84ccbddf3894a88a2c2b6be68ff6ef8960037803bb36aa228b31944cfdf6deeb
+
+supported_archs     noarch

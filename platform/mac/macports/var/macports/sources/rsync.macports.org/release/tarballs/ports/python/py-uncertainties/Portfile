@@ -1,0 +1,27 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 126262 2014-10-06 16:52:57Z mf2k@macports.org $
+
+PortSystem              1.0
+PortGroup               python 1.0
+PortGroup               github 1.0
+
+github.setup            lebigot uncertainties 2.4.6.1
+
+name                    py-uncertainties
+categories-append       math
+license                 BSD
+maintainers             gmail.com:jjstickel openmaintainer
+description             The python uncertainties package.
+long_description        The uncertainties package transparently handles\
+                        calculations for numbers with\
+                        uncertainties.
+platforms               darwin
+
+checksums               rmd160  e0455754b81159be98c0fdb81ec1000de8a2650b \
+                        sha256  147531bde1f760ff44d481be3daafadbf6622303a7f726eec3b994d62b45d6e4
+
+python.versions         26 27 33 34
+
+if {${name} ne ${subport}} {
+    depends_build-append       port:py${python.version}-setuptools
+}

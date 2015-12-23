@@ -1,0 +1,32 @@
+From 22b584a1f23f02d79d041b3992f0a2d0ad4012c5 Mon Sep 17 00:00:00 2001
+From: Jeremy Huddleston Sequoia <jeremyhu@apple.com>
+Date: Sun, 11 Jan 2015 14:34:13 -0800
+Subject: [PATCH 2/9] libunwind: Use __builtin_trap rather than
+ __builtin_unreachable for older toolchains
+
+http://www.llvm.org/bugs/show_bug.cgi?id=22198
+
+Signed-off-by: Jeremy Huddleston Sequoia <jeremyhu@apple.com>
+(cherry picked from commit 9fca7c785d17c8028ba87e8eb16c4c30283554b2)
+---
+ src/DwarfInstructions.hpp | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/src/DwarfInstructions.hpp b/src/DwarfInstructions.hpp
+index c2d293f..ccc5f6c 100644
+--- a/src/DwarfInstructions.hpp
++++ b/src/DwarfInstructions.hpp
+@@ -72,7 +72,9 @@ private:
+       return evaluateExpression((pint_t)prolog.cfaExpression, addressSpace, 
+                                 registers, 0);
+     assert(0 && "getCFA(): unknown location");
+-    __builtin_unreachable();
++    // __builtin_unreachable() is more appropriate but is only available on gcc-4.5 and newer.
++    // __builtin_trap() is better than an ifdef mess for something that will never run anyways.
++    __builtin_trap();
+   }
+ };
+ 
+-- 
+2.6.2
+

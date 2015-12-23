@@ -1,0 +1,42 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142446 2015-11-12 08:06:57Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-pyx
+version             0.14.1
+categories-append   tex
+platforms           darwin
+maintainers         twinleaf.com:maintainers
+license             GPL-2+
+description         PyX is a TeX/LaTeX interface for Python
+long_description    PyX is a Python package for the creation of \
+                    encapsulated PostScript figures. It provides both \
+                    an abstraction of PostScript and a TeX/LaTeX \
+                    interface. Complex tasks like 2d and 3d plots in \
+                    publication-ready quality are built out of these \
+                    primitives.
+homepage            http://pyx.sourceforge.net
+
+supported_archs     noarch
+
+master_sites        https://pypi.python.org/packages/source/P/PyX/
+distname            PyX-${version}
+checksums           rmd160  1beb789478f6b93fdec25b101158a65a455f778c \
+                    sha256  05d1b7fc813379d2c12fcb5bd0195cab522b5aabafac88f72913f1d47becd912
+
+python.versions     27 35
+
+if {${name} ne ${subport}} {
+    depends_lib-append  bin:tex:texlive
+
+    post-destroot {
+        set docdir ${prefix}/share/doc/${subport}
+        xinstall -d ${destroot}${docdir}
+        xinstall -m 644 -W ${worksrcpath} \
+            INSTALL CHANGES README AUTHORS LICENSE \
+            ${destroot}${docdir}
+        delete ${destroot}/etc
+    }
+}

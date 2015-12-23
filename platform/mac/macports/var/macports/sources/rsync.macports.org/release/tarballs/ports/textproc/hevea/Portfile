@@ -1,0 +1,33 @@
+# $Id: Portfile 140273 2015-09-16 12:07:05Z ryandesign@macports.org $
+
+PortSystem 1.0
+
+name		hevea
+version             2.25
+revision            1
+categories	textproc www tex
+platforms	darwin
+maintainers	loria.fr:reilles
+license		{QPL LGPL}
+description	HEVEA is a quite complete and fast LATEX to HTML translator.
+long_description HEVEA is a LaTeX to HTML translator.\
+                 The input language is a fairly complete subset\
+                 of LaTeX2e (old LaTeX style is also accepted) and\
+                 the output language is HTML that is (hopefully)\
+                 correct with respect to version 4.0 (transitional)
+homepage            http://hevea.inria.fr/
+master_sites        ${homepage}/distri/
+checksums           rmd160  e65da2c15187dffd92fb66521a4200dac83b6037 \
+                    sha256  e4c75b550bb2aa663052063d979dd1490fd7817e7cbb97b208dee92ed24ec94e
+
+patchfiles          patch-Makefile.diff
+
+depends_build       port:ocaml
+
+configure {
+    reinplace "s|^PREFIX?=.*|PREFIX=${prefix}|" ${worksrcpath}/Makefile
+    reinplace "s|^LIBDIR=.*|LIBDIR=${prefix}/share/${name}|" ${worksrcpath}/Makefile
+    reinplace "s|^LATEXLIBDIR=.*|LATEXLIBDIR=${prefix}/share/${name}|" ${worksrcpath}/Makefile
+    reinplace "s|^DESTDIR=.*|DESTDIR=${destroot}|" ${worksrcpath}/Makefile
+}
+

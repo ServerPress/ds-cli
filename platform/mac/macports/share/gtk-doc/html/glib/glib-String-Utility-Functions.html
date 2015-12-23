@@ -8,7 +8,7 @@
 <link rel="up" href="glib-utilities.html" title="GLib Utilities">
 <link rel="prev" href="glib-utilities.html" title="GLib Utilities">
 <link rel="next" href="glib-Character-Set-Conversion.html" title="Character Set Conversion">
-<meta name="generator" content="GTK-Doc V1.21.1 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -673,10 +673,16 @@
 <col width="150px" class="name">
 <col class="description">
 </colgroup>
-<tbody><tr>
+<tbody>
+<tr>
 <td class="define_keyword">#define</td>
 <td class="function_name"><a class="link" href="glib-String-Utility-Functions.html#G-STR-DELIMITERS:CAPS" title="G_STR_DELIMITERS">G_STR_DELIMITERS</a></td>
-</tr></tbody>
+</tr>
+<tr>
+<td class="typedef_keyword">typedef</td>
+<td class="function_name"><a class="link" href="glib-String-Utility-Functions.html#GStrv" title="GStrv">GStrv</a></td>
+</tr>
+</tbody>
 </table></div>
 </div>
 <div class="refsect1">
@@ -709,6 +715,12 @@ using %Ns. If your intention is to format strings for a
 certain number of columns, then %Ns is not a correct solution
 anyway, since it fails to take wide characters (see <a class="link" href="glib-Unicode-Manipulation.html#g-unichar-iswide" title="g_unichar_iswide ()"><code class="function">g_unichar_iswide()</code></a>)
 into account.</p>
+<p>Note also that there are various <code class="function">printf()</code> parameters which are platform
+dependent. GLib provides platform independent macros for these parameters
+which should be used instead. A common example is <a class="link" href="glib-Basic-Types.html#G-GUINT64-FORMAT:CAPS" title="G_GUINT64_FORMAT"><code class="literal">G_GUINT64_FORMAT</code></a>, which
+should be used instead of <code class="literal">%llu</code> or similar parameters for formatting
+64-bit integers. These macros are all named <code class="literal">G_*_FORMAT</code>; see
+<a class="link" href="glib-Basic-Types.html" title="Basic Types">Basic Types</a>.</p>
 </div>
 </div>
 <div class="refsect1">
@@ -740,7 +752,6 @@ when no longer needed.</p>
 <a name="id-1.5.2.7.2.6"></a><h4>Returns</h4>
 <p> a newly-allocated copy of <em class="parameter"><code>str</code></em>
 </p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -790,7 +801,6 @@ use <a class="link" href="glib-Unicode-Manipulation.html#g-utf8-strncpy" title="
 bytes
 of <em class="parameter"><code>str</code></em>
 , nul-terminated</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -820,7 +830,6 @@ on a <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><co
 <div class="refsect3">
 <a name="id-1.5.2.7.4.6"></a><h4>Returns</h4>
 <p> a new <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a>-terminated array of strings.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -859,7 +868,6 @@ The returned string should be freed when no longer needed.</p>
 <a name="id-1.5.2.7.5.6"></a><h4>Returns</h4>
 <p> a newly-allocated string filled the <em class="parameter"><code>fill_char</code></em>
 </p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -897,7 +905,6 @@ without having to repeatedly scan for the end.</p>
 <div class="refsect3">
 <a name="id-1.5.2.7.6.6"></a><h4>Returns</h4>
 <p> a pointer to trailing nul byte.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -948,7 +955,6 @@ search through the whole string.</p></td>
 <a name="id-1.5.2.7.7.6"></a><h4>Returns</h4>
 <p> a pointer to the found occurrence, or
 <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a> if not found.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -987,7 +993,6 @@ of the string <em class="parameter"><code>needle</code></em>
 <a name="id-1.5.2.7.8.6"></a><h4>Returns</h4>
 <p> a pointer to the found occurrence, or
 <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a> if not found.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -1035,7 +1040,6 @@ to <em class="parameter"><code>haystack_len</code></em>
 <a name="id-1.5.2.7.9.6"></a><h4>Returns</h4>
 <p> a pointer to the found occurrence, or
 <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a> if not found.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -1074,9 +1078,8 @@ g_str_has_prefix (<em class="parameter"><code>const <a class="link" href="glib-B
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>str</code></em>
 begins with <em class="parameter"><code>prefix</code></em>
 , <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> otherwise.</p>
-<p></p>
 </div>
-<p class="since">Since 2.2</p>
+<p class="since">Since: <a class="link" href="api-index-2-2.html#api-index-2.2">2.2</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1114,9 +1117,8 @@ g_str_has_suffix (<em class="parameter"><code>const <a class="link" href="glib-B
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>str</code></em>
 end with <em class="parameter"><code>suffix</code></em>
 , <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> otherwise.</p>
-<p></p>
 </div>
-<p class="since">Since 2.2</p>
+<p class="since">Since: <a class="link" href="api-index-2-2.html#api-index-2.2">2.2</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1156,9 +1158,8 @@ Comparing two <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="
 <p> an integer less than, equal to, or greater than zero, if <em class="parameter"><code>str1</code></em>
 is &lt;, == or &gt; than <em class="parameter"><code>str2</code></em>
 .</p>
-<p></p>
 </div>
-<p class="since">Since 2.16</p>
+<p class="since">Since: <a class="link" href="api-index-2-16.html#api-index-2.16">2.16</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1211,7 +1212,6 @@ to be done independently of the currently locale, specify "C" for
 <div class="refsect3">
 <a name="id-1.5.2.7.13.11"></a><h4>Returns</h4>
 <p> a string in plain ASCII</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -1271,7 +1271,7 @@ return location for ASCII alternates. </p></td>
 <p> the folded tokens. </p>
 <p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1]</span></p>
 </div>
-<p class="since">Since 2.40</p>
+<p class="since">Since: <a class="link" href="api-index-2-40.html#api-index-2.40">2.40</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1338,9 +1338,8 @@ Baz", but not "SFO" (because no word as "fo" as a prefix).</p>
 <a name="id-1.5.2.7.15.10"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>potential_hit</code></em>
 is a hit</p>
-<p></p>
 </div>
-<p class="since">Since 2.40</p>
+<p class="since">Since: <a class="link" href="api-index-2-40.html#api-index-2.40">2.40</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1403,7 +1402,6 @@ in bytes</p></td>
 <a name="id-1.5.2.7.16.8"></a><h4>Returns</h4>
 <p> length of <em class="parameter"><code>src</code></em>
 </p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -1468,7 +1466,6 @@ inside <em class="parameter"><code>dest</code></em>
 <p> size of attempted result, which is MIN (dest_size, strlen
 (original dest)) + strlen (src), so if retval &gt;= dest_size,
 truncation occurred.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -1507,7 +1504,6 @@ longer needed.</p>
 <div class="refsect3">
 <a name="id-1.5.2.7.18.6"></a><h4>Returns</h4>
 <p> a newly-allocated string holding the result</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -1548,7 +1544,6 @@ additionally returns the length of the allocated string.</p>
 <div class="refsect3">
 <a name="id-1.5.2.7.19.7"></a><h4>Returns</h4>
 <p> a newly-allocated string holding the result</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -1589,9 +1584,8 @@ own new-line character.</p>
 <div class="refsect3">
 <a name="id-1.5.2.7.20.7"></a><h4>Returns</h4>
 <p> the number of bytes printed.</p>
-<p></p>
 </div>
-<p class="since">Since 2.2</p>
+<p class="since">Since: <a class="link" href="api-index-2-2.html#api-index-2.2">2.2</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1627,9 +1621,8 @@ positional parameters, as specified in the Single Unix Specification.</p>
 <div class="refsect3">
 <a name="id-1.5.2.7.21.6"></a><h4>Returns</h4>
 <p> the number of bytes printed.</p>
-<p></p>
 </div>
-<p class="since">Since 2.2</p>
+<p class="since">Since: <a class="link" href="api-index-2-2.html#api-index-2.2">2.2</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1671,9 +1664,8 @@ positional parameters, as specified in the Single Unix Specification.</p>
 <div class="refsect3">
 <a name="id-1.5.2.7.22.6"></a><h4>Returns</h4>
 <p> the number of bytes printed.</p>
-<p></p>
 </div>
-<p class="since">Since 2.2</p>
+<p class="since">Since: <a class="link" href="api-index-2-2.html#api-index-2.2">2.2</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1715,9 +1707,8 @@ positional parameters, as specified in the Single Unix Specification.</p>
 <div class="refsect3">
 <a name="id-1.5.2.7.23.6"></a><h4>Returns</h4>
 <p> the number of bytes printed.</p>
-<p></p>
 </div>
-<p class="since">Since 2.2</p>
+<p class="since">Since: <a class="link" href="api-index-2-2.html#api-index-2.2">2.2</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1764,9 +1755,8 @@ enough to hold the formatted result</p></td>
 <div class="refsect3">
 <a name="id-1.5.2.7.24.8"></a><h4>Returns</h4>
 <p> the number of bytes printed.</p>
-<p></p>
 </div>
-<p class="since">Since 2.2</p>
+<p class="since">Since: <a class="link" href="api-index-2-2.html#api-index-2.2">2.2</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1808,9 +1798,8 @@ positional parameters, as specified in the Single Unix Specification.</p>
 <div class="refsect3">
 <a name="id-1.5.2.7.25.6"></a><h4>Returns</h4>
 <p> the number of bytes printed.</p>
-<p></p>
 </div>
-<p class="since">Since 2.2</p>
+<p class="since">Since: <a class="link" href="api-index-2-2.html#api-index-2.2">2.2</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1872,7 +1861,6 @@ terminating nul character).</p></td>
 <a name="id-1.5.2.7.26.10"></a><h4>Returns</h4>
 <p> the number of bytes which would be produced if the buffer
 was large enough.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -1935,7 +1923,6 @@ string precision pitfalls][string-precision]</p></td>
 <a name="id-1.5.2.7.27.10"></a><h4>Returns</h4>
 <p> the number of bytes which would be produced if the buffer
 was large enough.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -1981,9 +1968,8 @@ you allocate in advance.</p>
 <div class="refsect3">
 <a name="id-1.5.2.7.28.6"></a><h4>Returns</h4>
 <p> the number of bytes printed.</p>
-<p></p>
 </div>
-<p class="since">Since 2.4</p>
+<p class="since">Since: <a class="link" href="api-index-2-4.html#api-index-2.4">2.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2018,7 +2004,6 @@ of the <code class="function">sprintf()</code> function.</p>
 <div class="refsect3">
 <a name="id-1.5.2.7.29.6"></a><h4>Returns</h4>
 <p> the maximum space needed to store the formatted string</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2047,9 +2032,8 @@ contains no bytes with the high bit set.</p>
 <a name="id-1.5.2.7.30.6"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>str</code></em>
 is ASCII</p>
-<p></p>
 </div>
-<p class="since">Since 2.40</p>
+<p class="since">Since: <a class="link" href="api-index-2-40.html#api-index-2.40">2.40</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2082,7 +2066,6 @@ passing a possibly non-ASCII character in.</p>
 <a name="id-1.5.2.7.31.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>c</code></em>
 is an ASCII alphanumeric character</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2116,7 +2099,6 @@ passing a possibly non-ASCII character in.</p>
 <a name="id-1.5.2.7.32.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>c</code></em>
 is an ASCII alphabetic character</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2150,7 +2132,6 @@ before passing a possibly non-ASCII character in.</p>
 <a name="id-1.5.2.7.33.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>c</code></em>
 is an ASCII control character.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2181,7 +2162,6 @@ cast to <a class="link" href="glib-Basic-Types.html#guchar" title="guchar"><span
 <a name="id-1.5.2.7.34.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>c</code></em>
 is an ASCII digit.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2215,7 +2195,6 @@ passing a possibly non-ASCII character in.</p>
 <a name="id-1.5.2.7.35.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>c</code></em>
 is an ASCII printing character other than space.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2249,7 +2228,6 @@ to <a class="link" href="glib-Basic-Types.html#guchar" title="guchar"><span clas
 <a name="id-1.5.2.7.36.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>c</code></em>
 is an ASCII lower case letter</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2283,7 +2261,6 @@ passing a possibly non-ASCII character in.</p>
 <a name="id-1.5.2.7.37.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>c</code></em>
 is an ASCII printing character.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2317,7 +2294,6 @@ passing a possibly non-ASCII character in.</p>
 <a name="id-1.5.2.7.38.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>c</code></em>
 is an ASCII punctuation character.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2351,7 +2327,6 @@ passing a possibly non-ASCII character in.</p>
 <a name="id-1.5.2.7.39.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>c</code></em>
 is an ASCII white-space character</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2385,7 +2360,6 @@ to <a class="link" href="glib-Basic-Types.html#guchar" title="guchar"><span clas
 <a name="id-1.5.2.7.40.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>c</code></em>
 is an ASCII upper case letter</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2416,7 +2390,6 @@ cast to <a class="link" href="glib-Basic-Types.html#guchar" title="guchar"><span
 <a name="id-1.5.2.7.41.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>c</code></em>
 is an ASCII hexadecimal-digit character.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2447,7 +2420,6 @@ there's no worry about sign extension if characters are signed.</p>
 <p> If <em class="parameter"><code>c</code></em>
 is a decimal digit (according to <a class="link" href="glib-String-Utility-Functions.html#g-ascii-isdigit" title="g_ascii_isdigit ()"><code class="function">g_ascii_isdigit()</code></a>),
 its numeric value. Otherwise, -1.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2479,7 +2451,6 @@ are signed.</p>
 <p> If <em class="parameter"><code>c</code></em>
 is a hex digit (according to <a class="link" href="glib-String-Utility-Functions.html#g-ascii-isxdigit" title="g_ascii_isxdigit ()"><code class="function">g_ascii_isxdigit()</code></a>),
 its numeric value. Otherwise, -1.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2534,7 +2505,6 @@ strings using this function, you will get false matches.</p>
 or a positive value if <em class="parameter"><code>s1</code></em>
 &gt; <em class="parameter"><code>s2</code></em>
 .</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2592,7 +2562,6 @@ corresponding to ASCII letters always represent themselves.</p>
 or a positive value if <em class="parameter"><code>s1</code></em>
 &gt; <em class="parameter"><code>s2</code></em>
 .</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2633,7 +2602,6 @@ characters in <em class="parameter"><code>str</code></em>
 converted to upper case, with semantics that
 exactly match <a class="link" href="glib-String-Utility-Functions.html#g-ascii-toupper" title="g_ascii_toupper ()"><code class="function">g_ascii_toupper()</code></a>. (Note that this is unlike the
 old <a class="link" href="glib-String-Utility-Functions.html#g-strup" title="g_strup ()"><code class="function">g_strup()</code></a>, which modified the string in place.)</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2674,7 +2642,6 @@ characters in <em class="parameter"><code>str</code></em>
 converted to lower case, with semantics that
 exactly match <a class="link" href="glib-String-Utility-Functions.html#g-ascii-tolower" title="g_ascii_tolower ()"><code class="function">g_ascii_tolower()</code></a>. (Note that this is unlike the
 old <a class="link" href="glib-String-Utility-Functions.html#g-strdown" title="g_strdown ()"><code class="function">g_strdown()</code></a>, which modified the string in place.)</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2712,7 +2679,6 @@ to lower case. If <em class="parameter"><code>c</code></em>
 is
 not an ASCII upper case letter, <em class="parameter"><code>c</code></em>
 is returned unchanged.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2750,7 +2716,6 @@ to upper case. If <em class="parameter"><code>c</code></em>
 is not
 an ASCII lower case letter, <em class="parameter"><code>c</code></em>
 is returned unchanged.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2780,7 +2745,6 @@ g_string_ascii_up (<em class="parameter"><code><a class="link" href="glib-String
 pointer, with all the
 lowercase characters converted to uppercase in place,
 with semantics that exactly match <a class="link" href="glib-String-Utility-Functions.html#g-ascii-toupper" title="g_ascii_toupper ()"><code class="function">g_ascii_toupper()</code></a>.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2810,7 +2774,6 @@ g_string_ascii_down (<em class="parameter"><code><a class="link" href="glib-Stri
 pointer, with all the
 uppercase characters converted to lowercase in place,
 with semantics that exactly match <a class="link" href="glib-String-Utility-Functions.html#g-ascii-tolower" title="g_ascii_tolower ()"><code class="function">g_ascii_tolower()</code></a>.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2843,7 +2806,6 @@ g_strup (<em class="parameter"><code><a class="link" href="glib-Basic-Types.html
 <div class="refsect3">
 <a name="id-1.5.2.7.52.7"></a><h4>Returns</h4>
 <p> the string</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2876,7 +2838,6 @@ instead.</p>
 <div class="refsect3">
 <a name="id-1.5.2.7.53.7"></a><h4>Returns</h4>
 <p> the string</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2923,7 +2884,6 @@ g_strcasecmp (<em class="parameter"><code>const <a class="link" href="glib-Basic
 or a positive value if <em class="parameter"><code>s1</code></em>
 &gt; <em class="parameter"><code>s2</code></em>
 .</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2990,7 +2950,6 @@ the strings.</p>
 or a positive value if <em class="parameter"><code>s1</code></em>
 &gt; <em class="parameter"><code>s2</code></em>
 .</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -3022,7 +2981,6 @@ containing multibyte characters. For that purpose, use
 <a name="id-1.5.2.7.56.7"></a><h4>Returns</h4>
 <p> the same pointer passed in as <em class="parameter"><code>string</code></em>
 </p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -3081,9 +3039,8 @@ the last character used in the conversion.</p></td>
 <div class="refsect3">
 <a name="id-1.5.2.7.57.8"></a><h4>Returns</h4>
 <p> the <a class="link" href="glib-Basic-Types.html#gint64" title="gint64"><span class="type">gint64</span></a> value or zero on error.</p>
-<p></p>
 </div>
-<p class="since">Since 2.12</p>
+<p class="since">Since: <a class="link" href="api-index-2-12.html#api-index-2.12">2.12</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3141,9 +3098,8 @@ the last character used in the conversion.</p></td>
 <div class="refsect3">
 <a name="id-1.5.2.7.58.8"></a><h4>Returns</h4>
 <p> the <a class="link" href="glib-Basic-Types.html#guint64" title="guint64"><span class="type">guint64</span></a> value or zero on error.</p>
-<p></p>
 </div>
-<p class="since">Since 2.2</p>
+<p class="since">Since: <a class="link" href="api-index-2-2.html#api-index-2.2">2.2</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3161,9 +3117,9 @@ on systems with 64bit IEEE-compatible doubles.</p>
         <td class="listing_lines" align="right"><pre>1
 2
 3</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="type">char</span><span class="normal"> buf</span><span class="symbol">[</span><span class="normal"><a href="glib-String-Utility-Functions.html#G-ASCII-DTOSTR-BUF-SIZE:CAPS">G_ASCII_DTOSTR_BUF_SIZE</a></span><span class="symbol">];</span>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwb">char</span> buf<span class="gtkdoc opt">[</span>G_ASCII_DTOSTR_BUF_SIZE<span class="gtkdoc opt">];</span>
 
-<span class="function">fprintf</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">out</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"value=%s</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="function"><a href="glib-String-Utility-Functions.html#g-ascii-dtostr">g_ascii_dtostr</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">buf</span><span class="symbol">,</span><span class="normal"> </span><span class="keyword">sizeof</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">buf</span><span class="symbol">),</span><span class="normal"> value</span><span class="symbol">));</span></pre></td>
+<span class="function">fprintf</span> <span class="gtkdoc opt">(</span>out<span class="gtkdoc opt">,</span> <span class="string">&quot;value=%s</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">,</span> <span class="function"><a href="glib-String-Utility-Functions.html#g-ascii-dtostr">g_ascii_dtostr</a></span> <span class="gtkdoc opt">(</span>buf<span class="gtkdoc opt">,</span> <span class="keyword">sizeof</span> <span class="gtkdoc opt">(</span>buf<span class="gtkdoc opt">),</span> value<span class="gtkdoc opt">));</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -3221,7 +3177,6 @@ the last character used in the conversion.</p></td>
 <div class="refsect3">
 <a name="id-1.5.2.7.60.11"></a><h4>Returns</h4>
 <p> the <a class="link" href="glib-Basic-Types.html#gdouble" title="gdouble"><span class="type">gdouble</span></a> value.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -3270,7 +3225,6 @@ nul character, which is always added.</p>
 <div class="refsect3">
 <a name="id-1.5.2.7.61.7"></a><h4>Returns</h4>
 <p> The pointer to the buffer with the converted string.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -3324,7 +3278,6 @@ code to use for converting.</p></td>
 <div class="refsect3">
 <a name="id-1.5.2.7.62.8"></a><h4>Returns</h4>
 <p> The pointer to the buffer with the converted string.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -3369,7 +3322,6 @@ the last character used in the conversion.</p></td>
 <div class="refsect3">
 <a name="id-1.5.2.7.63.7"></a><h4>Returns</h4>
 <p> the <a class="link" href="glib-Basic-Types.html#gdouble" title="gdouble"><span class="type">gdouble</span></a> value.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -3405,7 +3357,6 @@ statically allocated strings.</p>
 <a name="id-1.5.2.7.64.9"></a><h4>Returns</h4>
 <p> <em class="parameter"><code>string</code></em>
 </p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -3440,7 +3391,6 @@ on statically allocated strings.</p>
 <a name="id-1.5.2.7.65.9"></a><h4>Returns</h4>
 <p> <em class="parameter"><code>string</code></em>
 </p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -3468,7 +3418,6 @@ See <a class="link" href="glib-String-Utility-Functions.html#g-strchomp" title="
 <a name="id-1.5.2.7.66.6"></a><h4>Returns</h4>
 <p> <em class="parameter"><code>string</code></em>
 </p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -3495,7 +3444,7 @@ allow nesting such as</p>
     <tbody>
       <tr>
         <td class="listing_lines" align="right"><pre>1</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="glib-String-Utility-Functions.html#g-ascii-strup">g_ascii_strup</a></span><span class="normal"> </span><span class="symbol">(</span><span class="function"><a href="glib-String-Utility-Functions.html#g-strdelimit">g_strdelimit</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"abc"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">'?'</span><span class="symbol">))</span></pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="glib-String-Utility-Functions.html#g-ascii-strup">g_ascii_strup</a></span> <span class="gtkdoc opt">(</span><span class="function"><a href="glib-String-Utility-Functions.html#g-strdelimit">g_strdelimit</a></span> <span class="gtkdoc opt">(</span>str<span class="gtkdoc opt">,</span> <span class="string">&quot;abc&quot;</span><span class="gtkdoc opt">,</span> <span class="string">'?'</span><span class="gtkdoc opt">))</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -3534,7 +3483,6 @@ or <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code
 <a name="id-1.5.2.7.67.8"></a><h4>Returns</h4>
 <p> <em class="parameter"><code>string</code></em>
 </p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -3580,7 +3528,6 @@ Characters supplied in <em class="parameter"><code>exceptions</code></em>
 <p> a newly-allocated copy of <em class="parameter"><code>source</code></em>
 with certain
 characters escaped. See above.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -3610,7 +3557,6 @@ g_strcompress (<em class="parameter"><code>const <a class="link" href="glib-Basi
 <p> a newly-allocated copy of <em class="parameter"><code>source</code></em>
 with all escaped
 character compressed</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -3634,7 +3580,7 @@ nesting such as</p>
     <tbody>
       <tr>
         <td class="listing_lines" align="right"><pre>1</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="glib-String-Utility-Functions.html#g-ascii-strup">g_ascii_strup</a></span><span class="normal"> </span><span class="symbol">(</span><span class="function"><a href="glib-String-Utility-Functions.html#g-strcanon">g_strcanon</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">str</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"abc"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">'?'</span><span class="symbol">))</span></pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="glib-String-Utility-Functions.html#g-ascii-strup">g_ascii_strup</a></span> <span class="gtkdoc opt">(</span><span class="function"><a href="glib-String-Utility-Functions.html#g-strcanon">g_strcanon</a></span> <span class="gtkdoc opt">(</span>str<span class="gtkdoc opt">,</span> <span class="string">&quot;abc&quot;</span><span class="gtkdoc opt">,</span> <span class="string">'?'</span><span class="gtkdoc opt">))</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -3673,7 +3619,6 @@ nesting such as</p>
 <a name="id-1.5.2.7.70.8"></a><h4>Returns</h4>
 <p> <em class="parameter"><code>string</code></em>
 </p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -3735,7 +3680,6 @@ If this is less than 1, the string is split completely.</p></td>
 <a name="id-1.5.2.7.71.8"></a><h4>Returns</h4>
 <p> a newly-allocated <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a>-terminated array of strings. Use
 <a class="link" href="glib-String-Utility-Functions.html#g-strfreev" title="g_strfreev ()"><code class="function">g_strfreev()</code></a> to free it.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -3800,9 +3744,8 @@ If this is less than 1, the string is split completely</p></td>
 <a name="id-1.5.2.7.72.10"></a><h4>Returns</h4>
 <p> a newly-allocated <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a>-terminated array of strings. Use
 <a class="link" href="glib-String-Utility-Functions.html#g-strfreev" title="g_strfreev ()"><code class="function">g_strfreev()</code></a> to free it.</p>
-<p></p>
 </div>
-<p class="since">Since 2.4</p>
+<p class="since">Since: <a class="link" href="api-index-2-4.html#api-index-2.4">2.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3867,7 +3810,6 @@ often requires the pieces to be reordered.</p>
 <div class="refsect3">
 <a name="id-1.5.2.7.74.8"></a><h4>Returns</h4>
 <p> a newly-allocated string containing all the string arguments</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -3908,7 +3850,6 @@ strings, or <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NU
 <p> a newly-allocated string containing all of the strings joined
 together, with <em class="parameter"><code>separator</code></em>
 between them</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -3949,7 +3890,6 @@ strings, or <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NU
 <p> a newly-allocated string containing all of the strings joined
 together, with <em class="parameter"><code>separator</code></em>
 between them</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -3979,9 +3919,8 @@ string array <em class="parameter"><code>str_array</code></em>
 <a name="id-1.5.2.7.77.6"></a><h4>Returns</h4>
 <p> length of <em class="parameter"><code>str_array</code></em>
 .</p>
-<p></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -4020,21 +3959,22 @@ g_strv_contains (<em class="parameter"><code>const <a class="link" href="glib-Ba
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>str</code></em>
 is an element of <em class="parameter"><code>strv</code></em>
 , according to <a class="link" href="glib-Hash-Tables.html#g-str-equal" title="g_str_equal ()"><code class="function">g_str_equal()</code></a>.</p>
-<p></p>
 </div>
-<p class="since">Since 2.44</p>
+<p class="since">Since: <a class="link" href="api-index-2-44.html#api-index-2.44">2.44</a></p>
 </div>
 <hr>
 <div class="refsect2">
 <a name="g-strerror"></a><h3>g_strerror ()</h3>
 <pre class="programlisting">const <a class="link" href="glib-Basic-Types.html#gchar" title="gchar"><span class="returnvalue">gchar</span></a> *
 g_strerror (<em class="parameter"><code><a class="link" href="glib-Basic-Types.html#gint" title="gint"><span class="type">gint</span></a> errnum</code></em>);</pre>
-<p>Returns a string corresponding to the given error code, e.g.
-"no such process". You should use this function in preference to
-<code class="function">strerror()</code>, because it returns a string in UTF-8 encoding, and since
-not all platforms support the <code class="function">strerror()</code> function.</p>
+<p>Returns a string corresponding to the given error code, e.g. "no
+such process". Unlike <code class="function">strerror()</code>, this always returns a string in
+UTF-8 encoding, and the pointer is guaranteed to remain valid for
+the lifetime of the process.</p>
+<p>Note that the string may be translated according to the current locale.</p>
+<p>The value of <code class="literal">errno</code> will not be changed by this function.</p>
 <div class="refsect3">
-<a name="id-1.5.2.7.79.5"></a><h4>Parameters</h4>
+<a name="id-1.5.2.7.79.7"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -4050,10 +3990,9 @@ documentation</p></td>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.5.2.7.79.6"></a><h4>Returns</h4>
+<a name="id-1.5.2.7.79.8"></a><h4>Returns</h4>
 <p> a UTF-8 string describing the error code. If the error code
-is unknown, it returns "unknown error (&lt;code&gt;)".</p>
-<p></p>
+is unknown, it returns a string like "unknown error (&lt;code&gt;)".</p>
 </div>
 </div>
 <hr>
@@ -4084,7 +4023,6 @@ the <code class="function">strsignal()</code> function.</p>
 <a name="id-1.5.2.7.80.6"></a><h4>Returns</h4>
 <p> a UTF-8 string describing the signal. If the signal is unknown,
 it returns "unknown signal (&lt;signum&gt;)".</p>
-<p></p>
 </div>
 </div>
 </div>
@@ -4096,10 +4034,17 @@ it returns "unknown signal (&lt;signum&gt;)".</p>
 </pre>
 <p>The standard delimiters, used in <a class="link" href="glib-String-Utility-Functions.html#g-strdelimit" title="g_strdelimit ()"><code class="function">g_strdelimit()</code></a>.</p>
 </div>
+<hr>
+<div class="refsect2">
+<a name="GStrv"></a><h3>GStrv</h3>
+<pre class="programlisting">typedef gchar** GStrv;
+</pre>
+<p>A typedef alias for gchar**. This is mostly useful when used together with
+<a class="link" href="glib-Miscellaneous-Macros.html#g-auto" title="g_auto()"><code class="function">g_auto()</code></a>.</p>
+</div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21.1</div>
+<hr>Generated by GTK-Doc V1.24</div>
 </body>
 </html>

@@ -1,0 +1,42 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141984 2015-11-01 17:11:36Z khindenburg@macports.org $
+
+PortSystem          1.0
+
+name                rcs
+version             5.9.4
+categories          devel
+platforms           darwin
+maintainers         nomaintainer
+license             GPL-3+
+installs_libs       no
+
+description         Revision Control System
+
+long_description    The Revision Control System (RCS) manages multiple \
+                    revisions of files. RCS automates the storing, retrieval, \
+                    logging, identification, and merging of revisions. RCS is \
+                    useful for text that is revised frequently, including \
+                    source code, programs, documentation, graphics, papers, \
+                    and form letters.
+
+homepage            http://www.gnu.org/software/${name}/
+master_sites        gnu
+use_xz              yes
+
+checksums           rmd160  90a62da2391d6fd3d36db0f97cdf1ee995ee4917 \
+                    sha256  063d5a0d7da1821754b80c639cdae2c82b535c8ff4131f75dc7bbf0cd63a5dff
+
+patchfiles          patch-noreturn.diff
+
+set docdir          ${prefix}/share/doc/${name}
+
+post-destroot {
+    xinstall -m 0755 -d ${destroot}${docdir}
+    xinstall -m 0644 -W ${worksrcpath} AUTHORS ChangeLog COPYING NEWS README THANKS \
+        ${destroot}${docdir}
+}
+
+# Currently t999 fails
+test.run            yes
+test.target         check

@@ -1,0 +1,62 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141624 2015-10-24 12:46:40Z easieste@macports.org $
+
+PortSystem 1.0
+
+name			    abcl
+version			    1.3.3
+revision            0
+categories		    lang java
+license             GPL-2
+maintainers		    easieste
+description		    A Common Lisp implementation that runs on the JVM
+long_description	\
+    Armed Bear Common Lisp is conforming, contemporary \
+    implementation of ANSI Common Lisp running on the Java \
+    Virtual Machine.  Containing both an interpreted mode and a \
+    compiler that produces JVM bytecode, it features extensions \
+    that faciliate the use of Java from Lisp enabling the rapid \
+    integration of arbitrary Java libraries into Common Lisp \
+    code.  ABCL fully supports the JSR-233 (Java scripting API), \
+    so it can be a utilized as a scripting engine in any Java \
+    application.
+    
+homepage            http://common-lisp.net/project/armedbear 
+platforms           darwin
+master_sites        http://abcl.org/releases/${version}/
+distname            abcl-src-${version}
+
+checksums           md5     0ce3eeedd585a9e834c55b4b3a84bf76 \
+                    sha1    5789e67c86d0a9855e32e22f1b694de3f121f240 \
+                    rmd160  fa8aa5ddb69e27f77ca50dcd6c2a857d3b74ead3
+
+depends_build       port:apache-ant
+
+use_configure       no
+
+build.cmd           ant
+build.target        abcl.wrapper
+
+post-build {
+    reinplace "s|${worksrcpath}/dist/abcl.jar|${prefix}/share/java/abcl/abcl.jar|g" \
+        ${worksrcpath}/abcl
+}
+
+destroot {
+    xinstall -m 755 -d ${destroot}${prefix}/share/java/abcl  
+    xinstall -m 644 \
+        ${worksrcpath}/dist/abcl.jar \
+        ${destroot}${prefix}/share/java/abcl
+    xinstall -m 644 \
+        ${worksrcpath}/dist/abcl-contrib.jar \
+        ${destroot}${prefix}/share/java/abcl
+    xinstall -m 755 \
+        ${worksrcpath}/abcl \
+        ${destroot}${prefix}/share/java/abcl
+	system "ln -fs ${prefix}/share/java/abcl/abcl \
+		${destroot}${prefix}/bin/abcl"
+}
+
+variant ffi description "Include MacPorts Maven as runtime dependency for resolving jna.jar" { 
+    depends_run-append port:maven3
+}

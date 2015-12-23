@@ -1,0 +1,8 @@
+# $Id: Portfile 131376 2015-01-10 16:37:01Z ryandesign@macports.org $
+
+PortSystem 1.0
+replaced_by         gradle
+PortGroup           obsolete 1.0
+name				gradle-devel
+version             2.2.1
+categories			devel java groovy

@@ -1,0 +1,28 @@
+# $Id: Portfile 130465 2014-12-31 01:43:17Z larryv@macports.org $
+
+PortSystem              1.0
+PortGroup               python 1.0
+
+name                    py-formencode
+version                 1.2.4
+python.versions         27
+maintainers             nomaintainer
+platforms               darwin
+
+description             FormEncode validates and converts nested structures.
+long_description        ${description}
+license                 PSF
+homepage                http://pypi.python.org/pypi/FormEncode/
+
+livecheck.regex         {>FormEncode (.+) :}
+livecheck.type          regex
+livecheck.url           ${homepage}
+
+if {${name} ne ${subport}} {
+    depends_build-append    port:py${python.version}-setuptools
+}
+
+distname                FormEncode-${version}
+master_sites            http://pypi.python.org/packages/source/F/FormEncode/
+
+checksums               rmd160 37bdf14bc439a070342020867ee7062bcffce27b

@@ -1,0 +1,31 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Catalyst-Plugin-Session-State-Cookie 0.17
+revision            3
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Maintain session IDs using cookies.
+long_description    In order for Catalyst::Plugin::Session to work the \
+                    session ID needs to be stored on the client, and the \
+                    session data needs to be stored on the server.  This \
+                    plugin stores the session ID on the client using the \
+                    cookie mechanism.
+
+platforms           darwin
+
+checksums           rmd160  be13439d71318779d4539708d5005b5662df8d9d \
+                    sha256  4beb19bbe1407f654b059ad5d7ab8c4d64da1ea35fddf705bba22777ad5b7de7
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-catalyst-runtime \
+                    port:p${perl5.major}-catalyst-plugin-session \
+                    port:p${perl5.major}-mro-compat \
+                    port:p${perl5.major}-moose \
+                    port:p${perl5.major}-namespace-autoclean
+}

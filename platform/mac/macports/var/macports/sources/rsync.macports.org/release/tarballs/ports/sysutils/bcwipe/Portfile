@@ -1,0 +1,27 @@
+# $Id: Portfile 41137 2008-10-25 14:47:48Z macsforever2000@macports.org $
+
+PortSystem 1.0
+
+name                    bcwipe
+version                 1.7-7
+distname                BCWipe-${version}
+categories              sysutils security
+maintainers             nomaintainer
+description             Securely erase data from magnetic and solid-state memory.
+long_description        The BCWipe software is intended to give you a \
+                        confidence that your deleted files cannot be \
+                        recovered by an intruder. BCWipe repeatedly \
+                        overwrites special patterns to the files to be \
+                        destroyed. BCWipe for UNIX offers two wiping \
+                        schemas: US DoD 5200.28-STD standard and Peter \
+                        Gutmann's 35 pass scheme.
+homepage                http://www.jetico.com/
+platforms               darwin
+master_sites            http://www.jetico.com/linux/
+checksums               md5 e6836db3d06500707db9d29f818ef125
+worksrcdir              bcwipe-${version}
+patchfiles		patch-Makefile.diff patch-wipe.c.diff
+
+configure {
+	reinplace "s|@@prefix@@|${prefix}|g" ${worksrcpath}/Makefile
+}

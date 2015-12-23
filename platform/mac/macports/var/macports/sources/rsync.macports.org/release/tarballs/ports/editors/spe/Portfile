@@ -1,0 +1,40 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 120507 2014-05-30 20:23:50Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           wxWidgets 1.0
+
+name                spe
+version             0.8.4.h
+revision            1
+categories          editors python
+license             GPL-2+
+platforms           darwin
+supported_archs     noarch
+maintainers         nomaintainer
+description         spe - Stani's Python Editor 
+long_description    spe - Stani's Python Editor  \
+                    Free Python IDE with Blender, Kiki, PyChecker,  \
+                    Remote Debugger, Uml and wxGlade support. 
+
+homepage            http://pythonide.blogspot.com/
+master_sites        http://download.berlios.de/python/
+distname            spe-${version}-wx2.6.1.0
+checksums           rmd160  211c0465dce7aeab5b8a3d7fd9cf444b3efbe845 \
+                    sha256  e43d42c42d0f716fa7e6e4430295471786611873e47b39dfe2593f8aa2dc1576
+
+python.default_version 26
+
+depends_lib-append  port:py26-wxpython-2.8
+depends_run         port:py26-checker
+
+worksrcdir          spe-${version}
+
+patch {
+    reinplace "s|/usr/bin/env python|${prefix}/bin/pythonw2.6|1" ${worksrcpath}/_spe/spe
+}
+
+post-destroot {
+    file delete ${destroot}${prefix}/bin/spe_wininst.py
+}

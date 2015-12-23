@@ -1,0 +1,47 @@
+--- configure.orig	2014-11-13 09:33:26.000000000 +0100
++++ configure	2014-11-22 21:04:52.000000000 +0100
+@@ -2996,13 +2996,13 @@
+ 
+ # Some tools Automake needs.
+ 
+-ACLOCAL=${ACLOCAL-"${am_missing_run}aclocal-${am__api_version}"}
++ACLOCAL=${ACLOCAL-"${am_missing_run}aclocal"}
+ 
+ 
+ AUTOCONF=${AUTOCONF-"${am_missing_run}autoconf"}
+ 
+ 
+-AUTOMAKE=${AUTOMAKE-"${am_missing_run}automake-${am__api_version}"}
++AUTOMAKE=${AUTOMAKE-"${am_missing_run}automake"}
+ 
+ 
+ AUTOHEADER=${AUTOHEADER-"${am_missing_run}autoheader"}
+@@ -16942,8 +16942,8 @@
+ # conditionals
+ 
+ # wxwidgets
+-# the test could be extended to check for wx-config --version too
+-if test "`wx-config --list | grep unicode`" != "" ; then
++# the test could be extended to check for /opt/local/Library/Frameworks/wxWidgets.framework/Versions/wxWidgets/3.0/bin/wx-config --version too
++if test "`wx-config --list | grep unicode`" != "" ; then
+    if true; then
+   SAGA_UNICODE_TRUE=
+   SAGA_UNICODE_FALSE='#'
+@@ -17792,16 +17792,7 @@
+ 	#
+ 	# linking flags needed when embedding
+ 	#
+-	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking python extra linking flags" >&5
+-$as_echo_n "checking python extra linking flags... " >&6; }
+-	if test -z "$PYTHON_EXTRA_LDFLAGS"; then
+-		PYTHON_EXTRA_LDFLAGS=`$PYTHON -c "import distutils.sysconfig; \
+-			conf = distutils.sysconfig.get_config_var; \
+-			print (conf('LINKFORSHARED'))"`
+-	fi
+-	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $PYTHON_EXTRA_LDFLAGS" >&5
+-$as_echo "$PYTHON_EXTRA_LDFLAGS" >&6; }
+-
++    PYTHON_EXTRA_LDFLAGS=
+ 
+ 	#
+ 	# final check to see if everything compiles alright

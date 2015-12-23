@@ -1,0 +1,40 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
+
+PortSystem 1.0
+
+name            gtypist
+version         2.9.3
+revision        1
+categories      games
+platforms       darwin
+maintainers     josephholsten.com:joseph
+license         GPL-3+
+
+description     A universal typing tutor.
+long_description \
+    You can learn correct typing and improve your skills \
+    by practicing its exercises on a regular basis.
+
+homepage        http://www.gnu.org/software/gtypist/
+master_sites    gnu:gtypist
+use_xz          yes
+
+checksums       rmd160  a3d0138be5374d607c6015d2d3a0aee275679780 \
+                sha256  bc6b983eaa5b9c3b1050130362c6dfeeb8de97eb872cfc613291291608523c6b
+
+depends_lib     port:ncurses port:gettext port:libiconv
+
+patchfiles      patch-src_Makefile.in-add-libiconv.diff
+post-patch {
+    #Fix ncursesw dependency, wide char support is included in ncurses now.
+    foreach f {cursmenu.c error.c gtypist.c script.c utf8.c} {
+        reinplace "s|ncursesw/ncurses.h|ncurses.h|" ${worksrcpath}/src/$f
+    }
+    reinplace "s|ncursesw/ncurses.h|ncurses.h|" ${worksrcpath}/configure
+    reinplace "s|-lncursesw|-lncurses|" ${worksrcpath}/configure
+}
+
+livecheck.type  regex
+livecheck.url   http://ftp.gnu.org/gnu/gtypist/?C=M&O=D
+livecheck.regex ${name}-(\\d+(?:\\.\\d+)+)\\.tar

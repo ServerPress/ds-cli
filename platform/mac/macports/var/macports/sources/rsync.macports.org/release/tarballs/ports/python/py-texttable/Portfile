@@ -1,0 +1,24 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 140136 2015-09-09 21:28:06Z sean@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-texttable
+version             0.8.3
+categories-append   textproc
+license             GPL-2+
+platforms           darwin
+supported_archs     noarch
+maintainers         nomaintainer
+description         python module for creating simple ASCII tables
+long_description    ${description}
+
+homepage            http://foutaise.org/code/
+master_sites        ${homepage}texttable/ http://distfiles.macports.org/python/
+distname            texttable-${version}
+
+checksums           rmd160  e612f66d2327ee99b97353eca445d0eeeb3513fe \
+                    sha256  f333ac915e7c5daddc7d4877b096beafe74ea88b4b746f82a4b110f84e348701
+
+python.versions     27 34

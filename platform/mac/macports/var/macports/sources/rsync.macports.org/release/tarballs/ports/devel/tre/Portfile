@@ -1,0 +1,47 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 140684 2015-09-30 06:14:45Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                tre
+version             0.8.0
+revision            1
+categories          devel
+platforms           darwin
+maintainers         nomaintainer
+license             BSD
+conflicts           agrep glimpse
+description         TRE is a lightweight POSIX compliant regular expression library
+long_description    TRE is a lightweight POSIX compliant regular expression library
+homepage            http://laurikari.net/tre/
+master_sites        ${homepage}
+use_bzip2           yes
+checksums           md5     b4d3232593dadf6746f4727bdda20b41 \
+                    sha1    a41692e64b40ebae3cffe83931ddbf8420a10ae3 \
+                    rmd160  8031cc0c421dd0f473b4c98f49aef9805fa65b64
+depends_lib         port:gettext \
+                    port:libiconv
+test.run            yes
+test.target         check
+
+post-build {
+    reinplace -E {s|-arch [a-z0-9_]+||g} ${worksrcpath}/tre.pc
+}
+
+post-destroot {
+    set docdir ${destroot}${prefix}/share/doc/${name}
+    xinstall -d ${docdir}
+    xinstall -m 644 -W ${worksrcpath} \
+        AUTHORS \
+        ChangeLog \
+        LICENSE \
+        NEWS \
+        README \
+        THANKS \
+        TODO \
+        ${docdir}
+}
+
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]download
+livecheck.regex     ${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}

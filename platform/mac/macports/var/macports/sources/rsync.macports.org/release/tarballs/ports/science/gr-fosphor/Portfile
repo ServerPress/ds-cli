@@ -1,0 +1,111 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143585 2015-12-15 12:49:29Z michaelld@macports.org $
+
+PortSystem          1.0
+PortGroup           cmake 1.0
+PortGroup           wxWidgets 1.0
+PortGroup           qt4 1.0
+PortGroup           active_variants 1.1
+
+wxWidgets.use       wxPython-3.0
+
+name                gr-fosphor
+maintainers         michaelld openmaintainer
+
+categories          science comms
+homepage            http://sdr.osmocom.org/trac/wiki/fosphor
+license             GPL-3
+platforms           darwin macosx
+
+description         gr-fosphor provides a GNU Radio block for RTSA-like spectrum visualization using GPU acceleration.
+
+long_description    ${description}  \
+    This port is kept up with the gr-fosphor GIT 'master' branch, which is typically updated weekly to monthly, providing compatibility with GNU Radio release 3.7 API: the gnuradio and gnuradio-devel ports.
+
+set commit          12c1a6d3f8e2b4540e870cfa612e51727fa0b1b1
+version             20151112
+revision            1
+checksums           rmd160 23e3dca61301fd87583485ff0ae537bee0af77c8 \
+                    sha256 784b8f3ca9a725e9642228b019a9e7155c9cad304b1fe6ebf6a3f7865fb84f73
+
+distname            ${name}-${commit}
+master_sites        http://cgit.osmocom.org/gr-fosphor/snapshot/
+
+depends_lib-append \
+    port:boost \
+    port:cppunit \
+    port:freetype \
+    path:lib/libglfw.dylib:glfw \
+    port:swig-python \
+    port:${wxWidgets.port} \
+    port:libpng
+
+depends_build-append \
+    port:doxygen
+
+# do VPATH (out of source tree) build
+
+cmake.out_of_source yes
+
+# temporary patch to fix finding Freetype2 headers
+
+patchfiles-append patch-cmake_Modules_FindFreetype2.cmake.diff
+
+# temporary patch to add finding libpng
+
+patchfiles-append patch-add_find_libpng.diff
+
+# temporary patch to fix finding GLFW3
+
+patchfiles-append patch-cmake_Modules_FindGLFW3.cmake.diff
+
+# temporary patch to add back in the PNG stuff
+
+patchfiles-append patch-add-png.diff
+
+# remove top-level library path, such that internal libraries are used
+# instead of any already-installed ones.
+
+configure.ldflags-delete -L${prefix}/lib
+
+# specify the Python dependencies
+
+depends_lib-append \
+    port:python27
+
+# wxPython is required for configure and runtime
+
+depends_lib-append \
+    port:py27-wxpython-3.0
+
+# specify the Python version to use
+
+configure.args-append \
+    -DPYTHON_EXECUTABLE=${prefix}/Library/Frameworks/Python.framework/Versions/2.7/bin/python2.7 \
+    -DPYTHON_INCLUDE_DIR=${prefix}/Library/Frameworks/Python.framework/Versions/2.7/Headers \
+    -DPYTHON_LIBRARY=${prefix}/Library/Frameworks/Python.framework/Versions/2.7/Python \
+    -DGR_PYTHON_DIR=${frameworks_dir}/Python.framework/Versions/2.7/lib/python2.7/site-packages
+
+# allow gr-forphor to work with both gnuradio and gnuradio-devel ...
+
+depends_lib-append path:lib/libgnuradio-runtime.dylib:gnuradio
+
+# ... but not with gnuradio-legacy or gnuradio-next
+
+pre-fetch {
+
+    if {![catch {set installed [lindex [registry_active gnuradio-legacy] 0]}]} {
+        # gnuradio-legacy is installed; this version of gr-forphor does not work with gnuradio-legacy
+        ui_msg "\nError: ${name} requires the gnuradio or gnuradio-devel port, and will not work with the gnuradio-legacy port.  deactivate gnuradio-legacy, and then install or activate gnuradio or gnuradio-devel.\n"
+        return -code error "Invalid port dependency: gnuradio-legacy"
+    }
+    if {![catch {set installed [lindex [registry_active gnuradio-next] 0]}]} {
+        # gnuradio-next is installed; this version of gr-forphor does not work with gnuradio-next
+        ui_msg "\nError: ${name} requires the gnuradio or gnuradio-devel port, and will not work with the gnuradio-next port.  deactivate gnuradio-next, and then install or activate gnuradio or gnuradio-devel.\n"
+        return -code error "Invalid port dependency: gnuradio-next"
+    }
+}
+
+livecheck.url       http://cgit.osmocom.org/gr-fosphor/log/?h=master
+livecheck.version   ${commit}
+livecheck.regex     id=(\[a-f0-9\]+).*>HEAD<

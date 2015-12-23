@@ -1,0 +1,28 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id $
+
+PortSystem          1.0
+
+name                gpsim
+version             0.28.0
+set branch          [join [lrange [split ${version} .] 0 1] .]
+categories          devel
+platforms           darwin
+maintainers         nomaintainer
+license             GPL-2+
+
+description         A software simulator for Microchip PIC microcontrollers
+
+long_description    GPSIM is a full-featured software simulator for Microchip PIC microcontrollers.
+
+homepage            http://gpsim.sourceforge.net/
+master_sites        sourceforge:project/gpsim/gpsim/${branch}.0
+
+checksums           rmd160  f607985c334156260108f218a0bb988f2239f694 \
+                    sha256  33ab6d0d953908874d5ea2ea900761bf243387650179afa9d07070424ac7afec
+
+depends_build       port:gputils \
+                    port:pkgconfig
+
+depends_lib         port:gtk2-extra \
+                    port:popt

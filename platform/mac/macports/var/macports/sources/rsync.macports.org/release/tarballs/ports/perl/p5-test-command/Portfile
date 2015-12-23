@@ -1,0 +1,23 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Test-Command 0.11
+platforms           darwin
+license             {Artistic-1 GPL}
+maintainers         fpassera.com:dev openmaintainer
+description         Test routines for external commands
+long_description    ${description}
+
+checksums           rmd160  994e8da0d68282dfc378ebff50438f7cfb15c0bc \
+                    sha256  28a3fc6fea73a19f563f11bd0f28186756d4c74207be6deacaad26d2081b9533
+
+supported_archs     noarch
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-test-simple
+}

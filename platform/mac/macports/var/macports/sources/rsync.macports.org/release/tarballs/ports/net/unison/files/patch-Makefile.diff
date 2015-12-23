@@ -1,0 +1,22 @@
+--- Makefile.orig	Thu Jul 18 11:37:09 2013
++++ Makefile	Fri Jan  9 15:24:42 2015
+@@ -78,7 +78,7 @@ include Makefile.OCaml
+ ######################################################################
+ # Installation
+ 
+-INSTALLDIR = $(HOME)/bin/
++INSTALLDIR = $(DESTDIR)$(PREFIX)/bin/
+ 
+ # This has two names because on OSX the file INSTALL shadows the target 'install'!
+ install: doinstall
+@@ -90,9 +90,8 @@ text: 
+ 	$(MAKE) -C .. text
+ 
+ doinstall: $(NAME)$(EXEC_EXT)
+-	-mv $(INSTALLDIR)/$(NAME)$(EXEC_EXT) /tmp/$(NAME)-$(shell echo $$$$)
+-	cp $(NAME)$(EXEC_EXT) $(INSTALLDIR)
+ 	cp $(NAME)$(EXEC_EXT) $(INSTALLDIR)$(NAME)-$(MAJORVERSION)$(EXEC_EXT)
++	cd $(INSTALLDIR) && ln -s $(NAME)-$(MAJORVERSION)$(EXEC_EXT) $(NAME)
+ 
+ 
+ ######################################################################

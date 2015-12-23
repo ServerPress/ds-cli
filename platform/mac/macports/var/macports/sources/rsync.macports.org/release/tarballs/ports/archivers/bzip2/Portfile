@@ -1,0 +1,56 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138460 2015-07-09 13:37:39Z ryandesign@macports.org $
+
+PortSystem              1.0
+
+name                    bzip2
+version                 1.0.6
+platforms               darwin freebsd linux sunos
+categories              archivers sysutils
+maintainers             ryandesign openmaintainer
+license                 BSD
+
+description             compression library and tools
+
+long_description        ${name} is a freely available, patent free, \
+                        high-quality data compressor.
+
+homepage                http://www.bzip.org/
+master_sites            ${homepage}${version}
+
+checksums               md5     00b516f4704d4a7cb50a1d97e6e8e15b \
+                        sha1    3f89f861209ce81a6bab1fd1998c0ef311712002 \
+                        rmd160  cc31bbae95e8eec259cef7627eae0c667654a339
+
+patchfiles              patch-Makefile-man.diff \
+                        patch-Makefile-links.diff \
+                        patch-Makefile-so.diff
+
+use_configure           no
+
+use_parallel_build      yes
+
+variant universal {}
+
+build.args              CC="${configure.cc} [get_canonical_archflags cc]" \
+                        PREFIX=${prefix}
+
+destroot.destdir        PREFIX=${destroot}${prefix}
+
+platform darwin {
+    patchfiles-replace  patch-Makefile-so.diff patch-Makefile-dylib.diff
+
+    post-patch {
+        reinplace "s|__MacPorts_Version__|${version}|g" ${worksrcpath}/Makefile
+        reinplace "s|__MacPorts_Compatibility_Version__|[join [lrange [split ${version} .] 0 1] .]|g" ${worksrcpath}/Makefile
+    }
+
+    post-destroot {
+        ln -s libbz2.${version}.dylib ${destroot}${prefix}/lib/libbz2.[join [lrange [split ${version} .] 0 1] .].dylib
+        ln -s libbz2.${version}.dylib ${destroot}${prefix}/lib/libbz2.[join [lrange [split ${version} .] 0 0] .].dylib
+        ln -s libbz2.${version}.dylib ${destroot}${prefix}/lib/libbz2.dylib
+    }
+}
+
+livecheck.type          regex
+livecheck.regex         {<b>([0-9.]+)</b>}

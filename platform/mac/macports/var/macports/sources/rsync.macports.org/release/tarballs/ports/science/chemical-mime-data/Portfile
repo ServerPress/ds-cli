@@ -1,0 +1,56 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136197 2015-05-11 23:06:44Z devans@macports.org $
+
+PortSystem          1.0
+
+name                chemical-mime-data
+version             0.1.94
+revision            2
+
+categories          science chemistry
+platforms           darwin freebsd linux
+maintainers         nomaintainer
+license             LGPL-2
+supported_archs     noarch
+
+description         data files to support various chemical MIME types
+
+long_description    The chemical-mime-data package is a collection of data files to add support for various \
+                    chemical MIME types on Linux/UNIX desktops.
+
+homepage            http://chemical-mime.sourceforge.net/
+master_sites        sourceforge:project/chemical-mime/chemical-mime-data/${version}
+use_bzip2           yes
+
+checksums           rmd160  542274f991297e54f7ff881d0b49b8562fdb494c \
+                    sha256  4907cdf60e9edca0a453f6f24e9179ae9da085b67168e932ba44a4280316bff1
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:gettext \
+                    port:ImageMagick \
+                    port:libxslt \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         port:gtk3 \
+                    port:shared-mime-info
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+}
+
+configure.cmd       ./autogen.sh && ./configure
+
+configure.args      --disable-update-database \
+                    --without-gnome-mime
+
+post-activate {
+    system "${prefix}/bin/gtk-update-icon-cache-3.0 -f -t ${prefix}/share/icons/hicolor"
+    system "${prefix}/bin/update-mime-database ${prefix}/share/mime"
+}
+
+livecheck.regex     "/${name}/(\[a-zA-Z0-9\.\]+\.\[a-zA-Z0-9\.\]+)/"

@@ -1,0 +1,120 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142161 2015-11-05 03:22:04Z khindenburg@macports.org $
+
+PortSystem              1.0
+PortGroup               cmake 1.0
+PortGroup               qt4 1.0
+PortGroup               compilers 1.0
+
+name                    freecad
+version                 0.15.4671
+revision                1
+categories              cad
+platforms               darwin
+maintainers             gmail.com:mark.brethen \
+                        gmail.com:mschamschula \
+                        openmaintainer
+license                 LGPL-2+
+
+description \
+    FreeCAD is a general purpose feature-based, parametric 3D modeler.
+
+long_description \
+    FreeCAD is a general purpose feature-based, parametric 3D modeler for \
+    CAD, MCAD, CAx, CAE and PLM, aimed directly at mechanical engineering \
+    and product design but also fits a wider range of uses in engineering, \
+    such as architecture or other engineering specialties. It is 100% Open \
+    Source (LGPL2+ license) and extremely modular, allowing for very \
+    advanced extension and customization.
+
+homepage                http://www.freecadweb.org/
+master_sites            sourceforge:project/free-cad/FreeCAD%20Source/
+distname                ${name}_${version}
+worksrcdir              ${name}-${version}
+
+checksums               rmd160 384e482431c45872af24abb0228ef0aa8c864186 \
+                        sha256 8dda8f355cb59866a55c9c6096f39a3ebc5347892284db4c305352cc9be03bbc
+
+depends_lib-append      port:python27 \
+                        port:boost \
+                        port:xercesc \
+                        port:zlib \
+                        port:oce \
+                        port:swig \
+                        port:eigen3 \
+                        port:freetype \
+                        port:Coin-framework \
+                        port:SoQt \
+                        port:py27-matplotlib \
+                        port:py27-shiboken \
+                        port:py27-pyside \
+                        port:py27-pyside-tools \
+                        port:swig-python
+
+depends_run             port:qt4-mac-sqlite3-plugin
+
+patchfiles              cMake-FindCoin3D.cmake.diff \
+                        src-App-FreeCADInit.py.diff
+
+post-patch {
+    reinplace "s|QLibraryInfo::location.*|QLatin1String\(\"${applications_dir}/Qt4/\"\);|" \
+        ${worksrcpath}/src/Gui/Assistant.cpp
+
+    reinplace "s|/Applications|${applications_dir}|" \
+        ${worksrcpath}/src/Mod/OpenSCAD/OpenSCADUtils.py
+}
+
+compilers.choose        fc
+compilers.setup         -dragonegg -g95 require_fortran
+
+configure.args-delete   -DCMAKE_INSTALL_RPATH=${prefix}/lib \
+                        -DCMAKE_INSTALL_NAME_DIR=${prefix}/lib
+
+configure.args-append   -DCMAKE_INSTALL_RPATH=${prefix}/libexec/${name}/lib \
+                        -DCMAKE_INSTALL_NAME_DIR=${prefix}/libexec/${name}/lib \
+                        -DCMAKE_INSTALL_PREFIX=${prefix}/libexec/${name} \
+                        -DCMAKE_INSTALL_DATADIR=${prefix}/share/${name} \
+                        -DCMAKE_INSTALL_DOCDIR=${prefix}/share/doc/${name} \
+                        -DCMAKE_FRAMEWORK_PATH=${frameworks_dir} \
+                        -DPYSIDEUIC4BINARY=${prefix}/bin/pyside-uic-2.7 \
+                        -DPYSIDERCC4BINARY=${prefix}/bin/pyside-rcc-2.7
+
+pre-configure {
+    # The c++ compiler is used for linking instead of fc.
+    # -L needs a path to a directory.
+
+    set libgfortran [exec ${configure.fc} --print-file-name libgfortran.a]
+    configure.ldflags-append "-L[file dirname ${libgfortran}]"
+
+    set python_prefix [exec ${prefix}/bin/python2.7-config --prefix]
+    configure.args-append -DBUILD_ROBOT=NO \
+        -DPYTHON_LIBRARY=${python_prefix}/Python \
+        -DPYTHON_INCLUDE_DIR=${python_prefix}/Headers \
+        -DPYTHON_EXECUTABLE=${python_prefix}/bin/python2.7 \
+        -DShiboken_DIR=${python_prefix}/lib/cmake/Shiboken-1.2.2 \
+        -DPySide_DIR=${python_prefix}/lib/cmake/PySide-1.2.2 \
+        -DOCE_DIR=${frameworks_dir}/OCE.framework/Versions/0.15/Resources
+}
+
+post-destroot {
+    # link the executables back
+    ln -s ${prefix}/libexec/${name}/bin/FreeCAD \
+        ${destroot}${prefix}/bin
+
+    ln -s ${prefix}/libexec/${name}/bin/FreeCADCmd \
+        ${destroot}${prefix}/bin
+
+    # create stub App
+    set appdir ${destroot}${applications_dir}/FreeCAD.app
+    xinstall -d ${appdir}/Contents/MacOS
+    xinstall -d ${appdir}/Contents/Resources
+
+    xinstall -m 644 ${filespath}/Info.plist ${appdir}/Contents/
+    xinstall -m 644 ${filespath}/FreeCAD.icns ${appdir}/Contents/Resources/
+    xinstall -m 755 ${filespath}/FreeCAD ${appdir}/Contents/MacOS
+
+    reinplace -W ${appdir}/Contents "s,@@VERSION@@,${version},g" Info.plist
+    reinplace -W ${appdir}/Contents/MacOS "s,@@PREFIX@@,${prefix},g" FreeCAD
+}
+
+livecheck.regex         ${name}.(\[0-9.\]+)${extract.suffix}

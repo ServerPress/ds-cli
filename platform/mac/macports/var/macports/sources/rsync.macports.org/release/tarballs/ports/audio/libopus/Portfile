@@ -1,0 +1,33 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143129 2015-12-04 18:32:32Z devans@macports.org $
+
+PortSystem      1.0
+PortGroup       muniversal 1.0
+
+name            libopus
+version         1.1.1
+categories      audio
+license         BSD
+platforms       darwin
+maintainers     jeremyhu openmaintainer
+description     The Opus Audio Codec (IETF RFC 6716), refrence implementation
+
+long_description \
+    Opus is the first state-of-the-art, fully Free and Open audio codec \
+    ratified by a major standards organization.  It is reportedly better than \
+    all pre-existing codecs across the spectrum for voice, audio, archival, \
+    and real-time uses.
+
+homepage        http://www.opus-codec.org
+master_sites    http://downloads.xiph.org/releases/opus
+
+checksums       rmd160  f85e4bf9d7fa574ab44c6edd3516218cb9423dc3 \
+                sha256  9b84ff56bd7720d5554103c557664efac2b8b18acc4bbcc234cb881ab9a3371e
+
+distname        opus-${version}
+
+depends_build   port:pkgconfig
+
+livecheck.type  regex
+livecheck.url   ${master_sites}
+livecheck.regex opus-(\[\\d.\]+)${extract.suffix}

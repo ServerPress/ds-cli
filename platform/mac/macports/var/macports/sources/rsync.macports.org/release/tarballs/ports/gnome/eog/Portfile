@@ -1,0 +1,75 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142312 2015-11-09 22:48:31Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           gobject_introspection 1.0
+
+name                eog
+version             3.18.1
+license             GPL-2+
+set branch          [join [lrange [split ${version} .] 0 1] .]
+description         An image viewing and cataloging program.
+long_description    This is the Eye of Gnome, an image viewer program. \
+                    It is meant to be a fast and functional image viewer \
+                    as well as an image cataloging program.
+maintainers         devans openmaintainer
+categories          gnome
+platforms           darwin
+homepage            https://wiki.gnome.org/Apps/EyeOfGnome
+master_sites        gnome:sources/${name}/${branch}/
+
+use_xz              yes
+
+checksums           rmd160  e404f424a526a0c74a8239d94c86af32272a25ad \
+                    sha256  7b7bb47a680518701e2e724c8632fcf12dcb3c3e45ce1f2bdd4c4ace325793a7
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:itstool \
+                    port:yelp-tools \
+                    port:gtk-doc \
+                    port:gnome-common \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         port:desktop-file-utils \
+                    port:gtk3 \
+                    port:gnome-desktop \
+                    port:shared-mime-info \
+                    port:gsettings-desktop-schemas \
+                    port:libpeas \
+                    port:jpeg \
+                    port:librsvg \
+                    port:libexif \
+                    port:lcms2 \
+                    port:exempi \
+                    port:libxml2 \
+                    port:xorg-libX11
+
+depends_run         port:gnome-themes-standard \
+                    port:yelp
+
+gobject_introspection yes
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+}
+
+configure.cmd       ./autogen.sh
+
+configure.args      --enable-compile-warnings=minimum \
+                    --disable-schemas-compile \
+                    --disable-silent-rules
+
+notes               "For extra functionality install eog-plugins"
+
+post-activate {
+   system "${prefix}/bin/gtk-update-icon-cache-3.0 -f -t ${prefix}/share/icons/hicolor"
+   system "${prefix}/bin/update-desktop-database ${prefix}/share/applications"
+   system "${prefix}/bin/glib-compile-schemas ${prefix}/share/glib-2.0/schemas"
+}
+
+livecheck.type      gnome

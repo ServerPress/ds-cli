@@ -1,0 +1,30 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136605 2015-05-23 06:39:11Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           php 1.1
+
+name                php-yaml
+version             1.2.0
+categories-append   devel
+platforms           darwin
+maintainers         ryandesign openmaintainer
+license             PHP-3.01
+
+php.branches        5.3 5.4 5.5 5.6
+php.pecl            yes
+
+description         a PHP interface to the YAML parsing library
+
+long_description    ${description}
+
+checksums           rmd160  0ade207a0d1fcaf3b342b461219bb91b71512f10 \
+                    sha256  fdf0eec6bf16b0c45e58076a2048f96140a778463724fb82ab49ab5fb4c7e19a
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:libyaml
+    
+    configure.args      --with-yaml=${prefix}
+    
+    use_parallel_build  yes
+}

@@ -1,0 +1,55 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139610 2015-08-21 12:49:42Z takeshi@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        D-Programming-Language phobos 2.068.0 v
+categories          lang
+platforms           darwin
+license             Boost-1
+maintainers         takeshi openmaintainer
+description         Runtime library for the D programming language
+long_description \
+    Phobos is the standard runtime library that comes with the D language compiler.
+homepage            http://dlang.org/
+
+checksums           rmd160  ec6097c836d8680ee92b22e123642f88b5dfc531 \
+                    sha256  022d46a9d1e636545d5de5964f03978f005bb88d7ba0b6b64051ee6db6c765a2
+
+depends_lib         port:druntime
+
+patchfiles          patch-gzlib.c.diff
+
+use_configure       no
+
+if {${build_arch} eq "x86_64"} {
+    set model 64
+} else {
+    set model 32
+}
+
+pre-build {
+    file mkdir ${workpath}/dmd
+    system "echo ${version} > ${workpath}/dmd/VERSION"
+}
+build.args          -f posix.mak \
+                    DRUNTIME=${prefix}/lib/libdruntime.a \
+                    DRUNTIME_PATH=${prefix}/include/druntime \
+                    CC=${configure.cc} \
+                    CFLAGS="${configure.cppflags} ${configure.cflags} [get_canonical_archflags cc]" \
+                    DMD=${prefix}/bin/dmd \
+                    DFLAGS="-w -d -m${model} -O -release" \
+                    MODEL=${model}
+build.target        ""
+
+destroot {
+    xinstall -m 755 -d ${destroot}${prefix}/lib
+    xinstall -m 644 ${worksrcpath}/generated/osx/release/${model}/lib${name}2.a \
+        ${destroot}${prefix}/lib
+    xinstall -d -m 755 ${destroot}${prefix}/include
+    xinstall -d -m 755 ${destroot}${prefix}/include/${name}
+    eval xinstall -m 644 [glob ${worksrcpath}/*.d] ${destroot}${prefix}/include/${name}
+    file copy ${worksrcpath}/etc ${destroot}${prefix}/include/${name}
+    file copy ${worksrcpath}/std ${destroot}${prefix}/include/${name}
+}

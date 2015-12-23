@@ -1,0 +1,36 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=portfile:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142815 2015-11-24 03:22:35Z jmr@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                impacket
+version             0.9.12
+python.default_version 27
+maintainers         g5pw openmaintainer
+
+categories          net devel
+description         Impacket is a collection of Python classes focused on \
+                    providing access to network packets.
+long_description    ${description} Impacket allows Python developers to craft \
+                    and decode network packets in simple and consistent manner. \
+                    It includes support for low-level protocols such as IP, UDP \
+                    and TCP, as well as higher-level protocols such as NMB and \
+                    SMB. Impacket is highly effective when used in conjunction \
+                    with a packet capture utility or package such as Pcapy. \
+                    Packets can be constructed from scratch, as well as parsed \
+                    from raw data. Furthermore, the object oriented API makes \
+                    it simple to work with deep protocol hierarchies.
+
+platforms           darwin
+license             Apache-1.1
+
+homepage            http://corelabs.coresecurity.com/index.php?module=Wiki&action=view&type=tool&name=Impacket
+
+master_sites        https://pypi.python.org/packages/source/i/${name}/
+
+checksums           rmd160  6d67c02f6e7a15a5d5ab2d24297d66cdce6b5442 \
+                    sha256  59cd71e69ac66e6b2905d663e475772f1f94b93b039f929ba3d655a730fbd935
+
+livecheck.type      regex
+livecheck.regex     "(\\d+(\\.\\d+){2,3}), updated on"

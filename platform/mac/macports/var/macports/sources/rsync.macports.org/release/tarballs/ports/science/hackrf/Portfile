@@ -1,0 +1,43 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138969 2015-07-25 13:34:22Z michaelld@macports.org $
+
+PortSystem          1.0
+PortGroup           cmake 1.0
+PortGroup           github 1.0
+
+github.setup        mossmann hackrf 90e16536130fdc88c3b8a039acc1b7218783973d
+version             20150724
+checksums           rmd160 7b3a616788355f4591ae4c43d95ebd774877f348 \
+                    sha256 52c46df96dd8f186bc565bd7408c06bc1cc80ec11f0e728e2add0a8e7b8ff71a
+
+maintainers         michaelld openmaintainer
+
+description         ${name} is a project to build a low cost software radio (SDR) platform.
+
+categories          science comms
+license             GPL-3
+platforms           darwin macosx
+
+long_description    ${description}
+
+depends_build-append port:pkgconfig
+depends_lib-append   path:lib/libusb-1.0.dylib:libusb
+
+# Many compilers do not recognize "-std=gnu90", so remove it.
+# Temporary patch.
+
+patchfiles-append   patch-no-gnu90.diff
+
+# do VPATH (out of source tree) build
+
+cmake.out_of_source yes
+
+# set last configure argument to the reletive path
+# to the top-level cmake source
+
+configure.post_args ../${worksrcdir}/host
+
+# remove top-level library path, such that internal libraries are used
+# instead of any already-installed ones.
+
+configure.ldflags-delete -L${prefix}/lib

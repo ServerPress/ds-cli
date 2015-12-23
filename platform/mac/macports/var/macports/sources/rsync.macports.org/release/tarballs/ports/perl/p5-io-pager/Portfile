@@ -1,0 +1,27 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         IO-Pager 0.34
+license             Permissive
+maintainers         nomaintainer
+
+description         IO-Pager perl module
+long_description    ${description}
+
+platforms           darwin
+
+extract.suffix      .tgz
+
+checksums           rmd160  91d06da489e1fb4a267441c4922b2c81ddf09a49 \
+                    sha256  31569ca0af93139e3ca7ce8aae38992930df95b047cffec2db165befca3ce00b
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-file-which
+    
+    supported_archs noarch
+}

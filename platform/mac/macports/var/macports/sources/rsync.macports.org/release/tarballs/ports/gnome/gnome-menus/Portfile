@@ -1,0 +1,48 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134962 2015-04-12 08:20:29Z devans@macports.org $
+
+PortSystem      1.0
+PortGroup       gobject_introspection 1.0
+
+name            gnome-menus
+version         3.13.3
+set branch      [join [lrange [split ${version} .] 0 1] .]
+maintainers     devans openmaintainer
+categories      gnome
+license         LGPL-2+
+platforms       darwin
+description     Menu component for the GNOME 3 Desktop.
+
+long_description \
+                ${description}
+
+homepage        http://www.gnome.org/
+master_sites    gnome:sources/${name}/${branch}/
+
+use_xz          yes
+
+checksums       rmd160  08cf3c2d28b43163630a550cdb7a4f5e8239cfb4 \
+                sha256  7c446eb8ff381df52b8ba04e5886497595e84d1bc46caf7af764d894736c654e
+
+depends_build   port:pkgconfig \
+                port:intltool \
+                port:gnome-common \
+                port:autoconf \
+                port:automake \
+                port:libtool
+
+depends_lib     path:lib/pkgconfig/glib-2.0.pc:glib2
+
+gobject_introspection yes
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+}
+
+configure.cmd       ./autogen.sh
+
+configure.args  --disable-silent-rules
+
+livecheck.type  gnome-with-unstable

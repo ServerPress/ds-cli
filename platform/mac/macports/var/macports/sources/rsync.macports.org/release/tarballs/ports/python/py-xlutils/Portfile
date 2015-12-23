@@ -1,0 +1,35 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 126773 2014-10-15 02:01:38Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-xlutils
+version             1.7.1
+platforms           darwin
+license             MIT
+maintainers         nomaintainer
+
+supported_archs     noarch
+
+description         Utilities for working with Excel files
+long_description    This package provides a collection of utilities for working with Excel files.
+homepage            http://www.python-excel.org
+
+master_sites        http://pypi.python.org/packages/source/x/xlutils/
+distname            xlutils-${version}
+checksums           rmd160  2cd03a91e3ffdbdfeb5374199894a416b67f54d4 \
+                    sha256  cdbde90603d626a45bf36d45368e5b83484b545d230fc91f10fad89b2d766384
+
+python.versions     27
+
+if {${name} ne ${subport}} {
+    depends_run     port:py${python.version}-errorhandler \
+                    port:py${python.version}-xlrd \
+                    port:py${python.version}-xlwt
+    livecheck.type  none
+} else {
+    livecheck.type     regex
+    livecheck.url      http://pypi.python.org/pypi/xlutils
+    livecheck.regex    xlutils-(\[1-9\]\\.\[0-9.\]+)\\.tar\\.\[bg\]z
+}

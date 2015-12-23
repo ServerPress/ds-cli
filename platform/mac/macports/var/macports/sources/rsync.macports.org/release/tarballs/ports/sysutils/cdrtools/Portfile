@@ -1,0 +1,87 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 127901 2014-11-06 15:09:44Z mf2k@macports.org $
+
+PortSystem          1.0
+PortGroup           compiler_blacklist_versions 1.0
+
+name                cdrtools
+version             3.00
+revision            1
+categories          sysutils
+# listing all these licenses is somewhat redundant when taken as a whole,
+# but different separable components are licensed differently
+license             CDDL-1 BSD LGPL-2.1 GPL-2+ GPL-2
+platforms           darwin
+conflicts           dvdrtools
+
+description         ISO 9660 filesystem and CD creation tools
+long_description    The cdrtools software includes programs to create \
+                    and/or extract ISO 9660 filesystems, verify their \
+                    integrity, and write them to a disc.
+homepage            http://cdrecord.org
+maintainers         nomaintainer
+master_sites        sourceforge:project/cdrtools
+
+checksums           rmd160  210684ab5e286ef59b788b49bd0b74d88f6435f4 \
+                    sha256  7f9cb64820055573b880f77b2f16662a512518336ba95ab49228a1617973423d
+
+use_bzip2           yes
+
+depends_build       port:smake
+
+depends_lib         port:gettext
+
+patchfiles          patch-include_schily_sha2.h
+post-patch {
+    reinplace -locale C "s|/opt/schily|${prefix}|g" \
+        ${worksrcpath}/DEFAULTS/Defaults.darwin \
+        ${worksrcpath}/DEFAULTS/Defaults.mac-os10 \
+        ${worksrcpath}/DEFAULTS_ENG/Defaults.darwin \
+        ${worksrcpath}/DEFAULTS_ENG/Defaults.mac-os10 \
+        ${worksrcpath}/libfind/find.c \
+        ${worksrcpath}/libfind/find_main.c \
+        ${worksrcpath}/librscg/scsi-remote.c \
+        ${worksrcpath}/TEMPLATES/Defaults.gcc
+}
+
+use_configure       no
+
+# hangs the same way as smake itself with both llvm-gcc-4.2 and Xcode 4.1's clang
+# https://trac.macports.org/ticket/30310
+compiler.blacklist  llvm-gcc-4.2 macports-llvm-gcc-4.2 {clang < 300}
+
+build.cmd           smake
+build.args          CC=${configure.cc}
+
+use_parallel_build  no
+
+post-build {
+    # The build script doesn't notice when a program fails to build, so
+    # we must verify it ourselves. See
+    # https://trac.macports.org/ticket/34823
+    set progs {btcflash cdda2wav cdrecord devdump isodebug isodump isoinfo isovfy mkisofs readcd scgcheck scgskeleton}
+    fs-traverse path ${worksrcpath} {
+        if {[file isfile ${path}] && [string match {*/OBJ/*} ${path}]} {
+            set file [file tail ${path}]
+            set prog_index [lsearch ${progs} ${file}]
+            if {${prog_index} != -1} {
+                set progs [lreplace ${progs} ${prog_index} ${prog_index}]
+            }
+        }
+    }
+    if {[llength ${progs}] > 0} {
+        ui_error "The following programs did not build: [join ${progs} {, }]"
+        return -code error "build failed"
+    }
+}
+
+destroot.args       DEFINSUSR=${install.user} \
+                    DEFINSGRP=${install.group} \
+                    INS_BASE=${prefix}
+
+post-destroot {
+    move ${destroot}/etc/default ${destroot}${prefix}/etc/
+}
+
+livecheck.url       http://sourceforge.net/projects/cdrtools/files/
+livecheck.regex     ${name}-(\[0-9.\]+)${extract.suffix}

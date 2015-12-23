@@ -1,0 +1,26 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         HTML-WikiConverter-XWiki 0.02
+revision            2
+maintainers         nomaintainer
+license             {Artistic-1 GPL}
+
+description         HTML::WikiConverter::XWiki - Convert XWiki markup
+long_description    This module contains rules for converting HTML into XWiki markup. \
+                    See HTML::WikiConverter for additional usage details.
+
+checksums           rmd160  1f717328157e59c14d13e04de2926a30b6f95528 \
+                    sha256  7965db577c3e7f3f350d776dc75b32632fe8102a5acf7c6886be48396b261c66
+
+platforms           darwin
+supported_archs     noarch
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-html-wikiconverter
+}

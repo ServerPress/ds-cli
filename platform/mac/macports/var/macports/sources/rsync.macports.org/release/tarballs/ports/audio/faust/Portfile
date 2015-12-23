@@ -1,0 +1,60 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 126285 2014-10-07 03:10:00Z ryandesign@macports.org $
+
+PortSystem              1.0
+
+name                    faust
+conflicts               faust-devel faust2-devel
+version                 0.9.67
+revision                1
+categories              audio lang
+platforms               darwin
+maintainers             ryandesign
+license                 GPL-2
+master_sites            sourceforge:project/faudiostream
+homepage                http://faust.grame.fr/
+use_zip                 yes
+
+description             functional programming language for realtime audio
+
+long_description        Faust is a functional programming language \
+                        specifically designed for realtime audio applications \
+                        and plugins.
+
+checksums               rmd160  faba6c82eb8c1a21e8f58cdd85de4cbabd8c88d3 \
+                        sha256  a176d435035c8c7f4c5b6c7162e62d3d83143f64cc713b2f91c07e334aa21b19
+
+post-patch {
+    eval reinplace "s|/usr/local|${prefix}|g" \
+        ${worksrcpath}/compiler/parser/enrobage.cpp \
+        ${worksrcpath}/compiler/tlib/compatibility.cpp \
+        ${worksrcpath}/tools/scbuilder/scbuilder \
+        [glob ${worksrcpath}/tools/faust2appls/faust2*]
+    fs-traverse f ${worksrcpath} {
+        switch [file rootname [file tail ${f}]] {
+            Makefile {
+                reinplace "s|/usr/local|${prefix}|g" ${f}
+                reinplace "s|/opt/local|${prefix}|g" ${f}
+            }
+        }
+    }
+}
+
+use_configure           no
+
+variant universal {}
+
+build.args-append       ARCHFLAGS="[get_canonical_archflags cxx]" \
+                        CXX="${configure.cxx} [get_canonical_archflags cxx]"
+
+post-destroot {
+    set docdir ${destroot}${prefix}/share/doc/${subport}
+    xinstall -d ${docdir}
+    xinstall -m 644 -W ${worksrcpath} \
+        COPYING \
+        README \
+        WHATSNEW \
+        ${docdir}
+}
+
+livecheck.regex         ${name}-(\[0-9a-z.\]+)${extract.suffix}

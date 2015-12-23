@@ -1,0 +1,24 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143026 2015-12-02 03:45:54Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Test-Deep 1.120
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Provides lots of flexibility when testing deep structures
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  657a339d3130eadbf5b22792aec71d11cd001da1 \
+                    sha256  207ef8ea71291e5cf8258d1a4d98d360b9b5870989d187b3e2ff3c0fb201becd
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-test-simple
+
+    supported_archs noarch
+}

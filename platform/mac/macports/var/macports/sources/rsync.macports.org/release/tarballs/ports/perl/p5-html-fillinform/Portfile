@@ -1,0 +1,28 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         HTML-FillInForm 2.21
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+
+description         module for automatically filling HTML forms
+long_description    This module automatically inserts data from a previous \
+                    HTML form into the HTML input and select tags. It is a subclass of \
+                    HTML::Parser and uses it to parse the HTML and insert the values \
+                    into the form tags.
+
+checksums           rmd160 bd0a1a460a54cf9325a315dce0e858e978cdd399 \
+                    sha256 d3af183cc8327614f1192929f4f0919b6e9725fc19c6f3730ce556a8daea6cf6
+
+platforms           darwin
+supported_archs     noarch
+
+if {${perl5.major} != ""} {
+    # html-parser is not listed in dependencies (we should report upstream)
+    depends_lib-append \
+                    port:p${perl5.major}-html-parser
+}

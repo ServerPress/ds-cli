@@ -1,0 +1,31 @@
+# $Id: Portfile 106533 2013-05-30 06:35:47Z kimuraw@macports.org $
+
+PortSystem		1.0
+PortGroup		ruby 1.0
+
+ruby.setup		gettext 2.3.9 gem {} rubygems
+revision		0
+maintainers		kimuraw openmaintainer
+description		a Localization library and tools which modeled GNU gettext.
+long_description	This library provides to translate original messages to \
+					localized messages properly using client-side locale \
+					information(environment variable or CGI variable).\
+					And the tools for developers support to create, use, and \
+					modify localized message files(message catalogs) easily.
+
+categories-append	devel
+depends_run-append	port:rb-locale
+homepage		http://ruby-gettext.github.com/
+license			Ruby
+checksums		md5     0e4d5216d4d73ffed15c15ac1b686d61 \
+				sha1    b30db6ef766234275aff24d714158fe6608fd2b7 \
+				rmd160  cd4198a7c11de78eb0b03d86454169eea600be4b
+platforms		darwin
+
+post-destroot {
+	reinplace "s|^#!.*ruby|#!${ruby.bin}|" ${destroot}${ruby.bindir}/rxgettext
+	reinplace "s|^#!.*ruby|#!${ruby.bin}|" ${destroot}${ruby.bindir}/rmsginit
+	reinplace "s|^#!.*ruby|#!${ruby.bin}|" ${destroot}${ruby.bindir}/rmsgfmt
+	reinplace "s|^#!.*ruby|#!${ruby.bin}|" ${destroot}${ruby.bindir}/rmsgmerge
+}
+

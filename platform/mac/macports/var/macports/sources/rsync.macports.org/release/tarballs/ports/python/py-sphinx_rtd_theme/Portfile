@@ -1,0 +1,34 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141097 2015-10-10 19:45:40Z mcalhoun@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           github 1.0
+
+github.setup        snide sphinx_rtd_theme 0.1.9
+revision            1
+name                py-sphinx_rtd_theme
+platforms           darwin
+supported_archs     noarch
+license             MIT BSD
+maintainers         nomaintainer
+
+description         ReadTheDocs.org theme for Sphinx 2013 version
+long_description    ${description}
+
+# do not download file from github since the one from pypi is significantly smaller
+master_sites        https://pypi.python.org/packages/source/s/sphinx_rtd_theme
+
+checksums           rmd160  4fd81f7ac50fcf507b6c1996c7194d9b769e30dd \
+                    sha256  273846f8aacac32bf9542365a593b495b68d8035c2e382c9ccedcac387c9a0a1
+
+# version 0.1.9 used to fetch from github, whose file has different checksums as current file from pypi
+dist_subdir          ${name}/${version}_1
+
+python.versions     26 27 33 34 35
+
+if {$subport ne $name} {
+    depends_build   port:py${python.version}-setuptools
+
+    livecheck.type      none
+}

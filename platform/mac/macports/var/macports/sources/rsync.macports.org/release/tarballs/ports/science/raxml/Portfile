@@ -1,0 +1,103 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 121955 2014-07-12 05:25:40Z sean@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+PortGroup           mpi 1.0
+
+github.setup        stamatak standard-RAxML 7.7.6 v
+checksums           sha256  7562b307bc50e38162f104271793a1c8f98f866c2342bea21afe6df6a982fd82 \
+                    rmd160  da76d6623515b7d8f78a69aaf4eec713508789af
+name                raxml
+description         Estimation of phylogenetic trees
+long_description    RAxML is a program for sequential and parallel \
+                    estimation of phylogenetic trees written by \
+                    Alexandros Stamatakis.
+license             GPL-2+
+maintainers         gmail.com:mattoates
+categories          science biology
+homepage            http://www.exelixis-lab.org/
+platforms           darwin
+
+compilers.choose    cc
+mpi.setup
+
+use_configure       no
+
+#Strings used by the variant options
+set HPCm ""
+set HPCb ""
+set EXTm ""
+set EXTb ""
+
+#Use the HYBRID implementation
+
+variant hybrid conflicts pthreads description {Hybrid MPI implementation} {
+    if {![mpi_variant_isset]} {
+        return -code error "$name: Variant hybrid requires an mpi variant"
+    }
+    set HPCm ".HYBRID"
+    set HPCb "-HYBRID"
+}
+
+#Use the MPI implementation if hybrid is not selected
+if {[mpi_variant_isset] && ![variant_isset hybrid]} {
+    set HPCm ".MPI"
+    set HPCb "-MPI"
+}
+
+#Use the pthreads implementation (default)
+variant pthreads conflicts hybrid description {Pthreads implementation} {
+    if {[mpi_variant_isset]} {
+        return -code error "$name: Variant pthreads conflicts with mpi"
+    }
+    set HPCm ".PTHREADS"
+    set HPCb "-PTHREADS"
+}
+
+if {![mpi_variant_isset]} {
+    default_variants    +pthreads
+}
+
+#For Intel machines add SSE and AVX as a variant and use it by default with pthreads
+if {${build_arch} eq "i386" || ${build_arch} eq "x86_64"} {
+    variant sse3 conflicts avx description {Use the SSE3 extended instruction set from Intel since 2004} {
+        set EXTm ".SSE3"
+        set EXTb "-SSE3"
+    }
+
+    variant avx conflicts sse3 description {Use the AVX extended instruction set from Intel i7 (sandy bridge) and AMD Bulldozer} {
+        pre-fetch {
+            if {![avx_compiler_isset]} {
+                return -code error "$name: Variant avx needs a clang-derived compiler"
+            }
+        }
+        set EXTm ".AVX"
+        set EXTb "-AVX"
+    }
+
+    if {![catch {sysctl hw.optional.sse3} result] && ${result} == 1} {
+        if {![catch {sysctl hw.optional.avx1_0} result] && ${result} == 1} {
+            default_variants-append +avx
+        } else {
+            default_variants-append  +sse3
+        }
+    }
+} else {
+    post-patch {
+        reinplace "s/-msse//" ${worksrcpath}/Makefile.gcc \
+                              ${worksrcpath}/Makefile.PTHREADS.gcc \
+                              ${worksrcpath}/Makefile.MPI.gcc
+    }
+}
+
+#Make sure we are using the correct Makefile for this variant combo
+pre-build {
+    build.pre_args      -f Makefile${EXTm}${HPCm}.gcc
+    build.args-append   CC="${configure.cc}"
+}
+
+#We only need the single raxml binary
+destroot {
+    copy ${worksrcpath}/raxmlHPC${HPCb}${EXTb} ${destroot}${prefix}/bin/raxml
+}

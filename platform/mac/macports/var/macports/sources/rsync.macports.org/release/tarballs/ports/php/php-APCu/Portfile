@@ -1,0 +1,32 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143699 2015-12-18 11:02:04Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           php 1.1
+
+name                php-APCu
+version             4.0.10
+categories          php devel
+platforms           darwin
+maintainers         ryandesign
+license             PHP-3.01
+
+php.branches        5.3 5.4 5.5 5.6
+php.pecl            yes
+
+description         APC User Cache
+
+long_description    APCu contains the user-level functionality from APC
+
+checksums           rmd160  66b96b95353e2cfc60828c56e0b2297f184cdf64 \
+                    sha256  8dee6680924107d2aaf827f9cb8ef0e8e09c47bb38712a3439eddabe3ce41b40
+
+if {${name} ne ${subport}} {
+    conflicts       ${php}-APC ${php}-eaccelerator ${php}-xcache
+
+    distname        apcu-${version}
+
+    configure.args-append --enable-apcu-spinlocks
+
+    use_parallel_build  yes
+}

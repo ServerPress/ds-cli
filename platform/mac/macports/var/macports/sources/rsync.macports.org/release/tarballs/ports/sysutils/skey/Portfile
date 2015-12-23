@@ -1,0 +1,29 @@
+# $Id: Portfile 104290 2013-03-23 09:54:29Z jmr@macports.org $
+
+PortSystem              1.0
+
+name                    skey
+version                 1.1.5
+revision                1
+categories              sysutils security
+license                 MIT BSD Permissive
+maintainers             nomaintainer
+description             OpenBSD One Time Passwords (OTP)
+long_description        ${description}
+platforms               darwin freebsd netbsd
+master_sites            ftp://mirror.mcs.anl.gov/pub/gentoo/distfiles/  \
+                        ftp://mirror.iawnet.sandia.gov/pub/gentoo/distfiles/ \
+                        http://ftp.ucsb.edu/pub/mirrors/linux/gentoo/distfiles/ \
+                        http://gentoo.osuosl.org/distfiles/ \
+                        http://de-mirror.org/distro/gentoo/distfiles/ \
+                        http://www.mirrorservice.org/sites/www.ibiblio.org/gentoo/distfiles/
+
+use_bzip2               yes
+
+checksums               md5     af816298e3a0bc722380d0fe480189d9 \
+                        sha1    d55fb286098900cdf3eb6b174a720a06c722312a \
+                        rmd160  33d97cbcd6dbc91bdca5b27056d51d1f5d06b68d
+
+patchfiles              patch-Makefile.in.diff
+
+configure.args          --mandir=${prefix}/share/man

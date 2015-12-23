@@ -1,0 +1,51 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139155 2015-08-04 14:34:47Z khindenburg@macports.org $
+
+PortSystem          1.0
+
+name                smartmontools
+version             6.4
+categories          sysutils
+license             GPL-2+
+platforms           darwin
+
+maintainers         gmail.com:rjvbertin openmaintainer
+
+description         SMART hard drive monitoring
+
+long_description \
+    Two utility programs (smartctl and smartd) to control and monitor \
+    storage systems using the Self-Monitoring, Analysis and Reporting \
+    Technology System (SMART) built into most modern ATA and SCSI hard \
+    disks. In many cases, these utilities will provide advanced warning \
+    of disk degradation and failure.
+
+homepage            http://smartmontools.sourceforge.net/
+master_sites        sourceforge
+
+checksums           rmd160  a90387c07488cfd3b1f87a34dcf9297983e174c5 \
+                    sha256  eab75600c1eda9c34b13097db71138ab376f3dad8a6a4667fb4d1d081feb7a85
+
+configure.args      --mandir=${prefix}/share/man \
+                    --with-drivedb \
+                    --without-savestates \
+                    --without-attributelog \
+                    --enable-sample \
+                    --with-libcap-ng=no
+
+destroot.keepdirs   ${destroot}${prefix}/var/run \
+                    ${destroot}${prefix}/var/lib/smartmontools
+
+default_variants    +savestates +attributelog
+
+variant savestates description {Use default smartd state files} {
+    configure.args-replace --without-savestates --with-savestates
+}
+
+variant attributelog description {Use default smartd attribute log files} {
+    configure.args-replace --without-attributelog --with-attributelog
+}
+
+startupitem.create      yes
+startupitem.name        smartd
+startupitem.executable  ${prefix}/sbin/smartd -n

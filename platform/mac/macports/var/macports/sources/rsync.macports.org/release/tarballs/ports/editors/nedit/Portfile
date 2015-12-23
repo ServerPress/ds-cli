@@ -1,0 +1,61 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134317 2015-03-22 05:37:44Z ionic@macports.org $
+
+PortSystem 1.0
+
+name             nedit
+version          5.5
+revision         3
+categories       editors
+license          GPL-2+
+maintainers      nomaintainer
+homepage         http://www.nedit.org/
+description      A multi-purpose text editor for the X Window System.
+long_description \
+    NEdit is a multi-purpose text editor for the X Window System, which \
+    combines a standard, easy to use, graphical user interface with the \
+    thorough functionality and stability required by users who edit text \
+    eight hours a day. It provides intensive support for development in a \
+    wide variety of languages, text processors, and other tools, but at \
+    the same time can be used productively by just about anyone who needs \
+    to edit text.
+platforms        darwin
+
+regsub -all      \\. $version _ xversion
+master_sites     sourceforge:project/nedit/nedit-source/${version} \
+                 ftp://ftp.nedit.org/pub/NEdit/v${xversion}/
+distname         ${name}-${version}-src
+use_bzip2        yes
+checksums        md5 48cb3dce52d44988f3a4d7c6f47b6bbe
+
+depends_lib      lib:libXm:openmotif \
+                 port:xpm
+
+worksrcdir       ${name}-${version}
+
+patchfiles       patch-Makefile.macosx \
+                 patch-segfault.diff
+
+use_configure    no
+
+build.target    macosx
+build.args      MOTIFLINK="${configure.ldflags} -lXm" \
+                MOTIFDIR=${prefix} \
+                LDFLAGS="${configure.ldflags}" \
+                CFLAGS="${configure.cppflags} ${configure.cflags} -DBUILD_UNTESTED_NEDIT" \
+                CPPFLAGS="${configure.cppflags}" \
+                CC="${configure.cc}"
+
+destroot {
+    xinstall -s -m 755 ${worksrcpath}/source/nedit \
+        ${destroot}${prefix}/bin/nedit
+    xinstall -m 444 ${worksrcpath}/doc/nedit.man \
+        ${destroot}${prefix}/share/man/man1/nedit.1
+
+    xinstall -s -m 755 ${worksrcpath}/source/nc \
+        ${destroot}${prefix}/bin/nedit-nc
+    xinstall -m 444 ${worksrcpath}/doc/nc.man \
+        ${destroot}${prefix}/share/man/man1/nedit-nc.1
+}
+
+livecheck.regex {/nedit-source/(\d+(?:\.\d+)+)/}

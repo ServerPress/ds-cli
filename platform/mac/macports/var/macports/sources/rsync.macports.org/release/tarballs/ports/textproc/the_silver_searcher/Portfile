@@ -1,0 +1,37 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141241 2015-10-13 11:26:02Z g5pw@macports.org $
+
+PortSystem          1.0
+
+name                the_silver_searcher
+version             0.31.0
+categories          textproc
+maintainers         g5pw openmaintainer
+platforms           darwin
+license             Apache-2
+description         A code-searching tool similar to ack, but faster.
+long_description    An attempt to make something better than ack, which \
+                    itself is better than grep.
+
+homepage            http://geoff.greer.fm/ag
+master_sites        ${homepage}/releases
+
+checksums           rmd160  418158de9691425cd619d83eb3123e139e1d7465 \
+                    sha256  2b556d61a702d04e2638532aba08bccf178523b6a38464a25305563581823271
+
+depends_build       port:pkgconfig
+depends_lib         port:pcre \
+                    port:xz
+
+build.args-append   V=1
+
+post-destroot {
+    xinstall -d -m 755 ${destroot}${prefix}/share/bash-completion/completions
+    move \
+        ${destroot}${prefix}/share/${name}/completions/ag.bashcomp.sh \
+        ${destroot}${prefix}/share/bash-completion/completions/ag
+}
+
+livecheck.type      regex
+livecheck.url       ${homepage}
+livecheck.regex     ${name}-(\\d+(?:\\.\\d+)*)

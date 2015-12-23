@@ -1,0 +1,40 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim: fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141534 2015-10-20 11:14:09Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-alembic
+version             0.8.3
+revision            0
+categories-append   databases
+platforms           darwin
+license             MIT
+supported_archs     noarch
+
+python.versions     27 34 35
+
+maintainers         stromnov openmaintainer
+
+description         A database migration tool for SQLAlchemy.
+long_description    ${description}
+
+homepage            http://bitbucket.org/zzzeek/alembic
+master_sites        pypi:[string index ${python.rootname} 0]/${python.rootname}
+
+distname            ${python.rootname}-${version}
+
+checksums           rmd160  0e3ee268d089cb59f9fdb5201cec43cc36ac6848 \
+                    sha256  eeac36589c1bf393e2040de01514a0d101ef17039957300209b0b44f3ddffce9
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-setuptools
+
+    depends_lib-append  port:py${python.version}-sqlalchemy \
+                        port:py${python.version}-mako
+
+    livecheck.type      none
+} else {
+    livecheck.type      pypi
+}

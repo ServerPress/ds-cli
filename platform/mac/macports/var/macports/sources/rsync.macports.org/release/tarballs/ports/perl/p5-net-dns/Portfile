@@ -1,0 +1,25 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143430 2015-12-12 14:13:49Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup perl5     1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Net-DNS 1.04
+license             MIT
+maintainers         devans openmaintainer
+description         Perl interface to the DNS resolver
+long_description    Net::DNS is a DNS resolver implemented in Perl.  It \
+                    allows the programmer to perform nearly any type of \
+                    DNS query from a Perl script.
+
+platforms           darwin
+
+checksums           rmd160  cd7685d42e23b6bb4d2a04baa695e4c15655f202 \
+                    sha256  4b9f220304c5722658fbdbe4db31ab77486b5f0aaada78c9d1b528e4b0680965
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-digest-hmac \
+                    port:p${perl5.major}-io-socket-ip
+}

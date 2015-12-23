@@ -1,0 +1,37 @@
+# $Id: Portfile 104704 2013-04-01 03:14:41Z jeremyhu@macports.org $
+
+PortSystem          1.0
+
+name                wput
+version             0.6.2
+revision            1
+categories          net
+license             GPL-2+
+platforms           darwin
+maintainers         nomaintainer
+description         wput is like wget but is for uploading files to ftp-servers
+long_description \
+   wput is a tiny program that looks like wget and is designed to upload \
+   files or whole directories to remote ftp-servers
+
+homepage            http://wput.sourceforge.net/
+master_sites        sourceforge
+extract.suffix      .tgz
+checksums           md5     a14c4c13d91d04d6119bdc977e8a8bdf \
+                    sha1    c058f76395672d1fbbb839c958d6537e82fc88b7 \
+                    rmd160  a3a62556ca258048ff5110ecdec199c98107766f
+patchfiles          patch-src-ftplib.h patch-src-socketlib.c \
+                    patch-src-Makefile.in
+
+depends_lib         port:gettext port:libiconv
+
+configure.args      --with-libintl-prefix=${prefix} \
+                    --with-libiconv-prefix=${prefix} \
+                    --without-ssl
+
+destroot.destdir    prefix=${destroot}${prefix}
+
+variant ssl description {Enable SSL/TLS support} {
+   depends_lib-append      port:gnutls
+   configure.args-append   --with-ssl
+}

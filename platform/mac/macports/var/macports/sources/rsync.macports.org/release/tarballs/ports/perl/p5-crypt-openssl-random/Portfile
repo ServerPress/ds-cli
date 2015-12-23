@@ -1,0 +1,23 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142011 2015-11-02 02:42:20Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Crypt-OpenSSL-Random 0.11
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Crypt::OpenSSL::Random - OpenSSL/LibreSSL pseudo-random number generator access
+long_description    Crypt::OpenSSL::Random provides the ability to seed and query the OpenSSL and \
+                    LibreSSL library's pseudo-random number generators.
+
+platforms           darwin
+
+checksums           rmd160  64d68cd1db9659e6f10783ee6d1d06d7b8632abb \
+                    sha256  bb8c81c6a39b9b13a22d818ee9a746242f136f0fadceb6b9776ae615e7524c7a
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    path:lib/libssl.dylib:openssl
+}

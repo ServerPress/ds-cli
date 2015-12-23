@@ -1,0 +1,52 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143672 2015-12-17 14:48:53Z khindenburg@macports.org $
+
+PortSystem          1.0
+
+name                mksh
+version             R52
+categories          shells
+platforms           darwin
+maintainers         gmail.com:mschamschula openmaintainer
+license             BSD
+
+description         A free implementation of the Korn Shell programming language
+long_description    A free implementation of the Korn Shell programming language and \
+                    a successor to the Public Domain Korn Shell (pdksh).
+
+homepage            https://www.mirbsd.org/mksh.htm
+master_sites        https://www.mirbsd.org/MirOS/dist/mir/mksh/
+
+extract.suffix      .tgz
+worksrcdir          ${name}
+
+checksums           rmd160  a0b715f52db301dd5dd99a4c50c39646999a91d6 \
+                    sha256  45c2f5cdd2c63a6a831ffae65cea0afd021eabb983537aa21ff893ee38b3768f
+
+post-extract {
+    file attributes ${worksrcpath}/Build.sh -permissions a+x
+}
+
+use_configure       no
+
+variant universal {}
+
+build.cmd           ./Build.sh
+build.target
+if {${build.jobs} > 1} {
+    build.args-append -j
+}
+build.env           CC="${configure.cc}" \
+                    CFLAGS="${configure.cflags} [get_canonical_archflags cc]" \
+                    CPPFLAGS="${configure.cppflags}" \
+                    LDFLAGS="${configure.ldflags} [get_canonical_archflags ld]"
+
+destroot {
+    xinstall -d ${destroot}${prefix}/share/doc/mksh/examples/
+    xinstall -m 755 ${worksrcpath}/mksh ${destroot}${prefix}/bin
+    xinstall -m 644 ${worksrcpath}/dot.mkshrc ${destroot}${prefix}/share/doc/mksh/examples
+    xinstall -m 644 ${worksrcpath}/mksh.1 ${destroot}${prefix}/share/man/man1
+}
+
+livecheck.type      regex
+livecheck.regex     ${name}-(R\[0-9\]+\[a-z\]*)${extract.suffix}

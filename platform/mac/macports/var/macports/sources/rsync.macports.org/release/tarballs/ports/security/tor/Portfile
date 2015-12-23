@@ -1,0 +1,41 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143499 2015-12-13 23:06:47Z cal@macports.org $
+
+PortSystem          1.0
+
+name                tor
+conflicts           tor-devel
+version             0.2.6.10
+revision            1
+categories          security
+platforms           darwin
+maintainers         maclemon.at:macports.org openmaintainer
+license             BSD
+
+description         anonymizing overlay network for TCP
+
+long_description    Tor provides a distributed network of servers \
+                    (onion routers). Users bounce their TCP streams \
+                    (web traffic, FTP, SSH, etc.) around the \
+                    routers. This makes it hard for recipients, \
+                    observers, and even the onion routers \
+                    themselves to track the source of the stream.
+
+homepage            https://www.torproject.org/
+master_sites        https://dist.torproject.org/
+
+checksums           rmd160  8cf0cdbd2ae9051d2605bdeed069438e88a822f0 \
+                    sha256  0542c0efe43b86619337862fa7eb02c7a74cb23a79d587090628a5f0f1224b8d
+
+depends_lib         port:libevent \
+                    path:lib/libssl.dylib:openssl \
+                    port:zlib
+
+configure.args      --disable-silent-rules
+
+test.run            yes
+test.target         check
+
+livecheck.type      regex
+livecheck.url       ${master_sites}?C=M\;O=D
+livecheck.regex     tor-(\\d+\\.\\d+\\.\\d+\\.\\d+)${extract.suffix}

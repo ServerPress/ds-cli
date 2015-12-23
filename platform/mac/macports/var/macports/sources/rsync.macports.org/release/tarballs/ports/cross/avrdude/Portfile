@@ -1,0 +1,43 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
+
+PortSystem 1.0
+
+name              avrdude
+version           6.1
+revision          3
+categories        cross devel
+maintainers       g5pw openmaintainer
+description       an Atmel AVR MCU programmer
+long_description  AVRDUDE: AVR Downloader/UploaDEr - is a program for \
+                  updating the flash, eeprom, fuse, and lock bit memories \
+                  of Atmel AVR microcontrollers.  It operations with \
+                  several popular programmers including the STK500, \
+                  JTAGICE MkII, AVRISP, and others.
+homepage          http://www.nongnu.org/avrdude/
+platforms         darwin
+license           GPL-2
+master_sites      http://download.savannah.gnu.org/releases/avrdude/
+
+checksums         rmd160  f2c31951c0941e86ff6deab6bd0348b54d05658c \
+                  sha256  9e98baca8e57cad402aaa1c7b61c8de750ed4f6fed577f7e4935db0430783d3b
+
+depends_lib       port:libusb \
+                  port:ncurses \
+                  port:libftdi1 \
+                  port:libelf \
+                  port:readline
+
+patchfiles        patch-stk500v2.diff
+
+configure.args    --mandir=${prefix}/share/man \
+                  --disable-parport
+
+variant docs description {Build documentation (requires LaTeX)} {
+    depends_build-append  port:texlive-latex
+
+    configure.args-append --enable-doc
+}
+
+livecheck.url     ${master_sites}
+livecheck.regex   ${name}-(\[0-9]+\.\[0-9]+)

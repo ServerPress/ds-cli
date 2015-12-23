@@ -1,0 +1,53 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 122421 2014-07-22 17:20:41Z mf2k@macports.org $
+
+PortSystem          1.0
+
+name                qalculate-gtk
+version             0.9.7
+categories          math
+platforms           darwin
+license             GPL-2
+maintainers         gmail.com:jjstickel
+
+description         Qalculate! is a multi-purpose desktop calculator for GNU/Linux.
+
+long_description    Qalculate! is a multi-purpose desktop calculator for \
+                    GNU/Linux. It is small and simple to use but with much \
+                    power and versatility underneath. Features include \
+                    customizable functions, units, arbitrary precision, \
+                    plotting, and a user-friendly interface.
+
+homepage            http://qalculate.sourceforge.net/
+master_sites        sourceforge:qalculate
+
+checksums           sha256  a4ea8ee2366ac3ad53bb17fd2f76a7bed7211640cf2fdadfcf3b79eb4b37282d \
+                    rmd160  bbb89fbfc6199dcf87666596ee0d7df3019635af
+
+depends_build       port:pkgconfig port:intltool
+
+depends_lib         port:libqalculate \
+                    port:libglade2 \
+                    port:rarian
+
+depends_run         port:gtk2 \
+                    port:gnome-vfs
+
+patchfiles          patch-src_callbacks.cc-const.diff
+
+use_parallel_build  yes
+
+# autoreconf to reconfigure with macports intltool.m4
+use_autoreconf  yes
+autoreconf.args -fvi
+
+configure.args      --disable-gnuplot
+
+variant gnuplot description {enable gnuplot support} {
+    depends_run-append      port:gnuplot
+    configure.args-delete   --disable-gnuplot
+}
+
+post-destroot {
+    file delete ${destroot}${prefix}/bin/qalculate
+}

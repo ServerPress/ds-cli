@@ -1,0 +1,42 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         BerkeleyDB 0.55
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         BerkeleyDB is a module which allows Perl programs \
+                    to make use of the facilities provided by \
+                    Berkeley DB version 2 or greater.
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  ba5dde51bd5672dfe9117f85808ad4f91ba142d5 \
+                    sha256  6f28e141c7e2fbc455621bc809d6e7d84a3640cc77568b07798ae3933107e44f
+
+variant db48 conflicts db51 db52 db53 description {Build with Berkeley DB 4.8} {}
+variant db51 conflicts db48 db52 db53 description {Build with Berkeley DB 5.1} {}
+variant db52 conflicts db48 db51 db53 description {Build with Berkeley DB 5.2} {}
+variant db53 conflicts db48 db51 db52 description {Build with Berkeley DB 5.3} {}
+
+if {![variant_isset db48] && ![variant_isset db51] && ![variant_isset db52]} {
+    default_variants +db53
+}
+
+if {${perl5.major} != ""} {
+    foreach setvariant {db48 db51 db52 db53} {
+        if {[variant_isset $setvariant]} {
+            depends_lib-append \
+                    port:$setvariant
+
+            configure.env \
+                    BERKELEYDB_INCLUDE=${prefix}/include/$setvariant \
+                    BERKELEYDB_LIB=${prefix}/lib/$setvariant \
+                    DBNAME=-ldb
+        }
+    }
+}

@@ -1,0 +1,56 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136293 2015-05-14 06:46:52Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           muniversal 1.0
+
+name                isl-devel
+conflicts           isl
+
+set gitSHA1 9f767f1766a016f04184fccb41c00a4f355df00d
+version             0.15-20150513-[string range $gitSHA1 0 6]
+
+categories          devel math
+platforms           darwin
+license             MIT
+maintainers         larryv
+
+description         Integer Set Library
+long_description    isl is a library for manipulating sets and \
+                    relations of integer points bounded by linear \
+                    constraints. Supported operations on sets include \
+                    intersection, union, set difference, emptiness \
+                    check, convex hull, (integer) affine hull, integer \
+                    projection, computing the lexicographic minimum \
+                    using parametric integer programming, coalescing \
+                    and parametric vertex enumeration. It also \
+                    includes an ILP solver based on generalized basis \
+                    reduction, transitive closures on maps (which may \
+                    encode infinite graphs), dependence analysis and \
+                    bounds on piecewise step-polynomials.
+homepage            http://isl.gforge.inria.fr
+
+depends_lib         port:gmp
+
+master_sites        http://repo.or.cz/w/isl.git/snapshot
+checksums           rmd160  bf42466b3e9d1712665df1cf0771973373222cce \
+                    sha256  29a78085a269bf40bf229380d485ab903017669356491ff44016bd1c912055a3
+
+distname            $gitSHA1
+worksrcdir          isl-[string range $gitSHA1 0 6]
+
+# Add a missing include to the isl_int headers. Upstream doesn't want to
+# bother fixing deprecated APIs
+# (https://groups.google.com/d/msg/isl-development/N6UWJDbKXNA/2CY6WHDvOYoJ),
+# so this should be applied until they remove the headers outright.
+patchfiles          fix-deprecated-headers.patch
+
+use_autoreconf      yes
+
+configure.args      --disable-silent-rules
+
+test.run            yes
+test.target         check
+
+livecheck.type      moddate
+livecheck.url       http://repo.or.cz/w/isl.git/commit/HEAD

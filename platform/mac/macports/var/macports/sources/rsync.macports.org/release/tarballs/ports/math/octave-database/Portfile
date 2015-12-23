@@ -1,0 +1,70 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135941 2015-05-07 15:50:49Z michaelld@macports.org $
+
+PortSystem          1.0
+PortGroup           octave 1.0
+
+octave.setup        database 2.3.2
+platforms           darwin
+license             GPL-3+
+maintainers         nomaintainer
+description         Interface to SQL databases, currently only \
+                    postgresql using libpq.
+long_description    ${description}
+
+checksums           rmd160 e0e58800e9f9906ef89afff7526bd70f608de713 \
+                    sha256 922e9c298da92f3ac9596ec4fb0db2acc0f5270aa707b67f0151c2529f658d79
+
+depends_lib-append  port:swig-octave \
+                    path:bin/mysql_config5:mysql5 \
+                    port:sqlite3 \
+                    port:unixODBC
+
+# set postgresql variants
+# versions < 8.3 removed as of 2.3.2.
+
+set postgresql_suffixes {83 84 90 91 92 93 94}
+set default_postgresql_suffix 92
+
+set postgresql_ports {}
+set postgresql_variants {}
+foreach s ${postgresql_suffixes} {
+    lappend postgresql_ports postgresql${s}
+    set postgresql_variants "${postgresql_variants} && !\[variant_isset postgresql${s}\]"
+}
+
+set postgresql_variants [string trimleft ${postgresql_variants} " && "]
+
+foreach s ${postgresql_suffixes} {
+    set p postgresql${s}
+    set v [join [split ${s} ""] "."]
+    set i [lsearch -exact ${postgresql_ports} ${p}]
+    set c [lreplace ${postgresql_ports} ${i} ${i}]
+    eval [subst {
+        variant ${p} description "Build ${name} using postgresql ${v}" \
+            conflicts ${c} {
+
+                depends_lib-append \
+                    port:postgresql${s}
+                configure.env \
+                    PATH=${prefix}/lib/postgresql${s}/bin:$env(PATH)
+
+            }
+    }]
+}
+
+eval [subst {
+    # postgresql is required; default to ${default_postgresql_suffix}.
+
+    if {${postgresql_variants}} {
+        default_variants +postgresql${default_postgresql_suffix}
+    }
+
+    # Make sure -postgresql${default_postgresql_suffix}
+    # was not specified alone
+
+    if {${postgresql_variants}} {
+        ui_error "${name} requires a postgresql to be selected; you cannot use -postgresql${default_postgresql_suffix} as a variant alone."
+        return -code error "Invalid variant selection"
+    }
+}]

@@ -1,0 +1,23 @@
+# $Id: Portfile 111475 2013-09-23 17:03:09Z jmr@macports.org $
+
+PortSystem 1.0
+
+name		libshout
+version		1.0.9
+revision	0
+categories	audio net
+license		GPL-2+
+maintainers	nomaintainer
+description	Data and connectivity lib for the icecast server
+long_description	  \
+	A port of the libshout library. Libshout allows applications to \
+	easily communicate and broadcast to an Icecast streaming media \
+	server. It handles the socket connections, metadata communication, \
+	and data streaming for the calling application, and lets developers \
+	focus on feature sets instead of implementation  details.
+homepage	http://developer.icecast.org/libshout/
+platforms	darwin
+master_sites	http://developer.icecast.org/libshout/releases/ fink
+checksums	md5 bbe598e28bbf2989a90d78ff33953ea2
+patchfiles	apple-patches
+configure.args	--with-pic --enable-shared --enable-static

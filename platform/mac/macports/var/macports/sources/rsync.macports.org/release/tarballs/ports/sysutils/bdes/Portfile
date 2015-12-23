@@ -1,0 +1,34 @@
+# $Id: Portfile 123587 2014-08-11 06:51:43Z jmr@macports.org $
+
+PortSystem 1.0
+
+name		bdes
+version		4.7-RELEASE
+revision	1
+categories	sysutils
+license		BSD
+maintainers	nomaintainer
+description	Block-based DES cipher utility
+long_description	${description}
+homepage	http://www.cs.dartmouth.edu/reports/abstracts/TR91-158/
+platforms	darwin
+use_bzip2	yes
+master_sites	macports
+checksums	md5 7b83cf1258bd73784ce70629dcad17c5
+depends_lib	lib:libcipher.1:libcipher
+build.type	bsd
+build.args	LDADD+=-L${prefix}/lib\\ -lcipher
+worksrcdir	${name}
+patchfiles	patch-Makefile
+
+configure	{ reinplace "s|MAN|MAN1|" ${worksrcpath}/Makefile }
+
+destroot	{ system "install -o root -m 755 -d ${destroot}${prefix}/bin"
+		  system "install -o root -m 755 -d ${destroot}${prefix}/share/man/man1"
+		  system "install -o root -m 755 -d ${destroot}${prefix}/share/doc"
+		  system "install -o root -m 755 -c ${worksrcpath}/bdes \
+		    ${destroot}${prefix}/bin"
+		  system "install -o root -m 644 -c ${worksrcpath}/bdes.1.gz \
+		    ${destroot}${prefix}/share/man/man1"
+		  system "install -o root -m 644 -c ${worksrcpath}/bdes.ps \
+		    ${destroot}${prefix}/share/doc" }

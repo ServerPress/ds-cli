@@ -1,0 +1,25 @@
+# $Id: Portfile 74255 2010-12-09 07:12:25Z jeremyhu@macports.org $
+
+PortSystem          1.0
+name                xbitmaps
+version             1.1.1
+categories          x11 graphics
+maintainers         jeremyhu openmaintainer
+description         Bitmaps that are shared between X applications
+long_description    ${description}
+
+platforms           darwin
+supported_archs     noarch
+license             MIT
+
+homepage            http://www.x.org/
+master_sites        http://xorg.freedesktop.org/archive/individual/data/
+use_bzip2           yes
+
+checksums           md5     7444bbbd999b53bec6a60608a5301f4c \
+                    sha1    578afff7e4912192b524c25254cf7f54c16e57d8 \
+                    rmd160  c1e4bca755ca22b505501506fe5f40dd9eb66a5a
+
+livecheck.type      regex
+livecheck.regex     ${name}-(\[\\d.\]+)${extract.suffix}
+livecheck.url       ${master_sites}

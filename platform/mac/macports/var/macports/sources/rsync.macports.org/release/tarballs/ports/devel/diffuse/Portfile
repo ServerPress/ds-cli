@@ -1,0 +1,58 @@
+# $Id: Portfile 116169 2014-01-20 16:50:08Z raimue@macports.org $
+
+PortSystem          1.0
+
+name                diffuse
+version             0.4.7
+categories          devel
+platforms           darwin
+maintainers         nomaintainer
+license             GPL-2+
+supported_archs     noarch
+
+description         diffuse is a graphical diffing and merging tool
+long_description    Diffuse is a small and simple text merge tool \
+                    written in Python. With Diffuse, you can easily \
+                    merge, edit, and review changes to your code.
+
+homepage            http://diffuse.sourceforge.net
+master_sites        sourceforge
+
+checksums           sha1    9e3b906b579495027b76dc723b5df28e400d3f26 \
+                    sha256  b0f56acbd246f4b9a692ef51aab167134ae6650423a68d8e5f4ff4c8938f39ac \
+                    rmd160  8a7d2a4c8b5af59ab5e0a7c5db619a5017022976
+
+use_bzip2           yes
+
+set pythonexec ""
+
+variant python26 conflicts python27 description {Use python26} {
+    depends_lib-append    port:py26-pygtk
+    set pythonexec        ${prefix}/bin/python2.6
+}
+
+variant python27 conflicts python26 description {Use python27} {
+    depends_lib-append    port:py27-pygtk
+    set pythonexec        ${prefix}/bin/python2.7
+}
+
+if {![variant_isset python26]} {
+    default_variants +python27
+}
+
+use_configure       no
+
+post-patch {
+    reinplace "s|/usr/bin/env python|${pythonexec}|g" \
+        ${worksrcpath}/src/usr/bin/diffuse
+}
+
+build {}
+
+destroot {
+    system "cd ${worksrcpath} && ${pythonexec} \
+       ./install.py \
+       --prefix=${prefix} \
+       --destdir=${destroot} \
+       --sysconfdir=${prefix}/etc"
+}

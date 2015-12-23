@@ -1,0 +1,35 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 140628 2015-09-28 11:41:34Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-ptyprocess
+version             0.5
+revision            0
+categories-append   devel
+platforms           darwin
+license             ISC
+
+python.versions     27 34 35
+
+maintainers         stromnov openmaintainer
+
+description         Run a subprocess in a pseudo terminal
+long_description    ${description}
+
+homepage            https://github.com/pexpect/ptyprocess
+master_sites        https://pypi.python.org/packages/source/p/ptyprocess/
+
+distname            ptyprocess-${version}
+
+checksums           rmd160  3a5af2a759fcf19819adefa2867fb269c2b591eb \
+                    sha256  dcb78fb2197b49ca1b7b2f37b047bc89c0da7a90f90bd5bc17c3ce388bb6ef59
+
+if {${name} ne ${subport}} {
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/ptyprocess/json
+    livecheck.regex     {ptyprocess-(\d+(?:\.\d+)*)\.[tz]}
+}

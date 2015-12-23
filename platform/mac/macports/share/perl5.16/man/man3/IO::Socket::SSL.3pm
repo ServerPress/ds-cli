@@ -124,7 +124,7 @@
 .\" ========================================================================
 .\"
 .IX Title "IO::Socket::SSL 3"
-.TH IO::Socket::SSL 3 "2015-09-20" "perl v5.16.3" "User Contributed Perl Documentation"
+.TH IO::Socket::SSL 3 "2015-12-02" "perl v5.16.3" "User Contributed Perl Documentation"
 .\" For nroff, turn off justification.  Always turn off hyphenation; it makes
 .\" way too many mistakes in technical documents.
 .if n .ad l
@@ -539,7 +539,7 @@ So it is recommended to leave the settings at the secure defaults which
 IO::Socket::SSL sets and which get updated from time to time to
 better fit the real world.
 .IP "\(bu" 4
-Make \s-1SSL\s0 settings inacessible by the user, together with bad builtin settings.
+Make \s-1SSL\s0 settings inaccessible by the user, together with bad builtin settings.
 .Sp
 Some modules use IO::Socket::SSL, but don't make the \s-1SSL\s0 settings available
 to the user. This is often combined with bad builtin settings or defaults (like
@@ -636,7 +636,7 @@ connection. In these cases it is necessary to finish the handshake before
 you can read or write data. This might result in situations where you want to
 read but must first finish the write of a handshake or where you want to write
 but must first finish a read.
-In these cases \f(CW$!\fR is set to \s-1EGAIN\s0 like expected, and additionally
+In these cases \f(CW$!\fR is set to \s-1EAGAIN\s0 like expected, and additionally
 \&\f(CW$SSL_ERROR\fR is set to either \s-1SSL_WANT_READ\s0 or \s-1SSL_WANT_WRITE\s0.
 Thus if you get \s-1EWOULDBLOCK\s0 on a \s-1SSL\s0 socket you must check \f(CW$SSL_ERROR\fR for
 SSL_WANT_* and adapt your event mask accordingly.
@@ -693,7 +693,7 @@ way. To work around this you are safer by doing a \s-1TCP\s0 accept and later up
 \&            # we might have still data within the current SSL frame
 \&            # thus first process these data instead of waiting on the underlying
 \&            # socket object
-\&            goto READ if $self\->pending;  # goto sysread
+\&            goto READ if $cl\->pending;    # goto sysread
 \&            next;                         # goto $sel\->can_read
 \&        }
 \&    }
@@ -799,9 +799,11 @@ Please be aware that with the IPv6 capable super classes, it will look first
 for the IPv6 address of a given hostname. If the resolver provides an IPv6
 address, but the host cannot be reached by IPv6, there will be no automatic
 fallback to IPv4.
-To avoid these problems you can either force IPv4 by specifying and \s-1AF_INET\s0
-as \f(CW\*(C`Domain\*(C'\fR of the socket or globally enforce IPv4 by loading IO::Socket::SSL
-with the option 'inet4'.
+To avoid these problems you can enforce IPv4 for a specific socket by
+using the \f(CW\*(C`Domain\*(C'\fR or \f(CW\*(C`Family\*(C'\fR option with the value \s-1AF_INET\s0 as described in
+IO::Socket::IP. Alternatively you can enforce IPv4 globally by loading
+IO::Socket::SSL with the option 'inet4', in which case it will use the IPv4
+only class IO::Socket::INET as the super class.
 .PP
 IO::Socket::SSL will provide all of the methods of its super class, but
 sometimes it will override them to match the behavior expected from \s-1SSL\s0 or to
@@ -847,7 +849,7 @@ See section \*(L"\s-1SNI\s0 Support\*(R" for details of \s-1SNI\s0 the support.
 .IX Item "SSL_startHandshake"
 If this option is set to false (defaults to true) it will not start the \s-1SSL\s0
 handshake yet. This has to be done later with \f(CW\*(C`accept_SSL\*(C'\fR or \f(CW\*(C`connect_SSL\*(C'\fR.
-Before the handshake is started read/write/etcc can be used to exchange plain
+Before the handshake is started read/write/etc. can be used to exchange plain
 data.
 .IP "SSL_ca | SSL_ca_file | SSL_ca_path" 2
 .IX Item "SSL_ca | SSL_ca_file | SSL_ca_path"
@@ -868,7 +870,7 @@ If neither SSL_ca, nor SSL_ca_file or SSL_ca_path are set it will use
 \&\f(CW\*(C`default_ca()\*(C'\fR to determine the user-set or system defaults.
 If you really don't want to set a \s-1CA\s0 set SSL_ca_file or SSL_ca_path to
 \&\f(CW\*(C`\eundef\*(C'\fR or SSL_ca to an empty list. (unfortunately \f(CW\*(Aq\*(Aq\fR is used by some
-modules using IO::Socket::SSL when \s-1CA\s0 is not exlicitly given).
+modules using IO::Socket::SSL when \s-1CA\s0 is not explicitly given).
 .IP "SSL_client_ca | SSL_client_ca_file" 2
 .IX Item "SSL_client_ca | SSL_client_ca_file"
 If verify_mode is \s-1VERIFY_PEER\s0 on the server side these options can be used to
@@ -896,11 +898,11 @@ If you create a server you usually need to specify a server certificate which
 should be verified by the client. Same is true for client certificates, which
 should be verified by the server.
 The certificate can be given as a file with SSL_cert_file or as an internal
-representation of a X509* object (like you get from Net::SSLeay or 
+representation of a X509* object (like you get from Net::SSLeay or
 IO::Socket::SSL::Utils::PEM_xxx2cert) with SSL_cert.
 If given as a file it will automatically detect the format.
 Supported file formats are \s-1PEM\s0, \s-1DER\s0 and PKCS#12, where \s-1PEM\s0 and PKCS#12 can
-contain the certicate and the chain to use, while \s-1DER\s0 can only contain a single
+contain the certificate and the chain to use, while \s-1DER\s0 can only contain a single
 certificate.
 .Sp
 If given as a list of X509* please note, that the all the chain certificates
@@ -1315,7 +1317,7 @@ If you don't like this behavior you should do accept on the \s-1TCP\s0 socket an
 upgrade it with \f(CW\*(C`start_SSL\*(C'\fR later.
 .IP "\fBconnect(...)\fR" 4
 .IX Item "connect(...)"
-This behaves similar to the connnect function but also does an \s-1SSL\s0 handshake.
+This behaves similar to the connect function but also does an \s-1SSL\s0 handshake.
 Because you cannot give \s-1SSL\s0 specific arguments to this function, you should
 better either use \f(CW\*(C`new\*(C'\fR to create a connect \s-1SSL\s0 socket or \f(CW\*(C`start_SSL\*(C'\fR to
 upgrade an established \s-1TCP\s0 socket to \s-1SSL\s0.
@@ -1631,7 +1633,7 @@ non-blocking sockets. In this case $! is set to \s-1EWOULDBLOCK\s0 and the ssl e
 with the same arguments once the socket is ready.
 .Sp
 For calling from \f(CW\*(C`stop_SSL\*(C'\fR \f(CW\*(C`SSL_fast_shutdown\*(C'\fR default to false, e.g. it
-waits for the close_notify of the peer. This is necesarry in case you want to
+waits for the close_notify of the peer. This is necessary in case you want to
 downgrade the socket and continue to use it as a plain socket.
 .Sp
 After stop_SSL the socket can again be used to exchange plain data.

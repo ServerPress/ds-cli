@@ -1,0 +1,61 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id $
+
+PortSystem      1.0
+PortGroup       github 1.0
+
+github.setup    Yubico yubico-pam 2.20
+checksums       rmd160  40b9f92a2739aa9f14b6d24ff1856a5263dce555 \
+                sha256  3ef160e9b313c0b13b8d96bba5818cb2ae00e5b3972fb8b1d2d45b5dfc5d7cf0
+
+
+# I'm explicitly not marking this openmaintainer
+maintainers     cal
+
+categories      security
+description     PAM module to authenticate against a YubiKey validation server or \
+                via challenge-response against a local YubiKey
+long_description \
+                The Yubico PAM module provides an easy way to integrate the YubiKey \
+                into your existing user authentication infrastructure. The module can \
+                be configured to validate YubiKeys against Yubico's YubiCloud \
+                infrastructure, a custom YubiKey validation server or it can be used \
+                for offline authentication with newer YubiKeys supporting a \
+                challenge-response protocol.
+
+platforms       darwin
+license         BSD
+
+depends_build   port:pkgconfig \
+                port:asciidoc \
+                port:libxslt \
+                port:docbook-xsl
+
+depends_lib     port:ykpers \
+                port:yubico-c-client
+
+use_autoreconf  yes
+
+if {${os.platform} eq "darwin" && ${os.major} >= 15} {
+    configure.args  --with-pam-dir=${prefix}/lib/pam
+
+    notes "
+On systems earlier than El Capitan, this port used to install pam_yubico.so in\
+/usr/lib/pam directly for your convenience. With El Capitan's System Integrity\
+Protection (\"rootless\"), this is no longer possible. The library is now\
+installed in ${prefix}/lib/pam instead. You have to modify your PAM\
+configuration to reference the library using it's absolute path\
+${prefix}/lib/pam/pam_yubico.so"
+
+} else {
+    configure.args          --with-pam-dir=/usr/lib/pam
+    destroot.violate_mtree  yes
+}
+
+configure.args-append       --without-ldap
+
+post-destroot {
+    # remove header which is unneeded, because there's no software linking
+    # against yubico-pam and which clashes with a system header
+    file delete ${destroot}${prefix}/include/util.h
+}

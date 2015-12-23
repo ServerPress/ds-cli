@@ -1,0 +1,17 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141876 2015-10-30 15:16:48Z michaelld@macports.org $
+
+PortSystem          1.0
+PortGroup           octave 1.0
+
+octave.setup        parallel 3.0.3
+platforms           darwin
+license             GPL-2+ GPL-3+
+maintainers         gmail.com:mschamschula openmaintainer
+description         Parallel execution package for cluster computers.
+long_description    ${description}
+
+checksums           rmd160 57c7b57c9cd256988ef59e81c205e92806267a71 \
+                    sha256 4f48de749c17d23883d20ccaaa5636cd513065ee54aca65a58975eef3653a950
+
+depends_lib-append  port:gnutls

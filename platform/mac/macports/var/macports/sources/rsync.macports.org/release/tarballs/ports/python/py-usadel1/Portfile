@@ -1,0 +1,100 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 127190 2014-10-22 19:15:03Z mf2k@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-usadel1
+version             0.2.4
+categories-append   science
+platforms           darwin
+maintainers         nomaintainer
+license             GPL-2
+
+description         Usadel equation solver
+
+long_description    This code solves Usadel equations in a circuit consisting of quasi-1D \
+                    metallic wires. This is an efficient approach for modelling charge and heat \
+                    transport in mesoscopic electronic circuits made of superconducting and normal-state \
+                    metals, in the presence of a sufficient amount of impurities (dirty limit).
+
+homepage            http://ltl.tkk.fi/~theory/usadel1/
+master_sites        ${homepage}_static/
+distname            usadel1-${version}
+
+checksums           rmd160  a520258f5171002af6806ddc39672a60362d3082 \
+                    sha256  13a15231627ab2bcb86b4e85540979af1c12adb9265b3b0169c5a848f0761c4d
+
+python.versions     27
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:py${python.version}-numpy \
+                        port:py${python.version}-scipy \
+                        port:py${python.version}-tables
+    
+    python.add_archflags no
+    universal_variant no
+    
+    set gcc_versions {4.3 4.4 4.5 4.6 4.7 4.8 4.9}
+    set default_fortran_variant +gcc48
+
+    foreach ver ${gcc_versions} {
+        set ver_no_dot [join [split ${ver} "."] ""]
+
+        set variant_line {variant gcc${ver_no_dot} description "build with gfortran from gcc${ver_no_dot}"}
+
+        foreach over ${gcc_versions} {
+            if {${ver} == ${over}} {
+                continue
+            }
+
+            set over_no_dot [join [split ${over} "."] ""]
+            append variant_line " conflicts gcc${over_no_dot}"
+        }
+        append variant_line { {}}
+
+        eval $variant_line
+
+        if {[variant_isset gcc${ver_no_dot}]} {
+            if {${default_fortran_variant} != "+gcc${ver_no_dot}"} {
+                set default_fortran_variant ""
+            }
+        }
+    }
+
+    if {${default_fortran_variant} != ""} {
+        default_variants-append "${default_fortran_variant}"
+    }
+
+    foreach ver ${gcc_versions} {
+        set ver_no_dot [join [split ${ver} "."] ""]
+
+        if {[variant_isset gcc${ver_no_dot}]} {
+            depends_lib-append path:lib/libgcc/libgcc_s.1.dylib:libgcc
+            depends_build-append port:gcc${ver_no_dot}
+
+            configure.fc  ${prefix}/bin/gfortran-mp-${ver}
+            configure.f77 ${prefix}/bin/gfortran-mp-${ver}
+            configure.f90 ${prefix}/bin/gfortran-mp-${ver}
+        }
+    }
+
+    build.args          config_fc \
+                        --fcompiler=gfortran \
+                        --noarch
+    
+    build.env-append    CC=${configure.cc} \
+                        F90=${configure.fc}
+
+    post-destroot {
+        # Fix permissions problems on these files
+        xinstall -m 0644 -W ${worksrcpath}/usadel1.egg-info PKG-INFO SOURCES.txt dependency_links.txt requires.txt top_level.txt \
+            ${destroot}${python.pkgd}/usadel1-${version}-py${python.branch}.egg-info
+    }
+
+    livecheck.type  none
+} else {
+    livecheck.type  regex
+    livecheck.url   http://ltl.tkk.fi/~theory/usadel1/download.html
+    livecheck.regex {usadel1-(\d+(?:\.\d+)*)}
+}

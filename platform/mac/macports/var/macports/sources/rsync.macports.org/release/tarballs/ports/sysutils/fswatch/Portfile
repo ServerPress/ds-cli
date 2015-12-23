@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142956 2015-11-29 05:14:38Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+PortGroup           compiler_blacklist_versions 1.0
+
+github.setup        emcrisostomo fswatch 1.7.0
+github.tarball_from releases
+
+categories          sysutils
+platforms           darwin
+license             GPL-3
+
+maintainers         gmail.com:enrico.m.crisostomo \
+                    openmaintainer
+description         File change monitor
+long_description    A cross-platform file change monitor with multiple \
+                    backends: Apple OS X File System Events, *BSD kqueue, \
+                    Solaris/Illumos File Events Notification, Linux inotify \
+                    and a stat()-based backend.
+
+homepage            http://emcrisostomo.github.io/fswatch/
+
+checksums           rmd160 864054c0768c04bf02435e0ef40938cd63d820a2 \
+                    sha256 3b42c6f2fb42a5abfcbf51170b189f3f45d6181fb8af39860c47c766473c6010
+
+# Blacklist compilers not supporting C++11.
+compiler.blacklist-append \
+                    *gcc-4.0 *gcc-4.2 {clang < 137}
+
+# Blacklist compilers crashing on Snow Leopard.
+# http://trac.macports.org/ticket/44726
+compiler.blacklist-append \
+                    macports-clang-3.3 macports-clang-3.4
+compiler.fallback-append \
+                    macports-clang-3.5
+
+configure.args      ac_cv_prog_AWK=/usr/bin/awk

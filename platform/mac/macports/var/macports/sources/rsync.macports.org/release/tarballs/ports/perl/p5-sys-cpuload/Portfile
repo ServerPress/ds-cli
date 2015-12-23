@@ -1,0 +1,21 @@
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Sys-CpuLoad 0.03
+revision            2
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         A module to retrieve system load averages
+long_description    ${description}.
+platforms           darwin
+
+checksums           md5     40b7683c26e8c8d3b11ddef1c139ac27 \
+                    sha1    371bf186d81963c81e6891120c4eb6343d482a5d \
+                    rmd160  577d9d6d831e2a328f19d009ac048a8d7023ecfc
+
+if {${perl5.major} != ""} {
+patchfiles          patch-CpuLoad.pm.diff patch-CpuLoad.xs.diff
+}

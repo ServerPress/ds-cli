@@ -1,0 +1,57 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141245 2015-10-13 12:52:23Z petr@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+set _name           future
+set _n              [string index ${_name} 0]
+
+name                py-${_name}
+version             0.15.2
+categories-append   devel
+platforms           darwin
+supported_archs     noarch
+license             MIT
+
+maintainers         petr openmaintainer
+
+description         Provides clean single-source support for Python 3 and 2
+long_description    \
+    The Python package future is the missing compatibility layer between \
+    Python 3 and Python 2. It allows you to use a single, clean Python \
+    3.x-compatible codebase to support both Python 3 and Python 2 with \
+    minimal overhead. The futurize script aids in converting code from \
+    either Python 2 or Python 3 to code compatible with both platforms.
+
+homepage            http://python-future.org/
+master_sites        https://pypi.python.org/packages/source/${_n}/${_name}/
+distname            ${_name}-${version}
+
+checksums           md5     a68eb3c90b3b76714c5ceb8c09ea3a06 \
+                    rmd160  6ed4c6ce80b367724103b3b99a4643180c3f5fa0 \
+                    sha256  3d3b193f20ca62ba7d8782589922878820d0a023b885882deec830adbf639b97
+
+python.versions     27 34 35
+
+if {${name} ne ${subport}} {
+    depends_build-append    port:py${python.version}-setuptools
+
+    # Adding documentation
+    post-destroot {
+        set dest_doc ${destroot}${prefix}/share/doc/${subport}
+        xinstall -d  ${dest_doc}
+        xinstall -m 755 -W ${worksrcpath} \
+            README.rst \
+            LICENSE.txt \
+                ${dest_doc}
+        eval copy [ glob ${worksrcpath}/docs/*.py  ] ${dest_doc}
+        eval copy [ glob ${worksrcpath}/docs/*.rst ] ${dest_doc}
+    }
+
+    livecheck.type  none
+} else {
+    livecheck.type  regex
+    livecheck.url   https://pypi.python.org/pypi/${_name}/json
+    livecheck.regex "\"${_name}-(\[.\\d\]+)\\${extract.suffix}\""
+}

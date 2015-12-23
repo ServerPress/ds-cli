@@ -1,0 +1,30 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138657 2015-07-14 21:34:11Z dluke@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Text-Trac 0.18
+maintainers         nomaintainer
+description         Perl extension for formatting text with Trac Wiki Style.
+license             {Artistic-1 GPL}
+
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  7909a3e768a364fce6b8f89262496e3e0b4c2d4d \
+                    sha256  be5da29d2ccc6d29bb5705a15892c8ace4e6b3e5da966d4b04ef5b12b1f6b4be
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-test-base \
+                    port:p${perl5.major}-universal-require \
+                    port:p${perl5.major}-class-accessor \
+                    port:p${perl5.major}-class-data-inheritable \
+                    port:p${perl5.major}-tie-ixhash \
+                    port:p${perl5.major}-list-moreutils \
+                    port:p${perl5.major}-html-parser \
+                    port:p${perl5.major}-path-tiny
+}

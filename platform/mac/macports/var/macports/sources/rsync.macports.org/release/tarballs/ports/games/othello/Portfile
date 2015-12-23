@@ -1,0 +1,13 @@
+# $Id: Portfile 50984 2009-05-14 21:08:43Z and.damore@macports.org $
+
+PortSystem 1.0
+name		othello
+version		0.03
+categories	games
+maintainers	adelphia.net:zizban
+description	Clone of Othello played in the terminal
+platforms	darwin
+master_sites	http://david.weekly.org/othello/
+checksums	md5 046931bfe95f89b0f3c82f398dfedb2e
+
+configure.args	--mandir=${prefix}/share/man

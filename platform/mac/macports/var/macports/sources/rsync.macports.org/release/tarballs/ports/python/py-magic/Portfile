@@ -1,0 +1,42 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142262 2015-11-08 22:43:18Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-magic
+version             0.4.10
+revision            0
+categories-append   devel
+platforms           darwin
+license             PSF
+supported_archs     noarch
+
+python.versions     27 34 35
+
+maintainers         stromnov openmaintainer
+
+description         File type identification using libmagic
+
+long_description    Determines the mime type of a file using magic \
+                    numbers. Can also operate on arbitrary data streams. \
+                    Much like the Unix file(1) program.
+
+homepage            http://github.com/ahupp/python-magic
+master_sites        pypi:p/python-magic
+
+distname            python-magic-${version}
+
+checksums           rmd160  457621e100a277a39cecdf0f5a8cba83077fcff6 \
+                    sha256  79fd2865ec96074749825f9e9562953995d5bf12b6793f24d75c37479ad4a2c3
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-setuptools
+    depends_lib-append  port:file
+
+    livecheck.type      none
+} else {
+    livecheck.name      python-magic
+    livecheck.type      pypi
+}

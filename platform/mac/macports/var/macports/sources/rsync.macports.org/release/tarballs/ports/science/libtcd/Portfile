@@ -1,0 +1,38 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 114006 2013-11-27 09:46:47Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                libtcd
+version             2.2.5-r3
+categories          science
+platforms           darwin
+maintainers         nomaintainer
+license             public-domain
+
+description         API for using Tide Constituent Database files
+
+long_description    libtcd provides a software API for reading and writing \
+                    Tide Constituent Database (TCD) files.
+
+homepage            http://www.flaterco.com/xtide/
+master_sites        ftp://ftp.flaterco.com/xtide/
+use_bzip2           yes
+
+checksums           rmd160  051a99be6d2b8bd4034bd09fd2a07d6d362a7064 \
+                    sha256  f837aa45421236732580e6fa73b79f539b9e778bebe22dbd3ca43b2c6a550e9e
+
+worksrcdir          ${name}-[lindex [split ${version} -] 0]
+
+post-destroot {
+    set docdir ${prefix}/share/doc/${subport}
+    xinstall -d ${destroot}${docdir}
+    xinstall -m 644 -W ${worksrcpath} \
+        COPYING \
+        ${name}.html \
+        ${destroot}${docdir}
+}
+
+livecheck.type      regex
+livecheck.url       ${homepage}files.html
+livecheck.regex     ${name}-(\[0-9.r-\]+)${extract.suffix}

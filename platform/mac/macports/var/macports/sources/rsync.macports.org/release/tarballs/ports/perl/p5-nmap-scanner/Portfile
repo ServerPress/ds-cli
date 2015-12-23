@@ -1,0 +1,36 @@
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem                      1.0
+PortGroup                       perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup                     Nmap-Scanner 1.0
+revision                        3
+
+license                         {Artistic-1 GPL}
+maintainers                     nomaintainer
+
+description                     Perform and manipulate nmap scans using perl
+
+long_description                Nmap::Scanner perlifies the output of the network mapping tool \
+				nmap (http://www.insecure.org/nmap/), creating lists of model \
+				objects in batch scan mode or firing events when significant \
+				scanning events occur in event scan mode.
+
+platforms                       darwin
+checksums                       md5  af12a5cfeaca9b42eb6497e1cf7655eb
+
+if {${perl5.major} != ""} {
+depends_lib-append		port:nmap \
+				port:p${perl5.major}-class-generate \
+				port:p${perl5.major}-xml-libxml \
+				port:p${perl5.major}-xml-sax
+
+supported_archs noarch
+
+post-patch {
+	reinplace "s|/usr/local|${prefix}|g" \
+		${worksrcpath}/lib/Nmap/Scanner/Scanner.pm
+
+}
+}

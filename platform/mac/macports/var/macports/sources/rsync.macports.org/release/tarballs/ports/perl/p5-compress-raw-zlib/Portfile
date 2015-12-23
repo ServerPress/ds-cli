@@ -1,0 +1,24 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141919 2015-10-31 03:48:41Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Compress-Raw-Zlib 2.069
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         The Compress::Raw::Zlib module provides a Perl \
+                    interface to the zlib compression library
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  fe3a52b94987a298fb2b98e306767f387ba7c30a \
+                    sha256  9a647fe7d2e6122370372a11c1e3a2e2b54c90bba595cad170854fdaa8a64619
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:gzip
+}
+

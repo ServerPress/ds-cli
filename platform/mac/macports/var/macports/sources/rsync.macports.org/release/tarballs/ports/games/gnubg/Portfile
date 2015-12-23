@@ -1,0 +1,97 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135331 2015-04-23 09:16:24Z dtakahashi@macports.org $
+
+PortSystem 1.0
+
+PortGroup               active_variants 1.1
+
+name                    gnubg
+version                 1.05.000
+categories              games
+license                 GPL-3
+platforms               darwin
+maintainers             dtakahashi openmaintainer
+homepage                http://www.gnubg.org/
+description             GNU Backgammon
+
+long_description        GNU Backgammon (gnubg) is a software for playing and analysing \
+                        backgammon positions, games and matches. It's based on a neural \
+                        network. Although it already plays at a very high level, it's \
+                        still work in progress. You can play at GNU Backgammon using the \
+                        command line or via a graphical interface based (on GTK+).
+
+master_sites            http://files.gnubg.org/media/sources/
+                        
+distfiles               ${name}-release-${version}-sources.tar.gz
+                        
+checksums               ${name}-release-${version}-sources.tar.gz \
+                        rmd160  da88c0948d1e162a2ce399c183103186714112ba \
+                        sha256   a872810b82f17950be64b4f49a10da97634c5d8f39069288f64bd2eb78a4cddb
+
+depends_build-append    port:pkgconfig \
+                        port:bison \
+                        port:flex
+
+depends_lib             port:gtk2 \
+                        port:sqlite3 \
+                        port:gmp \
+                        port:libiconv \
+                        port:freetype \
+                        port:python27 \
+                        port:readline
+
+configure.args          --mandir=${prefix}/share/man \
+                        --infodir=${prefix}/share/info \
+                        --sysconfdir=${prefix}/etc \
+                        --libdir=${prefix}/lib \
+                        --with-python=${prefix}/bin/python2.7 \
+                        --without-board3d \
+                        --with-gtk \
+                        --without-libcurl
+
+notes \
+"Recommended ports:
+    py27-mysql    provides the MySQL backend of a game database
+    py27-pygresql provides the PostgreSQL backend of a game database"
+
+#
+# the following variants indicate the binary dependencies
+# based on the backend of gtk2
+#
+
+variant random_org description "enable random.org support" {
+    depends_lib-append  port:curl
+    configure.args-replace --without-libcurl --with-libcurl=${prefix}
+}
+
+default_variants +random_org
+
+variant x11 conflicts quartz {
+    require_active_variants port:gtk2 x11
+}
+variant quartz conflicts x11 {
+    require_active_variants port:gtk2 quartz
+}
+
+if {![variant_isset quartz]} {
+    default_variants +x11
+}
+
+variant board3d conflicts quartz description "enable OpenGL board" {
+    depends_lib-append      port:gtkglext
+    ## disable 3D board on the quartz variants
+    ## because of the display issue
+    ## see also https://mail.gnome.org/archives/gtkglext-list/2009-December/msg00023.html
+    require_active_variants port:gtkglext {} quartz
+  
+    configure.args-replace  --without-board3d --with-board3d
+  
+    ## gtkglext+x11 links to libgl that is provided by macports.
+    ## Therefore, it should include macports' opengl headers
+    ## instead of the ones provided by OSX
+    configure.cflags-append -I${prefix}/include/GL
+}
+
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     ${name}-release-(\[0-9.\]+)-sources${extract.suffix}

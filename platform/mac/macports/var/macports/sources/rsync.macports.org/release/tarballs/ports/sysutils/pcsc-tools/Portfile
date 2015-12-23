@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 140066 2015-09-08 11:10:00Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+name                pcsc-tools
+version             1.4.24
+categories          sysutils
+platforms           darwin
+license             GPL-2+
+maintainers         m4x.org:db_macports openmaintainer
+
+description         Tools for accessing PC/SC driver, card or reader.
+long_description    These tools are used to test a PC/SC driver, card or \
+                    reader or send commands in a friendly environment (text \
+                    or graphical user interface).
+
+homepage            http://ludovic.rousseau.free.fr/softwares/pcsc-tools/
+master_sites        ${homepage}
+
+patchfiles          patch-Makefile.diff
+
+checksums           rmd160 5ee539a0bf4a09aa7af051c0cb9daae5fad189cf \
+                    sha256 176ee6f791cd7437e05d921e5041a1f2265116a5a0d1079a5b8321f2cf541682
+
+depends_lib         port:p${perl5.major}-pcsc
+
+variant universal {}
+
+use_configure       no
+destroot.destdir    DESTDIR=${destroot}${prefix}
+build.args-append   CC=${configure.cc} \
+                    CXX=${configure.cxx} \
+                    CPP=${configure.cpp} \
+                    CPPFLAGS="${configure.cppflags}" \
+                    CFLAGS="${configure.cflags} [get_canonical_archflags cc]" \
+                    CXXFLAGS="${configure.cxxflags} [get_canonical_archflags cxx]" \
+                    LDFLAGS="${configure.ldflags} [get_canonical_archflags ld]"

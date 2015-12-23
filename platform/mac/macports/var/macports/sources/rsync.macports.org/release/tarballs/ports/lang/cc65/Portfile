@@ -1,0 +1,53 @@
+# $Id: Portfile 126469 2014-10-10 21:05:38Z petr@macports.org $
+
+PortSystem 1.0
+
+name            cc65
+version         2.13.2
+categories      lang
+platforms       darwin
+maintainers     gmail.com:trashgod openmaintainer
+
+description     6502 C compiler
+long_description \
+                cc65 is a complete cross development package for 65(C)02 \
+                systems, including a powerful macro assembler, a C compiler, \
+                linker, librarian and several other tools.
+
+homepage        http://www.cc65.org/
+distfiles       cc65-sources-${version}.tar.bz2
+use_bzip2       yes
+
+master_sites    http://cc65.oldos.net/ \
+                http://bj.spline.de/cc65/ \
+                ftp://ftp.musoftware.de/pub/uz/cc65/ \
+                ftp://ftp.musoftware.de/pub/uz/cc65/old/
+
+checksums       md5 cbf9e25db21002371222ae025a6a1850
+
+
+use_configure   no
+
+build.target    bins libs
+build.args      -f make/gcc.mak prefix=${prefix}
+use_parallel_build no
+
+destroot.args   -f make/gcc.mak prefix=${destroot}${prefix}
+
+post-patch {
+    foreach file [glob ${worksrcpath}/src/*/make/gcc.mak] {
+        reinplace -E "s|^CC\[\[:space:\]\]*=\[\[:space:\]\]*gcc|CC=${configure.cc}|" $file
+    }
+}
+
+variant docs description {Install extra documentation} {
+    depends_build-append port:linuxdoc-tools
+    build.target-append docs
+    post-destroot {
+        set docdir ${destroot}${prefix}/share/doc/${name}
+        file mkdir "${docdir}/html"
+        foreach file [glob -directory ${docdir} *.htm*] {
+            move ${file} "${docdir}/html"
+        }
+    }
+}

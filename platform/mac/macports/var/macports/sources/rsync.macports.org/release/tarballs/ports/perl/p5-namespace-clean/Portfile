@@ -1,0 +1,28 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141955 2015-11-01 03:41:59Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         namespace-clean 0.26 ../by-authors/id/R/RI/RIBASUSHI/
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Keep imports and functions out of your namespace
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  bb7cb46250f79df901490253e8a47a3e0139afd8 \
+                    sha256  73986e19c4ad0e634e35f4f26e81437f152d8026eb1d91fe795725746ce13eca
+
+if {${perl5.major} != ""} {
+    depends_build-append  \
+                    port:p${perl5.major}-test-simple
+
+    depends_lib-append  \
+                    port:p${perl5.major}-b-hooks-endofscope \
+                    port:p${perl5.major}-package-stash
+
+    supported_archs noarch
+}

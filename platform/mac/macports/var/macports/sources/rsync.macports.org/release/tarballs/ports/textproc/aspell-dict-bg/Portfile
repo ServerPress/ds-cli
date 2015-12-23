@@ -1,0 +1,30 @@
+# $Id: Portfile 51079 2009-05-17 18:17:33Z macsforever2000@macports.org $
+
+PortSystem      1.0
+name		    aspell-dict-bg
+version 		4.1-0
+categories	    textproc
+maintainers	    gmail.com:sava.chankov
+description	    Bulgarian dictionary for aspell
+homepage		http://aspell.net/
+platforms	    darwin
+
+long_description ${description}
+
+master_sites	gnu:aspell/dict/bg
+
+distname	    aspell6-bg-${version}
+checksums	    md5 e22f0634c48eae9c9fbdf9d569b8235c
+
+use_bzip2	    yes
+
+depends_build	port:aspell
+
+configure	    { system "cd ${worksrcpath} && \
+                         ./configure  --vars ASPELL=${prefix}/bin/aspell \
+    		                          WORD_LIST_COMPRESS=${prefix}/bin/word-list-compress"
+    	        }
+pre-destroot    { system "cd ${worksrcpath} && \
+		                  iconv  -f CP1251 -t UTF-8 bulgarian.kbd > bulgarian.kbd.tmp && \
+		                  mv bulgarian.kbd.tmp bulgarian.kbd"
+		        }

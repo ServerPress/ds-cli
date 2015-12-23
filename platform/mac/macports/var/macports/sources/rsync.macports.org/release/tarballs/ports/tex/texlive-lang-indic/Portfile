@@ -1,0 +1,51 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138601 2015-07-13 21:24:18Z dports@macports.org $
+
+PortSystem          1.0
+PortGroup           texlive 1.0
+
+name                texlive-lang-indic
+version             37366
+revision            0
+
+categories          tex
+maintainers         dports
+license             Copyleft Permissive
+description         TeX Live: Indic scripts
+long_description    Support for Indic scripts.
+
+checksums           texlive-lang-indic-37366-run.tar.xz \
+                    rmd160  245092ca86f25588abffe8ab962de4b45d7c7a81 \
+                    sha256  d6747ba6bd6d4922528c768469387b5fecb276d133a651090ddfc8ba54473620 \
+                    texlive-lang-indic-37366-doc.tar.xz \
+                    rmd160  48c16b01e1e4b6e22dff04ccdfc7735c97c0f5e4 \
+                    sha256  a68a310fe1ad7c43d5f8dc4e7f0cba0dc3635b3b9660fc2baec85a03e2882c82 \
+                    texlive-lang-indic-37366-src.tar.xz \
+                    rmd160  abff70622b652e5ddcca719d0ae89399a3dd6c4d \
+                    sha256  f07e0fc4e2151d8705c009dce86c649a18c25753f32cf01dafc0f771575a2a3b
+
+depends_lib         port:texlive-basic
+
+texlive.languages      \
+    {assamese loadhyph-as.tex 1 1 {} {hyph-as.pat.txt} {} {} } \
+    {bengali loadhyph-bn.tex 1 1 {} {hyph-bn.pat.txt} {} {} } \
+    {gujarati loadhyph-gu.tex 1 1 {} {hyph-gu.pat.txt} {} {} } \
+    {hindi loadhyph-hi.tex 1 1 {} {hyph-hi.pat.txt} {} {} } \
+    {kannada loadhyph-kn.tex 1 1 {} {hyph-kn.pat.txt} {} {} } \
+    {malayalam loadhyph-ml.tex 1 1 {} {hyph-ml.pat.txt} {} {} } \
+    {marathi loadhyph-mr.tex 1 1 {} {hyph-mr.pat.txt} {} {} } \
+    {oriya loadhyph-or.tex 1 1 {} {hyph-or.pat.txt} {} {} } \
+    {panjabi loadhyph-pa.tex 1 1 {} {hyph-pa.pat.txt} {} {} } \
+    {tamil loadhyph-ta.tex 1 1 {} {hyph-ta.pat.txt} {} {} } \
+    {telugu loadhyph-te.tex 1 1 {} {hyph-te.pat.txt} {} {} } \
+    {sanskrit loadhyph-sa.tex 1 3 {} {hyph-sa.pat.txt} {} {} }
+
+texlive.maps      \
+    {Map burmese.map} \
+    {Map skt.map} \
+    {MixedMap dvng.map}
+
+texlive.binaries    devnag ebong
+
+
+texlive.texmfport

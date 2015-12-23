@@ -1,0 +1,32 @@
+# $Id: Portfile 96043 2012-07-30 09:13:34Z jmr@macports.org $
+
+PortSystem          1.0
+
+name                libdbi
+version             0.8.4
+categories          databases devel
+license             LGPL-2.1+
+maintainers         umich.edu:mta
+description         Database independent abstraction layer for C
+long_description    $description
+homepage            http://libdbi.sourceforge.net/
+platforms           darwin
+master_sites        sourceforge
+
+checksums           md5    c5f15407ef7b07ba854cd8c9b15b88ff \
+                    sha1   e86977d75150dde10c82ddb6193b9d4eb677d7ad \
+                    rmd160 0673c78a1411638db768b633d1df709da55779d0
+
+configure.args      --disable-docs
+
+patchfiles          endian.patch cflags.patch
+
+variant docs description "Build the documentation" {
+        configure.args-delete --disable-docs
+
+        depends_build port:openjade
+}
+
+variant debug description "Build with debugger symbols" {
+        build.target debug
+}

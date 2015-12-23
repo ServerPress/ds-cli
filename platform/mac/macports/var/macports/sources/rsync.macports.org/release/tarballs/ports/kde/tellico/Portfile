@@ -1,0 +1,40 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 133006 2015-02-17 21:08:26Z mf2k@macports.org $
+
+PortSystem          1.0
+PortGroup           kde4 1.1
+
+name                tellico
+version             2.3.10
+categories          kde kde4
+platforms           darwin
+maintainers         nomaintainer
+license             GPL-2+
+
+description         application for organizing your collections
+
+long_description    Tellico is an ${description}. It provides default \
+                    templates for books, bibliographies, videos, music, \
+                    video games, coins, stamps, trading cards, comic books, \
+                    and wines.
+
+homepage            http://tellico-project.org/
+master_sites        ${homepage}files/
+use_bzip2           yes
+
+checksums           rmd160  f44335dfac9043209ffc897f0ec0ed611f00f278 \
+                    sha256  e916101f86b6f843b85be42e8545aa7441cd496cbb9b81590e2e0bd03a58faaa
+
+depends_lib-append  port:gettext \
+                    port:qimageblitz \
+                    port:kdelibs4 \
+                    port:kdepimlibs4 \
+                    port:libksane \
+                    port:libxml2 \
+                    port:libxslt \
+                    port:taglib \
+                    port:yaz \
+                    port:exempi \
+                    port:qjson
+
+depends_run-append  port:oxygen-icons

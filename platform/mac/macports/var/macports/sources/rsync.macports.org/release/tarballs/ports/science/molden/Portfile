@@ -1,0 +1,89 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143588 2015-12-15 14:34:08Z ryandesign@macports.org $
+
+# Previous maintainer Jochen Küpper got explicit permission to distribute molden
+# as a MacPorts port, given that the source code is always downloaded from the
+# author's webpage and we display a notice asking users to register.
+
+PortSystem 1.0
+PortGroup xcodeversion 1.0
+PortGroup compilers 1.0
+
+name                molden
+version             5.4-20151211134500
+set version_number  [lindex [split ${version} -] 0]
+set branch          [join [lrange [split ${version_number} .] 0 1] .]
+categories          science graphics chemistry
+license             Restrictive Noncommercial
+maintainers         ryandesign openmaintainer
+homepage            http://www.cmbi.ru.nl/molden/molden.html
+distname            ${name}${version_number}
+worksrcdir          ${name}${branch}
+dist_subdir         ${name}/${version}
+master_sites        ftp://ftp.cmbi.ru.nl/pub/molgraph/molden/
+
+checksums           rmd160  24de5a26229bb955d64f1aa279de30e37b424828 \
+                    sha256  4b298b816f6f91b68e2a1a0149d8bc10d1c9fe7e497ed51cbbb9258119ba5b9e
+
+description         Molecular graphics visualisation tool
+long_description    Molden is a package for displaying Molecular Density from \
+                    the Ab Initio packages GAMESS-UK, GAMESS-US and \
+                    GAUSSIAN and the Semi-Empirical packages Mopac/Ampac, it \
+                    also supports a number of other programs via the Molden Format. \
+                    In order to keep up support for Molden, proof that \
+                    it is being used outside the CMBI is required. \
+                    Please register your copy of molden at: \
+                    http://www.cmbi.ru.nl/molden/form.html
+
+notes "
+                    In order to keep up support for Molden, proof that\
+                    it is being used outside the CMBI is required.\
+                    Please register your copy of molden at:\
+                    \n\nhttp://www.cmbi.ru.nl/molden/form.html
+"
+
+platforms           darwin
+depends_build       port:gmake
+depends_lib         port:xorg-libX11
+patchfiles          patch-makefile.diff
+post-patch {
+    reinplace "s|@PREFIX@|${prefix}|g" ${worksrcpath}/makefile
+}
+
+compilers.choose    fc
+compilers.setup     require_fortran
+minimum_xcodeversions {9 3.1}
+use_parallel_build  yes
+use_configure       no
+build.target        molden
+build.cmd           ${prefix}/bin/gmake
+pre-build {
+    build.args      CC=${configure.cc} \
+                    FC=${configure.fc}
+}
+
+destroot {
+    xinstall -W ${worksrcpath} molden ${destroot}${prefix}/bin
+    set docdir ${destroot}${prefix}/share/doc/molden
+    xinstall -m 755 -d ${docdir}
+    xinstall -W ${worksrcpath} \
+        COMMERCIAL_LICENSE \
+        CopyRight \
+        HISTORY \
+        README \
+        REGISTER \
+        ${docdir}
+}
+
+variant opengl description "Install moldenogl OpenGL helper program" {
+    depends_lib-append      port:freeglut \
+                            port:mesa
+    build.target-append     moldenogl
+    post-destroot {
+        xinstall -W ${worksrcpath} moldenogl ${destroot}${prefix}/bin
+    }
+}
+
+livecheck.type      regex
+livecheck.url       http://www.ryandesign.com/macports/version.php/${name}
+livecheck.regex     {^(.+)$}

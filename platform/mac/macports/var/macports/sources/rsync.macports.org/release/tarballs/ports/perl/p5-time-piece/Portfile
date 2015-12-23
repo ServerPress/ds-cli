@@ -1,0 +1,18 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142092 2015-11-03 12:19:45Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Time-Piece 1.31
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+
+description         Object-oriented time objects
+long_description    ${description}
+
+checksums           rmd160  71e65fe846a22e107d0c5452f8ded66d50408f25 \
+                    sha256  05084024dc6fcec9ea5218038d1933e9c2cc5aa5f769d70404480e977cd167b9
+
+platforms           darwin

@@ -1,0 +1,97 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
+
+PortSystem          1.0
+
+name                hexchat
+version             2.10.2
+revision            1
+set branch          [join [lrange [split ${version} .] 0 1] .]
+categories          irc
+maintainers         raimue \
+                    openmaintainer
+description         IRC client based on XChat
+homepage            http://hexchat.github.io/
+platforms           darwin
+license             GPL-2+
+
+long_description \
+    HexChat is a graphical IRC client using GTK2 that has \
+    many features and can be scripted with Perl and/or Python. \
+    It is based on XChat, but unlike its predecessor completely \
+    free software.
+
+master_sites        http://dl.hexchat.net/hexchat/
+use_xz yes
+
+checksums           rmd160  a37ae7451afa0d93446dba22c38d00d02bc49a6b \
+                    sha256  87ebf365c576656fa3f23f51d319b3a6d279e4a932f2f8961d891dd5a5e1b52c
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:gnome-common \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+depends_lib         port:gtk2 \
+                    port:libsexy \
+                    path:bin/perl:perl5 \
+                    port:libpng \
+                    port:libnotify \
+                    port:gettext
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+configure.cmd       ./autogen.sh && ./configure
+
+configure.args      --disable-dependency-tracking \
+                    --enable-minimal-flags \
+                    --disable-python \
+                    --disable-mmx \
+                    --enable-ipv6 \
+                    --disable-openssl \
+                    --enable-libnotify \
+                    --enable-spell=libsexy \
+                    --enable-socks
+
+universal_variant   no
+
+default_variants    +ssl
+
+variant xft conflicts quartz description "Enable Xft2 font support" {
+    configure.args-append --enable-xft
+}
+
+variant ssl description "Enable SSL using openssl" {
+    configure.args-replace --disable-openssl --enable-openssl
+    depends_lib-append path:lib/libssl.dylib:openssl
+}
+
+variant quartz conflicts xft {
+    configure.args-append --disable-xlib
+    depends_lib-append port:gtk-osx-application-gtk2
+    patchfiles-append patch-gtk-mac-integration-gtk2.diff
+    use_autoreconf yes
+}
+
+variant python27 description "Enable Python plugin, using python27" conflicts python33 python34 {
+    configure.args-replace --disable-python --enable-python=python2.7
+    depends_lib-append port:python27
+    configure.pkg_config_path ${frameworks_dir}/Python.framework/Versions/2.7/lib/pkgconfig/
+}
+
+variant python33 description "Enable Python plugin, using python33" conflicts python27 python34 {
+    configure.args-replace --disable-python --enable-python=python3.3
+    depends_lib-append port:python33
+    configure.pkg_config_path ${frameworks_dir}/Python.framework/Versions/3.3/lib/pkgconfig/
+}
+
+variant python34 description "Enable Python plugin, using python34" conflicts python27 python33 {
+    configure.args-replace --disable-python --enable-python=python3.4
+    depends_lib-append port:python34
+    configure.pkg_config_path ${frameworks_dir}/Python.framework/Versions/3.4/lib/pkgconfig/
+}
+
+livecheck.type  regex
+livecheck.url   http://hexchat.github.io/downloads.html
+livecheck.regex ${name}-(\\d+(\\.\\d+)+)\\.tar

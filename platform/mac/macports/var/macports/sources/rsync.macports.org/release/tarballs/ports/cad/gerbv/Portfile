@@ -1,0 +1,34 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 120048 2014-05-14 15:38:26Z mf2k@macports.org $
+
+PortSystem          1.0
+
+name                gerbv
+version             2.6.0
+revision            1
+categories          cad science electronics
+platforms           darwin
+license             GPL-2
+maintainers         nomaintainer
+
+description         Gerber Viewer (gerbv) is a viewer for Gerber files
+long_description    Gerber Viewer (gerbv) is a viewer for Gerber files. \
+                    Gerber files are generated from PCB CAD system and sent \
+                    to PCB manufacturers as basis for the manufacturing process. \
+                    The standard supported by gerbv is RS-274X.
+
+homepage            http://gerbv.geda-project.org
+master_sites        sourceforge:project/gerbv/gerbv/gerbv-${version}
+
+checksums           rmd160  5f5596689bb7356a35dab19d5c0f51e6ec989212 \
+                    sha256  5c55425c3493bc8407949be8b4e572434a6b378f5727cc0dcef97dc2e7574dd0
+
+depends_build       port:pkgconfig
+depends_lib         port:gtk2 \
+                    port:libpng
+
+configure.args      --disable-update-desktop-database
+
+variant quartz {
+    configure.cflags-append -DQUARTZ=1
+}

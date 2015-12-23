@@ -1,0 +1,35 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 132417 2015-01-31 21:30:47Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-datrie
+version             0.7
+revision            0
+categories-append   devel
+platforms           darwin
+license             LGPL
+
+python.versions     27 34
+
+maintainers         stromnov openmaintainer
+
+description         Super-fast, efficiently stored Trie for Python.
+long_description    ${description}
+
+homepage            https://github.com/kmike/datrie/
+master_sites        https://pypi.python.org/packages/source/d/datrie/
+
+distname            datrie-${version}
+
+checksums           rmd160  c39edd746b5e2672ba49b4864ba1174788b61c06 \
+                    sha256  47f0d607b0cc6ce2c2193040421d92e5cdf94d4deca567af5317d4e1365e6267
+
+if {${name} ne ${subport}} {
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/datrie/json
+    livecheck.regex     {datrie-(\d+(?:\.\d+)*)\.[tz]}
+}

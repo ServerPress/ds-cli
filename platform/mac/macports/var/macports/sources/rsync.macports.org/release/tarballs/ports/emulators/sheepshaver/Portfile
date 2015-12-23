@@ -1,0 +1,67 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134350 2015-03-23 16:26:41Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+set git_shasum      86c50b78fe
+set git_date        2013-11-05
+github.setup        cebix macemu ${git_shasum}
+name                sheepshaver
+version             2.3_git_${git_date}_${git_shasum}
+categories          emulators
+platforms           darwin
+maintainers         nomaintainer
+
+description         PowerPC Mac OS run-time environment
+
+long_description    SheepShaver is an Open Source PowerPC Mac OS run-time \
+                    environment. That is, it enables you to run PowerPC \
+                    Classic Mac OS software on your computer, even if you are \
+                    using a different operating system. However, you still \
+                    need a copy of Mac OS and a Power Macintosh ROM image to \
+                    use this program.
+
+homepage            http://sheepshaver.cebix.net/
+
+checksums           rmd160  49ff473856b1db0ee802470f7b5d8f2d47d22e31 \
+                    sha256  90291cc63f93004f17003227bcc9347753e3487bf7345b64b9597ab14525fd83
+
+depends_build       port:autoconf \
+                    port:automake
+
+depends_lib         port:libsdl
+
+worksrcdir          "${worksrcdir}/SheepShaver/src/Unix"
+
+post-extract {
+    file mkdir ${worksrcpath}/Darwin
+}
+
+patchfiles          patch-Makefile.in.diff
+
+pre-configure {
+    system -W "${worksrcpath}/../../" "make links"
+    system -W "${worksrcpath}" "NO_CONFIGURE=yes ACLOCAL_FLAGS=\"-I m4\" ./autogen.sh"
+}
+
+configure.args      --enable-sdl-video \
+                    --enable-sdl-audio \
+                    --disable-vosf \
+                    --without-esd \
+                    --without-gtk \
+                    --without-mon
+
+post-destroot {
+    xinstall -m 755 -d ${destroot}${prefix}/share/doc/${name}
+    file copy ${worksrcpath}/../../doc/Linux ${destroot}${prefix}/share/doc/${name}
+}
+
+variant gtk {
+    depends_lib-append      port:gtk2
+    configure.args-replace  --without-gtk --with-gtk
+}
+
+default_variants    +gtk
+
+universal_variant   no

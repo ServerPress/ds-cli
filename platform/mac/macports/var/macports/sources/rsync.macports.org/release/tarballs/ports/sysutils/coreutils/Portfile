@@ -1,0 +1,82 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138509 2015-07-10 13:06:35Z ryandesign@macports.org $
+
+PortSystem      1.0
+
+name            coreutils
+conflicts       gexpr
+version         8.24
+categories      sysutils
+platforms       darwin
+license         GPL-3+
+installs_libs   no
+maintainers     nomaintainer
+description     GNU File, Shell, and Text utilities
+
+long_description \
+    The GNU Core Utilities are the basic file, shell, and text \
+    manipulation utilities of the GNU operating system. These are the \
+    core utilities which are expected to exist on every operating \
+    system. Previously these utilities were offered as three individual \
+    sets of GNU utilities, fileutils, shellutils, and textutils. Those \
+    three have been combined into a single set of utilities called the \
+    coreutils.
+
+homepage        http://www.gnu.org/software/${name}/
+master_sites    gnu
+use_xz          yes
+
+checksums       rmd160  8f6ceeeec5be5a61197d9b41673b17414dea511f \
+                sha256  a2d75286a4b9ef3a13039c2da3868a61be4ee9f17d8ae380a35a97e506972170
+
+depends_lib \
+    port:gettext \
+    port:gmp \
+    port:libiconv
+
+configure.args      --disable-silent-rules \
+                    --program-prefix=g
+
+# Whether deliberately or not, some users run MacPorts as root without privilege dropping.
+configure.env-append    FORCE_UNSAFE_CONFIGURE=1
+
+# help2man: can't get `--help' info from man/hostid.td/hostid
+use_parallel_build  no
+
+post-destroot {
+    if {[file exists ${destroot}${prefix}/share/info/dir]} {
+        delete ${destroot}${prefix}/share/info/dir
+    }
+
+    if {[file exists ${destroot}${prefix}/lib/charset.alias]} {
+        delete ${destroot}${prefix}/lib/charset.alias
+    }
+
+    set docdir ${prefix}/share/doc/${name}
+    xinstall -d ${destroot}${docdir}
+    xinstall -m 0644 -W ${worksrcpath} AUTHORS COPYING ChangeLog NEWS README \
+        THANKS THANKS-to-translators TODO ${destroot}${docdir}
+
+    xinstall -m 755 -d ${destroot}${prefix}/libexec/gnubin
+    foreach binary [glob -tails -directory ${destroot}${prefix}/bin g*] {
+        ln -s ${prefix}/bin/${binary} ${destroot}${prefix}/libexec/gnubin/[string range $binary 1 end]
+    }
+    xinstall -m 755 -d ${destroot}${prefix}/libexec/gnubin/man/man1
+    foreach manpage [glob -tails -directory ${destroot}${prefix}/share/man/man1 g*] {
+        ln -s ${prefix}/share/man/man1/${manpage}.gz ${destroot}${prefix}/libexec/gnubin/man/man1/[string range $manpage 1 end].gz
+    }
+}
+
+# Set the RUN_EXPENSIVE_TESTS environmental variable to 'yes' to run more
+# expensive tests.  Set the RUN_VERY_EXPENSIVE_TESTS environmental variable
+# to 'yes' to run even more expensive tests.
+test.run        yes
+test.target     check
+
+notes "
+    The tools provided by GNU coreutils are prefixed with the character 'g' by default to distinguish them from the BSD commands.
+    For example, cp becomes gcp and ls becomes gls.
+
+    If you want to use the GNU tools by default, add this directory to the front of your PATH environment variable:
+        ${prefix}/libexec/gnubin/
+"

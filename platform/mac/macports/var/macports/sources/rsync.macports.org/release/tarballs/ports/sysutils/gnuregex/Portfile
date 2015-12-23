@@ -1,0 +1,45 @@
+# $Id: Portfile 84998 2011-10-07 00:54:32Z jmr@macports.org $
+
+PortSystem      1.0
+
+name            gnuregex
+set my_name     regex
+version         0.12
+revision        2
+categories      sysutils
+license         GPL-2+
+maintainers     nomaintainer
+platforms       darwin
+description     GNU regex library
+
+long_description \
+    ${description}
+
+homepage        http://www.gnu.org/directory/regex.html
+distname        ${my_name}-${version}
+
+master_sites    http://ftp.gnu.org/old-gnu/${my_name}/ \
+                ftp://ftp.gnu.org/old-gnu/${my_name}/
+
+checksums       md5 6c25ca10e71adeede101e7646e796ebd
+
+build.args      subdirs=test
+
+post-build {
+    set command "libtool -lSystem -dynamic -install_name ${prefix}/lib/libgnuregex.dylib -o libgnuregex.dylib regex.o"
+    ui_debug "$command"
+    system "cd ${worksrcpath} && ${command}"
+}
+
+test.run        yes
+test.args       ${build.args}
+test.target     check
+
+destroot {
+    xinstall -m 0644 ${worksrcpath}/regex.h ${destroot}${prefix}/include/gnuregex.h
+    xinstall ${worksrcpath}/libgnuregex.dylib ${destroot}${prefix}/lib
+}
+
+# Newer versions of GNU regex are available in the GNU libc tarball
+# in the files posix/regex.c and posix/regex.h.
+livecheck.type  none

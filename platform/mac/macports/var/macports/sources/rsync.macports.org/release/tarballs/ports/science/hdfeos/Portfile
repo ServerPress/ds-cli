@@ -1,0 +1,57 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143728 2015-12-19 11:56:49Z takeshi@macports.org $
+
+PortSystem          1.0
+PortGroup           active_variants 1.1
+
+name                hdfeos
+version             2.19
+categories          science
+maintainers         takeshi
+license             public-domain
+description         HDF-EOS library built on HDF4
+long_description \
+    library designed built on HDF4 to support EOS-specific \
+    data structures, namely Grid, Point, and Swath.
+homepage            http://hdfeos.org/
+platforms           darwin
+master_sites        ftp://edhs1.gsfc.nasa.gov/edhs/${name}/latest_release/ \
+                    ftp://edhs1.gsfc.nasa.gov/edhs/${name}/previous_release/ \
+                    http://www.enomosphere.net/hdfeos/
+depends_lib         port:hdf4
+distname            HDF-EOS${version}v1.00
+worksrcdir          ${name}
+extract.suffix      .tar.Z
+fetch.use_epsv      no
+checksums           md5     b8648484fc78a2db7073dd603f3fb251 \
+                    sha1    16c94519e94be0e958c69001d39d9354f65015f7 \
+                    rmd160  a3d9ceff401c66fc904d60b2cadf878acb7d222c
+configure.args      --with-hdf4=${prefix} \
+                    --with-jpeg=${prefix} \
+                    --with-zlib=${prefix} \
+                    --without-szlib       \
+                    --enable-shared       \
+                    --disable-dependency-tracking
+configure.cc        ${prefix}/bin/h4cc
+configure.ccache    no
+
+post-destroot {
+    eval xinstall -m 644 [glob ${worksrcpath}/include/*.h] \
+        ${destroot}${prefix}/include
+}
+
+if {![catch {set result [active_variants port:hdf4 szip]}]} {
+    if {$result} {
+        default_variants-append +szip
+    }
+}
+variant szip description {build with szip} {
+    require_active_variants hdf4 szip
+    depends_lib-append      port:szip
+    configure.args-delete   --without-szlib
+    configure.args-append   --with-szlib=${prefix}
+}
+
+livecheck.type      regex
+livecheck.url       ${homepage}/software/hdfeos.php
+livecheck.regex     {HDF-EOS ([0-9]+.[0-9]+) is the latest version}

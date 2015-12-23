@@ -1,0 +1,56 @@
+# $Id: Portfile 142698 2015-11-20 16:55:09Z landonf@macports.org $
+
+PortSystem 1.0
+
+name             pmd
+version          3.9
+
+categories       java lang
+platforms        darwin
+maintainers      nomaintainer
+
+description      PMD is a Java source code analyzer
+long_description PMD is a Java source code analyzer. It finds unused \
+                 variables, empty catch blocks, unnecessary object \
+                 creation, and so forth.
+
+homepage         http://pmd.sourceforge.net/
+master_sites     sourceforge
+distname         ${name}-src-${version}
+checksums        md5 2ddefa2c0aa890693e2ce07a548b189f
+use_zip          yes
+
+depends_build    bin:ant:apache-ant port:junit
+
+worksrcdir       ${name}-${version}
+
+post-extract   {
+    # Ensure this gets rebuilt
+    file delete ${worksrcpath}/lib/pmd-${version}.jar
+}
+
+use_configure  no
+
+build.cmd      ant
+build.target   dist
+build.dir      ${worksrcpath}/bin
+
+build.args     -lib ${prefix}/share/java/junit.jar
+
+destroot {
+    # Install the wrapper script
+    xinstall -m 755 ${filespath}/pmd ${destroot}${prefix}/bin
+    reinplace "s|_PREFIX_|${prefix}|g" ${destroot}${prefix}/bin/pmd
+
+    # Install jars
+    xinstall -m 755 -d ${destroot}${prefix}/share/pmd
+    file copy ${worksrcpath}/rulesets ${destroot}${prefix}/share/pmd
+    foreach file [glob ${worksrcpath}/lib/*.jar] {
+        xinstall -m 644 ${file} ${destroot}${prefix}/share/pmd/
+    }
+    system "cd ${destroot}${prefix}/share/pmd && ln -s pmd-${version}.jar pmd.jar"
+
+    # Install documentation
+    xinstall -m 755 -d ${destroot}${prefix}/share/doc/pmd
+    file copy ${worksrcpath}/docs ${destroot}${prefix}/share/doc/pmd
+}

@@ -1,0 +1,31 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Any-Moose 0.26
+maintainers         nomaintainer
+license             {Artistic-1 GPL}
+# should we make this module obsolete?
+description         *deprecated* - use Moo instead!
+long_description    ${description}
+
+platforms           darwin
+supported_archs     noarch
+
+checksums           rmd160  32d515ea0cafbdc6038854a911d9a554cfa97eef \
+                    sha256  0404e192cac9c6fe43999e9291a9ed2dfab32022fd7e30cdec1ba2d12f0d8df1
+
+if {${perl5.major} != ""} {
+#   the following build dependencies are optional test dependencies
+#   dependencies for testing moose, moosex, moo, mouse support are included for more complete testing
+#   dependencies for testing mousex support are not included to prevent dependency loop
+#   p5-mousex-types depends on p5-any-moose
+    depends_build-append \
+                    port:p${perl5.major}-moo \
+                    port:p${perl5.major}-moose \
+                    port:p${perl5.major}-moosex-types \
+                    port:p${perl5.major}-mouse
+}

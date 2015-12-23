@@ -1,0 +1,87 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139401 2015-08-16 02:16:16Z khindenburg@macports.org $
+
+PortSystem              1.0
+
+name                    moreutils
+conflicts               ts
+version                 0.57
+categories              sysutils
+platforms               darwin
+maintainers             khindenburg openmaintainer
+license                 GPL-2+
+
+description             a collection of the unix tools that nobody thought \
+                        to write thirty years ago.
+
+long_description        moreutils includes the following utilities: \
+                        \n- chronic: runs a command quietly unless it fails \
+                        \n- combine: combine the lines in two files using boolean operations \
+                        \n- errno: look up errno names and descriptions \
+                        \n- ifne: run a program if the standard input is not empty \
+                        \n- isutf8: check if a file or standard input is utf-8 \
+                        \n- lckdo: run a program with a lock held. \
+                        \n- mispipe: pipe two commands, returning the exit status of the first \
+                        \n- pee: tee standard input to pipes \
+                        \n- sponge: soak up standard input and write to a file \
+                        \n- ts: timestamp standard input \
+                        \n- vidir: edit a directory in your text editor \
+                        \n- vipe: insert a text editor into a pipe \
+                        \n- zrun: automatically uncompress arguments to command
+
+homepage                http://joeyh.name/code/moreutils
+
+master_sites            debian:m/${name}
+distname                ${name}_${version}.orig
+worksrcdir              ${name}-${version}
+
+checksums               rmd160  eaa8acf97057e302f940b35101c9fb7a193953f5 \
+                        sha256  3a7d54b0634e5eda8c3c43490d47cea189156700892dea6d876867cef9bc0d1d
+
+# set pbranch to desired perl version
+# currently 5.22 (#48365)
+set pbranch             5.22
+
+depends_run             port:perl${pbranch} \
+                        port:p${pbranch}-ipc-run
+
+patchfiles              patch-Makefile.diff
+
+post-patch {
+    reinplace "s|/usr/bin/perl|${prefix}/bin/perl${pbranch}|" \
+        ${worksrcpath}/vidir ${worksrcpath}/vipe \
+        ${worksrcpath}/ts ${worksrcpath}/combine \
+        ${worksrcpath}/zrun ${worksrcpath}/chronic
+}
+
+use_configure           no
+
+variant universal {}
+
+build.args-append       CC=${configure.cc} \
+                        CFLAGS="${configure.cflags} [get_canonical_archflags cc]" \
+                        LDFLAGS="${configure.ldflags} [get_canonical_archflags ld]" \
+                        DOCBOOK2XMAN=docbook2man \
+                        PREFIX=${prefix}
+
+destroot.args-append    PREFIX=${prefix}
+
+default_variants        +doc
+
+variant doc description {Install man pages} {
+    depends_build-append    port:docbook-xml-4.4 port:docbook2X
+    build.target-append     doc
+    destroot.target-append  install-doc
+}
+
+notes "The binary parallel is no longer in this port; please install the port parallel instead."
+
+platform darwin 8 {
+    # ticket #24279
+    pre-fetch {
+        error "$name does not build on Mac OS X 10.4"
+    }
+}
+
+livecheck.type          regex
+livecheck.regex         {version ([0-9.]+)}

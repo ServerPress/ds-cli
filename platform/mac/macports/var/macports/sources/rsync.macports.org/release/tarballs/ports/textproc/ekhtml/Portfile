@@ -1,0 +1,43 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 101229 2013-01-06 16:34:24Z ryandesign@macports.org $
+
+PortSystem      1.0
+
+name            ekhtml
+version         0.3.2
+license         BSD
+categories      textproc devel
+platforms       darwin
+maintainers     nomaintainer
+description     El-Kabong is a speedy, yet forgiving, SAX-style HTML parser
+
+long_description \
+    ${description}
+
+homepage        http://ekhtml.sourceforge.net/
+master_sites    sourceforge:project/ekhtml/ekhtml/${version}
+
+checksums       md5     cc9d2e4adaccacfacefddbd75ccccfdf \
+                sha1    d4e6c25964f7e110073f646950dc307e84d61f1b \
+                rmd160  8e5d664821d181e12f0fc6d24d1a288f432cc2b5
+
+patchfiles      patch-automake-1.13.diff
+
+if {[variant_isset universal]} {
+    use_autoreconf yes
+} else {
+    configure.ccache no
+}
+
+use_parallel_build no
+
+test.run        yes
+test.target     check
+
+post-destroot {
+    set docdir ${prefix}/share/doc/${name}
+    xinstall -d ${destroot}${docdir}
+    xinstall -m 644 -W ${worksrcpath} AUTHORS COPYING ChangeLog NEWS README \
+        TODO ${destroot}${docdir}
+    copy ${worksrcpath}/docs/html ${destroot}${docdir}/api
+}

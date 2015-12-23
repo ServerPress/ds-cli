@@ -1,0 +1,110 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139663 2015-08-24 00:59:23Z dports@macports.org $
+
+PortSystem 1.0
+PortGroup perl5 1.0
+PortGroup texlive 1.0
+
+# Note: biber is not backwards-compatible, so be sure to check for
+# compatibility with the version of biblatex in texlive-bibtex-extra
+# before updating this port.
+name            biblatex-biber
+epoch           2
+
+perl5.branches  5.18 5.20 5.22
+
+variant perl5_18 description "use perl version 5.18" conflicts perl5_20 perl5_22 {}
+variant perl5_20 description "use perl version 5.20" conflicts perl5_18 perl5_22 {}
+variant perl5_22 description "use perl version 5.22" conflicts perl5_18 perl5_20 {}
+if {![variant_isset perl5_18] && ![variant_isset perl5_20]} {
+    default_variants +perl5_22
+}
+
+if {[variant_isset perl5_18]} { perl5.default_branch 5.18 }
+if {[variant_isset perl5_20]} { perl5.default_branch 5.20 }
+if {[variant_isset perl5_22]} { perl5.default_branch 5.22 }
+
+perl5.setup     Biber 2.1
+version         ${perl5.moduleversion}
+revision        1
+
+categories      tex
+license         {Artistic-2 GPL}
+maintainers     dports openmaintainer
+description     a BibTeX replacement for users of biblatex
+long_description \
+  Biblatex relies on the venerable BibTeX program only for sorting and \
+  generating a very generic bbl file without any formatting            \
+  instruction. Everything else is taken care of by biblatex, which     \
+  provides a powerful and flexible macro interface for authors of      \
+  citation styles.  With Biber it is no longer necessary to rely on    \
+  BibTeX, allowing full Unicode support, no memory limitations,        \
+  extensibility, etc.
+
+platforms       darwin
+supported_archs noarch
+homepage        http://biblatex-biber.sourceforge.net/
+
+master_sites    sourceforge:project/${name}/${name}/${version}
+distname        ${name}
+dist_subdir     ${name}-${version}
+worksrcdir      ${name}-${version}
+
+checksums       rmd160  84c21ebedcef6e62144fa5c1007c2d8b9354b481 \
+                sha256  2df772d846ede643e9f58be90a7f7d2201554bd79a6d5fa5321c5409eae6a9c2
+
+
+depends_build-append    port:p${perl5.major}-config-autoconf \
+                        port:p${perl5.major}-extutils-libbuilder
+
+depends_lib-append      port:p${perl5.major}-autovivification \
+                        port:p${perl5.major}-business-isbn \
+                        port:p${perl5.major}-business-ismn \
+                        port:p${perl5.major}-business-issn \
+                        port:p${perl5.major}-data-compare \
+                        port:p${perl5.major}-data-dump \
+                        port:p${perl5.major}-date-simple \
+                        port:p${perl5.major}-encode-eucjpascii \
+                        port:p${perl5.major}-encode-hanextra \
+                        port:p${perl5.major}-encode-jis2k \
+                        port:p${perl5.major}-file-slurp \
+                        port:p${perl5.major}-ipc-cmd \
+                        port:p${perl5.major}-ipc-run3 \
+                        port:p${perl5.major}-libwww-perl \
+                        port:p${perl5.major}-list-allutils \
+                        port:p${perl5.major}-list-moreutils \
+                        port:p${perl5.major}-log-log4perl \
+                        port:p${perl5.major}-mozilla-ca \
+                        port:p${perl5.major}-readonly \
+                        port:p${perl5.major}-readonly-xs \
+                        port:p${perl5.major}-regexp-common \
+                        port:p${perl5.major}-text-bibtex \
+                        port:p${perl5.major}-text-roman \
+                        port:p${perl5.major}-unicode-collate \
+                        port:p${perl5.major}-unicode-linebreak \
+                        port:p${perl5.major}-uri \
+                        port:p${perl5.major}-xml-libxml-simple \
+                        port:p${perl5.major}-xml-libxslt \
+                        port:p${perl5.major}-xml-writer \
+                        bin:mktexlsr:texlive-basic
+
+perl5.use_module_build
+perl5.link_binaries_suffix
+
+post-destroot {
+    xinstall -d ${destroot}${texlive_texmfports}/doc/bibtex/biber
+    xinstall -m 644 ${worksrcpath}/doc/biber.pdf \
+                    ${destroot}${texlive_texmfports}/doc/bibtex/biber
+}
+
+post-activate {
+    texlive.mktexlsr
+}
+
+post-deactivate {
+    texlive.mktexlsr
+}
+
+livecheck.type  regex
+livecheck.url   http://sourceforge.net/projects/biblatex-biber/files/biblatex-biber/
+livecheck.regex {a href="/projects/biblatex-biber/files/biblatex-biber/([0-9\.]+)/"}

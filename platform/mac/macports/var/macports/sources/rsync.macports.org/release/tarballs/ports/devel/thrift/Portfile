@@ -1,0 +1,121 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
+
+PortSystem      1.0
+PortGroup       conflicts_build 1.0
+
+name            thrift
+conflicts       thrift-devel
+version         0.9.2
+revision        1
+categories      devel
+license         Apache-2
+maintainers     gmail.com:naoya.n blair openmaintainer
+platforms       darwin
+
+description     framework for scalable cross-language services development
+long_description \
+    Thrift is a software framework for scalable cross-language \
+    services development. It combines a software stack with a code \
+    generation engine to build services that work efficiently and \
+    seamlessly between C++, Java, Python, PHP, Ruby, Erlang, Perl, \
+    Haskell, C#, Cocoa, Smalltalk, and OCaml.
+
+homepage        http://thrift.apache.org/
+master_sites    apache:${name}/${version}
+
+checksums           sha1   02f78b158da795ea89a26ce41964fbe562cc4235 \
+                    rmd160 a858d2ef0e4e41305e43ef42e9cc602915a47c1f \
+                    sha256 cef50d3934c41db5fa7724440cc6f10a732e7a77fe979b98c23ce45725349570
+
+use_parallel_build  no
+
+depends_build       port:bison \
+                    port:boost \
+                    port:libevent \
+                    port:pkgconfig
+depends_lib-append  path:lib/libssl.dylib:openssl
+
+patchfiles          8c12b19e.diff
+patch.pre_args      -p1
+
+post-patch {
+    reinplace \
+        "s#-l:libboost_unit_test_framework\.a#${prefix}/lib/libboost_unit_test_framework-mt.a#g" \
+        ${worksrcpath}/lib/cpp/test/Makefile.in
+    foreach l {filesystem program_options system} {
+        reinplace \
+            "s#-lboost_${l}#-lboost_${l}-mt#g" \
+            ${worksrcpath}/test/cpp/Makefile.in
+    }
+}
+
+conflicts_build     ${name}
+
+configure.args  --with-c_glib=no \
+                --with-csharp=no \
+                --with-d=no \
+                --with-erlang=no \
+                --with-go=no \
+                --with-haskell=no \
+                --with-java=no \
+                --with-lua=no \
+                --with-perl=no \
+                --with-php=no \
+                --with-php_extension=no \
+                --with-python=no \
+                --with-qt4=no \
+                --with-ruby=no
+
+variant java description "enable the Java library" {
+    depends_build-append    bin:ant:apache-ant
+    configure.env-append    JAVA_PREFIX=${prefix}/share/java
+    configure.args-delete   --with-java=no
+    configure.args-append   --with-java=yes
+}
+
+variant csharp description "enable the C# library" {
+    configure.args-delete   --with-csharp=no
+    configure.args-append   --with-csharp=yes
+    depends_lib-append      port:mono
+}
+
+variant glib2 description "enable the C (GLib) library" {
+    configure.args-delete   --with-c_glib=no
+    configure.args-append   --with-c_glib=yes
+    depends_lib-append      path:lib/pkgconfig/glib-2.0.pc:glib2
+}
+
+# doesn't install into destroot
+#variant ruby description "enable the Ruby library" {
+#    configure.args-delete   --with-ruby=no
+#    configure.args-append   --with-ruby=yes
+#    depends_lib-append      port:ruby
+#}
+
+variant haskell description "enable the Haskell library" {
+    configure.args-delete   --with-haskell=no
+    configure.args-append   --with-haskell=yes
+    depends_lib-append      port:ghc \
+                            port:hs-http \
+}
+
+variant php description "enable the PHP library" {
+    configure.env-append    PHP_PREFIX=${prefix}/lib/php
+    configure.args-delete   --with-php=no
+    configure.args-append   --with-php=yes
+    depends_lib-append      path:bin/php:php5
+}
+
+variant erlang description "enable the Erlang library" {
+    configure.args-delete   --with-erlang=no
+    configure.args-append   --with-erlang=yes
+    depends_lib-append      port:erlang
+}
+
+test.run        yes
+test.target     check
+
+livecheck.type  regex
+livecheck.url   http://www.apache.org/dist/thrift/
+livecheck.regex {(\d+(?:\.\d+)*)/}

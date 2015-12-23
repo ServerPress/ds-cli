@@ -1,0 +1,65 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 115019 2013-12-22 09:29:46Z ryandesign@macports.org $
+
+PortSystem 1.0
+
+name            xsane
+version         0.998
+revision        3
+license         GPL-2
+categories      graphics x11
+maintainers     puffin.lb.shuttle.de:michael.klein openmaintainer
+description     X11 frontend for SANE
+homepage        http://www.xsane.org/
+platforms       darwin
+
+long_description This is an X11 frontend for the Scanner Access Now Easy \
+                 Project.
+
+master_sites    ${homepage}download/ \
+                ftp://ftp2.sane-project.org/pub/sane/xsane/ \
+                ftp://ftp3.sane-project.org/pub/sane/xsane/ \
+                ftp://sunsite.uio.no/pub/sane/xsane/
+
+checksums       md5     936f1cc76b37caa8f285e1e15ac7e0aa \
+                sha1    59e238b310979f71a8e15b692eab3c5b2ce6fc32 \
+                rmd160  aecf63ac3f15b878d01b697ac3ca95de34d18323
+
+depends_build   port:pkgconfig
+depends_lib     lib:libgimp-2.0:gimp2 \
+                port:jpeg \
+                port:gtk2 \
+                port:libpng \
+                port:sane-backends
+
+patchfiles      patch-sane-options-handling-fix.diff \
+                patch-gtk_adjustment_new.diff \
+                patch-src__xsane-save.c-libpng15-compat.diff
+
+# gimp2 is not universal (#29165)
+
+if {![variant_isset disable_gimp]} {
+    universal_variant no
+}
+
+destroot.destdir        prefix=${destroot}${prefix}
+post-destroot {
+    delete ${destroot}${prefix}/share/man
+    file rename ${destroot}${prefix}/man ${destroot}${prefix}/share/man
+
+    system "strip ${destroot}${prefix}/bin/xsane"
+
+    if {![variant_isset disable_gimp]} {
+        xinstall -d ${destroot}${prefix}/lib/gimp/2.0/plug-ins
+        ln -sf ${prefix}/bin/xsane ${destroot}${prefix}/lib/gimp/2.0/plug-ins
+    }
+}
+
+variant disable_gimp description {Disable building of GIMP plugin} {
+    depends_lib-delete      lib:libgimp-2.0:gimp2
+    configure.args-append   --disable-gimp
+}
+
+livecheck.type  regex
+livecheck.url   ftp://ftp2.sane-project.org/pub/sane/xsane/
+livecheck.regex "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

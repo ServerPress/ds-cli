@@ -1,0 +1,87 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142367 2015-11-10 18:03:38Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           compiler_blacklist_versions 1.0
+
+name                gnome-terminal
+version             3.18.2
+set branch          [join [lrange [split ${version} .] 0 1] .]
+description         Terminal component for the GNOME 3 Desktop
+long_description    ${description}
+maintainers         devans openmaintainer
+categories          gnome
+license             GPL-3+
+platforms           darwin
+homepage            https://wiki.gnome.org/Apps/Terminal
+master_sites        gnome:sources/${name}/${branch}/
+
+use_xz              yes
+
+checksums           rmd160  a40e4633e4b30ab3ae6d3ce13ae57d64fcdc1edf \
+                    sha256  5e35c0fa1395258bab83952cfabe4c1828b8655bcd761f8faed70b452bd89efa
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:itstool \
+                    port:yelp-tools \
+                    port:appstream-glib \
+                    port:libxml2 \
+                    port:gnome-common \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         port:desktop-file-utils \
+                    port:gsettings-desktop-schemas \
+                    port:gtk3 \
+                    port:vte \
+                    port:dbus \
+                    port:dconf \
+                    port:ossp-uuid \
+                    port:xorg-libX11
+
+depends_run         port:gnome-themes-standard \
+                    port:yelp
+
+patchfiles          patch-uuid.diff \
+                    no-dupfd_cloexec.patch \
+                    patch-src-Makefile.am.diff \
+                    patch-src-server.c.diff
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+}
+
+# The driver driver trips over gterminal.c for some reason
+# clang-77 (Xcode 3.2.6) hits an assertion failure: "UNREACHABLE executed!"
+compiler.blacklist  *gcc-4* {clang < 100}
+
+configure.cmd       ./autogen.sh
+
+configure.args      --with-gtk=3.0 \
+                    --with-nautilus-extension=no \
+                    --enable-debug \
+                    --disable-migration \
+                    --disable-search-provider \
+                    --disable-silent-rules \
+                    --disable-schemas-compile
+
+variant nautilus description {Build optional nautilus extension} {
+    configure.args-replace  --with-nautilus-extension=no --with-nautilus-extension=yes
+    depends_lib-append      port:nautilus
+}
+
+variant migration description {Enable prefs migration from GConf to GSettings} {
+    configure.args-delete   --disable-migration
+    depends_lib-append      port:gconf
+}
+
+post-activate   {
+    system "${prefix}/bin/update-desktop-database ${prefix}/share/applications"
+    system "${prefix}/bin/glib-compile-schemas ${prefix}/share/glib-2.0/schemas"
+}
+
+livecheck.type      gnome

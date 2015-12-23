@@ -1,0 +1,63 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135933 2015-05-07 04:32:12Z ryandesign@macports.org $
+
+PortSystem      1.0
+PortGroup       xcode 1.0
+
+name            FFView
+version         0.9.10 
+revision        1
+categories      aqua graphics
+maintainers     ryandesign openmaintainer
+license         GPL-2
+supported_archs i386 ppc
+
+description     fast OpenGL-powered picture viewer
+
+long_description \
+    FFView is a fast OpenGL-powered picture viewer a la ACDsee. It is aimed at letting you read manga or other \
+    comics onscreen (windowed & fullscreen mode). Features include fast prefetching, smooth panning, voice commands, \
+    the ability to browse pictures inside archives (.rar/.cbr, .zip/.cbz) and sticky per-picture options.
+
+homepage        http://web.archive.org/web/20130405021245/http://www.feedface.com/software/ffview.html
+master_sites    http://web.archive.org/web/20130405021245/http://www.feedface.com/projects/files/ffview/
+distname        ${name}-src-${version}
+use_bzip2       yes
+distfiles-append \
+                [suffix FFArchive-src-0.8.1] \
+                [suffix FFEXIF-src-0.5.2]
+
+checksums           FFView-src-0.9.10.tar.bz2 \
+                    md5     6d7a23eb72fce5c6013862bb94269ca7 \
+                    sha1    0c09a4e06ed6498055837bf81150d5116a70c672 \
+                    rmd160  32160fb699b5619c8ab5f7fbc50bb6256c2eb05b \
+                    FFArchive-src-0.8.1.tar.bz2 \
+                    md5     60cc021380de3d05480345aa29783b10 \
+                    sha1    4b6aa52e2c444c3b4b31604f3cac28a8b44c25fe \
+                    rmd160  7484b80845665a8f4a1aaeac94ec9622f4f14aa0 \
+                    FFEXIF-src-0.5.2.tar.bz2 \
+                    md5     a987bdbd053947f57b8e5c4281a408b7 \
+                    sha1    dc457cac7b3996e75bdc17cd8540f499fe7c8222 \
+                    rmd160  d49a3e9def1e03bcb3727be5da772bc0b5e6c580
+
+worksrcdir      ${name}
+
+patchfiles      patch-src-ui-FFMainController.m.diff
+
+xcode.build.settings SDKROOT_i386='${configure.sdkroot}'
+
+xcode.destroot.type framework
+
+build {
+    set xcode_configuration_arg [xcode::get_configuration_arg ${xcode.configuration}]
+    set xcode_build_args [xcode::get_build_args]
+    foreach dir {FFArchive FFEXIF FFView} {
+        build.dir ${workpath}/${dir}
+        xcode::build_one_target "-target \"${dir}\" ${xcode_configuration_arg}" \
+            "${xcode_build_args} ${xcode.build.settings}"
+    }
+}
+
+post-destroot {
+    move ${destroot}${frameworks_dir}/${name}.app ${destroot}${applications_dir}
+}

@@ -2,7 +2,7 @@
 #define __NETTLE_STDINT_H 1
 #ifndef _GENERATED_STDINT_H
 #define _GENERATED_STDINT_H " "
-/* generated using gnu compiler Apple clang version 4.1 (tags/Apple/clang-421.11.66) (based on LLVM 3.1svn) */
+/* generated using gnu compiler Apple LLVM version 5.1 (clang-503.0.40) (based on LLVM 3.4svn) */
 #define _STDINT_HAVE_STDINT_H 1
 
 /* ................... shortcircuit part ........................... */
@@ -264,7 +264,7 @@ typedef unsigned long uintmax_t;
 #define __intptr_t_defined
 /* we encourage using "long" to store pointer values, never use "int" ! */
 #if   _STDINT_LONG_MODEL+0 == 242 || _STDINT_LONG_MODEL+0 == 484
-typedef  unsinged int   uintptr_t;
+typedef  unsigned int   uintptr_t;
 typedef           int    intptr_t;
 #elif _STDINT_LONG_MODEL+0 == 244 || _STDINT_LONG_MODEL+0 == 444
 typedef  unsigned long  uintptr_t;

@@ -1,0 +1,35 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139689 2015-08-24 20:51:33Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         MooseX-Types-LoadableClass 0.014
+
+platforms           darwin
+maintainers         nomaintainer
+license             {Artistic-1 GPL}
+
+description         ClassName type constraint with coercion to load the class
+long_description    ${description}
+
+checksums           rmd160  be3e405be70ee6d21ce03cdb2c034a5043ad1b32 \
+                    sha256  e94d7db6caf076f2af502b922a2fa22af7af9c25118c079b72f8fa06903123da
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-class-load \
+                    port:p${perl5.major}-module-build-tiny \
+                    port:p${perl5.major}-moose \
+                    port:p${perl5.major}-test-fatal \
+                    port:p${perl5.major}-namespace-clean
+
+    depends_lib-append \
+                    port:p${perl5.major}-module-runtime \
+                    port:p${perl5.major}-moosex-types \
+                    port:p${perl5.major}-namespace-autoclean
+
+    supported_archs noarch
+    perl5.use_module_build
+}

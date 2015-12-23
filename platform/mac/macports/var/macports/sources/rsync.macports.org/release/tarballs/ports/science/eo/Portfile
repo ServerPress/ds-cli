@@ -1,0 +1,105 @@
+# -*- coding: utf-8; mode: tcl; c-basic-offset: 4; indent-tabs-mode: nil; tab-width: 4 truncate-lines: t -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
+# $Id: Portfile 120487 2014-05-30 01:47:57Z jmr@macports.org $
+
+PortSystem              1.0
+
+name                    eo
+categories              science
+license                 LGPL-2.1+
+version                 1.0.1
+revision                2
+categories              science math
+platforms               darwin
+maintainers             openmaintainer jochen
+description             an evolutionary computation library
+long_description        Evolving Objects (EO) is a templates-based, \
+                        ANSI-C++ compliant evolutionary computation \
+                        library. It contains classes for almost any \
+                        kind of evolutionary computation you might \
+                        come up to - at least for the ones we could \
+                        think of. It is component-based, so that if \
+                        you don't find the class you need in it, it is \
+                        very easy to subclass existing abstract or \
+                        concrete classes.
+
+homepage                http://eodev.sourceforge.net/
+master_sites            sourceforge:eodev
+use_bzip2               yes
+checksums               md5 79ac9bd4a0f1ad857845c8fd65418db1
+
+default_variants        +gnuplot
+
+patchfiles              patch-eoBit.h.diff \
+                        patch-eoFileSnapshot.h.diff \
+                        patch-eoGnuplot.cpp.diff \
+                        patch-make_checkpoint.h.diff \
+                        patch-make_checkpoint_assembled.h.diff \
+                        patch-make_checkpoint_FDC.h.diff \
+                        patch-make_checkpoint_pareto.h.diff \
+                        patch-make_help.cpp.diff
+
+configure.args-append   --disable-applications --disable-gnuplot --disable-tutorial
+configure.args-delete   --enable-applications --enable-gnuplot --enable-tutorial
+test.run                yes
+test.target             check
+
+# TODO: Fix this project's buggy C++ code or file a bug upstream
+compiler.blacklist      *clang*
+
+platform darwin {
+    if {${os.major} >= 13} {
+        depends_lib
+        depends_run
+        pre-fetch {
+            ui_error "$name does not build on Mavericks or later."
+            error "unsupported platform"
+        }
+    }
+}
+
+variant applications {
+        license-append  GPL-2+
+        configure.args-append   --enable-applications
+        configure.args-delete   --disable-applications
+}
+
+variant gnuplot {
+        depends_lib             port:gnuplot
+        configure.args-append   --enable-gnuplot
+        configure.args-delete   --disable-gnuplot
+}
+
+variant tutorial {
+        configure.args-append   --enable-tutorial
+        configure.args-delete   --disable-tutorial
+}
+
+variant gcc43 conflicts gcc44 gcc45 gcc46 gcc47 description "Use GCC 4.3 for compilation of EO - optimized for host machine" {
+    configure.compiler          macports-gcc-4.3
+    configure.cflags-append     "-ftree-vectorize -march=native -O3"
+    configure.cxxflags-append   "-ftree-vectorize -march=native -O3"
+}
+
+variant gcc44 conflicts gcc43 gcc45 gcc46 gcc47 description "Use GCC 4.4 for compilation of EO - optimized for host machine" {
+    configure.compiler          macports-gcc-4.4
+    configure.cflags-append     "-ftree-vectorize -march=native -O3"
+    configure.cxxflags-append   "-ftree-vectorize -march=native -O3"
+}
+
+variant gcc45 conflicts gcc43 gcc44 gcc46 gcc47 description "Use GCC 4.5 for compilation of EO - optimized for host machine" {
+    configure.compiler          macports-gcc-4.5
+    configure.cflags-append     "-ftree-vectorize -march=native -O3"
+    configure.cxxflags-append   "-ftree-vectorize -march=native -O3"
+}
+
+variant gcc46 conflicts gcc43 gcc44 gcc45 gcc47 description "Use GCC 4.6 for compilation of EO - optimized for host machine" {
+    configure.compiler          macports-gcc-4.6
+    configure.cflags-append     "-ftree-vectorize -march=native -O3"
+    configure.cxxflags-append   "-ftree-vectorize -march=native -O3"
+}
+
+variant gcc47 conflicts gcc43 gcc44 gcc45 gcc46 description "Use GCC 4.7 for compilation of EO - optimized for host machine" {
+    configure.compiler          macports-gcc-4.7
+    configure.cflags-append     "-ftree-vectorize -march=native -O3"
+    configure.cxxflags-append   "-ftree-vectorize -march=native -O3"
+}

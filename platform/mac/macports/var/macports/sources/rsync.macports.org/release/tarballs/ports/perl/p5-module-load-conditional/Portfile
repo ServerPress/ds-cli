@@ -1,0 +1,28 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143731 2015-12-19 18:42:21Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Module-Load-Conditional 0.64 ../by-authors/id/B/BI/BINGOS/
+revision            1
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Looking up module information / loading at runtime
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  f1323ea876ddab49e5d05d8399b0aa0ba7e37e9f \
+                    sha256  06731dc00723c2c74d60b778d345ab22f50ea19b8f0b4023719b2edc08f6e001
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-locale-maketext-simple \
+                    port:p${perl5.major}-module-load \
+                    port:p${perl5.major}-params-check \
+                    port:p${perl5.major}-version
+
+    supported_archs noarch
+}

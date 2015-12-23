@@ -1,0 +1,49 @@
+# $Id: Portfile 130998 2015-01-05 00:11:26Z larryv@macports.org $
+
+PortSystem 1.0
+
+name		xorg-xcb-proto
+version		1.11
+revision	1
+categories	x11 devel
+license		X11
+maintainers	jeremyhu openmaintainer
+description	X.org xcb-proto
+homepage	http://xcb.freedesktop.org
+platforms	darwin macosx
+supported_archs	noarch
+long_description XML-XCB protocol descriptions
+master_sites	 ${homepage}/dist/
+
+distname	xcb-proto-${version}
+checksums           sha1    608bd60663e223464d38acec0183ddb827776401 \
+                    rmd160  956fbf550ee9a8b6f5c7db78d1806e44da3c3081 \
+                    sha256  b4aceee6502a0ce45fc39b33c541a2df4715d00b72e660ebe8c5bb444771e32e
+use_bzip2	yes
+
+depends_run     port:libxml2
+
+# TODO: Remove after 2016-01-04.
+variant python25 requires python27 description {Legacy variant} {}
+variant python26 requires python27 description {Legacy variant} {}
+variant python31 requires python34 description {Legacy variant} {}
+variant python32 requires python34 description {Legacy variant} {}
+variant python33 requires python34 description {Legacy variant} {}
+
+variant python27 conflicts python34 description {Use python 2.7} {
+    depends_lib-append      port:python27
+    configure.python        ${prefix}/bin/python2.7
+}
+
+variant python34 conflicts python27 description {Use python 3.4} {
+    depends_lib-append      port:python34
+    configure.python        ${prefix}/bin/python3.4
+}
+
+if {![variant_isset python25] && ![variant_isset python26] && ![variant_isset python31] && ![variant_isset python32] && ![variant_isset python33] && ![variant_isset python34]} {
+    default_variants +python27
+}
+
+livecheck.type  regex
+livecheck.url   ${master_sites}?C=M&O=D
+livecheck.regex xcb-proto-(\\d+(?:\\.\\d+)*)

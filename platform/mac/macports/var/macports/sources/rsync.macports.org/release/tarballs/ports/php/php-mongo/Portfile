@@ -1,0 +1,28 @@
+# $Id: Portfile 142946 2015-11-29 03:44:40Z ryandesign@macports.org $
+
+PortSystem      1.0
+PortGroup       php 1.1
+
+name            php-mongo
+version         1.6.12
+categories      php databases devel
+license         Apache-2
+platforms       darwin
+maintainers     ryandesign openmaintainer
+
+php.branches    5.3 5.4 5.5 5.6
+php.pecl        yes
+
+description     Mongo Database Driver
+
+long_description \
+    This package provides an interface for communicating with the Mongo \
+    database in PHP.
+
+checksums       rmd160  6a6f86c753132f9237c0f9c7e78940440f5e7661 \
+                sha256  3fec10526ed02ce0e54c4623839e35bfab17d16cb9e8a48c7fee126be351c990
+
+if {${name} ne ${subport}} {
+    depends_build-append    port:mongodb
+    patchfiles-append       patch-config.m4.diff
+}

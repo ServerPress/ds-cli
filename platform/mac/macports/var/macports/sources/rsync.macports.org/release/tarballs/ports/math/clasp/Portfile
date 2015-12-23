@@ -1,0 +1,45 @@
+# $Id: Portfile 131465 2015-01-12 14:23:34Z mww@macports.org $
+
+PortSystem 1.0
+
+name                clasp
+version             3.1.1
+categories          math
+platforms           darwin
+maintainers         mww openmaintainer
+license             GPL-2
+description         A conflict-driven nogood learning answer set solver
+long_description \
+    clasp is an answer set solver for (extended) normal logic programs. \
+    It combines the high-level modeling capacities of answer set programming \
+    with state-of-the-art techniques from the area of Boolean constraint solving. \
+    The primary clasp algorithm relies on conflict-driven nogood learning, \
+    a technique that proved very successful for satisfiability checking (SAT).
+
+homepage            http://www.cs.uni-potsdam.de/clasp/
+master_sites        sourceforge:potassco
+
+distname            ${name}-${version}-source
+
+checksums           rmd160  5c1214b23e5c7274035350c3fe3754eb53d37251 \
+                    sha256  c209bf8961b99d02d88ed3c9de4570f4bb9bde5f238663be5ce432abab2ac989
+
+worksrcdir          ${name}-${version}
+
+configure.cmd       ./configure.sh
+
+build.dir           ${worksrcpath}/build/release/
+build.target
+
+destroot.dir        ${build.dir}
+destroot.destdir    INSTALL_DIR=${destroot}${prefix}/bin
+
+post-destroot {
+    xinstall -d -m 0755 ${destroot}${prefix}/share/doc/${name}
+    xinstall -m 644 -W ${worksrcpath} CHANGES README COPYING \
+        ${destroot}${prefix}/share/doc/${name}
+}
+
+livecheck.url       http://sourceforge.net/projects/potassco/files/clasp/
+livecheck.regex     potassco/files/clasp/(\[0-9\\.\]+)/
+

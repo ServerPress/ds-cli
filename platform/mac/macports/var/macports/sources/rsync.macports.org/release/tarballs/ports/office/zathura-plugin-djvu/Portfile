@@ -1,0 +1,56 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137247 2015-06-07 12:43:27Z khindenburg@macports.org $
+
+PortSystem          1.0
+
+name                zathura-plugin-djvu
+version             0.2.4
+categories          office
+platforms           darwin
+maintainers         gmail.com:starkhalo \
+                    openmaintainer
+license             zlib
+
+description         The zathura-djvu plugin adds DjVu support to zathura.
+
+long_description    The zathura-djvu plugin adds DjVu support to zathura by \
+                    using the djvulibre library.
+
+homepage            http://pwmt.org/projects/zathura/plugins/
+master_sites        http://pwmt.org/projects/zathura-djvu/download/
+distname            zathura-djvu-${version}
+
+checksums           rmd160  109b9392111ad3e2dba72d7677ee7e5df4a160de \
+                    sha256  ac10b8c07fd9f58281225e1a4cb026634cd03bf6b549eaceeea02f99ab5334bc
+
+patchfiles          patch-Makefile.diff
+
+depends_build       port:pkgconfig
+
+depends_lib         port:desktop-file-utils \
+                    port:djvulibre \
+                    path:lib/libgirara-gtk3.dylib:girara \
+                    path:bin/zathura:zathura
+
+use_configure       no
+
+variant universal   {}
+
+build.args          PREFIX=${prefix}
+build.env           CC=${configure.cc} \
+                    CXX=${configure.cxx} \
+                    CPP=${configure.cpp} \
+                    CFLAGS="[get_canonical_archflags cc]" \
+                    LDFLAGS="[get_canonical_archflags ld]" \
+                    VERBOSE=1
+
+destroot.env        {*}${build.env}
+destroot.args       {*}${build.args}
+
+post-activate {
+    system "${prefix}/bin/update-desktop-database ${prefix}/share/applications"
+}
+
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     zathura-djvu-(\[0-9.\]+)${extract.suffix}

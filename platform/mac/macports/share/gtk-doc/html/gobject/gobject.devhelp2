@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
-<!DOCTYPE book PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "">
 <book xmlns="http://www.devhelp.net/book" title="GObject Reference Manual" link="index.html" author="" name="gobject" version="2" language="c">
   <chapters>
     <sub name="Introduction" link="pr01.html"/>
@@ -50,8 +49,8 @@
       <sub name="How to define and implement a new GObject" link="howto-gobject.html">
         <sub name="Boilerplate header code" link="howto-gobject.html#howto-gobject-header"/>
         <sub name="Boilerplate code" link="howto-gobject-code.html"/>
-        <sub name="Object Construction" link="howto-gobject-construction.html"/>
-        <sub name="Object Destruction" link="howto-gobject-destruction.html"/>
+        <sub name="Object construction" link="howto-gobject-construction.html"/>
+        <sub name="Object destruction" link="howto-gobject-destruction.html"/>
         <sub name="Object methods" link="howto-gobject-methods.html"/>
         <sub name="Chaining up" link="howto-gobject-chainup.html"/>
       </sub>
@@ -95,6 +94,7 @@
     <sub name="Index of new symbols in 2.40" link="api-index-2-40.html"/>
     <sub name="Index of new symbols in 2.42" link="api-index-2-42.html"/>
     <sub name="Index of new symbols in 2.44" link="api-index-2-44.html"/>
+    <sub name="Index of new symbols in 2.46" link="api-index-2-46.html"/>
     <sub name="Annotation Glossary" link="annotation-glossary.html"/>
   </chapters>
   <functions>
@@ -406,7 +406,6 @@
     <keyword type="macro" name="G_TYPE_POLLFD" link="gobject-Boxed-Types.html#G-TYPE-POLLFD:CAPS" since="2.36"/>
     <keyword type="macro" name="G_TYPE_THREAD" link="gobject-Boxed-Types.html#G-TYPE-THREAD:CAPS" since="2.36"/>
     <keyword type="macro" name="G_TYPE_OPTION_GROUP" link="gobject-Boxed-Types.html#G-TYPE-OPTION-GROUP:CAPS" since="2.44"/>
-    <keyword type="typedef" name="GStrv" link="gobject-Boxed-Types.html#GStrv"/>
     <keyword type="macro" name="G_VALUE_HOLDS()" link="gobject-Generic-values.html#G-VALUE-HOLDS:CAPS"/>
     <keyword type="macro" name="G_VALUE_TYPE()" link="gobject-Generic-values.html#G-VALUE-TYPE:CAPS"/>
     <keyword type="macro" name="G_VALUE_TYPE_NAME()" link="gobject-Generic-values.html#G-VALUE-TYPE-NAME:CAPS"/>
@@ -646,6 +645,7 @@
     <keyword type="function" name="g_param_value_convert ()" link="gobject-GParamSpec.html#g-param-value-convert"/>
     <keyword type="function" name="g_param_values_cmp ()" link="gobject-GParamSpec.html#g-param-values-cmp"/>
     <keyword type="function" name="g_param_spec_get_name ()" link="gobject-GParamSpec.html#g-param-spec-get-name"/>
+    <keyword type="function" name="g_param_spec_get_name_quark ()" link="gobject-GParamSpec.html#g-param-spec-get-name-quark" since="2.46"/>
     <keyword type="function" name="g_param_spec_get_nick ()" link="gobject-GParamSpec.html#g-param-spec-get-nick"/>
     <keyword type="function" name="g_param_spec_get_blurb ()" link="gobject-GParamSpec.html#g-param-spec-get-blurb"/>
     <keyword type="function" name="g_param_spec_get_qdata ()" link="gobject-GParamSpec.html#g-param-spec-get-qdata"/>
@@ -839,10 +839,6 @@
     <keyword type="property" name="The “source-property” property" link="GBinding.html#GBinding--source-property"/>
     <keyword type="property" name="The “target” property" link="GBinding.html#GBinding--target"/>
     <keyword type="property" name="The “target-property” property" link="GBinding.html#GBinding--target-property"/>
-    <keyword type="" name="Production text substitutions" link="glib-mkenums.html#id-1.5.2.5.4"/>
-    <keyword type="" name="Trigraph extensions" link="glib-mkenums.html#id-1.5.2.5.5"/>
-    <keyword type="" name="Marshaller list format" link="glib-genmarshal.html#id-1.5.3.5.4"/>
-    <keyword type="" name="Parameter types" link="glib-genmarshal.html#id-1.5.3.5.5"/>
     <keyword type="constant" name="G_TYPE_DEBUG_NONE" link="gobject-Type-Information.html#G-TYPE-DEBUG-NONE:CAPS"/>
     <keyword type="constant" name="G_TYPE_DEBUG_OBJECTS" link="gobject-Type-Information.html#G-TYPE-DEBUG-OBJECTS:CAPS"/>
     <keyword type="constant" name="G_TYPE_DEBUG_SIGNALS" link="gobject-Type-Information.html#G-TYPE-DEBUG-SIGNALS:CAPS"/>

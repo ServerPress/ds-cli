@@ -1,0 +1,60 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 126096 2014-10-03 18:45:17Z rowue@macports.org $
+
+PortSystem      1.0
+
+name                qucs
+version             0.0.18
+categories          science electronics
+license             GPL-2+
+maintainers         rowue openmaintainer
+platforms           darwin
+
+description         an integrated circuit simulator
+long_description    Qucs is an integrated circuit simulator. \
+                    You can set up a circuit with a graphical user interface.
+
+homepage            http://qucs.sourceforge.net/
+master_sites        sourceforge:project/qucs/qucs/${version}
+
+checksums           rmd160  c0d31bede22f0670ec707eaf41286107af2ced89 \
+                    sha256  3609a18b57485dc9f19886ac6694667f3251702175bd1cbbbea37981b2c482a7
+
+depends_build       port:pkgconfig \
+                    port:bison
+
+depends_lib         port:qt4-mac \
+                    port:libtool \
+                    port:iverilog \
+                    port:asco
+
+configure.args      --disable-sdk --disable-asco
+                    
+# iverilog is not universal
+universal_variant   no
+default_variants +freehdl
+
+use_parallel_build  yes
+
+patchfiles          patch-configure.diff \
+                    patch-qucs_qucsdigi.diff \
+                    patch-qucs_qucsveri.diff
+
+variant shipped_asco description { Use shipped asco } {
+	configure.args-delete    --disable-asco
+	depends_lib-delete       port:asco
+}
+	
+variant freehdl description { Use freehdl } {
+	depends_lib-append       port:freehdl
+}
+
+post-patch {
+    reinplace "s|@PREFIX@|${prefix}|g" ${worksrcpath}/qucs/qucsdigi ${worksrcpath}/qucs/qucsveri
+}
+
+post-destroot {
+    foreach Program {qucs qucsedit qucsfilter qucshelp qucslib qucsrescodes qucstrans qucsattenuator} {
+        ln -s ${prefix}/bin/${Program}.app ${destroot}${applications_dir}/${Program}.app
+    }
+}

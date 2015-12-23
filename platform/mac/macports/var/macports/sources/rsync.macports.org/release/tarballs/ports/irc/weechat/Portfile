@@ -1,0 +1,164 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
+
+PortSystem          1.0
+PortGroup           cmake 1.0
+PortGroup           github 1.0
+
+name                weechat
+
+homepage            http://weechat.org/
+license             GPL-3
+description         Fast, light & extensible IRC client
+long_description    \
+    WeeChat (Wee Enhanced Environment for Chat) is a fast and light IRC client \
+    for many operating systems. Everything can be done with a keyboard. It is \
+    customizable and extensible with plugins/scripts, and includes: \
+    \n - nicklist \
+    \n - smart hotlist \
+    \n - infobar with highlight notification \
+    \n - horizontal and vertical split \
+    \n - double charset support (decode/encode) \
+    \n - FIFO pipe for remote control \
+    \n - and much more!
+
+categories          irc
+maintainers         gmail.com:starkhalo \
+                    openmaintainer
+platforms           darwin
+
+if {${name} eq ${subport}} {
+    conflicts       weechat-devel
+    github.setup    weechat weechat 1.2 v
+    revision        1
+    checksums       rmd160  4cccda3de927e5b4568662b2c81f10be334f70ee \
+                    sha256  631f794dc93e0c2097aab037b7010f233eeb5c850a58813b669fe12aec059a07
+}
+
+subport weechat-devel {
+    github.setup    weechat weechat c540db0b4f5d3fbc4ffabceb77d65b43be6f2e7d
+    version         1.3-dev-20150522
+    revision        1
+
+    conflicts       weechat
+    checksums       rmd160  b30aec05796b8b47664572cbbb768e7d70e3f31c \
+                    sha256  bf6eb5ec56d7528bd276bfe7138c6322acfcb1f67af97316e342fd0ccb47f3fe
+}
+
+depends_build-append \
+                    port:asciidoc
+
+depends_lib-append  port:gettext \
+                    port:libgcrypt \
+                    port:libiconv \
+                    port:ncurses
+
+cmake.out_of_source yes
+
+configure.args-append \
+                    -DENABLE_GNUTLS=OFF \
+                    -DENABLE_LUA=OFF \
+                    -DENABLE_GUILE=OFF \
+                    -DENABLE_PERL=OFF \
+                    -DENABLE_PYTHON=OFF \
+                    -DENABLE_PYTHON3=OFF \
+                    -DENABLE_RUBY=OFF \
+                    -DENABLE_ASPELL=OFF \
+                    -DENABLE_MAN=ON
+
+variant python requires python27 description {Compatibility variant, requires +python27} {}
+
+variant python27 description "Bindings for python 2.7 plugins" conflicts python34 {
+    configure.args-replace  -DENABLE_PYTHON=OFF -DENABLE_PYTHON=ON
+    configure.args-append   -DPYTHON_EXECUTABLE=${prefix}/bin/python2.7
+    configure.args-append   -DPYTHON_INCLUDE_PATH=${frameworks_dir}/Python.framework/Versions/2.7/Headers
+    configure.args-append   -DPYTHON_LIBRARY=${frameworks_dir}/Python.framework/Versions/2.7/Python
+    depends_lib-append      port:python27
+}
+
+variant python34 description "Bindings for python 3.4 plugins" conflicts python27 {
+    configure.args-replace  -DENABLE_PYTHON=OFF -DENABLE_PYTHON=ON
+    configure.args-replace  -DENABLE_PYTHON3=OFF -DENABLE_PYTHON3=ON
+    configure.args-append   -DPYTHON_EXECUTABLE=${prefix}/bin/python3.4
+    configure.args-append   -DPYTHON_INCLUDE_PATH=${frameworks_dir}/Python.framework/Versions/3.4/Headers
+    configure.args-append   -DPYTHON_LIBRARY=${frameworks_dir}/Python.framework/Versions/3.4/Python
+    depends_lib-append      port:python34
+
+    # From http://weechat.org/files/doc/stable/weechat_user.en.html#dependencies
+    notes "Recommended Python version is 2.7 (all scripts run fine with version 2.7, but not with versions ≤ 2.6 or ≥ 3.0)."
+}
+
+post-configure {
+    if {[variant_isset python27] || [variant_isset python34]} {
+        set patchfile ${configure.dir}/src/plugins/python/CMakeFiles/python.dir/link.txt
+
+        reinplace -E "s| \(Python.framework\)| ${frameworks_dir}/\\1|g" ${patchfile}
+
+        if {[variant_isset python34]} {
+            reinplace -E "s|-Wl,-stack_size,1000000||" ${patchfile}
+        }
+    }
+}
+
+variant aspell description {Support for aspell} {
+    configure.args-delete   -DENABLE_ASPELL=OFF
+    configure.args-append   -DENABLE_ASPELL=ON
+    depends_lib-append      port:aspell
+}
+
+variant lua description {Bindings for lua plugins} {
+    configure.args-delete   -DENABLE_LUA=OFF
+    configure.args-append   -DENABLE_LUA=ON
+    depends_lib-append      port:lua
+}
+
+variant scheme description {Bindings for Scheme (guile) plugins} {
+    configure.args-delete   -DENABLE_GUILE=OFF
+    configure.args-append   -DENABLE_GUILE=ON
+    depends_lib-append      port:guile
+}
+
+variant perl description {Bindings for perl plugins} {
+    configure.args-delete   -DENABLE_PERL=OFF
+    configure.args-append   -DENABLE_PERL=ON
+    depends_lib-append      path:bin/perl:perl5
+}
+
+variant ruby description {Bindings for ruby plugins} {
+    configure.args-delete   -DENABLE_RUBY=OFF
+    configure.args-append   -DENABLE_RUBY=ON
+    depends_lib-append      port:ruby
+}
+
+variant tls description {Support for secure connecting} {
+    depends_run-append      path:etc/openssl/cert.pem:certsync
+
+    configure.args-delete   -DENABLE_GNUTLS=OFF
+    configure.args-append   -DENABLE_GNUTLS=ON \
+                            -DCA_FILE=${prefix}/etc/openssl/cert.pem
+    depends_lib-append      port:gnutls
+}
+
+variant doc description {Build Documentation and plugin API} {
+    depends_build-append    port:source-highlight
+
+    configure.args-append   -DENABLE_DOC=ON
+}
+
+post-destroot {
+    xinstall -m 755 -d ${destroot}${prefix}/share/doc/weechat
+    xinstall -m 644 -W ${worksrcpath} AUTHORS.asciidoc COPYING ChangeLog.asciidoc README.asciidoc ${destroot}${prefix}/share/doc/weechat
+    eval xinstall -m 644 -W ${worksrcpath} [glob doc/en/weechat*.asciidoc] ${destroot}${prefix}/share/doc/weechat
+}
+
+post-install {
+    # if present then remove file previously installed outside destroot
+    foreach file {include/weechat/weechat-plugin.h} {
+        set filepath ${prefix}/${file}
+        if {[file exists ${filepath}] && [registry_file_registered ${filepath}] == "0"} {
+            if {[catch {delete ${filepath}}]} {
+                ui_warn "Cannot delete ${filepath}; please remove it manually"
+            }
+        }
+    }
+}

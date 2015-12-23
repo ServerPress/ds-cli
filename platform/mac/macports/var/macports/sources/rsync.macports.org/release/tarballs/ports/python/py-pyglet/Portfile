@@ -1,0 +1,33 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139937 2015-09-03 20:33:25Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-pyglet
+version             1.2.4
+revision            0
+categories-append   devel graphics
+platforms           darwin
+license             BSD
+
+python.versions     26 27 34
+
+maintainers         stromnov openmaintainer
+
+description         A cross-platform windowing and multimedia library for Python.
+long_description    ${description}
+
+homepage            http://www.pyglet.org/
+master_sites        pypi:[string index ${python.rootname} 0]/${python.rootname}
+
+distname            ${python.rootname}-${version}
+
+checksums           rmd160  67ec24a3d273c2729248abce84c2009991676600 \
+                    sha256  9f62ffbbcf2b202d084bf158685e77d28b8f4f5f2738f4c5e63a947a07503445
+
+if {${name} ne ${subport}} {
+    livecheck.type      none
+} else {
+    livecheck.type      pypi
+}

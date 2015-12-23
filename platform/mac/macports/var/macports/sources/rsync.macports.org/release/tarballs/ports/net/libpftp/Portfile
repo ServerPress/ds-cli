@@ -1,0 +1,16 @@
+# $Id: Portfile 30239 2007-10-23 01:55:09Z jmpp@macports.org $
+
+PortSystem 1.0
+
+name			libpftp
+version			0.6
+categories		net
+platforms		darwin
+maintainers		nomaintainer
+description		ftp library capable of FTP, FXP, Auth TLS
+long_description	a ftp library capable of FTP, FXP, Auth TLS, Implicit and \
+				Explicit SSL.
+
+homepage		http://pftp.sourceforge.net/
+master_sites	sourceforge:pftp
+checksums		md5 903e0bd13db0c8b9ab6f57a8e0533b7e

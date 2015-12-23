@@ -1,0 +1,132 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142948 2015-11-29 03:53:51Z ryandesign@macports.org $
+
+PortSystem                  1.0
+PortGroup                   compiler_blacklist_versions 1.0
+
+# Please keep the glib2 and glib2-devel ports as similar as possible.
+
+name                        glib2
+conflicts                   glib2-devel
+set my_name                 glib
+version                     2.46.2
+set branch                  [join [lrange [split ${version} .] 0 1] .]
+categories                  devel
+maintainers                 ryandesign openmaintainer
+license                     LGPL-2+
+homepage                    http://www.gtk.org/
+platforms                   darwin
+dist_subdir                 glib2
+distname                    ${my_name}-${version}
+use_xz                      yes
+use_parallel_build          yes
+
+description                 Library with data structure functions and other constructs
+
+long_description            Glib is a library which includes support routines \
+                            for C, such as lists, trees, hashes, memory \
+                            allocation, and many other things.
+
+master_sites                gnome:sources/${my_name}/${branch}/
+
+checksums                   rmd160  f15f528a2e5b76b48b9fcbb8c8cbf00b01512cbc \
+                            sha256  5031722e37036719c1a09163cc6cf7c326e4c4f1f1e074b433c156862bd733db
+
+# ${prefix}/include/glib-2.0/glib/gi18n.h requires -I${prefix}/include to find libintl.h
+# See https://trac.macports.org/changeset/27148
+patchfiles                  patch-configure.diff \
+                            patch-glib-2.0.pc.in.diff \
+                            patch-glib-gmain.c.diff \
+                            patch-glib_gunicollate.c.diff \
+                            patch-gi18n.h.diff \
+                            patch-gio_xdgmime_xdgmime.c.diff \
+                            patch-gio_gdbusprivate.c.diff \
+                            patch-get-launchd-dbus-session-address.diff \
+                            patch-gmodule-gmodule-dl.c.diff
+
+if {[vercmp ${macosx_deployment_target} 10.9] < 0} {
+    # gcocoanotificationbackend requires OS X 10.9 or later.
+    patchfiles-append       remove-gcocoanotificationbackend.patch
+} else {
+    # gcocoanotificationbackend.c:115:52: error: array subscript is not an integer
+    compiler.blacklist-append {clang < 600}
+}
+
+depends_build               bin:xmllint:libxml2
+
+depends_lib                 port:gettext \
+                            port:libffi \
+                            port:libiconv \
+                            port:pcre \
+                            port:zlib
+
+# GLib-CRITICAL **: attempting to free a locked GVariant instance.  This should never happen.
+compiler.blacklist-append   {clang < 318}
+
+# https://bugzilla.gnome.org/show_bug.cgi?id=697017
+compiler.blacklist-append   gcc-3.3 *gcc-4.0
+
+# -lresolv is needed at least on Tiger PPC.
+configure.ldflags-append    -lresolv \
+                            -bind_at_load
+
+configure.cflags-append     -fstrict-aliasing
+
+configure.args              --enable-static --disable-libelf \
+                            --disable-compile-warnings \
+                            --with-pcre=system \
+                            ac_cv_prog_AWK=/usr/bin/awk
+
+configure.perl              /usr/bin/perl
+configure.python            /usr/bin/python
+configure.env-append        PCRE_CFLAGS="-I${prefix}/include" \
+                            PCRE_LIBS="-L${prefix}/lib -lpcre" \
+                            PERL_PATH=${configure.perl} \
+                            PKG_CONFIG=false \
+                            ZLIB_CFLAGS="-I${prefix}/include" \
+                            ZLIB_LIBS="-L${prefix}/lib -lz"
+
+post-patch {
+    reinplace "s|data_dirs = \"/usr|data_dirs = \"${prefix}/share:/usr|g" ${worksrcpath}/glib/gutils.c
+    reinplace "s|path = \"/bin|path = \"${prefix}/bin:/bin|g" ${worksrcpath}/glib/gutils.c ${worksrcpath}/glib/gspawn.c
+    reinplace "s|@@PREFIX@@|${prefix}|g" ${worksrcpath}/gio/xdgmime/xdgmime.c
+    reinplace "s|@@PREFIX@@|${prefix}|g" ${worksrcpath}/gio/gdbusprivate.c
+    reinplace "s|#! */usr/bin/env python|#!${configure.python}|g" ${worksrcpath}/glib/gtester-report
+    reinplace "s|-Werror=missing-prototypes||" ${worksrcpath}/configure
+}
+
+pre-configure {
+    set libffi_version      [exec sed -n {s/Version: //p} ${prefix}/lib/pkgconfig/libffi.pc]
+    configure.env-append    LIBFFI_CFLAGS="-I${prefix}/lib/libffi-${libffi_version}/include" \
+                            LIBFFI_LIBS="-L${prefix}/lib -lffi"
+}
+
+post-configure {
+    system "ed - ${worksrcpath}/config.h < ${filespath}/config.h.ed"
+}
+
+build.args                  V=1
+
+test.run                    yes
+test.target                 check
+
+post-destroot {
+    delete ${destroot}${prefix}/lib/charset.alias
+
+    set docdir ${prefix}/share/doc/${my_name}
+    xinstall -d ${destroot}${docdir}
+    xinstall -m 644 -W ${worksrcpath} AUTHORS COPYING ChangeLog HACKING NEWS \
+        README ${destroot}${docdir}
+}
+
+platform darwin {
+    configure.args-append   --disable-dtrace
+}
+
+platform darwin 8 {
+    depends_lib-append      port:python27
+    configure.python        ${prefix}/bin/python2.7
+}
+
+livecheck.type              gnome
+livecheck.name              ${my_name}

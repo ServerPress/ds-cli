@@ -1,0 +1,110 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 124169 2014-08-20 03:15:27Z ryandesign@macports.org $
+
+PortSystem              1.0
+PortGroup               muniversal 1.0
+
+name                    libiconv
+version                 1.14
+set cp932fix_version    1.13
+set cp932fix_patchfile  ${name}-${cp932fix_version}-cp932-devel.patch.gz
+categories              textproc
+license                 {LGPL-2+ GPL-3+}
+maintainers             ryandesign
+platforms               darwin freebsd linux
+homepage                http://www.gnu.org/software/libiconv/
+master_sites            gnu
+patch_sites             http://www2d.biglobe.ne.jp/~msyk/software/libiconv/
+use_parallel_build      yes
+
+description \
+    Character set conversion library
+
+long_description \
+    A character-set conversion library which implements the \
+    iconv() API for dealing with unicode and other types of \
+    conversion.
+
+checksums               ${distname}${extract.suffix} \
+                        sha1    be7d67e50d72ff067b2c0291311bc283add36965 \
+                        rmd160  87c36ba3f8ad1a49eb0d06f71856c856893bb52e \
+                        ${cp932fix_patchfile} \
+                        sha1    8384da4114d62018b6bed2d8973237a423c1cbf1 \
+                        rmd160  62852bd1cd22f0be0280c4f64bd6d256b4b00917
+
+depends_build           port:gperf
+
+# Use -p1 to accommodate the cp932fix patch
+patch.pre_args -p1
+patchfiles \
+    patch-src-Makefile.in-darwin.diff \
+    patch-c99.diff
+
+configure.cppflags
+configure.ldflags
+configure.args \
+    ac_cv_prog_AWK=/usr/bin/awk \
+    ac_cv_path_GREP=/usr/bin/grep \
+    ac_cv_path_SED=/usr/bin/sed \
+    --enable-static \
+    --docdir=${prefix}/share/doc/${name} \
+    --without-libiconv-prefix \
+    --without-libintl-prefix \
+    --disable-nls \
+    --enable-extra-encodings
+
+build.cmd               ${build.cmd} CC=${configure.cc} -f Makefile.devel && ${build.cmd}
+
+test.run                yes
+test.target             check
+
+platform darwin {
+    patchfiles-append patch-utf8mac.diff
+}
+
+platform freebsd {
+    patchfiles-append patch-Makefile.devel
+}
+
+post-destroot {
+    if {[file exists ${destroot}${prefix}/lib/charset.alias]} {
+        delete ${destroot}${prefix}/lib/charset.alias
+    }
+}
+
+variant enable_cp932fix requires cp932fix description {Legacy compatibility variant} {}
+
+variant cp932fix description {Apply a patch to fix the conversion problem between Shift-JIS and Unicode (See Microsoft KB Q170559)} {
+    patchfiles-append ${cp932fix_patchfile}
+}
+
+if { [variant_isset universal] } {
+    # When cross-compiling, can guess wrong endian value.
+    if {${os.arch} eq "i386"} {
+        if { ${os.major} >= 10 } {
+            lappend merger_configure_env(ppc) cl_cv_sys_endian='big endian'
+            set cross_archs "ppc ppc64"
+        }
+        lappend merger_configure_env(ppc64)   cl_cv_sys_endian='big endian'
+        set cross_archs "ppc64"
+    } else {
+        lappend merger_configure_env(i386)    cl_cv_sys_endian='little endian'
+        lappend merger_configure_env(x86_64)  cl_cv_sys_endian='little endian'
+        set cross_archs "i386 x86_64"
+    }
+
+    foreach arch ${cross_archs} {
+        lappend merger_configure_env(${arch}) \
+            ac_cv_func_malloc_0_nonnull='yes' \
+            gl_cv_func_malloc_0_nonnull='1'
+    }
+
+    # See https://trac.macports.org/ticket/18440
+    if {${os.major} == 8} {
+            foreach arch "ppc64 x86_64" {
+                lappend merger_configure_env(${arch}) \
+                    am_cv_func_iconv='yes' \
+                    am_cv_proto_iconv_arg1='const'
+        }
+    }
+}

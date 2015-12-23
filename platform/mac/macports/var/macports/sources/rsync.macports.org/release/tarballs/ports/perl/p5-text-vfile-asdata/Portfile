@@ -1,0 +1,25 @@
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem            1.0
+PortGroup             perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup           Text-vFile-asData 0.08
+revision              1
+license               {Artistic-1 GPL}
+maintainers           nomaintainer
+description           Reads vFile format files, such as vCard (RFC 2426) \
+                      and vCalendar (RFC 2445)
+long_description      ${description}
+
+platforms             darwin
+
+checksums             rmd160  54e07aa212a7d59af87c3903d6cdab7a808b799f \
+                      sha256  b291ab5e0f987c5172560a692234711a75e4596d83475f72d01278369532f82a
+
+if {${perl5.major} != ""} {
+depends_lib-append    port:p${perl5.major}-class-accessor-chained \
+                      port:p${perl5.major}-test-simple
+
+supported_archs       noarch
+}

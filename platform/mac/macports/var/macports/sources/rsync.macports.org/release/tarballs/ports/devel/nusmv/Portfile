@@ -1,0 +1,60 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 114328 2013-12-05 10:21:52Z ryandesign@macports.org $
+
+PortSystem 1.0
+
+name                nusmv
+version             2.5.4
+categories          devel math
+platforms           darwin
+maintainers         mww openmaintainer
+license             LGPL-2.1
+description         The NuSMV model checker
+
+long_description    ${description}
+
+homepage            http://nusmv.fbk.eu/
+master_sites        http://nusmv.fbk.eu/distrib/:nusmv \
+                    http://minisat.se/downloads/:minisat
+distfiles           NuSMV-${version}.tar.gz:nusmv minisat2-070721.zip:minisat
+checksums           NuSMV-2.5.4.tar.gz \
+                    rmd160  60d2bf089c1dac179fd5dd54915da46bc585dea2 \
+                    sha256  3c250624cba801b1f62f50733f9507b0f3b3ca557ce1cd65956178eb273f1bdf \
+                    minisat2-070721.zip \
+                    rmd160  a04236122afc4fba40b6e54da34b1b0d2ef4eda4 \
+                    sha256  ddc2ed421a538a349ddab58d3958076d73813925ff08361e6292583d3b87248e
+
+depends_lib         port:readline port:expat
+
+set minisatdir      ${workpath}/NuSMV-${version}/MiniSat
+worksrcdir          NuSMV-${version}
+
+extract.only        NuSMV-${version}.tar.gz
+post-extract {
+    system -W ${minisatdir} "unzip ${distpath}/minisat2-070721.zip"
+}
+
+patchfiles          MiniSat_minisat_core_SolverTypes.h.diff
+
+pre-configure {
+    # build included cudd first so that configure can pick it up
+    if {${build_arch} eq "x86_64"} {
+        system -W ${worksrcpath}/cudd-2.4.1.1 "mv Makefile_os_x_64bit Makefile_os_x"
+    }
+    system -W ${worksrcpath}/cudd-2.4.1.1 "make -f Makefile_os_x CPP=${configure.cxx} CC=${configure.cc} ICFLAGS=\"${configure.cc_archflags}\""
+    system -W ${minisatdir} "CXX=\"${configure.cxx} ${configure.cxx_archflags}\" ./build.sh"
+}
+configure.dir       ${worksrcpath}/nusmv
+configure.args      --with-expat-libdir=${prefix}/lib --with-expat-incdir=${prefix}/include \
+                    --disable-zchaff --enable-minisat \
+                    --with-minisat-incdir=${minisatdir}/minisat \
+                    --with-minisat-libdir=${minisatdir}/minisat
+
+build.dir           ${configure.dir}
+destroot.dir        ${configure.dir}
+
+use_parallel_build  no
+
+livecheck.type      regex
+livecheck.url       ${homepage}
+livecheck.regex     NuSMV-(\[0-9.\]+\[0-9\])

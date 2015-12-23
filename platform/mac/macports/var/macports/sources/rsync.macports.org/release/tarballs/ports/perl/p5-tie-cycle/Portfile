@@ -1,0 +1,28 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Tie-Cycle 1.21
+
+platforms           darwin
+maintainers         nomaintainer
+license             {Artistic-1 GPL}
+
+supported_archs     noarch
+
+description         Cycle through a list of values via a scalar.
+long_description    ${description}
+
+checksums           rmd160  1becc767a061d63f25c9df1947d81cdded968b02 \
+                    sha256  1e94c98d7e6cbb1263d3defc9d0e9b6e6fc97dc8bb8acc29df82e8005a6d3564
+
+if {${perl5.major} != ""} {
+    # requires version 6.64 of ExtUtils::MakeMaker
+    if {[vercmp ${perl5.major} 5.16] <= 0} {
+        depends_build-append \
+                    port:p${perl5.major}-extutils-makemaker
+    }
+}

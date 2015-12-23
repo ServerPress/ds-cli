@@ -1,0 +1,27 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+platforms           darwin
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         IO 1.25
+revision            4
+license             {Artistic-1 GPL}
+maintainers         pixilla
+
+description         IO - load various IO modules
+
+long_description    IO gives support for \
+                    IO::Handle \
+                    IO::Seekable \
+                    IO::File \
+                    IO::Pipe \
+                    IO::Socket \
+                    IO::Dir \
+                    IO::Select \
+                    IO::Poll
+
+checksums           rmd160  29b0d8eaafe87dfeb021862dfe97df58ebb833bb \
+                    sha256  89790db8b9281235dc995c1a85d532042ff68a90e1504abd39d463f05623e7b5

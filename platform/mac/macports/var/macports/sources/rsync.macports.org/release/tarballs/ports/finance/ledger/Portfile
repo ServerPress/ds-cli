@@ -1,0 +1,50 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 140735 2015-10-01 17:34:47Z mf2k@macports.org $
+
+PortSystem          1.0
+PortGroup           cxx11 1.0
+PortGroup           github 1.0
+
+github.setup        ledger ledger 3.1 v
+revision            1
+fetch.type          git
+
+name                ledger
+
+homepage            http://ledger-cli.org/
+categories          finance
+
+description         A command-line, double-entry accounting tool.
+long_description    Ledger is a powerful, double-entry accounting system that \
+                    is accessed from the UNIX command-line.
+license             BSD
+maintainers         nomaintainer
+
+platforms           darwin
+
+depends_build       port:automake \
+                    port:autoconf \
+                    port:cmake \
+                    port:libtool \
+                    port:doxygen \
+                    path:bin/dot:graphviz \
+                    port:libedit \
+                    port:texlive-xetex \
+                    port:texinfo
+
+depends_lib         port:pcre \
+                    port:expat \
+                    port:boost \
+                    port:python27 \
+                    port:libiconv \
+                    port:zlib \
+                    port:gmp \
+                    port:mpfr \
+                    port:ncurses \
+                    port:gettext
+
+patchfiles          ledger-3.1-boost-1.58.patch
+patch.pre_args      -p1
+
+configure.cmd       ${worksrcpath}/acprep opt config
+build.cmd           ${worksrcpath}/acprep opt make

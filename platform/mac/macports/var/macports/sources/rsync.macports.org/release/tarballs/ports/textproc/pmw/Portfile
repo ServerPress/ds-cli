@@ -1,0 +1,41 @@
+# -*- coding: utf-8; truncate-lines: t -*-
+# $Id: Portfile 86086 2011-10-19 08:02:20Z jmr@macports.org $
+
+PortSystem          1.0
+
+name                pmw
+version             4.12
+categories          textproc audio
+license             GPL-2+
+platforms           darwin
+maintainers         nomaintainer
+description         music typesetting processor generating PostScript
+long_description    Philips Music Writer (PMW) is a computer program for \
+                    high quality music typesetting generating PostScript \
+                    from textfiles.
+
+homepage            http://www.quercite.com/pmw.html
+master_sites        http://www.quercite.com/
+checksums           md5 3b8d02c6cf6239b9bdadbc6543c5a683 \
+                    sha1 27874638b23e66d39ed94fe716ca25c967f6e993 \
+                    rmd160 82b9991f3bf0ceedbf74c188c5fa44b98b5e40c9
+
+build.target
+
+pre-test {
+    reinplace "s|RunTests|./RunTests|g" ${worksrcpath}/Makefile
+}
+test.run            yes
+
+destroot.destdir    BINDIR=${destroot}${prefix}/bin \
+                    DATADIR=${destroot}${prefix}/share/pmw \
+                    MANDIR=${destroot}${prefix}/share/man
+
+post-destroot {
+    set pdfdir ${prefix}/share/doc/${name}-${version}/pdf/
+    xinstall -m 0755 -d ${destroot}${pdfdir}
+    xinstall -c -m 644 ${worksrcpath}/doc/spec.pdf ${destroot}${pdfdir}
+}
+
+livecheck.type      regex
+livecheck.regex     "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

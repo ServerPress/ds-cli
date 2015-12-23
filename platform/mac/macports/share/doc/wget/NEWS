@@ -1,11 +1,46 @@
 GNU Wget NEWS -- history of user-visible changes.
 
 Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
-2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014 Free Software
-Foundation, Inc.
+2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015 Free
+Software Foundation, Inc.
 See the end for copying conditions.
 
 Please send GNU Wget bug reports to <bug-wget@gnu.org>.
+
+* Changes in Wget 1.17.1
+
+* Fix compile error when IPv6 is disabled or SSL is not present.
+
+* Fix HSTS memory leak.
+
+* Fix progress output in non-C locales.
+
+* Fix SIGSEGV when -N and --content-disposition are used together.
+
+* Add --check-certificate=quiet to tell wget to not print any warning about
+  invalid certificates.
+
+* Changes in Wget 1.17
+
+** Remove FTP passive to active fallback due to privacy concerns.
+
+** Add support for --if-modified-since.
+
+** Add support for metalink through --input-metalink and --metalink-over-http.
+
+** Add support for HSTS through --hsts and --hsts-file.
+
+** Add option to restrict filenames under VMS.
+
+** Add support for --rejected-log which logs to a separate file the reasons why
+   URLs are being rejected and some context around it.
+
+** Add support for FTPS.
+
+** Do not download/save file on error when --spider enabled
+
+** Add --convert-file-only option. This option converts only the
+   filename part of the URLs, leaving the rest of the URLs untouched.
 
 * Changes in Wget 1.16.3
 
@@ -119,7 +154,7 @@ Please send GNU Wget bug reports to <bug-wget@gnu.org>.
 
 ** Add support for TLS Server Name Indication.
 
-** Accept the arguments --accept-reject and --reject-regex.
+** Accept the arguments --accept-regex and --reject-regex.
 
 ** The GNU TLS backend honors correctly the timeout value.
 

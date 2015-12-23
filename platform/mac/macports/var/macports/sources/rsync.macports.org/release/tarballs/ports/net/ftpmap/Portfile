@@ -1,0 +1,25 @@
+# $Id: Portfile 116581 2014-01-29 10:12:06Z jmr@macports.org $
+
+PortSystem 1.0
+
+name			ftpmap
+version			0.4
+revision		1
+categories		net
+license			GPL-2
+platforms		darwin
+maintainers		nomaintainer
+homepage		http://www.Jedi.Claranet.Fr/
+description		Scans remote FTP servers to see what ftpd is used
+
+long_description	Ftpmap uses program-specific fingerprints to discover the name of the \
+			software even when banners have been changed or removed, or when some \
+			featureshave been disabled. IPv6 is fully supported.
+
+master_sites		ftp://ftp.pureftpd.org/pub/pure-ftpd/ftpmap/ \
+			ftp://sunsite.dk/disk1/pure-ftpd/ftpmap/
+
+checksums		md5 5095c0712e4a906dae75f082acbabffb
+
+configure.args		--mandir=${prefix}/share/man \
+			--infodir=${prefix}/share/info

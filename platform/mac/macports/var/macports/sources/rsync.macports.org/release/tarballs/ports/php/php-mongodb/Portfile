@@ -1,0 +1,32 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143353 2015-12-11 07:35:09Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           php 1.1
+
+name                php-mongodb
+version             1.0.1
+categories          php databases devel
+platforms           darwin
+maintainers         ryandesign openmaintainer
+license             Apache-2
+
+php.branches        5.3 5.4 5.5 5.6
+php.pecl            yes
+
+description         MongoDB Database Driver
+
+long_description    This package provides a PHP interface for communicating \
+                    with MongoDB database servers.
+
+checksums           rmd160  b0b43ae7513e75b59da45a99a6b7ea7f8ba637fd \
+                    sha256  d31b98f2f58fce4d8183197fd8415ad71d8569852b85540316567ab1f647b9a0
+
+if {${name} ne ${subport}} {
+    depends_build-append    port:cyrus-sasl2 \
+                            port:openssl
+
+    configure.args-append   --enable-mongodb \
+                            --with-mongodb-sasl=${prefix} \
+                            --with-openssl-dir=${prefix}
+}

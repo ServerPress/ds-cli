@@ -1,0 +1,49 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 131006 2015-01-05 00:56:06Z devans@macports.org $
+
+PortSystem      1.0
+
+name            dirac
+version         1.0.2
+revision        3
+categories      multimedia
+license         {MPL-1.1 GPL-2 LGPL-2.1}
+maintainers     devans
+platforms       darwin
+homepage        http://diracvideo.org/
+master_sites    http://diracvideo.org/download/dirac-video
+
+description \
+    Dirac is a general-purpose video codec aimed at resolutions from \
+    QCIF (176x144) to HDTV (1920x1080) progressive or interlaced.
+
+long_description \
+    Dirac is a general-purpose video codec aimed at resolutions from \
+    QCIF (176x144) to HDTV (1920x1080) progressive or interlaced. It uses \
+    wavelets, motion compensation and arithmetic coding and aims to be \
+    competitive with other state of the art codecs.
+
+checksums       md5     a57c2c5e58062d437d9ab13dffb28f0f \
+                sha1    895aaad832a54b754e58f77c87d38c0c37752b0b \
+                rmd160  0af65c4216230b5418667081cecb7bdcdc853d2e
+
+patchfiles      patch-Makefile.am.diff  patch-doc-Makefile.am.diff nolibstdc++.patch
+
+depends_lib     port:cppunit
+
+use_autoreconf  yes
+autoreconf.args -fvi -I m4
+
+test.run        yes
+
+variant doc description {Build Dirac reference documentation} {
+    patchfiles-delete patch-Makefile.am.diff
+    depends_build-append \
+                port:doxygen \
+                path:bin/dot:graphviz \
+                path:bin/latex:texlive
+}
+
+livecheck.type  regex
+livecheck.url   http://sourceforge.net/projects/dirac/files/dirac-codec
+livecheck.regex "Dirac-(\\d+(?:\\.\\d+)*)"

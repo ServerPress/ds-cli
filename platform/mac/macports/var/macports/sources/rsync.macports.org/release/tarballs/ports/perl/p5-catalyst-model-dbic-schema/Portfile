@@ -1,0 +1,42 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Catalyst-Model-DBIC-Schema 0.65
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Helper for DBIC Schema Models
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  4535df824308ed6a5160d3b5ef85df7340142294 \
+                    sha256  26a911ef5ef7ffc81b6ce65c3156f71fb35083c456ad27e6d82d2dc02493eeea
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-test-exception \
+                    port:p${perl5.major}-carp-clan \
+                    port:p${perl5.major}-catalyst-runtime \
+                    port:p${perl5.major}-catalystx-component-traits \
+                    port:p${perl5.major}-test-simple \
+                    port:p${perl5.major}-dbix-class \
+                    port:p${perl5.major}-list-moreutils \
+                    port:p${perl5.major}-moose \
+                    port:p${perl5.major}-moosex-types \
+                    port:p${perl5.major}-moosex-types-loadableclass \
+                    port:p${perl5.major}-tie-ixhash \
+                    port:p${perl5.major}-namespace-autoclean \
+                    port:p${perl5.major}-catalyst-devel \
+                    port:p${perl5.major}-moosex-nonmoose \
+                    port:p${perl5.major}-try-tiny \
+                    port:p${perl5.major}-hash-merge \
+                    port:p${perl5.major}-dbix-class-cursor-cached \
+                    port:p${perl5.major}-stream-buffered \
+                    port:p${perl5.major}-hash-multivalue \
+                    port:p${perl5.major}-plack \
+                    port:p${perl5.major}-safe-isa
+}

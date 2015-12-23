@@ -1,0 +1,86 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141871 2015-10-30 12:57:05Z mojca@macports.org $
+
+PortSystem              1.0
+
+if {[variant_isset qt]} {
+    PortGroup           qt4 1.0
+}
+
+name                    gpsd
+version                 3.14
+revision                4
+license                 BSD
+categories              net
+maintainers             ryandesign openmaintainer
+platforms               darwin
+
+description             GPS service daemon
+
+long_description        GPSD is a service daemon that handles GPSes and other navigation-related sensors \
+                        reporting over USB, serial, TCP/IP, or UDP connections and presents reports in \
+                        a well-documented JSON application.
+
+homepage                http://www.catb.org/${name}/
+master_sites            savannah
+
+checksums               rmd160  fe0059e2b3d64af5857f9c150ef2fdd6bc6e115f \
+                        sha256  504fc812f3c1525a1a48e04bf4d77f9a8066c201448d98089df89d58ef53a8cb
+
+depends_lib-append      port:ncurses port:python27
+depends_build-append    port:scons
+
+patchfiles              patch-SConstruct.diff \
+                        patch-driver_rtcm2.c.diff \
+                        patch-libgps.pc.in.diff \
+                        patch-libgpsd.pc.in.diff \
+                        leopard-IPV6_TCLASS.patch
+
+use_configure           no
+
+variant universal {}
+
+set cxx_stdlibflags {}
+if {[string match *clang* ${configure.cxx}]} {
+    set cxx_stdlibflags -stdlib=${configure.cxx_stdlib}
+}
+
+build.cmd               ${prefix}/bin/scons
+build.target
+build.args              prefix=${prefix} libQgpsmm=no usb=no strip=no
+build.env-append        CC="${configure.cc} [get_canonical_archflags cc]" \
+                        CFLAGS="${configure.cflags}" \
+                        CXX="${configure.cxx} [get_canonical_archflags cxx] ${cxx_stdlibflags}" \
+                        CXXFLAGS="${configure.cxxflags}" \
+                        LDFLAGS="${configure.ldflags}" \
+                        PYTHON=${prefix}/bin/python2.7
+
+destroot.args           {*}${build.args}
+destroot.env-append     {*}${destroot.destdir} {*}${build.env}
+
+post-destroot {
+    xinstall -m 644 -W ${worksrcpath} libgps.dylib libgpsd.dylib ${destroot}${prefix}/lib
+}
+
+variant qt description {Build Qt bindings} {
+    build.args-delete       libQgpsmm=no
+    destroot.args-delete    libQgpsmm=no
+}
+
+variant libusb \
+description {Include support for better USB device discovery} {
+    depends_build-append port:pkgconfig
+    depends_lib-append   port:libusb
+    build.args-delete    usb=no
+    destroot.args-delete usb=no
+}
+
+variant dbus description {Include support for DBUS} {
+    depends_lib-append      port:dbus-glib
+    build.args-append       dbus=yes dbus_export=yes
+    destroot.args-append    dbus=yes dbus_export=yes
+}
+
+livecheck.type          regex
+livecheck.url           http://download.savannah.gnu.org/releases-noredirect/gpsd
+livecheck.regex         "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

@@ -1,0 +1,90 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 127817 2014-11-04 15:53:44Z khindenburg@macports.org $
+
+PortSystem          1.0
+
+name                logwatch
+version             7.4.1
+revision            2
+distname            logwatch-${version}
+categories          security
+license             MIT
+maintainers         khindenburg openmaintainer
+supported_archs     noarch
+
+description         system log analyzer and reporter
+long_description  \
+                    Logwatch is a customizable log analysis system. Logwatch \
+                    parses through your system's logs for a given period of \
+                    time and creates a report analyzing areas that you \
+                    specify, in as much detail as you require. Logwatch is \
+                    easy to use and will work right out of the package on most \
+                    systems.
+
+homepage            http://logwatch.sourceforge.net
+master_sites        sourceforge:project/logwatch/logwatch-${version}
+
+platforms           darwin
+depends_lib         path:bin/perl:perl5
+
+checksums           rmd160  dd9539b3880b3a9ce2d0772f09e52de238a89405 \
+                    sha256  35ec31f9fe981aaa727b144ab3ff2eb655997d8ccabaf66586458f5dfc3a56eb
+
+patchfiles          scripts_logwatch.pl.diff
+
+use_configure       no
+build {
+    reinplace s|#!/usr/bin/perl|#!${prefix}/bin/perl| ${worksrcpath}/scripts/logwatch.pl
+    reinplace s|/usr/share/${name}|${prefix}/share/${name}|g ${worksrcpath}/scripts/logwatch.pl
+    reinplace s|/var/cache/${name}|${prefix}/var/cache/${name}|g ${worksrcpath}/scripts/logwatch.pl
+    reinplace s|/var/cache/${name}|${prefix}/var/cache/${name}|g ${worksrcpath}/conf/logwatch.conf
+    reinplace s|messages|system|g ${worksrcpath}/conf/logfiles/messages.conf
+}
+
+destroot.keepdirs   ${destroot}${prefix}/var/cache/${name}
+destroot {
+    file mkdir ${destroot}${prefix}/etc/${name}/scripts
+    file mkdir ${destroot}${prefix}/etc/${name}/conf/logfiles
+    file mkdir ${destroot}${prefix}/etc/${name}/conf/services
+    file mkdir ${destroot}${prefix}/share/${name}/dist.conf/logfiles
+    file mkdir ${destroot}${prefix}/var/cache/${name}
+
+    file copy ${worksrcpath}/conf    ${destroot}${prefix}/share/${name}/default.conf
+    file copy ${worksrcpath}/scripts ${destroot}${prefix}/share/${name}/scripts
+    file copy ${worksrcpath}/lib     ${destroot}${prefix}/share/${name}/lib
+
+    # startup item
+    file mkdir ${destroot}${prefix}/etc/LaunchDaemons/${name}
+    file copy ${filespath}/org.macports.${name}.plist ${destroot}${prefix}/etc/LaunchDaemons/${name}/org.macports.${name}.plist
+    reinplace s|@PREFIX@|${prefix}|g ${destroot}${prefix}/etc/LaunchDaemons/${name}/org.macports.${name}.plist
+}
+
+post-destroot {
+    file delete /Library/LaunchDaemons/org.macports.${name}.plist
+    xinstall -d -m 0755 ${destroot}/Library/LaunchDaemons
+    ln -sf ${prefix}/etc/LaunchDaemons/${name}/org.macports.${name}.plist ${destroot}/Library/LaunchDaemons/
+    ln -sf ${prefix}/share/${name}/scripts/logwatch.pl ${destroot}${prefix}/bin/logwatch
+}
+
+pre-activate {
+    #- this port used to create a symlink directly in ${prefix} which was fixed in 7.4.1_1
+    #- we need to remove this symlink from ${prefix} though, so upgrades work
+    #- this can eventually be removed, origionally added 2014-10-01
+    set badfile ${prefix}/bin/${name}
+    if {[file exists ${badfile}] && [registry_file_registered ${badfile}] == "0"} {
+        if {[catch {delete ${badfile}}]} {
+            ui_warn "Cannot delete ${badfile}; please remove it manually"
+        }
+    }
+}
+
+notes "
+A startup item has been generated that will aid in
+starting logwatch with launchd. It is disabled
+by default. Execute the following command to start it,
+and to cause it to launch at startup:
+
+sudo launchctl load -w /Library/LaunchDaemons/org.macports.logwatch.plist
+"
+
+livecheck.regex     ${name}-(\[0-9.\]+)${extract.suffix}

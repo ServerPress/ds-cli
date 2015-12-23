@@ -1,0 +1,52 @@
+# $Id: Portfile 140440 2015-09-19 16:50:27Z ryandesign@macports.org $
+
+PortSystem 1.0
+PortGroup           cxx11 1.0
+
+name                gringo
+version             4.4.0
+categories          math devel
+platforms           darwin
+maintainers         mww openmaintainer
+license             GPL-3
+description         gringo computes an equivalent ground program
+long_description \
+    Gringo is a grounder that, given an input program with first-order variables, \
+    computes an equivalent ground (variable-free) program. Its output can be \
+    processed further with answer set solvers like clasp, cmodels, or smodels.
+
+homepage            http://potassco.sourceforge.net/
+master_sites        sourceforge:project/potassco/gringo/${version}/
+
+distname            ${name}-${version}-source
+
+checksums           rmd160  4619eb5814a54bd8f25b1d824ebf35a5c165d905 \
+                    sha256  49b2ddc78f568a12530c780a29bb7f57b656556f0840c5e9ada4f207913dde5e
+
+depends_build       port:scons port:re2c port:bison
+depends_lib         port:boost
+
+worksrcdir          ${name}-${version}-source
+
+use_configure       no
+use_parallel_build  no
+
+variant universal {}
+
+build.cmd           ${prefix}/bin/scons
+build.target        gringo clingo
+build.args          --build-dir=release \
+                    CXX="${configure.cxx} [get_canonical_archflags cxx]"
+
+destroot {
+    xinstall -d -m 0755 ${destroot}${prefix}/share/doc/${name} \
+        ${destroot}${prefix}/bin
+    xinstall -m 0755 -W ${worksrcpath}/build/release clingo gringo \
+        ${destroot}${prefix}/bin
+    xinstall -m 644 -W ${worksrcpath} CHANGES README COPYING NOTES INSTALL \
+        ${destroot}${prefix}/share/doc/${name}
+}
+
+livecheck.url       http://sourceforge.net/projects/potassco/files/gringo/
+livecheck.regex     potassco/files/gringo/(\[0-9\\.\]+)/
+

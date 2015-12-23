@@ -1,0 +1,56 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134934 2015-04-11 05:01:10Z ryandesign@macports.org $
+
+# Adapted from https://bitbucket.org/seanfarley/scienceports/src/de7cc636fbec/devel/codesearch/Portfile?at=default
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        google codesearch cd8c34d7416fc8a67c45e0ad5146c5878bc87ebd
+version             20131030
+# Epoch 1: Migration to github
+epoch               1
+
+categories          devel
+maintainers         nomaintainer
+description         Indexed regular expression-based search
+long_description \
+    Code Search is a tool for indexing and then performing regular \
+    expression searches over large bodies of source code. It is a \
+    set of command-line programs written in Go
+
+license             BSD
+
+checksums \
+    rmd160  72368e8843b6c160e31c7a23c27bacbeb86973c4 \
+    sha256  a93832ae7dbef3e986deee48a95ae8a51e7ae138815e7f7a3dcf7e8313c023e4
+
+platforms           darwin
+
+depends_lib         port:go
+
+worksrcdir          src/code.google.com/p/codesearch
+
+post-extract {
+    xinstall -d ${workpath}/src/code.google.com/p
+    move ${workpath}/${name}-${github.version} \
+        ${worksrcpath}
+}
+
+use_configure       no
+set progs           [list cgrep csearch cindex]
+
+build {
+    foreach prog ${progs} {
+        system -W ${worksrcpath} \
+          "GOPATH=${workpath} go build cmd/${prog}/${prog}.go"
+    }
+}
+
+destroot {
+    xinstall -W ${worksrcpath} {*}${progs} ${destroot}${prefix}/bin
+
+    xinstall -d ${destroot}${prefix}/share/doc/${name}
+    xinstall -m 644 ${worksrcpath}/LICENSE \
+        ${destroot}${prefix}/share/doc/${name}/
+}

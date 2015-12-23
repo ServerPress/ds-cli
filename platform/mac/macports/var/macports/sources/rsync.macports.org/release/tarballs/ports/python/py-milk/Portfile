@@ -1,0 +1,41 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136046 2015-05-11 10:54:20Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-milk
+version             0.6.1
+revision            0
+categories-append   science
+platforms           darwin
+license             MIT
+
+python.versions     26 27
+
+maintainers         stromnov openmaintainer
+
+description         Machine Learning Toolkit
+long_description    ${description}
+
+homepage            http://luispedro.org/software/milk
+master_sites        https://pypi.python.org/packages/source/m/milk/
+
+distname            milk-${version}
+
+checksums           rmd160  19c4ab6dabeb26821dc89c06e50f93484b81fa73 \
+                    sha256  47041ab5d1795907c092b4802e8b5a20620f32690d7b2f50d8c7817c38e3d304
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-setuptools
+
+    depends_lib-append  port:py${python.version}-numpy \
+                        port:eigen3
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/milk/json
+    livecheck.regex     "milk-(\\d+(?:\\.\\d+)*)${extract.suffix}"
+}

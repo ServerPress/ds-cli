@@ -1,0 +1,48 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142307 2015-11-09 22:09:02Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-numba
+version             0.22.1
+revision            0
+categories-append   devel
+platforms           darwin
+license             BSD
+
+python.versions     27 34 35
+
+maintainers         stromnov openmaintainer
+
+description         Numba is a NumPy aware dynamic compiler for Python.
+
+long_description    Numba is an Open Source NumPy-aware optimizing compiler \
+                    for Python. It uses the remarkable LLVM compiler \
+                    infrastructure to compile Python syntax to machine code.
+
+homepage            http://numba.github.com/
+master_sites        pypi:[string index ${python.rootname} 0]/${python.rootname}
+
+distname            ${python.rootname}-${version}
+
+checksums           rmd160  764350ba686c3392dca951e2386ce96df397062c \
+                    sha256  8194c41cdf96c16e3b3d246c0381daf4e587d1ada761f410efecb8315c2cdda3
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-setuptools \
+                        port:py${python.version}-cython \
+
+    depends_lib-append  port:py${python.version}-llvmlite \
+                        port:py${python.version}-numpy \
+                        port:py${python.version}-cffi
+
+    if {${python.version} == 27} {
+        depends_lib-append  port:py${python.version}-funcsigs
+    }
+
+    livecheck.type      none
+} else {
+    livecheck.type      pypi
+}

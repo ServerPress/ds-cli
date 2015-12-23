@@ -1,0 +1,65 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 113063 2013-11-07 10:53:14Z raimue@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        mackyle fakeroot 787d7578282afa0bbd0adcebdb1ee64801749bad
+version             1.19-2
+categories          sysutils
+platforms           darwin
+license             GPL-3+
+maintainers         eprofs.de:florian openmaintainer
+
+description         Tool for simulating superuser privileges
+long_description    A fork/clone of the main debian fakeroot \
+                    repository that includes enhanced Mac OS X \
+                    fakeroot support which has since been merged back \
+                    into that repository as of release 1.19-2. \
+                    fakeroot provides a fake root environment by means \
+                    of LD_PRELOAD and SYSV IPC (or TCP) trickery.
+homepage            http://mackyle.github.io/fakeroot/
+
+checksums           rmd160  c0e8df61958f838369173891d3fd808d7d39f3ef \
+                    sha256  a7e29ce3a37ce01db0eace818bba32d6ecef55d63bb7365ce9700861427c32b9
+
+# Build settings adapted from instructions at
+# https://github.com/mackyle/fakeroot/blob/787d757/README_MACOSX.txt
+
+use_autoreconf      yes
+autoreconf.cmd      ./bootstrap
+autoreconf.pre_args
+autoreconf.args
+depends_build       port:autoconf port:automake port:libtool
+depends_skip_archcheck-append libtool
+
+default_variants    +universal
+variant_set         universal
+switch -- ${os.major} {
+    8 {
+        configure.universal_archs   x86_64 i386 ppc64 ppc
+        configure.cflags-append     -mmacosx-version-min=10.4
+    }
+    9 {
+        configure.universal_archs   x86_64 i386 ppc64 ppc
+        configure.ldflags-append    -Wl,-force_cpusubtype_ALL
+    }
+    10 {
+        configure.universal_archs   x86_64 i386 ppc
+        configure.cflags-append     -Wno-deprecated-declarations
+        configure.ldflags-append    -Wl,-force_cpusubtype_ALL
+    }
+    default {
+        configure.universal_archs   x86_64 i386
+        configure.cflags-append     -Wno-deprecated-declarations
+    }
+}
+
+configure.args      --disable-static
+
+test.run            yes
+test.target         check
+
+livecheck.version   ${version}
+livecheck.url       ${github.raw}/macosx/debian/changelog
+livecheck.regex     {fakeroot \(([\d.-]+)\)}

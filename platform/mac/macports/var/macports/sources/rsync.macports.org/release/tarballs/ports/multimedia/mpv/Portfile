@@ -1,0 +1,498 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141736 2015-10-27 05:21:50Z ionic@macports.org $
+
+PortSystem              1.0
+PortGroup               github 1.0
+PortGroup               waf 1.0
+
+# Please revbump mpv whenever ffmpeg{,-devel} is updated!
+github.setup            mpv-player mpv 0.11.0 v
+revision                2
+categories              multimedia
+license                 GPL-2+
+maintainers             ionic
+platforms               darwin
+
+description             mpv is a movie player based on MPlayer and mplayer2.
+long_description        ${description} It plays most MPEG/VOB, AVI, Ogg/OGM, \
+                        VIVO, ASF/WMA/WMV, QT/MOV/MP4, RealMedia, Matroska, \
+                        NUT, NuppelVideo, FLI, YUV4MPEG, FILM, RoQ, PVA files, \
+                        supported by many native, XAnim, and Win32 DLL codecs. \
+                        You can watch VideoCD, SVCD, DVD, 3ivx, DivX 3/4/5, WMV \
+                        and even H.264 movies.
+homepage                http://www.mpv.io/
+
+set waf_version         1.8.12
+set waf_distfile        waf-${waf_version}
+set mpv_distfile        ${distfiles}
+master_sites-append     http://ftp.waf.io/pub/release:waf
+distfiles-append        ${waf_distfile}:waf
+
+extract.only-delete     ${waf_distfile}
+
+checksums               ${mpv_distfile} \
+                        rmd160  47d625b899b7bbe3867845e9710fef14d41d5249 \
+                        sha256  7d0598a0f5f5825143e2678f058d6305683c82ff36702235703e8d54048132fe \
+                        ${waf_distfile} \
+                        rmd160  bb1dcd10a0c336a5497bb1247a301c27f997078c \
+                        sha256  01bf2beab2106d1558800c8709bc2c8e496d3da4a2ca343fe091f22fca60c98b
+
+depends_build           path:bin/pkg-config:pkgconfig
+depends_lib             path:lib/libavcodec.dylib:ffmpeg \
+                        path:bin/perl:perl5 \
+                        port:libiconv \
+                        port:zlib \
+                        port:libass \
+                        port:libbluray \
+                        port:lcms2 \
+                        port:ossp-uuid
+
+universal_variant       no
+
+default_variants        +bundle +network +osd +rubberband +opengl +dvd +audiocd +libarchive
+
+# Current waf doesn't support --nocache anymore. Set by PortGroup.
+configure.args-delete   --nocache
+
+# Default configuration options. Mostly Mac OS X specific.
+# We cannot use --enable-cplayer here. Only --disable-cplayer
+# is recognized. Boo!
+configure.args-append   --enable-manpage-build \
+                        --enable-libass \
+                        --enable-coreaudio \
+                        --enable-cocoa \
+                        --disable-vda-hwaccel \
+                        --disable-videotoolbox-hwaccel \
+                        --disable-vda-gl \
+                        --disable-videotoolbox-gl
+
+# mpv autodetects many support libs. To prevent undeclared
+# dependencies, explicitly disable everything optional first.
+# This list should be expanded each time the port is updated to a
+# new version, disabling any newly added options.
+configure.args-append   --disable-pdf-build \
+                        --disable-test \
+                        --disable-clang-database \
+                        --disable-debug-build \
+                        --disable-libsmbclient \
+                        --disable-libass-osd \
+                        --disable-dvdread \
+                        --disable-dvdnav \
+                        --disable-cdda \
+                        --disable-vapoursynth \
+                        --disable-vapoursynth-lazy \
+                        --disable-libarchive \
+                        --disable-enca \
+                        --disable-rubberband \
+                        --disable-pulse \
+                        --disable-jack \
+                        --disable-openal \
+                        --disable-gl-cocoa \
+                        --disable-x11 \
+                        --disable-xss \
+                        --disable-xext \
+                        --disable-xv \
+                        --disable-gl-x11 \
+                        --disable-egl-x11 \
+                        --disable-xinerama \
+                        --disable-xrandr \
+                        --disable-caca \
+                        --disable-jpeg \
+                        --disable-tv \
+                        --disable-lua \
+                        --disable-apple-remote
+
+# Fix picking up the correct talloc version.
+# -isystem has the added benefit of moving the include
+# directory specified to the end of the include path list.
+# This will help the build system respect custom include
+# paths correctly (i.e., searching them before the MP include
+# directory.)
+configure.cppflags-replace  -I${prefix}/include -isystem${prefix}/include
+
+build.args-append           -v
+
+platform macosx {
+    if {${os.major} > 10} {
+        # Force recent enough Xcode.
+        # We have to compile with the compiler provided by Xcode/CLT
+        # due to only it shipping libarclite on 10.7 and knowing where
+        # it is.
+        # Could "emulate" the same behavior by using MacPort's clang
+        # and appending -L/usr/lib/arc/ to CFLAGS/CXXFLAGS on 10.7,
+        # but I don't particularily like that idea (yet.)
+        # Keep using the "system compiler" for now. Also means one less
+        # dependency on recent systems, so yay.
+        PortGroup                   xcodeversion 1.0
+        minimum_xcodeversions       {11 4.4}
+
+        # Force clang compiler as installed by Xcode's CLT's... hopefully.
+        compiler.blacklist-append   *gcc* cc macports-*
+    } else {
+        # clang is required to build mpv. The newer, the merrier.
+        # Part of getting mpv to work on SL -- c.f. #44662
+        compiler.blacklist-append   *gcc* cc
+
+        compiler.fallback-delete    macports-clang-3.4
+        compiler.fallback-append    macports-clang-3.4
+
+        # Reorder list, move older or unknown versions to the end.
+        compiler.fallback-delete    clang macports-clang-3.3
+        compiler.fallback-append    clang macports-clang-3.3
+    }
+
+    configure.args-replace  --disable-apple-remote \
+                            --enable-apple-remote
+}
+
+set has_vda 0
+set has_vtb 0
+
+platform darwin {
+    notes-append [subst {
+                    The maintainer ships his personal config file in
+                    * ${prefix}/share/examples/${name}/config-maintainer.
+
+                    You are strongly encouraged to copy this file to either
+                    * ${prefix}/etc/${name}/${name}.conf (globally for all users of the system) or
+                    * ~/.${name}/config (only for your current user)
+                    and adjust it to your needs.
+    }]
+
+    # Note: VDA support has already been removed on master. The next update will probably not include it anymore.
+
+    # VDA (video hardware acceleration, mostly H264) is only supported on 10.6.3+ up to (excluding) 10.11.
+    #if {(${os.major} > 10 || (${os.major} == 10 && ${os.minor} >= 3)) && (${os.major} < 15)}
+    # Due to a bug in ffmpeg(?), we have to enable VDA on 10.11 as well, even though it shouldn't be supported.
+    # More information: https://github.com/mpv-player/mpv/issues/2299
+    if {${os.major} > 10 || (${os.major} == 10 && ${os.minor} >= 3)} {
+        set has_vda 1
+        configure.args-delete   --disable-vda-hwaccel \
+                                --disable-vda-gl
+        configure.args-append   --enable-vda-hwaccel \
+                                --enable-vda-gl
+    }
+
+    # VideotoolBox, a new hardware acceleration framework, is supported on 10.8+ and "here to stay".
+    # It provides support for H264, H263, MPEG1, MPEG2 and MPEG4.
+    if {${os.major} > 11} {
+        set has_vtb 1
+        configure.args-delete   --disable-videotoolbox-hwaccel \
+                                --disable-videotoolbox-gl
+        configure.args-append   --enable-videotoolbox-hwaccel \
+                                --enable-videotoolbox-gl
+    }
+
+    if {(${has_vtb}) || (${has_vda})} {
+        notes-append {
+                        This config file already defines the necessary video output settings to make \
+                        use of the hardware acceleration features provided by your operating system.
+        }
+
+        if {(${has_vtb}) && (${has_vda})} {
+            notes-append [subst {
+                            While the default configuration file makes use of the newer and preferred \
+                            VideoToolBox framework, a separate config file set up for the old VDA \
+                            framework has been installed as
+                            * ${prefix}/share/examples/${name}/config-maintainer-vda.
+            }]
+        }
+    } else {
+        notes-append {
+                        Sadly, your system is incapable of utilizing mpv's hardware decoding features.
+
+                        Please make sure to edit the file after copying and replace the "vo=" line with \
+                        options suited for your system or mpv won't work as expected. \
+                        Consult ``man mpv'' for further information.
+        }
+    }
+
+    # Shared build fixes for 10.6 and 10.7.
+    if {${os.major} < 12} {
+        patchfiles-append   patch-misc-import-CoreVideo.diff
+    }
+
+    # Versions 10.6 and below don't support XCode 4, which is required for ARCLite.
+    # We will have to patch mpv for unofficial Cocoa support.
+    # Also fix some other minor compile issues only manifesting on 10.6 and below along the way.
+    if {${os.major} < 11} {
+        patchfiles-append   patch-waftools_checks_custom.py-disable-libarclite.diff \
+                            patch-misc-add-strnlen.diff \
+                            patch-audio_out_ao_coreaudio_exclusive.c-compile-fix.diff \
+                            patch-video_out_cocoa_events_view.h-remove-NSDraggingDestination-protocol.diff \
+                            patch-video_out_cocoa_events_view.m-replace-convertRectFromScreen-with-convertScreenToBase.diff \
+                            patch-video_out_cocoa_video_view.m-replace-convertRectToBacking-with-userSpaceScaleFactor.diff \
+                            patch-video_out_cocoa_events_view.m-replace-convertPointToBacking-with-userSpaceScaleFactor.diff \
+                            patch-video_out_cocoa_window.m-fullscreen-fixes.diff \
+                            patch-video_out_cocoa_common.m-define-constants.diff \
+                            patch-video_out_cocoa_common.m-port-lightsensor.diff \
+                            patch-video_out_opengl_cocoa.c-hardcode-OpenGL-2.diff \
+                            patch-osdep_macosx_compat.m-add-subscripting-implementation.diff \
+                            patch-audio_out_ao_coreaudio_utils.c-add-missing-header-for-getpid.diff \
+                            patch-video_decode_vda.c-disable-HAVE_VDA_DEFAULT_INIT2.diff \
+                            patch-video_out_opengl_hwdec_vda.c-disable-NV12.diff
+
+                            # Let's hope this is actually unneeded...
+                            #patch-video_out_cocoa_common.m-use-deprecated-ColorSync-functions.diff
+
+        notes-append {
+                        On systems older than Lion (10.7), Cocoa output support is currently \
+                        being patched by the MacPorts maintainer to make it work.
+
+                        It is known to be broken.
+
+                        Please do not expect it to work or be bug free.
+        }
+    }
+
+    post-extract {
+        xinstall -m 0644 -W "${filespath}" config-maintainer-vda config-maintainer-vtb "${worksrcpath}/TOOLS/"
+    }
+
+    pre-configure {
+        if {[variant_isset network]} {
+            reinplace -W "${worksrcpath}/TOOLS" "s|@@NETWORK@@||" config-maintainer-vda
+            reinplace -W "${worksrcpath}/TOOLS" "s|@@NETWORK@@||" config-maintainer-vtb
+        } else {
+            reinplace -W "${worksrcpath}/TOOLS" "|@@NETWORK@@|d" config-maintainer-vda
+            reinplace -W "${worksrcpath}/TOOLS" "|@@NETWORK@@|d" config-maintainer-vtb
+        }
+    }
+}
+
+
+# Shameless copy from ipe-tools.
+set python.versions         {27 34}
+set python.default_version  27
+
+# Create python variants.
+foreach ver ${python.versions} {
+    set variant_line {variant python${ver} description }
+    append variant_line " {Use python${ver} to generate man pages}"
+
+    foreach over ${python.versions} {
+        if {${ver} == ${over}} {
+            continue
+        }
+
+        append variant_line " conflicts python${over}"
+    }
+
+    append variant_line " { depends_build-append port:py${ver}-docutils }"
+    eval $variant_line
+}
+
+# Set default python variant.
+set variant_none true
+foreach ver ${python.versions} {
+    if {[variant_isset python${ver}]} {
+        set variant_none [expr $variant_none && ![variant_isset python${ver}]]
+    }
+}
+
+if {${variant_none}} {
+    default_variants-append "+python${python.default_version}"
+}
+
+# Set ${python.version} to the currently active variant.
+foreach ver ${python.versions} {
+    if {[variant_isset python${ver}]} {
+        set python.version ${ver}
+    }
+}
+
+post-patch {
+    set python_ver_dot [join [split ${python.version} {}] "."]
+    reinplace -W "${worksrcpath}" "s|'rst2man'|'rst2man-${python_ver_dot}'|" wscript
+}
+
+post-extract {
+    xinstall -m 0644 -W "${distpath}" "${waf_distfile}" "${worksrcpath}/waf"
+}
+
+post-destroot {
+    xinstall -d -m 0755 ${destroot}${prefix}/etc/${name}
+    foreach etcfile {encoding-profiles.conf example.conf input.conf} {
+        xinstall -m 0644 ${worksrcpath}/etc/${etcfile} \
+            ${destroot}${prefix}/etc/${name}/${etcfile}
+    }
+    xinstall -d -m 0755 ${destroot}${prefix}/share/examples/${name}
+    copy {*}[glob ${worksrcpath}/TOOLS/lua ${worksrcpath}/TOOLS/*.pl \
+                  ${worksrcpath}/TOOLS/*.sh ${worksrcpath}/TOOLS/*.py \
+                  ${worksrcpath}/TOOLS/umpv ${worksrcpath}/TOOLS/lib] \
+         ${destroot}${prefix}/share/examples/${name}
+
+    if {${os.platform} eq "darwin"} {
+        if {(${has_vtb})} {
+            xinstall -m 0644 ${worksrcpath}/TOOLS/config-maintainer-vtb \
+                             ${destroot}${prefix}/share/examples/${name}/config-maintainer
+
+            if {(${has_vda})} {
+                xinstall -m 0644 ${worksrcpath}/TOOLS/config-maintainer-vda \
+                                 ${destroot}${prefix}/share/examples/${name}/
+            }
+        } else {
+            xinstall -m 0644 ${worksrcpath}/TOOLS/config-maintainer-vda \
+                             ${destroot}${prefix}/share/examples/${name}/config-maintainer
+        }
+    }
+}
+
+
+# When enabling features, make sure to replace the "disable" flags with
+# "enable" flags in order to make the waf build system error out in case
+# a feature cannot be used/found. Problems like that indicate a missing
+# runtime dependency.
+
+variant bundle description {Enable the optional Mac OS X bundle of mpv} {
+    post-build {
+        system -W "${worksrcpath}" "${waf.python} TOOLS/osxbundle.py -s build/mpv"
+    }
+
+    post-destroot {
+        xinstall -d -m 0755 ${destroot}${applications_dir}
+        move ${worksrcpath}/build/mpv.app ${destroot}${applications_dir}
+    }
+}
+
+variant screenshot description {Enable optional screenshot support} {
+    depends_lib-append      path:lib/libjpeg.dylib:jpeg
+    configure.args-replace  --disable-jpeg \
+                            --enable-jpeg
+}
+
+variant network description {Enable networking support via youtube-dl (supports wide variety of pages)} {
+    depends_run-append      port:youtube-dl
+}
+
+# Remove after 06-28-2016.
+variant lirc description {Legacy compatibility variant for Linux Infrared Remote Control Daemon support. Will be removed soon.} {
+    notes-append {
+                    You have enabled the legacy lirc variant. \
+                    Upstream removed built-in support for LIRC in version 0.9.0. \
+                    You can still use remote controls. Install the lirc port manually \
+                    and configure your remotes as an input device.
+    }
+}
+
+variant dvd description {Enable DVD and DeCSS support} {
+    depends_lib-append      port:libdvdread \
+                            port:libdvdnav
+    configure.args-replace  --disable-dvdread \
+                            --enable-dvdread
+    configure.args-replace  --disable-dvdnav \
+                            --enable-dvdnav
+}
+
+variant audiocd description {Enable Audio CD support via libcdio-paranoia} {
+    depends_lib-append      port:libcdio-paranoia
+    configure.args-replace   --disable-cdda \
+                             --enable-cdda
+}
+
+variant libarchive description {Enable transparent handling of Zip files and other compressed formats} {
+    depends_lib-append      port:libarchive
+    configure.args-replace  --disable-libarchive \
+                            --enable-libarchive
+}
+
+variant enca description {Enable encoding support via ENCA} {
+    depends_lib-append      port:enca
+    configure.args-replace  --disable-enca \
+                            --enable-enca
+}
+
+variant rubberband description {Enable support for the Rubber Band library, adding audio pitch and speed control} {
+    depends_lib-append      port:rubberband
+    configure.args-replace  --disable-rubberband \
+                            --enable-rubberband
+}
+
+variant pulseaudio description {Enable PulseAudio support} {
+    depends_lib-append      port:pulseaudio
+    configure.args-replace  --disable-pulse \
+                            --enable-pulse
+}
+
+variant jack description {Enable Jack Audio Connection Kit support} {
+    depends_lib-append      port:jack
+    configure.args-replace  --disable-jack \
+                            --enable-jack
+}
+
+# TODO: switch that to openal-soft? Leave it as-is?
+variant openal description {Enable OpenAL support} {
+    depends_lib-append      port:openal
+    configure.args-replace  --disable-openal \
+                            --enable-openal
+}
+
+variant x11 {
+    depends_lib-append      port:xorg-libXext \
+                            port:xorg-libXScrnSaver \
+                            port:xorg-libXinerama \
+                            port:xorg-libXv \
+                            port:xorg-libXrandr
+
+    configure.args-delete   --disable-x11 \
+                            --disable-xss \
+                            --disable-xext \
+                            --disable-xinerama \
+                            --disable-xv \
+                            --disable-xrandr
+    configure.args-append   --enable-x11 \
+                            --enable-xss \
+                            --enable-xext \
+                            --enable-xv \
+                            --enable-xinerama \
+                            --enable-xrandr
+}
+
+variant opengl description {Enable glx output support.  Both the CoreVideo and X11 outputs are supported} {
+    configure.args-replace  --disable-gl-cocoa \
+                            --enable-gl-cocoa
+
+    if {[variant_isset x11]} {
+        depends_lib-append      port:mesa
+        configure.args-replace  --disable-gl-x11 \
+                                --enable-gl-x11
+        # FIXME: add EGL? Leave it disabled? Test!
+        #configure.args-replace  --disable-egl-x11 \
+        #                        --enable-egl-x11
+    }
+}
+
+variant caca description {Enable animated ASCII art video output} {
+    depends_lib-append      port:libcaca
+    configure.args-replace  --disable-caca \
+                            --enable-caca
+}
+
+variant osd description {Enable onscreen display and TrueType font support} {
+    depends_lib-append      port:lua52
+    configure.args-delete   --disable-lua \
+                            --disable-libass-osd
+    configure.args-append   --enable-lua \
+                            --lua=52fbsd \
+                            --enable-libass-osd
+}
+
+variant smb description {Enable Samba support} {
+    depends_lib-append      path:lib/pkgconfig/smbclient.pc:samba3
+    configure.args-replace  --disable-libsmbclient \
+                            --enable-libsmbclient
+}
+
+variant debug description {Compile with debugging symbols} {
+    configure.args-replace  --disable-debug-build \
+                            --enable-debug-build
+}
+
+variant printable_doc description {Generate printable documents (PDF help)} {
+    # py27-pdfrw and py27-Pillow are needed by rst2pdf.
+    depends_build-append    port:rst2pdf \
+                            port:py27-pdfrw \
+                            port:py27-Pillow
+    configure.args-replace  --disable-pdf-build \
+                            --enable-pdf-build
+}

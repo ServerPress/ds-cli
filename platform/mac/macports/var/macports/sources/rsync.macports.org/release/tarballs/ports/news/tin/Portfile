@@ -1,0 +1,95 @@
+# $Id: Portfile 46912 2009-02-17 02:20:09Z raimue@macports.org $
+
+PortSystem 1.0
+name			tin
+version			1.8.3
+revision		3
+categories		news
+platforms		darwin
+maintainers		nomaintainer
+homepage		http://www.tin.org/
+description		A threaded NNTP and spool based UseNet newsreader
+
+long_description	tin is a full-screen easy to use Usenet reader. It can read news \
+			locally or remotely via a NNTP (Network News Transport Protocol) \
+			server. It will automatically utilize NOV (News OVerview) style \
+			index files if available locally or via the NNTP XOVER command.
+
+master_sites		ftp://ftp.tin.org/${name}/v1.8/ \
+			ftp://ftp.cuhk.edu.hk/pub/packages/news/${name}/v1.8/ \
+			ftp://ftp.lip6.fr/pub/unix/news/readers/tin-unoff/ \
+			ftp://ftp.stikman.com/pub/${name}/v1.8/
+			
+use_bzip2		yes
+
+checksums		md5 e6ed45205020665c097556822b0d575b \
+			sha1 3822e7281d22433862075270b06bfa6b82226b0e \
+			rmd160 7e165eccb099cfc8aae073781a5642266321dd3e
+
+configure.args          --enable-break-long-lines \
+                        --enable-nntp \
+			--enable-mh-mail-handling \
+			--enable-included-msgs \
+                        --enable-ipv6 \
+			--with-coffee \
+			--mandir=${prefix}/share/man \
+			--infodir=${prefix}/share/info \
+			--datadir=${prefix}/share \
+			--sysconfdir=${prefix}/etc \
+			--with-defaults-dir=${prefix}/etc/${name} \
+			--disable-pgp-gpg
+
+build.dir		${worksrcpath}/src
+
+configure.cppflags-append	-DSIGWINCH=28
+
+pre-destroot {		file mkdir ${destroot}${prefix}/share/doc/${name}
+			file mkdir ${destroot}${prefix}/etc/${name}
+			xinstall -m 644 -v -W ${worksrcpath}/doc \
+				auth.txt CHANGES config-anomalies \
+				filtering good-netkeeping-seal iso2asc.txt \
+				keymap.sample mailcap.sample pgp.txt \
+				reading-mail.txt TODO umlaute.txt umlauts.txt \
+				WHATSNEW \
+				${destroot}${prefix}/share/doc/${name}
+			}
+
+destroot.keepdirs	${destroot}${prefix}/etc/${name}
+
+post-destroot {		xinstall -m 755 -v -W ${worksrcpath}/tools \
+				expiretover tinews.pl tinlock \
+				${destroot}${prefix}/bin
+			# mutt-devel also installs these man pages, so
+			# removing here (since they describe mail formats,
+			# makes a little more sense to be in the mail app)
+			# ticket #11475
+			delete ${destroot}${prefix}/share/man/man5/mbox.5
+			delete ${destroot}${prefix}/share/man/man5/mmdf.5
+			}
+
+post-activate {		set f tin.defaults
+			if {![file exists ${prefix}/etc/${name}/${f}]} {
+				file copy ${worksrcpath}/doc/${f} \
+					${prefix}/etc/${name}/${f}
+				}
+			}
+
+variant gpg {		depends_run		bin:gpg:gnupg
+			configure.args-delete	--disable-pgp-gpg
+			configure.args-append	--with-gpg=${prefix}/bin/gpg \
+						--without-pgp \
+						--without-pgpk
+			}
+
+variant pgp5 {		depends_run		bin:pgpk:pgp
+			configure.args-delete   --disable-pgp-gpg
+			configure.args-append	--with-pgpk=${prefix}/bin/pgpk \
+						--without-gpg \
+						--without-pgp
+			}
+
+variant ncurses		{ configure.args-append	--with-screen=ncurses }
+
+variant ispell {        depends_build           bin:ispell:ispell
+                        configure.args-append   --enable-ispell
+			                        }

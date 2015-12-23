@@ -1,0 +1,134 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143738 2015-12-20 01:29:15Z kimuraw@macports.org $
+
+PortSystem          1.0
+PortGroup           select 1.0
+
+name                ruby22
+version             2.2.4
+revision            0
+
+categories          lang ruby
+maintainers         kimuraw openmaintainer
+platforms           darwin
+
+description         Powerful and clean object-oriented scripting language
+long_description    Ruby is the interpreted scripting language for quick \
+                    and easy object-oriented programming. It has many \
+                    features to process text files and to do system \
+                    management tasks (as in Perl). It is simple, \
+                    straight-forward, extensible, and portable.
+
+homepage            http://www.ruby-lang.org/
+license             {Ruby BSD}
+
+master_sites        ruby:2.2
+use_bzip2           yes
+distname            ruby-${version}
+
+checksums           md5 c3d65f6d2ebe90dda81a37885ea244f5 \
+                    rmd160 012fa73d430db36e5b807cd677a961d6e2700758 \
+                    sha1 6132840a859dbf2ac1498ba313021f299a870038 \
+                    sha256 31203696adbfdda6f2874a2de31f7c5a1f3bcb6628f4d1a241de21b158cd5c76
+use_parallel_build  no
+
+depends_lib         port:readline \
+                    path:lib/libssl.dylib:openssl \
+                    port:zlib \
+                    port:libyaml \
+                    port:libffi \
+                    port:gdbm
+depends_run         port:ruby_select
+depends_build       port:pkgconfig
+depends_skip_archcheck pkgconfig
+
+select.group        ruby
+select.file         ${filespath}/ruby22
+
+configure.args      --enable-shared \
+                    --disable-install-doc \
+                    --mandir="${prefix}/share/man" \
+                    --enable-pthread \
+                    --without-tk \
+                    --without-gmp \
+                    --with-opt-dir="${prefix}" \
+                    --program-suffix=2.2 \
+                    --with-rubylibprefix="${prefix}/lib/ruby2.2"
+
+platform darwin {
+    if {${os.major} < 10} {
+        configure.args-append --disable-dtrace
+    }
+}
+
+# Ignore minor version for archdir, like i686-darwin9.
+# Port "ruby" and "ruby19" does the same.
+configure.env-append UNAME_RELEASE=${os.major}
+
+# Add the architecture flag as required
+if {[info exists build_arch] && ${build_arch} != ""} {
+    configure.args-append "--with-arch=${build_arch}"
+}
+
+post-destroot {
+    foreach type {site vendor} {
+            set libdir ${destroot}${prefix}/lib/ruby2.2/${type}_ruby/2.2.0
+            xinstall -m 0755 -d ${libdir}
+    }
+
+    foreach subdir [exec find ${libdir} -type d -empty] {
+            destroot.keepdirs-append ${subdir}
+    }
+
+    # install destination of commands from port:rb22-*
+    xinstall -m 0755 -d ${destroot}${prefix}/libexec/ruby2.2
+    destroot.keepdirs-append ${destroot}${prefix}/libexec/ruby2.2
+}
+
+variant doc description "Install rdoc indexes and C API documents" {
+        configure.args-delete   --disable-install-doc
+}
+
+# note: ruby/tk does not support tk-8.6.
+#
+#variant tk conflicts mactk description "Build using MacPorts Tk" {
+#        configure.args-delete   --without-tk
+#        configure.args-append   --with-tk --disable-tcltk-framework
+#        depends_lib-append      port:tcl \
+#                                port:tk
+#}
+
+variant mactk description "Build using Mac OS X Tk Framework" {
+        configure.args-delete   --without-tk
+        configure.args-append   --enable-tcltk-framework
+}
+
+variant gmp description "use gmp" {
+        configure.args-delete   --without-gmp
+        depends_lib-append      port:gmp
+}
+
+variant jemalloc description "use jemalloc" {
+        configure.args-delete   --without-jemalloc
+        depends_lib-append      port:jemalloc
+}
+
+variant universal {
+        # use ruby built-in universal mechanism.
+        configure.args-append   --with-arch=[join ${universal_archs} ,]
+        # clear macports' universal flags
+        configure.universal_cflags
+        configure.universal_cppflags
+        configure.universal_cxxflags
+        configure.universal_ldflags
+}
+
+variant relative description "Enable relative loading of libraries to allow for relocation of binaries." {
+        #enable relative loading
+        configure.args-append  --enable-load-relative
+}
+
+livecheck.type  regex
+livecheck.url   http://cache.ruby-lang.org/pub/ruby/2.2/
+livecheck.regex ruby-(${version})${extract.suffix}
+

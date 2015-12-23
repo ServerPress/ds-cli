@@ -1,0 +1,43 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139715 2015-08-25 04:41:18Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Mouse 2.4.5 ../by-authors/id/S/SY/SYOHEX
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Moose minus the antlers
+long_description    Moose is wonderful. \
+                    Unfortunately, it's a little slow. Though significant \
+                    progress has been made over the years, the compile \
+                    time penalty is a non-starter for some applications. \
+                    Mouse aims to alleviate this by providing a subset of \
+                    Moose's functionality, faster. In particular, \"has\" \
+                    in Moose is missing only a few expert-level features.
+
+platforms           darwin
+
+distname            ${perl5.module}-v${perl5.moduleversion}
+
+checksums           rmd160  33905e27fd656f8abede4f429abe33a518c7ef05 \
+                    sha256  14223cf0864e307e674e39c0b109398d2fb6289d245f273177810b878cbe8db8
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-devel-ppport \
+                    port:p${perl5.major}-io-string \
+                    port:p${perl5.major}-module-build-xsutil \
+                    port:p${perl5.major}-test-exception \
+                    port:p${perl5.major}-test-deep \
+                    port:p${perl5.major}-test-fatal \
+                    port:p${perl5.major}-test-leaktrace \
+                    port:p${perl5.major}-test-output \
+                    port:p${perl5.major}-test-requires \
+                    port:p${perl5.major}-try-tiny
+    
+    perl5.use_module_build
+}
+
+livecheck.regex     _gaq.push\\(\\\["_setCustomVar",5,"Release","[quotemeta ${perl5.module}]-v(\[^"\]+?)\"

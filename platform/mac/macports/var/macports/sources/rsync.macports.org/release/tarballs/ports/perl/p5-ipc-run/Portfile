@@ -1,0 +1,23 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         IPC-Run 0.94
+maintainers         nomaintainer
+license             {Artistic-1 GPL}
+description         system() and background procs w/ piping, redirs, ptys
+long_description    ${description}
+
+platforms           darwin
+supported_archs     noarch
+
+checksums           rmd160  e158c2537370ae5b6f0c72586ad2791be2e64dcf \
+                    sha256  2eb336c91a2b7ea61f98e5b2282d91020d39a484f16041e2365ffd30f8a5605b
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-io-tty
+}

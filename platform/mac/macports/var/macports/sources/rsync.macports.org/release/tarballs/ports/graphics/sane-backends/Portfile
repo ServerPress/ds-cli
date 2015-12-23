@@ -1,0 +1,88 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; truncate-lines: t; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
+# $Id: Portfile 126011 2014-10-01 22:31:31Z ryandesign@macports.org $
+
+PortSystem                  1.0
+
+name                        sane-backends
+version                     1.0.24
+set download_id             3958
+categories                  graphics
+platforms                   darwin
+# Some content is LGPL-2+ or public-domain, but the package as a whole is GPL-2+
+license                     GPL-2+
+maintainers                 gmail.com:aguynamedryan+sane
+homepage                    http://www.sane-project.org/
+
+description                 Backends for scanner access
+
+long_description            These are the backends for the Scanner Access Now \
+                            Easy project. They allow you to access various \
+                            scanners either locally or remote using saned.
+
+master_sites                https://alioth.debian.org/frs/download.php/file/${download_id}/
+
+checksums                   rmd160  7a05c5b3d4fc4a88564cb862d4a1b46843026105 \
+                            sha256  27c7085a54f1505d8b551e6f1e69d30e1ee57328b18429bb2225dabf4c45462d
+
+depends_lib                 port:jpeg \
+                            port:libusb-compat \
+                            port:net-snmp \
+                            port:tiff \
+                            port:zlib
+
+patchfiles                  patch-configure.diff
+
+configure.cppflags-append   -no-cpp-precomp \
+                            -fno-common
+
+configure.args              --mandir=${prefix}/share/man \
+                            --with-docdir=${prefix}/share/doc/${name} \
+                            --enable-local-backends \
+                            --enable-libusb \
+                            --disable-latex \
+                            --without-gphoto2
+
+post-configure {
+    reinplace -E {s|-arch [a-z0-9_]+||g} \
+        ${worksrcpath}/tools/sane-config \
+        ${worksrcpath}/tools/sane-backends.pc
+}
+
+build.env-append LC_CTYPE="C"
+
+use_parallel_build          no
+
+pre-destroot {
+    xinstall -d -o root -g admin -m 775 ${destroot}${prefix}/var/lock
+}
+
+destroot.keepdirs ${destroot}${prefix}/var/lock
+
+variant disable_localbackends conflicts enable_pnmbackend with_gphoto2 description "turn off compilation of all backends but net" {
+    depends_lib-delete      port:libusb-compat
+    configure.args-delete   --enable-local-backends --enable-libusb
+    configure.args-append   --disable-local-backends --disable-libusb
+}
+
+variant enable_pnmbackend conflicts disable_localbackends description "enable the pnm backend for testing frontends (possible security risk, see PROBLEMS file)" {
+    configure.args-append   --enable-pnm-backend
+}
+
+variant with_gphoto2 conflicts disable_localbackends description "include the gphoto2 backend" {
+    depends_lib-append      port:libexif \
+                            port:libgphoto2 \
+                            port:pkgconfig
+    configure.args-delete   --without-gphoto2
+    configure.args-append   --with-gphoto2
+}
+
+# This project uses u_long *everywhere* and doesn't bother including sys/types.h
+configure.cppflags-append   -include sys/types.h
+
+livecheck.type              regex
+livecheck.url               https://alioth.debian.org/frs/?group_id=30186
+livecheck.regex             "${name}-(\\d+(?:\\.\\d+)*)"
+
+notes "\
+    Edit ${prefix}/etc/sane.d/dll.conf to enable only\
+    specific backends for a noticeable performance gain."

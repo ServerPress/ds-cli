@@ -1,0 +1,99 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 132910 2015-02-13 00:09:02Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           muniversal 1.0
+PortGroup           compilers 1.0
+
+compilers.choose    fc
+compilers.setup     require_fortran -dragonegg
+
+name                qrupdate
+version             1.1.2
+revision            3
+# upstream follows a weird folder naming policy, we need last two digits of version separated by a dot
+set branch          [join [lrange [split ${version} .] 1 2] .]
+categories          math
+license             GPL-3+
+maintainers         nomaintainer
+description         library for fast updates of QR and Cholesky decompositions
+long_description    a Fortran library for fast updates of QR and Cholesky decompositions
+homepage            http://sourceforge.net/projects/${name}/
+platforms           darwin
+master_sites        sourceforge:project/qrupdate/qrupdate/${branch}
+
+checksums           rmd160  9d23b2d13278c335f6208ebb6775df4b4049785c \
+                    sha256  e2a1c711dc8ebc418e21195833814cb2f84b878b90a2774365f0166402308e08
+
+use_configure       no
+build.target        lib solib
+
+build.args          PREFIX=${prefix}
+destroot.args       PREFIX=${prefix}
+test.args           PREFIX=${prefix}
+
+patchfiles          patch-Makefile.diff
+
+post-patch {
+    # Mac install program does not support -D flag.
+    reinplace "s|install -D|install|"  ${worksrcpath}/src/Makefile
+
+    # Running ranlib on static libraries make universal builds a little more complicated.
+    reinplace "s|ar -cr |libtool -o |"  ${worksrcpath}/src/Makefile
+}
+
+# Fortran compilers can not cross-compile
+if {${os.arch} eq "i386"} {
+    set universal_archs_supported "i386 x86_64"
+} else {
+    set universal_archs_supported "ppc ppc64"
+}
+
+post-configure {
+    if { ! [variant_isset universal] } {
+        if {${build_arch} eq "x86_64" || ${build_arch} eq "ppc64"} {
+            reinplace "s|^FFLAGS=|FFLAGS=-m64 |"  ${worksrcpath}/Makeconf
+        } else {
+            reinplace "s|^FFLAGS=|FFLAGS=-m32 |"  ${worksrcpath}/Makeconf
+        }
+    } else {
+        foreach arch ${universal_archs_to_use} {
+            if {${arch} eq "x86_64" || ${arch} eq "ppc64"} {
+                reinplace "s|^FFLAGS=|FFLAGS=-m64 |"  ${worksrcpath}-${arch}/Makeconf
+            } else {
+                reinplace "s|^FFLAGS=|FFLAGS=-m32 |"  ${worksrcpath}-${arch}/Makeconf
+            }
+        }
+    }
+}
+
+variant atlas conflicts accelerate description {build with atlas instead of Accelerate framework} {
+    depends_lib-append      port:atlas
+    build.args-append       BLAS="-L${prefix}/lib -ltatlas" LAPACK="-L${prefix}/lib -llapack"
+    destroot.args-append    BLAS="-L${prefix}/lib -ltatlas" LAPACK="-L${prefix}/lib -llapack"
+    test.args-append        BLAS="-L${prefix}/lib -ltatlas" LAPACK="-L${prefix}/lib -llapack"
+}
+
+variant accelerate conflicts atlas description {build with Accelerate framework} {
+    depends_lib-append      port:vecLibFort
+    build.args-append       BLAS=-lvecLibFort LAPACK="-framework Accelerate"
+    destroot.args-append    BLAS=-lvecLibFort LAPACK="-framework Accelerate"
+    test.args-append        BLAS=-lvecLibFort LAPACK="-framework Accelerate"
+}
+
+if {[variant_isset g95]} {
+    if {![variant_isset atlas]} {
+        default_variants-append +accelerate
+    }
+    post-patch {
+        reinplace "s|Makeconf|Makeconf.g95|" ${worksrcpath}/Makefile
+        reinplace "s|Makeconf|Makeconf.g95|" ${worksrcpath}/src/Makefile
+    }
+} else {
+    if {![variant_isset accelerate]} {
+        default_variants-append +atlas
+    }
+    post-patch {
+        reinplace "s|gfortran|${configure.fc}|" ${worksrcpath}/Makeconf
+    }
+}

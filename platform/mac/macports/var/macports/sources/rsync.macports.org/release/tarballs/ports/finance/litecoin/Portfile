@@ -1,0 +1,70 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
+
+PortSystem          1.0
+
+PortGroup           qmake  1.0
+PortGroup           github 1.0
+
+github.setup        litecoin-project litecoin 0.8.7.4 v
+
+categories          finance
+maintainers         mk openmaintainer
+
+description         Litecoin is a P2P Internet currency that enables instant payments to anyone in the world.
+long_description    Litecoin is a peer-to-peer Internet currency that enables instant payments\
+                    to anyone in the world. It is based on the Bitcoin protocol but differs\
+                    from Bitcoin in that it can be efficiently mined with consumer-grade hardware.\
+                    Litecoin provides faster transaction confirmations (2.5 minutes on average)\
+                    and uses memory-hard, scrypt-based mining proof-of-work algorithm to target\
+                    the regular computers and GPUs most people already have. The Litecoin network\
+                    is scheduled to produce 84 million currency units.\
+                    \
+                    One of the aims of Litecoin was to provide a mining algorithm that could run\
+                    at the same time, on the same hardware used to mine bitcoins. With the rise\
+                    of specialized ASICs for Bitcoin, Litecoin continues to satisfy these goals.\
+                    It is unlikely for ASIC mining to be developed for Litecoin until the currency\
+                    is widely used.
+
+platforms           darwin
+license             MIT
+
+depends_lib-append  port:boost \
+                    path:lib/libssl.dylib:openssl \
+                    port:db48 \
+                    port:miniupnpc \
+                    port:qrencode
+
+checksums           md5     76929547d8ff674d2e55e3cfc407fb8c \
+                    sha1    b0f0f500d95df1f9bd2b002231bf2bbfc7626663 \
+                    rmd160  1b15d2a2e4d0797c8038e6dd8dd7cae1816e1a48
+
+# This is necessary for version 0.8.5.1 due to a stealth update
+dist_subdir         ${name}/${version}_1
+
+livecheck.type      regex
+livecheck.url       http://litecoin.org
+livecheck.regex     "macosx/Litecoin-Qt-(0\\.\\d+\\.\\d+\\.\\d+)\\.dmg"
+
+use_parallel_build  yes
+
+pre-configure {
+    reinplace "s|/opt/local|${prefix}|" ${worksrcpath}/bitcoin-qt.pro
+    configure.pre_args-append   USE_QRCODE=1 INCLUDEPATH+="${prefix}/include/db48/" LIBS+="-L${prefix}/lib/db48"
+}
+
+if {$subport == $name} {
+    destroot {
+        xinstall -m 0755 -d ${destroot}${qt_apps_dir}
+        file copy ${worksrcpath}/Litecoin-Qt.app ${destroot}${qt_apps_dir}
+    }
+}
+
+subport litecoind {
+    replaced_by      litecoin
+    PortGroup        obsolete 1.0
+    revision         1
+
+    description      Litecoin's mining daemon litecoind alone. (Not recommended for installation anymore!)
+    long_description $description
+}

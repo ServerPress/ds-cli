@@ -1,0 +1,43 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim: fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142909 2015-11-27 07:51:43Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-qtconsole
+version             4.1.1
+revision            0
+categories-append   devel
+platforms           darwin
+license             BSD
+supported_archs     noarch
+
+python.versions     27 34 35
+
+maintainers         stromnov openmaintainer
+
+description         Jupyter Qt console.
+long_description    ${description}
+
+homepage            http://jupyter.org
+master_sites        pypi:[string index ${python.rootname} 0]/${python.rootname}
+
+distname            ${python.rootname}-${version}
+
+checksums           rmd160  49b718e717acc0b4ba8829eb621461dae21ad425 \
+                    sha256  741906acae9e02c0df9138ac88b621ef22e438565aa96d783a9ef88faec3de46
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:py${python.version}-traitlets \
+                        port:py${python.version}-jupyter_core \
+                        port:py${python.version}-jupyter_client \
+                        port:py${python.version}-pygments \
+                        port:py${python.version}-ipykernel
+
+    # Note: depends on one of py-pyqt4, py-pyqt5 or py-pyside (first available at runtime)
+    # TODO: add notes or specify default variant
+
+    livecheck.type      none
+} else {
+    livecheck.type      pypi
+}

@@ -1,0 +1,25 @@
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem            1.0
+PortGroup             perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup           libxml-perl 0.08 XML
+revision              4
+license               {Artistic-1 GPL}
+maintainers           nomaintainer
+description           Collection of Perl modules for working with XML.
+long_description      libxml-perl is a collection of smaller Perl modules, \
+                      scripts, and documents for working with XML in Perl. \
+                      libxml-perl software works in combination with \
+                      XML::Parser, PerlSAX, XML::DOM, XML::Grove and others.
+
+platforms             darwin
+
+checksums             md5 0ed5fbdda53d1301ddaed88db10503bb
+
+if {${perl5.major} != ""} {
+depends_lib-append    port:p${perl5.major}-xml-parser
+
+supported_archs noarch
+}

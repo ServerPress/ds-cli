@@ -1,0 +1,45 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141506 2015-10-19 22:03:40Z sean@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+PortGroup           xcode 1.0
+
+github.setup        anthonygelibert QLColorCode 7cfb0487a9
+version             2.0.4
+revision            8
+categories          sysutils
+
+platforms           darwin
+license             GPL-2
+maintainers         sean openmaintainer
+
+description         Quick Look plugin that renders source code with syntax highlighting
+long_description    ${description}
+
+checksums           rmd160  a2292fe1bd4c33277a2d36eea658339d2fc2533e \
+                    sha256  214bbda04e65b19612fc5b61f35c0a3459ecb9ed8a776d7c9620fda144e78c7b
+
+depends_lib         port:highlight
+destroot.violate_mtree  yes
+
+# remove build phase that copies to the user's home directory
+patchfiles-append   patch-xcode.diff
+
+post-extract {
+    reinplace -W ${worksrcpath} "s,open \$PROJECT_DIR/release,," QLColorCode.xcodeproj/project.pbxproj
+}
+
+destroot {
+    xinstall -d ${destroot}/Library/QuickLook
+    file copy ${worksrcpath}/build/Release/${name}.qlgenerator ${destroot}/Library/QuickLook
+}
+
+# force quicklook to reload plugins
+post-activate {
+    system "qlmanage -r"
+}
+
+post-deactivate {
+    system "qlmanage -r"
+}

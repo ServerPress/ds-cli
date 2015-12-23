@@ -30,6 +30,7 @@
 <ANCHOR id="GLIB-VERSION-2-40:CAPS" href="glib/glib-Version-Information.html#GLIB-VERSION-2-40:CAPS">
 <ANCHOR id="GLIB-VERSION-2-42:CAPS" href="glib/glib-Version-Information.html#GLIB-VERSION-2-42:CAPS">
 <ANCHOR id="GLIB-VERSION-2-44:CAPS" href="glib/glib-Version-Information.html#GLIB-VERSION-2-44:CAPS">
+<ANCHOR id="GLIB-VERSION-2-46:CAPS" href="glib/glib-Version-Information.html#GLIB-VERSION-2-46:CAPS">
 <ANCHOR id="GLIB-VERSION-MIN-REQUIRED:CAPS" href="glib/glib-Version-Information.html#GLIB-VERSION-MIN-REQUIRED:CAPS">
 <ANCHOR id="GLIB-VERSION-MAX-ALLOWED:CAPS" href="glib/glib-Version-Information.html#GLIB-VERSION-MAX-ALLOWED:CAPS">
 <ANCHOR id="glib-Version-Information.other_details" href="glib/glib-Version-Information.html#glib-Version-Information.other_details">
@@ -550,6 +551,7 @@
 <ANCHOR id="g-thread-pool-set-sort-function" href="glib/glib-Thread-Pools.html#g-thread-pool-set-sort-function">
 <ANCHOR id="g-thread-pool-set-max-idle-time" href="glib/glib-Thread-Pools.html#g-thread-pool-set-max-idle-time">
 <ANCHOR id="g-thread-pool-get-max-idle-time" href="glib/glib-Thread-Pools.html#g-thread-pool-get-max-idle-time">
+<ANCHOR id="g-thread-pool-move-to-front" href="glib/glib-Thread-Pools.html#g-thread-pool-move-to-front">
 <ANCHOR id="glib-Thread-Pools.other_details" href="glib/glib-Thread-Pools.html#glib-Thread-Pools.other_details">
 <ANCHOR id="GThreadPool" href="glib/glib-Thread-Pools.html#GThreadPool">
 <ANCHOR id="glib-Thread-Pools.see-also" href="glib/glib-Thread-Pools.html#glib-Thread-Pools.see-also">
@@ -565,6 +567,8 @@
 <ANCHOR id="g-async-queue-unref" href="glib/glib-Asynchronous-Queues.html#g-async-queue-unref">
 <ANCHOR id="g-async-queue-push" href="glib/glib-Asynchronous-Queues.html#g-async-queue-push">
 <ANCHOR id="g-async-queue-push-sorted" href="glib/glib-Asynchronous-Queues.html#g-async-queue-push-sorted">
+<ANCHOR id="g-async-queue-push-front" href="glib/glib-Asynchronous-Queues.html#g-async-queue-push-front">
+<ANCHOR id="g-async-queue-remove" href="glib/glib-Asynchronous-Queues.html#g-async-queue-remove">
 <ANCHOR id="g-async-queue-pop" href="glib/glib-Asynchronous-Queues.html#g-async-queue-pop">
 <ANCHOR id="g-async-queue-try-pop" href="glib/glib-Asynchronous-Queues.html#g-async-queue-try-pop">
 <ANCHOR id="g-async-queue-timeout-pop" href="glib/glib-Asynchronous-Queues.html#g-async-queue-timeout-pop">
@@ -576,6 +580,8 @@
 <ANCHOR id="g-async-queue-unref-and-unlock" href="glib/glib-Asynchronous-Queues.html#g-async-queue-unref-and-unlock">
 <ANCHOR id="g-async-queue-push-unlocked" href="glib/glib-Asynchronous-Queues.html#g-async-queue-push-unlocked">
 <ANCHOR id="g-async-queue-push-sorted-unlocked" href="glib/glib-Asynchronous-Queues.html#g-async-queue-push-sorted-unlocked">
+<ANCHOR id="g-async-queue-push-front-unlocked" href="glib/glib-Asynchronous-Queues.html#g-async-queue-push-front-unlocked">
+<ANCHOR id="g-async-queue-remove-unlocked" href="glib/glib-Asynchronous-Queues.html#g-async-queue-remove-unlocked">
 <ANCHOR id="g-async-queue-pop-unlocked" href="glib/glib-Asynchronous-Queues.html#g-async-queue-pop-unlocked">
 <ANCHOR id="g-async-queue-try-pop-unlocked" href="glib/glib-Asynchronous-Queues.html#g-async-queue-try-pop-unlocked">
 <ANCHOR id="g-async-queue-timeout-pop-unlocked" href="glib/glib-Asynchronous-Queues.html#g-async-queue-timeout-pop-unlocked">
@@ -817,6 +823,7 @@
 <ANCHOR id="g-info" href="glib/glib-Message-Logging.html#g-info">
 <ANCHOR id="g-debug" href="glib/glib-Message-Logging.html#g-debug">
 <ANCHOR id="g-log-set-handler" href="glib/glib-Message-Logging.html#g-log-set-handler">
+<ANCHOR id="g-log-set-handler-full" href="glib/glib-Message-Logging.html#g-log-set-handler-full">
 <ANCHOR id="g-log-remove-handler" href="glib/glib-Message-Logging.html#g-log-remove-handler">
 <ANCHOR id="g-log-set-always-fatal" href="glib/glib-Message-Logging.html#g-log-set-always-fatal">
 <ANCHOR id="g-log-set-fatal-mask" href="glib/glib-Message-Logging.html#g-log-set-fatal-mask">
@@ -920,6 +927,7 @@
 <ANCHOR id="g-strsignal" href="glib/glib-String-Utility-Functions.html#g-strsignal">
 <ANCHOR id="glib-String-Utility-Functions.other_details" href="glib/glib-String-Utility-Functions.html#glib-String-Utility-Functions.other_details">
 <ANCHOR id="G-STR-DELIMITERS:CAPS" href="glib/glib-String-Utility-Functions.html#G-STR-DELIMITERS:CAPS">
+<ANCHOR id="GStrv" href="glib/glib-String-Utility-Functions.html#GStrv">
 <ANCHOR id="glib-Character-Set-Conversion" href="glib/glib-Character-Set-Conversion.html">
 <ANCHOR id="glib-Character-Set-Conversion.functions" href="glib/glib-Character-Set-Conversion.html#glib-Character-Set-Conversion.functions">
 <ANCHOR id="glib-Character-Set-Conversion.other" href="glib/glib-Character-Set-Conversion.html#glib-Character-Set-Conversion.other">
@@ -2403,6 +2411,7 @@
 <ANCHOR id="g-assert-cmpuint" href="glib/glib-Testing.html#g-assert-cmpuint">
 <ANCHOR id="g-assert-cmphex" href="glib/glib-Testing.html#g-assert-cmphex">
 <ANCHOR id="g-assert-cmpfloat" href="glib/glib-Testing.html#g-assert-cmpfloat">
+<ANCHOR id="g-assert-cmpmem" href="glib/glib-Testing.html#g-assert-cmpmem">
 <ANCHOR id="g-assert-no-error" href="glib/glib-Testing.html#g-assert-no-error">
 <ANCHOR id="g-assert-error" href="glib/glib-Testing.html#g-assert-error">
 <ANCHOR id="g-assert-true" href="glib/glib-Testing.html#g-assert-true">
@@ -3398,6 +3407,7 @@
 <ANCHOR id="annotation-glossterm-allow-none" href="glib/annotation-glossary.html#annotation-glossterm-allow-none">
 <ANCHOR id="annotation-glossterm-array" href="glib/annotation-glossary.html#annotation-glossterm-array">
 <ANCHOR id="annotation-glossterm-closure" href="glib/annotation-glossary.html#annotation-glossterm-closure">
+<ANCHOR id="annotation-glossterm-constructor" href="glib/annotation-glossary.html#annotation-glossterm-constructor">
 <ANCHOR id="annotation-glossterm-default" href="glib/annotation-glossary.html#annotation-glossterm-default">
 <ANCHOR id="annotation-glossterm-element-type" href="glib/annotation-glossary.html#annotation-glossterm-element-type">
 <ANCHOR id="annotation-glossterm-in" href="glib/annotation-glossary.html#annotation-glossterm-in">
@@ -3406,7 +3416,9 @@
 <ANCHOR id="annotation-glossterm-optional" href="glib/annotation-glossary.html#annotation-glossterm-optional">
 <ANCHOR id="annotation-glossterm-out" href="glib/annotation-glossary.html#annotation-glossterm-out">
 <ANCHOR id="annotation-glossterm-out caller-allocates" href="glib/annotation-glossary.html#annotation-glossterm-out caller-allocates">
+<ANCHOR id="annotation-glossterm-rename-to" href="glib/annotation-glossary.html#annotation-glossterm-rename-to">
 <ANCHOR id="annotation-glossterm-scope async" href="glib/annotation-glossary.html#annotation-glossterm-scope async">
+<ANCHOR id="annotation-glossterm-skip" href="glib/annotation-glossary.html#annotation-glossterm-skip">
 <ANCHOR id="annotation-glossterm-transfer container" href="glib/annotation-glossary.html#annotation-glossterm-transfer container">
 <ANCHOR id="annotation-glossterm-transfer full" href="glib/annotation-glossary.html#annotation-glossterm-transfer full">
 <ANCHOR id="annotation-glossterm-transfer none" href="glib/annotation-glossary.html#annotation-glossterm-transfer none">

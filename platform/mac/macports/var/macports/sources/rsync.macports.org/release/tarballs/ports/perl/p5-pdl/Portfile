@@ -1,0 +1,149 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143505 2015-12-14 03:46:17Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         PDL 2.015
+revision            1
+maintainers         peculier.com:mgrimes openmaintainer
+license             {Artistic-1 GPL}
+description         Perl Data Language - scientific computing capability for perl
+long_description    The perlDL project aims to turn perl into an efficient numerical \
+                    language for scientific computing. The PDL module gives standard perl \
+                    the ability to COMPACTLY store and SPEEDILY manipulate the large \
+                    N-dimensional data sets which are the bread and butter of scientific \
+                    computing.
+
+platforms           darwin
+
+homepage            http://pdl.perl.org/
+
+checksums           rmd160  e01836bd7c28737b6ee543c24703ac5a7af36e6c \
+                    sha256  0b7ef32e443e62c62569b8092f507f1a035d990430c80bdcb263dc7a2e85b684
+
+#
+# support options
+#
+# plotting support using pgplot (PDL::Graphics::PGPLOT) is always enabled
+# plotting support using plplot (PDL::Graphics::PLplot) has been removed from the PDL distribution, available as a separate module if desired
+# plotting support using gnuplot is available via separate module PDL::Graphics::Gnuplot
+# 3D plotting support (PDL::Graphics::TriD) using opengl is optional, use +opengl to enable (#46306)
+# hdf4 support (PDL::IO::HDF) is enabled by default, use -hdf4 to disable (#46304)
+# hdf5 support is available via separate module PDL::IO::HDF5
+# image io support using the gd library (PDL::IO::GD) is optional, use +gd to enable
+# projection transform support using the Proj4 library (PDL::GIS::Proj) is optional, use +proj to enable
+# coordinate transform support using the Proj4 library (PDL::Transform::Proj4) is optional, use +proj to enable
+# fft support via PDL::FFT and PDL::Slatec::fft is always enabled
+# alternate fft support using the fftw library is available via separate module PDL::FFTW3
+# dependency on Devel::REPL added to enable build of enhanced pdl2 shell (#47019)
+#
+
+variant gd description {Enable support for the GD image library} {}
+variant hdf4 description {Enable support for the HDF4 SD library} {}
+variant opengl description {Enable TriD plotting support using opengl} {}
+variant proj description {Enable support for the Proj4 projection library} {}
+
+default_variants    +hdf4
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-devel-checklib \
+                    port:p${perl5.major}-test-deep \
+                    port:p${perl5.major}-test-exception \
+                    port:p${perl5.major}-test-warn
+
+    depends_lib-append \
+                    port:freeglut \
+                    port:gsl \
+                    port:jpeg \
+                    port:netpbm \
+                    port:p${perl5.major}-astro-fits-header \
+                    port:p${perl5.major}-convert-uu \
+                    port:p${perl5.major}-file-map \
+                    port:p${perl5.major}-filter-simple \
+                    port:p${perl5.major}-inline \
+                    port:p${perl5.major}-inline-c \
+                    port:p${perl5.major}-module-compile \
+                    port:p${perl5.major}-pgplot \
+                    port:p${perl5.major}-term-readline-gnu \
+                    port:pgplot \
+                    port:slatec \
+                    port:xorg-libXi \
+                    port:xorg-libXmu
+
+    set enable_gd     0
+    set enable_hdf4   0
+    set enable_opengl 0
+    set enable_proj   0
+
+    if {[variant_isset gd]} {
+        set enable_gd 1
+        depends_lib-append \
+                    port:p${perl5.major}-gd
+    }
+
+    if {[variant_isset hdf4]} {
+        set enable_hdf4 1
+        depends_lib-append \
+                    port:hdf4
+    }
+
+    if {[variant_isset opengl]} {
+        set enable_opengl 1
+        depends_lib-append \
+                    port:p${perl5.major}-opengl
+    }
+
+    if {[variant_isset proj]} {
+        set enable_proj 1
+        depends_lib-append \
+                    port:proj
+    }
+
+    # pgplot is not universal
+    universal_variant no
+
+    patchfiles      patch-perldl.conf.diff \
+                    patch-proj.diff \
+                    patch-gsl-sf-ellint-2.0.diff
+      
+    post-patch {
+        reinplace "s|/usr/local|${prefix}|g" \
+            ${worksrcpath}/Basic/Core/pdlsimple.h.PL \
+            ${worksrcpath}/Doc/Doc/Config.pm.PL \
+            ${worksrcpath}/Graphics/TriD/Makefile.PL \
+            ${worksrcpath}/IO/Browser/Makefile.PL \
+            ${worksrcpath}/IO/GD/Makefile.PL \
+            ${worksrcpath}/IO/HDF/Makefile.PL \
+            ${worksrcpath}/Lib/FFT/Makefile.PL \
+            ${worksrcpath}/Lib/GIS/Proj/Makefile.PL \
+            ${worksrcpath}/Lib/Transform/Proj4/Makefile.PL \
+            ${worksrcpath}/t/callext.t
+
+        reinplace "s|^#!.*|#!${perl5.bin}|" ${worksrcpath}/Perldl2/pdl2
+        reinplace "s|__WITH_GD__|${enable_gd}|" ${worksrcpath}/perldl.conf
+        reinplace "s|__WITH_HDF__|${enable_hdf4}|" ${worksrcpath}/perldl.conf
+        reinplace "s|__WITH_OPENGL__|${enable_opengl}|" ${worksrcpath}/perldl.conf
+        reinplace "s|__WITH_PROJ__|${enable_proj}|" ${worksrcpath}/perldl.conf
+    }
+
+    post-build {
+        # Create the pdldoc.db file for the help system
+        exec ${perl5.bin} -I ${worksrcpath}/blib/arch \
+            -I ${worksrcpath}/blib/lib \
+            ${worksrcpath}/Doc/scantree.pl ${worksrcpath}/blib/lib \
+            ${worksrcpath}/pdldoc.db \
+            ${worksrcpath}/blib/lib/PDL/Index.pod \
+            >/dev/null 2>/dev/null
+
+        # Rewrite the paths in the pdldoc.db file. scantree will have the
+        # ${worksrcpath}/blib/lib paths, we need ${perl5.archlib}.
+        exec ${perl5.bin} ${filespath}/fix-pdldocdb.pl \
+            ${worksrcpath}/pdldoc.db \
+            ${worksrcpath}/blib/lib/PDL/pdldoc.db \
+            "${worksrcpath}/blib/lib" \
+            "${perl5.archlib}"
+    }
+}

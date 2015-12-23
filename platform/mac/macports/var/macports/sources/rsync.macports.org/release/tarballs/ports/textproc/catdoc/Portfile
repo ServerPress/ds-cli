@@ -1,0 +1,32 @@
+# $Id: Portfile 118080 2014-03-21 09:37:48Z nicos@macports.org $
+
+PortSystem 1.0
+
+name		catdoc
+conflicts	libxls   
+version		0.94.2
+categories	textproc
+platforms	darwin
+maintainers	julian@hal-9k.de
+description	Convert MS Word/Excel documents to plain ASCII or TeX.
+long_description catdoc is program which reads one or more Microsoft \
+		 word files and outputs text, contained insinde them \
+		 to standard output. Therefore it does same work for \
+		 .doc files, as unix cat command for plain ASCII files. \
+		 It is now accompanied by xls2csv - program which \
+		 converts Excel spreadsheet into comma-separated value \
+		 file.\
+		 Newest addition to catdoc suite is catppt - a program,\
+		 which extracts readable text from the PowerPoint \
+		 files.
+
+homepage	http://www.wagner.pp.ru/~vitus/software/catdoc/
+master_sites	http://ftp.wagner.pp.ru/pub/catdoc/ \
+		ftp://ftp.sunfreeware.com/pub/freeware/SOURCES/
+checksums	md5 243e1680bb3e703616f5adecfee24491
+patchfiles	patch-Makefile.in.diff
+depends_run		bin:wish:tk
+configure.args	--without-wish
+build.type	gnu
+destroot.destdir prefix=${destroot}${prefix} \
+		mandir=${destroot}${prefix}/share/man/man1

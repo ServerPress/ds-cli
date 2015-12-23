@@ -1,0 +1,22 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         IO-Tee 0.64
+revision            3
+maintainers         nomaintainer
+description         Multiplex output to multiple output handles
+long_description    The `IO::Tee' constructor, given a list of output \
+                    handles, returns a tied handle that can be written to \
+                    but not read from.  When written to (using print or \
+                    printf), it multiplexes the output to the list of \
+                    handles originally passed to the constructor.
+
+checksums           rmd160  467e0816b73af545d69c4854ffd20c57dc3ac341 \
+                    sha256  3ed276b1c2d3511338653c2532e73753d284943c1a8f5159ff37fecc2b345ed6
+
+platforms           darwin
+supported_archs     noarch

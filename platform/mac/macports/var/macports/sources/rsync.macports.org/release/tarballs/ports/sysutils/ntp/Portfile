@@ -1,0 +1,54 @@
+# $Id: Portfile 141577 2015-10-21 20:23:33Z dluke@macports.org $
+
+PortSystem 1.0
+
+name		ntp
+version		4.2.8p4
+categories	sysutils net
+maintainers	geeklair.net:dluke
+description	NTP is a protocol designed to synchronize the clocks of computers over a network.
+#license	NTP (http://www.eecis.udel.edu/~mills/ntp/html/copyright.html), see http://opensource.org/licenses/NTP
+license		Permissive
+
+long_description	NTP is an implementation of RFC-5905. It is widely \
+			used to synchronize a computer to Internet time \
+			servers or other sources.
+homepage	http://www.ntp.org/
+master_sites	http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-[join [lrange [split ${version} .] 0 1] .]/ 
+
+checksums	md5	6af96862b09324a8ef965ca76b759c8b \
+		sha1	a30f61f87b219ab3613def9e27f5c8e91ce38b0a \
+		rmd160	94ab0e190f37c55700978a1555473a308e7175e6
+
+platforms	darwin
+
+configure.args	--enable-ipv6 ac_cv_search_nlist=no
+
+depends_lib	port:openssl port:libevent port:libedit
+depends_build	port:pkgconfig
+
+startupitem.create	yes
+startupitem.netchange	yes
+startupitem.executable	${prefix}/sbin/ntpd -n -g -p ${prefix}/var/run/ntpd.pid -f ${prefix}/var/db/ntp.drift -c ${prefix}/etc/ntp.conf
+
+post-destroot	{
+			xinstall -o root -m 644 ${filespath}/ntp.conf \
+				${destroot}${prefix}/etc/ntp.conf.dist
+
+			xinstall -m 755 -d ${destroot}${prefix}/var/run \
+				${destroot}${prefix}/var/db		
+
+			destroot.keepdirs ${destroot}${prefix}/var/run \
+				${destroot}${prefix}/var/db
+		}
+
+#- our conf file contains restrictions to mitigate CVE-2013-5211
+post-activate	{
+			if {![file exists ${prefix}/etc/ntp.conf]} {
+				file copy ${prefix}/etc/ntp.conf.dist ${prefix}/etc/ntp.conf
+			}
+		}
+
+livecheck.type regex
+livecheck.url http://support.ntp.org/rss/releases.xml
+livecheck.regex (\\d+\.\\d+.\\d+p\\d+)\.\*Stable

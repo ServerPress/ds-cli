@@ -1,0 +1,46 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 124585 2014-08-26 05:32:54Z devans@macports.org $
+
+PortSystem              1.0
+
+name                    libmng
+version                 1.0.10
+revision                3
+categories              graphics
+platforms               darwin
+license                 zlib
+maintainers             blair openmaintainer
+
+description             Library for read MNG, an extension to PNG.
+
+long_description        This library extends PNG support to include Multiple \
+                        Network Graphics this adds animation capabilities to \
+                        PNG.
+
+homepage                http://libmng.sourceforge.net/
+master_sites            sourceforge:project/libmng/libmng-devel/${version}
+
+checksums               md5     a464ae7d679781beebdf7440d144b7bd \
+                        sha1    78ad516a1de79d00de720bf2a7c9afea2c896b09 \
+                        rmd160  ed09e537ebb129f5e13cba56d9d2c2a106955393
+
+depends_lib             port:jpeg \
+                        port:lcms \
+                        port:zlib
+
+patchfiles              patch-makefiles-configure.in.diff
+
+post-patch {
+    ln -s ${worksrcpath}/makefiles/configure.in ${worksrcpath}
+    ln -s ${worksrcpath}/makefiles/acinclude.m4 ${worksrcpath}
+    ln -s ${worksrcpath}/makefiles/Makefile.am ${worksrcpath}
+}
+
+use_autoreconf          yes
+autoreconf.args         -fvi
+
+configure.args          --with-jpeg=${prefix} \
+                        --with-lcms=${prefix} \
+                        --with-zlib=${prefix}
+
+livecheck.regex         "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

@@ -1,0 +1,47 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 129134 2014-12-07 17:12:49Z petr@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+set _name           pudb
+set _n              [string index ${_name} 0]
+
+name                py-${_name}
+version             2014.1
+categories-append   devel
+platforms           darwin
+license             MIT
+maintainers         nomaintainer
+
+description         A full-screen, console-based Python debugger
+long_description    PuDB is a full-screen, console-based visual debugger for \
+                    Python. Its goal is to provide all the niceties of \
+                    modern GUI-based debuggers in a more lightweight and \
+                    keyboard-friendly package. PuDB allows you to debug code \
+                    right where you write and test it--in a terminal. If \
+                    you've worked with the excellent (but nowadays ancient) \
+                    DOS-based Turbo Pascal or C tools, PuDB's UI might look \
+                    familiar.
+
+homepage            https://pypi.python.org/pypi/${_name}
+master_sites        https://pypi.python.org/packages/source/${_n}/${_name}/
+distname            ${_name}-${version}
+
+checksums           md5     8104db184c9553c568966cd67a7b1b2f \
+                    rmd160  f8aa896f9433aacd304c8df82ba533908bf4bec6 \
+                    sha256  75453feb20a29c6b40132af658dd58a9eb6e22e27c11babd5b5828bbaf1f2137
+
+python.versions     27 34
+
+if {${name} ne ${subport}} {
+    depends_lib     port:py${python.version}-urwid \
+                    port:py${python.version}-pygments
+
+    livecheck.type  none
+} else {
+    livecheck.type  regex
+    livecheck.url   [lindex ${master_sites} 0]
+    livecheck.regex ">${_name}-(\\d+(\\.\\d+)+)\\${extract.suffix}<"
+
+}

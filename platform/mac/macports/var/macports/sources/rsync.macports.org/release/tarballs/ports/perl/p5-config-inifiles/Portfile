@@ -1,0 +1,25 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138618 2015-07-14 05:04:44Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Config-IniFiles 2.88
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         A module for reading .ini-style configuration files.
+long_description    ${description}
+
+checksums           rmd160  4476a2cea703238a8e671c4c09bf3002758bb7a7 \
+                    sha256  8223d6d21efd752ef4f9cc1c17a9084976b66369b979ce9c895b7ca3997fa8dc
+
+platforms           darwin
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-io-stringy
+    
+    supported_archs noarch
+    perl5.use_module_build
+}

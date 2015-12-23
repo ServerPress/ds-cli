@@ -1,0 +1,34 @@
+# $Id: Portfile 142698 2015-11-20 16:55:09Z landonf@macports.org $
+
+PortSystem 1.0
+PortGroup		github 1.0
+
+github.setup		n8han giter8 0.4.5
+categories		devel
+maintainers		nomaintainer
+supported_archs		noarch
+license			LGPL-3
+
+description		A command line tool to apply templates defined on github
+long_description	Giter8 is a command line tool to generate files and directories \
+			from templates published on github. It's implemented in Scala and \
+			runs through the Simple Build Tool launcher, but it can produce output \
+			for any purpose.
+
+platforms		darwin
+distfiles
+
+depends_run		port:sbt
+
+use_configure no
+build {}
+
+destroot {
+	xinstall -m 755 ${filespath}/g8 ${destroot}${prefix}/bin/
+	xinstall -d -m 755 ${destroot}${prefix}/share/giter8
+	xinstall -m 644 ${filespath}/giter8.launchconfig ${destroot}${prefix}/share/giter8
+
+	reinplace "s|@PREFIX@|${prefix}|g" \
+		${destroot}${prefix}/share/giter8/giter8.launchconfig \
+		${destroot}${prefix}/bin/g8
+}

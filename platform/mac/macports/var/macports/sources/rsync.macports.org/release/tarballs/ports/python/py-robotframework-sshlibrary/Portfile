@@ -1,0 +1,38 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142167 2015-11-05 09:27:01Z jwa@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name				py-robotframework-sshlibrary
+set internal_name	robotframework-sshlibrary
+license             Apache-2
+
+version             2.1.2
+categories-append   devel
+maintainers         jwa
+description         Robot Framework library to handle ssh 
+long_description    ${description}
+
+homepage	http://code.google.com/p/${internal_name}
+
+platforms           darwin
+python.versions		26 27
+python.default_version	27
+
+master_sites        https://pypi.python.org/packages/source/r/robotframework-sshlibrary/
+distname            ${internal_name}-${version}
+
+checksums           rmd160  17c72286a78b6b978f92be5a552e6146a4f38a8d \
+                    sha256  aebb57c7b4495f0a3b53e4c111400cdd9d7ebfdfb62af82ca720c727de95803d
+
+if {${name} ne ${subport}} {
+    depends_lib-append	port:py${python.version}-robotframework \
+        port:py${python.version}-paramiko
+
+    livecheck.type none
+} else {
+    livecheck.type     regex
+    livecheck.url      https://pypi.python.org/pypi/robotframework-sshlibrary
+    livecheck.regex    ${internal_name}/(\[0-9\]\\.\[0-9.\]+)
+}

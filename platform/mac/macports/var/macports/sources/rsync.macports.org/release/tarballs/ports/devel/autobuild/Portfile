@@ -1,0 +1,34 @@
+# $Id: Portfile 123706 2014-08-13 09:41:38Z jmr@macports.org $
+
+PortSystem 1.0
+
+name			autobuild
+version			4.0
+categories		devel
+license			GPL-3+
+platforms		darwin
+supported_archs	noarch
+maintainers		nomaintainer
+description		processes output from building software
+long_description	Autobuild is a package that process output from building \
+					software, primarily focused on packages using autoconf and \
+					automake, and then generate a HTML summary file, \
+					containing links to each build log. The output include \
+					project name, version, build host types (cross compile \
+					aware), compiler host name, date of build, and indication \
+					of success or failure. The output is indexed in many ways \
+					to simplify browsing.
+
+homepage		http://josefsson.org/autobuild/
+master_sites	http://download.savannah.gnu.org/releases/${name}/
+checksums		md5 9219eb97fd5ba770c912937cb6e85db7 \
+			sha1 556cd12ad9d23a264a470ae63166c96980ee9faa \
+			rmd160 ce7a682d8ff956dfa1900d223f986a51a72175f6
+
+depends_lib		path:bin/perl:perl5
+configure.perl          ${prefix}/bin/perl
+
+post-configure {
+    reinplace "s|#!/usr/bin/perl|#!${configure.perl}|" \
+        ${worksrcpath}/autobuild
+}

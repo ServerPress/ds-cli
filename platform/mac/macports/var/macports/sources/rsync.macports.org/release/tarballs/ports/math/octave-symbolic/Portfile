@@ -1,0 +1,57 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143595 2015-12-15 16:46:57Z michaelld@macports.org $
+
+PortSystem          1.0
+PortGroup           octave 1.0
+
+octave.setup        symbolic 2.2.4
+platforms           darwin
+license             GPL-3
+maintainers         gmail.com:mschamschula openmaintainer
+description         Symbolic toolbox based on SymPy.
+
+long_description    ${description}
+
+checksums           rmd160 d4fc2f675cdea87d5de05c981653c2d34b1454d5 \
+                    sha256 e2d377f5233c494b4ee0db4a47adfe5c897628271cc0fa8932e3c257cc142d31
+
+# fix default Python to be within MacPorts
+
+patchfiles-append   patch-inst_sympref.m.diff
+
+variant python27 description "Use Python 2.7 SymPy" conflicts python34 {
+    depends_lib-append  port:python27 \
+                        port:py27-sympy
+    
+    post-patch {
+        reinplace "s|@PYTHON@|${prefix}/bin/python2.7|g" \
+            ${worksrcpath}/inst/sympref.m
+    }
+    configure.env-append \
+        PYTHON=${prefix}/bin/python2.7
+}
+
+variant python34 description "Use Python 3.4 SymPy" conflicts python27 {
+    depends_lib-append  port:python34 \
+                        port:py34-sympy
+    
+    post-patch {
+        reinplace "s|@PYTHON@|${prefix}/bin/python3.4|g" \
+            ${worksrcpath}/inst/sympref.m
+    }
+    configure.env-append \
+        PYTHON=${prefix}/bin/python3.4
+}
+
+if {![variant_isset python27] && ![variant_isset python34]} {
+    default_variants +python27
+}
+
+# make sure -python27 was not specified alone
+
+if {![variant_isset python27] && ![variant_isset python34]} {
+
+    ui_error "\n\nYou must select either the +python27 or +python34 variant.\n"
+    return -code error "Invalid variant selection"
+
+}

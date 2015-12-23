@@ -1,0 +1,60 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 129671 2014-12-18 21:05:20Z ryandesign@macports.org $
+
+PortSystem                  1.0
+PortGroup                   github 1.0
+
+github.setup                PromyLOPh pianobar 2014.09.28
+categories                  audio
+platforms                   darwin
+maintainers                 gmail.com:aguynamedryan+pianobar
+license                     MIT
+
+description                 Console-based pandora.com player
+
+long_description            pianobar is a console client for the \
+                            personalized web radio pandora \
+                            (http://www.pandora.com).\
+                            Play and manage stations, rate songs and \
+                            see why they were selected, show upcoming \
+                            configure keybindings, last.fm scrobbling, \
+                            proxy support for listening outside of USA.
+
+checksums                   rmd160  010e3643641b2d4cbbb0223c1ae37f864a8d6a21 \
+                            sha256  7ddc7a651f0185451f7c457dcb9587c445d1a738a620bc16fb358f68f8938d2b
+
+depends_build               port:pkgconfig
+
+depends_lib                 path:lib/libavcodec.dylib:ffmpeg \
+                            port:gnutls \
+                            port:libao \
+                            port:libgcrypt \
+                            port:json-c
+
+configure.cflags-append     -std=c99
+
+# Prevent upgrade failure.
+configure.cppflags-replace  -I${prefix}/include -isystem${prefix}/include
+
+use_configure               no
+
+variant universal {}
+
+build.args                  CC="${configure.cc} [get_canonical_archflags cc]" \
+                            PREFIX=${prefix} \
+                            CFLAGS="${configure.cflags} ${configure.cppflags}" \
+                            LDFLAGS="${configure.ldflags}"
+
+destroot.args               PREFIX=${prefix}
+
+subport libpiano {
+    build.target            libpiano.so.0
+    destroot.target         install-libpiano
+    platform darwin {
+        build.target        libpiano.0.dylib
+    }
+}
+
+platform darwin {
+    patchfiles-append       patch-Makefile.diff
+}

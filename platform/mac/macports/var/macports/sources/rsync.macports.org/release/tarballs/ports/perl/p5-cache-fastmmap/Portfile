@@ -1,0 +1,16 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143716 2015-12-18 19:40:44Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Cache-FastMmap 1.43
+platforms           darwin
+license             {Artistic-1 GPL}
+maintainers         fpassera.com:dev openmaintainer
+description         Uses an mmap'ed file to act as a shared memory interprocess cache
+long_description    ${description}
+
+checksums           rmd160  8e63223c04143bddecd77baa99fd78fb29272485 \
+                    sha256  71836096c8ed19ceecbac227a8ed639ac79ac6581c22fe22f23e1e13e10261a2

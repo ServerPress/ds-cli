@@ -1,0 +1,34 @@
+# $Id: Portfile 104565 2013-03-28 16:37:36Z jmr@macports.org $
+
+PortSystem 1.0
+
+name			sglib
+version			1.0.0
+categories		devel
+# homepage says any OSI-approved license may be chosen
+license			Permissive
+platforms		darwin
+supported_archs	noarch
+maintainers		nomaintainer
+description		useful macros for manipulating common data structures
+long_description	sglib is a library defining useful macros manipulating \
+					common data structures.
+
+homepage		http://sglib.sourceforge.net/
+master_sites	http://xref-tech.com/sglib/
+extract.suffix	.tgz
+checksums		md5 1067e1533f85fbd144892ee45dbc19cd
+
+use_configure	no
+
+build			{}
+
+destroot	{
+	xinstall -m 644 ${worksrcpath}/sglib.h ${destroot}${prefix}/include/
+	xinstall -m 755 -d ${destroot}${prefix}/share/doc/${name}
+	file copy ${worksrcpath}/samples \
+		${destroot}${prefix}/share/doc/${name}/examples
+	xinstall -m 644 -W ${worksrcpath} doc/GenerateDoc doc/index.html \
+		doc/index.html.sss doc/sssi README \
+		${destroot}${prefix}/share/doc/${name}
+}

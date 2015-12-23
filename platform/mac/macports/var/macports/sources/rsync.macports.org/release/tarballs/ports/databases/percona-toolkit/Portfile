@@ -1,0 +1,79 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143199 2015-12-07 14:49:35Z devans@macports.org $
+
+PortSystem          1.0
+
+name                percona-toolkit
+version             2.2.10
+categories          databases
+platforms           darwin
+license             GPL
+maintainers         pixilla openmaintainer
+description         Collection of essential command-line utilities for MySQL
+long_description    ${description}
+
+homepage            http://www.percona.com/software/percona-toolkit
+master_sites        http://www.percona.com/downloads/percona-toolkit/LATEST/tarball
+
+checksums           rmd160  d3ed201db8824902540e42b5a9ca5d9dca11f96e \
+                    sha256  0f0efc0c775fc1491a0f7cc520a511dd89634fab64888d92318b7cbae6a8606b
+
+set mp.perl.versions {
+    5.16
+    5.18
+    5.20
+    5.22
+}
+set mp.perl.select  [lindex ${mp.perl.versions} end]
+set mp.names        {}
+foreach mp.perl.version ${mp.perl.versions} {
+
+    lappend mp.names "perl[string map  {. _} ${mp.perl.version}]"
+}
+foreach mp.name ${mp.names} {
+
+    set idx [lsearch ${mp.names} ${mp.name}]
+    set mp.perl.version [lindex ${mp.perl.versions} $idx]
+    set mp.conflicts [lreplace ${mp.names} $idx $idx]
+    eval "variant ${mp.name} \
+        conflicts ${mp.conflicts} \
+        description \"Use MacPorts perl ${mp.perl.version}\" {
+    }"
+    if [variant_isset ${mp.name}] {
+
+        set mp.perl.select ${mp.perl.version}
+    }
+}
+default_variants    +perl[string map  {. _} ${mp.perl.select}]
+
+depends_lib-append  port:p${mp.perl.select}-time-hires \
+                    port:p${mp.perl.select}-dbd-mysql \
+                    port:p${mp.perl.select}-dbi \
+                    port:p${mp.perl.select}-term-readkey
+
+post-patch {
+
+    eval reinplace "\"s,#!/usr/bin/env *perl,#!${prefix}/bin/perl${mp.perl.select},\"" [glob ${worksrcpath}/bin/*]
+}
+
+configure.env       PERL_AUTOINSTALL=--skipdeps
+configure.pre_args  Makefile.PL
+configure.args      INSTALLDIRS=vendor
+
+
+configure.cmd       ${prefix}/bin/perl${mp.perl.select}
+post-destroot {
+
+    foreach f [glob -directory ${destroot}${prefix}/libexec/perl${mp.perl.select} -type f -tails *] {
+
+        ln -s ${prefix}/libexec/perl${mp.perl.select}/${f} ${destroot}${prefix}/bin/${f}
+    }        
+
+    foreach f [glob -directory ${destroot}${prefix}/share/perl${mp.perl.select}/man/man1 -type f -tails *] {
+
+        ln -s ${prefix}/share/perl${mp.perl.select}/man/man1/${f} ${destroot}${prefix}/share/man/man1/${f}
+    }        
+}
+
+livecheck.url       http://www.percona.com/downloads/percona-toolkit/
+livecheck.regex     "<a href=\"/downloads/percona-toolkit/(\[^/\]+)/\""

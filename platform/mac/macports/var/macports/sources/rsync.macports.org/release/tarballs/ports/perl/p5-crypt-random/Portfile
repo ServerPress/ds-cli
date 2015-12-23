@@ -1,0 +1,20 @@
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem      1.0
+PortGroup       perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup     Crypt-Random 1.25
+revision        3
+license         {Artistic-1 GPL}
+maintainers     nomaintainer
+description     Cryptographically Secure, True Random Number Generator.
+long_description Crypt::Random is an interface module to the /dev/random device found on most \
+                modern Unix systems. The /dev/random driver gathers environmental noise from \
+                various non-deterministic sources including inter-keyboard timings and \
+                inter-interrupt timings that occur within the operating system environment.
+
+platforms       darwin
+checksums       md5 5730c9d5acdd698790216d354ffb0513
+
+supported_archs noarch

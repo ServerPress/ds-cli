@@ -1,0 +1,30 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 126417 2014-10-09 20:09:06Z rmstonecipher@macports.org $
+
+PortSystem          1.0
+
+name                twolame
+version             0.3.13
+revision            1
+categories          audio multimedia
+license             LGPL-2.1+
+platforms           darwin
+maintainers         nomaintainer
+description         TwoLAME is an optimized MPEG Audio Layer 2 encoder
+long_description    ${description}
+
+homepage            http://twolame.sourceforge.net/
+master_sites        sourceforge
+checksums           md5     4113d8aa80194459b45b83d4dbde8ddb \
+                    sha1    3ca460472c2f6eeedad70291d8e37da88b64eb8b \
+                    rmd160  a73f01a281a66cf53e8109d57919593a90dc0bcc
+
+patchfiles          patch-frontend_Makefile.in.diff \
+                    patch-simplefrontend_Makefile.in.diff
+
+configure.args      --mandir=${prefix}/share/man
+
+depends_build       port:pkgconfig \
+                    port:libtool
+
+depends_lib         port:libsndfile

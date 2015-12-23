@@ -1,0 +1,85 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 128679 2014-11-25 14:47:15Z vince@macports.org $
+
+PortSystem          1.0
+PortGroup           wxWidgets 1.0
+
+name                saga
+categories          gis
+license             GPL
+version             2.1.4
+set branch          [join [lrange [split ${version} .] 0 1] .]
+platforms           darwin
+maintainers         vince openmaintainer
+
+description         SAGA is a GIS oriented towards statistics and analysis
+
+long_description    SAGA is yet another open source GIS targeted towards\
+                    spatial analysis and statistics. It uses wxWidgets as\
+                    a GUI.
+
+homepage            http://www.saga-gis.org/en/index.html
+
+master_sites        sourceforge:project/saga-gis/SAGA%20-%20${branch}/SAGA%20${version}/
+distname            saga_${version}
+worksrcdir          saga-${version}
+
+checksums           rmd160  da3376a4b9cea0cdfa112c0ce61c2da3efd81def \
+                    sha256  694e4102f592f512c635328c40fdeff33493f74698d9466bb654baf3247e7b76
+
+patchfiles          patch-saga_cmd_cpp.diff \
+                    patch-configure.diff 
+
+wxWidgets.use       wxWidgets-3.0
+
+depends_build       port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         port:${wxWidgets.port} \
+                    port:geos \
+                    port:gdal \
+                    port:proj \
+                    port:jasper \
+                    port:fftw-3 \
+                    port:unixodbc
+
+post-patch  {
+    reinplace -E "s|wx-config|${wxWidgets.wxconfig}|" ${worksrcpath}/configure
+
+    set mkfiles [exec find ${worksrcpath} -type f -name Makefile.in]
+    foreach makefile ${mkfiles} {
+        reinplace -E "s|wx-config|${wxWidgets.wxconfig}|" ${makefile}
+    }
+}
+
+#use_autoreconf              yes
+#autoreconf.args             -i
+
+configure.args              --disable-openmp
+
+variant python27 {
+    depends_lib-append      port:python27\
+                            port:swig-python
+    configure.args-append   --enable-python
+}
+
+variant postgresql92 conflicts postgresql93 {
+    depends_lib-append      port:postgresql92
+    configure.args-append   --with-postgresql=${prefix}/lib/postgresql92/bin/pg_config
+}
+
+variant postgresql93 conflicts postgresql92 {
+    depends_lib-append      port:postgresql93
+    configure.args-append   --with-postgresql=${prefix}/lib/postgresql93/bin/pg_config
+}
+
+post-destroot {
+    if {[variant_isset python27]} {
+        file mkdir ${destroot}${frameworks_dir}/Python.framework/Versions/2.7/lib/python2.7
+        file rename ${destroot}${prefix}/lib/python2.7/site-packages \
+        ${destroot}${frameworks_dir}/Python.framework/Versions/2.7/lib/python2.7/site-packages
+    }
+}
+
+livecheck.regex             ${name}_(\[0-9a-z.\]+)${extract.suffix}

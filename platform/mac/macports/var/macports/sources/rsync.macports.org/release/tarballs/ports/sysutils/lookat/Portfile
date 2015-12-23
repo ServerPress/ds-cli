@@ -1,0 +1,21 @@
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
+
+PortSystem 1.0
+
+name            lookat
+version         1.4.0
+revision        1
+description     A program to view textfiles and man-pages.
+long_description \
+    ${description}
+
+maintainers     nomaintainer
+categories      sysutils
+license         GPL-2+
+platforms       darwin
+homepage        http://www.wagemakers.be/english/programs/lookat
+master_sites    http://www.wagemakers.be/uploads/37/7/
+distname        ${name}_bekijk-${version}
+checksums       md5 c576fb90ad23c05efb08357eab27bda7
+configure.args  --mandir=${prefix}/share/man
+depends_lib      port:ncurses

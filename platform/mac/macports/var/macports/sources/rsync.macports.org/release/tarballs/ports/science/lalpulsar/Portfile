@@ -1,0 +1,68 @@
+# $Id: Portfile 139845 2015-08-29 18:29:09Z ram@macports.org $
+
+PortSystem    1.0
+PortGroup     active_variants 1.1
+
+name          lalpulsar
+version       1.12.0
+categories    science
+platforms     darwin
+maintainers   ram
+license       GPL-2+
+
+description   LSC Algorithm Library - Pulsar
+long_description \
+  LIGO Scientific Collaboration Algorithm Library - Pulsar containing \
+  routines for continuous gravitatin wave gravitational data analysis.
+
+homepage      https://www.lsc-group.phys.uwm.edu/daswg/projects/lalsuite.html
+master_sites  http://software.ligo.org/lscsoft/source/lalsuite
+
+checksums     rmd160 29ca48fed3385bcff9e1bb4195b5c86d5fe4143e \
+              sha256 597fb0590017030db3feae838b1516a0563f7feb78222b64aa303b94a28268c0
+
+depends_build-append port:pkgconfig
+
+depends_lib   port:python27 \
+              port:gsl \
+              port:libxml2 \
+              port:lal \
+              port:lalxml
+
+configure.python ${prefix}/bin/python2.7
+configure.args --mandir=${prefix}/share/man \
+               --disable-silent-rules \
+               --disable-gcc-flags \
+               --disable-debug
+
+use_parallel_build yes
+
+set pythondir "${frameworks_dir}/Python.framework/Versions/2.7/lib/python2.7/site-packages"
+destroot.args-append \
+              pythondir="${pythondir}" \
+              pyexecdir="${pythondir}" \
+              pkgpythondir="${pythondir}/${name}" \
+              pkgpyexecdir="${pythondir}/${name}"
+
+# lalxml is currently enabled by default but may change in the future
+#variant lalxml description {Build with LALXML support} {
+#  if {[variant_isset swig_python]} {
+#    require_active_variants lalxml swig_python
+#  }
+#  depends_lib-append   port:libxml2 \
+#                       port:lalxml
+#  configure.args-append --enable-lalxml
+#}
+
+variant swig_python description {Build python SWIG bindings} {
+  require_active_variants lal swig_python
+  depends_build-append  port:swig-python
+  depends_lib-append    port:py27-numpy
+  configure.args-append --enable-swig-python
+}
+
+default_variants +swig_python
+
+livecheck.type   regex
+livecheck.url    ${master_sites}
+livecheck.regex  {lalpulsar-(\d+(?:\.\d+)*).tar.gz}

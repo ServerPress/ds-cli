@@ -1,0 +1,158 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142114 2015-11-04 02:37:13Z devans@macports.org $
+
+PortSystem          1.0
+
+# https://bugzilla.gnome.org/show_bug.cgi?id=636134
+PortGroup           muniversal 1.0
+PortGroup           gobject_introspection 1.0
+
+name                gstreamer1-gst-plugins-bad
+set my_name         gst-plugins-bad
+version             1.6.1
+description         A set of plug-ins for GStreamer that need more quality.
+long_description    GStreamer Bad Plug-ins is a set of plug-ins that aren't up to par compared \
+                    to the rest. They might be close to being good quality, but they're missing \
+                    something - be it a good code review, some documentation, a set of tests, a \
+                    real live maintainer, or some actual wide use.
+license             GPL LGPL
+maintainers         nomaintainer
+categories          gnome
+platforms           darwin
+homepage            http://gstreamer.freedesktop.org/modules/${my_name}.html
+master_sites        http://gstreamer.freedesktop.org/src/${my_name}/
+distname            ${my_name}-${version}
+use_xz              yes
+
+checksums           rmd160  df0fb001371ebcd68c377f9ce9877729ce1f0d05 \
+                    sha256  e176a9af125f6874b3d6724aa7566a198fa225d3ece0a7ac2f2b51c57e525466
+
+depends_build       port:pkgconfig
+depends_lib         port:gstreamer1-gst-plugins-base \
+                    port:chromaprint \
+                    port:curl \
+                    port:faac \
+                    port:faad2 \
+                    port:fluidsynth \
+                    port:gnutls \
+                    port:libass \
+                    port:libdca \
+                    port:libdvdread \
+                    port:libdvdnav \
+                    port:libexif \
+                    port:libmms \
+                    port:libmodplug \
+                    port:libmpcdec \
+                    port:libopus \
+                    port:librsvg \
+                    port:libssh2 \
+                    port:mesa \
+                    port:libGLU \
+                    port:mpg123 \
+                    port:nettle \
+                    port:openal-soft \
+                    port:openexr \
+                    port:openjpeg15 \
+                    port:orc \
+                    port:rtmpdump \
+                    port:schroedinger \
+                    port:soundtouch \
+                    port:spandsp-devel \
+                    port:neon \
+                    port:webp
+
+gobject_introspection yes
+
+# Teach glibtool about -stdlib=libc++
+use_autoreconf      yes
+autoreconf.args     -fvi
+
+patchfiles          modplug.patch \
+                    openal.patch
+
+# applemedia: restore upstream files missing from 1.6.0 tarball
+post-patch {
+    xinstall -m 644 ${filespath}/avsamplevideosink.h \
+                    ${filespath}/corevideotexturecache.h \
+                    ${worksrcpath}/sys/applemedia
+}
+
+#
+# could depend on tons for multimedia stuff +variants
+# the following ports are available but don't configure
+# and/or build correctly
+#
+# port:mjpegtools (mpeg2enc mplex build fails) need to disable mpeg2enc mplex explicitly in case mjpegtools is installed
+# plugin frei0r (no dependency, seqfaults on load)
+# port:opencv (opencv plugin requires opencv >= 2.0.0 opencv < 2.5.0 but current version is 3.0.0)
+# port:slv2 (builds but lv2 plugin fails to load and slv2 is not universal) disable lv2 explicitly in case slv2 is installed
+# port:Xvid plugin xvid not ported in this version
+#
+# the following plugins build opportunisticly due to missing dependencies
+# explicitly disabled for now
+#
+
+configure.args      --disable-silent-rules \
+                    --disable-fatal-warnings \
+                    --disable-dc1394 \
+                    --disable-frei0r \
+                    --disable-lv2 \
+                    --disable-mpeg2enc \
+                    --disable-mplex \
+                    --disable-opencv \
+                    --disable-sdltest \
+                    --enable-experimental \
+                    --enable-static
+
+#
+# port:soundtouch (fails on autoreconf on darwin 8 & 9, see #27533) disable soundtouch on these platforms
+# gl cocoa build continues to fail due to use of API not available on darwin 10 or earlier
+# plugin applemedia (Apple video) now only builds on darwin 14 and later due to use of
+#     constant AVQueuedSampleBufferRenderingStatusFailed introduced in OSX 10.10
+#
+
+platform darwin {
+    if {${os.major} < 10} {
+        depends_lib-delete      port:soundtouch
+        configure.args-append   --disable-soundtouch
+    }
+    if {${os.major} < 11 } {
+        configure.args-append   --disable-cocoa --disable-opengl
+    }
+    if {${os.major} < 14} {
+        configure.args-append   --disable-apple_media
+    }
+}
+
+#
+# X11 is only used for examples that are not installed
+# so just disable examples and drop the deprecated +no_x11 variant
+#
+
+configure.args-append       --disable-examples
+
+configure.cppflags-append   "-L${prefix}/lib"
+configure.cflags-append     -std=c99 -funroll-loops -fstrict-aliasing
+configure.env-append        "HAVE_CXX=yes"
+
+if {[variant_isset universal]} {
+    set merger_host(x86_64) x86_64-apple-${os.platform}${os.major}
+    set merger_host(i386) i686-apple-${os.platform}${os.major}
+    set merger_configure_args(x86_64) --build=x86_64-apple-${os.platform}${os.major}
+    set merger_configure_args(i386) --build=i686-apple-${os.platform}${os.major}
+} else {
+
+    if {${build_arch} eq "i386"} {
+        configure.args-append \
+            --host=i686-apple-${os.platform}${os.major} \
+            --build=i686-apple-${os.platform}${os.major}
+    } elseif {${build_arch} eq "x86_64"} {
+        configure.args-append \
+            --host=${build_arch}-apple-${os.platform}${os.major} \
+            --build=${build_arch}-apple-${os.platform}${os.major}
+    }
+}
+
+livecheck.type      regex
+livecheck.url       ${master_sites}
+livecheck.regex     "${my_name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

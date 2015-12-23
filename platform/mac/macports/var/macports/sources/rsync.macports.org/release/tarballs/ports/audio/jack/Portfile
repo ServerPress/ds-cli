@@ -1,0 +1,50 @@
+# $Id: Portfile 137473 2015-06-12 07:15:15Z jeremyhu@macports.org $
+
+PortSystem      1.0
+
+name            jack
+version         0.121.3
+revision        1
+license         {GPL LGPL}
+distname        jack-audio-connection-kit-${version}
+
+categories      audio
+maintainers     martinvazquez.net:eu
+description     Jack Audio Connection Kit
+long_description JACK is a low-latency audio server, written for \
+                POSIX conformant operating systems such as GNU/Linux \
+                and Apple's OS X.
+homepage        http://jackaudio.org/
+master_sites    http://jackaudio.org/downloads/
+
+platforms       darwin
+
+checksums       md5     35f470f7422c37b33eb965033f7a42e8 \
+                sha1    7d6e2219660222d1512ee704dd88a534b3e3089e \
+                rmd160  0b41b17b0606a6cffdab765ba6a47d0bc6ac9705
+
+configure.pkg_config      ${prefix}/bin/pkg-config
+configure.pkg_config_path ${prefix}/lib/pkgconfig
+
+configure.args  --enable-posix-shm \
+                --with-default-tmpdir=/tmp/
+
+patchfiles-append \
+    carbon.patch
+
+platform darwin {
+    if {${os.major} >= 12} {
+        patchfiles-append mactypes.patch
+    }
+}
+
+depends_lib     port:libxml2 \
+                port:libxslt \
+                port:zlib \
+                port:libsndfile \
+                port:libsamplerate \
+                port:readline
+
+livecheck.type  regex
+livecheck.url   ${homepage}
+livecheck.regex "JACK (0\\.\\d+(?:\\.\\d+)*) released"

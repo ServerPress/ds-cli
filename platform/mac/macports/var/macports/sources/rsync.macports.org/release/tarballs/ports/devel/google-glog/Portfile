@@ -1,0 +1,42 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 119936 2014-05-11 03:16:56Z hum@macports.org $
+
+PortSystem          1.0
+
+name                google-glog
+version             0.3.3
+revision            2
+categories          devel
+maintainers         hum openmaintainer
+
+description         Logging library for C++
+long_description    The glog library implements application-level logging. \
+                    This library provides logging APIs based on C++-style \
+                    streams and various helper macros.
+
+homepage            http://code.google.com/p/google-glog/
+platforms           darwin
+license             BSD
+
+master_sites        googlecode
+distname            glog-${version}
+checksums           rmd160  27fb1bd4156f6715b84d59293d96d1cadc79ea7a \
+                    sha256  fbf90c2285ba0561db7a40f8a4eefb9aa963e7d399bd450363e959929fe849d0
+
+variant gflags description {Includes gflags command line control of logging} { 
+    configure.args-append --with-gflags=${prefix} 
+    depends_lib-append port:gflags 
+} 
+ 
+default_variants +gflags 
+
+# https://code.google.com/p/google-glog/issues/detail?id=169
+patchfiles          patch-libc++.diff
+
+post-destroot {
+    set dest_doc ${destroot}${prefix}/share/doc/${name}
+    xinstall -d ${dest_doc}
+    xinstall -m 644 -W ${worksrcpath} \
+        AUTHORS COPYING ChangeLog doc/designstyle.css doc/glog.html \
+        ${dest_doc}
+}

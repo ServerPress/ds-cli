@@ -1,0 +1,30 @@
+# $Id: Portfile 137992 2015-06-24 16:17:51Z mww@macports.org $
+
+PortSystem        1.0
+name              jekyll
+version           0.30a
+revision          3
+categories        lang
+platforms         darwin
+maintainers       andrewkish.name:kobold
+description       a high level language translatable to or from C
+long_description  Jekyll is a high-level language that can be losslessly \
+                  translated to and from readable editable C. This allows \
+                  it to be used in C projects, with C programmers, C \
+                  libraries, and C tools.
+homepage          http://jekyllc.sourceforge.net/
+master_sites      sourceforge:jekyllc
+distfiles         ${name}-${version}-src.tar.gz
+checksums         md5 9df1d427924bceb82515a72e59e53ced
+
+depends_lib       port:ocaml
+
+use_configure     no
+
+use_parallel_build no
+build.dir         ${workpath}/jekyll-ocaml
+
+destroot {
+xinstall -d -m 0755 ${destroot}${prefix}/bin
+xinstall -m 0755 ${build.dir}/jekyll ${destroot}${prefix}/bin
+}

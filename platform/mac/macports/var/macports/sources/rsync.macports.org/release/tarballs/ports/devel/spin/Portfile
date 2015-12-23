@@ -1,0 +1,51 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138129 2015-06-29 23:10:08Z petr@macports.org $
+
+PortSystem      1.0
+
+name            spin
+version         6.4.3
+set version_no_dot [join [split ${version} .] ""]
+distname        ${name}${version_no_dot}
+categories      devel
+platforms       darwin
+maintainers     jann openmaintainer
+license         SPIN
+description     The Spin model checker
+
+long_description \
+    SPIN is a general tool for verifying the correctness of \
+    distributed software (software design) in a rigorous and \
+    mostly automated fashion.
+
+homepage        http://spinroot.com
+master_sites    http://spinroot.com/spin/Src/
+checksums           md5     17eb7f14df3616e25635691967786996 \
+                    sha1    9f562f330851da47518f4405b1778b044d655b9c \
+                    rmd160  6d7eac3f6c44ef1e3232ddc032920dc8399e95d4
+depends_lib     port:tk port:tcl
+worksrcdir      Spin/Src${version}
+use_configure   no
+use_parallel_build no
+
+pre-patch   {
+    file rename ${worksrcpath}/../iSpin/ispin.tcl ${worksrcpath}/../iSpin/ispin
+}
+
+build.target    ""
+build.args      CC="${configure.cc} -DNXT" \
+                CFLAGS='${configure.cflags} -ansi -D_POSIX_SOURCE -Wno-format-security -DMAC -DCPP=\"\\\"gcc -E -x c -xassembler-with-cpp\\""'
+
+destroot    {
+    xinstall -m 0444 ${worksrcpath}/../Man/${name}.1 \
+        ${destroot}${prefix}/share/man/man1
+    xinstall -m 0755 ${worksrcpath}/${name} \
+        ${destroot}${prefix}/bin
+    xinstall -m 0755 ${worksrcpath}/../iSpin/ispin \
+        ${destroot}${prefix}/bin
+}
+
+# spinroot.com returns '406 Not Acceptable'
+livecheck.type  regex
+livecheck.url   http://portsmon.freebsd.org/portoverview.py?category=devel&portname=spin
+livecheck.regex >${name}-(\[.\\d\]+)<

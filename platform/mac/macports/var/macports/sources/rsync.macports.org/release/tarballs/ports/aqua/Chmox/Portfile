@@ -1,0 +1,44 @@
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
+
+PortSystem 1.0
+PortGroup xcode 1.0
+
+name		Chmox
+version		0.4
+revision	2
+categories	aqua textproc
+maintainers	gmail.com:stuartwesterman openmaintainer
+description	Read CHM documents on your Mac
+long_description	\
+	A viewer for Microsoft Help \"CHM\" (aka Compiled HTML) files	\
+	on Mac OS X 10.3 using Cocoa, WebKit and chmlib.
+homepage	http://chmox.sourceforge.net
+
+fetch.type	cvs
+cvs.root	:pserver:anonymous@chmox.cvs.sourceforge.net:/cvsroot/chmox
+cvs.module	Sources
+
+worksrcdir	Sources
+
+if {[vercmp $xcodeversion 4.0] < 0} {
+    patchfiles	patch-chmox.xcode-project.pbxproj.diff
+} else {
+    post-patch {
+        copy -force ${filespath}/project.pbxproj ${worksrcpath}/chmox.xcode/
+    }
+}
+
+post-patch {
+	reinplace s|@PREFIX@|${prefix}| ${worksrcpath}/chmox.xcode/project.pbxproj
+}
+
+depends_lib	path:lib/libssl.dylib:openssl \
+			port:libxml2
+
+xcode.build.settings	LIBRARY_SEARCH_PATHS=${prefix}/lib \
+					    DEPLOYMENT_LOCATION=NO
+
+xcode.destroot.settings	LIBRARY_SEARCH_PATHS=${prefix}/lib
+
+livecheck.type  regex
+livecheck.regex "${name} (\\d+(?:\\.\\d+)*)"

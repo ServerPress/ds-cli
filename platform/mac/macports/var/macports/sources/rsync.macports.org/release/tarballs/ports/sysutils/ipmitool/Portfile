@@ -1,0 +1,44 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
+
+PortSystem 1.0
+
+name            ipmitool
+version         1.8.12
+revision        1
+
+categories      sysutils
+license         BSD
+maintainers     dports openmaintainer
+description     Intelligent Platform Management Interface management utility
+long_description \
+  IPMItool is a utility for managing and configuring devices that \
+  support the Intelligent Platform Management Interface (IPMI) version \
+  1.5 and version 2.0 specifications. IPMI is an open standard for \
+  monitoring, logging, recovery, inventory, and control of hardware that \
+  is implemented independent of the main CPU, BIOS, and OS. The ipmitool \
+  program provides a simple command-line interface to the Baseboard \
+  Management Controller. It features the ability to read the sensor data \
+  repository (SDR) and print sensor values, display the contents of the \
+  System Event Log (SEL), print Field Replaceable Unit (FRU) inventory \
+  information, read and set LAN configuration parameters, and perform \
+  remote chassis power control.
+
+platforms       darwin
+homepage        http://ipmitool.sourceforge.net/
+master_sites    sourceforge
+
+depends_lib     path:lib/libssl.dylib:openssl
+
+checksums       rmd160  4dea7c7c985083ae8acf2680d5446d81b3c2cf7c \
+                sha256  d4425c00c84633cd7d3cd46af74889e0638e4e245be3e7870a9043d31399a0d3
+
+configure.args --enable-lanplus
+
+post-patch {
+    # remove CFLAGS that gcc 4.2 doesn't support
+    reinplace "s|-Wno-unused-result||g" ${worksrcpath}/configure
+    reinplace "s|-Wno-packed-bitfield-compat||g" ${worksrcpath}/configure
+}
+    
+configure.args  --mandir=${prefix}/share/man

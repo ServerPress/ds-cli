@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 126647 2014-10-13 05:10:23Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-keyczar
+version             0.71c
+categories-append   devel crypto
+license             Apache-2
+maintainers         nomaintainer
+
+description         Easy to use cryptographic toolkit
+
+long_description    Keyczar is an open source cryptographic toolkit designed \
+                    to make it easier and safer for developers to use \
+                    cryptography in their applications. Keyczar supports \
+                    authentication and encryption with both symmetric and \
+                    asymmetric keys.
+
+python.versions     27
+
+platforms           darwin
+supported_archs     noarch
+
+homepage            http://www.keyczar.org/
+master_sites        googlecode:keyczar
+distname            python-keyczar-${version}
+
+checksums           rmd160  1a132de81a92cbddd6dcc597500f4440186d59b1 \
+                    sha256  34845f4d8388b11e1176d36e90c2126cff564a621133bd1a946aa6640d2e9035
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:py${python.version}-crypto \
+                        port:py${python.version}-asn1 \
+                        port:py${python.version}-simplejson
+
+    livecheck.type      none
+}

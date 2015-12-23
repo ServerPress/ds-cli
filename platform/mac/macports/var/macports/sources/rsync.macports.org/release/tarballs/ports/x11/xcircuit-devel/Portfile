@@ -1,0 +1,51 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136285 2015-05-14 03:21:00Z ionic@macports.org $
+
+PortSystem          1.0
+
+name                xcircuit-devel
+conflicts           xcircuit
+version             3.8.40
+set branch          [join [lrange [split ${version} .] 0 1] .]
+revision            4
+categories          x11 cad
+platforms           darwin
+maintainers         nomaintainer
+# asg subdir licensed for noncommercial use only, linked to GPL code, conflicts.
+license             GPL-2+ Noncommercial Restrictive
+
+description         circuit-drawing program
+
+long_description    XCircuit is a program for drawing publishable-quality \
+                    electrical circuit schematic diagrams and related figures, \
+                    and produce circuit netlists through schematic capture. \
+                    XCircuit regards circuits as inherently hierarchical, and \
+                    writes both hierarchical PostScript output and \
+                    hierarchical SPICE netlists. Circuit components are saved \
+                    in and retrieved from libraries which are fully editable. \
+                    XCircuit does not separate artistic expression from \
+                    circuit drawing\; it maintains flexiblity in style without \
+                    compromising the power of schematic capture.
+
+homepage            http://opencircuitdesign.com/xcircuit/
+master_sites        ${homepage}archive/
+dist_subdir         xcircuit
+distname            xcircuit-${version}
+extract.suffix      .tgz
+
+checksums           rmd160  b5438f989ea412f3edd74a98b85113b74d4a8268 \
+                    sha256  52f9cd623bac2b9d27cf8671368e66c83c31858378c1e8b850819d92b78c4af9
+
+depends_lib         port:ghostscript \
+                    port:tk \
+                    port:xpm
+
+configure.args      --with-tcl=${prefix}/lib \
+                    --with-tk=${prefix}/lib \
+                    --with-gs=${prefix}/bin/gs \
+                    --x-includes=${prefix}/include \
+                    --x-libraries=${prefix}/lib
+
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     xcircuit-(${branch}\\.\[0-9.\]+)${extract.suffix}

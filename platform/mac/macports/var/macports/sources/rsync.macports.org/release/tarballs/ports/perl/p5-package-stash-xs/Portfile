@@ -1,0 +1,24 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Package-Stash-XS 0.28 ../by-authors/id/D/DO/DOY/
+revision            1
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         faster and more correct implementation of Package::Stash
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  c09f73be8687e04d3e1c5e35846a232252e5c3e0 \
+                    sha256  23d8c5c25768ef1dc0ce53b975796762df0d6e244445d06e48d794886c32d486
+
+if {${perl5.major} != ""} {
+depends_lib-append  port:p${perl5.major}-test-leaktrace \
+                    port:p${perl5.major}-test-fatal \
+                    port:p${perl5.major}-test-simple
+}

@@ -1,0 +1,21 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Lingua-PT-Stemmer 0.01
+revision            3
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Portuguese language stemming
+long_description    ${description}
+
+platforms           darwin
+
+checksums           md5 74523d7da59dabbf561fa5cf60f98d02 \
+                    sha1 640afd86911fa67b6b7b4bed86e817b86932377a \
+                    rmd160 f2b911fd4b8872ddcd3deba426d35714de556218
+
+supported_archs     noarch

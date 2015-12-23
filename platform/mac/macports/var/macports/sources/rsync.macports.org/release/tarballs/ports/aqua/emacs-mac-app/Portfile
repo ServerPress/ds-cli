@@ -1,0 +1,91 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143626 2015-12-16 02:06:55Z sean@macports.org $
+
+PortSystem          1.0
+
+name                emacs-mac-app
+version             5.15
+categories          aqua editors
+maintainers         hum openmaintainer
+
+description         Emacs Mac port
+
+long_description    ${name} is "Mac port" addition to GNU Emacs 24. This provides a native \
+                    GUI support for Mac OS X 10.4 - 10.10.
+
+homepage            http://www.math.s.chiba-u.ac.jp/~mituharu/emacs-mac.git
+platforms           darwin
+license             GPL-3+
+
+set emacs_version   24.5
+
+fetch.type          git
+git.url             http://www.math.s.chiba-u.ac.jp/~mituharu/emacs-mac.git
+git.branch          emacs-24.5-mac-${version}
+
+depends_lib         port:ncurses \
+                    port:libxml2 \
+                    port:gnutls \
+                    port:dbus
+
+depends_build       port:autoconf port:automake port:libtool
+
+patchfiles          patch-src_emacs.c.diff
+
+universal_variant   no
+
+use_autoreconf      yes
+autoreconf.cmd      ./autogen.sh
+
+configure.args      --with-mac \
+                    --enable-mac-app=${applications_dir} \
+                    --without-rsvg \
+                    --without-imagemagick
+
+if {${os.major} >= 11 && ${os.platform} eq "darwin"} {
+    configure.cflags-append -fobjc-arc
+}
+
+post-destroot {
+    # move files into the app bundle.
+    # https://github.com/railwaycat/emacs-mac-port/blob/master/build-emacs.app.sh
+    set app_dir ${destroot}${applications_dir}/Emacs.app/Contents/Resources
+    foreach d [glob ${destroot}${prefix}/share/emacs/${emacs_version}/*] {
+        move ${d} ${app_dir}
+    }
+    move ${destroot}${prefix}/share/info ${app_dir}
+    move ${destroot}${prefix}/share/man  ${app_dir}
+    move ${destroot}${prefix}/var        ${app_dir}
+    move ${destroot}${prefix}/bin        ${app_dir}/../MacOS
+    xinstall -d ${app_dir}/../MacOS/libexec
+    foreach f [glob ${destroot}${prefix}/libexec/emacs/${emacs_version}/*/*] {
+        move ${f} ${app_dir}/../MacOS/libexec
+    }
+    delete ${destroot}${prefix}
+
+    # make the application binary a hard link.
+    delete ${app_dir}/../MacOS/Emacs
+    file link -hard ${app_dir}/../MacOS/Emacs ${app_dir}/../MacOS/bin/emacs
+
+    # install site-start.el.
+    set site_lisp ${destroot}${applications_dir}/Emacs.app/Contents/Resources/site-lisp
+    xinstall -d ${site_lisp}
+    file copy ${filespath}/site-start.el ${site_lisp}
+    reinplace "s|__PREFIX__|${prefix}|g" ${site_lisp}/site-start.el
+
+    # rename the app bundle to avoid a conflict with emacs-app.
+    move ${destroot}${applications_dir}/Emacs.app \
+         ${destroot}${applications_dir}/EmacsMac.app
+}
+
+variant rsvg description {Enable librsvg bindings} {
+    depends_lib-append     port:librsvg
+    configure.args-delete  --without-rsvg
+    configure.args-append  --with-rsvg
+}
+
+variant imagemagick description {Enable ImageMagick bindings} {
+    depends_lib-append     port:ImageMagick
+    configure.args-delete  --without-imagemagick
+    configure.args-append  --with-imagemagick
+}

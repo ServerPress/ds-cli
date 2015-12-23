@@ -1,7 +1,7 @@
-This is libtasn1.info, produced by makeinfo version 5.2 from
+This is libtasn1.info, produced by makeinfo version 6.0 from
 libtasn1.texi.
 
-This manual is for GNU Libtasn1 (version 4.5, 9 March 2015), which is a
+This manual is for GNU Libtasn1 (version 4.7, 9 March 2015), which is a
 library for Abstract Syntax Notation One (ASN.1) and Distinguished
 Encoding Rules (DER) manipulation.
 
@@ -24,7 +24,7 @@ File: libtasn1.info,  Node: Top,  Next: Introduction,  Up: (dir)
 Libtasn1
 ********
 
-This manual is for GNU Libtasn1 (version 4.5, 9 March 2015), which is a
+This manual is for GNU Libtasn1 (version 4.7, 9 March 2015), which is a
 library for Abstract Syntax Notation One (ASN.1) and Distinguished
 Encoding Rules (DER) manipulation.
 
@@ -1128,6 +1128,25 @@ asn1_get_octet_der
 
      *Returns:* Returns 'ASN1_SUCCESS' on success, or an error.
 
+asn1_get_object_id_der
+----------------------
+
+ -- Function: int asn1_get_object_id_der (const unsigned char * DER, int
+          DER_LEN, int * RET_LEN, char * STR, int STR_SIZE)
+     DER: DER data to decode containing the OBJECT IDENTIFIER
+
+     DER_LEN: Length of DER data to decode.
+
+     RET_LEN: Output variable containing the length of the DER data.
+
+     STR: Pre-allocated output buffer to put the textual object id in.
+
+     STR_SIZE: Length of pre-allocated output buffer.
+
+     Converts a DER encoded object identifier to its textual form.
+
+     *Returns:* 'ASN1_SUCCESS' on success, or an error.
+
 asn1_get_bit_der
 ----------------
 
@@ -1148,7 +1167,7 @@ asn1_get_bit_der
 
      Extract a BIT SEQUENCE from DER data.
 
-     *Returns:* Return 'ASN1_SUCCESS' on success, or an error.
+     *Returns:* 'ASN1_SUCCESS' on success, or an error.
 
 asn1_der_decoding2
 ------------------
@@ -1982,8 +2001,8 @@ Function and Data Index
                                                               (line 144)
 * asn1_create_element:                   ASN.1 field functions.
                                                               (line  72)
-* asn1_decode_simple_ber:                DER functions.       (line 434)
-* asn1_decode_simple_der:                DER functions.       (line 413)
+* asn1_decode_simple_ber:                DER functions.       (line 453)
+* asn1_decode_simple_der:                DER functions.       (line 432)
 * asn1_delete_element:                   ASN.1 field functions.
                                                               (line  57)
 * asn1_delete_structure:                 ASN.1 field functions.
@@ -1991,22 +2010,23 @@ Function and Data Index
 * asn1_delete_structure2:                ASN.1 field functions.
                                                               (line  42)
 * asn1_der_coding:                       DER functions.       (line 102)
-* asn1_der_decoding:                     DER functions.       (line 267)
-* asn1_der_decoding2:                    DER functions.       (line 231)
-* asn1_der_decoding_element:             DER functions.       (line 294)
-* asn1_der_decoding_startEnd:            DER functions.       (line 327)
+* asn1_der_decoding:                     DER functions.       (line 286)
+* asn1_der_decoding2:                    DER functions.       (line 250)
+* asn1_der_decoding_element:             DER functions.       (line 313)
+* asn1_der_decoding_startEnd:            DER functions.       (line 346)
 * asn1_dup_node:                         ASN.1 field functions.
                                                               (line 162)
 * asn1_encode_simple_der:                DER functions.       (line  51)
-* asn1_expand_any_defined_by:            DER functions.       (line 367)
-* asn1_expand_octet_string:              DER functions.       (line 387)
+* asn1_expand_any_defined_by:            DER functions.       (line 386)
+* asn1_expand_octet_string:              DER functions.       (line 406)
 * asn1_find_node:                        Auxilliary functions.
                                                               (line   9)
 * asn1_find_structure_from_oid:          ASN.1 field functions.
                                                               (line 129)
-* asn1_get_bit_der:                      DER functions.       (line 209)
+* asn1_get_bit_der:                      DER functions.       (line 228)
 * asn1_get_length_ber:                   DER functions.       (line 166)
 * asn1_get_length_der:                   DER functions.       (line 130)
+* asn1_get_object_id_der:                DER functions.       (line 209)
 * asn1_get_octet_der:                    DER functions.       (line 186)
 * asn1_get_tag_der:                      DER functions.       (line 147)
 * asn1_length_der:                       DER functions.       (line   9)
@@ -2079,24 +2099,25 @@ Ref: asn1_get_length_der33809
 Ref: asn1_get_tag_der34349
 Ref: asn1_get_length_ber34894
 Ref: asn1_get_octet_der35487
-Ref: asn1_get_bit_der36182
-Ref: asn1_der_decoding236862
-Ref: asn1_der_decoding38260
-Ref: asn1_der_decoding_element39199
-Ref: asn1_der_decoding_startEnd40506
-Ref: asn1_expand_any_defined_by41958
-Ref: asn1_expand_octet_string42763
-Ref: asn1_decode_simple_der43764
-Ref: asn1_decode_simple_ber44406
-Node: Error handling functions45107
-Ref: asn1_perror45323
-Ref: asn1_strerror45664
-Node: Auxilliary functions46075
-Ref: asn1_find_node46267
-Ref: asn1_check_version46863
-Node: Copying Information47462
-Node: GNU Free Documentation License47715
-Node: Concept Index72830
-Node: Function and Data Index73936
+Ref: asn1_get_object_id_der36194
+Ref: asn1_get_bit_der36792
+Ref: asn1_der_decoding237465
+Ref: asn1_der_decoding38863
+Ref: asn1_der_decoding_element39802
+Ref: asn1_der_decoding_startEnd41109
+Ref: asn1_expand_any_defined_by42561
+Ref: asn1_expand_octet_string43366
+Ref: asn1_decode_simple_der44367
+Ref: asn1_decode_simple_ber45009
+Node: Error handling functions45710
+Ref: asn1_perror45926
+Ref: asn1_strerror46267
+Node: Auxilliary functions46678
+Ref: asn1_find_node46870
+Ref: asn1_check_version47466
+Node: Copying Information48065
+Node: GNU Free Documentation License48318
+Node: Concept Index73433
+Node: Function and Data Index74539
 
 End Tag Table

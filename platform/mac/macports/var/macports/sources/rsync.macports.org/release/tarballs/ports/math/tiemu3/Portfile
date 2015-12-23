@@ -1,0 +1,58 @@
+# $Id: Portfile 114431 2013-12-08 09:48:42Z and.damore@macports.org $
+
+PortSystem          1.0
+
+name                tiemu3
+version             3.03
+license             GPL-2
+categories          math
+maintainers         nomaintainer
+description         Texas Instruments TI89, Titanium, TI-92, TI-92+, Voyager 200 multi-platform emulator
+long_description    TiEmu is a full-featured TI89, Titanium, TI-92, TI-92+, Voyager 200 multi-platform \
+                    emulator with an html manual. It offers: popup menu, screenshots, ASM/C \
+                    debugger, link port, saving state and some other stuffs.
+
+homepage            http://lpg.ticalc.org/prj_tilp/
+platforms           darwin
+
+distname            tiemu-${version}-nogdb
+worksrcdir          tiemu-${version}
+master_sites        sourceforge:project/gtktiemu/tiemu-linux/TIEmu%20${version}
+
+checksums           md5     2736440d717a0ee97cdb35189814fc93 \
+                    sha1    a682026f49d85829f7db07edc8bfa372c6617ce1 \
+                    rmd160  88bc445977f5301bb6c57b19df3e982b5f703068
+
+depends_build       port:pkgconfig \
+                    bin:grep:grep \
+                    bin:groff:groff
+
+depends_lib         port:libiconv \
+                    port:libticonv \
+                    port:libtifiles2 \
+                    port:libticables2 \
+                    port:libticalcs2 \
+                    port:gettext \
+                    port:gtk2 \
+                    port:libglade2 \
+                    port:libsdl
+
+patchfiles          patch-calc.diff \
+                    patch-dbg_all.diff \
+                    patch-dbg_bkpts.diff \
+                    patch-dbg_code.diff \
+                    patch-dbg_dock.diff \
+                    patch-dbg_heap.diff \
+                    patch-dbg_iop.diff \
+                    patch-dbg_mem.diff \
+                    patch-dbg_pclog.diff \
+                    patch-dbg_regs.diff \
+                    patch-dbg_stack.diff \
+                    patch-dbg_wnds.diff \
+                    patch-gtk_disable_deprecated.diff \
+                    patch-screen.diff
+
+configure.args-append       --without-kde --disable-debugger --disable-gdb \
+                            --disable-sdltest
+
+pre-destroot        { system "chmod +x ${worksrcpath}/install-sh " }

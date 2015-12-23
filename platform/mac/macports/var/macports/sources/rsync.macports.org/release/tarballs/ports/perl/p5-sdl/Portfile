@@ -1,0 +1,38 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         SDL 2.546
+license             LGPL-2
+maintainers         nomaintainer
+categories-append   devel
+description         Simple DirectMedia Layer for Perl
+long_description    ${description}
+homepage            http://sdl.perl.org/
+platforms           darwin
+
+checksums           rmd160  4936af7a072f848d24c5e9299f67624602080d1e \
+                    sha256  e08aa73550b3f8d32ced0941c3c629f01c4ba4d480fc269e57f3fa6f8df86631
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-test-most
+    
+    depends_lib-append \
+                    port:p${perl5.major}-alien-sdl \
+                    port:p${perl5.major}-tie-simple \
+                    port:p${perl5.major}-yaml
+
+    post-patch {
+        reinplace "s|gcc|${configure.cc} [get_canonical_archflags]|g" \
+            MacOSX/Makefile.test \
+            inc/My/Builder/Darwin.pm \
+            inc/My/Builder/Unix.pm \
+            scripts/sdl_const.pl
+    }
+
+    perl5.use_module_build
+}

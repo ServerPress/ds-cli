@@ -1,0 +1,28 @@
+# $Id: Portfile 104016 2013-03-13 00:45:16Z jmr@macports.org $
+
+PortSystem 1.0
+
+name		tclcurl
+version		7.17.1
+categories	devel
+license		Tcl/Tk
+maintainers	nomaintainer
+description	Tcl binding for libcurl
+long_description \
+	The TclCurl extension gives Tcl programmers access to the libcurl \
+	library written by Daniel Stenberg, with it you can download urls, \
+	upload them and many other neat tricks.
+platforms	darwin
+set urlbase	http://personal1.iddeo.es/andresgarci/tclcurl/
+homepage	${urlbase}english/
+master_sites	${urlbase}download/tarball/
+distname	TclCurl-${version}
+checksums	md5 6387d53f3965d62d4d1489d3ed13b6da \
+		sha1 a610af784850582c5e45d172b817a7946fc59d6a \
+		rmd160 6c8893e471b1cec942678fa165a28bbee61fc581
+depends_lib	port:curl port:tcl
+configure.args	--exec-prefix=${prefix} \
+		--mandir=${prefix}/share/man \
+		--enable-threads \
+		--with-tcl=${prefix}/lib \
+		--with-curlprefix=${prefix}

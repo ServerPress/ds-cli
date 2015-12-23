@@ -1,0 +1,24 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143080 2015-12-02 23:10:51Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Text-Autoformat 1.74
+license             Artistic-1
+maintainers         nomaintainer
+description         Automatic text wrapping and reformatting
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  1d9850e7873b253ef0716ca7492f25bac2a402e7 \
+                    sha256  07eb3c2b3515897340ca6e9377495bbe2e05ec80d7f3f146adab8e534a818d5e
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-text-reform
+
+    supported_archs noarch
+}

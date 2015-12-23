@@ -1,0 +1,38 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 123251 2014-08-07 08:15:41Z and.damore@macports.org $
+
+PortSystem          1.0
+
+name                miniupnpc
+epoch               2
+version             1.9
+revision            0
+categories          net
+platforms           darwin freebsd
+license             BSD
+maintainers         nomaintainer
+description         Lightweight client for UPnP protocol
+long_description    ${description}
+
+homepage            http://miniupnp.free.fr/
+master_sites        http://miniupnp.free.fr/files/download.php?file=${distname}${extract.suffix}&dummy=
+
+checksums           rmd160  a0c5e8c08f238ade1cf8b721918a41e384d147a6 \
+                    sha256  2923e453e880bb949e3d4da9f83dd3cb6f08946d35de0b864d0339cf70934464
+
+use_configure       no
+
+variant universal {}
+
+variant debug description {Build MiniUPnP client with DEBUG options, thus dumping SOAP calls} {
+    build.args-delete CC="${configure.cc} [get_canonical_archflags cc]"
+    build.args-append CC="${configure.cc} [get_canonical_archflags cc] -DDEBUG"
+}
+
+build.args-append   INSTALLPREFIX=${prefix} CC="${configure.cc} [get_canonical_archflags cc]"
+
+destroot.args-append INSTALLPREFIX=${prefix}
+
+livecheck.type      regex
+livecheck.url       http://miniupnp.free.fr/files/
+livecheck.regex     ${name}-(\\d+(\\.\\d{1,4})+)${extract.suffix}

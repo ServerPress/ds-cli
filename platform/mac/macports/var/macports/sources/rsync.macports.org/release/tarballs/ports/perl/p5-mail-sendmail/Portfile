@@ -1,0 +1,25 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Mail-Sendmail 0.79
+revision            3
+license             Permissive
+maintainers         nomaintainer
+categories          perl mail
+
+description         Simple platform independent e-mail from perl scripts.
+long_description    Simple platform independent e-mail from your perl \
+                    script. Only requires Perl 5 and a network connection. \
+                    Mail::Sendmail contains mainly &sendmail, which takes a \
+                    hash with the message to send and sends it. It is \
+                    intended to be very easy to setup and use.
+
+checksums           rmd160  6f593aecbbffed43c592e58d8dd2c342d70c8e93 \
+                    sha256  8a5eb39d3b9a3a4219c6d6051328c62bd51e9b53723ee5b42cd66e8672e681b9
+
+platforms           darwin
+supported_archs     noarch

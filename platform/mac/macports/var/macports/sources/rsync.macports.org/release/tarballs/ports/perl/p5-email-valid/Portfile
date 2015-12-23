@@ -1,0 +1,29 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142058 2015-11-02 22:57:01Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Email-Valid 1.198
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Check validity of Internet email addresses
+long_description    This module determines whether an email address is \
+                    well-formed, and optionally, whether a mail host \
+                    exists for the domain.
+
+platforms           darwin
+
+checksums           rmd160  2de8fad6ddfc58229f72a09912c607ff5c5d7f1c \
+                    sha256  ab502c4c1398b1e0700b4d03532e31aad87055b5d3be0da77d1a7cc487e02108
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-io-captureoutput \
+                    port:p${perl5.major}-mailtools \
+                    port:p${perl5.major}-net-dns \
+                    port:p${perl5.major}-net-domain-tld
+
+    supported_archs noarch
+}

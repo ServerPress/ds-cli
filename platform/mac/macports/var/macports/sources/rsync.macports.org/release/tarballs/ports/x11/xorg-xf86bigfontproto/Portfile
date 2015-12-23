@@ -1,0 +1,26 @@
+# $Id: Portfile 101717 2013-01-17 22:49:15Z jeremyhu@macports.org $
+
+PortSystem 1.0
+
+name        xorg-xf86bigfontproto
+version     1.2.0
+categories  x11 devel
+license     X11
+maintainers gmail.com:myschizobuddy
+description X.org xf86bigfontproto
+homepage    http://www.x.org
+platforms   darwin
+supported_archs noarch
+long_description XF86BigFont extension headers
+master_sites    xorg:individual/proto/
+
+distname    xf86bigfontproto-${version}
+checksums           md5     120e226ede5a4687b25dd357cc9b8efe \
+                    sha1    312a2ea708b257520c1af4393b69d73a393a478f \
+                    rmd160  847c3ecfe705ede5e9292586835d0fe2bc7ccf45
+            
+use_bzip2   yes
+
+livecheck.type  regex
+livecheck.url   http://xorg.freedesktop.org/archive/individual/proto/?C=M&O=D
+livecheck.regex xf86bigfontproto-(\\d+(?:\\.\\d+)*)

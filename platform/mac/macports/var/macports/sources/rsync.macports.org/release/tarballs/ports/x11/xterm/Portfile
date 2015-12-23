@@ -1,0 +1,63 @@
+# $Id: Portfile 141172 2015-10-11 18:24:47Z jeremyhu@macports.org $
+
+PortSystem          1.0
+
+name                xterm
+version             320
+categories          x11
+license             X11
+platforms           darwin
+maintainers         jeremyhu openmaintainer
+description         the ubiquitous X terminal emulator, stand-alone
+long_description    The xterm program is a terminal emulator for the X \
+                    Window System. It supports a plethora of features, \
+                    including colors, Unicode, etc.
+
+homepage            http://invisible-island.net/xterm/
+master_sites        ftp://invisible-island.net/xterm/ \
+                    http://invisible-island.net/datafiles/release/
+checksums           rmd160  b128e2ff2d170c8f82c56e696cb844455267a4e9 \
+                    sha256  a60dbb574334c081425fa30f011cd9f571e3be7a91e2a84e252461798bce24a7
+extract.suffix      .tgz
+
+depends_build \
+	port:xorg-xproto
+
+depends_run \
+	bin:luit:luit
+
+depends_lib \
+	port:ncurses \
+	port:expat \
+	port:zlib \
+	port:xorg-libXaw \
+	port:Xft2
+
+patchfiles PR-7191532.patch
+
+patch.pre_args -p1
+
+configure.args      --mandir=${prefix}/share/man --enable-luit \
+                    --enable-logging --enable-wide-chars \
+                    --enable-256-color --enable-load-vt-fonts \
+                    --x-include=${prefix}/include --x-lib=${prefix}/lib \
+                    --with-app-defaults=${prefix}/share/X11/app-defaults
+
+# If -ltermcap stays in the LDFLAGS, xterm is linked against both
+# /usr/lib's and ${prefix}/lib's libncurses.
+post-configure {
+    reinplace "s|-ltermcap|-lncurses|" ${worksrcpath}/Makefile
+}
+
+livecheck.type      regex
+livecheck.url       http://www.invisible-island.net/xterm/xterm.log.html
+livecheck.regex     "Patch #(\\d+)"
+
+variant utmp description {Support updating utmp/utmpx database
+                          (installs setgid daemon)} {
+   configure.args-append   --with-utmp-setgid=daemon --with-utempter
+}
+
+platform darwin 8 {
+    configure.args-append cf_cv_xopen_source=no cf_cv_posix_c_source=no
+}

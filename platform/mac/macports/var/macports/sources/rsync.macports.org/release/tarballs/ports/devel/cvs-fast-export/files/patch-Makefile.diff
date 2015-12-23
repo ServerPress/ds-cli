@@ -1,0 +1,67 @@
+--- Makefile.orig
++++ Makefile
+@@ -17,19 +17,23 @@
+ VERSION=1.35
+ 
+ .PATH: $(.PARSEDIR)
+-prefix?=/usr/local
++prefix?=@@PREFIX@@
+ target=$(DESTDIR)$(prefix)
+ parsedir:=$(.PARSEDIR)
+ srcdir=$(dir $(abspath $(firstword $(MAKEFILE_LIST))))$(parsedir)
+ VPATH=$(srcdir)
+ 
++FLEX=@@FLEX@@
++CC=@@CC@@
++A2X=@@A2X@@
++
+ INSTALL = install
+ 
+ GCC_WARNINGS1=-Wall -Wpointer-arith -Wstrict-prototypes
+ GCC_WARNINGS2=-Wmissing-prototypes -Wmissing-declarations
+ GCC_WARNINGS3=-Wno-unused-function -Wno-unused-label -Wno-format-zero-length
+ GCC_WARNINGS=$(GCC_WARNINGS1) $(GCC_WARNINGS2) $(GCC_WARNINGS3)
+-CFLAGS=$(GCC_WARNINGS)
++CFLAGS+=$(GCC_WARNINGS)
+ CPPFLAGS += -I. -I$(srcdir)
+ #LIBS=-lrt
+ CPPFLAGS += -DVERSION=\"$(VERSION)\"
+@@ -39,7 +43,7 @@ CFLAGS += -pthread
+ CPPFLAGS += -DTHREADS
+
+ # Optimizing for speed. Comment this out for distribution builds
+-CFLAGS += -march=native
++#CFLAGS += -march=native
+
+ # To enable debugging of the Yacc grammar, uncomment the following line
+ #CPPFLAGS += -DYYDEBUG=1
+@@ -100,7 +104,7 @@ BISON ?= bison
+ gram.h gram.c: gram.y
+ 	$(BISON)  $(YFLAGS) --defines=gram.h --output-file=gram.c $(srcdir)/gram.y
+ lex.h lex.c: lex.l
+-	flex $(LFLAGS) --header-file=lex.h --outfile=lex.c $(srcdir)/lex.l
++	$(FLEX) $(LFLAGS) --header-file=lex.h --outfile=lex.c $(srcdir)/lex.l
+ 
+ gram.o: gram.c lex.h gram.h
+ import.o: import.c lex.h gram.h
+@@ -110,9 +114,9 @@ lex.o: lex.c gram.h
+ 
+ # Requires asciidoc and xsltproc/docbook stylesheets.
+ .asc.1:
+-	a2x --doctype manpage --format manpage -D . $<
++	$(A2X) --doctype manpage --format manpage -D . $<
+ .asc.html:
+-	a2x --doctype manpage --format xhtml -D . $<
++	$(A2X) --doctype manpage --format xhtml -D . $<
+ 	rm -f docbook-xsl.css
+ 
+ reporting-bugs.html: reporting-bugs.asc
+@@ -156,7 +160,7 @@ CSUPPRESSIONS = -U__UNUSED__ -UYYPARSE_PARAM -UYYTYPE_INT16 -UYYTYPE_INT8 \
+ 	-U_SC_NPROCESSORS_ONLN -Ushort -Usize_t -Uyytext_ptr \
+ 	-Uyyoverflow -U__cplusplus
+ cppcheck:
+-	cppcheck -I. --template gcc --enable=all $(CSUPPRESSIONS) --suppress=unusedStructMember --suppress=unusedFunction --suppress=unreadVariable --suppress=uselessAssignmentPtrArg --suppress=missingIncludeSystem *.[ch]
++	cppcheck -I. --template $(CC) --enable=all $(CSUPPRESSIONS) --suppress=unusedStructMember --suppress=unusedFunction --suppress=unreadVariable --suppress=uselessAssignmentPtrArg --suppress=missingIncludeSystem *.[ch]
+ 
+ PYLINTOPTS = --rcfile=/dev/null --reports=n \
+ 	--msg-template="{path}:{line}: [{msg_id}({symbol}), {obj}] {msg}" \

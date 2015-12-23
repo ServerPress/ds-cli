@@ -1,0 +1,158 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
+
+PortSystem          1.0
+PortGroup           compiler_blacklist_versions 1.0
+
+name                ghc
+# Do not update GHC separate from Haskell Platform.
+# When updating GHC, make sure to revbump all Haskell ports.
+# Also make sure to update the version in the Haskell PortGroup.
+version             7.8.3
+revision            4
+categories          lang haskell
+maintainers         gmail.com:kitchen.andy cal openmaintainer
+license             BSD
+platforms           darwin
+
+description The Glorious Glasgow Haskell Compilation System
+long_description    \
+        The Glasgow Haskell Compiler is a robust,       \
+        fully-featured, optimising compiler and interactive \
+        environment for Haskell 98, GHC compiles Haskell to \
+        either native code or C.  It implements numerous    \
+        experimental language extensions to Haskell 98,     \
+        for example: concurrency, a foreign language interface, \
+        multi-parameter type classes, scoped type variables,    \
+        existential and universal quantification, unboxed   \
+        types, exceptions, weak pointers, and so on.        \
+        GHC comes with a generational garbage collector,    \
+        and a space and time profiler.
+
+homepage        http://haskell.org/${name}
+master_sites    ${homepage}/dist/${version}/
+distname        ${name}-${version}-src
+worksrcdir      ${name}-${version}
+
+use_bzip2       yes
+
+distfiles       ${name}-${version}-src${extract.suffix} \
+                ${name}-${version}-testsuite${extract.suffix}
+
+checksums       ghc-7.8.3-src.tar.bz2 \
+                rmd160  464d31d924a8c1e23e94b3cae810c4e41dad4b75 \
+                sha256  2358826f8424bf571dcc313bd882422fe108a340d6e37db4339ff6d5d6ac3f37 \
+                ghc-7.8.3-testsuite.tar.bz2 \
+                rmd160  abc39b71e2f3926b80c681428c447f39599d7d83 \
+                sha256  9cfef874adf5b895701ae52e507f07049a64246af120ac15200e7bf612521122
+
+depends_build   port:ghc-bootstrap \
+                port:libxslt
+
+depends_lib     port:gmp           \
+                port:ncurses       \
+                port:libiconv      \
+                port:llvm-3.5       \
+                port:libffi
+
+patchfiles      patch-configure-workaround-bsdsed-incompatibility.diff \
+                patch-configure-disable-docs.diff \
+                patch-unix_lib_osx_sandbox_compatibility.diff
+
+livecheck.type  none
+test.run        yes
+
+# Compilation fails with older versions of clang. clang-4.1 from Xcode 4.5 is
+# too old, clang-5.1 from from Xcode 5.1 works. I do not have any data points in
+# between, so I'm blacklisting everything lower than 5.1. If you want to test
+# the versions in between, be my guest.
+# Also avoid LLVM GCC 4.2 and GCC 4.2, which are before MacPorts' clang 3.4 in
+# the fallback list on some systems.
+# NOTE that it is actually the C compiler used in ghc-bootstrap that is
+# relevant here. This code block is duplicated in this port to avoid
+# inconsistencies.
+compiler.blacklist-append \
+                llvm-gcc-4.2 \
+                gcc-4.2 \
+                {clang < 503.0.38} \
+                macports-clang-3.3
+
+set bootstraproot ${prefix}/share/ghc-bootstrap
+set llvmPrefix  ${prefix}/libexec/llvm-3.5
+configure.args  --with-ghc=${bootstraproot}/bin/ghc \
+                --with-iconv-includes=${prefix}/include \
+                --with-iconv-libraries=${prefix}/lib \
+                --with-gmp-includes=${prefix}/include \
+                --with-gmp-libraries=${prefix}/lib \
+                --with-ffi-includes=${prefix}/lib/libffi-3.2.1/include \
+                --with-ffi-libraries=${prefix}/lib \
+                --with-system-libffi \
+                --with-gcc="${configure.cc}" \
+                --with-llc=${llvmPrefix}/bin/llc \
+                --with-opt=${llvmPrefix}/bin/opt
+
+# OK so because the bootstrap binary has been prebuilt for libraries in
+# /usr/lib we search these in addition to MacPorts' paths to prevent link
+# errors. GHC _should_ actually compile itself in stage2 using paths from the
+# command line arguments
+compiler.cpath /usr/include
+compiler.library_path /usr/lib
+
+build.args      VERBOSE=1
+destroot.args   VERBOSE=1
+
+pre-activate {
+    set obsoletes [list]
+
+    # Legacy port deactivation hack added 2012-12-08, hs-platform-ghc no longer exists
+    lappend obsoletes hs-platform-ghc
+    # Legacy port deactivation hack added 2013-08-11, hs-process is provided by base
+    lappend obsoletes hs-process
+    # Legacy port deactivation hack added 2013-08-14, hs-template-haskell is provided by base
+    lappend obsoletes hs-template-haskell
+    # Legacy port deactivation hack added 2015-01-05, hs-transformers, hs-xhtml
+    # and hs-binary are provided by base
+    lappend obsoletes hs-transformers
+    lappend obsoletes hs-xhtml
+    lappend obsoletes hs-binary
+
+    foreach obsolete $obsoletes {
+        if {![catch {set obsolete_installed [lindex [registry_active $obsolete] 0]}]} {
+            # $obsolete is installed and active
+            # force deactivation
+            registry_deactivate_composite $obsolete "" [list ports_nodepcheck 1]
+        }
+    }
+}
+
+post-activate {
+    set libprefix "${prefix}/lib/${name}-${version}"
+
+    # delete old ${prefix}/lib/ghc-${version} directories
+    foreach fullpath [glob -nocomplain -directory ${prefix}/lib ghc-*] {
+        if {$fullpath ne $libprefix} {
+            ui_info "Cleaning up remnant GHC library directory ${fullpath}"
+            catch {delete $fullpath}
+        }
+    }
+
+    # Walk the current package.conf.d and delete all files not belonging to any
+    # port, since haskell packages now directly drop it in packages.conf.d and
+    # register the file to themselves. The package cache is updated by the
+    # post-activate phase of the packages, which now runs ghc-pkg recache.
+    #
+    # This *will* cause pre-deactivation failures for all ports that still are
+    # correctly installed and would unregister themselves on uninstall.
+    # Unfortunately there is no good way around this now that the contents of
+    # PortGroups are stored together with Portfiles and used for deactivation
+    # (otherwise I could just edit the PortGroup and make unregistration
+    # failures non-fatal)
+    foreach configfile [glob -nocomplain -directory $libprefix/package.conf.d *] {
+        if {[registry_file_registered $configfile] == 0} {
+            # file is not registered to any port, remove it
+            catch {delete $configfile}
+        }
+    }
+
+    catch {system [list ${prefix}/bin/ghc-pkg -v recache]}
+}

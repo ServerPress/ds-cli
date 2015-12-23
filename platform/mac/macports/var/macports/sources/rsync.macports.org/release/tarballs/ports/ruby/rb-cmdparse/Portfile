@@ -1,0 +1,24 @@
+# $Id: Portfile 137463 2015-06-12 03:24:41Z ryandesign@macports.org $
+PortSystem		1.0
+PortGroup		ruby 1.0
+PortGroup		github 1.0
+
+github.setup    gettalong cmdparse 2_0_4 REL_
+version         [string map {_ .} ${github.version}]
+ruby.setup		cmdparse ${version} setup.rb {COPYING README TODO}
+
+maintainers		kimuraw openmaintainer
+description		cmdparse - advanced command line parser supporting commands
+long_description	This library, cmdparse, can be used to create such a \
+				command line interface. Internally it uses optparse or any \
+				other option parser library to parse options and it provides \
+				a nice API for specifying commands.
+categories-append	devel
+homepage		http://cmdparse.gettalong.org/
+license			GPL-2
+supported_archs	noarch
+checksums		md5 6fcb01583be5dafe9692985a3a02bcad \
+				sha1 6ba13dcea6ebc69f34f676f111172304f4222328 \
+				rmd160 ef6147b60e15bf6b916100a57cf5e56b0091146d
+platforms		darwin
+

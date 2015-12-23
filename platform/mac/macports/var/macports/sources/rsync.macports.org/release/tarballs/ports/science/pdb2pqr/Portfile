@@ -1,0 +1,66 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135278 2015-04-21 23:39:46Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                pdb2pqr
+version             2.0.0
+categories          science
+maintainers         gmail.com:howarth.at.macports
+description         automate Poisson-Boltzmann electrostatics calculations
+long_description    PDB2PQR is a Python software package that automates many of the \
+                    common tasks of preparing structures for continuum electrostatics \
+                    calculations, providing a platform-independent utility for converting \
+                    protein files in PDB format to PQR format.
+homepage            http://pdb2pqr.sourceforge.net/
+platforms           darwin
+master_sites        sourceforge:project/pdb2pqr/pdb2pqr/pdb2pqr-${version}/
+distfiles           ${name}-src-${version}.tar.gz
+checksums           md5     e4d50d3057778f051f49cc385909b293 \
+                    sha1    77285efe9b78c8bd2df61b977eed8cca71df7ace
+
+python.default_version  27
+
+worksrcdir          ${name}-src-${version}
+
+depends_lib         port:py${python.version}-numeric
+
+post-patch {
+    fs-traverse f ${worksrcpath} {
+        if {[file isfile ${f}] && [file extension ${f}] eq ".py"} {
+            reinplace -E "s,(/usr/bin/python|/usr/bin/env python),${prefix}/bin/python${python.branch},g" ${f}
+        }
+    }
+}
+
+build.cmd           ${prefix}/bin/python${python.branch} scons/scons.py
+build.target
+build.args          BUILD_PDB2PKA=True
+
+test.run            yes
+test.cmd            ${prefix}/bin/python${python.branch} scons/scons.py
+test.target         complete-test
+
+pre-destroot {
+    fs-traverse f ${worksrcpath} {
+        if {[file isfile ${f}] && [file extension ${f}] eq ".pyc"} {
+            delete ${f}
+        }
+    }
+    foreach f {build_config.py pdb2pqr.py.in tools SConscript-error.py SConscript-install.py SConscript-main.py SConscript scons site_scons} {
+        delete ${worksrcpath}/${f}
+    }
+}
+destroot {
+      move ${worksrcpath} ${destroot}${prefix}/share/${name}
+      system "echo '#!/bin/zsh -f' >| ${destroot}${prefix}/bin/pdb2pqr"
+      system "echo '${prefix}/share/${name}/pdb2pqr.py \"\$@\"' >> ${destroot}${prefix}/bin/pdb2pqr"
+      file attributes ${destroot}${prefix}/bin/pdb2pqr -permissions a+x
+      file attributes ${destroot}${prefix}/share/${name}/propka30/propka.py -permissions a+x
+      system "echo '#!/bin/zsh -f' >| ${destroot}${prefix}/bin/propka"
+      system "echo '${prefix}/share/${name}/propka30/propka.py \"\$@\"' >> ${destroot}${prefix}/bin/propka"
+      file attributes ${destroot}${prefix}/bin/propka -permissions a+x
+}
+
+universal_variant no

@@ -1,0 +1,26 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141430 2015-10-18 14:55:35Z khindenburg@macports.org $
+
+PortSystem      1.0
+
+name            gnuchess
+version         6.2.2
+categories      games
+platforms       darwin freebsd
+maintainers     khindenburg openmaintainer
+
+license         GPL-3+
+
+description     GNU Chess is a chess-playing program.
+long_description    ${description} It can be used to play chess \
+                    against the computer on a terminal or, more \
+                    commonly, as a chess engine for graphical chess \
+                    frontends such as XBoard.
+
+homepage        http://www.gnu.org/software/chess
+master_sites    gnu:chess
+
+depends_lib-append      port:readline port:ncurses
+
+checksums           rmd160  31dddc1f21a11c2e070d67a0adf3c7675995f088 \
+                    sha256  7776c114eeb5889dea69dc4715a3622ec57f65efab667987e7d7183cc05381a8

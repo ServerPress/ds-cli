@@ -1,0 +1,28 @@
+# $Id: Portfile 56098 2009-08-24 06:56:01Z ryandesign@macports.org $
+
+PortSystem	1.0
+name		squish
+version		1.10
+revision	1
+categories	graphics
+maintainers	gmail.com:julian9
+description	DXT Compression Library
+long_description	\
+	DXT compression is a very well-designed compression scheme for \
+	colour textures with an optional alpha channel. The squish library \
+	is a cross-platform open source implementation of DXT compression \
+	(and decompression).
+
+homepage	http://code.google.com/p/libsquish/
+master_sites	googlecode:libsquish
+
+platforms	darwin
+checksums	md5 53b171007aaaaf96ee277e833bb756eb
+
+use_configure	no
+
+patchfiles patch-config.diff
+
+build.env	CXX=${configure.cxx}
+
+destroot.destdir	INSTALL_DIR=${destroot}${prefix}

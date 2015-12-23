@@ -1,0 +1,33 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135922 2015-05-07 01:52:05Z ryandesign@macports.org $
+
+PortSystem              1.0
+PortGroup               xcode 1.0
+
+name                    Freecell
+version                 2.1
+categories              aqua games
+license                 BSD
+platforms               darwin
+maintainers             nomaintainer
+
+description             classic solitaire game
+long_description        The imaginatively-titled “Freecell” is a Mac OS X \
+                        version of the classic solitaire game.
+
+homepage                http://web.archive.org/web/20080622113332/http://randomoracle.com/freecell/
+master_sites            macports
+use_bzip2               yes
+
+checksums               md5 05c41aa87c3a6c390f83c12db7c4ff3d \
+                        sha1 2e609fe0548f44a316f77f15db39581aad7a587f \
+                        rmd160 0dbb3cbb23730654244091f4683c51a590a373ab
+
+post-patch {
+    copy ${filespath}/Info-Freecell.plist ${worksrcpath}
+    move ${worksrcpath}/Freecell.pbproj ${worksrcpath}/Freecell.xcodeproj
+    copy -force ${filespath}/project.pbxproj ${worksrcpath}/Freecell.xcodeproj/project.pbxproj
+}
+
+livecheck.type          regex
+livecheck.regex         "${name} (\\d+(?:\\.\\d+)*)"

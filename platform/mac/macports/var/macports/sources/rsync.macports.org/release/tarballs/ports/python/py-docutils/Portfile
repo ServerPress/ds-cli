@@ -1,0 +1,45 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141091 2015-10-10 14:20:36Z mcalhoun@macports.org $
+
+PortSystem 1.0
+PortGroup python 1.0
+
+name                py-docutils
+version             0.12
+categories-append   textproc
+license             GPL-3+ PSF-2.1.1 BSD
+maintainers         jmr alexnicksay.com:alex openmaintainer
+description         A set of tools for processing plaintext documentation
+long_description    Docutils is a set of tools for processing plaintext \
+                    documentation into useful formats, such as HTML, XML, \
+                    and LaTeX. Includes reStructuredText, the easy to read, \
+                    easy to use, what-you-see-is-what-you-get plaintext \
+                    markup language.
+platforms           darwin
+supported_archs     noarch
+
+homepage            http://docutils.sourceforge.net/
+master_sites        sourceforge:project/docutils/docutils/${version}/
+distname            docutils-${version}
+
+checksums           md5    4622263b62c5c771c03502afa3157768 \
+                    sha1   002450621b33c5690060345b0aac25bc2426d675 \
+                    rmd160 1eb12ed88a334a154c8548f404ea82c7a65fa9ba
+
+python.versions     26 27 33 34 35
+
+if {$subport ne $name} {
+    depends_lib         port:py${python.version}-roman
+    
+    # we want e.g. *-2.7.py not *.py-2.7
+    python.link_binaries no
+    post-destroot {
+        foreach f {rst2html rst2latex rst2man rst2odt rst2odt_prepstyles rst2pseudoxml rst2s5 rst2xml rstpep2html rst2xetex} {
+            ln -s ${python.prefix}/bin/${f}.py ${destroot}${prefix}/bin/${f}-${python.branch}.py
+        }
+    }
+    livecheck.type  none
+} else {
+    livecheck.url   http://sourceforge.net/api/file/index/project-id/38414/rss
+    livecheck.regex {docutils/([0-9.]+)}    
+}

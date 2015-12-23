@@ -1,0 +1,81 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 128190 2014-11-16 03:38:08Z ryandesign@macports.org $
+
+PortSystem 1.0
+PortGroup           github 1.0
+
+github.setup        timburks nu 2.1.1 v
+name                nu2
+categories          devel
+maintainers         nomaintainer
+license             Apache-2
+conflicts           nu
+description         Nu is an interpreted object-oriented lisp-like language written in Objective-C.
+long_description    \
+    Nu is an interpreted object-oriented language. \
+    It uses a Lisp-style grammar, but is semantically closer to Ruby than to Lisp. \
+    Nu is written in Objective-C and is designed to take full advantange of \
+    the Objective-C runtime and the many mature class libraries written in Objective-C. \
+    Nu code can fully interoperate with code written in Objective-C\; \
+    messages can be sent to and from objects with no concern for whether those messages \
+    are implemented in Objective-C or Nu.
+
+homepage            http://programming.nu/
+
+platforms           darwin
+
+checksums           rmd160  9dbc66a462d1116659f4538eeff1f19216700dc2 \
+                    sha256  3254b3e4aa55086af7e0a28919358033cccbac6aec7d7addb3df62d1010445e2
+
+# error: instance variables may not be placed in class extension
+universal_variant   no
+supported_archs     x86_64
+
+depends_build       port:pkgconfig
+
+depends_lib         port:libffi \
+                    port:libedit
+
+platform darwin {
+    if {${os.major} < 11} {
+        pre-fetch {
+            return -code error "${subport} @${version} requires OS X 10.7 Lion or later"
+        }
+    }
+}
+
+patchfiles          patch-Makefile.diff \
+                    patch-Nukefile.diff \
+                    patch-tools-nuke.diff
+
+post-patch {
+    reinplace -W ${worksrcpath} "s|@ARCHS@|[join [get_canonical_archs] {" "}]|g" Nukefile
+    reinplace -W ${worksrcpath} "s|@CC@|${configure.cc}|g" tools/nuke
+    reinplace -W ${worksrcpath} "s|@FRAMEWORKS_DIR@|${frameworks_dir}|g" tools/nuke
+
+    if {${configure.sdkroot} ne ""} {
+        set sdk "-isysroot ${configure.sdkroot}"
+    } else { 
+        set sdk ""
+    }
+    reinplace -W ${worksrcpath} "s|@SDK@|${sdk}|g" Makefile Nukefile
+}
+
+use_configure       no
+
+pre-build {
+    system -W ${worksrcpath} "${build.env} make -j${build.jobs}"
+}
+
+build.cmd           ./mininush tools/nuke
+build.target
+build.env           CC="${configure.cc}" \
+                    PREFIX=${prefix}
+
+test.run            yes
+test.cmd            nuke
+
+destroot.destdir
+destroot.env-append DESTDIR=${destroot} \
+                    PREFIX=${prefix} \
+                    FRAMEWORKS_DIR=${frameworks_dir}

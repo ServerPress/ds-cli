@@ -1,0 +1,31 @@
+# $Id: Portfile 126118 2014-10-04 07:36:31Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                gccmakedep
+version             1.0.3
+categories          x11 devel
+license             X11
+maintainers         nomaintainer
+supported_archs     noarch
+
+description         Create dependencies in makefiles using 'gcc -M'
+long_description \
+   The gccmakedep program calls 'gcc -M' to output makefile rules describing \
+   the dependencies of each sourcefile, so that make(1) knows which object \
+   files must be recompiled when a dependency has changed.
+
+platforms           darwin
+
+homepage            http://www.x.org/
+master_sites        xorg:individual/util/
+use_bzip2           yes
+
+checksums           rmd160  52bba35ccad3ae7057b5987d2c924984a00f7ae9 \
+                    sha256  b275dcf1f7323ed89e8b36f8fbd5da665d8700005f1779fa5b90a1688bbf2ee4
+
+configure.args      --disable-silent-rules
+
+livecheck.type      regex
+livecheck.regex     ${name}-(\[\\d.\]+)${extract.suffix}
+livecheck.url       http://xorg.freedesktop.org/archive/individual/util/?C=M&O=D

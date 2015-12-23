@@ -1,0 +1,56 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 120153 2014-05-17 02:17:45Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        zedshaw mongrel2 1.9.1 v
+license             BSD
+categories          www
+platforms           darwin
+maintainers         nomaintainer
+description         The Language Agnostic Web Server
+long_description    \
+    Mongrel2 is an application, language, and network architecture agnostic \
+    web server that focuses on web applications using modern browser \
+    technologies.
+
+homepage            http://mongrel2.org/
+github.tarball_from releases
+distname            ${name}-${github.tag_prefix}${version}
+
+checksums           rmd160  e355cae5f87ece74ed6744f2bef98232b8cf3020 \
+                    sha256  dc491c9b06f1b32020fd977737fa16f99af6d99e7bfb2f80fcc53278dd44f398
+
+depends_lib         port:zmq \
+                    port:sqlite3
+
+post-extract {
+    set file_name ${worksrcpath}/tests/cert_tests.c
+    move $file_name ${file_name}.invalid
+}
+
+patchfiles          patch-Makefile.diff \
+                    patch-tools-procer-Makefile.diff
+
+use_configure       no
+
+variant universal {}
+
+build.target        macports
+build.args-append   PREFIX=${prefix} \
+                    CC=${configure.cc} \
+                    OPTFLAGS="${configure.cflags} ${configure.cppflags} [get_canonical_archflags cc]" \
+                    OPTLIBS="${configure.ldflags} [get_canonical_archflags ld] -bind_at_load -undefined dynamic_lookup"
+destroot.args-append    PREFIX=${prefix}
+
+post-destroot {
+    xinstall -m 755 -d ${destroot}${prefix}/share/doc/${name}
+    xinstall -m 755 -d ${destroot}${prefix}/share/examples/${name}
+    
+    xinstall -m 644 ${worksrcpath}/LICENSE ${destroot}${prefix}/share/doc/${name}
+    xinstall -m 644 ${worksrcpath}/docs/manual/book.wiki ${destroot}${prefix}/share/doc/${name}/book.html
+
+    xinstall -m 644 ${worksrcpath}/tests/config.sqlite ${destroot}${prefix}/share/examples/${name}/test-config.sqlite
+    eval file copy [glob ${worksrcpath}/examples/*] ${destroot}${prefix}/share/examples/${name}
+}

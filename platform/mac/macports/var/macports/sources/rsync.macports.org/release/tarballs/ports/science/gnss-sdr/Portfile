@@ -1,0 +1,269 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143633 2015-12-16 04:26:49Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+PortGroup           cmake 1.0
+PortGroup           github 1.0
+PortGroup           active_variants 1.1
+
+name                gnss-sdr
+maintainers         michaelld gmail.com:carlesfernandez openmaintainer
+description         An Open Source Global Navigation Satellite Systems (GNSS)(for example: GPS, Galileo, Glonass, Beidou, etc) Software Defined Radio (SDR) Receiver
+categories          science
+license             GPL-3
+platforms           darwin
+
+dist_subdir         gnss-sdr
+
+if {${subport} eq "gnss-sdr"} {
+
+    long_description    ${description}: \
+        This port is kept up with the GNSS-SDR release, which is typically updated every few months. This version compiles against the gnuradio port, which represents the current GNU Radio release.
+
+    github.setup        gnss-sdr gnss-sdr 0.0.6 v
+    revision            2
+    checksums           rmd160 3a578f4795f6230d3f627dbe6f80f77c7dac206e \
+                        sha256 ed81a5dff8d91b0b1d561ab8a240818da447c8358b95ab42d6a17b479e873c3e
+    github.tarball_from tags
+
+    conflicts           gnss-sdr-devel gnss-sdr-next
+
+    depends_lib-append  port:gnuradio port:volk-gnss-sdr
+
+    require_active_variants port:gnuradio uhd
+
+    # temporary patch to fix Volk #define in compatibility
+
+    patchfiles-append patch-volk.diff
+
+    # temporary patch; will be fixed in next release.
+
+    post-patch {
+        reinplace "s@multithread@opencl@g" ${worksrcpath}/src/algorithms/acquisition/gnuradio_blocks/pcps_opencl_acquisition_cc.cc
+    }
+
+}
+
+subport gnss-sdr-devel {
+
+    long_description    ${description}: \
+        This port is kept up with the GNSS-SDR GIT master branch, which is typically updated daily to weekly.  This version of GNSS-SDR generally contains fixes and new features that will be incorporated in an upcoming release, and compiles against the gnuradio-devel port, which represents GNU Radio GIT master branch.  This port may or not compile or function correctly, as it represents a work in progress.  If it does not work, check back in a few days.  Or try deactivating the currently active gnss-sdr and gnuradio ports, cleaning any current builds, and trying again.
+
+    name                gnss-sdr-devel
+    github.setup        gnss-sdr gnss-sdr 3d44e0956cc4524598bbab012ef77ebe30c955b4
+    version             20151115
+    revision            1
+    checksums           rmd160 94c604bef6a7cf60a38320391ce58d7a859e7277 \
+                        sha256 5185d830813a50c0a7ec64f47d99f76a23574aeca4dc464e9b7afed8913dbd91
+
+    conflicts           gnss-sdr gnss-sdr-next
+
+    depends_lib-append  port:gnuradio-devel port:volk-gnss-sdr-devel
+
+    require_active_variants port:gnuradio-devel uhd
+
+}
+
+subport gnss-sdr-next {
+    long_description    ${description}: \
+        This port is kept up with the GNSS-SDR GIT next branch, which is typically updated daily to weekly.  This version of GNSS-SDR generally contains fixes and new features that will be incorporated in an upcoming release, and compiles against the gnuradio-next port, which represents GNU Radio GIT next branch.  This port may or not compile or function correctly, as it represents a work in progress.  If it does not work, check back in a few days.  Or try deactivating the currently active gnss-sdr and gnuradio ports, cleaning any current builds, and trying again.
+
+    name                gnss-sdr-next
+    github.setup        gnss-sdr gnss-sdr 633655616370d06f406beed834f6607da7f41e52
+    version             20151115
+    revision            1
+    checksums           rmd160 53dd8fd6752337aad69773ddc94e9abc4b483573 \
+                        sha256 79787927a11e7aef0a4c4c903153e5c3b9520b7c7d9caccc0f0f903bd8ab20e0
+
+    conflicts           gnss-sdr gnss-sdr-devel
+
+    depends_lib-append  port:gnuradio-next port:volk-gnss-sdr-next
+
+    require_active_variants port:gnuradio-next uhd
+
+}
+
+# override githib PortGroup homepage setting
+
+homepage            http://gnss-sdr.org
+
+depends_build-append port:pkgconfig
+
+depends_lib-append  \
+    port:armadillo \
+    port:google-glog \
+    path:lib/libuhd.dylib:uhd \
+    port:python27 \
+    port:py27-cheetah \
+    port:boost
+
+# release uses openssl while devel and next use gnutls;
+# next release update to just gnutls.
+
+if {${subport} eq "gnss-sdr"} {
+    depends_lib-append  path:lib/libssl.dylib:openssl
+} else {
+    depends_lib-append  port:gnutls
+}
+
+# require specific variants
+
+require_active_variants port:google-glog gflags
+
+# do VPATH (out of source tree) build
+
+cmake.out_of_source yes
+
+# remove top-level library path, such that internal libraries are used
+# instead of any already-installed ones.
+
+configure.ldflags-delete -L${prefix}/lib
+
+configure.args-append \
+    -DENABLE_PACKAGING=OFF \
+    -DENABLE_OWN_GLOG=OFF \
+    -DENABLE_GENERIC_ARCH=OFF
+
+# specify the Python version to use
+
+configure.args-append \
+    -DPYTHON_EXECUTABLE=${prefix}/Library/Frameworks/Python.framework/Versions/2.7/bin/python2.7
+
+# enable default variants: all except +docs, +debug, and +universal
+# do not enable +docs because it requires a non-standard variant for doxygen.
+
+default_variants +opencl
+
+# release and devel can use use gr-osmosdr, while next can't
+# (because gr-osmosdr can't use gnuradio-next)
+
+if {${subport} ne "gnss-sdr-next"} {
+    default_variants +osmosdr
+}
+
+variant docs description "Install ${name} documentation" {
+
+    depends_build-append \
+        port:doxygen
+
+    # for wasysym.sty
+
+    depends_build-append \
+        port:texlive-fonts-recommended
+
+    # require specific variant
+
+    require_active_variants port:doxygen latex
+
+    configure.args-append \
+        -DDOXYGEN_EXECUTABLE=${prefix}/bin/doxygen
+
+    # extra targets
+
+    build.target-append doc pdfmanual
+
+}
+
+if {![variant_isset docs]} {
+
+    configure.args-append \
+        -DDOXYGEN_EXECUTABLE=
+
+}
+
+variant opencl description "Install ${name} with support for building of processing blocks implemented with OpenCL (experimental)" {
+
+    configure.args-append \
+        -DENABLE_OPENCL=ON
+
+}
+
+if {![variant_isset opencl]} {
+
+    configure.args-append \
+        -DENABLE_OPENCL=OFF
+
+}
+
+variant osmosdr description "Install ${name} with support for OsmoSDR and other front-ends (RTL-based dongles, HackRF, bladeRF, etc.) as signal source (experimental). NOTE: Does not work with gnss-sdr-next." {
+
+    if {${subport} ne "gnss-sdr-next"} {
+
+        depends_build-append \
+            port:gr-osmosdr
+
+        configure.args-append \
+            -DENABLE_OSMOSDR=ON
+
+    } else {
+
+        ui_error "$subport variant +osmosdr is not viable because port:gr-osmosdr cannot use port:gnuradio-next."
+        error "unsupported variant"
+
+    }
+}
+
+if {![variant_isset osmosdr]} {
+    if {${subport} ne "gnss-sdr-next"} {
+        configure.args-append \
+            -DENABLE_OSMOSDR=OFF
+    }
+}
+
+variant array description "Install ${name} with support for CTTC's antenna array front-end as signal source (experimental)" {
+
+    configure.args-append \
+        -DENABLE_ARRAY=ON
+
+}
+
+if {![variant_isset array]} {
+
+    configure.args-append \
+        -DENABLE_ARRAY=OFF
+
+}
+
+variant gn3s description "Install ${name} with support for the GN3S dongle as signal source (experimental)" {
+
+    configure.args-append \
+        -DENABLE_GN3S=ON
+
+}
+
+if {![variant_isset gn3s]} {
+
+    configure.args-append \
+        -DENABLE_GN3S=OFF
+
+}
+
+# require c++11
+
+if {${configure.cxx_stdlib} eq "libstdc++"} {
+
+    # *clang* when using libstdc++ do not seem to support C++11;
+    # C++11 support seems to need GCC 4.7+ when using libstdc++;
+    # could use C++0x support on GCC4.[56], but just ignore it since
+    # there are newer compilers already in place as defaults.
+
+    # Blacklist GCC compilers not supporting C++11 and all CLANG.
+    # This is probably not necessary, but it's good practice.
+
+    compiler.blacklist-append *clang* {*gcc-3*} {*gcc-4.[0-6]}
+
+    # and whitelist those we do want to use. wish there were a better way.
+    # these will be used in the order provided.
+
+    compiler.whitelist macports-gcc-4.9 macports-gcc-4.8 macports-gcc-4.7
+
+} else {
+
+    # using libc++;
+    # Blacklist Clang not supporting C++11 in some form and all GCC.
+    # Just use the cxx11 PortGroup for this specific case.
+
+    PortGroup cxx11 1.0
+
+}

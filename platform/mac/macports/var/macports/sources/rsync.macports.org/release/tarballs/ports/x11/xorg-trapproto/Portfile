@@ -1,0 +1,23 @@
+# $Id: Portfile 87014 2011-11-08 01:45:15Z dports@macports.org $
+
+PortSystem 1.0
+
+name		xorg-trapproto
+version		3.4.3
+categories	x11 devel
+license		MIT
+maintainers	jeremyhu openmaintainer
+description	X.org trapproto
+homepage	http://www.x.org
+platforms	darwin
+supported_archs	noarch
+long_description Prototype headers for the XTrap extension to X11
+master_sites 	xorg:individual/proto/
+
+distname	trapproto-${version}
+checksums	sha1 b108aa39a7bfde530d5cd347fda7c58770d5b8da
+use_bzip2	yes
+
+livecheck.type  regex
+livecheck.url   http://xorg.freedesktop.org/archive/individual/proto/?C=M&O=D
+livecheck.regex trapproto-(\\d+(?:\\.\\d+)*)

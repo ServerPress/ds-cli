@@ -1,0 +1,42 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 118066 2014-03-20 18:49:22Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        vasi osxutils 1.8.1 v
+categories          sysutils
+maintainers         ryandesign openmaintainer
+license             GPL-2+
+
+description         Command line utilities for Finder commands
+
+long_description    osxutils is a package of potentially useful Mac-oriented \
+                    command line utilities for OS X. \
+                    These tools represent an effort in bringing command line \
+                    control over certain aspects of the Mac OS, in particular \
+                    file meta-data such as Finder flags, heritage file Type \
+                    and Creator codes, comments and suffixes/file extensions.
+
+checksums           rmd160  ab18669d5643ef2dcbae8265bff6f48918ad4b59 \
+                    sha256  dab0329faae3028d42ea968796d50c2afb7a328c4e99f9488ed40d39f373c533
+
+post-patch {
+    foreach item [concat [glob ${worksrcpath}/*/*.1] ${worksrcpath}/Makefile] {
+        reinplace "s|/usr/local|${prefix}|g" ${item}
+    }
+}
+
+use_configure       no
+
+variant universal {}
+
+build.args          CC=${configure.cc} \
+                    ARCH_FLAG="[get_canonical_archflags cc]" \
+                    OPT="${configure.optflags}"
+
+# ${prefix}/bin/google
+conflicts-append    googlecl
+
+# ${prefix}/bin/fileinfo
+conflicts-append    leptonica

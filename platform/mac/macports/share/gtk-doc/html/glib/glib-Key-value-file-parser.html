@@ -8,7 +8,7 @@
 <link rel="up" href="glib-utilities.html" title="GLib Utilities">
 <link rel="prev" href="glib-Simple-XML-Subset-Parser.html" title="Simple XML Subset Parser">
 <link rel="next" href="glib-Bookmark-file-parser.html" title="Bookmark file parser">
-<meta name="generator" content="GTK-Doc V1.21.1 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -585,25 +585,25 @@ consists of groups of key-value pairs, interspersed with comments.</p>
 17
 18
 19</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="preproc"># this</span><span class="normal"> is just an example</span>
-<span class="preproc"># there</span><span class="normal"> can be comments before the first group</span>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc ppc"># this is just an example</span>
+<span class="gtkdoc ppc"># there can be comments before the first group</span>
 
-<span class="symbol">[</span><span class="usertype">First</span><span class="normal"> Group</span><span class="symbol">]</span>
+<span class="gtkdoc opt">[</span>First Group<span class="gtkdoc opt">]</span>
 
-<span class="normal">Name</span><span class="symbol">=</span><span class="normal">Key </span><span class="usertype">File</span><span class="normal"> Example</span><span class="symbol">\</span><span class="normal">tthis </span><span class="usertype">value</span><span class="normal"> shows</span><span class="symbol">\</span><span class="normal">nescaping</span>
+Name<span class="gtkdoc opt">=</span>Key File Example<span class="gtkdoc esc">\t</span>this value shows<span class="gtkdoc esc">\n</span>escaping
 
-<span class="preproc"># localized</span><span class="normal"> strings are stored in </span><span class="usertype">multiple</span><span class="normal"> key</span><span class="symbol">-</span><span class="normal">value pairs</span>
-<span class="normal">Welcome</span><span class="symbol">=</span><span class="normal">Hello</span>
-<span class="normal">Welcome</span><span class="symbol">[</span><span class="normal">de</span><span class="symbol">]=</span><span class="normal">Hallo</span>
-<span class="normal">Welcome</span><span class="symbol">[</span><span class="normal">fr_FR</span><span class="symbol">]=</span><span class="normal">Bonjour</span>
-<span class="normal">Welcome</span><span class="symbol">[</span><span class="normal">it</span><span class="symbol">]=</span><span class="normal">Ciao</span>
-<span class="normal">Welcome</span><span class="symbol">[</span><span class="normal">be@latin</span><span class="symbol">]=</span><span class="normal">Hello</span>
+<span class="gtkdoc ppc"># localized strings are stored in multiple key-value pairs</span>
+Welcome<span class="gtkdoc opt">=</span>Hello
+Welcome<span class="gtkdoc opt">[</span>de<span class="gtkdoc opt">]=</span>Hallo
+Welcome<span class="gtkdoc opt">[</span>fr_FR<span class="gtkdoc opt">]=</span>Bonjour
+Welcome<span class="gtkdoc opt">[</span>it<span class="gtkdoc opt">]=</span>Ciao
+Welcome<span class="gtkdoc opt">[</span>be&#64;latin<span class="gtkdoc opt">]=</span>Hello
 
-<span class="symbol">[</span><span class="usertype">Another</span><span class="normal"> Group</span><span class="symbol">]</span>
+<span class="gtkdoc opt">[</span>Another Group<span class="gtkdoc opt">]</span>
 
-<span class="normal">Numbers</span><span class="symbol">=</span><span class="number">2</span><span class="symbol">;</span><span class="number">20</span><span class="symbol">;-</span><span class="number">200</span><span class="symbol">;</span><span class="number">0</span>
+Numbers<span class="gtkdoc opt">=</span><span class="number">2</span><span class="gtkdoc opt">;</span><span class="number">20</span><span class="gtkdoc opt">;-</span><span class="number">200</span><span class="gtkdoc opt">;</span><span class="number">0</span>
 
-<span class="normal">Booleans</span><span class="symbol">=</span><span class="normal">true</span><span class="symbol">;</span><span class="normal">false</span><span class="symbol">;</span><span class="normal">true</span><span class="symbol">;</span><span class="normal">true</span></pre></td>
+Booleans<span class="gtkdoc opt">=</span><span class="keyword">true</span><span class="gtkdoc opt">;</span><span class="keyword">false</span><span class="gtkdoc opt">;</span><span class="keyword">true</span><span class="gtkdoc opt">;</span><span class="keyword">true</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -664,7 +664,7 @@ read an existing key file.</p>
 <p> an empty <a class="link" href="glib-Key-value-file-parser.html#GKeyFile" title="GKeyFile"><span class="type">GKeyFile</span></a>. </p>
 <p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -675,8 +675,9 @@ g_key_file_free (<em class="parameter"><code><a class="link" href="glib-Key-valu
 , and decreases the
 reference count by 1. If the reference count reaches zero,
 frees the key file and all its allocated memory.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
 <div class="refsect3">
-<a name="id-1.5.27.7.3.5"></a><h4>Parameters</h4>
+<a name="id-1.5.27.7.3.6"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -690,7 +691,7 @@ frees the key file and all its allocated memory.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -699,8 +700,9 @@ frees the key file and all its allocated memory.</p>
 g_key_file_ref (<em class="parameter"><code><a class="link" href="glib-Key-value-file-parser.html#GKeyFile" title="GKeyFile"><span class="type">GKeyFile</span></a> *key_file</code></em>);</pre>
 <p>Increases the reference count of <em class="parameter"><code>key_file</code></em>
 .</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
 <div class="refsect3">
-<a name="id-1.5.27.7.4.5"></a><h4>Parameters</h4>
+<a name="id-1.5.27.7.4.6"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -715,12 +717,11 @@ g_key_file_ref (<em class="parameter"><code><a class="link" href="glib-Key-value
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.5.27.7.4.6"></a><h4>Returns</h4>
+<a name="id-1.5.27.7.4.7"></a><h4>Returns</h4>
 <p> the same <em class="parameter"><code>key_file</code></em>
 .</p>
-<p></p>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -745,7 +746,7 @@ reaches zero, frees the key file and all its allocated memory.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -778,7 +779,7 @@ as separators. The default list separator is ';'.</p>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -827,9 +828,8 @@ either a <a class="link" href="glib-File-Utilities.html#GFileError" title="enum 
 <div class="refsect3">
 <a name="id-1.5.27.7.7.6"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if a key file could be loaded, <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> otherwise</p>
-<p></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -883,9 +883,8 @@ in bytes (or (gsize)-1 if data is nul-terminated)</p></td>
 <div class="refsect3">
 <a name="id-1.5.27.7.8.6"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if a key file could be loaded, <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> otherwise</p>
-<p></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -945,9 +944,8 @@ of the file, or <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title
 <div class="refsect3">
 <a name="id-1.5.27.7.9.6"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if a key file could be loaded, <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> othewise</p>
-<p></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1014,9 +1012,8 @@ of the file, or <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title
 <div class="refsect3">
 <a name="id-1.5.27.7.10.6"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if a key file could be loaded, <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> otherwise</p>
-<p></p>
 </div>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1062,9 +1059,8 @@ returned string, or <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" t
 <a name="id-1.5.27.7.11.7"></a><h4>Returns</h4>
 <p> a newly allocated string holding
 the contents of the <a class="link" href="glib-Key-value-file-parser.html#GKeyFile" title="GKeyFile"><span class="type">GKeyFile</span></a> </p>
-<p></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1110,9 +1106,8 @@ g_key_file_save_to_file (<em class="parameter"><code><a class="link" href="glib-
 <a name="id-1.5.27.7.12.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if successful, else <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> with <em class="parameter"><code>error</code></em>
 set</p>
-<p></p>
 </div>
-<p class="since">Since 2.40</p>
+<p class="since">Since: <a class="link" href="api-index-2-40.html#api-index-2.40">2.40</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1138,9 +1133,8 @@ g_key_file_get_start_group (<em class="parameter"><code><a class="link" href="gl
 <div class="refsect3">
 <a name="id-1.5.27.7.13.6"></a><h4>Returns</h4>
 <p> The start group of the key file.</p>
-<p></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1181,7 +1175,7 @@ The array of returned groups will be <a class="link" href="glib-Standard-Macros.
 Use <a class="link" href="glib-String-Utility-Functions.html#g-strfreev" title="g_strfreev ()"><code class="function">g_strfreev()</code></a> to free it. </p>
 <p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1238,7 +1232,7 @@ be found, <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL
 Use <a class="link" href="glib-String-Utility-Functions.html#g-strfreev" title="g_strfreev ()"><code class="function">g_strfreev()</code></a> to free it. </p>
 <p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1276,9 +1270,8 @@ g_key_file_has_group (<em class="parameter"><code><a class="link" href="glib-Key
 is a part of <em class="parameter"><code>key_file</code></em>
 , <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a>
 otherwise.</p>
-<p></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1299,8 +1292,9 @@ this function, you must pass a <a class="link" href="glib-Error-Reporting.html#G
 whether it is not <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a> to see if an error occurred.</p>
 <p>Language bindings should use <a class="link" href="glib-Key-value-file-parser.html#g-key-file-get-value" title="g_key_file_get_value ()"><code class="function">g_key_file_get_value()</code></a> to test whether
 or not a key exists.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
 <div class="refsect3">
-<a name="id-1.5.27.7.17.7"></a><h4>Parameters</h4>
+<a name="id-1.5.27.7.17.8"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -1332,13 +1326,12 @@ or not a key exists.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.5.27.7.17.8"></a><h4>Returns</h4>
+<a name="id-1.5.27.7.17.9"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>key</code></em>
 is a part of <em class="parameter"><code>group_name</code></em>
 , <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> otherwise</p>
-<p></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1395,9 +1388,8 @@ and <em class="parameter"><code>error</code></em>
 <a name="id-1.5.27.7.18.7"></a><h4>Returns</h4>
 <p> a newly allocated string or <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a> if the specified
 key cannot be found.</p>
-<p></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1455,9 +1447,8 @@ and <em class="parameter"><code>error</code></em>
 <a name="id-1.5.27.7.19.7"></a><h4>Returns</h4>
 <p> a newly allocated string or <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a> if the specified
 key cannot be found.</p>
-<p></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1523,9 +1514,8 @@ be found then the untranslated value is returned.</p>
 <a name="id-1.5.27.7.20.7"></a><h4>Returns</h4>
 <p> a newly allocated string or <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a> if the specified
 key cannot be found.</p>
-<p></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1583,9 +1573,8 @@ is returned and <em class="parameter"><code>error</code></em>
 <a name="id-1.5.27.7.21.7"></a><h4>Returns</h4>
 <p> the value associated with the key as a boolean,
 or <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> if the key was not found or could not be parsed.</p>
-<p></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1643,9 +1632,8 @@ and <em class="parameter"><code>error</code></em>
 <a name="id-1.5.27.7.22.7"></a><h4>Returns</h4>
 <p> the value associated with the key as an integer, or
 0 if the key was not found or could not be parsed.</p>
-<p></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1696,9 +1684,8 @@ g_key_file_get_int64 (<em class="parameter"><code><a class="link" href="glib-Key
 <a name="id-1.5.27.7.23.6"></a><h4>Returns</h4>
 <p> the value associated with the key as a signed 64-bit integer, or
 0 if the key was not found or could not be parsed.</p>
-<p></p>
 </div>
-<p class="since">Since 2.26</p>
+<p class="since">Since: <a class="link" href="api-index-2-26.html#api-index-2.26">2.26</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1749,9 +1736,8 @@ large positive results without truncation.</p>
 <a name="id-1.5.27.7.24.6"></a><h4>Returns</h4>
 <p> the value associated with the key as an unsigned 64-bit integer,
 or 0 if the key was not found or could not be parsed.</p>
-<p></p>
 </div>
-<p class="since">Since 2.26</p>
+<p class="since">Since: <a class="link" href="api-index-2-26.html#api-index-2.26">2.26</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1810,9 +1796,8 @@ and <em class="parameter"><code>error</code></em>
 <a name="id-1.5.27.7.25.7"></a><h4>Returns</h4>
 <p> the value associated with the key as a double, or
 0.0 if the key was not found or could not be parsed.</p>
-<p></p>
 </div>
-<p class="since">Since 2.12</p>
+<p class="since">Since: <a class="link" href="api-index-2-12.html#api-index-2.12">2.12</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1876,7 +1861,7 @@ and <em class="parameter"><code>error</code></em>
 key cannot be found. The array should be freed with <a class="link" href="glib-String-Utility-Functions.html#g-strfreev" title="g_strfreev ()"><code class="function">g_strfreev()</code></a>. </p>
 <p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1 length=length][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1954,7 +1939,7 @@ or <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code
 with <a class="link" href="glib-String-Utility-Functions.html#g-strfreev" title="g_strfreev ()"><code class="function">g_strfreev()</code></a>. </p>
 <p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1 length=length][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> utf8][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2021,7 +2006,7 @@ key was not found or could not be parsed. The returned list of booleans
 should be freed with <a class="link" href="glib-Memory-Allocation.html#g-free" title="g_free ()"><code class="function">g_free()</code></a> when no longer needed. </p>
 <p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=length][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> gboolean][<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2088,7 +2073,7 @@ the key was not found or could not be parsed. The returned list of
 integers should be freed with <a class="link" href="glib-Memory-Allocation.html#g-free" title="g_free ()"><code class="function">g_free()</code></a> when no longer needed. </p>
 <p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=length][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> gint][<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2155,7 +2140,7 @@ key was not found or could not be parsed. The returned list of doubles
 should be freed with <a class="link" href="glib-Memory-Allocation.html#g-free" title="g_free ()"><code class="function">g_free()</code></a> when no longer needed. </p>
 <p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=length][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> gdouble][<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.12</p>
+<p class="since">Since: <a class="link" href="api-index-2-12.html#api-index-2.12">2.12</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2170,15 +2155,16 @@ g_key_file_get_comment (<em class="parameter"><code><a class="link" href="glib-K
 .
 If <em class="parameter"><code>key</code></em>
  is <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a> then <em class="parameter"><code>comment</code></em>
- will be read from above 
+ will be read from above
 <em class="parameter"><code>group_name</code></em>
 . If both <em class="parameter"><code>key</code></em>
  and <em class="parameter"><code>group_name</code></em>
- are <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a>, then 
+ are <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a>, then
 <em class="parameter"><code>comment</code></em>
  will be read from above the first group in the file.</p>
+<p>Note that the returned string includes the '#' comment markers.</p>
 <div class="refsect3">
-<a name="id-1.5.27.7.31.5"></a><h4>Parameters</h4>
+<a name="id-1.5.27.7.31.6"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -2210,11 +2196,10 @@ If <em class="parameter"><code>key</code></em>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.5.27.7.31.6"></a><h4>Returns</h4>
+<a name="id-1.5.27.7.31.7"></a><h4>Returns</h4>
 <p> a comment that should be freed with <a class="link" href="glib-Memory-Allocation.html#g-free" title="g_free ()"><code class="function">g_free()</code></a></p>
-<p></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2265,7 +2250,7 @@ characters that need escaping (such as newlines or spaces), use
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2316,7 +2301,7 @@ that need escaping, such as newlines.</p>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2370,7 +2355,7 @@ If the translation for <em class="parameter"><code>key</code></em>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2417,7 +2402,7 @@ If <em class="parameter"><code>key</code></em>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2464,7 +2449,7 @@ If <em class="parameter"><code>key</code></em>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2511,7 +2496,7 @@ If <em class="parameter"><code>key</code></em>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.26</p>
+<p class="since">Since: <a class="link" href="api-index-2-26.html#api-index-2.26">2.26</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2558,7 +2543,7 @@ If <em class="parameter"><code>key</code></em>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.26</p>
+<p class="since">Since: <a class="link" href="api-index-2-26.html#api-index-2.26">2.26</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2605,7 +2590,7 @@ If <em class="parameter"><code>key</code></em>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.12</p>
+<p class="since">Since: <a class="link" href="api-index-2-12.html#api-index-2.12">2.12</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2661,7 +2646,7 @@ If <em class="parameter"><code>group_name</code></em>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2723,7 +2708,7 @@ it is created.</p>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2779,7 +2764,7 @@ If <em class="parameter"><code>group_name</code></em>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2833,7 +2818,7 @@ If <em class="parameter"><code>key</code></em>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2887,7 +2872,7 @@ g_key_file_set_double_list (<em class="parameter"><code><a class="link" href="gl
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.12</p>
+<p class="since">Since: <a class="link" href="api-index-2-12.html#api-index-2.12">2.12</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2900,18 +2885,21 @@ g_key_file_set_comment (<em class="parameter"><code><a class="link" href="glib-K
                         <em class="parameter"><code><a class="link" href="glib-Error-Reporting.html#GError" title="struct GError"><span class="type">GError</span></a> **error</code></em>);</pre>
 <p>Places a comment above <em class="parameter"><code>key</code></em>
  from <em class="parameter"><code>group_name</code></em>
-.
-If <em class="parameter"><code>key</code></em>
+.</p>
+<p>If <em class="parameter"><code>key</code></em>
  is <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a> then <em class="parameter"><code>comment</code></em>
  will be written above <em class="parameter"><code>group_name</code></em>
-.  
+.
 If both <em class="parameter"><code>key</code></em>
  and <em class="parameter"><code>group_name</code></em>
   are <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a>, then <em class="parameter"><code>comment</code></em>
- will be 
+ will be
 written above the first group in the file.</p>
+<p>Note that this function prepends a '#' comment marker to
+each line of <em class="parameter"><code>comment</code></em>
+.</p>
 <div class="refsect3">
-<a name="id-1.5.27.7.45.5"></a><h4>Parameters</h4>
+<a name="id-1.5.27.7.45.7"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -2948,11 +2936,10 @@ written above the first group in the file.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.5.27.7.45.6"></a><h4>Returns</h4>
+<a name="id-1.5.27.7.45.8"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if the comment was written, <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> otherwise</p>
-<p></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2994,9 +2981,8 @@ from the key file.</p>
 <div class="refsect3">
 <a name="id-1.5.27.7.46.6"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if the group was removed, <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> otherwise</p>
-<p></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3044,9 +3030,8 @@ g_key_file_remove_key (<em class="parameter"><code><a class="link" href="glib-Ke
 <div class="refsect3">
 <a name="id-1.5.27.7.47.6"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if the key was removed, <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> otherwise</p>
-<p></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3103,9 +3088,8 @@ be removed above the first group in the file.</p>
 <div class="refsect3">
 <a name="id-1.5.27.7.48.6"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if the comment was removed, <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> otherwise</p>
-<p></p>
 </div>
-<p class="since">Since 2.6</p>
+<p class="since">Since: <a class="link" href="api-index-2-6.html#api-index-2.6">2.6</a></p>
 </div>
 </div>
 <div class="refsect1">
@@ -3238,7 +3222,7 @@ be from the <a class="link" href="glib-Key-value-file-parser.html#GKeyFileError"
 <a class="ulink" href="http://freedesktop.org/Standards/desktop-entry-spec" target="_top">Desktop Entry Specification</a>.
 Consult the specification for more
 details about the meanings of the keys below.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3250,7 +3234,7 @@ giving the type of the desktop entry. Usually
 <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-TYPE-APPLICATION:CAPS" title="G_KEY_FILE_DESKTOP_TYPE_APPLICATION"><span class="type">G_KEY_FILE_DESKTOP_TYPE_APPLICATION</span></a>,
 <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-TYPE-LINK:CAPS" title="G_KEY_FILE_DESKTOP_TYPE_LINK"><span class="type">G_KEY_FILE_DESKTOP_TYPE_LINK</span></a>, or
 <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-TYPE-DIRECTORY:CAPS" title="G_KEY_FILE_DESKTOP_TYPE_DIRECTORY"><span class="type">G_KEY_FILE_DESKTOP_TYPE_DIRECTORY</span></a>.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3260,7 +3244,7 @@ giving the type of the desktop entry. Usually
 <p>A key under <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-GROUP:CAPS" title="G_KEY_FILE_DESKTOP_GROUP"><span class="type">G_KEY_FILE_DESKTOP_GROUP</span></a>, whose value is a string
 giving the version of the Desktop Entry Specification used for
 the desktop entry file.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3269,7 +3253,7 @@ the desktop entry file.</p>
 </pre>
 <p>A key under <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-GROUP:CAPS" title="G_KEY_FILE_DESKTOP_GROUP"><span class="type">G_KEY_FILE_DESKTOP_GROUP</span></a>, whose value is a localized
 string giving the specific name of the desktop entry.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3278,7 +3262,7 @@ string giving the specific name of the desktop entry.</p>
 </pre>
 <p>A key under <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-GROUP:CAPS" title="G_KEY_FILE_DESKTOP_GROUP"><span class="type">G_KEY_FILE_DESKTOP_GROUP</span></a>, whose value is a localized
 string giving the generic name of the desktop entry.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3287,7 +3271,7 @@ string giving the generic name of the desktop entry.</p>
 </pre>
 <p>A key under <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-GROUP:CAPS" title="G_KEY_FILE_DESKTOP_GROUP"><span class="type">G_KEY_FILE_DESKTOP_GROUP</span></a>, whose value is a boolean
 stating whether the desktop entry should be shown in menus.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3296,7 +3280,7 @@ stating whether the desktop entry should be shown in menus.</p>
 </pre>
 <p>A key under <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-GROUP:CAPS" title="G_KEY_FILE_DESKTOP_GROUP"><span class="type">G_KEY_FILE_DESKTOP_GROUP</span></a>, whose value is a localized
 string giving the tooltip for the desktop entry.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3306,7 +3290,7 @@ string giving the tooltip for the desktop entry.</p>
 <p>A key under <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-GROUP:CAPS" title="G_KEY_FILE_DESKTOP_GROUP"><span class="type">G_KEY_FILE_DESKTOP_GROUP</span></a>, whose value is a localized
 string giving the name of the icon to be displayed for the desktop
 entry.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3315,7 +3299,7 @@ entry.</p>
 </pre>
 <p>A key under <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-GROUP:CAPS" title="G_KEY_FILE_DESKTOP_GROUP"><span class="type">G_KEY_FILE_DESKTOP_GROUP</span></a>, whose value is a boolean
 stating whether the desktop entry has been deleted by the user.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3325,7 +3309,7 @@ stating whether the desktop entry has been deleted by the user.</p>
 <p>A key under <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-GROUP:CAPS" title="G_KEY_FILE_DESKTOP_GROUP"><span class="type">G_KEY_FILE_DESKTOP_GROUP</span></a>, whose value is a list of
 strings identifying the environments that should display the
 desktop entry.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3335,7 +3319,7 @@ desktop entry.</p>
 <p>A key under <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-GROUP:CAPS" title="G_KEY_FILE_DESKTOP_GROUP"><span class="type">G_KEY_FILE_DESKTOP_GROUP</span></a>, whose value is a list of
 strings identifying the environments that should not display the
 desktop entry.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3346,7 +3330,7 @@ desktop entry.</p>
 giving the file name of a binary on disk used to determine if the
 program is actually installed. It is only valid for desktop entries
 with the <code class="literal">Application</code> type.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3356,7 +3340,7 @@ with the <code class="literal">Application</code> type.</p>
 <p>A key under <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-GROUP:CAPS" title="G_KEY_FILE_DESKTOP_GROUP"><span class="type">G_KEY_FILE_DESKTOP_GROUP</span></a>, whose value is a string
 giving the command line to execute. It is only valid for desktop
 entries with the <code class="literal">Application</code> type.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3366,7 +3350,7 @@ entries with the <code class="literal">Application</code> type.</p>
 <p>A key under <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-GROUP:CAPS" title="G_KEY_FILE_DESKTOP_GROUP"><span class="type">G_KEY_FILE_DESKTOP_GROUP</span></a>, whose value is a string
 containing the working directory to run the program in. It is only
 valid for desktop entries with the <code class="literal">Application</code> type.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3377,7 +3361,7 @@ valid for desktop entries with the <code class="literal">Application</code> type
 stating whether the program should be run in a terminal window.
 It is only valid for desktop entries with the
 <code class="literal">Application</code> type.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3386,7 +3370,7 @@ It is only valid for desktop entries with the
 </pre>
 <p>A key under <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-GROUP:CAPS" title="G_KEY_FILE_DESKTOP_GROUP"><span class="type">G_KEY_FILE_DESKTOP_GROUP</span></a>, whose value is a list
 of strings giving the MIME types supported by this desktop entry.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3396,7 +3380,7 @@ of strings giving the MIME types supported by this desktop entry.</p>
 <p>A key under <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-GROUP:CAPS" title="G_KEY_FILE_DESKTOP_GROUP"><span class="type">G_KEY_FILE_DESKTOP_GROUP</span></a>, whose value is a list
 of strings giving the categories in which the desktop entry
 should be shown in a menu.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3406,7 +3390,7 @@ should be shown in a menu.</p>
 <p>A key under <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-GROUP:CAPS" title="G_KEY_FILE_DESKTOP_GROUP"><span class="type">G_KEY_FILE_DESKTOP_GROUP</span></a>, whose value is a boolean
 stating whether the application supports the
 <a class="ulink" href="http://www.freedesktop.org/Standards/startup-notification-spec" target="_top">Startup Notification Protocol Specification</a>.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3417,7 +3401,7 @@ stating whether the application supports the
 identifying the WM class or name hint of a window that the application
 will create, which can be used to emulate Startup Notification with
 older applications.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3427,7 +3411,7 @@ older applications.</p>
 <p>A key under <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-GROUP:CAPS" title="G_KEY_FILE_DESKTOP_GROUP"><span class="type">G_KEY_FILE_DESKTOP_GROUP</span></a>, whose value is a string
 giving the URL to access. It is only valid for desktop entries
 with the <code class="literal">Link</code> type.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3436,7 +3420,7 @@ with the <code class="literal">Link</code> type.</p>
 </pre>
 <p>A key under <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-GROUP:CAPS" title="G_KEY_FILE_DESKTOP_GROUP"><span class="type">G_KEY_FILE_DESKTOP_GROUP</span></a>, whose value is a string list
 giving the available application actions.</p>
-<p class="since">Since 2.38</p>
+<p class="since">Since: <a class="link" href="api-index-2-38.html#api-index-2.38">2.38</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3445,7 +3429,7 @@ giving the available application actions.</p>
 </pre>
 <p>A key under <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-GROUP:CAPS" title="G_KEY_FILE_DESKTOP_GROUP"><span class="type">G_KEY_FILE_DESKTOP_GROUP</span></a>, whose value is a boolean set to true
 if the application is D-Bus activatable.</p>
-<p class="since">Since 2.38</p>
+<p class="since">Since: <a class="link" href="api-index-2-38.html#api-index-2.38">2.38</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3454,7 +3438,7 @@ if the application is D-Bus activatable.</p>
 </pre>
 <p>The value of the <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-KEY-TYPE:CAPS" title="G_KEY_FILE_DESKTOP_KEY_TYPE"><span class="type">G_KEY_FILE_DESKTOP_KEY_TYPE</span></a>, key for desktop
 entries representing applications.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3463,7 +3447,7 @@ entries representing applications.</p>
 </pre>
 <p>The value of the <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-KEY-TYPE:CAPS" title="G_KEY_FILE_DESKTOP_KEY_TYPE"><span class="type">G_KEY_FILE_DESKTOP_KEY_TYPE</span></a>, key for desktop
 entries representing links to documents.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3472,12 +3456,11 @@ entries representing links to documents.</p>
 </pre>
 <p>The value of the <a class="link" href="glib-Key-value-file-parser.html#G-KEY-FILE-DESKTOP-KEY-TYPE:CAPS" title="G_KEY_FILE_DESKTOP_KEY_TYPE"><span class="type">G_KEY_FILE_DESKTOP_KEY_TYPE</span></a>, key for desktop
 entries representing directories.</p>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21.1</div>
+<hr>Generated by GTK-Doc V1.24</div>
 </body>
 </html>

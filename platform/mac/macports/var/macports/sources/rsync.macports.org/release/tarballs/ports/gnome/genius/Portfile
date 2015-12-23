@@ -1,0 +1,94 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
+
+PortSystem          1.0
+
+name                genius
+version             1.0.20
+revision            1
+license             GPL-3+
+set branch          [join [lrange [split ${version} .] 0 1] .]
+categories          gnome math
+platforms           darwin
+maintainers         nomaintainer
+
+description         Genius is a calculator program.
+
+long_description    Genius is a calculator program similiar in some aspects \
+                    to BC, Matlab or Maple. GEL is the name of its extention \
+                    language (stands for \"Genius Extension Language\", \
+                    clever huh?), in fact, a large part of the standard \
+                    genius functions are written in GEL itself.
+
+homepage            http://www.jirka.org/genius.html
+master_sites        gnome:sources/${name}/${branch}/
+
+use_xz              yes
+
+checksums           rmd160  6da7b157ece84bf42d992bc02f191ce97b1d188b \
+                    sha256  3994e414578fd494f02d89d0840ea86eff51a53e0a3fe1ae6d31d6c328b0d787
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:gnome-common \
+                    port:gnome-doc-utils \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                    port:mpfr \
+                    port:ncurses \
+                    port:readline
+
+depends_run         port:desktop-file-utils \
+                    port:rarian \
+                    port:shared-mime-info
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+}
+
+configure.cmd       ./autogen.sh
+
+# disable extra gcc optimization for clang compatibility
+
+configure.args      --disable-extra-gcc-optimization \
+                    --enable-compile-warnings=minimum \
+                    --disable-gnome \
+                    --disable-gtksourceview \
+                    --disable-update-mimedb \
+                    --disable-scrollkeeper
+
+configure.cflags-append \
+                    -std=gnu89
+
+variant gnome description {Compile with the GNOME frontend (GUI, plotting} {
+    depends_lib-append \
+                    port:gtksourceview2 \
+                    port:vte-gtk2-compat
+
+    depends_run-append \
+                    port:yelp
+
+    configure.args-append \
+                    --enable-gnome \
+                    --enable-gtksourceview
+    
+    configure.args-delete \
+                    --disable-gnome \
+                    --disable-gtksourceview
+}
+
+default_variants +gnome
+
+post-activate {
+    system "${prefix}/bin/scrollkeeper-update"
+    system "${prefix}/bin/update-mime-database ${prefix}/share/mime"
+    system "${prefix}/bin/update-desktop-database ${prefix}/share/applications"
+    system "${prefix}/bin/gtk-update-icon-cache -f -t ${prefix}/share/icons/hicolor"
+}
+
+livecheck.type      gnome

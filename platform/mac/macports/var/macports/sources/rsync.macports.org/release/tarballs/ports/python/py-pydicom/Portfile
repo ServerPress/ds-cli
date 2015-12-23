@@ -1,0 +1,58 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135037 2015-04-14 00:08:39Z eborisch@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+PortGroup           github 1.0
+github.setup        darcymason pydicom 0.9.9 v
+name                py-pydicom
+version             0.9.9
+python.versions     26 27
+python.default_version 27
+platforms           darwin
+license             MIT BSD
+maintainers         eborisch \
+                    openmaintainer
+supported_archs     noarch
+
+description         Python Module for working with DICOM files
+
+long_description    pydicom is a pure python package for working with DICOM \
+                    files. It was made for inspecting and modifying DICOM \
+                    files in an easy pythonic way. The modifications can be \
+                    written again to a new file. As a pure python package, it \
+                    should run anywhere python runs without any other \
+                    requirements.
+
+homepage            http://www.pydicom.org
+
+checksums \
+    rmd160  8505bfd7f10f861508e89736ec8771834f2f6492 \
+    sha256  c42cbc6d1177ce31bfe2d8aba379c8203cd42e8e1c6a9410f67d8e224bf464a1
+
+if {${name} ne ${subport}} {
+    depends_lib-append      port:py${python.version}-numpy
+    depends_build-append    port:py${python.version}-sphinx
+
+    worksrcdir          ${distname}/source
+
+    post-extract {
+        reinplace s/sphinx-build/sphinx-build-${python.branch}/ \
+            ../docs/Makefile
+    }
+
+    post-build {
+        system -W ${worksrcpath}/../docs/ \
+            "make html"
+    }
+    
+    post-destroot {
+        set DOCDIR ${destroot}${prefix}/share/doc/${subport}
+        xinstall -d ${DOCDIR}
+        file copy ${worksrcpath}/dicom/license.txt ${DOCDIR}
+        file copy ${worksrcpath}/../docs/release-notes.txt ${DOCDIR}
+        file copy ${worksrcpath}/../docs/_build/html ${DOCDIR}
+    }
+}
+
+livecheck.regex       {pydicom-(\d+(?:\.\d+)*).tar.gz}

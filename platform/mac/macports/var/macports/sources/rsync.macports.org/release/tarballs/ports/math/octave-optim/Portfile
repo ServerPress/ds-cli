@@ -1,0 +1,23 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
+# $Id: Portfile 133797 2015-03-11 19:40:04Z michaelld@macports.org $
+
+PortSystem          1.0
+PortGroup           octave 1.0
+PortGroup           compilers 1.0
+
+octave.setup        optim 1.4.1
+revision            1
+platforms           darwin
+license             GFDL GPL-3+ BSD public-domain
+maintainers         nomaintainer
+description         Unconstrained Non-linear Optimization toolkit.
+long_description    ${description}
+
+checksums           rmd160 5d4ae94fd46071dfac4fba4550d421c5971b4f2b \
+                    sha256 b20828bb1d3ac2685e60e6f2689895953bbe000e048bb9557ac9ae01dfa54beb
+
+depends_lib-append  port:octave-miscellaneous \
+                    port:octave-struct
+
+compilers.choose    fc f77 f90
+compilers.setup     require_fortran -dragonegg

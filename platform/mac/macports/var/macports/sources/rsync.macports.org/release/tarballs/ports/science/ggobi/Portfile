@@ -1,0 +1,50 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 120055 2014-05-14 20:39:26Z devans@macports.org $
+
+PortSystem          1.0
+
+name                ggobi
+version             2.1.9
+categories          science
+# CPL conflicts with (L)GPL
+license             CPL-1 LGPL-2.1+ GPL-3 Restrictive
+maintainers         nomaintainer
+
+description         An open source visualization program \
+                    for exploring high-dimensional data.
+
+long_description    GGobi is an open source visualization program for exploring \
+                    high-dimensional data. It provides highly dynamic and interactive \
+                    graphics such as tours, as well as familiar graphics such as the \
+                    scatterplot, barchart and parallel coordinates plots. Plots are \
+                    interactive and linked with brushing and identification.
+
+platforms           darwin
+
+homepage            http://www.ggobi.org/
+master_sites        http://www.ggobi.org/downloads/
+
+checksums           rmd160  26c9dff129041c479598bf6461d3b60123c625d1 \
+                    sha256  9f47ccfdbae7ae22c0096e9a171a523505e031f68dfaf705799cb87d42d73dcc
+
+use_bzip2           yes
+
+depends_build       port:pkgconfig
+depends_lib         port:gtk2 \
+                    port:libxml2 \
+                    port:gob2
+
+# GraphLayout plugin is not compatible with current graphviz API, disabled (#43712).
+
+configure.args      --with-dataviewer \
+                    --with-describedisplay \
+                    --with-ggvis \
+                    --with-graphaction \
+                    --with-varcloud
+
+patchfiles          patch-src-texture.diff \
+                    patch-src-barchart.diff
+
+livecheck.type      regex
+livecheck.url       ${master_sites}
+livecheck.regex     "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

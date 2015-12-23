@@ -1,0 +1,19 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141967 2015-11-01 05:47:30Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Email-Address 1.908
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         perl rfc email address formatting
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  8c8e3129c54c55c45bdbe4384e4e80f9a5d95c95 \
+                    sha256  e5f860bdfe6d768324bc9e402d563667e4171dd98f1a87d785e9087f7793d444
+
+supported_archs     noarch

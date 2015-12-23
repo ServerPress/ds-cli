@@ -1,0 +1,40 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136859 2015-05-28 15:12:59Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+set _name           python-ly
+set _n              [string index ${_name} 0]
+
+name                py-ly
+version             0.9.2
+platforms           darwin
+supported_archs     noarch
+license             GPL-2+
+maintainers         gmail.com:davide.liessi openmaintainer
+
+description         Tool and library for manipulating LilyPond files
+long_description    The ${_name} package provides a Python library \
+                    and a commandline tool that can be used to parse and \
+                    manipulate LilyPond source files.
+
+homepage            https://github.com/wbsoft/${_name}
+master_sites        https://pypi.python.org/packages/source/${_n}/${_name}/
+distname            ${_name}-${version}
+
+checksums           md5     f1b8eeeea96da74d65562bdda13291f5 \
+                    rmd160  8c5237b771ff0e51add3965e9104a691580555de \
+                    sha256  a231b8f8977966afff70a840fb5baa1d3d263d5a9565ca9a5b28c398307952af
+
+python.versions     27 34
+
+build {}
+
+livecheck.type  regex
+livecheck.url   https://pypi.python.org/pypi/${_name}
+livecheck.regex ">${_name}-(\\d+(\\.\\d+)+)\\${extract.suffix}<"
+
+if {${name} ne ${subport}} {
+    livecheck.type  none
+}

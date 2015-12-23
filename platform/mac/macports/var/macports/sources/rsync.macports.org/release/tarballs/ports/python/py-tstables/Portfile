@@ -1,0 +1,45 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141630 2015-10-24 13:19:00Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-tstables
+version             0.0.15
+revision            0
+categories-append   science
+platforms           darwin
+license             MIT
+
+python.versions     27 34 35
+
+maintainers         stromnov openmaintainer
+
+description         Handles large time series using PyTables and Pandas
+
+long_description    TsTables is a Python package to store time series data \
+                    in HDF5 files using PyTables. It stores time series data \
+                    into daily partitions and provides functions to query \
+                    for subsets of data across partitions.
+
+homepage            http://github.com/afiedler/tstables
+master_sites        pypi:[string index ${python.rootname} 0]/${python.rootname}
+
+distname            ${python.rootname}-${version}
+
+checksums           rmd160  352437fd72fd020069d634ec0712a8a264e75f8c \
+                    sha256  3ebd49f53cfaf0c415593067ef1f75f8e3b46bad9404885a5f4fbc58abd41b9b
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-setuptools
+
+    depends_lib-append  port:py${python.version}-tables \
+                        port:py${python.version}-pandas \
+                        port:py${python.version}-numpy \
+                        port:py${python.version}-tz
+
+    livecheck.type      none
+} else {
+    livecheck.type      pypi
+}

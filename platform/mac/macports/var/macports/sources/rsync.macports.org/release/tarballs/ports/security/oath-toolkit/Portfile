@@ -1,0 +1,31 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 96191 2012-08-03 00:56:41Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                oath-toolkit
+version             1.12.4
+categories          security devel
+platforms           darwin
+maintainers         alum.wpi.edu:arno+macports openmaintainer
+license             GPL-3
+
+description         The OATH Toolkit contains a shared library, command line \
+                    tool, and PAM module for one-time password authentication.
+
+long_description    The OATH Toolkit contains a shared library, command line \
+                    tool, and PAM module that makes it possible to build \
+                    one-time password authentication systems. Supported \
+                    technologies include the event-based HOTP algorithm and \
+                    the time-based TOTP algorithm. OATH is the Open \
+                    AuTHentication organization which specify the algorithms.
+
+homepage            http://oath-toolkit.nongnu.org/
+master_sites        savannah
+
+checksums           sha256 6995314a908498c5904ad2566463c2004b1165ce2b70aeae39b99203e53f670a \
+                    rmd160 0fd46c76dba5cb626c8a07f5a403d54607058db5
+
+livecheck.type      regex
+livecheck.url       http://download.savannah.gnu.org/releases/oath-toolkit/
+livecheck.regex     ${name}-(\[0-9.\]+)${extract.suffix}

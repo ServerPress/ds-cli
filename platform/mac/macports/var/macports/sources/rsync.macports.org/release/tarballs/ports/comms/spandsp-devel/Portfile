@@ -1,0 +1,31 @@
+# $Id: Portfile 102865 2013-02-09 19:16:59Z jeremyhu@macports.org $
+
+PortSystem          1.0
+
+name                spandsp-devel
+set basever         0.0.6
+set prerelease      pre18
+version             ${basever}${prerelease}
+revision            1
+categories          comms devel net
+maintainers         db.org:aeh
+description         library of DSP functions for telephony
+long_description    Spandsp is a library of many DSP functions for telephony.\
+                    These range from simple modules, such as DTMF detection, \
+                    to a complete software FAX machine.
+homepage            http://www.soft-switch.org/
+platforms           darwin
+master_sites        http://www.soft-switch.org/downloads/spandsp/
+
+distname            spandsp-${version}
+extract.suffix      .tgz
+worksrcdir          spandsp-${basever}
+
+checksums           rmd160  cfbce55ab6fae0b6e433af00f020930f9d0bd300 \
+                    sha256  835cd886105e4e39791f0e8cfe004c39b069f2e6dcb0795a68a6c79b5d14af2c
+
+depends_lib         port:tiff
+
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     spandsp-(\[0-9.pre\]+)${extract.suffix}

@@ -1,0 +1,45 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 129317 2014-12-10 07:49:20Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+PortGroup           xcode 1.0
+
+github.setup        fikovnik ShiftIt 1.6 version-
+categories          aqua
+maintainers         nomaintainer
+license             GPL-3+
+
+description         Managing windows size and position in OS X
+
+long_description    ${description}
+
+checksums           rmd160  c54eb6dafdc8c78704e1622ed7f8ce13f0f05086 \
+                    sha256  a95498213adda5c66963ec76b4e9522e799d0c8582ebe0e4e40733b7aff21a92
+
+depends_lib         port:xorg-libX11
+
+universal_variant   no
+
+build.dir           ${worksrcpath}/ShiftIt
+
+patchfiles          patch-ShiftIt-ShiftIt.xcodeproj-project.pbxproj.diff
+
+post-patch {
+    reinplace "s|@PREFIX@|${prefix}|g" ${build.dir}/ShiftIt.xcodeproj/project.pbxproj
+}
+
+xcode.project       ShiftIt.xcodeproj
+xcode.target        ShiftIt
+xcode.configuration Release
+
+platform darwin {
+    if {${os.major} >= 13} {
+        notes-append "
+For new installs on OS X 10.9 or later, read this page instead\
+of following the Accessibility settings dialog:
+
+${homepage}/issues/110#issuecomment-20834932
+"
+    }
+}

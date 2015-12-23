@@ -1,0 +1,31 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130418 2014-12-30 06:41:52Z larryv@macports.org $
+
+PortSystem 1.0
+PortGroup python 1.0
+
+name                    py-dpkt
+version                 1.8
+categories-append       net
+license                 BSD
+maintainers             nomaintainer
+description             python packet creation and parsing library
+long_description        dpkt provides fast, simple packet creation and \
+                        parsing for python programs, with definitions for the \
+                        basic TCP/IP protocols.
+platforms               darwin
+supported_archs         noarch
+
+homepage                http://code.google.com/p/dpkt/
+master_sites            googlecode:dpkt
+
+checksums               rmd160  6c52dd753897ea10b15b9a67ef0303464bbfc7eb \
+                        sha256  c56de2f9dc2f4654a356de0f0d458bb7b1c86c374988e8b4f358556f7dbe0507
+
+python.versions         27
+
+if {${name} ne ${subport}} {
+    livecheck.type      none
+}
+
+distname                dpkt-${version}

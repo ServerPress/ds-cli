@@ -1,0 +1,376 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141869 2015-10-30 12:05:44Z mojca@macports.org $
+
+# Keep in sync with Gate (and/or implement a PortGroup)
+
+PortSystem          1.0
+PortGroup           cmake 1.0
+PortGroup           select 1.0
+
+name                geant4
+version             4
+categories          science
+maintainers         mojca openmaintainer
+license             Restrictive/Distributable
+#                   http://geant4.web.cern.ch/geant4/license/LICENSE.html
+description         Geant4 is a toolkit for the simulation of the passage of particles through matter.
+long_description    Geant4 is a toolkit for the simulation of the passage of particles through matter. \
+                    Its areas of application include high energy, nuclear and accelerator physics, as well as studies in medical and space science. \
+                    The two main reference papers for Geant4 are published in Nuclear Instruments and Methods in Physics Research A 506 (2003) 250-303, \
+                    and IEEE Transactions on Nuclear Science 53 No. 1 (2006) 270-278.
+homepage            http://geant4.web.cern.ch/
+platforms           darwin
+
+master_sites        http://geant4.cern.ch/support/source/
+
+# meaning of the fields:
+# - version
+# - revision (used internally in MacPorts to force updates)
+# - revision of data files (used internally in MacPorts to force updates)
+# - patchlevel (also used in directory names)
+# - version string (used for fetching the source)
+#
+# if we start distributing betas, epoch will have to be added for the transition from version 4.x.y.b01 to 4.x.y
+set geant.versions_info {
+     9.5  3  0  2  4.9.5.p02    33413f6233b75c003254af5888f4af32d17f515d  adb04fce9472228bb10d78cbc7f40493bfb37454beee22e7c80d630646cd3777
+     9.6  1  0  4  4.9.6.p04    3dd8f6ac2e79929d26519e83fce113691a670788  997220a5386a43ac8f533fc7d5a8360aa1fd6338244d17deeaa583fb3a0f39fd
+    10.0  1  0  4  4.10.00.p04  bfd11977b55f316f5c38d82f09dc37e7c0f60ea7  f4e1fc6d5ea4d9761ba44fd7e50921ff6276e25c2f640c7615460235d8c77d74
+    10.1  0  0  2  4.10.01.p02  e42f15d9a30acfa6cee2e659f36bf3ec014ea996  ee7917f6a4fe4c714cc9c68abaa3a2c32628d328186d8514d7cdecd7c639143f
+}
+
+set geant.data_versions_10.1 {
+    G4NDL              4.5   G4NDL                G4NEUTRONHPDATA    fd29c45fe2de432f1f67232707b654c0  5c03cd810e590e48bae8b52e44e0ba218fcfc5ec  cba928a520a788f2bc8229c7ef57f83d0934bb0c6a18c31ef05ef4865edcdf8e
+    G4EMLOW            6.41  G4EMLOW              G4LEDATA           b9b2e455d08375ca9cc5201236db6d7d  f61578e1867c52626302c55d92cf7eaae5d282d4  6d878b18bf5e748e9d0ea35ef67eebab16df80cc912402986a03a5e1935f4af2
+    PhotonEvaporation  3.1   G4PhotonEvaporation  G4LEVELGAMMADATA   e7870c5ef18ba702e68c22b62233cbb8  9d287e92aa1943ffe736f9e91a678667650eb760  276ac5f7b45ce96ae0927c7a3fff0942b7007cfe9339540fc22554fea433142e
+    RadioactiveDecay   4.2   G4RadioactiveDecay   G4RADIOACTIVEDATA  2eade8116387ef67d4cd6f14b9cb1512  b1b7b0377223e6ad54aa100646053e493fcec8d5  cf1946d9e2c222ec1311e7ed94a54a6646cf519b71299e2297a6be3c85ba3c82
+    G4NEUTRONXS        1.4   G4NEUTRONXS          G4NEUTRONXSDATA    665a12771267e3b31a08c622ba1238a7  41278460f9c4a720f2b9e47dee878b9ec289ebd1  57b38868d7eb060ddd65b26283402d4f161db76ed2169437c266105cca73a8fd
+    G4PII              1.3   G4PII                G4PIIDATA          05f2471dbcdf1a2b17cbff84e8e83b37  313a2615903b0682b8aabc344bedde82c345704b  6225ad902675f4381c98c6ba25fc5a06ce87549aa979634d3d03491d6616e926
+    RealSurface        1.0   RealSurface          G4REALSURFACEDATA  0dde95e00fcd3bcd745804f870bb6884  030513fe340e0cccbfe0b9ae9acb3ba6b5291ebb  3e2d2506600d2780ed903f1f2681962e208039329347c58ba1916740679020b1
+    G4SAIDDATA         1.1   G4SAIDDATA           G4SAIDXSDATA       d88a31218fdf28455e5c5a3609f7216f  7f0c75c86eea3d227379d3dfe77e4600752f99a2  a38cd9a83db62311922850fe609ecd250d36adf264a88e88c82ba82b7da0ed7f
+    G4ABLA             3.0   G4ABLA               G4ABLADATA         d7049166ef74a592cb97df0ed4b757bd  656b10fc9d8022e89e99a728576d0b502161aa69  99fd4dcc9b4949778f14ed8364088e45fa4ff3148b3ea36f9f3103241d277014
+    G4ENSDFSTATE       1.0   G4ENSDFSTATE         G4ENSDFSTATEDATA   0c153d96c74e3856288b450436a5e4db  e643d1ef8bbcfaedb6108b889e3c2cc9a05a673e  4562e7476aa2df7204a1a77263e9d2331e9ffcdb591d11814dcc2d6b605021dd
+}
+set geant.data_versions_10.0 {
+    G4NDL              4.4   G4NDL                G4NEUTRONHPDATA    cd8cc1d96aeb9b9ed37189edda26f5ad  8ba64e2f71ccaef278450d292239b889daae72fb  e9fe8800566a83ccaf9b5229a1fa1d2cd24530bbd2e9fcb96eb6b5b117233071
+    G4EMLOW            6.35  G4EMLOW              G4LEDATA           3345d693b012c80f3e7e4432ae9884a0  1f0310afff7d6429ad054185dda233a9f469356d  1564045a0acad344c8d432cd48c2c3bb2e051a81ab3099a84e0f56ba0fe82cec
+    PhotonEvaporation  3.0   G4PhotonEvaporation  G4LEVELGAMMADATA   f72d6d694f608fe10cc2126a0ac1f2a6  2502330f6e654e926eb8a0007725651644d25e95  c76a843672eca21110e97a274a6b5cd9a58b66f35235301c8e1b162926e0e7cb
+    RadioactiveDecay   4.0   G4RadioactiveDecay   G4RADIOACTIVEDATA  44a43b8f62c9f9cd4c3cb31c2b2bb7c3  cae534121a147fbd94979c1a3109e0ed130df580  ed2053bddee507920a29a27db4364fbef255b951597686b0410d5458e9b38cb5
+    G4NEUTRONXS        1.4   G4NEUTRONXS          G4NEUTRONXSDATA    665a12771267e3b31a08c622ba1238a7  41278460f9c4a720f2b9e47dee878b9ec289ebd1  57b38868d7eb060ddd65b26283402d4f161db76ed2169437c266105cca73a8fd
+    G4PII              1.3   G4PII                G4PIIDATA          05f2471dbcdf1a2b17cbff84e8e83b37  313a2615903b0682b8aabc344bedde82c345704b  6225ad902675f4381c98c6ba25fc5a06ce87549aa979634d3d03491d6616e926
+    RealSurface        1.0   RealSurface          G4REALSURFACEDATA  0dde95e00fcd3bcd745804f870bb6884  030513fe340e0cccbfe0b9ae9acb3ba6b5291ebb  3e2d2506600d2780ed903f1f2681962e208039329347c58ba1916740679020b1
+    G4SAIDDATA         1.1   G4SAIDDATA           G4SAIDXSDATA       d88a31218fdf28455e5c5a3609f7216f  7f0c75c86eea3d227379d3dfe77e4600752f99a2  a38cd9a83db62311922850fe609ecd250d36adf264a88e88c82ba82b7da0ed7f
+    G4ABLA             3.0   G4ABLA               G4ABLADATA         d7049166ef74a592cb97df0ed4b757bd  656b10fc9d8022e89e99a728576d0b502161aa69  99fd4dcc9b4949778f14ed8364088e45fa4ff3148b3ea36f9f3103241d277014
+    G4ENSDFSTATE       1.0   G4ENSDFSTATE         G4ENSDFSTATEDATA   0c153d96c74e3856288b450436a5e4db  e643d1ef8bbcfaedb6108b889e3c2cc9a05a673e  4562e7476aa2df7204a1a77263e9d2331e9ffcdb591d11814dcc2d6b605021dd
+}
+set geant.data_versions_9.6 {
+    G4NDL              4.2   G4NDL                G4NEUTRONHPDATA    2302d7ffeef1a450955302f027ee1cf4  5289896235ccb84f551f642447372f286084a695  173f60a506b9176d7ff531d6a5f6195dcec74df30ffafc09644f47f979bd641b
+    G4EMLOW            6.32  G4EMLOW              G4LEDATA           9d3302072ba694b1d4505c330ed89d89  d5b1c435fb4925339175188472f1453637c98b0d  bdb3c00af89b18c21553d79fd823110429fdcf1e83c029aa450185d9caf4a7cf
+    PhotonEvaporation  2.3   G4PhotonEvaporation  G4LEVELGAMMADATA   08848ebdd536280a0629d802040b70be  8cd383005f5f8c38f69e4818cf5b1ad397925abc  60449df933794aa0ad3938886c8c023e3093ff59ad6c752923390d5c550f34cb
+    RadioactiveDecay   3.6   G4RadioactiveDecay   G4RADIOACTIVEDATA  9566ff1614bea7455343328cb66abd6f  1ed4a9707a18720d9a649fd4a7ca97faf24434b9  3502ed4be04d694115a3acf59d7a3593725a2d79f3adad0ffa135ff653f89d1d
+    G4NEUTRONXS        1.2   G4NEUTRONXS          G4NEUTRONXSDATA    092634b9258c7bc387cb83557ff1df81  5ebf3b9006a9c6249cad8e40e9661fbe3ec50f0e  9ce488505b4c3623e2d98209f708a30e3f213a1371a9110d289257a02b2d7d5c
+    G4PII              1.3   G4PII                G4PIIDATA          05f2471dbcdf1a2b17cbff84e8e83b37  313a2615903b0682b8aabc344bedde82c345704b  6225ad902675f4381c98c6ba25fc5a06ce87549aa979634d3d03491d6616e926
+    RealSurface        1.0   RealSurface          G4REALSURFACEDATA  0dde95e00fcd3bcd745804f870bb6884  030513fe340e0cccbfe0b9ae9acb3ba6b5291ebb  3e2d2506600d2780ed903f1f2681962e208039329347c58ba1916740679020b1
+    G4SAIDDATA         1.1   G4SAIDDATA           G4SAIDXSDATA       d88a31218fdf28455e5c5a3609f7216f  7f0c75c86eea3d227379d3dfe77e4600752f99a2  a38cd9a83db62311922850fe609ecd250d36adf264a88e88c82ba82b7da0ed7f
+}
+set geant.data_versions_9.5 {
+    G4NDL              4.0   G4NDL                G4NEUTRONHPDATA    6d23aff98e5706af1dd7fff397969f37  602d209009ee93d792cb67fe592aa37de6bab7c2  cef4fab143d8dcb8eae4c6e5c095af01d735bb36334b9958e00e30bcec9827ed
+    G4EMLOW            6.23  G4EMLOW              G4LEDATA           98cdca1024bf168c8f8ca1deb40f43b9  84529979894ed5e35ade27201fee67884d7b381d  6452215d9a0acbd35c71eed47f3581fd0276d7088b1a1a8588c003d9072aed3e
+    PhotonEvaporation  2.2   G4PhotonEvaporation  G4LEVELGAMMADATA   8010e7ce8a92564e38dd3418e6040563  8efc16c40b4755d209f83f31f2d251bbef52ccb8  9db02ef8e5b065c1b7f7d1becd1b72dde2b8fc617bcedde97788040418f239c0
+    RadioactiveDecay   3.4   G4RadioactiveDecay   G4RADIOACTIVEDATA  a5b681048584631608ab0965b33c7959  378c237cd5857b4205980815a3c47cdb654506d4  1ecfb477ca3c3966dd128193d8e11e24d6c3dc29cc188c8c9b0b21b941f9c30c
+    G4ABLA             3.0   G4ABLA               G4ABLADATA         d7049166ef74a592cb97df0ed4b757bd  656b10fc9d8022e89e99a728576d0b502161aa69  99fd4dcc9b4949778f14ed8364088e45fa4ff3148b3ea36f9f3103241d277014
+    G4NEUTRONXS        1.1   G4NEUTRONXS          G4NEUTRONXSDATA    61ef3a05b56525db04e11820e3f603f1  a4cd8791219f0df856da39295e7f913a537bde1a  d477a377aee229bf9d75d3c9cc4b7cd48b414285a246449e4e44a72bf037472b
+    G4PII              1.3   G4PII                G4PIIDATA          05f2471dbcdf1a2b17cbff84e8e83b37  313a2615903b0682b8aabc344bedde82c345704b  6225ad902675f4381c98c6ba25fc5a06ce87549aa979634d3d03491d6616e926
+    RealSurface        1.0   RealSurface          G4REALSURFACEDATA  0dde95e00fcd3bcd745804f870bb6884  030513fe340e0cccbfe0b9ae9acb3ba6b5291ebb  3e2d2506600d2780ed903f1f2681962e208039329347c58ba1916740679020b1
+}
+
+foreach {geant.version geant.revision geant.datarevision geant.patchlevel geant.version_full geant.rmd160 geant.sha256} ${geant.versions_info} {
+
+    # this variable could/should come from a PortGroup one day
+    # note that gmk files go to share/Geant4/Geant4-${geant.version}.${geant.patchlevel}
+    set geant.datadir_x ${prefix}/share/Geant4/Data/Geant4.${geant.version}
+    # or perhaps share/Geant4/Geant${geant.version_simple}/Data
+
+    subport ${name}.${geant.version}-data {
+        set                 geant.version_simple 4.${geant.version}
+        set                 geant.datadir ${geant.datadir_x}
+        version             ${geant.version_simple}
+        revision            ${geant.datarevision}
+        supported_archs     noarch
+        description         Data files for Geant${version}
+        long_description    ${description}
+
+
+        # TODO: use an array (hash) to implement this without if-else
+        if {${geant.version} == "10.1" } {
+            set geant.data_versions     ${geant.data_versions_10.1}
+        }
+        if {${geant.version} == "10.0" } {
+            set geant.data_versions     ${geant.data_versions_10.0}
+        }
+        if {${geant.version} == "9.6" } {
+            set geant.data_versions     ${geant.data_versions_9.6}
+        }
+        if {${geant.version} == "9.5" } {
+            set geant.data_versions     ${geant.data_versions_9.5}
+        }
+        # make the distfiles list empty
+        distfiles
+        foreach {data.name data.version data.filename data.envvariable data.md5 data.rmd160 data.sha256} ${geant.data_versions} {
+            set filename ${data.filename}.${data.version}${extract.suffix}
+            distfiles-append ${filename}
+            checksums-append ${filename} md5 ${data.md5} rmd160 ${data.rmd160} sha256 ${data.sha256}
+        }
+        # remove an old file that has been stealth-updated in November 2011
+        # (this code has been added in January 2014 and may be removed after a while)
+        pre-fetch {
+            set file_abla "${prefix}/var/macports/distfiles/geant4/G4ABLA.3.0.tar.gz"
+            if {[file exists ${file_abla}]} {
+                if {[md5 file ${file_abla}] != "d7049166ef74a592cb97df0ed4b757bd"} {
+                    # problematic md5: d2d4e99b14f7a5057f4c10d9c2d647dd
+                    ui_warn "deleting an old '${file_abla}'"
+                    file delete ${file_abla}
+                }
+            }
+        }
+        post-extract {
+            # only necessary for G4EMLOW 6.23 & 6.32
+            # but G4NEUTRONXS 1.1, 1.2, 1.3 and PhotonEvaporation 2.2 also have some weird permissions
+            system "find ${workpath} -type f -exec chmod 644 {} \\;"
+        }
+        use_configure no
+        build {}
+
+        destroot {
+            xinstall -m 755 -d ${destroot}${geant.datadir}
+            # create a script to initialize environmental variables for locating the data files & move data files to destination
+            #
+            # TODO: maybe a better name or a better location, possibly including version
+            # the filename of this file should probably come frome the portgroup
+            # one option is also to install this as part of geant4 core installation
+            xinstall -m 755 -d ${destroot}${prefix}/libexec/Geant4/Geant${geant.version_simple}
+            set filename ${destroot}${prefix}/libexec/Geant4/Geant${geant.version_simple}/geant4data
+            system "echo #!/bin/sh  > ${filename}.sh"
+            system "echo #!/bin/csh > ${filename}.csh"
+            system "echo export G4DATADIR=\\\"${geant.datadir}\\\" >> ${filename}.sh"
+            system "echo setenv G4DATADIR=\\\"${geant.datadir}\\\" >> ${filename}.csh"
+            foreach {data.name data.version data.filename data.envvariable data.md5 data.rmd160 data.sha256} ${geant.data_versions} {
+                # move data files to destination
+                move ${workpath}/${data.name}${data.version} ${destroot}${geant.datadir}
+                # add environmental variable to locate it
+                system "echo export ${data.envvariable}=\\\"\\\$G4DATADIR/${data.name}${data.version}\\\" >> ${filename}.sh"
+                system "echo setenv ${data.envvariable} \\\"\\\$G4DATADIR/${data.name}${data.version}\\\" >> ${filename}.csh"
+            }
+        }
+        livecheck.type  none
+    }
+
+    subport ${name}.${geant.version} {
+        set                 geant.version_simple 4.${geant.version}
+        set                 geant.distfilename   geant${geant.version_full}${extract.suffix}
+        set                 geant.datadir        ${geant.datadir_x}
+        # x -> x.p01 -> x.p02 works properly, but the beta x.b01 would come after x and would need an increase in epoch
+        version             ${geant.version_full}
+        revision            ${geant.revision}
+        distfiles           ${geant.distfilename}
+        checksums           ${geant.distfilename} rmd160 ${geant.rmd160} sha256 ${geant.sha256}
+
+        cmake.out_of_source yes
+        worksrcdir          geant${version}
+
+        # check if these are all the dependencies
+        depends_lib         port:${subport}-data \
+                            port:expat \
+                            port:zlib
+        depends_run         port:geant4_select
+
+        select.group        geant4
+        select.file         ${filespath}/${subport}
+
+        configure.args-append -DGEANT4_USE_SYSTEM_EXPAT=ON \
+                              -DGEANT4_USE_SYSTEM_CLHEP=OFF
+
+        # - patch-upstream-source-interfaces-common-src-G4Qt.cc:
+        #       http://bugzilla-geant4.kek.jp/show_bug.cgi?id=1487
+        # - patch-upstream-examples-advanced-xray_fluorescence:
+        #       http://bugzilla-geant4.kek.jp/show_bug.cgi?id=1501
+        # - patch-cmake-Modules-Geant4InterfaceOptions.cmake:
+        #       prevents linking against X11 in /usr (maybe less aggressive patch would also work)
+        # - patch-cmake-Modules-Geant4BuildProjectConfig.cmake:
+        #       allows placing *.cmake files to a different location than LIBDIR
+        if {${geant.version} == "10.1"} {
+            patchfiles      patch-cmake-Modules-Geant4InterfaceOptions.cmake.4101.diff \
+                            patch-cmake-Modules-Geant4BuildProjectConfig.cmake.4101.diff
+        }
+        if {${geant.version} == "10.0"} {
+            patchfiles      patch-cmake-Modules-Geant4InterfaceOptions.cmake.4100.diff \
+                            patch-cmake-Modules-Geant4BuildProjectConfig.cmake.4100.diff
+        }
+        if {${geant.version} == "9.6"} {
+            patchfiles      patch-upstream-qt.496.diff \
+                            patch-upstream-examples-advanced-xray_fluorescence.diff \
+                            patch-cmake-Modules-Geant4InterfaceOptions.cmake.496.diff \
+                            patch-cmake-Modules-Geant4BuildProjectConfig.cmake.496.diff
+        }
+        if {${geant.version} == "9.5"} {
+            patchfiles      patch-upstream-source-interfaces-common-src-G4Qt.cc.495.diff \
+                            patch-upstream-examples-advanced-xray_fluorescence.diff \
+                            patch-cmake-Modules-Geant4InterfaceOptions.cmake.495.diff \
+                            patch-cmake-Modules-Geant4BuildProjectConfig.cmake.495.diff
+        }
+
+        post-patch {
+             reinplace "s|@PREFIX@|${prefix}|" ${worksrcpath}/cmake/Modules/Geant4InterfaceOptions.cmake
+        }
+        # arguments to -DCMAKE_INSTALL_* could be written without ${prefix}
+        # however the ${prefix} triggers the NON_RELOCATABLE flag which has some advantages like less cryptic path names
+        configure.args-append -DGEANT4_INSTALL_DATA=OFF \
+                              -DCMAKE_INSTALL_BINDIR=${prefix}/libexec/Geant4/Geant${geant.version_simple} \
+                              -DCMAKE_INSTALL_DATAROOTDIR=${prefix}/share/Geant4 \
+                              -DCMAKE_INSTALL_INCLUDEDIR=${prefix}/include/Geant4/Geant${geant.version_simple} \
+                              -DCMAKE_INSTALL_LIBDIR=${prefix}/lib/Geant4/Geant${geant.version_simple}
+
+        if {${geant.version} != "9.5"} {
+            configure.args-append -DGEANT4_INSTALL_DATADIR=${geant.datadir} \
+        }
+
+        # this is only needed when +examples is used
+        post-destroot {
+            # two examples with some broken links
+            foreach example {exampleP01 exampleP02 readHits} {
+                if [file exists ${destroot}${prefix}/bin/${example}] {
+                    delete ${destroot}${prefix}/bin/${example}
+                }
+            }
+            # there is no option to build/install the examples elsewhere, so we move them to libexec (they have nothing to do in bin)
+            if [file exists ${destroot}${prefix}/bin] {
+                move ${destroot}${prefix}/bin ${destroot}${prefix}/libexec/Geant4/Geant${geant.version_simple}/examples
+            }
+        }
+        notes-append "
+NOTE: Use 'sudo port select geant4 ${subport}'
+      if you need geant4-config or geant4.(c)sh in PATH.
+      Otherwise source ${prefix}/libexec/Geant4/Geant${geant.version_simple}/geant4.(c)sh
+"
+
+        variant qt conflicts qt5 description {Build with Qt 4 support} {
+            PortGroup qt4         1.0
+            configure.args-append -DGEANT4_USE_QT=ON
+        }
+        # TODO: figure out which versions of Geant4 are compatible with Qt 5
+        #       allow the user to switch to qt5 without the need to explicitly disable qt4
+        variant qt5 conflicts qt description {Build with Qt 5 support} {
+            PortGroup qt5         1.0
+            configure.args-append -DGEANT4_USE_QT=ON
+        }
+
+        # From installation notes:
+        #
+        # It is recommended that Windows and Mac users prefer the Geant4 Qt4 GUI. Note
+        # also that on Mac you can only pick Qt4 OR X11/Motif interfaces. This is due
+        # to incompatibilities between Apple's native OpenGL Framework and the OpenGL
+        # supplied with X11 on this platform.
+        #
+        # (The variants opengl_x11/motif_x11 actually end up linking both against mesa's OpenGL
+        # and system's OpenGL libraries which seems like a problem on its own.)
+
+        # or simply x11? The option name in geant4-config is opengl-x11
+        variant opengl_x11 description {Build with X11 visualisation drivers} {
+        #   configure.args-delete -DGEANT4_USE_OPENGL_X11=OFF
+            configure.args-append -DGEANT4_USE_OPENGL_X11=ON
+        }
+        ## This could belong to x11 (opengl_x11 & motif_x11 combined into a single option), but see also the comment above
+        ## previous name (geant4 9.4): motif; name in geant4-config: motif
+        variant motif_x11 description {Build with Motif (X11) user interface and visualization driver} {
+            depends_lib-append    port:openmotif
+        #   configure.args-delete -DGEANT4_USE_XM=OFF
+            configure.args-append -DGEANT4_USE_XM=ON
+        }
+        ## previous name (geant4 9.4): raytracerx; name in geant4-config: raytracer-x11
+        variant raytracer_x11 description {Build with Raytracer (X11) visualization driver} {
+        #   configure.args-delete -DGEANT4_USE_RAYTRACER_X11=OFF
+            configure.args-append -DGEANT4_USE_RAYTRACER_X11=ON
+        }
+        if {[variant_isset opengl_x11] || [variant_isset motif_x11]} {
+            depends_lib-append    port:mesa \
+                                  port:xorg-libXmu
+        }
+        if {[variant_isset opengl_x11] || [variant_isset motif_x11] || [variant_isset raytracer_x11]} {
+            depends_lib-append    port:xorg-libice \
+                                  port:xorg-libsm \
+                                  port:xorg-libX11 \
+                                  port:xorg-libXext
+        }
+
+        variant gdml description {Build with Geometry Description Markup Language (GDML)} {
+            depends_lib-append    port:xercesc3
+            # configure.args-delete -DGEANT4_USE_GDML=OFF
+            configure.args-append -DGEANT4_USE_GDML=ON
+            # check that XERCESC_ROOT_DIR is properly set
+        }
+
+        variant debug description {Compile with debug flags on} {
+            configure.args-append -DCMAKE_BUILD_TYPE=Debug
+        }
+
+        # this option should be used with care
+        variant examples description {Build and install examples (not recommended)} {
+            # optional
+            # depends_lib-append    port:gccxml-devel
+            configure.args-append -DGEANT4_BUILD_EXAMPLES=ON \
+                                  -DGEANT4_INSTALL_EXAMPLES=ON
+        }
+
+        # a temporary variant just for the sake of testing (built-in clhep should be sufficient)
+        variant clhep description {Use external clhep} {
+            depends_lib-append    port:clhep
+            configure.args-replace \
+                                  -DGEANT4_USE_SYSTEM_CLHEP=OFF -DGEANT4_USE_SYSTEM_CLHEP=ON
+            configure.args-append -DGEANT4_USE_SYSTEM_EXPAT=ON \
+                                  -DGEANT4_USE_SYSTEM_CLHEP=ON \
+                                  -DCLHEP_CONFIG_EXECUTABLE=${prefix}/bin/clhep-config \
+                                  -DCLHEP_INCLUDE_DIR=${prefix}/include \
+                                  -DCLHEP_LIBRARY=${prefix}/lib/libCLHEP.dylib
+        }
+
+        if {${geant.version} >= "10.0"} {
+            variant threads description {Build with multi-threading support} {
+                configure.args-append -DGEANT4_BUILD_MULTITHREADED=ON
+            }
+        }
+
+        default_variants-append +gdml
+        if {![variant_isset qt5]} {
+            default_variants-append +qt
+        }
+
+        set geant.version_full_no_patch [join [lrange [split ${geant.version_full} .] 0 2] \\.]
+        livecheck.type      regex
+        if {${geant.version} == "10.1"} {
+            livecheck.url   http://geant4.cern.ch/support/download.shtml
+        } else {
+            livecheck.url   http://geant4.cern.ch/support/source_archive.shtml
+        }
+        # http://geant4.cern.ch/support/source/geant4.xx.xx[.pxx].tar.gz
+        livecheck.regex     geant(${geant.version_full_no_patch}(\\.\[bp\]\[0-9\]+)?)\\.tar\\.gz
+    }
+}
+
+# stub port
+if {$subport eq $name} {
+    # default replacement for geant4 which used to provide geant4.9.4
+    # other users should install geant4.9.6 directly
+    depends_lib   port:geant4.9.6
+
+    fetch         {}
+    checksum      {}
+    extract       {}
+    patch         {}
+    use_configure no
+    build         {}
+    destroot {
+        set geant.docdir ${prefix}/share/doc/${name}
+        xinstall -m 755 -d ${destroot}${geant.docdir}
+        system "echo $name is a stub port > ${destroot}${geant.docdir}/README"
+    }
+    livecheck.type  none
+}

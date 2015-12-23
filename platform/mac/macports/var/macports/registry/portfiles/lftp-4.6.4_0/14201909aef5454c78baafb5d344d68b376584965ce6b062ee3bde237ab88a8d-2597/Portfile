@@ -1,0 +1,66 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139658 2015-08-23 20:26:29Z khindenburg@macports.org $
+
+PortSystem          1.0
+PortGroup           muniversal 1.0
+
+name                lftp
+version             4.6.4
+categories          net
+platforms           darwin
+maintainers         gmail.com:mschamschula openmaintainer
+license             GPL-3+
+
+description         Sophisticated file transfer program
+long_description    Lftp is a shell-like command line ftp client. It is \
+                    reliable, can retry operations and does reget \
+                    automatically. It can do several transfers \
+                    simultaneously in background. You can start a transfer \
+                    in background and continue browsing the ftp site or \
+                    another one. This all is done in one process. Background \
+                    jobs will be completed in nohup mode if you exit or \
+                    close modem connection. Lftp has reput, mirror, reverse \
+                    mirror among its features.
+
+homepage            http://lftp.yar.ru/
+master_sites        ${homepage}ftp/
+use_xz              yes
+
+checksums           rmd160  e4c8a3a4a1852c8e4d8ffbc21fabb2d3fdd07b9d \
+                    sha256  1e7cb674c83ace48172263f86847ed04bb6ab2f24116b11a8505f70a15e8805c
+
+depends_lib         port:expat \
+                    port:gettext \
+                    port:libiconv \
+                    port:ncurses \
+                    path:lib/libssl.dylib:openssl \
+                    port:readline \
+                    port:zlib
+
+# look for ncurses first
+patchfiles          patch-configure.diff
+
+configure.args      --with-openssl \
+                    --without-gnutls \
+                    --enable-nls
+
+post-destroot {
+    set docdir ${destroot}${prefix}/share/doc/${name}
+    xinstall -d ${docdir}
+    xinstall -m 644 -W ${worksrcpath} AUTHORS BUGS ChangeLog COPYING FAQ FEATURES \
+        NEWS README README.debug-levels README.modules MIRRORS THANKS TODO \
+        ${docdir}
+    file delete -force "${destroot}${prefix}/lib/charset.alias"
+}
+
+variant tls description {Use GnuTLS instead of OpenSSL} {
+    depends_build-append    port:pkgconfig
+    depends_lib-replace     path:lib/libssl.dylib:openssl port:gnutls
+
+    configure.args-replace  --with-openssl --without-openssl
+    configure.args-replace  --without-gnutls --with-gnutls
+}
+
+livecheck.type      regex
+livecheck.url       ${homepage}
+livecheck.regex     ${name}-(\\d+(?:\\.\\d+)*) released

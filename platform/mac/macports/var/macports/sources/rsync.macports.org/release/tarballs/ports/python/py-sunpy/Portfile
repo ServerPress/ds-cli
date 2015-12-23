@@ -1,0 +1,46 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id $
+
+PortSystem          1.0
+PortGroup           python 1.0
+name                py-sunpy
+version             0.3.1
+revision            1
+maintainers         robitaille
+
+categories-append   science
+description         A Community Python Library for Solar Physics
+long_description    The SunPy project is an effort to create an open-source \
+                    software library for solar physics using the Python \
+                    programming language.
+
+platforms           darwin
+license             BSD
+
+homepage            http://www.sunpy.org
+master_sites        http://pypi.python.org/packages/source/s/sunpy/
+distname            sunpy-${version}
+checksums           md5 6bc66ddbbfc081637e88c276fff5ac48 \
+                    sha1 e811627423d600391e3c1eb766df187229a828f0 \
+                    rmd160 3a6974c14ddf4540051f18830d4a45188b6e8579
+
+python.versions     27
+python.default_version 27
+
+if {${name} ne ${subport}} {
+
+    depends_build-append  port:py${python.version}-numpy
+
+    # Can use either py*-pyqt4 or py*-pyqt4-devel.
+    depends_lib-append    port:py${python.version}-scipy \
+                          port:py${python.version}-matplotlib \
+                          port:py${python.version}-astropy \
+                          path:share/py${python.version}-sip/PyQt4:py${python.version}-pyqt4 \
+                          port:py${python.version}-suds \
+                          port:py${python.version}-pandas \
+                          port:py${python.version}-beautifulsoup4 \
+                          port:py${python.version}-configobj \
+                          port:py${python.version}-setuptools \
+                          port:py${python.version}-py
+
+}

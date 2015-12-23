@@ -1,0 +1,32 @@
+# $Id: Portfile 141142 2015-10-11 17:42:11Z jeremyhu@macports.org $
+
+PortSystem          1.0
+
+name                xcompmgr
+version             1.1.7
+categories          x11
+license             X11
+maintainers         jeremyhu openmaintainer
+description         sample compositing manager for X11
+long_description    xcompmgr is a sample compositing manager for X servers supporting the XFIXES, DAMAGE, RENDER, and COMPOSITE extensions.
+
+platforms           darwin
+
+homepage            http://www.x.org/
+master_sites        xorg:individual/app/
+use_bzip2           yes
+
+checksums           rmd160  5377a287185099390b57ed698a417a91054c1192 \
+                    sha256  c8049b1a2531313be7469ba9b198d334f0b91cc01efc2b20b9afcb117e4d6892
+
+depends_build       port:pkgconfig
+
+depends_lib         port:xorg-libXcomposite \
+                    port:xorg-libXfixes \
+                    port:xorg-libXdamage \
+                    port:xrender \
+                    port:xorg-libXext
+
+livecheck.type      regex
+livecheck.regex     ${name}-(\[\\d.\]+)${extract.suffix}
+livecheck.url       http://xorg.freedesktop.org/archive/individual/app/?C=M&O=D

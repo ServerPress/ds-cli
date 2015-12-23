@@ -1,0 +1,33 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 121010 2014-06-14 09:35:32Z takeshi@macports.org $
+
+PortSystem      1.0
+
+name            libdap
+conflicts       dap
+version         3.13.1
+platforms       darwin
+maintainers     takeshi
+categories      science
+description     A C++ SDK which contains an implementation of DAP 2.0
+master_sites    http://www.opendap.org/pub/source/
+checksums           md5     1ce7aa2f9c370d7d8233e8055ae2e233 \
+                    sha1    fdfd5f311c920e9efb450e8ff82f42bc58197f23 \
+                    rmd160  7f43378a94a170556ed9acc6a8bdbcc3acc6d83d
+
+homepage        http://www.opendap.org/
+long_description \
+                A C++ SDK which contains an implementation of DAP 2.0,  \
+                Client- and Server-side support classes and a prototype \
+                implementation of the AIS.
+depends_build   port:pkgconfig
+depends_lib     port:curl \
+                port:libiconv \
+                port:libxml2
+pre-build {
+    if {[variant_isset universal]} {
+        reinplace "s|single_module|single_module ${configure.universal_ldflags}|" ${worksrcpath}/libtool
+    } else {
+        reinplace "s|single_module|single_module ${configure.cxx_archflags}|" ${worksrcpath}/libtool
+    }
+}

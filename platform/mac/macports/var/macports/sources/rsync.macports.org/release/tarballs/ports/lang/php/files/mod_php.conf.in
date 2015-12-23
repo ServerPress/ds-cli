@@ -1,0 +1,6 @@
+<IfModule mod_php@MAJOR@.c>
+
+AddType  application/x-httpd-php         .php
+AddType  application/x-httpd-php-source  .phps
+
+</IfModule>

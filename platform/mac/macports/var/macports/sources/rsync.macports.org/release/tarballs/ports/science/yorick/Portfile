@@ -1,0 +1,50 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136765 2015-05-26 06:51:34Z thibaut@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        dhmunro yorick 2.2.04 y_
+github.version      [strsed ${version} {g/\./_/}]
+license             BSD
+categories          science yorick
+platforms           darwin
+maintainers         thibaut openmaintainer
+description         Interpreted language and scientific graphics
+long_description    An interpreted programming language for numerical \
+                    computations, scientific data processing and \
+                    visualisation.
+
+homepage            http://yorick.github.com/
+
+checksums           rmd160  187dcd51f7f68eb76419c3be3e7177d03f329cb9 \
+                    sha256  ca20061944033974227ebdafdcea0d510153f7e992e90ca276773e1a5291807d
+
+depends_lib         port:xorg-libX11
+
+universal_variant   no
+
+configure.cmd       ${build.cmd}
+configure.optflags  -O2
+configure.pre_args
+configure.args      reloc Make.cfg
+
+post-destroot {
+    move ${worksrcpath}/relocate ${destroot}${prefix}/lib/${name}
+    ln -s ${prefix}/lib/${name}/bin/yorick ${destroot}${prefix}/bin/
+    ln -s ${prefix}/lib/${name}/bin/gist ${destroot}${prefix}/bin/
+    xinstall -m 644 -W ${worksrcpath}/doc yorick.1 gist.1 \
+        ${destroot}${prefix}/share/man/man1/
+}
+
+notes "
+Yorick has no built-in line-editing capabilities, so it is recommended to run\
+it within rlwrap.
+
+Reference websites (including online user manual and fora):
+
+${homepage}
+http://www.maumae.net/yorick/
+"
+
+livecheck.version   ${github.version}

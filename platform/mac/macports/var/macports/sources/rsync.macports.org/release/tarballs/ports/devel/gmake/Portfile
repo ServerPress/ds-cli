@@ -1,0 +1,42 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136051 2015-05-11 13:24:02Z ryandesign@macports.org $
+
+PortSystem 1.0
+
+name            gmake
+version         4.1
+categories      devel
+maintainers     gmail.com:stuartwesterman openmaintainer
+description     GNU Make
+long_description \
+    Make is a tool which controls the generation of executables and     \
+    other non-source files of a program from the program’s source files.\
+    Make gets its knowledge of how to build your program from a file    \
+    called the makefile, which lists each of the non-source files and   \
+    how to compute it from other files. When you write a program, you   \
+    should write a makefile for it, so that it is possible to use Make  \
+    to build and install the program.
+
+homepage        http://www.gnu.org/software/make/make.html
+license         GPL-3
+installs_libs   no
+platforms       darwin
+distname        make-${version}
+master_sites    gnu:make
+use_bzip2       yes
+
+checksums       rmd160  0f322d6c28867ea817f7d02c57e635c8ef556909 \
+                sha256  0bc7613389650ee6a24554b52572a272f7356164fd2c4132b0bcf13123e4fca5
+
+depends_lib     port:gettext port:libiconv
+
+configure.args  --program-prefix=g \
+                --without-guile
+
+variant guile description "Enable GNU Guile extensions" {
+    depends_lib-append  port:guile
+    configure.args-replace  --without-guile --with-guile
+}
+
+test.run        yes
+test.target     check

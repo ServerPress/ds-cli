@@ -1,0 +1,41 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 129172 2014-12-08 14:34:46Z petr@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+set _name           pyregion
+set _n              [string index ${_name} 0]
+
+name                py-${_name}
+version             1.1.4
+categories-append   science
+platforms           darwin
+maintainers         robitaille openmaintainer
+
+description         pyregion is a Python module to parse ds9 region files
+long_description    ${description}
+
+homepage            http://leejjoon.github.com/${_name}/
+master_sites        https://pypi.python.org/packages/source/${_n}/${_name}/
+distname            ${_name}-${version}
+
+checksums           md5     332f16542fbe1d6389c6cf27bd92c720 \
+                    rmd160  d174674119afa81b4fa16b38a4d3dcc106ab3346 \
+                    sha256  2d7d5ce46a3b4177978d4901c9c46ce402165113049006b923f5346b014973b9
+
+python.versions     27 34 
+
+if {${name} ne ${subport}} {
+    depends_build-append  port:py${python.version}-numpy
+
+    depends_run-append  port:py${python.version}-matplotlib \
+                        port:py${python.version}-parsing \
+                        port:py${python.version}-astropy
+
+    livecheck.type  none
+} else {
+    livecheck.type  regex
+    livecheck.url   [lindex ${master_sites} 0]
+    livecheck.regex ">${_name}-(\\d+(\\.\\d+)+)\\${extract.suffix}<"
+}

@@ -1,0 +1,41 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 128973 2014-12-01 19:27:45Z devans@macports.org $
+
+PortSystem      1.0
+
+name            exempi
+version         2.2.2
+license         BSD
+categories      graphics
+maintainers     devans openmaintainer
+platforms       darwin
+homepage        http://libopenraw.freedesktop.org/wiki/Exempi
+master_sites    http://libopenraw.freedesktop.org/download/
+
+use_bzip2       yes
+
+checksums       rmd160  ab98cbb077ca2bc5e9a08c152e711e9629dd11fc \
+                sha256  0e7ad0e5e61b6828e38d31a8cc59c26c9adeed7edf4b26708c400beb6a686c07
+
+description     Exempi is an implementation of XMP.
+
+long_description \
+                Exempi is an implementation of XMP. Version 2.x is based on Adobe XMP SDK 4.1.1.
+
+patchfiles      patch-Makefile.am.diff \
+                malloc.patch
+
+use_autoreconf  yes
+autoreconf.args -fvi
+
+configure.args  --enable-unittest=no
+
+variant unit_test description {Enable unit test}  {
+     depends_lib-append port:boost
+     configure.args-delete  --enable-unittest=no
+     configure.args-append  --enable-unittest=yes
+}
+
+livecheck.type  regex
+livecheck.url   ${master_sites}
+livecheck.regex "${name}-(\\d+(?:\\.\\d+)*)\\.tar"

@@ -1,0 +1,24 @@
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem 1.0
+PortGroup perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup             Net-IPv4Addr 0.10
+revision                3
+license                 {Artistic-1 GPL}
+maintainers             blair openmaintainer
+
+description             Parse IPv4 addresses in traditional and CIDR formats
+long_description        Net::IPv4Addr provides functions for parsing IPv4 \
+                        addresses both in traditional address/netmask format \
+                        and in the new CIDR format.  There are also methods \
+                        for calculating the network and broadcast address and \
+                        also to see check if a given address is in a specific \
+                        network.
+
+checksums               md5 57aa8e28ebcd4c0c9f15792740e53d3c \
+                        sha1 da26fed2a1ea13c34ebef86606899c5fb294af98
+platforms               darwin
+
+supported_archs noarch

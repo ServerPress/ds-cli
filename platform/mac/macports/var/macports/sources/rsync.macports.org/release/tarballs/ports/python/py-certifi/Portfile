@@ -1,0 +1,37 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143087 2015-12-03 10:49:12Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-certifi
+version             2015.11.20.1
+revision            0
+categories-append   devel net
+platforms           darwin
+license             {MPL-1.1 GPL-2+ LGPL-2.1+}
+supported_archs     noarch
+
+python.versions     27 33 34 35
+
+maintainers         stromnov openmaintainer
+
+description         Python package for providing Mozilla's CA Bundle.
+long_description    ${description}
+
+homepage            http://pypi.python.org/pypi/certifi
+master_sites        pypi:[string index ${python.rootname} 0]/${python.rootname}
+
+distname            ${python.rootname}-${version}
+
+checksums           rmd160  be5bdc04b35e9bcbdfc8a33a063c55dcdb245b2a \
+                    sha256  30b0a7354a1b32caa8b4705d3f5fb2dadefac7ba4bf8af8a2176869f93e38f16
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-setuptools
+
+    livecheck.type      none
+} else {
+    livecheck.type      pypi
+}

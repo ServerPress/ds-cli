@@ -1,0 +1,71 @@
+# $Id: Portfile 127833 2014-11-05 02:30:41Z ryandesign@macports.org $
+
+PortSystem 1.0
+
+name		xine-lib
+version         1.2.6
+description	xine-lib is a free multimedia engine, released under the GPL.
+long_description        ${description}
+maintainers	ryandesign openmaintainer
+categories	multimedia
+# included libdvdnav is GPL-2 only, rest is GPL-2+
+license		GPL-2
+platforms	darwin
+homepage	http://www.xine-project.org
+master_sites    sourceforge:project/xine/xine-lib/${version}
+use_xz      yes
+
+checksums       rmd160  05edcd9a36e93d2fc9d1bf13cae3b32d4bd996da \
+                sha256  bd041d738817c7c0c6392a3c0e5bda5a664a47e035135b5a449364f8c9b6a005
+
+depends_build port:libtool \
+            port:pkgconfig
+depends_lib port:aalib	\
+            port:esound \
+            port:faad2 \
+            path:lib/libavcodec.dylib:ffmpeg \
+            port:flac \
+            port:fontconfig \
+            port:gdk-pixbuf2 \
+            port:ImageMagick \
+            port:jack \
+            port:libcaca \
+            port:libcdio \
+            port:libdca \
+            port:libmad \
+            port:libmpcdec \
+            port:libogg \
+            port:libvorbis \
+            port:mesa \
+            port:vcdimager \
+            port:xorg-libXinerama \
+            port:xorg-libXt \
+            port:xorg-libXvMC \
+            port:xorg-xcb-util
+
+patchfiles-append   patch-src-post-planar-eq2.c.diff
+
+# bad register name `%rax'
+universal_variant   no
+
+# unsupported inline asm: input constraint with a matching output constraint of incompatible type!
+compiler.blacklist  *llvm-gcc-4.2
+
+configure.args  --disable-silent-rules
+if {${os.platform} eq "darwin" && [string match *64 $build_arch]} {
+    configure.args-append --build=${build_arch}-apple-${os.platform}${os.version}
+}
+build.args  V=1
+
+platform darwin {
+    # fix "ar: no archive members specified"
+    # https://bugs.xine-project.org/show_bug.cgi?id=456
+    patchfiles-append src_xine-engine_Makefile.in.diff
+}
+
+platform macosx {
+    configure.args-append   --enable-macosx-video \
+                            --enable-coreaudio
+}
+
+livecheck.regex     /${name}-(\[0-9.\]+)${extract.suffix}

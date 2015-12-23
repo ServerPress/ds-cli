@@ -1,0 +1,32 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135477 2015-04-24 16:43:43Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           gobject_introspection 1.0
+
+name                json-glib
+version             1.0.4
+set branch          [join [lrange [split ${version} .] 0 1] .]
+categories          devel
+license             LGPL-2.1+
+maintainers         otherware.org:nefar openmaintainer
+homepage            https://wiki.gnome.org/Projects/JsonGlib
+description         provides JSON support
+long_description    JSON-GLib is a library providing serialization and \
+                    deserialization support for the JavaScript Object Notation \
+                    (JSON) format described by RFC 4627.
+
+platforms           darwin
+depends_build       port:pkgconfig
+depends_lib         path:lib/pkgconfig/glib-2.0.pc:glib2
+
+master_sites        gnome:sources/${name}/${branch}/
+
+use_xz              yes
+
+checksums           rmd160  db5411f0a1247ba9133f8dd70c4bd1de66be5cff \
+                    sha256  80f3593cb6bd13f1465828e46a9f740e2e9bd3cd2257889442b3e62bd6de05cd
+
+gobject_introspection yes
+
+livecheck.type      gnome

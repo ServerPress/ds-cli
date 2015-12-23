@@ -1,0 +1,67 @@
+# $Id: Portfile 94903 2012-07-02 07:22:02Z jmr@macports.org $
+
+PortSystem              1.0
+
+name                    tinyproxy
+version                 1.8.3
+set branch              [join [lrange [split ${version} .] 0 1] .]
+categories              net www
+platforms               darwin
+maintainers             nomaintainer
+license                 GPL-2+
+
+description             fast, lightweight HTTP proxy
+
+long_description        tinyproxy is a lightweight HTTP proxy. Designed from \
+                        the ground up to be fast and yet small, it is an ideal \
+                        solution for sites where a full-featured HTTP proxy is \
+                        required, but the system resources required to run a \
+                        more demanding HTTP proxy are unavailable.
+
+homepage                https://banu.com/tinyproxy/
+master_sites            https://banu.com/pub/${name}/${branch}
+
+use_bzip2               yes
+checksums               rmd160 19349996ffb0798a04f1291f04b144b638bf614c \
+                        sha256 be559b54eb4772a703ad35239d1cb59d32f7cf8a739966742622d57df88b896e
+
+depends_build-append    port:asciidoc port:libxml2
+
+patchfiles              patch-configure.diff
+
+configure.args          --disable-regexcheck
+
+post-destroot {
+    xinstall -d -o nobody -g nobody ${destroot}${prefix}/var/run/tinyproxy
+
+    move ${destroot}${prefix}/etc/tinyproxy.conf ${destroot}${prefix}/etc/tinyproxy.conf.default
+
+    set docdir ${destroot}${prefix}/share/doc/${name}
+    xinstall -d ${docdir}
+    xinstall -m 644 -W ${worksrcpath} \
+        AUTHORS \
+        ChangeLog \
+        COPYING \
+        docs/filter-howto.txt \
+        docs/http-error-codes.txt \
+        docs/http-rfcs.txt \
+        README \
+        TODO \
+        ${docdir}
+}
+
+startupitem.create      yes
+startupitem.netchange   yes
+startupitem.executable  ${prefix}/sbin/tinyproxy -c ${prefix}/tinyproxy.conf -d
+
+variant reverse description {Enable reverse proxying} {
+    configure.args-append   --enable-reverse
+}
+
+variant transparent description {Enable transparent proxying} {
+    configure.args-append   --enable-transparent
+}
+
+livecheck.type          regex
+livecheck.url           ${master_sites}
+livecheck.regex         "${name}-(\\d+(?:\\.\\d+)*)"

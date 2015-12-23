@@ -1,0 +1,85 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142954 2015-11-29 05:10:27Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                phpmyadmin
+set my_name         phpMyAdmin
+version             4.5.2
+categories          www php databases
+platforms           darwin freebsd
+maintainers         ryandesign openmaintainer
+license             GPL-2
+supported_archs     noarch
+
+description         A tool written in PHP intended to handle the \
+                    administration of MySQL over the Web.
+long_description    phpMyAdmin is a tool written in PHP intended to handle \
+                    the administration of MySQL over the Web. phpMyAdmin \
+                    supports a wide range of operations with MySQL. The most \
+                    frequently used operations are supported by the user \
+                    interface (managing databases, tables, fields, relations, \
+                    indexes, users, permissions, etc), while you still have \
+                    the ability to directly execute any SQL statement.
+homepage            https://www.phpmyadmin.net/
+master_sites        https://files.phpmyadmin.net/phpMyAdmin/${version}/
+distname            ${my_name}-${version}-all-languages
+use_xz              yes
+
+checksums           sha1    49e10e758929b3d76b234e5b57f4406cd708430e \
+                    rmd160  e3ff77880dc03f07628da6107707d870c1940820 \
+                    sha256  a7df3032caca8c483596869dc06381b436c67772136173cbc26edbe45d50a137
+
+# The php variants deliberately do not conflict
+
+foreach php {php55 php56 php70} {
+    eval [subst {
+        variant ${php} description "Use ${php}" {
+            depends_run-append  port:${php}-gd \
+                                port:${php}-mbstring \
+                                port:${php}-mcrypt \
+                                port:${php}-mysql \
+                                port:${php}-zip
+        }
+    }]
+}
+
+if {![variant_isset php55] && ![variant_isset php56] && ![variant_isset php70]} {
+    default_variants +php56
+}
+
+set docroot         ${destroot}${prefix}/www/${name}
+set configfile      ${prefix}/www/${name}/config.inc.php
+set configsample    ${prefix}/www/${name}/config.sample.inc.php
+
+use_configure       no
+build               {}
+
+destroot {
+    xinstall -d -m 0755 ${docroot}
+    copy {*}[glob ${worksrcpath}/*] ${docroot}
+}
+
+notes "
+phpMyAdmin must be configured before it can be used.\
+Consult the documentation at file://${prefix}/www/phpmyadmin/Documentation.html#config
+
+A sample configuration file is installed at ${configsample}, but you mustn’t edit this file.\
+The file to edit is the real configuration file at ${configfile}.
+"
+
+pre-activate {
+    if {[file exists ${configfile}]} {
+        notes-append "\n\nYour existing config file has not been modified. You should manually compare the new sample config file with your existing config file."
+    }
+}
+
+post-activate {
+    if {![file exists ${configfile}]} {
+        xinstall -m 644 ${configsample} ${configfile}
+    }
+}
+
+livecheck.type      regex
+livecheck.url       ${homepage}home_page/version.php
+livecheck.regex     {^([0-9.]+)$}

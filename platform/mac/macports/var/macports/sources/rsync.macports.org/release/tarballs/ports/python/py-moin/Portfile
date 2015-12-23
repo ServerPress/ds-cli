@@ -1,0 +1,35 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136053 2015-05-11 13:54:28Z mf2k@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-moin
+version             1.9.8
+categories-append   www
+maintainers         nomaintainer
+license             GPL-2+
+platforms           darwin
+description         a Python-based WikiEngine
+long_description    MoinMoin is an advanced, easy to use \
+                    and extensible WikiEngine with a large \
+                    community of users. Said in a few words, \
+                    it is about collaboration on easily \
+                    editable web pages.
+
+homepage            http://moinmo.in/
+master_sites        http://static.moinmo.in/files/
+distname            moin-${version}
+checksums           rmd160  2b32e1a379a597d4961a3566e1ad1a6db9761b12 \
+                    sha256  a74ba7fd8cf09b9e8415a4c45d7389ea910c09932da50359ea9796e3a30911a6
+
+python.versions     27
+
+if {${name} ne ${subport}} {
+    post-destroot {
+        set docdir ${prefix}/share/doc/${subport}
+        xinstall -m 644 -W ${worksrcpath} README ${destroot}${docdir}
+        copy ${worksrcpath}/docs ${destroot}${docdir}
+        system "chmod -R a+r ${destroot}${python.prefix}/share/moin/underlay/pages"
+    }
+}

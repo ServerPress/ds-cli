@@ -1,0 +1,58 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 140838 2015-10-04 19:07:12Z devans@macports.org $
+
+PortSystem          1.0
+
+name                adwaita-icon-theme
+version             3.18.0
+set branch          [join [lrange [split ${version} .] 0 1] .]
+categories          gnome
+maintainers         devans openmaintainer
+license             LGPL-3
+platforms           darwin
+description         Adwaita icon theme
+
+long_description    Fullcolor, symbolic and cursor assets for the $description. Previously \
+                    part of gnome-themes-standard
+
+homepage            http://www.gnome.org/
+master_sites        gnome:sources/$name/$branch/
+
+use_xz              yes
+
+checksums           rmd160  516cc4ec6bd9e9c436ea95d9a209f445035e528d \
+                    sha256  5e9ce726001fdd8ee93c394fdc3cdb9e1603bbed5b7c62df453ccf521ec50e58
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:icon-naming-utils \
+                    port:gnome-common \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         port:gtk3 \
+                    port:librsvg
+
+patchfiles          patch-configure.ac.diff
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+}
+
+configure.cmd       ./autogen.sh
+
+use_parallel_build  no
+
+pre-activate {
+    if {![catch {set installed [lindex [registry_active gnome-themes-standard] 0]}]} {
+        set _version [lindex $installed 1]
+        if {[vercmp $_version 3.13.0] < 0} {
+            registry_deactivate_composite gnome-themes-standard "" [list ports_nodepcheck 1]
+        }
+    }
+}
+
+livecheck.type      gnome

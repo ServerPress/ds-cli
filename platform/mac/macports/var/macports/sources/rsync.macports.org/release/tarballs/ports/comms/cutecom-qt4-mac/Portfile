@@ -1,0 +1,32 @@
+# $Id: Portfile 83987 2011-09-14 08:39:20Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           qt4 1.0
+PortGroup           cmake 1.0
+
+name                cutecom-qt4-mac
+version             0.22.0
+categories          comms
+maintainers         jwbacon@tds.net
+distname            cutecom-${version}
+description         Graphical serial terminal
+long_description    CuteCom is a graphical serial terminal, like minicom. \
+		    It is aimed mainly at hardware developers or other \
+		    people who need a terminal to talk to their devices.
+
+master_sites        http://cutecom.sourceforge.net/
+
+homepage            http://cutecom.sourceforge.net
+
+platforms           darwin
+
+patchfiles          patch-CMakeLists.txt.diff \
+                    patch-qcppdialogimpl.cpp \
+                    patch-qcppdialogimpl.h
+
+checksums           rmd160  32111bcf756b7972e5428f96e2b4352083794c39 \
+                    sha256  1b6620a6159cf3d50bb36cce544e91486817df7f1d553bf239d6db6108dd2ea5
+
+post-destroot {
+    move ${destroot}${prefix}/bin/CuteCom.app ${destroot}${applications_dir}
+}

@@ -1,0 +1,30 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139965 2015-09-04 18:25:13Z ionic@macports.org $
+
+PortSystem          1.0
+
+name                mkpwd
+version             1.6
+categories          sysutils
+license             Permissive
+platforms           darwin
+maintainers         nomaintainer
+
+description         mkpwd is a scalable password generator
+long_description    ${description}
+
+homepage            http://www.o-schroeder.de/
+master_sites        ${homepage}/download/${name}/
+
+checksums           rmd160 a438113a4fc823ae9e884c1d530fbe5689077432 \
+                    sha256 6db5032fa6e2bc3ebd499ebf2b94f8df5b3ce64760d84fda7101e951bfb5c88a
+
+patchfiles          patch-configure.diff \
+                    patch-Makefile.am.diff \
+                    patch-Makefile.in.diff \
+                    patch-mkpwd.c.diff \
+                    patch-mkpwd.1.diff
+
+livecheck.type      regex
+livecheck.url       ${master_sites}
+livecheck.regex     ${name}-(\[0-9.\].\[0-9.\]+)\\${extract.suffix}

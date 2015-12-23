@@ -1,0 +1,47 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139443 2015-08-17 18:58:29Z stromnov@macports.org $
+
+PortSystem          1.0
+
+name                geos
+version             3.5.0
+revision            0
+categories          science gis
+platforms           darwin
+license             LGPL-2.1
+
+maintainers         stromnov openmaintainer
+
+description         GEOS Geometry Engine - Open Source
+
+long_description    A C++ port of the Java Topology Suite, providing OpenGIS \
+                    Simple Features for SQL spatial predicate functions \
+                    and spatial operators, as well as specific JTS topology \
+                    functions.
+
+homepage            http://trac.osgeo.org/geos/
+master_sites        http://download.osgeo.org/geos/
+
+use_bzip2           yes
+
+checksums           rmd160  273d665246b88beb051d4b5d83e9229eaf559bb3 \
+                    sha256  49982b23bcfa64a53333dab136b82e25354edeb806e5a2e2f5b8aa98b1d0ae02
+
+compiler.blacklist  llvm-gcc-4.2 macports-llvm-gcc-4.2
+
+use_parallel_build  yes
+
+post-destroot {
+    set docdir ${prefix}/share/doc/${name}
+    xinstall -d ${destroot}${docdir}
+    xinstall -m 644 -W ${worksrcpath} AUTHORS COPYING ChangeLog NEWS README \
+        TODO ${destroot}${docdir}
+}
+
+test.run            yes
+test.cmd            make
+test.target         check
+
+livecheck.type      regex
+livecheck.url       ${homepage}
+livecheck.regex     {geos-(\d+(?:\.\d+)*)}

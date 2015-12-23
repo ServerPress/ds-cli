@@ -1,0 +1,108 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142944 2015-11-29 03:31:02Z ryandesign@macports.org $
+
+PortSystem              1.0
+PortGroup               muniversal 1.0
+
+name                    freetype
+version                 2.6.2
+categories              print graphics
+maintainers             ryandesign
+license                 {FreeType GPL-2}
+homepage                http://freetype.sourceforge.net/
+use_bzip2               yes
+platforms               darwin
+use_parallel_build      yes
+
+description \
+    A software font engine
+
+long_description \
+    FreeType2 is a software font engine that is designed to \
+    be small, efficient, highly customizable and portable while \
+    capable of producing high-quality output (glyph images). \
+    It can be used in graphics libraries, display servers, font \
+    conversion tools, text image generation tools, and many \
+    other products as well.
+
+master_sites            sourceforge:project/freetype/freetype2/${version}:source \
+                        sourceforge:project/freetype/freetype-docs/${version}:docs \
+                        http://download.savannah.gnu.org/releases/freetype/
+
+set docdistname         ${name}-doc-${version}
+
+distfiles               ${distname}${extract.suffix}:source \
+                        ${docdistname}${extract.suffix}:docs
+
+checksums               ${distname}${extract.suffix} \
+                        rmd160  33c5d3a30e0a3224238b45f670e536391d0076ac \
+                        sha256  baf6bdef7cdcc12ac270583f76ef245efe936267dbecef835f02a3409fcbb892 \
+                        ${docdistname}${extract.suffix} \
+                        rmd160  d469591cab27472dc87b6c54f21f37c1327d58b6 \
+                        sha256  d5108a972d8f80561fd698aa856233999527375b4e8f6c82d2eafe5ac66f989b
+
+patchfiles \
+    patch-src_base_ftrfork.c.diff \
+    patch-modules.cfg.diff
+
+depends_lib             port:bzip2 \
+                        port:libpng \
+                        port:zlib
+
+# See http://trac.macports.org/ticket/18232
+configure.cppflags-replace  -I${prefix}/include -isystem${prefix}/include
+
+configure.args          --with-bzip2 \
+                        --with-png \
+                        --with-zlib \
+                        --without-harfbuzz \
+                        ac_cv_prog_AWK=/usr/bin/awk
+
+configure.universal_args-delete --disable-dependency-tracking
+
+platform macosx {
+    if {${os.major} < 9} {
+        configure.args-append \
+            --with-old-mac-fonts
+    }
+}
+
+set docdir              ${prefix}/share/doc/${name}
+
+post-destroot {
+    xinstall -m 0755 -d ${destroot}${docdir}
+    
+    xinstall -m 0644 -W ${worksrcpath} \
+        ChangeLog \
+        README \
+        ${destroot}${docdir}
+    xinstall -m 0644 -W ${worksrcpath}/docs \
+        CHANGES \
+        FTL.TXT \
+        GPLv2.TXT \
+        LICENSE.TXT \
+        PROBLEMS \
+        TODO \
+        formats.txt \
+        raster.txt \
+        ${destroot}${docdir}
+    
+    xinstall -m 0755 -d ${destroot}${docdir}/html
+    xinstall -m 0644 -W ${worksrcpath}/docs ft2faq.html ${destroot}${docdir}/html
+    foreach dir {design glyphs reference tutorial} {
+        copy ${worksrcpath}/docs/${dir} ${destroot}${docdir}/html
+    }
+}
+
+if {${os.arch} eq "i386"} {
+    if { ${os.major}>=10 } {
+        set merger_configure_env(ppc) CC_BUILD=${configure.cc}
+    }
+    set merger_configure_env(ppc64)   CC_BUILD=${configure.cc}
+} else {
+    set merger_configure_env(i386)    CC_BUILD=${configure.cc}
+    set merger_configure_env(x86_64)  CC_BUILD=${configure.cc}
+}
+
+livecheck.type          sourceforge
+livecheck.regex         {/freetype2/([0-9.]+)/}

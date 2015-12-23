@@ -1,0 +1,33 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 120824 2014-06-08 18:40:27Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                spawn-fcgi
+version             1.6.4
+categories          www
+platforms           darwin
+maintainers         ryandesign openmaintainer
+license             BSD
+homepage            http://www.lighttpd.net/
+master_sites        ${homepage}download/
+
+description         Program to spawn fast-cgi processes
+
+long_description    ${description}
+
+checksums           rmd160  6f0c9da33b75fa21f2272005a6a408a1d6a04242 \
+                    sha256  ab327462cb99894a3699f874425a421d934f957cb24221f00bb888108d9dd09e
+
+use_parallel_build  yes
+
+post-destroot {
+    set docdir ${destroot}${prefix}/share/doc/${subport}
+    xinstall -d ${docdir}
+    xinstall -m 644 -W ${worksrcpath} \
+        AUTHORS \
+        COPYING \
+        NEWS \
+        README \
+        ${docdir}
+}

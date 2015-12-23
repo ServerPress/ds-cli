@@ -1,0 +1,34 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 140395 2015-09-18 20:03:03Z ionic@macports.org $
+
+PortSystem          1.0
+
+name                MoarVM
+version             2015.09
+categories          lang devel
+platforms           darwin
+license             Artistic-2 MIT BSD ISC public-domain
+maintainers         coleda.com:will
+description         A virtual machine for Perl 6
+long_description    MoarVM is a virtual machine built especially for \
+                    Rakudo Perl 6 and the NQP Compiler Toolchain.
+homepage            http://moarvm.org/
+master_sites        http://moarvm.org/releases/
+
+# To find the correct checksums for the given release, use:
+# openssl dgst -rmd160 <file>
+# openssl dgst -sha256 <file>
+
+checksums           rmd160  c74a3ac21b5c1647aaf7451a97709fdc46e567f1 \
+                    sha256  e93d1d2e918764971fd9e9fd68de73ad900abb25d224a5049a105aae54dba7d3
+
+# FIXME: may need ExtUtil::Command if by chance our default perl5 binary
+# does not match what Apple ships.
+depends_build       port:perl5
+
+# Unsupported by configure.pl.
+configure.universal_args-delete --disable-dependency-tracking
+
+universal_variant   yes
+
+configure.cmd       ${prefix}/bin/perl Configure.pl

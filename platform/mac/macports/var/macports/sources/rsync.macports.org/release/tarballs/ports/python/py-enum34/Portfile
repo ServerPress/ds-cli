@@ -1,0 +1,31 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143522 2015-12-14 12:24:02Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-enum34
+version             1.1.1
+categories          python
+platforms           darwin
+license             BSD
+maintainers         mojca openmaintainer
+description         Python 3.4 Enum backported to 3.3, 3.2, 3.1, 2.7, 2.6, 2.5, and 2.4
+long_description    ${description}
+homepage            https://pypi.python.org/pypi/enum34
+master_sites        https://pypi.python.org/packages/source/e/enum34
+distname            enum34-${version}
+
+checksums           rmd160  dca8448e23b1703f9cae4100547dfa2cf3c9cd58 \
+                    sha256  9d4a9220e4ebabd7ff60d853e69c3dd89debad5ddeb9ac5e768af811ece7708e
+
+# works in 24 25 26 27 31 32 33
+python.versions     26 27 33
+
+if {${name} eq ${subport}} {
+    livecheck.type  regex
+    livecheck.url   ${homepage}
+    livecheck.regex {enum34 (\d+(?:\.\d+)*)}
+} else {
+    livecheck.type  none
+}

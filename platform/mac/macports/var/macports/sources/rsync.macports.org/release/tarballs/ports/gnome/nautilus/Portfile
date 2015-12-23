@@ -1,0 +1,68 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143726 2015-12-19 04:54:13Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           gobject_introspection 1.0
+
+name                nautilus
+version             3.18.4
+set branch          [join [lrange [split ${version} .] 0 1] .]
+description         The GNOME filemanager
+long_description    Nautilus is the official file manager for the \
+                    GNOME desktop. It is designed to be primarly a file manager, \
+                    but there are support for web and file viewing too.
+maintainers         devans openmaintainer
+categories          gnome
+license             GPL-2+
+platforms           darwin
+homepage            https://wiki.gnome.org/Apps/Nautilus
+master_sites        gnome:sources/${name}/${branch}/
+
+use_xz              yes
+
+checksums           rmd160  44e0e995c0ee854ab256bddf60954cbb673e0055 \
+                    sha256  4ff2c78dba352b4666bb30e0c80ed786eed09199fd624f00810fce4d987fcd26
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:gnome-common \
+                    port:gtk-doc \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         port:desktop-file-utils \
+                    port:shared-mime-info \
+                    port:gtk3 \
+                    port:gnome-desktop \
+                    port:exempi \
+                    port:libexif \
+                    port:libxml2 \
+                    port:gsettings-desktop-schemas \
+                    port:xorg-libX11
+
+depends_run         port:gnome-themes-standard
+
+gobject_introspection yes
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+}
+
+configure.cmd       ./autogen.sh
+
+configure.args      --enable-tracker=no \
+                    --disable-packagekit \
+                    --disable-silent-rules \
+                    --disable-update-mimedb \
+                    --disable-schemas-compile
+
+post-activate {
+    system "${prefix}/bin/update-desktop-database ${prefix}/share/applications"
+    system "${prefix}/bin/update-mime-database ${prefix}/share/mime"
+    system "${prefix}/bin/glib-compile-schemas ${prefix}/share/glib-2.0/schemas"
+}
+
+livecheck.type      gnome

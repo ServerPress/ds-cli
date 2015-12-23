@@ -1,0 +1,67 @@
+# $Id: Portfile 139843 2015-08-29 18:29:05Z ram@macports.org $
+
+PortSystem    1.0
+PortGroup     active_variants 1.1
+
+name          laldetchar
+version       0.3.1
+categories    science
+platforms     darwin
+maintainers   ram
+license       GPL-2+
+
+description   LSC Algorithm Library - DetChar
+long_description \
+  LIGO Scientific Collaboration Algorithm Library - DetChar, containing \
+  routines for detectory characterisation.
+
+homepage      https://www.lsc-group.phys.uwm.edu/daswg/projects/lalsuite.html
+master_sites  http://software.ligo.org/lscsoft/source/lalsuite
+
+checksums     rmd160 a704e7b146358e2c7bbe639436f588f570af66b7 \
+              sha256 0238a3b78d7594c1453525b166fe4a0378cb1783c5472fbe55a33d5514d6c515
+
+depends_build-append port:pkgconfig
+
+depends_lib   port:python27 \
+              port:lal \
+              port:lalframe \
+              port:lalmetaio \
+              port:lalsimulation \
+              port:lalburst \
+              port:gsl \
+              port:libframe \
+              port:metaio \
+              path:lib/pkgconfig/glib-2.0.pc:glib2
+
+configure.python ${prefix}/bin/python2.7
+configure.args --mandir=${prefix}/share/man \
+               --disable-silent-rules \
+               --disable-gcc-flags \
+               --disable-debug
+
+use_parallel_build yes
+
+set pythondir "${frameworks_dir}/Python.framework/Versions/2.7/lib/python2.7/site-packages"
+destroot.args-append \
+              pythondir="${pythondir}" \
+              pyexecdir="${pythondir}" \
+              pkgpythondir="${pythondir}/${name}" \
+              pkgpyexecdir="${pythondir}/${name}"
+
+variant swig_python description {Build python SWIG bindings} {
+  require_active_variants lal swig_python
+  require_active_variants lalframe swig_python
+  require_active_variants lalmetaio swig_python
+  require_active_variants lalsimulaton swig_python
+  require_active_variants lalburst swig_python
+  depends_build-append  port:swig-python
+  depends_lib-append    port:py27-numpy
+  configure.args-append --enable-swig-python
+}
+
+default_variants +swig_python
+
+livecheck.type   regex
+livecheck.url    ${master_sites}
+livecheck.regex  {laldetchar-(\d+(?:\.\d+)*).tar.gz}

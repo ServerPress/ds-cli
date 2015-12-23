@@ -334,7 +334,6 @@
 <ANCHOR id="gobject-Enumeration-and-Flag-Types.see-also" href="gobject/gobject-Enumeration-and-Flag-Types.html#gobject-Enumeration-and-Flag-Types.see-also">
 <ANCHOR id="gobject-Boxed-Types" href="gobject/gobject-Boxed-Types.html">
 <ANCHOR id="gobject-Boxed-Types.functions" href="gobject/gobject-Boxed-Types.html#gobject-Boxed-Types.functions">
-<ANCHOR id="gobject-Boxed-Types.other" href="gobject/gobject-Boxed-Types.html#gobject-Boxed-Types.other">
 <ANCHOR id="gobject-Boxed-Types.includes" href="gobject/gobject-Boxed-Types.html#gobject-Boxed-Types.includes">
 <ANCHOR id="gobject-Boxed-Types.description" href="gobject/gobject-Boxed-Types.html#gobject-Boxed-Types.description">
 <ANCHOR id="gobject-Boxed-Types.functions_details" href="gobject/gobject-Boxed-Types.html#gobject-Boxed-Types.functions_details">
@@ -372,7 +371,6 @@
 <ANCHOR id="G-TYPE-THREAD:CAPS" href="gobject/gobject-Boxed-Types.html#G-TYPE-THREAD:CAPS">
 <ANCHOR id="G-TYPE-OPTION-GROUP:CAPS" href="gobject/gobject-Boxed-Types.html#G-TYPE-OPTION-GROUP:CAPS">
 <ANCHOR id="gobject-Boxed-Types.other_details" href="gobject/gobject-Boxed-Types.html#gobject-Boxed-Types.other_details">
-<ANCHOR id="GStrv" href="gobject/gobject-Boxed-Types.html#GStrv">
 <ANCHOR id="gobject-Boxed-Types.see-also" href="gobject/gobject-Boxed-Types.html#gobject-Boxed-Types.see-also">
 <ANCHOR id="gobject-Generic-values" href="gobject/gobject-Generic-values.html">
 <ANCHOR id="gobject-Generic-values.functions" href="gobject/gobject-Generic-values.html#gobject-Generic-values.functions">
@@ -635,6 +633,7 @@
 <ANCHOR id="g-param-value-convert" href="gobject/gobject-GParamSpec.html#g-param-value-convert">
 <ANCHOR id="g-param-values-cmp" href="gobject/gobject-GParamSpec.html#g-param-values-cmp">
 <ANCHOR id="g-param-spec-get-name" href="gobject/gobject-GParamSpec.html#g-param-spec-get-name">
+<ANCHOR id="g-param-spec-get-name-quark" href="gobject/gobject-GParamSpec.html#g-param-spec-get-name-quark">
 <ANCHOR id="g-param-spec-get-nick" href="gobject/gobject-GParamSpec.html#g-param-spec-get-nick">
 <ANCHOR id="g-param-spec-get-blurb" href="gobject/gobject-GParamSpec.html#g-param-spec-get-blurb">
 <ANCHOR id="g-param-spec-get-qdata" href="gobject/gobject-GParamSpec.html#g-param-spec-get-qdata">
@@ -911,11 +910,14 @@
 <ANCHOR id="annotation-glossterm-element-type" href="gobject/annotation-glossary.html#annotation-glossterm-element-type">
 <ANCHOR id="annotation-glossterm-inout" href="gobject/annotation-glossary.html#annotation-glossterm-inout">
 <ANCHOR id="annotation-glossterm-nullable" href="gobject/annotation-glossary.html#annotation-glossterm-nullable">
+<ANCHOR id="annotation-glossterm-optional" href="gobject/annotation-glossary.html#annotation-glossterm-optional">
 <ANCHOR id="annotation-glossterm-out" href="gobject/annotation-glossary.html#annotation-glossterm-out">
 <ANCHOR id="annotation-glossterm-out callee-allocates" href="gobject/annotation-glossary.html#annotation-glossterm-out callee-allocates">
 <ANCHOR id="annotation-glossterm-out caller-allocates" href="gobject/annotation-glossary.html#annotation-glossterm-out caller-allocates">
+<ANCHOR id="annotation-glossterm-rename-to" href="gobject/annotation-glossary.html#annotation-glossterm-rename-to">
 <ANCHOR id="annotation-glossterm-scope call" href="gobject/annotation-glossary.html#annotation-glossterm-scope call">
 <ANCHOR id="annotation-glossterm-scope notified" href="gobject/annotation-glossary.html#annotation-glossterm-scope notified">
+<ANCHOR id="annotation-glossterm-skip" href="gobject/annotation-glossary.html#annotation-glossterm-skip">
 <ANCHOR id="annotation-glossterm-transfer container" href="gobject/annotation-glossary.html#annotation-glossterm-transfer container">
 <ANCHOR id="annotation-glossterm-transfer full" href="gobject/annotation-glossary.html#annotation-glossterm-transfer full">
 <ANCHOR id="annotation-glossterm-transfer none" href="gobject/annotation-glossary.html#annotation-glossterm-transfer none">

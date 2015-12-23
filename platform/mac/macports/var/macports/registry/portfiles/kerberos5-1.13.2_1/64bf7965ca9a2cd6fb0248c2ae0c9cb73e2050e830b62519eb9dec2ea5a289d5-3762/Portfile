@@ -1,0 +1,82 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139737 2015-08-25 22:38:02Z ryandesign@macports.org $
+
+PortSystem                  1.0
+PortGroup                   github 1.0
+PortGroup                   compiler_blacklist_versions 1.0
+
+github.setup                krb5 krb5 1.13.2-final krb5-
+name                        kerberos5
+version                     1.13.2
+revision                    1
+conflicts                   fbopenssl
+set branch                  [join [lrange [split ${version} .] 0 1] .]
+categories                  net security
+maintainers                 ryandesign openmaintainer
+license                     MIT BSD ISC OpenLDAP-2.8+
+platforms                   darwin
+homepage                    http://web.mit.edu/kerberos/
+
+description                 Kerberos is a network authentication protocol.
+
+long_description            Kerberos is a network authentication protocol. \
+                            It is designed to provide strong authentication \
+                            for client/server applications by using secret-key \
+                            cryptography. A free implementation of this protocol \
+                            is  available from the Massachusetts Institute of \
+                            Technology. Kerberos is available in many commercial \
+                            products as well.
+
+checksums                   rmd160  0d3248b49ac3bb08d6e5b0fdc3d8fd9168e293c7 \
+                            sha256  33da60a9297e1b6a58d1bc3c71f6bfb9ef441193a7904271437d8463e0cd1a54
+
+depends_build               port:python27
+
+depends_lib                 port:gettext \
+                            port:libcomerr \
+                            port:libedit \
+                            port:ncurses \
+                            path:lib/libssl.dylib:openssl
+
+worksrcdir                  ${worksrcdir}/src
+
+patchfiles                  patch-util__verto__Makefile.in-use-nonzero-compat-version.diff \
+                            patch-config__shlib.conf-do-not-pass-dylib-file-ldflags.diff \
+                            patch-lib_rpc_Makefile.in-explicitly-link-krb5support.diff
+
+use_autoreconf              yes
+# kerberos5 fails to build in its own presence, see #23769, #37944
+# remove ${prefix}/lib from configure.ldflags to allow linking against its own libs first
+# adding ${worksrcpath}/lib is not necessary and pollutes krb5-config --libs and pkg-config files
+configure.ldflags-delete    -L${prefix}/lib
+configure.python            ${prefix}/bin/python2.7
+configure.args              --mandir=${prefix}/share/man \
+                            --with-system-et \
+                            --without-system-db \
+                            --without-hesiod \
+                            --without-ldap \
+                            --without-tcl \
+                            --with-crypto-impl=openssl \
+                            --with-pkinit-crypto-impl=openssl \
+                            --with-libedit \
+                            --without-readline \
+                            --without-system-verto \
+                            --without-system-ss
+
+# Needs LIBRARY_PATH support
+compiler.blacklist-append   {clang <= 318.0.61}
+
+# i386 linking fails on SL with gcc-4.2 from XCode 3.2.6
+if {[lsearch ${universal_archs} i386] != -1} {
+    compiler.blacklist-append gcc-4.2 apple-gcc-4.2
+}
+
+post-configure {
+    reinplace -E {s|-arch [^ ]+||g} \
+        ${worksrcpath}/build-tools/krb5-config
+}
+
+livecheck.regex             krb5-(\[0-9.\]+)-signed.tar
+livecheck.version           ${version}
+livecheck.type              regex
+livecheck.url               http://web.mit.edu/kerberos/dist/index.html

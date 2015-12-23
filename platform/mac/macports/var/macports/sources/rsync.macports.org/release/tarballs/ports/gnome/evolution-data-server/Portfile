@@ -1,0 +1,100 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143524 2015-12-14 12:43:41Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           gobject_introspection 1.0
+
+name                evolution-data-server
+version             3.18.3
+set branch          [join [lrange [split ${version} .] 0 1] .]
+description         Addressbook and calender libs for GNOME.
+long_description    Evolution Data Server provides a central location for \
+                    addressbook and calendar in the GNOME Desktop.
+maintainers         devans openmaintainer
+categories          gnome
+license             LGPL-2+
+platforms           darwin
+homepage            https://wiki.gnome.org/Apps/Evolution
+master_sites        gnome:sources/${name}/${branch}/
+
+use_xz              yes
+
+checksums           rmd160  5f7251485a3f97dc72c846124f39b22b8d80275a \
+                    sha256  9de9d6392822bb4b89318a88f5db1fd2f0f09899b793a0dd5525a656ed0e8163
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:gtk-doc \
+                    port:gnome-common \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         port:gtk3 \
+                    port:libxml2 \
+                    port:libsoup \
+                    port:libsecret \
+                    port:gcr \
+                    port:libiconv \
+                    port:nss \
+                    port:nspr \
+                    port:libgweather \
+                    port:libical \
+                    port:libgdata \
+                    port:gnome-online-accounts \
+                    port:sqlite3 \
+                    port:vala \
+                    port:db46 \
+                    port:icu
+
+gobject_introspection yes
+
+patchfiles          patch-configure.ac.diff \
+                    patch-addressbook-libebook-contacts-e-phone-number-private.cpp.diff
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+}
+
+configure.cmd       ./autogen.sh
+
+configure.env-append \
+                    DB_CFLAGS="-I${prefix}/include/db46" \
+                    DB_LIBS="-L${prefix}/lib/db46 -ldb"
+
+configure.args      --enable-smime \
+                    --enable-ipv6 \
+                    --enable-weather \
+                    --enable-google \
+                    --enable-goa \
+                    --enable-vala-bindings \
+                    --with-nspr-includes=${prefix}/include/nspr  \
+                    --with-nspr-libs=${prefix}/lib/nspr  \
+                    --with-nss-includes=${prefix}/include/nss \
+                    --with-nss-libs=${prefix}/lib/nss \
+                    --with-krb5=/usr \
+                    --disable-uoa \
+                    --disable-silent-rules \
+                    --disable-schemas-compile
+
+#
+# port nss is not universal
+#
+
+universal_variant   no
+
+variant phonenumber description {Phone number parsing/validation using libphonenumber} {
+    depends_lib-append          port:libphonenumber-cpp
+    configure.cxxflags-append   -DI18N_PHONENUMBERS_USE_BOOST
+    configure.args-append       --with-phonenumber=${prefix}/lib
+}
+
+default_variants    +phonenumber
+
+post-activate    {
+    system "${prefix}/bin/glib-compile-schemas ${prefix}/share/glib-2.0/schemas"
+}
+
+livecheck.type      gnome

@@ -1,0 +1,47 @@
+# $Id: Portfile 143506 2015-12-14 03:48:34Z mmoll@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-opengl
+version             3.1.0
+categories-append   graphics
+platforms           darwin
+supported_archs     noarch
+license             BSD
+maintainers         jmr openmaintainer
+
+description         Python binding to OpenGL
+long_description    PyOpenGL is the cross platform Python binding to OpenGL \
+                    and related APIs. The binding is created using the \
+                    standard ctypes library and is provided under an \
+                    extremely liberal BSD-style Open-Source licenses.
+
+homepage            http://pyopengl.sourceforge.net/
+
+master_sites        https://pypi.python.org/packages/source/P/PyOpenGL/
+distname            PyOpenGL-${version}
+
+checksums           md5    0de021941018d46d91e5a8c11c071693 \
+                    rmd160 75728a3b53e62a41e634037c4f00efd4ba1ee67b \
+                    sha256 9b47c5c3a094fa518ca88aeed35ae75834d53e4285512c61879f67a48c94ddaf
+
+python.versions     26 27 33 34 35
+
+if {$subport ne $name} {
+    depends_build   port:py${python.version}-setuptools
+    depends_lib     port:py${python.version}-opengl-accelerate \
+                    port:py${python.version}-tkinter
+    if {${python.version} >= 30} {
+        depends_lib-append port:py${python.version}-Pillow
+    } else {
+        depends_lib-append path:${python.pkgd}/PIL:py${python.version}-Pillow
+    }
+    patchfiles      pillow-compat.diff
+    test.run        yes
+    livecheck.type  none
+} else {
+    livecheck.type  regex
+    livecheck.url   https://pypi.python.org/pypi/PyOpenGL
+    livecheck.regex {PyOpenGL/([0-9.]+)"}
+}

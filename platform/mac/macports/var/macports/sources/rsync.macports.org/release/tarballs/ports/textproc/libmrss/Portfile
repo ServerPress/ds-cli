@@ -1,0 +1,23 @@
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
+
+PortSystem 1.0
+
+name			libmrss
+version			0.19.1
+revision        1
+categories		textproc devel
+platforms		darwin
+maintainers		mww
+description		C library for parsing, writing, and creating RSS streams
+long_description	libmRSS is a C library for parsing, writing, and creating \
+			RSS (Rich Site Summary or Really Simple Syndication, but not RDF \
+			Site Summary) files or streams.
+
+homepage		http://libmrss.sourceforge.net/
+master_sites	http://autistici.org/bakunin/libmrss/
+checksums		sha1 a632b89af04f05ebc3c8dca91d8934e2909a7217
+
+depends_build	port:pkgconfig
+depends_lib		port:curl port:libnxml path:lib/libssl.dylib:openssl port:zlib
+
+livecheck.type	freecode

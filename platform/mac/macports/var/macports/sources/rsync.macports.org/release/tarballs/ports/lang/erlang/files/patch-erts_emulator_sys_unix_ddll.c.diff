@@ -1,0 +1,16 @@
+--- erts/emulator/sys/unix/erl_unix_sys_ddll.c.orig
++++ erts/emulator/sys/unix/erl_unix_sys_ddll.c
+@@ -49,6 +49,13 @@ static char **errcodes = NULL;
+ static int num_errcodes = 0;
+ static int num_errcodes_allocated = 0;
+ 
++static void call_cf_initialize() __attribute__ ((constructor));
++
++static void call_cf_initialize()
++{
++    __CFInitialize();
++}
++
+ #define my_strdup(WHAT) my_strdup_in(ERTS_ALC_T_DDLL_ERRCODES, WHAT);
+ 
+ static char *my_strdup_in(ErtsAlcType_t type, char *what)

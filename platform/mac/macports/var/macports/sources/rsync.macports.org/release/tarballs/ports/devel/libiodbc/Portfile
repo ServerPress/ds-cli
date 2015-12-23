@@ -1,0 +1,67 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 132897 2015-02-12 19:39:09Z snc@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+PortGroup           active_variants 1.1
+
+github.setup        openlink iODBC 3.52.10.1 v
+#override name (keep it lowercase)
+name                libiodbc
+conflicts           unixODBC
+categories          devel
+maintainers         snc openmaintainer
+license             BSD
+description         Independent Open DataBase Connectivity
+long_description    iODBC is the acronym for Independent Open DataBase Connectivity, \
+                    an Open Source platform independent implementation of both the \
+                    ODBC and X/Open specifications.
+platforms           darwin
+
+checksums           rmd160  50b727541490ba75b3039d92d9345617991c3bdd \
+                    sha256  5f2cde32275088d77bcc320e65141faee2a93055f85f0fbd2562076ec425a00d
+
+depends_build-append    port:automake \
+                        port:autoconf \
+                        port:libtool
+
+patchfiles-append   patch-iodbcinst-unicode.h.diff
+
+variant x11 {
+    depends_lib-append  port:atk \
+                        path:lib/pkgconfig/cairo.pc:cairo \
+                        port:fontconfig \
+                        port:freetype \
+                        port:gdk-pixbuf2 \
+                        port:gettext \
+                        path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                        port:gtk2 \
+                        path:lib/pkgconfig/pango.pc:pango \
+                        port:xorg-libX11 \
+                        port:xorg-libXcomposite \
+                        port:xorg-libXcursor \
+                        port:xorg-libXdamage \
+                        port:xorg-libXext \
+                        port:xorg-libXfixes \
+                        port:xorg-libXi \
+                        port:xorg-libXinerama \
+                        port:xorg-libXrandr \
+                        port:xrender
+
+    require_active_variants cairo x11
+    require_active_variants gtk2 x11
+    require_active_variants pango x11
+
+    configure.args-delete   --disable-gui
+}
+
+default_variants +x11
+
+pre-configure {
+    system -W ${worksrcpath} "sh ./bootstrap.sh"
+}
+configure.args-append   --disable-gui \
+                        --with-iodbc-inidir=${prefix}/etc
+
+# make[2]: *** No rule to make target `../iodbcadm/libiodbcadm.la', needed by `iodbcadm-gtk'.  Stop.
+use_parallel_build  no

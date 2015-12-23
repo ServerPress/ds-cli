@@ -1,0 +1,84 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139742 2015-08-26 02:50:09Z ionic@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+PortGroup           qmake 1.0
+
+github.setup        LibreCAD LibreCAD 2.0.8
+categories          cad
+platforms           darwin
+maintainers         rvt.dds.nl:librecad \
+                    gmail.com:dongxuli2011 \
+                    openmaintainer
+
+license             GPL-2+
+
+description         LibreCAD is a free Open Source CAD application.
+
+long_description    LibreCAD is a free Open Source CAD application for \
+                    Windows, Apple and Linux. Support and documentation is \
+                    free from our large, dedicated community of users, \
+                    contributors and developers. You, too, can also get \
+                    involved!
+
+homepage            http://librecad.org/
+
+checksums           rmd160  d5dc079046ac43265b971bd00f85dfae77e14b92 \
+                    sha256  ec13e47f3c960ae716040a16da0b688c58cd85e63f7c17cd44afc5bf73b01b84
+
+depends_lib-append  port:boost \
+                    port:freetype \
+                    port:libxmlxx2
+
+pre-configure {
+                    configure.args-append CONFIG+=\"build_muparser\"
+}
+
+if {${os.platform} eq "darwin" && ${os.major} < 13} {
+                    configure.compiler macports-gcc-4.8
+                    # -r ensure's that we will build all Makefiles when QMake get's executed
+                    configure.pre_args -r
+
+                    # Fixing -Xarch_X86_64 issues within the Makefile
+                    post-configure  {
+                        ui_info "Removing -Xarch_x86_64 from Makefiles"
+                        fs-traverse Makefile ${worksrcpath} {
+                            if {[string match "*/Makefile" ${Makefile}]} {
+                                ui_info "Fixing Xarch ${Makefile}"
+                                reinplace "s|-Xarch_x86_64||" ${Makefile}
+                            }
+                        }
+                    }
+}
+
+variant universal {}
+
+build.args          CC="${configure.cc} [get_canonical_archflags cc]" \
+                    CXX="${configure.cxx} [get_canonical_archflags cxx]" \
+                    LINK="${configure.cxx} [get_canonical_archflags cxx]"
+
+destroot {
+    if {${os.platform} eq "darwin" && ${os.major} < 13} {
+
+        # copy libgcc files over to within the application, a bug in macdeployqt prevent's this from happening correctly
+        set librecad "${worksrcpath}/LibreCAD.app/Contents/MacOS/LibreCAD"
+        file mkdir ${worksrcpath}/LibreCAD.app/Contents/Frameworks
+        foreach dep [exec otool -L ${librecad} | grep libgcc] {
+            if [string match -nocase "*/libgcc*.dylib" ${dep}] {
+                ui_info "Copy libgcc files over from ${dep} to ${worksrcpath}/LibreCAD.app/Contents/Frameworks"
+                file copy ${dep} ${worksrcpath}/LibreCAD.app/Contents/Frameworks/
+            }
+        }
+
+        # Set these libgcc libraries to local
+        # TODO: Put these in the foreach loop somehow
+        system "install_name_tool -change /opt/local/lib/libgcc/libstdc++.6.dylib \
+            @executable_path/../Frameworks/libstdc++.6.dylib ${librecad}"
+        system "install_name_tool -change /opt/local/lib/libgcc/libgcc_s.1.dylib \
+            @executable_path/../Frameworks/libgcc_s.1.dylib ${librecad}"
+
+    }
+    system -W ${worksrcpath} "macdeployqt LibreCAD.app"
+    copy ${worksrcpath}/LibreCAD.app ${destroot}${applications_dir}
+}

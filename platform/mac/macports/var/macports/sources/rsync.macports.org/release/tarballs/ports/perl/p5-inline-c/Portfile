@@ -1,0 +1,34 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 140480 2015-09-20 00:28:34Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Inline-C 0.76
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Inline::C Write Perl Subroutines in C
+long_description    Inline::C is a module that allows you to write Perl subroutines in C.
+
+platforms           darwin
+
+checksums           rmd160  7b1260ddbb6e41e9d26c40327be2aa292935a954 \
+                    sha256  22e9713b4d331d3c49e4a9a9f012dbf84cec25a01e5da4f57091be287f1a9a35
+
+if {${perl5.major} != ""} {
+    depends_build-append \
+                    port:p${perl5.major}-file-copy-recursive \
+                    port:p${perl5.major}-file-sharedir-install \
+                    port:p${perl5.major}-io-all \
+                    port:p${perl5.major}-test-warn \
+                    port:p${perl5.major}-yaml-libyaml
+
+    depends_lib-append \
+                    port:p${perl5.major}-extutils-makemaker \
+                    port:p${perl5.major}-inline \
+                    port:p${perl5.major}-parse-recdescent \
+                    port:p${perl5.major}-pegex
+
+    supported_archs noarch
+}

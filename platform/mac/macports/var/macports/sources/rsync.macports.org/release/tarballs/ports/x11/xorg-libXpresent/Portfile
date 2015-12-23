@@ -1,0 +1,43 @@
+# $Id: Portfile 141184 2015-10-12 00:23:04Z jeremyhu@macports.org $
+
+PortSystem 1.0
+
+name            xorg-libXpresent
+version         1.0.0
+revision        1
+categories      x11 devel
+license         X11
+maintainers     jeremyhu openmaintainer
+description     X.org libXpresent
+homepage        http://www.x.org
+platforms       darwin macosx
+long_description Xlib-compatible API for the Present extension
+master_sites     xorg:individual/lib/
+
+distname    libXpresent-${version}
+checksums           rmd160  f942922ec42c641b817a46ac5e67fc350cee9eb4 \
+                    sha256  c11ae015141a9afbe10f4f2b8ee00b11adca6373dc1b9808d7c6c138b2da7b8a
+
+use_bzip2   yes
+use_parallel_build      yes
+
+patch.pre_args  -p1
+patchfiles      0001-configure-xpresent.pc-require-xext-xfixes-and-xrandr.patch 
+
+use_autoreconf  yes
+autoreconf.args -fvi
+
+depends_build   port:pkgconfig \
+                port:xorg-util-macros
+
+depends_lib     port:xorg-libX11 \
+                port:xorg-libXfixes \
+                port:xorg-libXext \
+                port:xorg-libXrandr \
+                port:xorg-xproto \
+                port:xorg-xextproto \
+                port:xorg-presentproto
+
+livecheck.type  regex
+livecheck.url   http://xorg.freedesktop.org/archive/individual/lib/?C=M&O=D
+livecheck.regex libXpresent-(\\d+\\.\\d+\\.\\d+)\\.tar

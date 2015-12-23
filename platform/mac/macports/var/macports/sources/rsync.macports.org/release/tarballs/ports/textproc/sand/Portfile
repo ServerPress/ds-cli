@@ -1,0 +1,26 @@
+# $Id: Portfile 104719 2013-04-01 17:13:45Z jmr@macports.org $
+
+PortSystem 1.0
+
+name			sand
+version			0.1.1
+revision		1
+categories		textproc
+license			GPL-2+
+platforms		darwin
+maintainers		nomaintainer
+description		sand is a tool to help you keep your diary
+long_description	${description}
+
+homepage		http://sand.sourceforge.net/
+master_sites	sourceforge
+checksums		md5 15a68a43c11bdc3d4cebd8f9b74c513a
+patchfiles		patch-Makefile.in
+
+depends_lib		lib:libpub:libpub
+
+configure.args	--host=powerpc-apple-freebsd \
+				--mandir=${prefix}/share/man \
+				--infodir=${prefix}/share/info
+configure.cflags-append	"-I/Library/OpenDarwin/Frameworks/libpub.framework/Headers"
+configure.ldflags-append "-L/Library/OpenDarwin/Frameworks/libpub.framework/Libraries -lpub"

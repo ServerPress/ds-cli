@@ -1,0 +1,68 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 126417 2014-10-09 20:09:06Z rmstonecipher@macports.org $
+
+PortSystem          1.0
+
+name                vorbis-tools
+version             1.4.0
+revision            1
+categories          audio
+platforms           darwin
+maintainers         nomaintainer
+
+description         The Ogg Vorbis CODEC tools
+long_description \
+    Ogg Vorbis is a fully Open, non-proprietary, patent-and-royalty-free, \
+    general-purpose compressed audio format for mid to high quality \
+    (8kHz-48.0kHz, 16+ bit, polyphonic) audio and music at fixed and \
+    variable bitrates from 16 to 128 kbps/channel. This places Vorbis in \
+    the same competetive class as audio representations such as MPEG-4 \
+    (AAC), and similar to, but higher performance than MPEG-1/2 audio \
+    layer 3, MPEG-4 audio (TwinVQ), WMA and PAC.
+license             GPL-2+ BSD LGPL-2+
+homepage            http://www.vorbis.com/
+master_sites        http://downloads.xiph.org/releases/vorbis/
+
+checksums           md5     567e0fb8d321b2cd7124f8208b8b90e6 \
+                    sha1    fc6a820bdb5ad6fcac074721fab5c3f96eaf6562 \
+                    rmd160  ff21e5c9456ac0a82b8eda4e53931db8522a2ccd
+
+depends_lib \
+                    port:libogg \
+                    port:libvorbis \
+                    port:curl \
+                    port:libao \
+                    port:gettext
+
+configure.args \
+    --mandir=${prefix}/share/man \
+    --with-ao \
+    --enable-ogg123 \
+    --without-flac \
+    --without-speex \
+    --enable-vcut
+
+use_parallel_build  yes
+
+variant flac description "Enable FLAC support" {
+  depends_lib-append    port:flac
+  configure.args-delete --without-flac
+}
+
+variant speex description "Enable Speex support" {
+  depends_lib-append    path:lib/libspeex.dylib:speex
+  configure.args-delete --without-speex
+}
+
+post-patch {
+    reinplace "s|-O4|-O3|g" ${worksrcpath}/configure
+}
+
+post-destroot {
+    file delete -force ${destroot}${prefix}/share/locale/locale.alias
+    file delete -force ${destroot}${prefix}/lib/charset.alias
+}
+
+livecheck.type      regex
+livecheck.url       http://xiph.org/downloads/
+livecheck.regex     {vorbis-tools-(\d+(?:\.\d+)*).tar.gz}

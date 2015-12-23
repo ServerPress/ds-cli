@@ -1,0 +1,121 @@
+# -*- mode: tcl; coding: utf-8; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- # vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143195 2015-12-07 10:34:34Z easieste@macports.org $
+
+PortSystem      1.0
+
+name            sbcl
+
+# Please revbump ../../math/maxima when this port changes
+version         1.3.1
+
+categories      lang
+license         BSD
+maintainers     easieste openmaintainer
+platforms       darwin
+description     The Steel Bank Common Lisp system
+
+long_description \
+    Steel Bank Common Lisp (SBCL) is a Open Source implementation of ANSI \
+    Common Lisp. It provides an interactive environment including an \
+    integrated native compiler, interpreter, and debugger. SBCL is quite \
+    suitable for the creation of long running system services, as the compiler \
+    trades the time for a long initial compilation for blazingly fast loading \
+    of its binary runtime fasl representation.
+
+
+homepage        http://www.sbcl.org
+master_sites    sourceforge:sbcl
+
+use_bzip2       yes
+
+patchfiles      \
+    patch-use-right-gcc.diff 
+
+distname        ${name}-${version}-source
+worksrcdir      ${name}-${version}
+
+checksums       sbcl-${version}-source.tar.bz2 \
+    rmd160  87003796f6e4b59146bccb2971faef56b97f2cd0 \
+    sha256  a2e547e471a368349a43b1feee78ca6139aae0c60b8fcaa6ab0fd0e5b8e0ed3d 
+
+platform powerpc {
+    set bootversion 1.0.47
+    distfiles-append    ${name}-${bootversion}-powerpc-darwin-binary${extract.suffix}
+    checksums-append    ${name}-${bootversion}-powerpc-darwin-binary${extract.suffix} \
+                        md5     02747afc7631a7ccdeede4b52b78072d \
+                        sha1    93df00b3120810a086d37666c1ccdeabc8daeb49 \
+                        rmd160  85c76296a1c62db5affdff7e72e61e558bb5c819
+
+    global host_lisp
+    set host_lisp "\"${workpath}/${name}-${bootversion}-powerpc-darwin/src/runtime/sbcl --core ${workpath}/${name}-${bootversion}-powerpc-darwin/output/sbcl.core --disable-debugger --sysinit /dev/null --userinit /dev/null\" "
+}
+
+platform i386 {
+    set bootversion 1.0.55
+    distfiles-append    ${name}-${bootversion}-x86-darwin-binary${extract.suffix}
+    checksums-append    ${name}-${bootversion}-x86-darwin-binary${extract.suffix} \
+                        md5     941351112392a77dd62bdcb9fb62e4e4 \
+                        sha1    8ea71938c40a6dccfe2d43a86e9b115f4428a218 \
+                        rmd160  97c92e16426fb4e7eb9e649e21714c342703d17b \
+
+    global host_lisp
+    set host_lisp "\"${workpath}/${name}-${bootversion}-x86-darwin/src/runtime/sbcl --core ${workpath}/${name}-${bootversion}-x86-darwin/output/sbcl.core --disable-debugger --sysinit /dev/null --userinit /dev/null\" "
+}
+
+post-patch {
+    reinplace "s|/usr/local/lib/${name}|${prefix}/lib/${name}|g" \
+        ${worksrcpath}/doc/sbcl.1
+}
+
+use_configure   no
+
+build {
+    reinplace s|CC=gcc|CC=${configure.cc}| ${worksrcpath}/contrib/asdf-module.mk
+    system "ulimit -s 8192 && unset LD_PREBIND && unset LD_PREBIND_ALLOW_OVERLAP && cd ${worksrcpath} && export CC && CC=${configure.cc} && export CXX && CXX=${configure.cxx} && export CPP && CPP==${configure.cpp} && sh ./make.sh ${make_sh_options} --prefix=${prefix} --xc-host=${host_lisp}"
+}
+
+post-build {
+    if {[variant_isset html] || [variant_isset pdf]} {
+        system -W ${worksrcpath}/doc "INSTALL_ROOT=${destroot}${prefix} sh ${worksrcpath}/doc/make-doc.sh"
+    }
+}
+
+if {![variant_isset threads]} {
+    default_variants +fancy
+}
+
+variant html conflicts pdf description {Installs documentation in HTML and Info formats.} {
+    patchfiles-append patch-make-doc.diff
+    depends_build-append bin:texi2dvi:texinfo
+    depends_build-append bin:makeinfo:texinfo
+}
+
+variant pdf conflicts html description {Installs documentation in PDF, HTML and Info formats.  Involves the installation of a TexLive dependency chain, which can dramatically slow down the installation of the SBCL port.} {
+    depends_build-append bin:dvips:texlive
+    depends_build-append bin:texi2dvi:texinfo
+    depends_build-append bin:makeinfo:texinfo
+}
+
+global make_sh_options
+set make_sh_options ""
+
+variant threads description {Enable multi-threaded runtime using the Mach pthreads interface.} {
+    set make_sh_options --with-sb-thread
+}
+
+variant fancy conflicts threads description {Configure SBCL compilation with all available compatible options (including threading).} {
+    set make_sh_options --fancy
+}
+
+test.run        yes
+test.dir        ${worksrcpath}/tests
+test.cmd        CC=${configure.cc} CXX=${configure.cxx} CPP=${configure.cpp} sh
+test.target     run-tests.sh
+
+destroot {
+    system -W ${worksrcpath} "INSTALL_ROOT=${destroot}${prefix} sh ${worksrcpath}/install.sh"
+}
+
+livecheck.url   http://sourceforge.net/api/file/index/project-id/1373/rss?path=%2F${name}
+livecheck.regex guid.*${name}-(\\d+(\\.\\d+)+)-source <smb://d+(//.//d+)+)-source>
+

@@ -1,0 +1,31 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143410 2015-12-12 09:35:52Z mojca@macports.org $
+
+PortSystem              1.0
+PortGroup               perl5 1.0
+
+name                    patchutils
+version                 0.3.4
+platforms               darwin
+categories              devel
+license                 GPL-2+
+maintainers             nomaintainer
+
+description             small collection of programs that operate on patch files
+long_description        Patchutils is a small collection of programs that \
+                        operate on  patch files.  They are the following: \
+                        interdiff, combinediff, filterdiff, fixcvsdiff, \
+                        lsdiff, splitdiff, rediff, grepdiff, recountdiff, \
+                        unwrapdiff, dehtmldiff, flipdiff, espdiff
+homepage                http://cyberelk.net/tim/${name}/
+
+master_sites            http://cyberelk.net/tim/data/${name}/stable/
+use_xz                  yes
+
+checksums               rmd160  dd3084101f5467ee8de7649c06e7e28071c22905 \
+                        sha256  cf55d4db83ead41188f5b6be16f60f6b76a87d5db1c42f5459d596e81dabe876
+
+depends_run             port:perl${perl5.major}
+
+configure.perl          ${perl5.bin}
+configure.args          --mandir="${prefix}/share/man"

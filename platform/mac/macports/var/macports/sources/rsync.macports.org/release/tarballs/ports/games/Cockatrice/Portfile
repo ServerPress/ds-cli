@@ -1,0 +1,36 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4; truncate-lines: t -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143414 2015-12-12 09:51:12Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+PortGroup           cmake  1.0
+PortGroup           github 1.0
+PortGroup           qt4    1.0
+
+github.setup        Cockatrice Cockatrice 776d809f2fcf248c21042c1fc93cf7451c48f7cd
+
+name                Cockatrice
+version             0.0.2
+revision            2
+categories          games
+maintainers         nomaintainer
+description         A board for playing trading card games like MTG online
+long_description    ${description} (This port installs only the client as well as oracle.)
+
+platforms           darwin
+license             GPL-2
+
+homepage            http://www.woogerworks.com/
+
+depends_lib-append  port:protobuf-cpp
+
+configure.args-append -DWITH_QT4:BOOL=ON
+
+checksums           rmd160  0c9213c925ca2d5ecc5acabdc5ff35f8877279a2 \
+                    sha256  8267f7602b7de878bd7cf9f006e22a061da9f8c068d910dd555f172a3fe6ddc5
+
+destroot {
+    xinstall -m 0755 -d ${destroot}${applications_dir}
+    file copy ${worksrcpath}/cockatrice/cockatrice.app ${destroot}${applications_dir}
+    file copy ${worksrcpath}/oracle/oracle.app ${destroot}${applications_dir}
+}

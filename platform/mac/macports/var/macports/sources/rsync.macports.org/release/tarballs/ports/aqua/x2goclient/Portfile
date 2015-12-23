@@ -1,0 +1,68 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139060 2015-07-30 20:59:52Z ionic@macports.org $
+
+PortSystem              1.0
+PortGroup               qt4 1.0
+
+name                    x2goclient
+version                 4.0.5.0
+checksums               sha256  242e91720c1e5830f64a632c111ac3c4b6f6690d5005454c8e025b00bfbe42a1 \
+                        rmd160  e1a43040ed76e4d9b0e9d0799ca320f1d2d11643
+
+categories              aqua net
+platforms               macosx
+license                 {GPL-2+ OpenSSLException}
+
+maintainers             cal ionic openmaintainer
+
+description             vnc-like remote desktop software
+long_description        X2Go is based on the (now closed source) NX libraries which provide \
+                        terminal server services. \
+                        This is a client application to access the remote side.
+
+homepage                http://www.x2go.org/
+master_sites            http://code.x2go.org/releases/source/${name}/
+
+universal_variant       yes
+supported_archs         ppc i386 x86_64
+
+installs_libs           no
+
+depends_lib             port:qt4-mac \
+                        port:nxproxy \
+                        port:libssh \
+                        port:xorg-libX11
+
+pre-configure {
+    file mkdir "${worksrcpath}/client_build"
+    system -W "${worksrcpath}/client_build" "${qt_lrelease_cmd} ../${name}.pro"
+}
+
+set qmake_project_file  "x2goclient.pro"
+configure.dir           "${worksrcpath}/client_build"
+configure.cmd           ${qt_qmake_cmd}
+configure.pre_args      PREFIX=${prefix}
+
+configure.args-append   -config \"release\" \
+                        CONFIG+=\"${qt_arch_types}\" \
+                        CONFIG-=\"sdk\" \
+                        OSX_STDLIB=\"${configure.cxx_stdlib}\" \
+                        "../${qmake_project_file}"
+
+build.dir               "${worksrcpath}/client_build"
+destroot.dir            "${worksrcpath}/client_build"
+
+destroot {
+    copy ${worksrcpath}/client_build/${name}.app ${destroot}${applications_dir}
+    xinstall -d -m 755 ${destroot}${applications_dir}/${name}.app/Contents/exe
+    ln -s ${prefix}/bin/nxproxy ${destroot}${applications_dir}/${name}.app/Contents/exe/nxproxy
+    ln -s ${applications_dir}/${name}.app/Contents/MacOS/${name} ${destroot}${prefix}/bin/${name}
+}
+
+variant debug description {Builds a debug version. Only really useful with a debugging-enabled version of Qt.} {
+    configure.args-replace  -config \"release\" \
+                            -config \"debug\"
+}
+
+livecheck.url           http://code.x2go.org/releases/source/x2goclient/
+livecheck.regex         ${name}-(\\d+(?:\\.\\d+)*)\\.tar.gz

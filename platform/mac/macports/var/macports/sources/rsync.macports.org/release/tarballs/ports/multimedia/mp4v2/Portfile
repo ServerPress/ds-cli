@@ -1,0 +1,54 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 120774 2014-06-06 20:44:32Z mf2k@macports.org $
+
+PortSystem          1.0
+
+name                mp4v2
+conflicts           mp4v2-devel
+version             2.0.0
+revision            1
+categories          multimedia
+license             MPL-1.1 BSD-old
+maintainers         nomaintainer
+description         Read, create, and modify mp4 files.
+long_description    The mp4v2 library provides an API to create and modify mp4 \
+                    files as defined by ISO-IEC:14496-1:2001 MPEG-4 Systems. \
+                    mp4v2 used to be part of the mpeg4ip library.
+
+homepage            http://code.google.com/p/mp4v2/
+platforms           darwin
+
+master_sites        googlecode
+
+checksums           md5     c91f06711225b34b4c192c9114887b14 \
+                    sha1    193260cfb7201e6ec250137bcca1468d4d20e2f0 \
+                    rmd160  1b309ec6480dd06fac2e1e72ab666ca123e714d8
+
+depends_build       port:help2man
+
+use_bzip2           yes
+
+patchfiles          configure-version.patch
+
+post-patch {
+    reinplace "s|@@VERSION@@|${version}|g" \
+        ${worksrcpath}/configure.ac
+}
+
+# Teach glibtool about -stdlib
+use_autoreconf      yes
+autoreconf.args     -fvi
+
+platform darwin {
+    if {${os.major} < 10} {
+        patchfiles-append mp4v2-1.9.1-libversion.patch
+    }
+}
+
+variant universal {
+    configure.args-append  --disable-gch
+}
+
+livecheck.type      regex
+livecheck.url       http://code.google.com/p/mp4v2/downloads/list
+livecheck.regex     "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

@@ -1,0 +1,100 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141832 2015-10-29 16:23:55Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           wxWidgets 1.0
+PortGroup           compiler_blacklist_versions 1.0
+
+name                FileZilla
+version             3.14.1
+categories          www aqua
+platforms           darwin
+maintainers         mojca strasweb.fr:rudloff openmaintainer
+license             GPL-2+
+
+description         Open-source FTP, FTPS, and SFTP client
+
+long_description    FileZilla Client is a fast and reliable cross-platform \
+                    FTP, FTPS and SFTP client with lots of useful features \
+                    and an intuitive graphical user interface.
+
+homepage            https://filezilla-project.org/
+master_sites        sourceforge:project/filezilla/FileZilla_Client/${version}
+
+checksums           rmd160  2226ca612ae01a0871d051f357b508b92888df79 \
+                    sha256  b10871b6ced5f52062b44deda037edb8a38090b226a018b9b64b1a1feb59d46c
+
+depends_build       port:pkgconfig
+
+depends_lib         port:dbus \
+                    port:gettext \
+                    port:gnutls \
+                    port:libidn \
+                    port:sqlite3 \
+                    port:xdg-utils
+
+distname            ${name}_${version}_src
+
+use_bzip2           yes
+worksrcdir          filezilla-${version}
+
+patchfiles          patch-src-interface-buildinfo.cpp.diff
+
+# http://trac.filezilla-project.org/ticket/5473
+# http://sourceforge.net/p/tinyxml/patches/51/
+configure.args      --with-tinyxml=builtin \
+                    --with-pugixml=builtin \
+                    --disable-manualupdatecheck \
+                    --disable-autoupdatecheck
+
+platform darwin {
+    configure.cxx_stdlib    libc++
+    depends_lib-append      port:libcxx
+    configure.ldflags-append \
+                            -stdlib=${configure.cxx_stdlib}
+}
+
+# gcc 4.2 doesn't suffice to build FileZilla on 10.6 and earlier
+# newer gcc compilers should also work
+if {${os.major} <= 10} {
+    compiler.whitelist macports-clang-3.4 macports-clang-3.5 macports-clang-3.6 macports-clang-3.7
+}
+# http://trac.macports.org/ticket/47273
+# In theory gcc could work, but we need to disable llvm-gcc and we need to match stdlib with wxWidgets (= use libc++)
+compiler.blacklist-append *gcc* {clang < 503}
+
+variant wxgtk30 conflicts wxwidgets30 wxwidgets30_libcxx description {Use wxWidgets 3.0 with GTK} {
+    wxWidgets.use           wxGTK-3.0
+    depends_lib-append      port:${wxWidgets.port}
+    configure.args-append   --with-wxdir=${wxWidgets.wxdir}
+    configure.env-append    WXRC=${wxWidgets.wxrc}
+}
+
+variant wxwidgets30 conflicts wxgtk30 wxwidgets30_libcxx description {Use wxWidgets 3.0} {
+    wxWidgets.use           wxWidgets-3.0
+    depends_lib-append      port:${wxWidgets.port}
+    configure.args-append   --with-wxdir=${wxWidgets.wxdir}
+    configure.env-append    WXRC=${wxWidgets.wxrc}
+    destroot {              copy ${worksrcpath}/FileZilla.app ${destroot}${applications_dir} }
+}
+
+variant wxwidgets30_libcxx conflicts wxgtk30 wxwidgets30 description {Use wxWidgets 3.0 with libcxx (for < 10.9)} {
+    wxWidgets.use           wxWidgets-3.0-libcxx
+    depends_lib-append      port:${wxWidgets.port}
+    configure.args-append   --with-wxdir=${wxWidgets.wxdir}
+    configure.env-append    WXRC=${wxWidgets.wxrc}
+    destroot {              copy ${worksrcpath}/FileZilla.app ${destroot}${applications_dir} }
+}
+
+if {![variant_isset wxgtk30] && ![variant_isset wxwidgets30] && ![variant_isset wxwidgets30_libcxx]} {
+    if {${os.major} <= 12} {
+        # TODO: && configure.cxx_stdlib != libc++
+        default_variants +wxwidgets30_libcxx
+    } else {
+        default_variants +wxwidgets30
+    }
+}
+
+livecheck.type      regex
+livecheck.url       ${homepage}download.php?type=client
+livecheck.regex     /${name}_(\[0-9.\]+)

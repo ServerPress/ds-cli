@@ -1,0 +1,11 @@
+# $Id: Portfile 88547 2012-01-04 02:59:46Z mww@macports.org $
+
+PortSystem          1.0
+replaced_by ocaml-dypgen
+PortGroup obsolete 1.0
+
+name                caml-dypgen
+version             20091118
+revision            1
+categories          lang devel ml
+

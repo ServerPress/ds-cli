@@ -1,0 +1,32 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143174 2015-12-05 20:55:18Z ryandesign@macports.org $
+
+PortSystem              1.0
+PortGroup               cmake 1.0
+PortGroup               github 1.0
+
+epoch                   1
+github.setup            htacg tidy-html5 5.1.25
+name                    tidy
+categories              www
+platforms               darwin
+maintainers             ryandesign openmaintainer
+license                 MIT
+
+description             Fixes and tidies up HTML files
+
+long_description        Tidy is a utility to clean up and fix broken HTML files.
+
+homepage                http://www.htacg.org/tidy-html5/
+
+checksums               rmd160  bcef570d149fdaa1345386d9aa60960d4a0a0ec9 \
+                        sha256  409a2349fabb44550b4bc4574807975ef96fa9c02b8cdf07de47ff73be48a716
+
+depends_build-append    port:libxslt
+
+cmake.out_of_source     yes
+cmake.build_dir         ${worksrcpath}/build/cmake
+
+configure.args-append   -DBUILD_SHARED_LIB:BOOL=ON
+
+use_parallel_build      yes

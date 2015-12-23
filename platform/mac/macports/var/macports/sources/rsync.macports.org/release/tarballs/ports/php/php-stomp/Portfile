@@ -1,0 +1,33 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136607 2015-05-23 06:41:18Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           php 1.1
+
+name                php-stomp
+version             1.0.8
+categories          php devel
+platforms           darwin
+maintainers         ryandesign openmaintainer
+license             PHP-3.01
+
+php.branches        5.3 5.4 5.5 5.6
+php.pecl            yes
+
+description         PECL extension of stomp client
+
+long_description    Allows php applications to communicate with any Stomp compliant Message \
+                    Brokers through easy object oriented and procedural interfaces.
+
+homepage            http://www.php.net/stomp
+
+checksums           rmd160  bb8104c2406d6cc89aac659318ea5e98ca04ae43 \
+                    sha256  4e75c7baeff1de84b806a3fc17f486f773a8fd94797390c0678a11f71abf16c1
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:${php}-openssl
+    
+    configure.args-append --enable-stomp
+    
+    use_parallel_build  yes
+}

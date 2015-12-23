@@ -1,0 +1,55 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 136710 2015-05-24 22:03:44Z petr@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+set _name           pyperclip
+set _n              [string index ${_name} 0]
+
+name                py-${_name}
+version             1.5.10
+platforms           darwin
+supported_archs     noarch
+license             BSD
+
+maintainers         petr openmaintainer
+
+description         A cross-platform clipboard module for Python
+long_description    ${description}. It currently handles only plain text.
+
+homepage            https://github.com/asweigart/pyperclip
+
+master_sites        https://pypi.python.org/packages/source/${_n}/${_name}/
+distname            ${_name}-${version}
+use_zip             yes
+
+checksums           md5     b5fba73990d24159b8a7a3df21ec0d4b \
+                    rmd160  903cec2802a089809e41e38c417b2072f84055a0 \
+                    sha256  edaed3a21a90b73d8389f24a4d44078e3f6929b7cebbf54a909af3596fe145d6
+
+python.versions     27 34
+
+if {${name} ne ${subport}} {
+    depends_build-append    port:py${python.version}-setuptools
+
+    # Adding documentation 
+    # DISABLED: currently not provided with the distfile
+#     post-destroot {
+#         set dest_doc ${destroot}${prefix}/share/doc/${subport}
+#         xinstall -d  ${dest_doc}
+
+#         xinstall -m 755 -W ${worksrcpath} \
+#             AUTHORS.txt\
+#             CHANGES.txt \
+#             LICENSE.txt \
+#             README.md \
+#                 ${dest_doc}
+#     }
+
+    livecheck.type  none
+} else {
+    livecheck.type  regex
+    livecheck.url   https://pypi.python.org/pypi/${_name}/json
+    livecheck.regex "\"${_name}-(\[.\\d\]+)\\${extract.suffix}\""
+}

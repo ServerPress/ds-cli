@@ -1,0 +1,24 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142558 2015-11-15 17:24:00Z mmoll@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         PDL-IO-HDF5 0.73
+revision            1
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         PDL::IO::HDF5 - PDL Interface to the HDF5 Data Format.
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  a5fcae365376d8572124fded84f69328a563661b \
+                    sha256  693bbff31010cf54ea47a268beb5a848b625b57a5d5d0be47b266a3d57359c7c
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:hdf5 \
+                    port:p${perl5.major}-pdl
+}

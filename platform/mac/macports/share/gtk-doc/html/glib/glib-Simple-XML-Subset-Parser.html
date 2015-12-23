@@ -8,7 +8,7 @@
 <link rel="up" href="glib-utilities.html" title="GLib Utilities">
 <link rel="prev" href="glib-regex-syntax.html" title="Regular expression syntax">
 <link rel="next" href="glib-Key-value-file-parser.html" title="Key-value file parser">
-<meta name="generator" content="GTK-Doc V1.21.1 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -288,7 +288,6 @@ in bytes, or -1 if the text is nul-terminated</p></td>
 <div class="refsect3">
 <a name="id-1.5.26.7.2.8"></a><h4>Returns</h4>
 <p> a newly allocated string with the escaped text</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -317,15 +316,15 @@ might themselves contain markup.</p>
 7
 8
 9</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">store </span><span class="symbol">=</span><span class="normal"> </span><span class="string">"Fortnum &amp; Mason"</span><span class="symbol">;</span>
-<span class="keyword">const</span><span class="normal"> </span><span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">item </span><span class="symbol">=</span><span class="normal"> </span><span class="string">"Tea"</span><span class="symbol">;</span>
-<span class="type">char</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">output</span><span class="symbol">;</span>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwb">const char</span> <span class="gtkdoc opt">*</span>store <span class="gtkdoc opt">=</span> <span class="string">&quot;Fortnum &amp; Mason&quot;</span><span class="gtkdoc opt">;</span>
+<span class="gtkdoc kwb">const char</span> <span class="gtkdoc opt">*</span>item <span class="gtkdoc opt">=</span> <span class="string">&quot;Tea&quot;</span><span class="gtkdoc opt">;</span>
+<span class="gtkdoc kwb">char</span> <span class="gtkdoc opt">*</span>output<span class="gtkdoc opt">;</span>
 
-<span class="normal">output </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="glib-Simple-XML-Subset-Parser.html#g-markup-printf-escaped">g_markup_printf_escaped</a></span><span class="normal"> </span><span class="symbol">(</span><span class="string">"&lt;purchase&gt;"</span>
-<span class="normal">                                  </span><span class="string">"&lt;store&gt;%s&lt;/store&gt;"</span>
-<span class="normal">                                  </span><span class="string">"&lt;item&gt;%s&lt;/item&gt;"</span>
-<span class="normal">                                  </span><span class="string">"&lt;/purchase&gt;"</span><span class="symbol">,</span>
-<span class="normal">                                  store</span><span class="symbol">,</span><span class="normal"> item</span><span class="symbol">);</span></pre></td>
+output <span class="gtkdoc opt">=</span> <span class="function"><a href="glib-Simple-XML-Subset-Parser.html#g-markup-printf-escaped">g_markup_printf_escaped</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;&lt;purchase&gt;&quot;</span>
+                                  <span class="string">&quot;&lt;store&gt;%s&lt;/store&gt;&quot;</span>
+                                  <span class="string">&quot;&lt;item&gt;%s&lt;/item&gt;&quot;</span>
+                                  <span class="string">&quot;&lt;/purchase&gt;&quot;</span><span class="gtkdoc opt">,</span>
+                                  store<span class="gtkdoc opt">,</span> item<span class="gtkdoc opt">);</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -358,9 +357,8 @@ might themselves contain markup.</p>
 <a name="id-1.5.26.7.3.8"></a><h4>Returns</h4>
 <p> newly allocated result from formatting
 operation. Free with <a class="link" href="glib-Memory-Allocation.html#g-free" title="g_free ()"><code class="function">g_free()</code></a>.</p>
-<p></p>
 </div>
-<p class="since">Since 2.4</p>
+<p class="since">Since: <a class="link" href="api-index-2-4.html#api-index-2.4">2.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -399,9 +397,8 @@ of <a class="link" href="glib-Simple-XML-Subset-Parser.html#g-markup-escape-text
 <a name="id-1.5.26.7.4.6"></a><h4>Returns</h4>
 <p> newly allocated result from formatting
 operation. Free with <a class="link" href="glib-Memory-Allocation.html#g-free" title="g_free ()"><code class="function">g_free()</code></a>.</p>
-<p></p>
 </div>
-<p class="since">Since 2.4</p>
+<p class="since">Since: <a class="link" href="api-index-2-4.html#api-index-2.4">2.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -452,7 +449,6 @@ the parse context is freed</p></td>
 <div class="refsect3">
 <a name="id-1.5.26.7.5.6"></a><h4>Returns</h4>
 <p> a new <a class="link" href="glib-Simple-XML-Subset-Parser.html#GMarkupParseContext" title="GMarkupParseContext"><span class="type">GMarkupParseContext</span></a></p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -508,7 +504,6 @@ in bytes</p></td>
 <div class="refsect3">
 <a name="id-1.5.26.7.6.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> if an error occurred, <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> on success</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -546,7 +541,6 @@ for example if elements are still open.</p>
 <div class="refsect3">
 <a name="id-1.5.26.7.7.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> on success, <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> if an error was set</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -639,9 +633,8 @@ elements, see <a class="link" href="glib-Simple-XML-Subset-Parser.html#g-markup-
 <div class="refsect3">
 <a name="id-1.5.26.7.10.7"></a><h4>Returns</h4>
 <p> the name of the currently open element, or <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a></p>
-<p></p>
 </div>
-<p class="since">Since 2.2</p>
+<p class="since">Since: <a class="link" href="api-index-2-2.html#api-index-2.2">2.2</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -676,9 +669,8 @@ processed.</p>
 <div class="refsect3">
 <a name="id-1.5.26.7.11.8"></a><h4>Returns</h4>
 <p> the element stack, which must not be modified</p>
-<p></p>
 </div>
-<p class="since">Since 2.16</p>
+<p class="since">Since: <a class="link" href="api-index-2-16.html#api-index-2.16">2.16</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -710,9 +702,8 @@ of <a class="link" href="glib-Simple-XML-Subset-Parser.html#g-markup-parse-conte
 <p> the provided user_data. The returned data belongs to
 the markup context and will be freed when
 <a class="link" href="glib-Simple-XML-Subset-Parser.html#g-markup-parse-context-free" title="g_markup_parse_context_free ()"><code class="function">g_markup_parse_context_free()</code></a> is called.</p>
-<p></p>
 </div>
-<p class="since">Since 2.18</p>
+<p class="since">Since: <a class="link" href="api-index-2-18.html#api-index-2.18">2.18</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -791,42 +782,42 @@ parser that counts the number of tags encountered.</p>
 34
 35
 36</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="keyword">typedef</span><span class="normal"> </span><span class="keyword">struct</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="usertype">gint</span><span class="normal"> tag_count</span><span class="symbol">;</span>
-<span class="cbracket">}</span><span class="normal"> CounterData</span><span class="symbol">;</span>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwc">typedef</span> <span class="gtkdoc kwb">struct</span>
+<span class="gtkdoc opt">{</span>
+  gint tag_count<span class="gtkdoc opt">;</span>
+<span class="gtkdoc opt">}</span> CounterData<span class="gtkdoc opt">;</span>
 
-<span class="keyword">static</span><span class="normal"> </span><span class="type">void</span>
-<span class="function">counter_start_element</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">GMarkupParseContext</span><span class="normal">  </span><span class="symbol">*</span><span class="normal">context</span><span class="symbol">,</span>
-<span class="normal">                       </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">gchar</span><span class="normal">          </span><span class="symbol">*</span><span class="normal">element_name</span><span class="symbol">,</span>
-<span class="normal">                       </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">gchar</span><span class="normal">         </span><span class="symbol">**</span><span class="normal">attribute_names</span><span class="symbol">,</span>
-<span class="normal">                       </span><span class="keyword">const</span><span class="normal"> </span><span class="usertype">gchar</span><span class="normal">         </span><span class="symbol">**</span><span class="normal">attribute_values</span><span class="symbol">,</span>
-<span class="normal">                       </span><span class="usertype">gpointer</span><span class="normal">              user_data</span><span class="symbol">,</span>
-<span class="normal">                       </span><span class="usertype">GError</span><span class="normal">              </span><span class="symbol">**</span><span class="normal">error</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="usertype">CounterData</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">data </span><span class="symbol">=</span><span class="normal"> user_data</span><span class="symbol">;</span>
+<span class="gtkdoc kwb">static void</span>
+<span class="function">counter_start_element</span> <span class="gtkdoc opt">(</span>GMarkupParseContext  <span class="gtkdoc opt">*</span>context<span class="gtkdoc opt">,</span>
+                       <span class="gtkdoc kwb">const</span> gchar          <span class="gtkdoc opt">*</span>element_name<span class="gtkdoc opt">,</span>
+                       <span class="gtkdoc kwb">const</span> gchar         <span class="gtkdoc opt">**</span>attribute_names<span class="gtkdoc opt">,</span>
+                       <span class="gtkdoc kwb">const</span> gchar         <span class="gtkdoc opt">**</span>attribute_values<span class="gtkdoc opt">,</span>
+                       gpointer              user_data<span class="gtkdoc opt">,</span>
+                       GError              <span class="gtkdoc opt">**</span>error<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  CounterData <span class="gtkdoc opt">*</span>data <span class="gtkdoc opt">=</span> user_data<span class="gtkdoc opt">;</span>
 
-<span class="normal">  data</span><span class="symbol">-&gt;</span><span class="normal">tag_count</span><span class="symbol">++;</span>
-<span class="cbracket">}</span>
+  data<span class="gtkdoc opt">-&gt;</span>tag_count<span class="gtkdoc opt">++;</span>
+<span class="gtkdoc opt">}</span>
 
-<span class="keyword">static</span><span class="normal"> </span><span class="type">void</span>
-<span class="function">counter_error</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">GMarkupParseContext</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">context</span><span class="symbol">,</span>
-<span class="normal">               </span><span class="usertype">GError</span><span class="normal">              </span><span class="symbol">*</span><span class="normal">error</span><span class="symbol">,</span>
-<span class="normal">               </span><span class="usertype">gpointer</span><span class="normal">             user_data</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="usertype">CounterData</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">data </span><span class="symbol">=</span><span class="normal"> user_data</span><span class="symbol">;</span>
+<span class="gtkdoc kwb">static void</span>
+<span class="function">counter_error</span> <span class="gtkdoc opt">(</span>GMarkupParseContext <span class="gtkdoc opt">*</span>context<span class="gtkdoc opt">,</span>
+               GError              <span class="gtkdoc opt">*</span>error<span class="gtkdoc opt">,</span>
+               gpointer             user_data<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  CounterData <span class="gtkdoc opt">*</span>data <span class="gtkdoc opt">=</span> user_data<span class="gtkdoc opt">;</span>
 
-<span class="normal">  </span><span class="function"><a href="glib-Memory-Slices.html#g-slice-free">g_slice_free</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">CounterData</span><span class="symbol">,</span><span class="normal"> data</span><span class="symbol">);</span>
-<span class="cbracket">}</span>
+  <span class="function"><a href="glib-Memory-Slices.html#g-slice-free">g_slice_free</a></span> <span class="gtkdoc opt">(</span>CounterData<span class="gtkdoc opt">,</span> data<span class="gtkdoc opt">);</span>
+<span class="gtkdoc opt">}</span>
 
-<span class="keyword">static</span><span class="normal"> </span><span class="usertype">GMarkupParser</span><span class="normal"> counter_subparser </span><span class="symbol">=</span>
-<span class="cbracket">{</span>
-<span class="normal">  counter_start_element</span><span class="symbol">,</span>
-<span class="normal">  <a href="glib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">,</span>
-<span class="normal">  <a href="glib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">,</span>
-<span class="normal">  <a href="glib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">,</span>
-<span class="normal">  counter_error</span>
-<span class="cbracket">}</span><span class="symbol">;</span></pre></td>
+<span class="gtkdoc kwb">static</span> GMarkupParser counter_subparser <span class="gtkdoc opt">=</span>
+<span class="gtkdoc opt">{</span>
+  counter_start_element<span class="gtkdoc opt">,</span>
+  NULL<span class="gtkdoc opt">,</span>
+  NULL<span class="gtkdoc opt">,</span>
+  NULL<span class="gtkdoc opt">,</span>
+  counter_error
+<span class="gtkdoc opt">};</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -859,26 +850,26 @@ following interface is provided:</p>
 18
 19
 20</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="type">void</span>
-<span class="function">start_counting</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">GMarkupParseContext</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">context</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="usertype">CounterData</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">data </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="glib-Memory-Slices.html#g-slice-new">g_slice_new</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">CounterData</span><span class="symbol">);</span>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwb">void</span>
+<span class="function">start_counting</span> <span class="gtkdoc opt">(</span>GMarkupParseContext <span class="gtkdoc opt">*</span>context<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  CounterData <span class="gtkdoc opt">*</span>data <span class="gtkdoc opt">=</span> <span class="function"><a href="glib-Memory-Slices.html#g-slice-new">g_slice_new</a></span> <span class="gtkdoc opt">(</span>CounterData<span class="gtkdoc opt">);</span>
 
-<span class="normal">  data</span><span class="symbol">-&gt;</span><span class="normal">tag_count </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span>
-<span class="normal">  </span><span class="function"><a href="glib-Simple-XML-Subset-Parser.html#g-markup-parse-context-push">g_markup_parse_context_push</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">context</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">counter_subparser</span><span class="symbol">,</span><span class="normal"> data</span><span class="symbol">);</span>
-<span class="cbracket">}</span>
+  data<span class="gtkdoc opt">-&gt;</span>tag_count <span class="gtkdoc opt">=</span> <span class="number">0</span><span class="gtkdoc opt">;</span>
+  <span class="function"><a href="glib-Simple-XML-Subset-Parser.html#g-markup-parse-context-push">g_markup_parse_context_push</a></span> <span class="gtkdoc opt">(</span>context<span class="gtkdoc opt">, &amp;</span>counter_subparser<span class="gtkdoc opt">,</span> data<span class="gtkdoc opt">);</span>
+<span class="gtkdoc opt">}</span>
 
-<span class="normal"><a href="glib-Basic-Types.html#gint">gint</a></span>
-<span class="function">end_counting</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">GMarkupParseContext</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">context</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="usertype">CounterData</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">data </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="glib-Simple-XML-Subset-Parser.html#g-markup-parse-context-pop">g_markup_parse_context_pop</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">context</span><span class="symbol">);</span>
-<span class="normal">  </span><span class="type">int</span><span class="normal"> result</span><span class="symbol">;</span>
+gint
+<span class="function">end_counting</span> <span class="gtkdoc opt">(</span>GMarkupParseContext <span class="gtkdoc opt">*</span>context<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  CounterData <span class="gtkdoc opt">*</span>data <span class="gtkdoc opt">=</span> <span class="function"><a href="glib-Simple-XML-Subset-Parser.html#g-markup-parse-context-pop">g_markup_parse_context_pop</a></span> <span class="gtkdoc opt">(</span>context<span class="gtkdoc opt">);</span>
+  <span class="gtkdoc kwb">int</span> result<span class="gtkdoc opt">;</span>
 
-<span class="normal">  result </span><span class="symbol">=</span><span class="normal"> data</span><span class="symbol">-&gt;</span><span class="normal">tag_count</span><span class="symbol">;</span>
-<span class="normal">  </span><span class="function"><a href="glib-Memory-Slices.html#g-slice-free">g_slice_free</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">CounterData</span><span class="symbol">,</span><span class="normal"> data</span><span class="symbol">);</span>
+  result <span class="gtkdoc opt">=</span> data<span class="gtkdoc opt">-&gt;</span>tag_count<span class="gtkdoc opt">;</span>
+  <span class="function"><a href="glib-Memory-Slices.html#g-slice-free">g_slice_free</a></span> <span class="gtkdoc opt">(</span>CounterData<span class="gtkdoc opt">,</span> data<span class="gtkdoc opt">);</span>
 
-<span class="normal">  </span><span class="keyword">return</span><span class="normal"> result</span><span class="symbol">;</span>
-<span class="cbracket">}</span></pre></td>
+  <span class="keyword">return</span> result<span class="gtkdoc opt">;</span>
+<span class="gtkdoc opt">}</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -905,21 +896,21 @@ following interface is provided:</p>
 13
 14
 15</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">start_element</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">context</span><span class="symbol">,</span><span class="normal"> element_name</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">...)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">strcmp</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">element_name</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"count-these"</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
-<span class="normal">    </span><span class="function">start_counting</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">context</span><span class="symbol">);</span>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc kwb">static void</span> <span class="function">start_element</span> <span class="gtkdoc opt">(</span>context<span class="gtkdoc opt">,</span> element_name<span class="gtkdoc opt">, ...)</span>
+<span class="gtkdoc opt">{</span>
+  <span class="keyword">if</span> <span class="gtkdoc opt">(</span><span class="function">strcmp</span> <span class="gtkdoc opt">(</span>element_name<span class="gtkdoc opt">,</span> <span class="string">&quot;count-these&quot;</span><span class="gtkdoc opt">) ==</span> <span class="number">0</span><span class="gtkdoc opt">)</span>
+    <span class="function">start_counting</span> <span class="gtkdoc opt">(</span>context<span class="gtkdoc opt">);</span>
 
-<span class="normal">  </span><span class="comment">// else, handle other tags...</span>
-<span class="cbracket">}</span>
+  <span class="gtkdoc slc">// else, handle other tags...</span>
+<span class="gtkdoc opt">}</span>
 
-<span class="keyword">static</span><span class="normal"> </span><span class="type">void</span><span class="normal"> </span><span class="function">end_element</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">context</span><span class="symbol">,</span><span class="normal"> element_name</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">...)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function">strcmp</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">element_name</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"count-these"</span><span class="symbol">)</span><span class="normal"> </span><span class="symbol">==</span><span class="normal"> </span><span class="number">0</span><span class="symbol">)</span>
-<span class="normal">    </span><span class="function"><a href="glib-Warnings-and-Assertions.html#g-print">g_print</a></span><span class="normal"> </span><span class="symbol">(</span><span class="string">"Counted %d tags</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="function">end_counting</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">context</span><span class="symbol">));</span>
+<span class="gtkdoc kwb">static void</span> <span class="function">end_element</span> <span class="gtkdoc opt">(</span>context<span class="gtkdoc opt">,</span> element_name<span class="gtkdoc opt">, ...)</span>
+<span class="gtkdoc opt">{</span>
+  <span class="keyword">if</span> <span class="gtkdoc opt">(</span><span class="function">strcmp</span> <span class="gtkdoc opt">(</span>element_name<span class="gtkdoc opt">,</span> <span class="string">&quot;count-these&quot;</span><span class="gtkdoc opt">) ==</span> <span class="number">0</span><span class="gtkdoc opt">)</span>
+    <span class="function"><a href="glib-Warnings-and-Assertions.html#g-print">g_print</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Counted %d tags</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">,</span> <span class="function">end_counting</span> <span class="gtkdoc opt">(</span>context<span class="gtkdoc opt">));</span>
 
-<span class="normal">  </span><span class="comment">// else, handle other tags...</span>
-<span class="cbracket">}</span></pre></td>
+  <span class="gtkdoc slc">// else, handle other tags...</span>
+<span class="gtkdoc opt">}</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -953,7 +944,7 @@ following interface is provided:</p>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.18</p>
+<p class="since">Since: <a class="link" href="api-index-2-18.html#api-index-2.18">2.18</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -990,9 +981,8 @@ interface.</p>
 <div class="refsect3">
 <a name="id-1.5.26.7.14.8"></a><h4>Returns</h4>
 <p> the user data passed to <a class="link" href="glib-Simple-XML-Subset-Parser.html#g-markup-parse-context-push" title="g_markup_parse_context_push ()"><code class="function">g_markup_parse_context_push()</code></a></p>
-<p></p>
 </div>
-<p class="since">Since 2.18</p>
+<p class="since">Since: <a class="link" href="api-index-2-18.html#api-index-2.18">2.18</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1020,9 +1010,8 @@ g_markup_parse_context_ref (<em class="parameter"><code><a class="link" href="gl
 <a name="id-1.5.26.7.15.6"></a><h4>Returns</h4>
 <p> the same <em class="parameter"><code>context</code></em>
 </p>
-<p></p>
 </div>
-<p class="since">Since 2.36</p>
+<p class="since">Since: <a class="link" href="api-index-2-36.html#api-index-2.36">2.36</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1047,7 +1036,7 @@ drops to 0, it is freed.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.36</p>
+<p class="since">Since: <a class="link" href="api-index-2-36.html#api-index-2.36">2.36</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1143,9 +1132,8 @@ with <a class="link" href="glib-Simple-XML-Subset-Parser.html#G-MARKUP-COLLECT-I
 <div class="refsect3">
 <a name="id-1.5.26.7.17.13"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if successful</p>
-<p></p>
 </div>
-<p class="since">Since 2.16</p>
+<p class="since">Since: <a class="link" href="api-index-2-16.html#api-index-2.16">2.16</a></p>
 </div>
 </div>
 <div class="refsect1">
@@ -1485,7 +1473,6 @@ support other types.</p>
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21.1</div>
+<hr>Generated by GTK-Doc V1.24</div>
 </body>
 </html>

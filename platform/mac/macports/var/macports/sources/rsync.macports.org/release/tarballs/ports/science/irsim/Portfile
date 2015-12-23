@@ -1,0 +1,45 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 131283 2015-01-08 18:51:37Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                irsim
+version             9.7.87
+license             GPL-2
+categories          science
+maintainers         nomaintainer
+description         IRSIM, a switch level simulator for digital circuits
+long_description    IRSIM is switch level simulator for digital circuits, it treats \
+                    transistors as ideal switches. Extracted capacitance and lumped \
+                    resistance values are used to make the switch a little bit more \
+                    realistic than the ideal, using the RC time constants to predict the \
+                    relative timing of events.
+
+homepage            http://opencircuitdesign.com/irsim/
+platforms           darwin
+
+master_sites        http://opencircuitdesign.com/irsim/archive
+
+checksums           rmd160  f134c09633a4d34f67689eb5c730d72ab0b28b5d \
+                    sha256  528e8daa9afa63ba81425fc679b786228e314f45b64f03f67150332f0fd7bff6
+
+extract.suffix      .tgz
+
+depends_lib         port:tcl \
+                    port:tk \
+                    port:xorg-libXt
+
+patchfiles          patch-remove_sw.diff
+
+build.env-append    LIBS="-L${prefix}/lib"
+configure.args      --mandir=${prefix}/share/man
+
+post-destroot {
+    xinstall -d -m 755 ${destroot}${prefix}/share/doc
+    file rename ${destroot}${prefix}/lib/${name}/doc ${destroot}${prefix}/share/doc/${name}
+    xinstall -m 644 -W ${worksrcpath} COPYRIGHT README VERSION ${destroot}${prefix}/share/doc/${name}
+}
+
+livecheck.type      regex
+livecheck.url       ${homepage}download.html
+livecheck.regex     ${name}-(\[0-9.\]+)${extract.suffix}

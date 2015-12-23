@@ -1,0 +1,25 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141636 2015-10-24 19:27:16Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                dfu-util
+version             0.8
+categories          cross devel
+platforms           darwin
+maintainers         gmail.com:benoit.triquet openmaintainer
+license             GPL-2+
+
+description         Device firmware update (DFU) USB programmer
+
+long_description    dfu-util is the host side implementation of the DFU 1.0 and DFU 1.1 specifications of the USB forum. DFU is intended to download and upload firmware to devices connected over USB. It ranges from small devices like micro-controller boards up to mobile phones. Using dfu-util you can download firmware to your DFU-enabled device or upload firmware from it. dfu-util has been tested with the Openmoko Neo1973 and Freerunner and many other devices.
+
+homepage            http://dfu-util.sourceforge.net/
+master_sites        ${homepage}releases/
+
+checksums           rmd160  f59c58f398bd51682f5bd41f00d4bded95cd6993 \
+                    sha256 55cbde9be12a212bd84bce9d1e63941d9a16139ed0d4912401367eba1502f058
+
+depends_build       port:pkgconfig
+
+depends_lib         port:libusb

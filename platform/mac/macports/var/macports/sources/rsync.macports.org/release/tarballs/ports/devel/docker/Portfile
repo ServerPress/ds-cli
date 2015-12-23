@@ -1,0 +1,55 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        docker docker 1.9.1 v
+categories          devel
+platforms           darwin
+license             Apache-2
+maintainers         sean openmaintainer
+description         The open-source application container engine
+long_description    Docker is an open source project to pack, ship \
+                    and run any application as a lightweight container.
+
+depends_build       port:go
+
+checksums           rmd160  cebe86f8b1c19652a785feba2093366dfbe5dfd2 \
+                    sha256  dc0a67b3a6bd5a7d9059ab7754037a8696d1cccd8de56fd4a8f067539988b00d
+
+use_configure       no
+
+use_parallel_build  no
+build.cmd           hack/make.sh
+build.target        dynbinary
+build.env           DOCKER_GITCOMMIT=d12ea79c9de6d144ce6bc7ccfe41c507cca6fd35 \
+                    AUTO_GOPATH=1 \
+                    DOCKER_CLIENTONLY=1
+
+destroot {
+    xinstall -d ${destroot}${prefix}/bin
+    xinstall -m 755 ${worksrcpath}/bundles/${version}/dynbinary/${name}-${version} ${destroot}${prefix}/bin/${name}
+}
+
+variant bash_completion {
+    depends_run-append path:etc/bash_completion:bash-completion
+
+    post-destroot {
+        set completions_path ${prefix}/share/bash-completion/completions
+        xinstall -d ${destroot}${completions_path}
+        xinstall -m 644 ${worksrcpath}/contrib/completion/bash/${name} ${destroot}${completions_path}/
+    }
+}
+
+variant zsh_completion {
+    depends_run-append path:${prefix}/bin/zsh:zsh
+
+    post-destroot {
+        set site-functions ${destroot}${prefix}/share/zsh/site-functions
+        xinstall -d ${site-functions}
+        xinstall ${worksrcpath}/contrib/completion/zsh/_${name} ${site-functions}/
+    }
+}
+
+livecheck.regex     archive/[join ${github.tag_prefix} ""](\[^"r\]+)${extract.suffix}

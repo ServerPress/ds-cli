@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+PortGroup           wxWidgets 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Wx 0.9927
+
+platforms           darwin
+maintainers         mojca openmaintainer
+license             {Artistic-1 GPL}
+
+description         Interface to the wxWidgets cross-platform GUI toolkit
+long_description    ${description}
+
+checksums           rmd160  603c2041d7bdc46260a759783513f6ba00556306 \
+                    sha256  a174bd1b6a5558174697775be0ede2fb8260258d60bb6e116dfe6f56ac1d22bb
+
+if {${perl5.major} != ""} {
+    wxWidgets.use   wxWidgets-3.0
+
+    patchfiles      patch-build-Wx-build-MakeMaker-MacOSX_GCC.pm.diff \
+                    patch-cpp-wxPerl.osx-Makefile.diff
+    post-patch {
+        # try to find a better way to fix that problem
+        reinplace -W ${worksrcpath} "s|@@CC@@|${configure.cc}|g" cpp/wxPerl.osx/Makefile
+    }
+
+    depends_build-append \
+                    port:p${perl5.major}-extutils-xspp
+
+    depends_lib-append \
+                    port:p${perl5.major}-alien-wxwidgets \
+                    port:${wxWidgets.port}
+
+    configure.args  installdirs=vendor
+}

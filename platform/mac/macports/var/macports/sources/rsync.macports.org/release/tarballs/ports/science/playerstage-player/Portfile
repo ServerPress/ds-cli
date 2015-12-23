@@ -1,0 +1,54 @@
+# $Id: Portfile 115019 2013-12-22 09:29:46Z ryandesign@macports.org $
+
+PortSystem        1.0
+PortGroup         cmake 1.0
+
+name              playerstage-player
+version           3.0.2
+revision          3
+categories        science
+platforms         darwin
+maintainers       ai.sri.com:vincent
+description       Player/Stage robotic platform
+long_description  The Player Project creates Free Software\
+				  that enables research in robot and sensor\
+				  systems. The Player robot server is probably\
+				  the most widely used robot control interface\
+				  in the world. Its simulation backends, \
+				  Stage and Gazebo, are also very widely used.
+				  
+homepage          http://playerstage.sourceforge.net
+master_sites      sourceforge:playerstage
+
+distname player-${version}
+
+checksums         md5     b92b5ea028e6bfc49351849f420167db \
+                  sha1    34931ca57148db01202afd08fdc647cc5fdc884c \
+                  rmd160  f77444bfeee5a0494165ed6a65dd69b3a01bb260
+
+depends_build-append    port:libtool port:pkgconfig
+
+depends_lib     port:gtk2 \
+                port:libpng \
+                path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                port:boost \
+                port:gsl \
+                port:python26 \
+                port:swig-python \
+                port:swig-ruby \
+                port:jpeg \
+                port:libusb-compat
+
+# Some of the utils can't find the boost headers...
+patchfiles      patch-CMakeLists.txt
+post-patch {
+    reinplace "s|@PREFIX@|${prefix}|g" \
+        ${worksrcpath}/utils/playerjoy/CMakeLists.txt \
+        ${worksrcpath}/utils/playerprint/CMakeLists.txt \
+        ${worksrcpath}/utils/playerprop/CMakeLists.txt
+}
+
+# make sure we use python26
+configure.args-append -DPython_ADDITIONAL_VERSIONS=2.6
+
+use_parallel_build  no

@@ -1,0 +1,229 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141379 2015-10-16 19:18:06Z dstrubbe@macports.org $
+
+PortSystem 1.0
+PortGroup compilers 1.0
+PortGroup active_variants 1.1
+
+name                        R
+
+set major 3
+set minor 2
+set point 2
+
+#Remember to remove revision line when bumping version
+version                     ${major}.${minor}.${point}
+
+categories                  math science
+maintainers                 me.com:kjell.konis
+license                     {GPL-2 GPL-3}
+platforms                   macosx
+
+description \
+    R is GNU S - an interpreted language for statistical computing
+
+long_description \
+    R is a language and environment for statistical computing and graphics. \
+    R provides a wide variety of statistical (linear and nonlinear modeling, \
+    classical statistical tests, time-series analysis, classification, \
+    clustering, ...) and graphical techniques, and is highly extensible.
+
+homepage                    http://www.r-project.org/
+
+master_sites                http://cran.rstudio.com/src/base/R-3/ \
+                            http://cran.r-project.org/src/base/R-3/
+
+checksums                   rmd160  0e8bf2ecca48f0f2433f6b07f422b7730a76fbb4 \
+                            sha256  9c9152e74134b68b0f3a1c7083764adc1cb56fd8336bec003fd0ca550cd2461d
+
+compilers.choose            fc f77
+compilers.setup             require_fortran
+
+depends_build               port:pkgconfig
+
+depends_lib                 port:readline \
+                            port:icu \
+                            port:libiconv \
+                            port:zlib
+
+universal_variant           no
+
+set resources ${frameworks_dir}/R.framework/Versions/${major}.${minor}/Resources
+
+post-patch {
+    reinplace "s|R_HOME|\"${resources}\"|" "${worksrcpath}/src/unix/Rscript.c"
+}
+
+# Note: gcc cannot be used for the C compiler. It will give:
+#:info:build In file included from /usr/include/dispatch/dispatch.h:51:0,
+#:info:build                  from /System/Library/Frameworks/CoreFoundation.framework/Headers/CFStream.h:15,
+#:info:build                  from /System/Library/Frameworks/CoreFoundation.framework/Headers/CFPropertyList.h:13,
+#:info:build                  from langprefs.c:30:
+#:info:build /usr/include/dispatch/object.h:143:15: error: expected identifier or '(' before '^' token
+#:info:build  typedef void (^dispatch_block_t)(void);
+#:info:build                ^
+#:info:build /usr/include/dispatch/object.h:362:3: error: unknown type name 'dispatch_block_t'
+#:info:build    dispatch_block_t notification_block);
+#:info:build    ^
+# However, use of compiler.blacklist *gcc* would remove the GCC Fortran compilers too.
+
+configure.pre_args          --prefix=${frameworks_dir}
+
+configure.args              --enable-memory-profiling \
+                            --enable-R-shlib \
+                            --enable-BLAS-shlib \
+                            --without-tcltk \
+                            --without-cairo \
+                            --with-system-zlib \
+                            --without-internal-tzcode \
+                            --without-recommended-packages \
+                            --without-x \
+                            --with-included-gettext \
+                            --without-system-xz
+#bug introduced in R-3.2.0, doesn't link to system copy, put port:xz back too
+
+if {${os.major} < 13} {
+    configure.args-append --disable-openmp
+}
+
+platform darwin 13 {
+    configure.cflags-append -flax-vector-conversions
+}
+
+variant accelerate conflicts atlas builtin_lapack description {build using the BLAS and Lapack in Apple's Accelerate framework} {
+    configure.args-append   --with-blas="-framework Accelerate" --with-lapack
+}
+
+variant atlas conflicts accelerate builtin_lapack description {build using the BLAS in the atlas port} {
+    depends_lib-append      port:atlas
+    configure.args-append   --with-blas="-L${prefix}/lib -lptf77blas -latlas"
+    #See A.3.2 in R Installation and Administration for why atlas LAPACK not used
+}
+
+variant builtin_lapack conflicts accelerate atlas description {build using reference BLAS and Lapack} {
+    configure.args-append   --without-blas --without-lapack
+}
+
+variant cairo description {use cairo and pango} {
+    depends_lib-append      path:lib/pkgconfig/cairo.pc:cairo \
+                            path:lib/pkgconfig/pango.pc:pango \
+                            path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                            port:freetype \
+                            port:fontconfig \
+                            port:gettext \
+                            port:libpng \
+                            port:tiff \
+                            port:jpeg
+    configure.args-delete   --without-cairo
+    configure.args-append   --with-cairo
+}
+
+variant debug description {build with debug symbols} {
+    configure.optflags-append -g
+}
+
+variant recommended description {install recommended R packages} {
+    configure.args-delete   --without-recommended-packages
+    configure.args-append   --with-recommended-packages
+}
+
+variant tcltk requires x11 description {enable use of tcltk} {
+    depends_lib-append      port:tcl \
+                            port:tk \
+                            port:xorg-libXScrnSaver \
+                            port:xorg-libXext
+    require_active_variants tk x11
+    configure.args-delete   --without-tcltk
+    configure.args-append   --with-tcltk \
+                            --with-tcl-config=${prefix}/lib/tclConfig.sh \
+                            --with-tk-config=${prefix}/lib/tkConfig.sh
+}
+
+variant tests description {include tests of R installation} {
+    destroot.target-append install-tests
+}
+
+variant x11 description {enable use of x11} {
+    depends_lib-append      port:xorg-libsm \
+                            port:xorg-libice \
+                            port:xorg-libX11 \
+                            port:xorg-libXt \
+                            port:tiff \
+                            port:jpeg \
+                            port:libpng
+    configure.args-delete   --without-x \
+                            --without-jpeglib
+    configure.args-append   --with-x \
+                            --with-jpeglib \
+                            --x-include=${prefix}/include/X11 \
+                            --x-lib=${prefix}/lib
+}
+
+default_variants +cairo +recommended +x11
+
+if {[variant_isset cairo] && [variant_isset x11]} {
+    require_active_variants path:lib/pkgconfig/cairo.pc:cairo x11
+    require_active_variants path:lib/pkgconfig/pango.pc:pango x11
+}
+
+if {![variant_isset accelerate] && ![variant_isset atlas] && ![variant_isset builtin_lapack]} {
+    default_variants-append +builtin_lapack
+}
+
+test.run                    yes
+test.target                 check
+
+destroot.destdir prefix=${destroot}${frameworks_dir}
+
+post-destroot {
+    move ${destroot}${frameworks_dir}/lib/pkgconfig/libR.pc ${destroot}${prefix}/lib/pkgconfig/libR.pc
+
+    foreach v { "rhome" "rincludedir" } {
+        reinplace "s|${v}=${destroot}|${v}=|" "${destroot}${prefix}/lib/pkgconfig/libR.pc"
+    }
+
+    foreach dir { "R_HOME_DIR" "R_SHARE_DIR" "R_INCLUDE_DIR" "R_DOC_DIR" } {
+        reinplace "s|${dir}=${destroot}|${dir}=|" "${destroot}${resources}/bin/R"
+    }
+
+    reinplace "s|-F${destroot}|-F|" "${destroot}${resources}/etc/Makeconf"
+
+    foreach dylib [ exec find ${destroot}${frameworks_dir}/R.framework -name "\*.dylib" ] {
+        regsub ":$" ${dylib} "" destroot_dylib_path
+        regsub ${destroot} ${destroot_dylib_path} "" dylib_path
+        system "install_name_tool -id ${dylib_path} ${destroot_dylib_path}"
+        system "install_name_tool -change ${destroot}${resources}/lib/libR.dylib ${resources}/lib/libR.dylib \
+            ${destroot_dylib_path}"
+        system "install_name_tool -change ${destroot}${resources}/lib/libRblas.dylib ${resources}/lib/libRblas.dylib \
+            ${destroot_dylib_path}"
+        system "install_name_tool -change ${destroot}${resources}/lib/libRlapack.dylib ${resources}/lib/libRlapack.dylib \
+            ${destroot_dylib_path}"
+    }
+
+    foreach so [ exec find ${destroot}${frameworks_dir}/R.framework -name "\*.so" ] {
+        regsub ":$" ${so} "" destroot_so_path
+        regsub ${destroot} ${destroot_so_path} "" so_path
+        system "install_name_tool -id ${so_path} ${destroot_so_path}"
+        system "install_name_tool -change ${destroot}${resources}/lib/libR.dylib ${resources}/lib/libR.dylib \
+            ${destroot_so_path}"
+        system "install_name_tool -change ${destroot}${resources}/lib/libRblas.dylib ${resources}/lib/libRblas.dylib \
+            ${destroot_so_path}"
+        system "install_name_tool -change ${destroot}${resources}/lib/libRlapack.dylib ${resources}/lib/libRlapack.dylib \
+            ${destroot_so_path}"
+    }
+
+    system "install_name_tool -change ${destroot}${resources}/lib/libR.dylib ${resources}/lib/libR.dylib \
+        ${destroot}${resources}/bin/exec/R"
+    system "install_name_tool -change ${destroot}${resources}/lib/libRblas.dylib ${resources}/lib/libRblas.dylib \
+        ${destroot}${resources}/bin/exec/R"
+
+    ln -s ${resources}/bin/R ${destroot}${prefix}/bin/R
+    ln -s ${resources}/bin/Rscript ${destroot}${prefix}/bin/Rscript
+}
+
+livecheck.type      regex
+livecheck.url       [lindex ${master_sites} 0]
+livecheck.regex     >${name}-(\[0-9.\]+)${extract.suffix}<
+
+
+

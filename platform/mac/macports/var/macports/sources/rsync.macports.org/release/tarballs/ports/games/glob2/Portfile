@@ -1,0 +1,71 @@
+# $Id: Portfile 115019 2013-12-22 09:29:46Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                glob2
+version             0.9.3
+revision            7
+categories          games
+license             GPL-3+
+platforms           darwin
+maintainers         nomaintainer
+description         Globulation 2 - a free and innovative strategy game
+long_description    Globulation 2 is an innovative high quality Real-Time \
+                    Strategy, which minimizes micro-management by \
+                    automatically assigning tasks to the units. The player \
+                    has to choose the number of units he wants for the \
+                    different tasks, and the units will do their best to \
+                    satisfy the requests. This allows to manage more units \
+                    and to focus on the strategy. It can be played alone, \
+                    through your Local Area Network, or through Internet \
+                    thanks to Ysagoon Online Game, a meta-server. It also \
+                    features a scripting language for versatile gameplay or \
+                    tutorials and an integrated map editor.
+
+homepage            http://globulation2.org/
+master_sites        http://dl.sv.nongnu.org/releases/glob2/${version}/
+checksums           md5 e0483d5864cff4ace5ac8e39eae27429 \
+                    sha1 669a43707cf03e4e810e77ef8bef2f46f1116090 \
+                    rmd160 266edd6a57f1e8ea8e1effac3871f3c0083fc05f
+
+depends_build       port:scons
+depends_lib         port:boost \
+                    port:freetype \
+                    port:jpeg \
+                    port:libiconv \
+                    port:libogg \
+                    port:libpng \
+                    port:libsdl \
+                    port:libsdl_image \
+                    port:libsdl_net \
+                    port:libsdl_ttf \
+                    port:libvorbis\
+                    path:lib/libspeex.dylib:speex \
+                    port:tiff \
+                    port:zlib
+
+patchfiles          patch-SConstruct.diff
+
+use_configure       no
+
+set buildoptions    "BINDIR=\"${destroot}${prefix}/bin\" \
+                     INSTALLDIR=\"${destroot}${prefix}/share\" \
+                     DATADIR=\"${prefix}/share/glob2\" \
+                     CXXFLAGS=\"-I${prefix}/include\" \
+                     LINKFLAGS=\"-L${prefix}/lib\""
+
+pre-build {
+    # The destroot directories must be created here so scons can find them
+    # during the build.
+    xinstall -d ${destroot}${prefix}/bin
+    xinstall -d ${destroot}${prefix}/share
+}
+
+build.cmd           ${prefix}/bin/scons
+build.target        $buildoptions
+
+destroot.target     "install $buildoptions"
+
+livecheck.type      regex
+livecheck.url       http://globulation2.org/wiki/Download_and_Install
+livecheck.regex     /${name}-(\[0-9.\]+)${extract.suffix}

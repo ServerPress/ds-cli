@@ -1,0 +1,52 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137994 2015-06-24 18:50:08Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           cmake 1.0
+PortGroup           conflicts_build 1.0
+PortGroup           qt4 1.0
+
+name                sigil
+conflicts           tidy
+version             0.6.0
+platforms           darwin
+categories          editors
+maintainers         openmaintainer krischik
+license             GPL-3+
+
+description         Sigil, the ePub editor
+
+long_description    Sigil is a multi-platform WYSIWYG ebook editor. It is \
+                    designed to edit books in ePub format
+
+homepage            http://code.google.com/p/sigil
+master_sites        googlecode
+distname            Sigil-${version}-Code
+use_zip             yes
+use_parallel_build  yes
+
+checksums           rmd160  5c41cf2025c696c2cb77a4d266f749aa1856775d \
+                    sha256  02b95d3d1d5ad8a186212c6c60ae76fa17a98da83a748965db9546ff51903308
+
+depends_lib-append  port:boost \
+                    port:hunspell \
+                    port:xercesc3 \
+                    port:zlib
+
+extract.mkdir       yes
+
+post-extract {
+    file mkdir ${build.dir}
+}
+
+conflicts_build     libzip
+
+configure.dir       ${worksrcpath}/build
+configure.args-append ${worksrcpath}
+
+build.dir           ${configure.dir}
+build.target        Sigil
+
+destroot {
+    copy ${destroot.dir}/bin/Sigil.app ${destroot}${applications_dir}
+}

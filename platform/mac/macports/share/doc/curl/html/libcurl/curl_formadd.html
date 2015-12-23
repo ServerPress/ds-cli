@@ -70,7 +70,12 @@ p.roffit {
 <p class="level1">followed by a pointer to the contents of this part, the actual data to send away. libcurl copies the provided data, so your application doesn't need to keep it around after this function call. If the data isn't null terminated, or if you'd like it to contain zero bytes, you must set the length of the name with <a class="bold" href="#CURLFORMCONTENTSLENGTH">CURLFORM_CONTENTSLENGTH</a>. The copied data will be freed by <a Class="emphasis" href="./curl_formfree.html">curl_formfree</a>. 
 <p class="level0"><a name="CURLFORMPTRCONTENTS"></a><span class="nroffip">CURLFORM_PTRCONTENTS</span> 
 <p class="level1">followed by a pointer to the contents of this part, the actual data to send away. libcurl will use the pointer and refer to the data in your application, so you must make sure it remains until curl no longer needs it. If the data isn't NUL-terminated, or if you'd like it to contain zero bytes, you must set its length  with <a class="bold" href="#CURLFORMCONTENTSLENGTH">CURLFORM_CONTENTSLENGTH</a>. 
+<p class="level0"><a name="CURLFORMCONTENTLEN"></a><span class="nroffip">CURLFORM_CONTENTLEN</span> 
+<p class="level1">followed by a curl_off_t value giving the length of the contents. Note that for <a class="emphasis" href="#CURLFORMSTREAM">CURLFORM_STREAM</a> contents, this option is mandatory. 
+<p class="level1">If you pass a 0 (zero) for this option, libcurl will instead do a strlen() on the contents to figure out the size. If you really want to send a zero byte content then you must make sure strlen() on the data pointer returns zero. 
+<p class="level1">(Option added in 7.46.0) 
 <p class="level0"><a name="CURLFORMCONTENTSLENGTH"></a><span class="nroffip">CURLFORM_CONTENTSLENGTH</span> 
+<p class="level1">(This option is deprecated. Use <a class="emphasis" href="#CURLFORMCONTENTLEN">CURLFORM_CONTENTLEN</a> instead!) 
 <p class="level1">followed by a long giving the length of the contents. Note that for <a class="emphasis" href="#CURLFORMSTREAM">CURLFORM_STREAM</a> contents, this option is mandatory. 
 <p class="level1">If you pass a 0 (zero) for this option, libcurl will instead do a strlen() on the contents to figure out the size. If you really want to send a zero byte content then you must make sure strlen() on the data pointer returns zero. 
 <p class="level0"><a name="CURLFORMFILECONTENT"></a><span class="nroffip">CURLFORM_FILECONTENT</span> 
@@ -178,6 +183,6 @@ p.roffit {
 &nbsp;
 </pre>
 <a name="SEE"></a><h2 class="nroffsh">SEE ALSO</h2>
-<p class="level0"><a Class="manpage" href="./curl_easy_setopt.html">curl_easy_setopt</a>, <span Class="manpage"> </span> <a Class="manpage" href="./curl_formfree.html">curl_formfree</a>, <p class="roffit">
+<p class="level0"><a Class="manpage" href="./curl_easy_setopt.html">curl_easy_setopt</a>, <a Class="manpage" href="./curl_formfree.html">curl_formfree</a><p class="roffit">
  This HTML page was made with <a href="http://daniel.haxx.se/projects/roffit/">roffit</a>.
 </body></html>

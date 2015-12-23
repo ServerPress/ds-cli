@@ -1,0 +1,4 @@
+[MySQL]
+Description		= MySQL ODBC 3.51 Driver
+Driver			= __PREFIX__/lib/libmyodbc3.so
+Setup			= __PREFIX__/lib/libodbcmyS.so

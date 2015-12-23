@@ -1,0 +1,117 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 127216 2014-10-23 17:59:52Z pixilla@macports.org $
+
+PortSystem          1.0
+
+name                pear-install-phar
+version             20140810
+categories          php www
+platforms           darwin
+maintainers         pixilla openmaintainer
+homepage            http://pear.php.net
+master_sites        http://pear.php.net
+
+subport php5-pear {}
+
+subport php53-pear {
+
+    set php.port        [lindex [split $subport -] 0]
+    set php.db          /var/db/${php.port}
+    depends_lib         port:${php.port}
+}
+
+subport php54-pear {
+
+    set php.port        [lindex [split $subport -] 0]
+    set php.db          /var/db/${php.port}
+    depends_lib         port:${php.port}
+}
+
+subport php55-pear {
+
+    set php.port        [lindex [split $subport -] 0]
+    set php.db          /var/db/${php.port}
+    depends_lib         port:${php.port}
+}
+
+subport php56-pear {
+
+    set php.port        [lindex [split $subport -] 0]
+    set php.db          /var/db/${php.port}
+    depends_lib         port:${php.port}
+}
+
+use_configure       no
+
+if {${name} == ${subport}} {
+
+    license             PHP-3 LGPL-2.1+
+    description         PEAR installer phar
+    long_description    ${description}
+
+    livecheck.type      moddate
+
+    dist_subdir         ${name}-${version}
+    distfiles           install-pear-nozlib.phar
+
+    checksums           rmd160  6cfc7af3e93b3fcef081fc7c92839830529b6a2e \
+                        sha256  9e181f42172d84a89a97f790de5225fd615665f8200d48bdd64e99b2cac6945c
+
+    set buildpath       ${worksrcpath}/build
+    set libpath         /lib/php/pear
+
+    extract.mkdir       yes
+    extract {
+
+        xinstall -d ${buildpath}${libpath}
+        file copy ${distpath}/install-pear-nozlib.phar ${buildpath}${libpath}
+    }
+
+    build {}
+    destroot {
+
+        xinstall -d ${destroot}${prefix}${libpath}
+        file copy ${buildpath}${libpath}/install-pear-nozlib.phar ${destroot}${prefix}${libpath}
+    }
+} elseif {${subport} eq {php5-pear}} {
+
+    replaced_by         php55-pear
+    PortGroup           obsolete 1.0
+} else {
+
+    license             BSD
+    description         Optional port adds the PEAR repository to the include path for ${php.port}.
+    long_description    ${description}
+
+    distfiles
+
+    worksrcdir          ${php.port}-pear
+    extract.dir         ${worksrcpath}
+    extract.mkdir       yes
+    post-extract {
+
+        copy ${filespath}/pear-ini.php ${worksrcpath}/pear-ini.php
+        copy ${filespath}/pear.ini ${worksrcpath}/pear.ini
+    }
+
+    post-patch {
+
+        reinplace "s,@PHP.PORT@,${php.port},g" \
+            ${worksrcpath}/pear.ini
+        reinplace "s,@PREFIX@,${prefix},g" \
+            ${worksrcpath}/pear-ini.php \
+            ${worksrcpath}/pear.ini
+    }
+
+    use_configure       no
+    build {}
+
+    destroot {
+
+        xinstall -d -m 0755 ${destroot}${prefix}/var/db/${php.port}/pear
+        xinstall -m 0644 ${worksrcpath}/pear-ini.php \
+            ${destroot}${prefix}/var/db/${php.port}/pear/pear-ini.php
+        xinstall -m 0644 ${worksrcpath}/pear.ini \
+            ${destroot}${prefix}/var/db/${php.port}/pear.ini
+    }
+}

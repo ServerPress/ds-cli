@@ -1,0 +1,31 @@
+# $Id: Portfile 115376 2014-01-01 05:10:25Z jeremyhu@macports.org $
+
+PortSystem 1.0
+
+name            rawstudio
+version         1.2
+revision        1
+categories      graphics
+license         GPL-2+
+maintainers     nomaintainer
+homepage        http://rawstudio.org/
+master_sites    ${homepage}/files/release/
+platforms       darwin
+description     Raw-image converter.
+long_description Rawstudio is a modern raw-image converter and organizer \
+                  with many features. \
+                * Reads all dcraw supported formats \
+                * Internal 16bit rgb \
+                * Various post-shot controls (white balance, saturation \
+                  and exposure compensation among others) \
+                * Realtime histogram \
+                * Easy sorting of images \
+                * Fullscreen mode for better overview
+checksums       md5     25399cd80294fa44220a8940fc77689f \
+                sha1    9ce96c40e0b8feaf4627c14310646782578d4da1 \
+                rmd160  035d80c9da44a7928d240f0b06473e8cd3efcebd
+depends_build   port:pkgconfig
+depends_lib     port:gtk2 \
+                port:gconf \
+                port:lcms \
+                port:exiv2

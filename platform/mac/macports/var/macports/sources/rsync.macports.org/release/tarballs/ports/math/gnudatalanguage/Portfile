@@ -1,0 +1,209 @@
+#  -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143516 2015-12-14 06:09:13Z devans@macports.org $
+
+PortSystem                  1.0
+PortGroup                   cmake 1.0
+PortGroup                   conflicts_build 1.0
+PortGroup                   mpi 1.0
+
+name                        gnudatalanguage
+version                     0.9.5
+revision                    10
+epoch                       1
+
+compilers.choose            cc cxx
+mpi.setup                   -openmpi -openmpi_devel -dragonegg
+
+categories                  math science
+maintainers                 takeshi
+license                     GPL-2
+platforms                   darwin
+description                 a free IDL combatible incremental compiler
+long_description \
+    A free IDL (Interactive Data Language) compatible \
+    incremental compiler (ie. runs IDL programs).
+homepage                    http://gnudatalanguage.sourceforge.net/
+master_sites                sourceforge:${name}:gdl \
+                            ftp://ftp.soest.hawaii.edu/pwessel/gshhs:gshhs
+set gdlsrc          gdl-${version}.tar.gz
+set srcversion      1.13
+set dataversion     2.1.0
+set gshhssrc        gshhs_${srcversion}_src.zip
+set gshhsdata       gshhs_${dataversion}.zip
+distfiles           ${gdlsrc}:gdl
+worksrcdir          gdl-${version}
+
+checksums           ${gdlsrc} \
+                    md5     2d02283c544820729479a57545d5b599 \
+                    sha1    b512497030ec9432aebd075fefb41d674d736d72 \
+                    rmd160  f51e6bf3410c43e3e25de1af5f59fa4e58c30452
+
+depends_build-append        port:pkgconfig
+depends_lib                 port:zlib \
+                            port:gsl \
+                            port:ncurses \
+                            port:readline \
+                            port:plplot510 \
+                            port:netcdf-cxx \
+                            port:hdf4 \
+                            port:hdf5 \
+                            port:grib_api \
+                            port:libproj4 \
+                            port:GraphicsMagick \
+                            port:xorg-libX11 \
+                            port:udunits2 \
+                            port:fftw-3 \
+                            port:fftw-3-single \
+                            port:cmsvlib \
+                            port:pslib \
+                            port:eigen3 \
+                            port:gettext
+conflicts_build             antlr
+
+patchfiles                  patch-CMakeLists.txt.diff
+
+post-patch {
+   # Avoid using heimdal's broken fnmatch.h
+   reinplace "s|<\\(fnmatch\.h\\)>|\"/usr/include/\\1\"|" ${worksrcpath}/src/file.cpp
+}
+
+cmake.out_of_source yes
+
+configure.args-append   -DEIGEN3DIR=${prefix} \
+                        -DFFTW=ON \
+                        -DFFTWDIR=${prefix} \
+                        -DGRAPHICSMAGICK=ON \
+                        -DGRAPHICSMAGICKDIR=${prefix} \
+                        -DGRAPHICSMAGICK_INCLUDE_DIR=${prefix}/include/GraphicsMagick \
+                        -DGRIB=ON \
+                        -DGRIBDIR=${prefix} \
+                        -DGRIB_INCLUDE_DIR=${prefix}/include \
+                        -DGSHHS=OFF \
+                        -DGSLDIR=${prefix} \
+                        -DGSL_INCLUDE_DIR=${prefix}/include \
+                        -DHDF5=ON \
+                        -DHDF5DIR=${prefix} \
+                        -DHDF=ON \
+                        -DHDFDIR=${prefix} \
+                        -DJASPERDIR=${prefix} \
+                        -DJPEGDIR=${prefix} \
+                        -DLIBPROJ4=ON \
+                        -DLIBPROJ4DIR=${prefix} \
+                        -DMAGICK=OFF \
+                        -DMPICH=OFF \
+                        -DNCURSESDIR=${prefix} \
+                        -DNETCDF=ON \
+                        -DNETCDFDIR=${prefix} \
+                        -DOPENMP=OFF \
+                        -DPLPLOTDIR=${prefix}/lib/plplot510 \
+                        -DPSLIB=ON \
+                        -DPSLIBDIR=${prefix} \
+                        -DPYTHON=OFF \
+                        -DPYTHON_MODULE=OFF \
+                        -DREADLINE=ON \
+                        -DREADLINEDIR=${prefix} \
+                        -DUDUNITS=ON \
+                        -DUDUNITSDIR=${prefix} \
+                        -DUDUNITS_INCLUDE_DIR=${prefix}/include/udunits2 \
+                        -DWXWIDGETS=OFF \
+                        -DX11DIR=${prefix} \
+                        -DZLIBDIR=${prefix} \
+                        -DCMAKE_OSX_DEPLOYMENT_TARGET=""
+configure.ldflags-append \
+                        -lintl
+
+test.run                    yes
+test.target                 check
+
+use_parallel_build          yes
+
+post-destroot {
+    xinstall -m 755 -d ${destroot}${prefix}/share/doc/${name}
+    foreach f {AUTHORS README} {
+        file rename ${destroot}${prefix}/share/${name}/${f} \
+            ${destroot}${prefix}/share/doc/${name}/
+    }
+    xinstall -m 644 -W ${worksrcpath} COPYING ChangeLog HACKING NEWS MAP_INSTALL TODO \
+        ${destroot}${prefix}/share/doc/${name}
+    file copy ${worksrcpath}/testsuite ${destroot}${prefix}/share/${name}/
+    if {[variant_isset python27]} {
+        xinstall -m 644 ${worksrcpath}/PYTHON.txt ${destroot}${prefix}/share/doc/${name}
+        file copy ${worksrcpath}/src/py ${destroot}${prefix}/share/${name}/
+    }
+    if {[variant_isset gshhs]} {
+        xinstall -d ${destroot}${prefix}/share/gnudatalanguage/gshhs
+        foreach f [glob ${workpath}/gshhs/*.b] {
+            xinstall -m 644 ${f} ${destroot}${prefix}/share/gnudatalanguage/gshhs
+        }
+    }
+}
+
+pre-configure {
+    if {[mpi_variant_isset]} {
+        configure.args-delete   -DMPICH=OFF
+        configure.args-append   -DMPICH=ON
+        configure.args-append   -DMPI_COMPILER=${mpi.cc} \
+                                -DMPI_LIBRARY=MPI_LIBRARY-NOTFOUND
+    }
+}
+
+# gnudatalanguage does not build against wxWidgets30.
+# wxWidget support is not actively developed.
+variant wxWidgets description {deprecated compatibility variant} {
+#    supported_archs         ppc i386
+#    depends_lib-append      port:wxWidgets30
+#    configure.args-delete   -DWXWIDGETS=OFF \
+#    configure.args-append   -DWXWIDGETS=ON \
+#                            -DWXWIDGETSDIR=${prefix}
+#    # http://wiki.finkproject.org/index.php/Fink:Packaging:Preparing_for_10.5#OpenGL_Bug
+#    #configure.env-append    LDFLAGS=\"-Wl,-dylib_file,/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib:/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib\"
+}
+
+if {[variant_isset python27]} {
+    configure.args-delete   -DPYTHON=OFF
+    configure.args-append   -DPYTHON=ON
+}
+
+# TODO: Remove after 2016-01-04.
+variant python25 requires python27 description {Legacy variant} {}
+variant python26 requires python27 description {Legacy variant} {}
+
+variant python27 description {build with support for calling Python (2.7) from GDL (using numpy)} {
+    depends_lib-append      port:py27-numpy
+    configure.args-append   -DPYTHONDIR=${frameworks_dir}/Python.framework/Versions/2.7 \
+                            -DPYTHONVERSION=2.7
+}
+
+if {[gcc_variant_isset]} {
+    configure.args-delete   -DOPENMP=OFF
+    configure.args-append   -DOPENMP=ON
+    # Detecting CXX compiler ABI info fails without this
+    configure.args-append   -D
+}
+
+variant openmp requires gcc44 description {Legacy compatibility variant} {}
+
+variant gshhs description {build with support for GSHHS} {
+    distfiles-append        ${gshhssrc}:gshhs \
+                            ${gshhsdata}:gshhs
+    checksums-append \
+                    ${gshhssrc} \
+                    md5     714b729d90381a3b1b1df70b78b05f6e \
+                    sha1    7cfb92dafd86b197c65ad6f6aaf797f6cd0ce55a \
+                    rmd160  a397b3cc50d9e3a0a9736044deabd567059698b5 \
+                    ${gshhsdata} \
+                    md5     30d336f86228e2e2861a2ba91efa0857 \
+                    sha1    fe14a1dcc7b863fb59ea00d9975b2499b669bd79 \
+                    rmd160  f4ecd162cd4e60f3b03d02d22ab143184d026f34
+    extract.only    ${gdlsrc}
+    post-extract {
+        system "cd ${workpath}; \
+                unzip ${distpath}/${gshhssrc} gshhs/gshhs.h; \
+                unzip ${distpath}/${gshhsdata}"
+    }
+    configure.args-delete   -DGSHHS=OFF
+    configure.args-append   -DGSHHS=ON \
+                            -DGSHHSDIR=${workpath}/gshhs
+}
+
+livecheck.regex             /gdl-(\[0-9.\]+)${extract.suffix}

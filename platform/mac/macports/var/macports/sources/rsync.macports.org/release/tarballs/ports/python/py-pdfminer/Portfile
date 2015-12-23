@@ -1,0 +1,38 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 114475 2013-12-09 15:28:24Z eborisch@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-pdfminer
+version             20131113
+platforms           darwin
+supported_archs     noarch
+license             MIT
+maintainers         eborisch \
+                    openmaintainer
+description         Python pdf extraction package
+
+long_description    \
+                    PDFMiner is a suite of programs that help extracting      \
+                    and analyzing text data of PDF documents. Unlike other    \
+                    PDF-related tools, it allows to obtain the exact location \
+                    of texts in a page, as well as other extra information    \
+                    such as font information or ruled lines. It includes a    \
+                    PDF converter that can transform PDF files into other     \
+                    text formats (such as HTML). It has an extensible PDF     \
+                    parser that can be used for other purposes instead of     \
+                    text analysis.
+
+homepage            http://www.unixuser.org/~euske/python/pdfminer/
+master_sites        http://pypi.python.org/packages/source/p/pdfminer/
+distname            pdfminer-${version}
+
+checksums \
+    rmd160  9aa865b51ce13c37c563d1e1494fecb0fd23e5c5 \
+    sha256  1016246265f9d48645229164ef44483e9b9a1b3e6902783782f9ae4e1024ea19
+
+livecheck.url       ${master_sites}
+livecheck.regex     pdfminer-(\[0-9\]+)\.tar\.gz
+
+python.versions     26 27

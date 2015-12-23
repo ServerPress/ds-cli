@@ -1,0 +1,49 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 119443 2014-04-25 18:40:06Z ciserlohn@macports.org $
+
+PortSystem          1.0
+
+name                tree
+version             1.7.0
+categories          sysutils
+license             GPL-2+
+platforms           darwin
+maintainers         nomaintainer
+description         display tree-view of directories with optional color/HTML output
+long_description    Tree is a simple utility that displays a tree-view of \
+                    directories and files. It has options to use ANSI color \
+                    escape-sequences or ASCII graphic characters, and can \
+                    also output in HTML format.  Tree was written by Steve \
+                    Baker for Linux.
+
+homepage            http://mama.indstate.edu/users/ice/tree/
+master_sites        ${homepage}/src/ \
+                    ftp://mama.indstate.edu/linux/tree/ \
+                    ftp://mama.indstate.edu/linux/tree/old/
+
+checksums           rmd160  238a8d89b3a993679dad68fef871b3d7d0011354 \
+                    sha256  6957c20e82561ac4231638996e74f4cfa4e6faabc5a2f511f0b4e3940e8f7b12
+
+extract.suffix      .tgz
+
+patchfiles          patch-Makefile.diff
+
+use_configure       no
+
+variant universal {}
+
+build.args          CC=${configure.cc} \
+                    CFLAGS="${configure.cflags} [get_canonical_archflags cc]" \
+                    LDFLAGS="${configure.ldflags} [get_canonical_archflags ld]"
+
+destroot.args       BINDIR=${destroot}${prefix}/bin \
+                    MANDIR=${destroot}${prefix}/share/man/man1
+
+post-destroot {
+    xinstall -d -m 0755 ${destroot}${prefix}/share/doc/${name}
+    xinstall -m 0644 -W ${worksrcpath} README CHANGES LICENSE \
+        ${destroot}${prefix}/share/doc/${name}
+}
+
+livecheck.type      regex
+livecheck.regex     "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

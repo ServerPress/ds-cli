@@ -1,0 +1,82 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 114833 2013-12-17 03:08:38Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           conflicts_build 1.0
+
+# Quoth the makefile: "[Multiple-architecture building] is rather trouble-prone
+# because the low-level crypto code has to configure itself for CPU endianness
+# and word size for the algorithms that require low-level bit fiddling, and
+# uses different code strategies depending on the CPU architecture and bit
+# width. This single-pass build for multiple architectures often causes
+# problems, and you're more or less on your own if you decide to try it."
+PortGroup           muniversal 1.0
+
+name                cryptlib
+version             3.4.2
+set branch          [join [lrange [split ${version} .] 0 1] .]
+categories          devel security crypto
+platforms           darwin
+maintainers         nomaintainer
+license             {Sleepycat Restrictive}
+
+description         cryptlib is a powerful security toolkit (library)
+
+long_description    cryptlib is a powerful security toolkit that allows even \
+                    inexperienced crypto programmers to easily add encryption \
+                    and authentication services to their software. The \
+                    high-level interface provides anyone with the ability to \
+                    add strong security capabilities to an application in as \
+                    little as half an hour, without needing to know any of \
+                    the low-level details that make the encryption or \
+                    authentication work.
+
+homepage            http://www.cs.auckland.ac.nz/~pgut001/cryptlib/
+master_sites        ftp://ftp.franken.de/pub/crypt/cryptlib/ \
+                    http://www.cypherpunks.to/~peter/
+distname            cl[join [split $version .] ""]
+use_zip             yes
+
+checksums           rmd160  c16757dbd44a50b211b5168fbc7ecf7c307b88d6 \
+                    sha256  0ee4a7568ddb7de6b155b79844e25bc1a20af9439b0db38bfbd47a984be923a3
+
+pre-extract {
+    # DOS to UNIX line endings.
+    extract.pre_args-append -a
+}
+extract.mkdir       yes
+
+patchfiles          patch-crypt-osconfig.h.diff \
+                    patch-makefile.diff \
+                    patch-tools-ccopts.sh.diff
+
+# Build fails when compiler is gcc or llvm-gcc; warnings are printed when compiler is clang.
+conflicts_build     unixODBC
+
+use_configure       no
+
+build.target        default shared
+build.env           CC="${configure.cc}" \
+                    PREFIX="${prefix}"
+
+configure.cppflags-replace -I${prefix}/include -isystem${prefix}/include
+
+foreach arch ${universal_archs} {
+    lappend merger_build_env(${arch})   CFLAGS='${configure.cflags} ${configure.cppflags} -arch ${arch}'
+    lappend merger_build_env(${arch})   LDFLAGS='-arch ${arch}'
+}
+
+if {![variant_isset universal] && [info exists merger_build_env(${build_arch})]} {
+    build.env-append $merger_build_env(${build_arch})
+}
+
+destroot.env        PREFIX="${prefix}"
+
+post-destroot {
+    xinstall -d ${destroot}${prefix}/share/doc/${name}
+    xinstall -m 644 ${worksrcpath}/README ${destroot}${prefix}/share/doc/${name}
+}
+
+livecheck.type      regex
+livecheck.url       ${homepage}download.html
+livecheck.regex     ${name} (\[0-9.\]+)

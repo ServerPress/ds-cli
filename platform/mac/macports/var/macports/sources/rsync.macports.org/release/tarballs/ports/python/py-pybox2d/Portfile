@@ -1,0 +1,34 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 114324 2013-12-05 08:44:51Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-pybox2d
+version             2.0.2b2
+license             zlib MIT
+maintainers         stromnov openmaintainer
+
+description         Python Box2D Bindings - 2D Physics
+
+long_description    ${description}
+
+platforms           darwin
+
+homepage            http://pybox2d.googlecode.com/
+master_sites        googlecode:pybox2d
+
+distname            pybox2d-${version}
+worksrcdir          Box2D-${version}
+use_zip             yes
+
+checksums           md5     b3e7d043f57b486aaf86d1892c5a8d45 \
+                    sha1    fb4486f2dea088e6e8ddaac708cb036d0bbf8161 \
+                    rmd160  362a16da2932f1bc748696f384649b6641195e53
+
+python.versions     26
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                    port:swig-python
+}

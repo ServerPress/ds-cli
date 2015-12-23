@@ -1,0 +1,60 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134962 2015-04-12 08:20:29Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           gobject_introspection 1.0
+
+name                accountsservice
+version             0.6.40
+description         AccountsService provides a set of D-Bus interfaces for querying \
+                    and manipulating user account information.
+
+long_description    ${description}
+maintainers         devans openmaintainer
+categories          gnome security
+platforms           darwin
+license             GPL-3+
+homepage            http://www.freedesktop.org/wiki/Software/AccountsService
+master_sites        http://www.freedesktop.org/software/accountsservice/
+
+use_xz              yes
+
+checksums           rmd160  83c148f750058039728397b5c8d058058557d519 \
+                    sha256  f04f756600cbab558671658ab8e77212de2a000c07bc0469e7b51541871fcb2b
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:xmlto \
+                    port:libxslt \
+                    port:gtk-doc \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                    port:policykit
+
+patchfiles          patch-src-daemon.c.diff \
+                    patch-src-libaccountsservice-Makefile.am.diff \
+                    patch-src-wtmp-helper.c.diff
+
+post-patch {
+    reinplace "s|@@MP_PREFIX@@|${prefix}|" ${worksrcpath}/src/daemon.c
+}
+
+gobject_introspection yes
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+}
+
+configure.cmd       ./autogen.sh
+
+configure.args      --disable-systemd \
+                    --disable-silent-rules
+
+livecheck.type      regex
+livecheck.url       ${master_sites}
+livecheck.regex     "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

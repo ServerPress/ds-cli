@@ -1,0 +1,34 @@
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
+
+PortSystem 1.0
+
+name            calcurse
+version         3.1.4
+revision        1
+categories      sysutils
+platforms       darwin
+maintainers     puffin.lb.shuttle.de:michael.klein openmaintainer
+license         BSD
+
+description     text-based personal organizer
+long_description \
+    Calcurse is a text-based personal organizer which helps \
+    keep track of events and everyday tasks.
+
+homepage        http://calcurse.org
+master_sites    ${homepage}/files
+
+checksums       rmd160  c65df048963c7be7e05ad0089d12eb5175754abd \
+                sha256  4121b3b14ded3583af7613a99646332701ee2ccc8cf2b87397eb3c07b97390e3
+
+depends_lib     port:gettext port:libiconv port:ncurses
+
+# needed to enable SIGWINCH
+configure.cflags-append "-D_DARWIN_C_SOURCE"
+
+post-destroot {
+    xinstall -m 755 -d ${destroot}${prefix}/share/doc/${name}
+    xinstall -m 644 -W ${worksrcpath} AUTHORS COPYING NEWS \
+        README TODO ${destroot}${prefix}/share/doc/${name}
+}
+

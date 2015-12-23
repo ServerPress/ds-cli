@@ -1,0 +1,37 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 123041 2014-08-04 04:26:39Z devans@macports.org $
+
+PortSystem      1.0
+
+name            linsmith
+version         0.99.28
+license         GPL-2+
+description     linSmith is a Smith Charting program.
+
+long_description \
+                ${description} You can enter either discrete components or transmission lines, \
+                see the results on screen and/or generate Postscript output. Component values \
+                can be changed numerically or using scrollbars.
+
+maintainers     nomaintainer
+categories      gnome science
+platforms       darwin
+homepage        http://jcoppens.com/soft/linsmith/index.en.php
+master_sites    sourceforge
+
+checksums       rmd160  99e22981a1ebebb30316c236c9757a4d3b18457e \
+                sha256  22196edb6e4c72a45a3d0a794a0bb140ab5932a5e59a40e2e9ee143b53c4235d
+
+depends_build   port:pkgconfig
+
+depends_lib     port:libxml2 \
+                port:libgnomeui
+
+patchfiles      patch-configure.in.diff \
+                return-types.diff
+
+use_autoreconf  yes
+autoreconf.args -fvi
+
+livecheck.url   http://sourceforge.net/projects/${name}/files/
+livecheck.regex "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

@@ -1,0 +1,40 @@
+# $Id: Portfile 116912 2014-02-10 06:44:09Z jmr@macports.org $
+
+PortSystem 1.0
+
+name			fs-check
+version			0.7
+categories		sysutils
+license			GPL-2+
+platforms		darwin
+supported_archs	noarch
+maintainers		nomaintainer
+description		checks filesystem if they are getting too full
+long_description	fs-check checks filesystem sizes to see if they are \
+				getting too full. It uses a configuration file that \
+				specifies the filesystems to check, email contacts, \
+				trigger thresholds (percentage or amount used/unused), \
+				and a report program to run.
+
+homepage		http://fs-check.sourceforge.net/
+master_sites	sourceforge
+checksums		md5 3b8dd49fdb7e1bc73aa242f73bebe62a \
+				sha1 395a4b61731e7f0c5f85b68120746108bb4e51dc \
+				rmd160 8912dc910f5143202bd388a00703894b5d9c65e3
+
+depends_lib		bin:perl:perl5
+
+configure.args	--mandir=${prefix}/share/man
+post-configure	{
+	reinplace "s|/var/adm/fs-check.cf|${prefix}/etc/fs-check.conf|g" \
+		${worksrcpath}/fs-check
+	reinplace "s|/var/run|${prefix}/var/run|g" ${worksrcpath}/fs-check
+}
+
+test.run		yes
+test.target		check
+
+post-destroot	{
+	xinstall -m 644 ${worksrcpath}/sample/fs-check-sample.cnf \
+		${destroot}${prefix}/etc/fs-check.conf.sample
+}

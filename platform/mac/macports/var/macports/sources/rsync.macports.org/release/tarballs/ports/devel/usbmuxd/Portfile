@@ -1,0 +1,31 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 128241 2014-11-17 02:49:00Z khindenburg@macports.org $
+
+PortSystem          1.0
+
+PortGroup           cmake 1.0
+
+name                usbmuxd
+version             1.0.7
+revision            1
+categories          devel
+platforms           darwin
+maintainers         nomaintainer
+description         USB Multiplex Daemon
+long_description    ${description} is in charge of talking to your iPhone \
+                    or iPod Touch over USB and coordinating access to its services by other \
+                    applications.
+license             GPL-2+ GPL-3+ LGPL-2.1+
+homepage            http://marcansoft.com/blog/iphonelinux/usbmuxd/
+master_sites        http://cgit.sukimashita.com/usbmuxd.git/snapshot
+use_bzip2           yes
+checksums           md5     6f431541f3177fa06aa6df9ceecb2da0 \
+                    sha1    8de79bf9cc96760ebba475de66ef4f7701f84ad6 \
+                    rmd160  9fcbfa3e3bf50385b68c396f6bbac0f34971bc37
+depends_build-append port:pkgconfig
+depends_lib         port:libplist \
+                    path:lib/pkgconfig/libusb-1.0.pc:libusb
+
+livecheck.type      regex
+livecheck.url       http://cgit.sukimashita.com/usbmuxd.git/
+livecheck.regex     ${name}-(\[0-9.\]+)${extract.suffix}

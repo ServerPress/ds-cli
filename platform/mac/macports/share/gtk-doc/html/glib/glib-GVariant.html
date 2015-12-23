@@ -8,7 +8,7 @@
 <link rel="up" href="glib-data-types.html" title="GLib Data Types">
 <link rel="prev" href="glib-GVariantType.html" title="GVariantType">
 <link rel="next" href="gvariant-format-strings.html" title="GVariant Format Strings">
-<meta name="generator" content="GTK-Doc V1.21.1 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -1055,7 +1055,7 @@ Serialised <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><
 <p><a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> is largely compatible with D-Bus.  Almost all types of
 <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instances can be sent over D-Bus.  See <a class="link" href="glib-GVariantType.html#GVariantType" title="GVariantType"><span class="type">GVariantType</span></a> for
 exceptions.  (However, <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a>'s serialisation format is not the same
-as the serialisation format of a D-Bus message body: use <a href="https://developer.gnome.org/gio/unstable/GDBusMessage.html"><span class="type">GDBusMessage</span></a>,
+as the serialisation format of a D-Bus message body: use <span class="type">GDBusMessage</span>,
 in the gio library, for those.)</p>
 <p>For space-efficiency, the <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> serialisation format does not
 automatically include the variant's length, type or endianness,
@@ -1245,7 +1245,7 @@ drops to 0, the memory used by the variant is freed.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1273,9 +1273,8 @@ g_variant_ref (<em class="parameter"><code><a class="link" href="glib-GVariant.h
 <a name="id-1.6.19.7.3.6"></a><h4>Returns</h4>
 <p> the same <em class="parameter"><code>value</code></em>
 </p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1322,9 +1321,8 @@ are not floating.</p>
 <a name="id-1.6.19.7.4.9"></a><h4>Returns</h4>
 <p> the same <em class="parameter"><code>value</code></em>
 </p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1358,9 +1356,8 @@ counts.</p>
 <a name="id-1.6.19.7.5.8"></a><h4>Returns</h4>
 <p> whether <em class="parameter"><code>value</code></em>
 is floating</p>
-<p></p>
 </div>
-<p class="since">Since 2.26</p>
+<p class="since">Since: <a class="link" href="api-index-2-26.html#api-index-2.26">2.26</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1414,7 +1411,6 @@ avoid this situation.</p>
 <a name="id-1.6.19.7.6.11"></a><h4>Returns</h4>
 <p> the same <em class="parameter"><code>value</code></em>
 </p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -1445,9 +1441,8 @@ be freed.</p>
 <div class="refsect3">
 <a name="id-1.6.19.7.7.7"></a><h4>Returns</h4>
 <p> a <a class="link" href="glib-GVariantType.html#GVariantType" title="GVariantType"><span class="type">GVariantType</span></a></p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1477,9 +1472,8 @@ string belongs to <a class="link" href="glib-GVariant.html#GVariant" title="GVar
 <a name="id-1.6.19.7.8.6"></a><h4>Returns</h4>
 <p> the type string for the type of <em class="parameter"><code>value</code></em>
 </p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1515,9 +1509,8 @@ g_variant_is_of_type (<em class="parameter"><code><a class="link" href="glib-GVa
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if the type of <em class="parameter"><code>value</code></em>
 matches <em class="parameter"><code>type</code></em>
 </p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1545,9 +1538,8 @@ g_variant_is_container (<em class="parameter"><code><a class="link" href="glib-G
 <a name="id-1.6.19.7.10.6"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>value</code></em>
 is a container</p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1601,9 +1593,8 @@ general.</p>
 <p> negative value if a &lt; b;
 zero if a = b;
 positive value if a &gt; b.</p>
-<p></p>
 </div>
-<p class="since">Since 2.26</p>
+<p class="since">Since: <a class="link" href="api-index-2-26.html#api-index-2.26">2.26</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1631,9 +1622,8 @@ g_variant_classify (<em class="parameter"><code><a class="link" href="glib-GVari
 <a name="id-1.6.19.7.12.6"></a><h4>Returns</h4>
 <p> the <a class="link" href="glib-GVariant.html#GVariantClass" title="enum GVariantClass"><span class="type">GVariantClass</span></a> of <em class="parameter"><code>value</code></em>
 </p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1658,7 +1648,7 @@ the data inside of the soon-to-be-freed <a class="link" href="glib-GVariant.html
 check fails then a <a class="link" href="glib-Message-Logging.html#g-critical" title="g_critical()"><code class="function">g_critical()</code></a> is printed and <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> is returned.</p>
 <p>This function is meant to be used by functions that wish to provide
 varargs accessors to <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> values of uncertain values (eg:
-<a class="link" href="glib-GVariant.html#g-variant-lookup" title="g_variant_lookup ()"><code class="function">g_variant_lookup()</code></a> or <a href="https://developer.gnome.org/gio/unstable/GMenuModel.html#g-menu-model-get-item-attribute"><code class="function">g_menu_model_get_item_attribute()</code></a>).</p>
+<a class="link" href="glib-GVariant.html#g-variant-lookup" title="g_variant_lookup ()"><code class="function">g_variant_lookup()</code></a> or <code class="function">g_menu_model_get_item_attribute()</code>).</p>
 <div class="refsect3">
 <a name="id-1.6.19.7.13.7"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
@@ -1690,9 +1680,8 @@ varargs accessors to <a class="link" href="glib-GVariant.html#GVariant" title="G
 <a name="id-1.6.19.7.13.8"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>format_string</code></em>
 is safe to use</p>
-<p></p>
 </div>
-<p class="since">Since 2.34</p>
+<p class="since">Since: <a class="link" href="api-index-2-34.html#api-index-2.34">2.34</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1718,8 +1707,9 @@ extended in the future.</p>
 the values and also determines if the values are copied or borrowed,
 see the section on
 <a href="gvariant-format-strings.html#gvariant-format-strings-pointers">GVariant format strings</a>.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
 <div class="refsect3">
-<a name="id-1.6.19.7.14.8"></a><h4>Parameters</h4>
+<a name="id-1.6.19.7.14.9"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -1746,7 +1736,7 @@ see the section on
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1781,8 +1771,9 @@ varargs call by the user.</p>
 the values and also determines if the values are copied or borrowed,
 see the section on
 <a href="gvariant-format-strings.html#gvariant-format-strings-pointers">GVariant format strings</a>.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
 <div class="refsect3">
-<a name="id-1.6.19.7.15.10"></a><h4>Parameters</h4>
+<a name="id-1.6.19.7.15.11"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -1814,7 +1805,7 @@ or <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1849,22 +1840,23 @@ the <a href="gvariant-format-strings.html#gvariant-varargs">GVariant varargs doc
 6
 7
 8</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="usertype">MyFlags</span><span class="normal"> some_flags </span><span class="symbol">=</span><span class="normal"> FLAG_ONE </span><span class="symbol">|</span><span class="normal"> FLAG_TWO</span><span class="symbol">;</span>
-<span class="keyword">const</span><span class="normal"> </span><span class="usertype">gchar</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">some_strings</span><span class="symbol">[]</span><span class="normal"> </span><span class="symbol">=</span><span class="normal"> </span><span class="cbracket">{</span><span class="normal"> </span><span class="string">"a"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"b"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"c"</span><span class="symbol">,</span><span class="normal"> <a href="glib-Standard-Macros.html#NULL:CAPS">NULL</a> </span><span class="cbracket">}</span><span class="symbol">;</span>
-<span class="usertype">GVariant</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">new_variant</span><span class="symbol">;</span>
+        <td class="listing_code"><pre class="programlisting">MyFlags some_flags <span class="gtkdoc opt">=</span> FLAG_ONE <span class="gtkdoc opt">|</span> FLAG_TWO<span class="gtkdoc opt">;</span>
+<span class="gtkdoc kwb">const</span> gchar <span class="gtkdoc opt">*</span>some_strings<span class="gtkdoc opt">[] = {</span> <span class="string">&quot;a&quot;</span><span class="gtkdoc opt">,</span> <span class="string">&quot;b&quot;</span><span class="gtkdoc opt">,</span> <span class="string">&quot;c&quot;</span><span class="gtkdoc opt">,</span> NULL <span class="gtkdoc opt">};</span>
+GVariant <span class="gtkdoc opt">*</span>new_variant<span class="gtkdoc opt">;</span>
 
-<span class="normal">new_variant </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="glib-GVariant.html#g-variant-new">g_variant_new</a></span><span class="normal"> </span><span class="symbol">(</span><span class="string">"(t^as)"</span><span class="symbol">,</span>
-<span class="normal">                             </span><span class="symbol">/&lt;!--</span><span class="normal"> </span><span class="symbol">--&gt;*</span><span class="normal"> This cast </span><span class="usertype">is</span><span class="normal"> required</span><span class="symbol">.</span><span class="normal"> </span><span class="symbol">*&lt;!--</span><span class="normal"> </span><span class="symbol">--&gt;/</span>
-<span class="normal">                             </span><span class="symbol">(</span><span class="normal"><a href="glib-Basic-Types.html#guint64">guint64</a></span><span class="symbol">)</span><span class="normal"> some_flags</span><span class="symbol">,</span>
-<span class="normal">                             some_strings</span><span class="symbol">);</span></pre></td>
+new_variant <span class="gtkdoc opt">=</span> <span class="function"><a href="glib-GVariant.html#g-variant-new">g_variant_new</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;(t^as)&quot;</span><span class="gtkdoc opt">,</span>
+                             <span class="gtkdoc opt">/&lt;!-- --&gt;*</span> This cast is required<span class="gtkdoc opt">. *&lt;!-- --&gt;/</span>
+                             <span class="gtkdoc opt">(</span>guint64<span class="gtkdoc opt">)</span> some_flags<span class="gtkdoc opt">,</span>
+                             some_strings<span class="gtkdoc opt">);</span></pre></td>
       </tr>
     </tbody>
   </table>
 </div>
 
 <p></p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
 <div class="refsect3">
-<a name="id-1.6.19.7.16.11"></a><h4>Parameters</h4>
+<a name="id-1.6.19.7.16.12"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -1887,11 +1879,10 @@ the <a href="gvariant-format-strings.html#gvariant-varargs">GVariant varargs doc
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.6.19.7.16.12"></a><h4>Returns</h4>
+<a name="id-1.6.19.7.16.13"></a><h4>Returns</h4>
 <p> a new floating <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance</p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1936,8 +1927,9 @@ returning control to the user that originally provided the pointer.
 At this point, the caller will have their own full reference to the
 result.  This can also be done by adding the result to a container,
 or by passing it to another <a class="link" href="glib-GVariant.html#g-variant-new" title="g_variant_new ()"><code class="function">g_variant_new()</code></a> call.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
 <div class="refsect3">
-<a name="id-1.6.19.7.17.12"></a><h4>Parameters</h4>
+<a name="id-1.6.19.7.17.13"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -1965,11 +1957,10 @@ or <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.6.19.7.17.13"></a><h4>Returns</h4>
+<a name="id-1.6.19.7.17.14"></a><h4>Returns</h4>
 <p> a new, usually floating, <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a></p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1997,7 +1988,7 @@ g_variant_new_boolean (<em class="parameter"><code><a class="link" href="glib-Ba
 <p> a floating reference to a new boolean <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2025,7 +2016,7 @@ g_variant_new_byte (<em class="parameter"><code><a class="link" href="glib-Basic
 <p> a floating reference to a new byte <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2053,7 +2044,7 @@ g_variant_new_int16 (<em class="parameter"><code><a class="link" href="glib-Basi
 <p> a floating reference to a new int16 <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2081,7 +2072,7 @@ g_variant_new_uint16 (<em class="parameter"><code><a class="link" href="glib-Bas
 <p> a floating reference to a new uint16 <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2109,7 +2100,7 @@ g_variant_new_int32 (<em class="parameter"><code><a class="link" href="glib-Basi
 <p> a floating reference to a new int32 <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2137,7 +2128,7 @@ g_variant_new_uint32 (<em class="parameter"><code><a class="link" href="glib-Bas
 <p> a floating reference to a new uint32 <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2165,7 +2156,7 @@ g_variant_new_int64 (<em class="parameter"><code><a class="link" href="glib-Basi
 <p> a floating reference to a new int64 <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2193,7 +2184,7 @@ g_variant_new_uint64 (<em class="parameter"><code><a class="link" href="glib-Bas
 <p> a floating reference to a new uint64 <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2224,7 +2215,7 @@ with D-Bus, you probably don't need them.</p>
 <p> a floating reference to a new handle <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2252,7 +2243,7 @@ g_variant_new_double (<em class="parameter"><code><a class="link" href="glib-Bas
 <p> a floating reference to a new double <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2262,7 +2253,9 @@ g_variant_new_string (<em class="parameter"><code>const <a class="link" href="gl
 <p>Creates a string <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> with the contents of <em class="parameter"><code>string</code></em>
 .</p>
 <p><em class="parameter"><code>string</code></em>
- must be valid UTF-8.</p>
+ must be valid UTF-8, and must not be <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a>. To encode
+potentially-<a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a> strings, use <a class="link" href="glib-GVariant.html#g-variant-new" title="g_variant_new ()"><code class="function">g_variant_new()</code></a> with <code class="literal">ms</code> as the
+<a href="gvariant-format-strings.html#gvariant-format-strings-maybe-types">format string</a>.</p>
 <div class="refsect3">
 <a name="id-1.6.19.7.28.6"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
@@ -2283,7 +2276,7 @@ g_variant_new_string (<em class="parameter"><code>const <a class="link" href="gl
 <p> a floating reference to a new string <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2293,7 +2286,8 @@ g_variant_new_take_string (<em class="parameter"><code><a class="link" href="gli
 <p>Creates a string <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> with the contents of <em class="parameter"><code>string</code></em>
 .</p>
 <p><em class="parameter"><code>string</code></em>
- must be valid UTF-8.</p>
+ must be valid UTF-8, and must not be <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a>. To encode
+potentially-<a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a> strings, use this with <a class="link" href="glib-GVariant.html#g-variant-new-maybe" title="g_variant_new_maybe ()"><code class="function">g_variant_new_maybe()</code></a>.</p>
 <p>This function consumes <em class="parameter"><code>string</code></em>
 .  <a class="link" href="glib-Memory-Allocation.html#g-free" title="g_free ()"><code class="function">g_free()</code></a> will be called on <em class="parameter"><code>string</code></em>
 
@@ -2303,8 +2297,9 @@ when it is no longer required.</p>
 it to this function.  It is even possible that <em class="parameter"><code>string</code></em>
  is immediately
 freed.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
 <div class="refsect3">
-<a name="id-1.6.19.7.29.8"></a><h4>Parameters</h4>
+<a name="id-1.6.19.7.29.9"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -2319,12 +2314,12 @@ freed.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.6.19.7.29.9"></a><h4>Returns</h4>
+<a name="id-1.6.19.7.29.10"></a><h4>Returns</h4>
 <p> a floating reference to a new string
 <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.38</p>
+<p class="since">Since: <a class="link" href="api-index-2-38.html#api-index-2.38">2.38</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2336,8 +2331,9 @@ g_variant_new_printf (<em class="parameter"><code>const <a class="link" href="gl
 <p>This is similar to calling <a class="link" href="glib-String-Utility-Functions.html#g-strdup-printf" title="g_strdup_printf ()"><code class="function">g_strdup_printf()</code></a> and then
 <a class="link" href="glib-GVariant.html#g-variant-new-string" title="g_variant_new_string ()"><code class="function">g_variant_new_string()</code></a> but it saves a temporary variable and an
 unnecessary copy.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
 <div class="refsect3">
-<a name="id-1.6.19.7.30.6"></a><h4>Parameters</h4>
+<a name="id-1.6.19.7.30.7"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -2360,12 +2356,12 @@ unnecessary copy.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.6.19.7.30.7"></a><h4>Returns</h4>
+<a name="id-1.6.19.7.30.8"></a><h4>Returns</h4>
 <p> a floating reference to a new string
 <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.38</p>
+<p class="since">Since: <a class="link" href="api-index-2-38.html#api-index-2.38">2.38</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2397,7 +2393,7 @@ g_variant_new_object_path (<em class="parameter"><code>const <a class="link" hre
 <p> a floating reference to a new object path <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2430,9 +2426,8 @@ must contain only the characters "A-Z[0-9]_".  No sequence
 <a name="id-1.6.19.7.32.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>string</code></em>
 is a D-Bus object path</p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2464,7 +2459,7 @@ g_variant_new_signature (<em class="parameter"><code>const <a class="link" href=
 <p> a floating reference to a new signature <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2495,9 +2490,8 @@ strings in sequence.</p>
 <a name="id-1.6.19.7.34.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>string</code></em>
 is a D-Bus type signature</p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2511,8 +2505,9 @@ variant containing the original value.</p>
  is a floating reference (see <a class="link" href="glib-GVariant.html#g-variant-ref-sink" title="g_variant_ref_sink ()"><code class="function">g_variant_ref_sink()</code></a>), the new
 instance takes ownership of <em class="parameter"><code>child</code></em>
 .</p>
+<p><span class="annotation">[<acronym title="This symbol is a constructor, not a static method."><span class="acronym">constructor</span></acronym>]</span></p>
 <div class="refsect3">
-<a name="id-1.6.19.7.35.6"></a><h4>Parameters</h4>
+<a name="id-1.6.19.7.35.7"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -2527,11 +2522,11 @@ instance takes ownership of <em class="parameter"><code>child</code></em>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.6.19.7.35.7"></a><h4>Returns</h4>
+<a name="id-1.6.19.7.35.8"></a><h4>Returns</h4>
 <p> a floating reference to a new variant <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2572,7 +2567,7 @@ strings.</p>
 <p> a new floating <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2615,7 +2610,7 @@ strings.</p>
 <p> a new floating <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.30</p>
+<p class="since">Since: <a class="link" href="api-index-2-30.html#api-index-2.30">2.30</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2649,7 +2644,7 @@ nul-terminated string in no particular encoding. </p></td>
 <p> a floating reference to a new bytestring <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.26</p>
+<p class="since">Since: <a class="link" href="api-index-2-26.html#api-index-2.26">2.26</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2690,7 +2685,7 @@ strings.</p>
 <p> a new floating <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.26</p>
+<p class="since">Since: <a class="link" href="api-index-2-26.html#api-index-2.26">2.26</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2720,9 +2715,8 @@ other than <a class="link" href="glib-GVariantType.html#G-VARIANT-TYPE-BOOLEAN:C
 <div class="refsect3">
 <a name="id-1.6.19.7.40.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> or <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a></p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2752,9 +2746,8 @@ other than <a class="link" href="glib-GVariantType.html#G-VARIANT-TYPE-BYTE:CAPS
 <div class="refsect3">
 <a name="id-1.6.19.7.41.7"></a><h4>Returns</h4>
 <p> a <a class="link" href="glib-Basic-Types.html#guchar" title="guchar"><span class="type">guchar</span></a></p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2784,9 +2777,8 @@ other than <a class="link" href="glib-GVariantType.html#G-VARIANT-TYPE-INT16:CAP
 <div class="refsect3">
 <a name="id-1.6.19.7.42.7"></a><h4>Returns</h4>
 <p> a <a class="link" href="glib-Basic-Types.html#gint16" title="gint16"><span class="type">gint16</span></a></p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2816,9 +2808,8 @@ other than <a class="link" href="glib-GVariantType.html#G-VARIANT-TYPE-UINT16:CA
 <div class="refsect3">
 <a name="id-1.6.19.7.43.7"></a><h4>Returns</h4>
 <p> a <a class="link" href="glib-Basic-Types.html#guint16" title="guint16"><span class="type">guint16</span></a></p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2848,9 +2839,8 @@ other than <a class="link" href="glib-GVariantType.html#G-VARIANT-TYPE-INT32:CAP
 <div class="refsect3">
 <a name="id-1.6.19.7.44.7"></a><h4>Returns</h4>
 <p> a <a class="link" href="glib-Basic-Types.html#gint32" title="gint32"><span class="type">gint32</span></a></p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2880,9 +2870,8 @@ other than <a class="link" href="glib-GVariantType.html#G-VARIANT-TYPE-UINT32:CA
 <div class="refsect3">
 <a name="id-1.6.19.7.45.7"></a><h4>Returns</h4>
 <p> a <a class="link" href="glib-Basic-Types.html#guint32" title="guint32"><span class="type">guint32</span></a></p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2912,9 +2901,8 @@ other than <a class="link" href="glib-GVariantType.html#G-VARIANT-TYPE-INT64:CAP
 <div class="refsect3">
 <a name="id-1.6.19.7.46.7"></a><h4>Returns</h4>
 <p> a <a class="link" href="glib-Basic-Types.html#gint64" title="gint64"><span class="type">gint64</span></a></p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2944,9 +2932,8 @@ other than <a class="link" href="glib-GVariantType.html#G-VARIANT-TYPE-UINT64:CA
 <div class="refsect3">
 <a name="id-1.6.19.7.47.7"></a><h4>Returns</h4>
 <p> a <a class="link" href="glib-Basic-Types.html#guint64" title="guint64"><span class="type">guint64</span></a></p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2979,9 +2966,8 @@ with D-Bus, you probably don't need them.</p>
 <div class="refsect3">
 <a name="id-1.6.19.7.48.8"></a><h4>Returns</h4>
 <p> a <a class="link" href="glib-Basic-Types.html#gint32" title="gint32"><span class="type">gint32</span></a></p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3011,9 +2997,8 @@ other than <a class="link" href="glib-GVariantType.html#G-VARIANT-TYPE-DOUBLE:CA
 <div class="refsect3">
 <a name="id-1.6.19.7.49.7"></a><h4>Returns</h4>
 <p> a <a class="link" href="glib-Basic-Types.html#gdouble" title="gdouble"><span class="type">gdouble</span></a></p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3024,7 +3009,7 @@ g_variant_get_string (<em class="parameter"><code><a class="link" href="glib-GVa
 <p>Returns the string value of a <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance with a string
 type.  This includes the types <a class="link" href="glib-GVariantType.html#G-VARIANT-TYPE-STRING:CAPS" title="G_VARIANT_TYPE_STRING"><code class="literal">G_VARIANT_TYPE_STRING</code></a>,
 <a class="link" href="glib-GVariantType.html#G-VARIANT-TYPE-OBJECT-PATH:CAPS" title="G_VARIANT_TYPE_OBJECT_PATH"><code class="literal">G_VARIANT_TYPE_OBJECT_PATH</code></a> and <a class="link" href="glib-GVariantType.html#G-VARIANT-TYPE-SIGNATURE:CAPS" title="G_VARIANT_TYPE_SIGNATURE"><code class="literal">G_VARIANT_TYPE_SIGNATURE</code></a>.</p>
-<p>The string will always be UTF-8 encoded.</p>
+<p>The string will always be UTF-8 encoded, and will never be <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a>.</p>
 <p>If <em class="parameter"><code>length</code></em>
  is non-<a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a> then the length of the string (in bytes) is
 returned there.  For trusted values, this information is already
@@ -3062,7 +3047,7 @@ to store the length. </p></td>
 <p> the constant string, UTF-8 encoded. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3101,7 +3086,7 @@ a constant string, the string is duplicated.</p>
 <p> a newly allocated string, UTF-8 encoded. </p>
 <p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3132,7 +3117,7 @@ contained in <em class="parameter"><code>value</code></em>
 <p> the item contained in the variant. </p>
 <p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3177,7 +3162,7 @@ is stored there.  In any case, the resulting array will be
 <p> an array of constant strings. </p>
 <p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=length zero-terminated=1][<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3222,7 +3207,7 @@ is stored there.  In any case, the resulting array will be
 <p> an array of strings. </p>
 <p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=length zero-terminated=1][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3267,7 +3252,7 @@ is stored there.  In any case, the resulting array will be
 <p> an array of constant strings. </p>
 <p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=length zero-terminated=1][<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.30</p>
+<p class="since">Since: <a class="link" href="api-index-2-30.html#api-index-2.30">2.30</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3312,7 +3297,7 @@ is stored there.  In any case, the resulting array will be
 <p> an array of strings. </p>
 <p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=length zero-terminated=1][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.30</p>
+<p class="since">Since: <a class="link" href="api-index-2-30.html#api-index-2.30">2.30</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3352,7 +3337,7 @@ array of bytes.</p>
 <p>         the constant string. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> guint8]</span></p>
 </div>
-<p class="since">Since 2.26</p>
+<p class="since">Since: <a class="link" href="api-index-2-26.html#api-index-2.26">2.26</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3391,7 +3376,7 @@ the length (not including the nul terminator). </p></td>
 <p>         a newly allocated string. </p>
 <p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>][<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> zero-terminated=1 length=length][<acronym title="Generics and defining elements of containers and arrays."><span class="acronym">element-type</span></acronym> guint8]</span></p>
 </div>
-<p class="since">Since 2.26</p>
+<p class="since">Since: <a class="link" href="api-index-2-26.html#api-index-2.26">2.26</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3436,7 +3421,7 @@ stored there.  In any case, the resulting array will be
 <p> an array of constant strings. </p>
 <p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=length][<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.26</p>
+<p class="since">Since: <a class="link" href="api-index-2-26.html#api-index-2.26">2.26</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3481,7 +3466,7 @@ stored there.  In any case, the resulting array will be
 <p> an array of strings. </p>
 <p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=length][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.26</p>
+<p class="since">Since: <a class="link" href="api-index-2-26.html#api-index-2.26">2.26</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3534,7 +3519,7 @@ instance takes ownership of <em class="parameter"><code>child</code></em>
 <p> a floating reference to a new <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> maybe instance. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3597,7 +3582,7 @@ new instance takes ownership of them as if via <a class="link" href="glib-GVaria
 <p> a floating reference to a new <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> array. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3644,7 +3629,7 @@ new instance takes ownership of them as if via <a class="link" href="glib-GVaria
 <p> a floating reference to a new <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> tuple. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3661,8 +3646,9 @@ non-<a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><cod
  or <em class="parameter"><code>value</code></em>
  are floating references (see <a class="link" href="glib-GVariant.html#g-variant-ref-sink" title="g_variant_ref_sink ()"><code class="function">g_variant_ref_sink()</code></a>),
 the new instance takes ownership of them as if via <a class="link" href="glib-GVariant.html#g-variant-ref-sink" title="g_variant_ref_sink ()"><code class="function">g_variant_ref_sink()</code></a>.</p>
+<p><span class="annotation">[<acronym title="This symbol is a constructor, not a static method."><span class="acronym">constructor</span></acronym>]</span></p>
 <div class="refsect3">
-<a name="id-1.6.19.7.64.6"></a><h4>Parameters</h4>
+<a name="id-1.6.19.7.64.7"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -3684,11 +3670,11 @@ the new instance takes ownership of them as if via <a class="link" href="glib-GV
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.6.19.7.64.7"></a><h4>Returns</h4>
+<a name="id-1.6.19.7.64.8"></a><h4>Returns</h4>
 <p> a floating reference to a new dictionary entry <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a>. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3749,7 +3735,7 @@ items in the array.</p>
 <p> a floating reference to a new array <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3779,7 +3765,7 @@ value is Nothing, then this function returns <a class="link" href="glib-Standard
 , or <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a>. </p>
 <p><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3813,9 +3799,8 @@ only on the type).  For dictionary entries, it is always 2</p>
 <div class="refsect3">
 <a name="id-1.6.19.7.67.8"></a><h4>Returns</h4>
 <p> the number of children in the container</p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3860,7 +3845,7 @@ in the container.  See <a class="link" href="glib-GVariant.html#g-variant-n-chil
 <p> the child at the specified index. </p>
 <p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3880,8 +3865,9 @@ essentially a combination of <a class="link" href="glib-GVariant.html#g-variant-
 the values and also determines if the values are copied or borrowed,
 see the section on
 <a href="gvariant-format-strings.html#gvariant-format-strings-pointers">GVariant format strings</a>.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
 <div class="refsect3">
-<a name="id-1.6.19.7.69.6"></a><h4>Parameters</h4>
+<a name="id-1.6.19.7.69.7"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -3913,7 +3899,7 @@ see the section on
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3977,7 +3963,7 @@ plan to do many lookups then <a class="link" href="glib-GVariant.html#GVariantDi
 <p> the value of the dictionary key, or <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a>. </p>
 <p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.28</p>
+<p class="since">Since: <a class="link" href="api-index-2-28.html#api-index-2.28">2.28</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -3999,8 +3985,9 @@ see the section on
 <a href="gvariant-format-strings.html#gvariant-format-strings-pointers">GVariant format strings</a>.</p>
 <p>This function is currently implemented with a linear scan.  If you
 plan to do many lookups then <a class="link" href="glib-GVariant.html#GVariantDict" title="struct GVariantDict"><span class="type">GVariantDict</span></a> may be more efficient.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
 <div class="refsect3">
-<a name="id-1.6.19.7.71.8"></a><h4>Parameters</h4>
+<a name="id-1.6.19.7.71.9"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -4032,11 +4019,10 @@ plan to do many lookups then <a class="link" href="glib-GVariant.html#GVariantDi
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.6.19.7.71.9"></a><h4>Returns</h4>
+<a name="id-1.6.19.7.71.10"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if a value was unpacked</p>
-<p></p>
 </div>
-<p class="since">Since 2.28</p>
+<p class="since">Since: <a class="link" href="api-index-2-28.html#api-index-2.28">2.28</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -4105,7 +4091,7 @@ items in the array.</p>
 the fixed array. </p>
 <p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=n_elements][<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -4143,9 +4129,8 @@ involved.</p>
 <a name="id-1.6.19.7.73.8"></a><h4>Returns</h4>
 <p> the serialised size of <em class="parameter"><code>value</code></em>
 </p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -4200,7 +4185,7 @@ serialised data).</p>
 , or <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a>. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -4231,7 +4216,7 @@ a reference to the variant data.</p>
 <p> A new <a class="link" href="glib-Byte-Arrays.html#GBytes" title="GBytes"><span class="type">GBytes</span></a> representing the variant data. </p>
 <p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.36</p>
+<p class="since">Since: <a class="link" href="api-index-2-36.html#api-index-2.36">2.36</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -4274,7 +4259,7 @@ machine might be different) its endianness must also be available.</p>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -4370,7 +4355,7 @@ is no longer needed. </p></td>
 . </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -4417,7 +4402,7 @@ are trusted</p></td>
 <p> a new <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> with a floating reference. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.36</p>
+<p class="since">Since: <a class="link" href="api-index-2-36.html#api-index-2.36">2.36</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -4456,7 +4441,7 @@ bytes and containers containing only these things (recursively).</p>
 . </p>
 <p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -4501,7 +4486,7 @@ output is definitely in normal form.</p>
 <p> a trusted <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a>. </p>
 <p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -4537,9 +4522,8 @@ this function will immediately return <a class="link" href="glib-Standard-Macros
 <a name="id-1.6.19.7.81.8"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>value</code></em>
 is in normal form</p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -4574,9 +4558,8 @@ function with <a class="link" href="glib-Hash-Tables.html#GHashTable" title="GHa
 <a name="id-1.6.19.7.82.8"></a><h4>Returns</h4>
 <p> a hash value corresponding to <em class="parameter"><code>value</code></em>
 </p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -4618,9 +4601,8 @@ this function with <a class="link" href="glib-Hash-Tables.html#GHashTable" title
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>one</code></em>
 and <em class="parameter"><code>two</code></em>
 are equal</p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -4662,7 +4644,7 @@ the output</p></td>
 <p> a newly-allocated string holding the result. </p>
 <p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -4675,8 +4657,9 @@ g_variant_print_string (<em class="parameter"><code><a class="link" href="glib-G
 <p>If <em class="parameter"><code>string</code></em>
  is non-<a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a> then it is appended to and returned.  Else,
 a new empty <a class="link" href="glib-Strings.html#GString" title="struct GString"><span class="type">GString</span></a> is allocated and it is returned.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
 <div class="refsect3">
-<a name="id-1.6.19.7.85.6"></a><h4>Parameters</h4>
+<a name="id-1.6.19.7.85.7"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -4704,11 +4687,10 @@ the output</p></td>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.6.19.7.85.7"></a><h4>Returns</h4>
+<a name="id-1.6.19.7.85.8"></a><h4>Returns</h4>
 <p> a <a class="link" href="glib-Strings.html#GString" title="struct GString"><span class="type">GString</span></a> containing the string</p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -4745,7 +4727,7 @@ and will be releated only when <a class="link" href="glib-GVariant.html#g-varian
 <p> a new heap-allocated <a class="link" href="glib-GVariant.html#GVariantIter" title="struct GVariantIter"><span class="type">GVariantIter</span></a>. </p>
 <p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -4770,7 +4752,7 @@ iterators that were returned by <a class="link" href="glib-GVariant.html#g-varia
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -4785,8 +4767,9 @@ ignored.</p>
 <p>The iterator remains valid for as long as <em class="parameter"><code>value</code></em>
  exists, and need not
 be freed in any way.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
 <div class="refsect3">
-<a name="id-1.6.19.7.88.6"></a><h4>Parameters</h4>
+<a name="id-1.6.19.7.88.7"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -4808,12 +4791,11 @@ be freed in any way.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.6.19.7.88.7"></a><h4>Returns</h4>
+<a name="id-1.6.19.7.88.8"></a><h4>Returns</h4>
 <p> the number of items in <em class="parameter"><code>value</code></em>
 </p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -4842,9 +4824,8 @@ of items remaining.</p>
 <div class="refsect3">
 <a name="id-1.6.19.7.89.7"></a><h4>Returns</h4>
 <p> the number of children in the container</p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -4879,7 +4860,7 @@ need it.</p>
 <p> a new heap-allocated <a class="link" href="glib-GVariant.html#GVariantIter" title="struct GVariantIter"><span class="type">GVariantIter</span></a>. </p>
 <p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -4913,24 +4894,24 @@ you no longer need it.</p>
 16
 17
 18</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="comment">// recursively iterate a container</span>
-<span class="type">void</span>
-<span class="function">iterate_container_recursive</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">GVariant</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">container</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="usertype">GVariantIter</span><span class="normal"> iter</span><span class="symbol">;</span>
-<span class="normal">  </span><span class="usertype">GVariant</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">child</span><span class="symbol">;</span>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc slc">// recursively iterate a container</span>
+<span class="gtkdoc kwb">void</span>
+<span class="function">iterate_container_recursive</span> <span class="gtkdoc opt">(</span>GVariant <span class="gtkdoc opt">*</span>container<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  GVariantIter iter<span class="gtkdoc opt">;</span>
+  GVariant <span class="gtkdoc opt">*</span>child<span class="gtkdoc opt">;</span>
 
-<span class="normal">  </span><span class="function"><a href="glib-GVariant.html#g-variant-iter-init">g_variant_iter_init</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">iter</span><span class="symbol">,</span><span class="normal"> container</span><span class="symbol">);</span>
-<span class="normal">  </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">((</span><span class="normal">child </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="glib-GVariant.html#g-variant-iter-next-value">g_variant_iter_next_value</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">iter</span><span class="symbol">)))</span>
-<span class="normal">    </span><span class="cbracket">{</span>
-<span class="normal">      </span><span class="function"><a href="glib-Warnings-and-Assertions.html#g-print">g_print</a></span><span class="normal"> </span><span class="symbol">(</span><span class="string">"type '%s'</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> </span><span class="function"><a href="glib-GVariant.html#g-variant-get-type-string">g_variant_get_type_string</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">child</span><span class="symbol">));</span>
+  <span class="function"><a href="glib-GVariant.html#g-variant-iter-init">g_variant_iter_init</a></span> <span class="gtkdoc opt">(&amp;</span>iter<span class="gtkdoc opt">,</span> container<span class="gtkdoc opt">);</span>
+  <span class="keyword">while</span> <span class="gtkdoc opt">((</span>child <span class="gtkdoc opt">=</span> <span class="function"><a href="glib-GVariant.html#g-variant-iter-next-value">g_variant_iter_next_value</a></span> <span class="gtkdoc opt">(&amp;</span>iter<span class="gtkdoc opt">)))</span>
+    <span class="gtkdoc opt">{</span>
+      <span class="function"><a href="glib-Warnings-and-Assertions.html#g-print">g_print</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;type '%s'</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">,</span> <span class="function"><a href="glib-GVariant.html#g-variant-get-type-string">g_variant_get_type_string</a></span> <span class="gtkdoc opt">(</span>child<span class="gtkdoc opt">));</span>
 
-<span class="normal">      </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function"><a href="glib-GVariant.html#g-variant-is-container">g_variant_is_container</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">child</span><span class="symbol">))</span>
-<span class="normal">        </span><span class="function">iterate_container_recursive</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">child</span><span class="symbol">);</span>
+      <span class="keyword">if</span> <span class="gtkdoc opt">(</span><span class="function"><a href="glib-GVariant.html#g-variant-is-container">g_variant_is_container</a></span> <span class="gtkdoc opt">(</span>child<span class="gtkdoc opt">))</span>
+        <span class="function">iterate_container_recursive</span> <span class="gtkdoc opt">(</span>child<span class="gtkdoc opt">);</span>
 
-<span class="normal">      </span><span class="function"><a href="glib-GVariant.html#g-variant-unref">g_variant_unref</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">child</span><span class="symbol">);</span>
-<span class="normal">    </span><span class="cbracket">}</span>
-<span class="cbracket">}</span></pre></td>
+      <span class="function"><a href="glib-GVariant.html#g-variant-unref">g_variant_unref</a></span> <span class="gtkdoc opt">(</span>child<span class="gtkdoc opt">);</span>
+    <span class="gtkdoc opt">}</span>
+<span class="gtkdoc opt">}</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -4957,7 +4938,7 @@ you no longer need it.</p>
 <p> a <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a>, or <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a>. </p>
 <p><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>][<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -4998,25 +4979,25 @@ the unpacking process.</p>
 17
 18
 19</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="comment">// Iterates a dictionary of type 'a{sv}'</span>
-<span class="type">void</span>
-<span class="function">iterate_dictionary</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">GVariant</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dictionary</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="usertype">GVariantIter</span><span class="normal"> iter</span><span class="symbol">;</span>
-<span class="normal">  </span><span class="usertype">GVariant</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">value</span><span class="symbol">;</span>
-<span class="normal">  </span><span class="usertype">gchar</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">key</span><span class="symbol">;</span>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc slc">// Iterates a dictionary of type 'a{sv}'</span>
+<span class="gtkdoc kwb">void</span>
+<span class="function">iterate_dictionary</span> <span class="gtkdoc opt">(</span>GVariant <span class="gtkdoc opt">*</span>dictionary<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  GVariantIter iter<span class="gtkdoc opt">;</span>
+  GVariant <span class="gtkdoc opt">*</span>value<span class="gtkdoc opt">;</span>
+  gchar <span class="gtkdoc opt">*</span>key<span class="gtkdoc opt">;</span>
 
-<span class="normal">  </span><span class="function"><a href="glib-GVariant.html#g-variant-iter-init">g_variant_iter_init</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">iter</span><span class="symbol">,</span><span class="normal"> dictionary</span><span class="symbol">);</span>
-<span class="normal">  </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="function"><a href="glib-GVariant.html#g-variant-iter-next">g_variant_iter_next</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">iter</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"{sv}"</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">key</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">value</span><span class="symbol">))</span>
-<span class="normal">    </span><span class="cbracket">{</span>
-<span class="normal">      </span><span class="function"><a href="glib-Warnings-and-Assertions.html#g-print">g_print</a></span><span class="normal"> </span><span class="symbol">(</span><span class="string">"Item '%s' has type '%s'</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> key</span><span class="symbol">,</span>
-<span class="normal">               </span><span class="function"><a href="glib-GVariant.html#g-variant-get-type-string">g_variant_get_type_string</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">value</span><span class="symbol">));</span>
+  <span class="function"><a href="glib-GVariant.html#g-variant-iter-init">g_variant_iter_init</a></span> <span class="gtkdoc opt">(&amp;</span>iter<span class="gtkdoc opt">,</span> dictionary<span class="gtkdoc opt">);</span>
+  <span class="keyword">while</span> <span class="gtkdoc opt">(</span><span class="function"><a href="glib-GVariant.html#g-variant-iter-next">g_variant_iter_next</a></span> <span class="gtkdoc opt">(&amp;</span>iter<span class="gtkdoc opt">,</span> <span class="string">&quot;{sv}&quot;</span><span class="gtkdoc opt">, &amp;</span>key<span class="gtkdoc opt">, &amp;</span>value<span class="gtkdoc opt">))</span>
+    <span class="gtkdoc opt">{</span>
+      <span class="function"><a href="glib-Warnings-and-Assertions.html#g-print">g_print</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Item '%s' has type '%s'</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">,</span> key<span class="gtkdoc opt">,</span>
+               <span class="function"><a href="glib-GVariant.html#g-variant-get-type-string">g_variant_get_type_string</a></span> <span class="gtkdoc opt">(</span>value<span class="gtkdoc opt">));</span>
 
-<span class="normal">      </span><span class="comment">// must free data for ourselves</span>
-<span class="normal">      </span><span class="function"><a href="glib-GVariant.html#g-variant-unref">g_variant_unref</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">value</span><span class="symbol">);</span>
-<span class="normal">      </span><span class="function"><a href="glib-Memory-Allocation.html#g-free">g_free</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">key</span><span class="symbol">);</span>
-<span class="normal">    </span><span class="cbracket">}</span>
-<span class="cbracket">}</span></pre></td>
+      <span class="gtkdoc slc">// must free data for ourselves</span>
+      <span class="function"><a href="glib-GVariant.html#g-variant-unref">g_variant_unref</a></span> <span class="gtkdoc opt">(</span>value<span class="gtkdoc opt">);</span>
+      <span class="function"><a href="glib-Memory-Allocation.html#g-free">g_free</a></span> <span class="gtkdoc opt">(</span>key<span class="gtkdoc opt">);</span>
+    <span class="gtkdoc opt">}</span>
+<span class="gtkdoc opt">}</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -5030,8 +5011,9 @@ when dealing with loops, see <a class="link" href="glib-GVariant.html#g-variant-
 the values and also determines if the values are copied or borrowed.</p>
 <p>See the section on
 <a href="gvariant-format-strings.html#gvariant-format-strings-pointers">GVariant format strings</a>.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
 <div class="refsect3">
-<a name="id-1.6.19.7.92.13"></a><h4>Parameters</h4>
+<a name="id-1.6.19.7.92.14"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -5058,11 +5040,10 @@ the values and also determines if the values are copied or borrowed.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.6.19.7.92.14"></a><h4>Returns</h4>
+<a name="id-1.6.19.7.92.15"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if a value was unpacked, or <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> if there as no value</p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -5114,24 +5095,24 @@ you must free or unreference all the unpacked values as you would with
 16
 17
 18</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="comment">// Iterates a dictionary of type 'a{sv}'</span>
-<span class="type">void</span>
-<span class="function">iterate_dictionary</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">GVariant</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dictionary</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="usertype">GVariantIter</span><span class="normal"> iter</span><span class="symbol">;</span>
-<span class="normal">  </span><span class="usertype">GVariant</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">value</span><span class="symbol">;</span>
-<span class="normal">  </span><span class="usertype">gchar</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">key</span><span class="symbol">;</span>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc slc">// Iterates a dictionary of type 'a{sv}'</span>
+<span class="gtkdoc kwb">void</span>
+<span class="function">iterate_dictionary</span> <span class="gtkdoc opt">(</span>GVariant <span class="gtkdoc opt">*</span>dictionary<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  GVariantIter iter<span class="gtkdoc opt">;</span>
+  GVariant <span class="gtkdoc opt">*</span>value<span class="gtkdoc opt">;</span>
+  gchar <span class="gtkdoc opt">*</span>key<span class="gtkdoc opt">;</span>
 
-<span class="normal">  </span><span class="function"><a href="glib-GVariant.html#g-variant-iter-init">g_variant_iter_init</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">iter</span><span class="symbol">,</span><span class="normal"> dictionary</span><span class="symbol">);</span>
-<span class="normal">  </span><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="function"><a href="glib-GVariant.html#g-variant-iter-loop">g_variant_iter_loop</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">iter</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"{sv}"</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">key</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">value</span><span class="symbol">))</span>
-<span class="normal">    </span><span class="cbracket">{</span>
-<span class="normal">      </span><span class="function"><a href="glib-Warnings-and-Assertions.html#g-print">g_print</a></span><span class="normal"> </span><span class="symbol">(</span><span class="string">"Item '%s' has type '%s'</span><span class="specialchar">\n</span><span class="string">"</span><span class="symbol">,</span><span class="normal"> key</span><span class="symbol">,</span>
-<span class="normal">               </span><span class="function"><a href="glib-GVariant.html#g-variant-get-type-string">g_variant_get_type_string</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">value</span><span class="symbol">));</span>
+  <span class="function"><a href="glib-GVariant.html#g-variant-iter-init">g_variant_iter_init</a></span> <span class="gtkdoc opt">(&amp;</span>iter<span class="gtkdoc opt">,</span> dictionary<span class="gtkdoc opt">);</span>
+  <span class="keyword">while</span> <span class="gtkdoc opt">(</span><span class="function"><a href="glib-GVariant.html#g-variant-iter-loop">g_variant_iter_loop</a></span> <span class="gtkdoc opt">(&amp;</span>iter<span class="gtkdoc opt">,</span> <span class="string">&quot;{sv}&quot;</span><span class="gtkdoc opt">, &amp;</span>key<span class="gtkdoc opt">, &amp;</span>value<span class="gtkdoc opt">))</span>
+    <span class="gtkdoc opt">{</span>
+      <span class="function"><a href="glib-Warnings-and-Assertions.html#g-print">g_print</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;Item '%s' has type '%s'</span><span class="gtkdoc esc">\n</span><span class="string">&quot;</span><span class="gtkdoc opt">,</span> key<span class="gtkdoc opt">,</span>
+               <span class="function"><a href="glib-GVariant.html#g-variant-get-type-string">g_variant_get_type_string</a></span> <span class="gtkdoc opt">(</span>value<span class="gtkdoc opt">));</span>
 
-<span class="normal">      </span><span class="comment">// no need to free 'key' and 'value' here</span>
-<span class="normal">      </span><span class="comment">// unless breaking out of this loop</span>
-<span class="normal">    </span><span class="cbracket">}</span>
-<span class="cbracket">}</span></pre></td>
+      <span class="gtkdoc slc">// no need to free 'key' and 'value' here</span>
+      <span class="gtkdoc slc">// unless breaking out of this loop</span>
+    <span class="gtkdoc opt">}</span>
+<span class="gtkdoc opt">}</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -5151,8 +5132,9 @@ thereby avoiding the need to free anything as well).</p>
 the values and also determines if the values are copied or borrowed.</p>
 <p>See the section on
 <a href="gvariant-format-strings.html#gvariant-format-strings-pointers">GVariant format strings</a>.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
 <div class="refsect3">
-<a name="id-1.6.19.7.93.17"></a><h4>Parameters</h4>
+<a name="id-1.6.19.7.93.18"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -5179,12 +5161,11 @@ the values and also determines if the values are copied or borrowed.</p>
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.6.19.7.93.18"></a><h4>Returns</h4>
+<a name="id-1.6.19.7.93.19"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if a value was unpacked, or <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> if there was no
 value</p>
-<p></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -5212,7 +5193,7 @@ things will happen.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -5244,7 +5225,7 @@ things will happen.</p>
 . </p>
 <p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -5278,7 +5259,7 @@ the stack of the calling function and initialise it with
 <p> a <a class="link" href="glib-GVariant.html#GVariantBuilder" title="struct GVariantBuilder"><span class="type">GVariantBuilder</span></a>. </p>
 <p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -5312,8 +5293,9 @@ with this function.  If you ever pass a reference to a
 should assume that the person receiving that reference may try to use
 reference counting; you should use <a class="link" href="glib-GVariant.html#g-variant-builder-new" title="g_variant_builder_new ()"><code class="function">g_variant_builder_new()</code></a> instead of
 this function.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
 <div class="refsect3">
-<a name="id-1.6.19.7.97.10"></a><h4>Parameters</h4>
+<a name="id-1.6.19.7.97.11"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -5334,7 +5316,7 @@ this function.</p>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -5353,8 +5335,9 @@ builders allocated with g_variant_builder_new (see
 It is valid to call this function on either an initialised
 <a class="link" href="glib-GVariant.html#GVariantBuilder" title="struct GVariantBuilder"><span class="type">GVariantBuilder</span></a> or one that is set to all-zeros but it is not valid
 to call this function on uninitialised memory.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
 <div class="refsect3">
-<a name="id-1.6.19.7.98.7"></a><h4>Parameters</h4>
+<a name="id-1.6.19.7.98.8"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -5368,7 +5351,7 @@ to call this function on uninitialised memory.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -5411,7 +5394,7 @@ the <em class="parameter"><code>builder</code></em>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -5449,31 +5432,32 @@ the <a href="gvariant-format-strings.html#gvariant-varargs">GVariant varargs doc
 15
 16
 17</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="normal"><a href="glib-GVariant.html#GVariant">GVariant</a> </span><span class="symbol">*</span>
-<span class="function">make_pointless_dictionary</span><span class="normal"> </span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="usertype">GVariantBuilder</span><span class="normal"> builder</span><span class="symbol">;</span>
-<span class="normal">  </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">;</span>
+        <td class="listing_code"><pre class="programlisting">GVariant <span class="gtkdoc opt">*</span>
+<span class="function">make_pointless_dictionary</span> <span class="gtkdoc opt">(</span><span class="gtkdoc kwb">void</span><span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  GVariantBuilder builder<span class="gtkdoc opt">;</span>
+  <span class="gtkdoc kwb">int</span> i<span class="gtkdoc opt">;</span>
 
-<span class="normal">  </span><span class="function"><a href="glib-GVariant.html#g-variant-builder-init">g_variant_builder_init</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">builder</span><span class="symbol">,</span><span class="normal"> <a href="glib-GVariantType.html#G-VARIANT-TYPE-ARRAY:CAPS">G_VARIANT_TYPE_ARRAY</a></span><span class="symbol">);</span>
-<span class="normal">  </span><span class="keyword">for</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">i </span><span class="symbol">=</span><span class="normal"> </span><span class="number">0</span><span class="symbol">;</span><span class="normal"> i </span><span class="symbol">&lt;</span><span class="normal"> </span><span class="number">16</span><span class="symbol">;</span><span class="normal"> i</span><span class="symbol">++)</span>
-<span class="normal">    </span><span class="cbracket">{</span>
-<span class="normal">      </span><span class="usertype">gchar</span><span class="normal"> buf</span><span class="symbol">[</span><span class="number">3</span><span class="symbol">];</span>
+  <span class="function"><a href="glib-GVariant.html#g-variant-builder-init">g_variant_builder_init</a></span> <span class="gtkdoc opt">(&amp;</span>builder<span class="gtkdoc opt">,</span> G_VARIANT_TYPE_ARRAY<span class="gtkdoc opt">);</span>
+  <span class="keyword">for</span> <span class="gtkdoc opt">(</span>i <span class="gtkdoc opt">=</span> <span class="number">0</span><span class="gtkdoc opt">;</span> i <span class="gtkdoc opt">&lt;</span> <span class="number">16</span><span class="gtkdoc opt">;</span> i<span class="gtkdoc opt">++)</span>
+    <span class="gtkdoc opt">{</span>
+      gchar buf<span class="gtkdoc opt">[</span><span class="number">3</span><span class="gtkdoc opt">];</span>
 
-<span class="normal">      </span><span class="function">sprintf</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">buf</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"%d"</span><span class="symbol">,</span><span class="normal"> i</span><span class="symbol">);</span>
-<span class="normal">      </span><span class="function"><a href="glib-GVariant.html#g-variant-builder-add">g_variant_builder_add</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">builder</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"{is}"</span><span class="symbol">,</span><span class="normal"> i</span><span class="symbol">,</span><span class="normal"> buf</span><span class="symbol">);</span>
-<span class="normal">    </span><span class="cbracket">}</span>
+      <span class="function">sprintf</span> <span class="gtkdoc opt">(</span>buf<span class="gtkdoc opt">,</span> <span class="string">&quot;%d&quot;</span><span class="gtkdoc opt">,</span> i<span class="gtkdoc opt">);</span>
+      <span class="function"><a href="glib-GVariant.html#g-variant-builder-add">g_variant_builder_add</a></span> <span class="gtkdoc opt">(&amp;</span>builder<span class="gtkdoc opt">,</span> <span class="string">&quot;{is}&quot;</span><span class="gtkdoc opt">,</span> i<span class="gtkdoc opt">,</span> buf<span class="gtkdoc opt">);</span>
+    <span class="gtkdoc opt">}</span>
 
-<span class="normal">  </span><span class="keyword">return</span><span class="normal"> </span><span class="function"><a href="glib-GVariant.html#g-variant-builder-end">g_variant_builder_end</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">builder</span><span class="symbol">);</span>
-<span class="cbracket">}</span></pre></td>
+  <span class="keyword">return</span> <span class="function"><a href="glib-GVariant.html#g-variant-builder-end">g_variant_builder_end</a></span> <span class="gtkdoc opt">(&amp;</span>builder<span class="gtkdoc opt">);</span>
+<span class="gtkdoc opt">}</span></pre></td>
       </tr>
     </tbody>
   </table>
 </div>
 
 <p></p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
 <div class="refsect3">
-<a name="id-1.6.19.7.100.10"></a><h4>Parameters</h4>
+<a name="id-1.6.19.7.100.11"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -5500,7 +5484,7 @@ the <a href="gvariant-format-strings.html#gvariant-varargs">GVariant varargs doc
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -5534,18 +5518,18 @@ the <a href="gvariant-format-strings.html#gvariant-varargs">GVariant varargs doc
 10
 11
 12</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="normal"><a href="glib-GVariant.html#GVariant">GVariant</a> </span><span class="symbol">*</span>
-<span class="function">make_pointless_dictionary</span><span class="normal"> </span><span class="symbol">(</span><span class="type">void</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="usertype">GVariantBuilder</span><span class="normal"> builder</span><span class="symbol">;</span>
-<span class="normal">  </span><span class="type">int</span><span class="normal"> i</span><span class="symbol">;</span>
+        <td class="listing_code"><pre class="programlisting">GVariant <span class="gtkdoc opt">*</span>
+<span class="function">make_pointless_dictionary</span> <span class="gtkdoc opt">(</span><span class="gtkdoc kwb">void</span><span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  GVariantBuilder builder<span class="gtkdoc opt">;</span>
+  <span class="gtkdoc kwb">int</span> i<span class="gtkdoc opt">;</span>
 
-<span class="normal">  </span><span class="function"><a href="glib-GVariant.html#g-variant-builder-init">g_variant_builder_init</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">builder</span><span class="symbol">,</span><span class="normal"> <a href="glib-GVariantType.html#G-VARIANT-TYPE-ARRAY:CAPS">G_VARIANT_TYPE_ARRAY</a></span><span class="symbol">);</span>
-<span class="normal">  </span><span class="function"><a href="glib-GVariant.html#g-variant-builder-add-parsed">g_variant_builder_add_parsed</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">builder</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"{'width', &lt;%i&gt;}"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">600</span><span class="symbol">);</span>
-<span class="normal">  </span><span class="function"><a href="glib-GVariant.html#g-variant-builder-add-parsed">g_variant_builder_add_parsed</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">builder</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"{'title', &lt;%s&gt;}"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"foo"</span><span class="symbol">);</span>
-<span class="normal">  </span><span class="function"><a href="glib-GVariant.html#g-variant-builder-add-parsed">g_variant_builder_add_parsed</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">builder</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"{'transparency', &lt;0.5&gt;}"</span><span class="symbol">);</span>
-<span class="normal">  </span><span class="keyword">return</span><span class="normal"> </span><span class="function"><a href="glib-GVariant.html#g-variant-builder-end">g_variant_builder_end</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">builder</span><span class="symbol">);</span>
-<span class="cbracket">}</span></pre></td>
+  <span class="function"><a href="glib-GVariant.html#g-variant-builder-init">g_variant_builder_init</a></span> <span class="gtkdoc opt">(&amp;</span>builder<span class="gtkdoc opt">,</span> G_VARIANT_TYPE_ARRAY<span class="gtkdoc opt">);</span>
+  <span class="function"><a href="glib-GVariant.html#g-variant-builder-add-parsed">g_variant_builder_add_parsed</a></span> <span class="gtkdoc opt">(&amp;</span>builder<span class="gtkdoc opt">,</span> <span class="string">&quot;{'width', &lt;%i&gt;}&quot;</span><span class="gtkdoc opt">,</span> <span class="number">600</span><span class="gtkdoc opt">);</span>
+  <span class="function"><a href="glib-GVariant.html#g-variant-builder-add-parsed">g_variant_builder_add_parsed</a></span> <span class="gtkdoc opt">(&amp;</span>builder<span class="gtkdoc opt">,</span> <span class="string">&quot;{'title', &lt;%s&gt;}&quot;</span><span class="gtkdoc opt">,</span> <span class="string">&quot;foo&quot;</span><span class="gtkdoc opt">);</span>
+  <span class="function"><a href="glib-GVariant.html#g-variant-builder-add-parsed">g_variant_builder_add_parsed</a></span> <span class="gtkdoc opt">(&amp;</span>builder<span class="gtkdoc opt">,</span> <span class="string">&quot;{'transparency', &lt;0.5&gt;}&quot;</span><span class="gtkdoc opt">);</span>
+  <span class="keyword">return</span> <span class="function"><a href="glib-GVariant.html#g-variant-builder-end">g_variant_builder_end</a></span> <span class="gtkdoc opt">(&amp;</span>builder<span class="gtkdoc opt">);</span>
+<span class="gtkdoc opt">}</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -5580,7 +5564,7 @@ the <a href="gvariant-format-strings.html#gvariant-varargs">GVariant varargs doc
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.26</p>
+<p class="since">Since: <a class="link" href="api-index-2-26.html#api-index-2.26">2.26</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -5620,7 +5604,7 @@ the empty array.</p>
 <p> a new, floating, <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a>. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -5656,7 +5640,7 @@ a value of an incorrect type).</p>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -5684,7 +5668,7 @@ subcontainer).</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -5712,7 +5696,7 @@ things will happen.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.40</p>
+<p class="since">Since: <a class="link" href="api-index-2-40.html#api-index-2.40">2.40</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -5744,7 +5728,7 @@ things will happen.</p>
 . </p>
 <p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.40</p>
+<p class="since">Since: <a class="link" href="api-index-2-40.html#api-index-2.40">2.40</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -5780,7 +5764,7 @@ dictionary. </p></td>
 <p> a <a class="link" href="glib-GVariant.html#GVariantDict" title="struct GVariantDict"><span class="type">GVariantDict</span></a>. </p>
 <p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.40</p>
+<p class="since">Since: <a class="link" href="api-index-2-40.html#api-index-2.40">2.40</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -5803,8 +5787,9 @@ pass a reference to a <a class="link" href="glib-GVariant.html#GVariantDict" tit
 own code then you should assume that the person receiving that
 reference may try to use reference counting; you should use
 <a class="link" href="glib-GVariant.html#g-variant-dict-new" title="g_variant_dict_new ()"><code class="function">g_variant_dict_new()</code></a> instead of this function.</p>
+<p><span class="annotation">[<acronym title="Exposed in C code, not necessarily available in other languages."><span class="acronym">skip</span></acronym>]</span></p>
 <div class="refsect3">
-<a name="id-1.6.19.7.108.8"></a><h4>Parameters</h4>
+<a name="id-1.6.19.7.108.9"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -5826,7 +5811,7 @@ reference may try to use reference counting; you should use
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.40</p>
+<p class="since">Since: <a class="link" href="api-index-2-40.html#api-index-2.40">2.40</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -5860,7 +5845,7 @@ on uninitialised memory.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.40</p>
+<p class="since">Since: <a class="link" href="api-index-2-40.html#api-index-2.40">2.40</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -5898,9 +5883,8 @@ g_variant_dict_contains (<em class="parameter"><code><a class="link" href="glib-
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>key</code></em>
 is in <em class="parameter"><code>dict</code></em>
 </p>
-<p></p>
 </div>
-<p class="since">Since 2.40</p>
+<p class="since">Since: <a class="link" href="api-index-2-40.html#api-index-2.40">2.40</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -5954,9 +5938,8 @@ section on <a href="gvariant-format-strings.html#gvariant-format-strings-pointer
 <div class="refsect3">
 <a name="id-1.6.19.7.111.8"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if a value was unpacked</p>
-<p></p>
 </div>
-<p class="since">Since 2.40</p>
+<p class="since">Since: <a class="link" href="api-index-2-40.html#api-index-2.40">2.40</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -6010,7 +5993,7 @@ value will have this type.</p>
 <p> the value of the dictionary key, or <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a>. </p>
 <p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.40</p>
+<p class="since">Since: <a class="link" href="api-index-2-40.html#api-index-2.40">2.40</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -6056,7 +6039,7 @@ calling <a class="link" href="glib-GVariant.html#g-variant-new" title="g_variant
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.40</p>
+<p class="since">Since: <a class="link" href="api-index-2-40.html#api-index-2.40">2.40</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -6095,7 +6078,7 @@ g_variant_dict_insert_value (<em class="parameter"><code><a class="link" href="g
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.40</p>
+<p class="since">Since: <a class="link" href="api-index-2-40.html#api-index-2.40">2.40</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -6129,9 +6112,8 @@ g_variant_dict_remove (<em class="parameter"><code><a class="link" href="glib-GV
 <div class="refsect3">
 <a name="id-1.6.19.7.115.6"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if the key was found and removed</p>
-<p></p>
 </div>
-<p class="since">Since 2.40</p>
+<p class="since">Since: <a class="link" href="api-index-2-40.html#api-index-2.40">2.40</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -6166,7 +6148,7 @@ the case of stack-allocated).</p>
 <p> a new, floating, <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a>. </p>
 <p><span class="annotation">[<acronym title="Don't free data after the code is done."><span class="acronym">transfer none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.40</p>
+<p class="since">Since: <a class="link" href="api-index-2-40.html#api-index-2.40">2.40</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -6212,7 +6194,8 @@ the parsed value doesn't fit the type) but may also result in fewer
 errors (in the case that the type would have been ambiguous, such as
 with empty arrays).</p>
 <p>In the event that the parsing is successful, the resulting <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a>
-is returned.</p>
+is returned. It is never floating, and must be freed with
+<a class="link" href="glib-GVariant.html#g-variant-unref" title="g_variant_unref ()"><code class="function">g_variant_unref()</code></a>.</p>
 <p>In case of any error, <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a> will be returned.  If <em class="parameter"><code>error</code></em>
  is non-<a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a>
 then it will be set to reflect the error that occurred.</p>
@@ -6258,8 +6241,7 @@ produced by <a class="link" href="glib-GVariant.html#g-variant-print" title="g_v
 </div>
 <div class="refsect3">
 <a name="id-1.6.19.7.118.14"></a><h4>Returns</h4>
-<p> a reference to a <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a>, or <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a></p>
-<p></p>
+<p> a non-floating reference to a <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a>, or <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a></p>
 </div>
 </div>
 <hr>
@@ -6315,7 +6297,6 @@ or by passing it to another <a class="link" href="glib-GVariant.html#g-variant-n
 <div class="refsect3">
 <a name="id-1.6.19.7.119.10"></a><h4>Returns</h4>
 <p> a new, usually floating, <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a></p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -6342,7 +6323,7 @@ the <a href="gvariant-format-strings.html#gvariant-varargs">GVariant varargs doc
     <tbody>
       <tr>
         <td class="listing_lines" align="right"><pre>1</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="glib-GVariant.html#g-variant-new-parsed">g_variant_new_parsed</a></span><span class="normal"> </span><span class="symbol">(</span><span class="string">"[('one', 1), ('two', %i), (%s, 3)]"</span><span class="symbol">,</span><span class="normal"> </span><span class="number">2</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"three"</span><span class="symbol">);</span></pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="function"><a href="glib-GVariant.html#g-variant-new-parsed">g_variant_new_parsed</a></span> <span class="gtkdoc opt">(</span><span class="string">&quot;[('one', 1), ('two', %i), (%s, 3)]&quot;</span><span class="gtkdoc opt">,</span> <span class="number">2</span><span class="gtkdoc opt">,</span> <span class="string">&quot;three&quot;</span><span class="gtkdoc opt">);</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -6357,7 +6338,7 @@ result of</p>
     <tbody>
       <tr>
         <td class="listing_lines" align="right"><pre>1</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="symbol">[(</span><span class="string">'one'</span><span class="symbol">,</span><span class="normal"> </span><span class="number">1</span><span class="symbol">),</span><span class="normal"> </span><span class="symbol">(</span><span class="string">'two'</span><span class="symbol">,</span><span class="normal"> </span><span class="number">2</span><span class="symbol">),</span><span class="normal"> </span><span class="symbol">(</span><span class="string">'three'</span><span class="symbol">,</span><span class="normal"> </span><span class="number">3</span><span class="symbol">)]</span></pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="gtkdoc opt">[(</span><span class="string">'one'</span><span class="gtkdoc opt">,</span> <span class="number">1</span><span class="gtkdoc opt">), (</span><span class="string">'two'</span><span class="gtkdoc opt">,</span> <span class="number">2</span><span class="gtkdoc opt">), (</span><span class="string">'three'</span><span class="gtkdoc opt">,</span> <span class="number">3</span><span class="gtkdoc opt">)]</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -6399,7 +6380,6 @@ with "%@".</p>
 <div class="refsect3">
 <a name="id-1.6.19.7.120.16"></a><h4>Returns</h4>
 <p> a new floating <a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> instance</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -6420,8 +6400,8 @@ monospace media where newlines are treated in the usual way.</p>
         <td class="listing_lines" align="right"><pre>1
 2
 3</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="normal">unterminated </span><span class="usertype">string</span><span class="normal"> constant</span><span class="symbol">:</span>
-<span class="normal">  </span><span class="symbol">(</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">2</span><span class="symbol">,</span><span class="normal"> </span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="string">'abc</span>
+        <td class="listing_code"><pre class="programlisting">unterminated string constant<span class="gtkdoc opt">:</span>
+  <span class="gtkdoc opt">(</span><span class="number">1</span><span class="gtkdoc opt">,</span> <span class="number">2</span><span class="gtkdoc opt">,</span> <span class="number">3</span><span class="gtkdoc opt">,</span> <span class="string">'abc</span>
 <span class="string">            ^^^^</span></pre></td>
       </tr>
     </tbody>
@@ -6437,9 +6417,9 @@ monospace media where newlines are treated in the usual way.</p>
         <td class="listing_lines" align="right"><pre>1
 2
 3</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="normal">unable to find a </span><span class="usertype">common</span><span class="normal"> type</span><span class="symbol">:</span>
-<span class="normal">  </span><span class="symbol">[</span><span class="number">1</span><span class="symbol">,</span><span class="normal"> </span><span class="number">2</span><span class="symbol">,</span><span class="normal"> </span><span class="number">3</span><span class="symbol">,</span><span class="normal"> </span><span class="string">'str'</span><span class="symbol">]</span>
-<span class="normal">   </span><span class="symbol">^</span><span class="normal">        </span><span class="symbol">^^^^^</span></pre></td>
+        <td class="listing_code"><pre class="programlisting">unable to find a common type<span class="gtkdoc opt">:</span>
+  <span class="gtkdoc opt">[</span><span class="number">1</span><span class="gtkdoc opt">,</span> <span class="number">2</span><span class="gtkdoc opt">,</span> <span class="number">3</span><span class="gtkdoc opt">,</span> <span class="string">'str'</span><span class="gtkdoc opt">]</span>
+   <span class="gtkdoc opt">^        ^^^^^</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -6482,7 +6462,7 @@ function.</p>
 <p> the printed message. </p>
 <p><span class="annotation">[<acronym title="Free data after the code is done."><span class="acronym">transfer full</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.40</p>
+<p class="since">Since: <a class="link" href="api-index-2-40.html#api-index-2.40">2.40</a></p>
 </div>
 </div>
 <div class="refsect1">
@@ -6492,7 +6472,7 @@ function.</p>
 <pre class="programlisting">typedef struct _GVariant GVariant;</pre>
 <p><a class="link" href="glib-GVariant.html#GVariant" title="GVariant"><span class="type">GVariant</span></a> is an opaque data structure and can only be accessed
 using the following functions.</p>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -6638,7 +6618,7 @@ using the following functions.</p>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.24</p>
+<p class="since">Since: <a class="link" href="api-index-2-24.html#api-index-2.24">2.24</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -6720,25 +6700,25 @@ key is not found.  Each returns the new dictionary as a floating
 17
 18
 19</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="normal"><a href="glib-GVariant.html#GVariant">GVariant</a> </span><span class="symbol">*</span>
-<span class="function">add_to_count</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">GVariant</span><span class="normal">  </span><span class="symbol">*</span><span class="normal">orig</span><span class="symbol">,</span>
-<span class="normal">              </span><span class="usertype">GError</span><span class="normal">   </span><span class="symbol">**</span><span class="normal">error</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="usertype">GVariantDict</span><span class="normal"> dict</span><span class="symbol">;</span>
-<span class="normal">  </span><span class="usertype">guint32</span><span class="normal"> count</span><span class="symbol">;</span>
+        <td class="listing_code"><pre class="programlisting">GVariant <span class="gtkdoc opt">*</span>
+<span class="function">add_to_count</span> <span class="gtkdoc opt">(</span>GVariant  <span class="gtkdoc opt">*</span>orig<span class="gtkdoc opt">,</span>
+              GError   <span class="gtkdoc opt">**</span>error<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  GVariantDict dict<span class="gtkdoc opt">;</span>
+  guint32 count<span class="gtkdoc opt">;</span>
 
-<span class="normal">  </span><span class="function"><a href="glib-GVariant.html#g-variant-dict-init">g_variant_dict_init</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">dict</span><span class="symbol">,</span><span class="normal"> orig</span><span class="symbol">);</span>
-<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(!</span><span class="function"><a href="glib-GVariant.html#g-variant-dict-lookup">g_variant_dict_lookup</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">dict</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"count"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"u"</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">count</span><span class="symbol">))</span>
-<span class="normal">    </span><span class="cbracket">{</span>
-<span class="normal">      </span><span class="function"><a href="glib-Error-Reporting.html#g-set-error">g_set_error</a></span><span class="normal"> </span><span class="symbol">(...);</span>
-<span class="normal">      </span><span class="function"><a href="glib-GVariant.html#g-variant-dict-clear">g_variant_dict_clear</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">dict</span><span class="symbol">);</span>
-<span class="normal">      </span><span class="keyword">return</span><span class="normal"> <a href="glib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">;</span>
-<span class="normal">    </span><span class="cbracket">}</span>
+  <span class="function"><a href="glib-GVariant.html#g-variant-dict-init">g_variant_dict_init</a></span> <span class="gtkdoc opt">(&amp;</span>dict<span class="gtkdoc opt">,</span> orig<span class="gtkdoc opt">);</span>
+  <span class="keyword">if</span> <span class="gtkdoc opt">(!</span><span class="function"><a href="glib-GVariant.html#g-variant-dict-lookup">g_variant_dict_lookup</a></span> <span class="gtkdoc opt">(&amp;</span>dict<span class="gtkdoc opt">,</span> <span class="string">&quot;count&quot;</span><span class="gtkdoc opt">,</span> <span class="string">&quot;u&quot;</span><span class="gtkdoc opt">, &amp;</span>count<span class="gtkdoc opt">))</span>
+    <span class="gtkdoc opt">{</span>
+      <span class="function"><a href="glib-Error-Reporting.html#g-set-error">g_set_error</a></span> <span class="gtkdoc opt">(...);</span>
+      <span class="function"><a href="glib-GVariant.html#g-variant-dict-clear">g_variant_dict_clear</a></span> <span class="gtkdoc opt">(&amp;</span>dict<span class="gtkdoc opt">);</span>
+      <span class="keyword">return</span> NULL<span class="gtkdoc opt">;</span>
+    <span class="gtkdoc opt">}</span>
 
-<span class="normal">  </span><span class="function"><a href="glib-GVariant.html#g-variant-dict-insert">g_variant_dict_insert</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">dict</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"count"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"u"</span><span class="symbol">,</span><span class="normal"> count </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
+  <span class="function"><a href="glib-GVariant.html#g-variant-dict-insert">g_variant_dict_insert</a></span> <span class="gtkdoc opt">(&amp;</span>dict<span class="gtkdoc opt">,</span> <span class="string">&quot;count&quot;</span><span class="gtkdoc opt">,</span> <span class="string">&quot;u&quot;</span><span class="gtkdoc opt">,</span> count <span class="gtkdoc opt">+</span> <span class="number">1</span><span class="gtkdoc opt">);</span>
 
-<span class="normal">  </span><span class="keyword">return</span><span class="normal"> </span><span class="function"><a href="glib-GVariant.html#g-variant-dict-end">g_variant_dict_end</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">dict</span><span class="symbol">);</span>
-<span class="cbracket">}</span></pre></td>
+  <span class="keyword">return</span> <span class="function"><a href="glib-GVariant.html#g-variant-dict-end">g_variant_dict_end</a></span> <span class="gtkdoc opt">(&amp;</span>dict<span class="gtkdoc opt">);</span>
+<span class="gtkdoc opt">}</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -6777,31 +6757,31 @@ key is not found.  Each returns the new dictionary as a floating
 23
 24
 25</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="normal"><a href="glib-GVariant.html#GVariant">GVariant</a> </span><span class="symbol">*</span>
-<span class="function">add_to_count</span><span class="normal"> </span><span class="symbol">(</span><span class="usertype">GVariant</span><span class="normal">  </span><span class="symbol">*</span><span class="normal">orig</span><span class="symbol">,</span>
-<span class="normal">              </span><span class="usertype">GError</span><span class="normal">   </span><span class="symbol">**</span><span class="normal">error</span><span class="symbol">)</span>
-<span class="cbracket">{</span>
-<span class="normal">  </span><span class="usertype">GVariantDict</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">dict</span><span class="symbol">;</span>
-<span class="normal">  </span><span class="usertype">GVariant</span><span class="normal"> </span><span class="symbol">*</span><span class="normal">result</span><span class="symbol">;</span>
-<span class="normal">  </span><span class="usertype">guint32</span><span class="normal"> count</span><span class="symbol">;</span>
+        <td class="listing_code"><pre class="programlisting">GVariant <span class="gtkdoc opt">*</span>
+<span class="function">add_to_count</span> <span class="gtkdoc opt">(</span>GVariant  <span class="gtkdoc opt">*</span>orig<span class="gtkdoc opt">,</span>
+              GError   <span class="gtkdoc opt">**</span>error<span class="gtkdoc opt">)</span>
+<span class="gtkdoc opt">{</span>
+  GVariantDict <span class="gtkdoc opt">*</span>dict<span class="gtkdoc opt">;</span>
+  GVariant <span class="gtkdoc opt">*</span>result<span class="gtkdoc opt">;</span>
+  guint32 count<span class="gtkdoc opt">;</span>
 
-<span class="normal">  dict </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="glib-GVariant.html#g-variant-dict-new">g_variant_dict_new</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">orig</span><span class="symbol">);</span>
+  dict <span class="gtkdoc opt">=</span> <span class="function"><a href="glib-GVariant.html#g-variant-dict-new">g_variant_dict_new</a></span> <span class="gtkdoc opt">(</span>orig<span class="gtkdoc opt">);</span>
 
-<span class="normal">  </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="function"><a href="glib-GVariant.html#g-variant-dict-lookup">g_variant_dict_lookup</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">dict</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"count"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"u"</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">count</span><span class="symbol">))</span>
-<span class="normal">    </span><span class="cbracket">{</span>
-<span class="normal">      </span><span class="function"><a href="glib-GVariant.html#g-variant-dict-insert">g_variant_dict_insert</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">dict</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"count"</span><span class="symbol">,</span><span class="normal"> </span><span class="string">"u"</span><span class="symbol">,</span><span class="normal"> count </span><span class="symbol">+</span><span class="normal"> </span><span class="number">1</span><span class="symbol">);</span>
-<span class="normal">      result </span><span class="symbol">=</span><span class="normal"> </span><span class="function"><a href="glib-GVariant.html#g-variant-dict-end">g_variant_dict_end</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">dict</span><span class="symbol">);</span>
-<span class="normal">    </span><span class="cbracket">}</span>
-<span class="normal">  </span><span class="keyword">else</span>
-<span class="normal">    </span><span class="cbracket">{</span>
-<span class="normal">      </span><span class="function"><a href="glib-Error-Reporting.html#g-set-error">g_set_error</a></span><span class="normal"> </span><span class="symbol">(...);</span>
-<span class="normal">      result </span><span class="symbol">=</span><span class="normal"> <a href="glib-Standard-Macros.html#NULL:CAPS">NULL</a></span><span class="symbol">;</span>
-<span class="normal">    </span><span class="cbracket">}</span>
+  <span class="keyword">if</span> <span class="gtkdoc opt">(</span><span class="function"><a href="glib-GVariant.html#g-variant-dict-lookup">g_variant_dict_lookup</a></span> <span class="gtkdoc opt">(</span>dict<span class="gtkdoc opt">,</span> <span class="string">&quot;count&quot;</span><span class="gtkdoc opt">,</span> <span class="string">&quot;u&quot;</span><span class="gtkdoc opt">, &amp;</span>count<span class="gtkdoc opt">))</span>
+    <span class="gtkdoc opt">{</span>
+      <span class="function"><a href="glib-GVariant.html#g-variant-dict-insert">g_variant_dict_insert</a></span> <span class="gtkdoc opt">(</span>dict<span class="gtkdoc opt">,</span> <span class="string">&quot;count&quot;</span><span class="gtkdoc opt">,</span> <span class="string">&quot;u&quot;</span><span class="gtkdoc opt">,</span> count <span class="gtkdoc opt">+</span> <span class="number">1</span><span class="gtkdoc opt">);</span>
+      result <span class="gtkdoc opt">=</span> <span class="function"><a href="glib-GVariant.html#g-variant-dict-end">g_variant_dict_end</a></span> <span class="gtkdoc opt">(</span>dict<span class="gtkdoc opt">);</span>
+    <span class="gtkdoc opt">}</span>
+  <span class="keyword">else</span>
+    <span class="gtkdoc opt">{</span>
+      <span class="function"><a href="glib-Error-Reporting.html#g-set-error">g_set_error</a></span> <span class="gtkdoc opt">(...);</span>
+      result <span class="gtkdoc opt">=</span> NULL<span class="gtkdoc opt">;</span>
+    <span class="gtkdoc opt">}</span>
 
-<span class="normal">  </span><span class="function"><a href="glib-GVariant.html#g-variant-dict-unref">g_variant_dict_unref</a></span><span class="normal"> </span><span class="symbol">(</span><span class="normal">dict</span><span class="symbol">);</span>
+  <span class="function"><a href="glib-GVariant.html#g-variant-dict-unref">g_variant_dict_unref</a></span> <span class="gtkdoc opt">(</span>dict<span class="gtkdoc opt">);</span>
 
-<span class="normal">  </span><span class="keyword">return</span><span class="normal"> result</span><span class="symbol">;</span>
-<span class="cbracket">}</span></pre></td>
+  <span class="keyword">return</span> result<span class="gtkdoc opt">;</span>
+<span class="gtkdoc opt">}</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -6809,7 +6789,7 @@ key is not found.  Each returns the new dictionary as a floating
 
 <p></p>
 </div>
-<p class="since">Since 2.40</p>
+<p class="since">Since: <a class="link" href="api-index-2-40.html#api-index-2.40">2.40</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -6961,7 +6941,6 @@ key is not found.  Each returns the new dictionary as a floating
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21.1</div>
+<hr>Generated by GTK-Doc V1.24</div>
 </body>
 </html>

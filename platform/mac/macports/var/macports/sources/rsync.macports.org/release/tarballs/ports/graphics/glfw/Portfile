@@ -1,0 +1,91 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143639 2015-12-16 14:06:06Z michaelld@macports.org $
+
+PortSystem          1.0
+PortGroup           cmake 1.0
+PortGroup           github 1.0
+
+name                glfw
+categories          graphics
+maintainers         michaelld openmaintainer
+description         GLFW is a free, open-source, portable library for OpenGL and OpenGL ES application development
+license             zlib
+platforms           darwin macosx
+
+subport glfw-devel {}
+
+if {${subport} eq ${name}} {
+
+    # release
+
+    github.setup    glfw glfw 3.1.2
+    # bump the epoch because I moved the version from 20151012 to 3.1.2
+    epoch           1
+    checksums       rmd160 f0a34fda090c5d5e7aef2c916d6160faf777842f \
+                    sha256 a956537ed306746cf0bfe3e4a71758bff6d2a9e25f51fe718516f5b49ad9bfc5
+
+    conflicts       glfw-devel
+    long_description ${description}: \
+        This port follows the release version of GLFW, which is typically updated every 6 months. If for some reason this port does not build or function as desired, try the ${name}-devel port.
+
+} else {
+
+    # devel
+
+    github.setup    glfw glfw ecd04539ec9c608d664311b97e8894742912a70c
+    version         20151215
+    checksums       rmd160 4890cdb2eef7aca273124a7a8c7a6877fe882917 \
+                    sha256 3c085906ed4ce03d98cae823823a461187e4fe1f4e45cff1360232a72af1e2eb
+
+    conflicts       glfw
+    long_description ${description}: \
+    This port follows the GIT master version of GLFW, which is typically updated every few days to weeks.
+
+}
+
+# use the real home page, not github's
+
+homepage            http://www.glfw.org/
+
+# do VPATH (out of source tree) build
+
+cmake.out_of_source yes
+
+# configuration arguments for MacPorts build
+
+configure.args      -DBUILD_SHARED_LIBS=on \
+                    -DGLFW_BUILD_EXAMPLES=off \
+                    -DGLFW_BUILD_TESTS=off
+
+# remove top-level library path, such that internal libraries are used
+# instead of any already-installed ones.
+
+configure.ldflags-delete -L${prefix}/lib
+
+variant docs description {build documentation} {}
+
+default_variants    +docs
+
+if {[variant_isset docs]} {
+    depends_build-append  port:doxygen
+    configure.args-append -DDOXYGEN_EXECUTABLE=${prefix}/bin/doxygen
+} else {
+    configure.args-append -DDOXYGEN_EXECUTABLE=
+}
+
+post-destroot {
+
+    # move cmake Modules to an appropriate location
+
+    xinstall -m 755 -d ${destroot}${prefix}/share/cmake
+    move ${destroot}${prefix}/lib/cmake/glfw \
+        ${destroot}${prefix}/share/cmake
+
+    # copy html docs if requested
+
+    if {[variant_isset docs]} {
+        xinstall -m 755 -d ${destroot}${prefix}/share/doc/${name}
+        copy ${cmake.build_dir}/docs/html \
+            ${destroot}${prefix}/share/doc/${name}
+    }
+}

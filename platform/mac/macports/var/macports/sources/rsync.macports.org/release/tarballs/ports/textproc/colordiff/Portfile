@@ -1,0 +1,48 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141703 2015-10-26 21:40:52Z ryandesign@macports.org $
+
+PortSystem      1.0
+
+name            colordiff
+epoch           20090422
+version         1.0.16
+categories      textproc
+license         GPL-2+
+maintainers     ryandesign openmaintainer
+supported_archs noarch
+
+description     Color-highlighted diff(1) output
+
+long_description \
+    The Perl script colordiff is a wrapper for diff(1) \
+    and produces the same output but with pretty 'syntax' \
+    highlighting. Colour schemes can be customized.
+
+homepage        http://www.colordiff.org/
+platforms       darwin
+master_sites    ${homepage}
+
+checksums       rmd160  0a8f63f4456f80d0d06539dbfa2bc445a5d236d9 \
+                sha256  eaf1cfe17dd0e820d38a0b24b0a402eba68b32e9bf9e7791ca2d1831029f138b
+
+patchfiles      patch-Makefile.diff
+
+use_configure   no
+
+build {}
+
+destroot.args   --always-make \
+                INSTALL_DIR=${prefix}/bin \
+                MAN_DIR=${prefix}/share/man/man1 \
+                ETC_DIR=${prefix}/etc
+
+post-destroot {
+    set docdir ${prefix}/share/doc/${subport}
+    xinstall -d ${destroot}${docdir}
+    xinstall -m 0644 -W ${worksrcpath} BUGS CHANGES COPYING README ${destroot}${docdir}
+}
+
+universal_variant   no
+
+livecheck.type  regex
+livecheck.regex ${name}-(\[0-9.\]+)${extract.suffix}

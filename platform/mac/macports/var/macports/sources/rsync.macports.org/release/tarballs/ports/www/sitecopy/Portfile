@@ -1,0 +1,25 @@
+# $Id: Portfile 78073 2011-04-22 14:17:00Z jmr@macports.org $
+
+PortSystem          1.0
+name                sitecopy
+version             0.16.6
+revision            1
+categories          www
+platforms           darwin
+maintainers         julian@hal-9k.de
+description         sitecopy website maintenance utility
+long_description    sitecopy allows you to easily maintain remote Web sites. The program \
+                    will upload files to the server which have changed locally, and delete \
+                    files from the server which have been removed locally, keeping the \
+                    remote site synchronized. FTP and WebDAV are supported.
+homepage            http://www.manyfish.co.uk/sitecopy
+master_sites        ${homepage}
+checksums           md5     b3aeb5a5f00af3db90b408e8c32a6c01 \
+                    sha1    2de3679d98c31331f48ff10e824c615a180f2d3b \
+                    rmd160  9e1bb73272e88aa06ebf12323080f23dfe8f7ad8
+
+depends_build       port:pkgconfig
+depends_lib         port:neon
+
+patchfiles          patch-Makefile.in patch-configure
+configure.args      --docdir=${prefix}/share/doc/${name}

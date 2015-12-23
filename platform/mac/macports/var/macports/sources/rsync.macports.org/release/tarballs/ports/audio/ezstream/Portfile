@@ -1,0 +1,30 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 131863 2015-01-20 02:21:36Z ryandesign@macports.org $
+
+PortSystem              1.0
+
+name                    ezstream
+version                 0.6.0
+categories              audio
+platforms               darwin
+maintainers             ryandesign openmaintainer
+license                 GPL-2
+
+description             command line source client for Icecast media \
+                        streaming servers
+
+long_description        ${name} is a ${description}. It began as the \
+                        successor of the old \"shout\" utility, and has since \
+                        gained a lot of useful features.
+
+homepage                http://www.icecast.org/ezstream.php
+master_sites            http://downloads.xiph.org/releases/ezstream/
+
+checksums               sha1    7817942031411cddf8e4f6d3dd0682a71fc1a592 \
+                        rmd160  b859b39f89e363103330c1720d8c33a32f893f69
+
+depends_build           port:pkgconfig
+depends_lib             port:libiconv \
+                        port:libshout2 \
+                        port:libxml2 \
+                        port:taglib

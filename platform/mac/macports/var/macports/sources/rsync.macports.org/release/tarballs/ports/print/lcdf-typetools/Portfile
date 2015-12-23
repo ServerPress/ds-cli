@@ -1,0 +1,64 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138602 2015-07-13 21:37:27Z dports@macports.org $
+
+PortSystem          1.0
+
+name                lcdf-typetools
+version             2.99
+revision            1
+categories          print tex
+platforms           darwin
+license             GPL-2+
+maintainers         nomaintainer
+
+description         Tools for manipulating fonts.
+long_description    The LCDF Typetools package contains several \
+                    programs for manipulating PostScript Type 1, \
+                    Type 1 multiple master, and PostScript-flavored \
+                    OpenType fonts.
+homepage            http://www.lcdf.org/type/
+
+installs_libs       no
+
+master_sites        ${homepage}
+checksums           rmd160  87b9b49ac74f0f5bfdef15a9bb32d79c31032fbe \
+                    sha256  cbb0ed8c42d078fb216b8f4b8ca7a29e0ad3c1969f580a6f2558c829a472adff
+
+patch.pre_args      -p1
+patchfiles          detect-endianness-universal.patch
+patchfiles-append   static_assert.patch
+
+if {${configure.cxx_stdlib} eq {libc++} &&
+    [string match *clang* ${configure.cxx}]
+} then {
+    patchfiles-append           0001-Avoid-implicit-initializer-narrowing.patch
+    configure.cxxflags-append   -std=c++11
+}
+configure.args      --without-kpathsea
+
+destroot.target     install-strip
+post-destroot {
+    xinstall -m 755 -d ${destroot}${prefix}/share/doc/${name}/doc
+    xinstall -m 644 -W ${worksrcpath} COPYING INSTALL NEWS ONEWS README \
+        ${destroot}${prefix}/share/doc/${name}
+}
+
+variant texlive description {Link against TeXLive's libkpathsea} {
+    depends_lib-append      port:texlive-bin
+    configure.args-replace  --without-kpathsea \
+                            --with-kpathsea=${prefix}
+
+    pre-activate {
+        # texlive-fontutils used to provide its own copy of
+        # lcdf-typetools, but now (as of TL2012) depends on this port
+        if {![catch {set vers [lindex [registry_active texlive-fontutils] 0]}]
+            && [vercmp [lindex $vers 1] 26926] < 0} {
+            registry_deactivate_composite texlive-fontutils "" [list ports_nodepcheck 1]
+        }
+    }
+}
+
+default_variants    +texlive
+
+livecheck.type  regex
+livecheck.regex ${name}-(\[0-9.\]+)\\.tar

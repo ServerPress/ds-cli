@@ -1,0 +1,74 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 140588 2015-09-25 14:29:42Z mf2k@macports.org $
+
+PortSystem          1.0
+
+name                redis
+version             3.0.3
+categories          databases
+platforms           darwin
+license             BSD
+
+maintainers         nomaintainer
+
+description         Redis is an open source, advanced key-value store.
+long_description    ${description}
+
+homepage            http://redis.io/
+master_sites        http://download.redis.io/releases/
+
+checksums           rmd160  dcd7dab26a58a217e05f033c00beb00873b81428 \
+                    sha256  1d08fa665b16d0950274dfbd47fbbcf3485e43e901021338640a0334666e9da5
+
+patchfiles          patch-redis.conf.diff
+
+post-patch {
+    reinplace "s|@PREFIX@|${prefix}|g" ${worksrcpath}/redis.conf
+}
+
+use_configure       no
+
+variant universal {}
+
+build.args-append   CC="${configure.cc} [get_canonical_archflags cc]"
+
+# disable silent rules
+build.args-append   V=1
+
+# use jemalloc
+build.args-append   MALLOC=jemalloc
+
+destroot.keepdirs   ${destroot}${prefix}/var/db/redis
+
+destroot {
+    xinstall -d ${destroot}${prefix}/var/db/redis
+    xinstall -m 0755 -W ${worksrcpath}/src \
+        redis-benchmark \
+        redis-check-aof \
+        redis-check-dump \
+        redis-cli \
+        redis-server \
+        ${destroot}${prefix}/bin
+    xinstall -m 0644 ${worksrcpath}/redis.conf \
+        ${destroot}${prefix}/etc/redis.conf.sample
+}
+
+post-activate {
+    if {![file exists ${prefix}/etc/redis.conf]} {
+        file copy ${prefix}/etc/redis.conf.sample ${prefix}/etc/redis.conf
+    }
+    xinstall -d ${prefix}/var/log
+    touch ${prefix}/var/log/redis.log
+}
+
+startupitem.create  yes
+startupitem.executable  ${prefix}/bin/redis-server ${prefix}/etc/redis.conf
+
+notes "
+If you prefer to start a redis server manually, rather than using 'port load', then use this command:
+
+    redis-server ${prefix}/etc/redis.conf
+"
+
+livecheck.url       http://download.redis.io/releases/
+livecheck.regex     ${name}-(\\d+.\\d+.\\d+)

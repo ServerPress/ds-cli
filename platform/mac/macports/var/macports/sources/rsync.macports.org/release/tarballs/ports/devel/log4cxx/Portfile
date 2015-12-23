@@ -1,0 +1,56 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 123622 2014-08-11 19:10:41Z mf2k@macports.org $
+
+PortSystem 1.0
+
+name               log4cxx
+version            0.10.0
+categories         devel
+platforms          darwin
+license            Apache-2
+
+maintainers        nomaintainer
+
+description        log4cxx is a port to C++ of the log4j project
+long_description   Apache log4cxx is a logging framework for C++ patterned \
+                   after Apache log4j. Apache log4cxx uses Apache Portable \
+                   Runtime for most platform-specific code and should be \
+                   usable on any platform supported by APR.
+
+homepage           http://logging.apache.org/log4cxx/
+
+distname           apache-log4cxx-${version}
+master_sites       apache:logging/log4cxx/${version}
+
+checksums          sha1 d79c053e8ac90f66c5e873b712bb359fd42b648d \
+                   rmd160 6df384e5c746c3c6903efae6c9f0d64e4f07a5ad
+
+patchfiles         gcc43.patch \
+                    patch-configure.ac.diff \
+                    patch-src-main-cpp-stringhelper.cpp.diff \
+                    patch-src-main-include-log4cxx-helpers-simpledateformat.h.diff \
+                   warnings.patch
+
+patch.pre_args     -p1
+
+depends_build       port:autoconf \
+                    port:automake \
+                    port:libtool \
+                    port:pkgconfig
+
+depends_lib	       port:apr-util
+
+post-extract {
+    move ${worksrcpath}/configure.in ${worksrcpath}/configure.ac
+}
+
+# Regenerate libtool to fix universal build with clang.
+# https://issues.apache.org/jira/browse/LOGCXX-396
+use_autoreconf      yes
+autoreconf.cmd      ./autogen.sh
+
+# generating doxygen docu doesn't work
+configure.args     --enable-doxygen=no
+
+configure.args-append   --with-apr=${prefix}/bin/apr-1-config \
+                        --with-apr-util=${prefix}/bin/apu-1-config

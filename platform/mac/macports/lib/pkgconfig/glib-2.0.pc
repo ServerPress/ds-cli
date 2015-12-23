@@ -9,8 +9,8 @@ glib_mkenums=glib-mkenums
 
 Name: GLib
 Description: C Utility Library
-Version: 2.44.1
-Requires.private: 
+Version: 2.46.2
+Requires.private: libpcre
 Libs: -L${libdir} -lglib-2.0 -lintl 
-Libs.private:    -lintl  -liconv -Wl,-framework,Carbon -Wl,-framework,Foundation
+Libs.private:   -L/opt/local/lib -lpcre -lintl  -liconv -Wl,-framework,Carbon -Wl,-framework,Foundation
 Cflags: -I${includedir}/glib-2.0 -I${libdir}/glib-2.0/include -I${includedir} 

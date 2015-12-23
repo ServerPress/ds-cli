@@ -1,0 +1,97 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 140656 2015-09-29 01:41:31Z devans@macports.org $
+
+PortSystem          1.0
+
+name                balsa
+version             2.5.2
+revision            1
+license             GPL-3
+description         GNOME e-mail client
+long_description    Balsa is an e-mail client for GNOME, highly \
+                    configurable and incorporating all the features \
+                    you would expect in a robust mail client.
+maintainers         nomaintainer
+categories          gnome mail
+platforms           darwin
+homepage            http://pawsa.fedorapeople.org/balsa/
+
+use_bzip2           yes
+
+master_sites        ${homepage}
+
+checksums           rmd160  3b8957e778d5587c934166f8d7b30cc3a9cfbf6c \
+                    sha256  01218dd8cb2c052c2d221d96e4ef5e277271befb2b50bbf4913223913214d21d
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:itstool \
+                    port:yelp-tools \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         port:desktop-file-utils \
+                    port:gtk3 \
+                    port:gmime \
+                    port:gpgme \
+                    port:gtksourceview3 \
+                    port:gtkspell3 \
+                    path:lib/pkgconfig/webkitgtk-3.0.pc:webkit-gtk3 \
+                    port:libesmtp \
+                    port:libnotify \
+                    port:libsecret \
+                    port:libxml2 \
+                    path:lib/libssl.dylib:openssl \
+                    port:pcre \
+                    port:sqlite3 \
+                    port:compface \
+                    port:enchant
+
+depends_run         port:gnome-settings-daemon \
+                    port:yelp
+                
+patchfiles          patch-configure.ac.diff \
+                    patch-src-sendmsg-window.c.diff
+
+# use upstream autogen.sh to reconfigure with our intltool.m4
+                    
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+}
+
+configure.cmd       ./autogen.sh
+
+configure.args      --with-gpgme \
+                    --with-gmime=2.6 \
+                    --with-gtksourceview \
+                    --with-gtkspell \
+                    --with-html-widget=webkit \
+                    --with-ssl \
+                    --with-sqlite \
+                    --with-esmtp \
+                    --with-libsecret \
+                    --with-compface \
+                    --with-libnotify \
+                    --with-gnome \
+                    --enable-pcre \
+                    --disable-more-warnings \
+                    --disable-silent-rules
+
+configure.cflags-append -D_DARWIN_C_SOURCE
+
+platform darwin {
+    if {${configure.cxx_stdlib} eq "libstdc++"} {
+       depends_lib-delete path:lib/pkgconfig/webkitgtk-3.0.pc:webkit-gtk3
+       depends_lib-append path:lib/pkgconfig/webkitgtk-3.0.pc:webkit-gtk3-2.0
+    }
+}
+
+post-activate {
+    system "${prefix}/bin/update-desktop-database ${prefix}/share/applications"
+    system "${prefix}/bin/gtk-update-icon-cache-3.0 -f -t ${prefix}/share/icons/hicolor"
+}
+
+livecheck.type      regex
+livecheck.url       ${homepage}
+livecheck.regex     "${name}-(\\d+(?:\\.\\d+)*)"

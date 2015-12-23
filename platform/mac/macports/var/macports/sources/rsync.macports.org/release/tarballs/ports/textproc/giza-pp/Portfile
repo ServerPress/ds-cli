@@ -1,0 +1,53 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141230 2015-10-13 06:31:46Z jeremyhu@macports.org $
+
+PortSystem          1.0
+
+name                giza-pp
+version             1.0.7
+epoch               1
+categories          textproc
+maintainers         hum openmaintainer
+
+description         a statistical machine translation toolkit
+long_description    GIZA++ is a statistical machine translation toolkit that is \
+                    used to train IBM Models 1-5 and an HMM word alignment model. \
+                    This package also contains the source for the mkcls tool \
+                    which generates the word classes necessary for training some \
+                    of the alignment models.
+
+homepage            http://code.google.com/p/giza-pp/
+platforms           darwin
+license             GPL-2
+
+installs_libs       no
+
+master_sites        googlecode
+checksums           rmd160  aa1a7b9e5cc5c9bb56250b8a8707ed150d56b078 \
+                    sha256  302b45d6ca22bc0a1495a2b09dcc9cc965815e1e3d56c78d053c8743d96369f0
+
+conflicts           mgizapp
+
+distname            ${name}-v${version}
+worksrcdir          ${name}
+
+use_configure       no
+
+variant universal {}
+
+# tr1 namespacing
+# This is a standalone app that just uses the STL, so just use libstdc++
+configure.cxx_stdlib libstdc++
+
+build.args          CXX=${configure.cxx} CFLAGS="${configure.cxxflags} [get_canonical_archflags cxx]"
+
+destroot {
+    foreach exe {GIZA++ snt2plain.out plain2snt.out snt2cooc.out} {
+        xinstall -m 755 ${worksrcpath}/GIZA++-v2/${exe} ${destroot}${prefix}/bin
+    }
+    xinstall -m 755 ${worksrcpath}/mkcls-v2/mkcls   ${destroot}${prefix}/bin
+    set doc ${destroot}${prefix}/share/doc/${name}
+    file mkdir ${doc}
+    xinstall -m 644 ${worksrcpath}/GIZA++-v2/README ${doc}/README.GIZA++
+    xinstall -m 644 ${worksrcpath}/mkcls-v2/README  ${doc}/README.mkcls
+}

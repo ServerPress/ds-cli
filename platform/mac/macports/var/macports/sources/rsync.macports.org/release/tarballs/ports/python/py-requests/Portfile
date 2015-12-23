@@ -1,0 +1,43 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143704 2015-12-18 13:35:37Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-requests
+version             2.9.0
+categories-append   devel
+platforms           darwin
+license             Apache-2
+supported_archs     noarch
+
+python.versions     26 27 34 35
+
+maintainers         stromnov openmaintainer
+
+description         Python HTTP for Humans.
+
+long_description    Most existing Python modules for dealing HTTP \
+                    requests are insane. I have to look up everything \
+                    that I want to do. Most of my worst Python \
+                    experiences are a result of the various built-in \
+                    HTTP libraries (yes, even worse than Logging). But \
+                    this one's different. This one's going to be \
+                    awesome. And simple. Really simple.
+
+homepage            http://python-requests.org/
+master_sites        pypi:[string index ${python.rootname} 0]/${python.rootname}
+
+distname            ${python.rootname}-${version}
+
+checksums           rmd160  d0cdbe1c2b35d071a84ee3b6eac54f6dd27c3171 \
+                    sha256  4881966532b5a36c552244fd909de66d1b8c4a26086f56fd5837cfcde63f8eb8
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-setuptools
+
+    livecheck.type      none
+} else {
+    livecheck.type      pypi
+}

@@ -1,0 +1,27 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142023 2015-11-02 05:41:54Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         ExtUtils-LibBuilder 0.08
+platforms           darwin
+maintainers         nomaintainer
+license             {Artistic-1 GPL}
+
+description         help build perl modules with self-contained C libraries
+
+long_description    Some Perl modules need to ship C libraries together with their Perl    \
+                    code. Although there are mechanisms to compile and link (or glue) C    \
+                    code in your Perl programs, there isn't a clear method to compile      \
+                    standard, self-contained C libraries. This module's main goal is to    \
+                    help in that task.
+
+checksums           sha256  c51171e06de53039f0bca1d97a6471ec37941ff59e8a3d1cb170ebdd2573b5d2 \
+                    rmd160  8d41a16dd88cb03f2149d1e0a07e104bf6e549f0
+
+if {${perl5.major} != ""} {
+    supported_archs noarch
+    perl5.use_module_build
+}

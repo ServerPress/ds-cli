@@ -1,0 +1,46 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 135232 2015-04-20 00:15:39Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                xercesc3
+conflicts           xercesc
+version             3.1.2
+revision            2
+categories          textproc xml shibboleth
+maintainers         snc scantor
+license             Apache-2
+description         an XML parser
+long_description    Xerces-C++ is a validating XML parser written in \
+                    a portable subset of C++.  Xerces-C++ makes it \
+                    easy to give your application the ability to read \
+                    and write XML data.  A shared library is provided \
+                    for parsing, generating, manipulating, and \
+                    validating XML documents.
+homepage            http://xerces.apache.org/xerces-c/
+master_sites        apache:xerces/c/3/sources/
+distname            xerces-c-${version}
+use_bzip2           yes
+
+configure.args      --enable-static \
+                    --enable-netaccessor-socket \
+                    --enable-transcoder-icu \
+                    --enable-msgloader-icu \
+                    --with-icu=${prefix}
+checksums           rmd160 a2576765d74991406c029f04c9e1d72215d3743c \
+                    sha256 95d8655c4c50668ad60d555b59da9f31937b2c53638aa8d5768cb169f192d5e1 
+
+platforms           darwin
+
+depends_lib         port:icu
+
+post-destroot {
+    # Rename the bin programs with a prefix to avoid conflicts
+    foreach f [glob -tails -directory ${destroot}${prefix}/bin *] {
+        move ${destroot}${prefix}/bin/${f} ${destroot}${prefix}/bin/Xerces${f}
+    }
+}
+
+livecheck.type      regex
+livecheck.url       http://www.apache.org/dist/xerces/c/3/sources/
+livecheck.regex     xerces-c-(\\d+\\.\\d+\\.\\d+)

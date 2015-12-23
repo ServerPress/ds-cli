@@ -1,0 +1,35 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143578 2015-12-15 06:15:16Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         WWW-Search 2.515
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         WWW::Search provides access to search engines
+long_description    WWW::Search is a collection of Perl modules which provide \
+                    an API to search engines on the world-wide web
+
+platforms           darwin
+
+checksums           rmd160  b96cc4a1739bf885d63db4c4bf6d7702ac693053 \
+                    sha256  ce5b7ff792f1ccccda27f3d8a566d0cd7dd7a304c45d5b178fcdab615f93a24b
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-bit-vector \
+                    port:p${perl5.major}-cgi \
+                    port:p${perl5.major}-datemanip \
+                    port:p${perl5.major}-file-slurp \
+                    port:p${perl5.major}-html-parser \
+                    port:p${perl5.major}-html-tree \
+                    port:p${perl5.major}-io-capture \
+                    port:p${perl5.major}-libwww-perl \
+                    port:p${perl5.major}-test-file \
+                    port:p${perl5.major}-uri \
+                    port:p${perl5.major}-user
+
+    supported_archs noarch
+}

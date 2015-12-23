@@ -1,0 +1,34 @@
+# $Id: Portfile 130591 2015-01-02 01:31:10Z larryv@macports.org $
+
+PortSystem 1.0
+PortGroup python 1.0
+
+name			py-managesieve
+version			0.4.2
+categories		python mail
+license			{PSF GPL}
+platforms		darwin freebsd
+supported_archs	noarch
+maintainers		gboyce
+description		Protocol for remotely managing Sieve scripts
+long_description	A Protocol for remotely managing Sieve Scripts. A \
+				MANGAGESIEVE client library for remotely managing \
+				Sieve scripts, including an interactive sieveshell.
+
+homepage		http://packages.python.org/managesieve/
+master_sites		http://pypi.python.org/packages/source/m/managesieve/
+distname		managesieve-${version}
+use_bzip2               yes
+checksums		md5 c252b3d06dc3419dcf3bff815f485b7a	\
+			sha1 39ab53e80a039df8b1213d8cb636580a22f2fec7 \
+			rmd160 c1a2753ea5276a3807160ca70bd5b1ff452c8ba6
+
+python.versions	26 27
+
+if {${name} ne ${subport}} {
+    depends_build		port:py${python.version}-setuptools
+    post-destroot	{
+        xinstall -m 644 -W ${worksrcpath} draft-martin-managesieve-07.txt \
+            HISTORY README TODO ${destroot}${prefix}/share/doc/${subport}
+    }
+}

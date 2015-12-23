@@ -1,0 +1,115 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138527 2015-07-11 06:42:32Z ryandesign@macports.org $
+
+PortSystem 1.0
+
+name        libpqxx
+version     4.0.1
+
+categories  databases devel
+license     BSD
+
+maintainers nomaintainer
+
+description Official C++ client API for PostgreSQL
+
+long_description \
+libpqxx is the official C++ client API for PostgreSQL, the enterprise-strength \
+open-source database software.  There are many similar libraries for PostgreSQL \
+and for other databases, some of them database independent.  Most of these, \
+however, are fairly C like in their programming style, and fail to take \
+advantage of the full power of the C++ language as it has matured since \
+the acceptance of the Standard in 1996.  What libpqxx brings you is effective \
+use of templates to reduce the inconvenience of dealing with type conversions, \
+standard C++ strings to keep you from having to worry about buffer allocation \
+and overflow attacks, exceptions to take the tedious and error prone plumbing \
+around error handling out of your hands, constructors and destructors to bring \
+resource management under control, and even basic object orientation to give \
+you some extra reliability features that would be hard to get with most other \
+database interfaces.
+
+homepage        http://pqxx.org/development/libpqxx/
+master_sites    http://pqxx.org/download/software/libpqxx/
+
+checksums       rmd160  7fae516d6aa59dac0d2403c6a979c5c3d9fb3fce \
+                sha256  097ceda2797761ce517faa5bee186c883df1c407cb2aada613a16773afeedc38
+
+if {![variant_isset postgresql83] && ![variant_isset postgresql84] && ![variant_isset postgresql90] && ![variant_isset postgresql91] && ![variant_isset postgresql92] && ![variant_isset postgresql93] && ![variant_isset postgresql94]} {
+    default_variants +postgresql94
+}
+
+variant postgresql83 conflicts postgresql84 postgresql90 postgresql91 postgresql92 postgresql93 postgresql94 description {Use postgresql83} {}
+variant postgresql84 conflicts postgresql83 postgresql90 postgresql91 postgresql92 postgresql93 postgresql94 description {Use postgresql84} {}
+variant postgresql90 conflicts postgresql83 postgresql84 postgresql91 postgresql92 postgresql93 postgresql94 description {Use postgresql90} {}
+variant postgresql91 conflicts postgresql83 postgresql84 postgresql90 postgresql92 postgresql93 postgresql94 description {Use postgresql91} {}
+variant postgresql92 conflicts postgresql83 postgresql84 postgresql90 postgresql91 postgresql93 postgresql94 description {Use postgresql92} {}
+variant postgresql93 conflicts postgresql83 postgresql84 postgresql90 postgresql91 postgresql92 postgresql94 description {Use postgresql93} {}
+variant postgresql94 conflicts postgresql83 postgresql84 postgresql90 postgresql91 postgresql92 postgresql93 description {Use postgresql94} {}
+
+if {[variant_isset postgresql83]} {
+    set server postgresql83
+} elseif {[variant_isset postgresql84]} {
+    set server postgresql84
+} elseif {[variant_isset postgresql90]} {
+    set server postgresql90
+} elseif {[variant_isset postgresql91]} {
+    set server postgresql91
+} elseif {[variant_isset postgresql92]} {
+    set server postgresql92
+} elseif {[variant_isset postgresql93]} {
+    set server postgresql93
+} elseif {[variant_isset postgresql94]} {
+    set server postgresql94
+}
+
+platforms       darwin
+depends_build   path:bin/pkg-config:pkgconfig
+depends_lib     port:${server}
+
+patchfiles      patch-tools-maketemporary.diff
+
+platform darwin {
+    patchfiles-append patch-configure.diff
+}
+
+configure.env-append \
+    PG_CONFIG=${prefix}/lib/${server}/bin/pg_config
+
+configure.args-append \
+    --enable-shared
+
+# Enable tests after the build phase; see
+# http://guide.macports.org/#reference.phases.test
+# http://pqxx.org/development/libpqxx/browser/trunk/README?rev=latest
+# http://pqxx.org/development/libpqxx/wiki/TestDocs
+
+set dbdir       ${workpath}/db
+set dbname      test_libpqxx
+set dbport      5455
+test.run        yes
+test.cmd        make
+test.target     check
+test.post_args  [portbuild::build_getjobsarg]
+
+# PGDATABASE    (name of database; defaults to your user name)
+# PGHOST        (database server; defaults to local machine)
+# PGPORT        (PostgreSQL port to connect to; default is 5432)
+# PGUSER        (your PostgreSQL user ID; defaults to your login name)
+# PGPASSWORD    (your PostgreSQL password, if needed)
+test.env        PGDATABASE=${dbname} \
+                PGPORT=${dbport}
+                #PGUSER
+                #PGPASSWORD
+
+pre-test {
+    system "${prefix}/lib/${server}/bin/initdb -D ${dbdir}"
+    # "system" doesn't return for some reason, but exec does
+    if {[catch {exec sudo -u ${macportsuser} ${prefix}/lib/${server}/bin/pg_ctl -w -D ${dbdir} -l ${dbdir}/logfile -o "-p ${dbport}" start} result]} {
+        return -code error "could not start postgresql server"
+    }
+    system "${prefix}/lib/${server}/bin/createdb -p ${dbport} ${dbname}"
+}
+
+post-test {
+    system "${prefix}/lib/${server}/bin/pg_ctl -w -D ${dbdir} stop -m fast"
+}

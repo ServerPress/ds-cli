@@ -1,0 +1,11 @@
+# $Id: Portfile 88543 2012-01-04 02:39:02Z mww@macports.org $
+
+PortSystem        1.0
+replaced_by ocaml-gsl
+PortGroup obsolete 1.0
+
+name              caml-gsl
+version           0.6.0
+revision          1
+categories        math science ml
+

@@ -1,0 +1,34 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+name                p5-text-tabsxwrap
+perl5.branches      5.16 5.18 5.20 5.22
+revision            1
+perl5.setup         Text-Tabs+Wrap 2013.0523
+platforms           darwin
+maintainers         nomaintainer
+supported_archs     noarch
+
+# License: "This module may be modified, used, copied, and redistributed at
+# your own risk.  Publicly redistributed modified versions must use a different
+# name."
+license             Permissive GPLConflict
+
+description         Line wrapping to form simple paragraphs
+
+long_description    Text::Tabs performs the same job that the unix expand(1) \
+                    and unexpand(1) commands do: adding or removing tabs from \
+                    a document. \
+                    \n\
+                    \nText::Wrap::wrap() will reformat lines into paragraphs. \
+                    All it does is break up long lines, it will not join \
+                    short lines together. \
+                    \n\
+                    \nText::Fill::fill() will reformat blocks of text into \
+                    paragraphs. It uses Text::Wrap::wrap() to do the work.
+
+checksums           rmd160  0a614c6af79316a81fd8a713f49a477c573bc2e3 \
+                    sha256  b9cb056fffb737b9c12862099b952bf4ab4b1f599fd34935356ae57dab6f655f

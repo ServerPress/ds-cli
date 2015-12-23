@@ -1,0 +1,21 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142064 2015-11-03 00:01:51Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Graph 0.9704
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Graph - graph data structures and algorithms
+long_description    This is Graph, a Perl module for creating abstract data structures called graphs, \
+                    and for doing various operations on those. This module is not for drawing or \
+                    rendering any sort of graphics or images, business, visualization, or otherwise.
+
+platforms           darwin
+
+checksums           rmd160  2046a57ad59b3f2e16ae72f729f9799f3f973e98 \
+                    sha256  325e8eb07be2d09a909e450c13d3a42dcb2a2e96cc3ac780fe4572a0d80b2a25
+
+supported_archs     noarch

@@ -1,0 +1,28 @@
+# $Id: Portfile 141040 2015-10-08 14:29:39Z raimue@macports.org $
+
+PortSystem      1.0
+PortGroup       cmake 1.0
+
+name            vramsteg
+version         1.1.0
+categories      sysutils devel
+platforms       darwin
+license         MIT
+maintainers     raimue openmaintainer
+description     Utility for displaying progress bars
+long_description \
+    Vramsteg, from the Swedish framsteg (progress), is a CLI progress bar \
+    that can be used from any script language. It supports color, labels, \
+    percentage completion, elapsed time and estimates.
+
+homepage        http://tasktools.org/projects/vramsteg.html
+master_sites    http://tasktools.org/download/
+
+checksums       rmd160  240427649114ecc16b46afe30e902f0b4892b682 \
+                sha256  9cc82eb195e4673d9ee6151373746bd22513033e96411ffc1d250920801f7037
+
+cmake.out_of_source yes
+
+livecheck.type  regex
+livecheck.url   http://tasktools.org/index.html
+livecheck.regex ${name}-(\\d+(\\.\\d+)+)\\.tar

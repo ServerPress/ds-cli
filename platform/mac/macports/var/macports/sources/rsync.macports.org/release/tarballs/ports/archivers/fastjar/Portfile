@@ -1,0 +1,32 @@
+# $Id: Portfile 89007 2012-01-17 07:57:44Z ryandesign@macports.org $
+
+PortSystem		1.0
+
+name			fastjar
+version			0.94
+categories		archivers java
+platforms		darwin
+maintainers		nomaintainer
+license			GPL-2+
+description		fast implementation of Sun's jar utility in C
+
+long_description \
+				Fastjar is an implementation of Sun's jar utility that \
+				comes with the JDK, written entirely in C, and runs in a \
+				fraction of the time while being 100% feature compatible.
+
+homepage		http://fastjar.sourceforge.net/
+master_sites	sourceforge:project/fastjar/fastjar/${version}
+
+checksums		md5 14d4bdfac236e347d806c6743dba48c6 \
+				sha1 2b54b558bed1acef63455b27827b69e83c823f8d \
+				rmd160 af6b4ea20a07abde3184c49c30f620695525bec0
+
+depends_lib		port:zlib
+
+post-destroot {
+	xinstall -d ${destroot}${prefix}/share/doc/${name}-${version}
+	xinstall -m 0644 -W ${worksrcpath} AUTHORS CHANGES COPYING ChangeLog \
+		INSTALL LICENSE NEWS README ${destroot}${prefix}/share/doc/${name}-${version}
+}
+

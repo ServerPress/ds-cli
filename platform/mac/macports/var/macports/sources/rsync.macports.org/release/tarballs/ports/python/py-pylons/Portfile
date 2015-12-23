@@ -1,0 +1,56 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 126566 2014-10-12 04:14:44Z larryv@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-pylons
+set real_name       Pylons
+version             1.0.1rc1
+python.versions     27
+categories-append   devel
+license             BSD
+platforms           darwin
+supported_archs     noarch
+
+maintainers         nomaintainer
+
+description         Pylons Web Framework
+
+long_description  \
+    The Pylons web framework is designed for building web applications and sites \
+    in an easy and concise manner. They can range from as small as a single Python \
+    module, to a substantial directory layout for larger and more complex web \
+    applications. \n\n\
+    \
+    Pylons comes with project templates that help boot-strap a new web application \
+    project, or you can start from scratch and set things up exactly as desired.
+
+homepage            http://www.pylonsproject.org/
+master_sites        http://pypi.python.org/packages/source/P/${real_name}
+
+distname            ${real_name}-${version}
+
+checksums           rmd160  1079ef300f4a8839b2ea479163617c001f7278a9 \
+                    sha256  d5b643b5021457fe7d2f6bb777c2eae85026e557289ef5421e37ae6f5696da33
+
+if {${name} ne ${subport}} {
+    depends_lib-append \
+                    port:py${python.version}-setuptools \
+                    port:py${python.version}-routes \
+                    port:py${python.version}-webhelpers \
+                    port:py${python.version}-beaker \
+                    port:py${python.version}-paste \
+                    port:py${python.version}-pastedeploy \
+                    port:py${python.version}-pastescript \
+                    port:py${python.version}-formencode \
+                    port:py${python.version}-simplejson \
+                    port:py${python.version}-decorator \
+                    port:py${python.version}-nose \
+                    port:py${python.version}-mako \
+                    port:py${python.version}-weberror \
+                    port:py${python.version}-webtest \
+                    port:py${python.version}-tempita \
+                    port:py${python.version}-markupsafe \
+                    port:py${python.version}-webob
+}

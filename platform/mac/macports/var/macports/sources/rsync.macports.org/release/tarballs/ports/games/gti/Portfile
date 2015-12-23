@@ -1,0 +1,31 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8::et:sw=4:ts=4:sts=4
+# $Id: Portfile 111082 2013-09-14 11:58:15Z g5pw@macports.org $
+
+PortSystem          1.0
+PortGroup           github 1.0
+
+github.setup        rwos gti 1.2.0 v
+categories          games
+maintainers         g5pw openmaintainer
+license             MIT
+
+description         Just a silly git launcher, basically. Inspired by sl.
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  aa20e1bed3d6481bd6c5f12b39e06a4dd4338c0b \
+                    sha256  08dbf3156e203141f626ccd8fc97b289e9bd92ced6906a18bdc8a288f1fa4df6
+
+use_configure       no
+
+build.target
+
+patchfiles          Makefile.diff
+
+variant universal {}
+
+# Ensure we are UsingTheRightCompiler
+build.args-append   CC="${configure.cc} [get_canonical_archflags cc]"
+
+destroot.args-append PREFIX=${prefix}

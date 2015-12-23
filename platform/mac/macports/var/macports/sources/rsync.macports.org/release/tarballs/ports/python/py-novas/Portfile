@@ -1,0 +1,36 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; truncate-lines: t; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:et:sw=4:ts=4:sts=4
+# $Id: Portfile 130633 2015-01-02 04:50:07Z larryv@macports.org $
+
+PortSystem              1.0
+PortGroup               python 1.0
+
+name                    py-novas
+version                 3.1.1.2
+categories-append       science
+platforms               darwin
+maintainers             aronnax
+description             Naval Observatory Vector Astrometry Software, \
+                        Python Edition
+long_description \
+  Python ctypes wrapper for Naval Observatory Vector Astrometry Software \
+  (NOVAS).  Provides extremely accurate astrometric coordinate conversions \
+  and position of solar system objects.
+license                 public-domain
+
+homepage                https://pypi.python.org/pypi/novas/
+master_sites            https://pypi.python.org/packages/source/n/novas/
+distname                novas-${version}
+checksums               md5     d13a652fd3abdd9deac09724e15b8bcd \
+                        sha256  8abbcfcc9fb4df8335517abe54ca8fc992cf2e23a7f699c8d15a4b4ebdac5c75 \
+                        rmd160  4bb35cccbfea3a2a57fc47254ba3e598c97ead42
+
+python.versions         26 27 33 34
+
+livecheck.url           https://pypi.python.org/packages/source/n/novas/
+livecheck.regex         novas-((\[0-9\]+)(\.\[0-9\]+)\*)[quotemeta ${extract.suffix}]
+
+if {${name} ne ${subport}} {
+
+    livecheck.type      none
+
+}

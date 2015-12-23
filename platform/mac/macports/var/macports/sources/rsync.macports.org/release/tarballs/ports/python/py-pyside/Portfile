@@ -1,0 +1,63 @@
+# $Id: Portfile 140999 2015-10-07 18:03:02Z michaelld@macports.org $
+
+PortSystem 1.0
+PortGroup python 1.0
+PortGroup qt4 1.0
+PortGroup cmake 1.0
+cmake.out_of_source yes
+
+set realname        pyside
+name                py-${realname}
+version             1.2.2
+revision            1
+set          qt.ver 4.8
+python.versions     27 34 35
+python.default_version 27
+categories-append   devel
+maintainers         openmaintainer mmoll
+license             LGPL
+description         LGPL-licensed Python bindings for Qt
+long_description    The PySide project provides LGPL-licensed Python bindings \
+                    for the Qt cross-platform application and UI framework. \
+                    PySide Qt bindings allow both free open source and \
+                    proprietary software development and ultimately aim to \
+                    support all of the platforms as Qt itself.
+homepage            http://qt-project.org/wiki/PySide
+platforms           darwin
+license             LGPL
+master_sites        http://download.qt-project.org/official_releases/pyside
+
+checksums           md5     1969c2ff90eefaa4b200d234059d2287 \
+                    rmd160  8d3102bb17138b1eb7e9f1666983bb231607058e \
+                    sha1    955e32d193d173faa64edc51111289cdcbe3b96e
+distname            ${realname}-qt${qt.ver}+${version}
+use_bzip2           yes
+
+if {${name} ne ${subport}} {
+    patchfiles      patch-cmakepkgconfig.diff
+    depends_lib-append port:py${python.version}-shiboken
+    use_configure   yes
+    configure.env-append CMAKE_PREFIX_PATH=${python.prefix}
+    configure.args-append -DBUILD_TESTS:BOOL=FALSE \
+                          -DSITE_PACKAGE=${python.pkgd} \
+                          -DPYTHONBRANCH=${python.branch} \
+                          -DPYTHONPREFIX=${python.prefix}
+    build.cmd       make
+    build.target    all
+    destroot.cmd    make
+    destroot.destdir DESTDIR=${destroot}
+    post-destroot {
+        move ${destroot}${prefix}/include/PySide ${destroot}${prefix}/include/PySide-${python.branch}
+        move ${destroot}${prefix}/share/PySide ${destroot}${prefix}/share/PySide-${python.branch}
+        move ${destroot}${prefix}/lib/cmake ${destroot}${python.prefix}/lib/cmake
+        move ${destroot}${prefix}/lib/pkgconfig ${destroot}${python.prefix}/lib/pkgconfig
+    }
+}
+
+if {${name} eq ${subport}} {
+    livecheck.type      regex
+    livecheck.url       http://qt-project.org/wiki/PySideDownloads
+    livecheck.regex     ${realname}-qt${qt.ver}\\+(\[0-9.\]+)\\.tar\\.bz2
+} else {
+    livecheck.type      none
+}

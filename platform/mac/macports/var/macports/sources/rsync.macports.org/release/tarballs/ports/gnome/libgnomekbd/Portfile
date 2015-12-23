@@ -1,0 +1,65 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134962 2015-04-12 08:20:29Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           gobject_introspection 1.0
+
+name                libgnomekbd
+version             3.6.0
+revision            1
+set branch          [join [lrange [split ${version} .] 0 1] .]
+description         A GNOME library which manages keyboard configuration
+long_description    Libgnomekbd is ${description} and offers various \
+                    widgets related to keyboard configuration.
+maintainers         devans openmaintainer
+categories          gnome
+license             LGPL-2+
+platforms           darwin
+homepage            http://www.gnome.org/
+
+master_sites        gnome:sources/${name}/${branch}/
+
+use_xz              yes
+
+checksums           rmd160  59ecbefb14f92e7c896ca4416d5f09e45a2b30a9 \
+                    sha256  c41ea5b0f64da470925ba09f9f1b46b26b82d4e433e594b2c71eab3da8856a09
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:gnome-common \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         port:desktop-file-utils \
+                    port:gtk3 \
+                    port:libxklavier
+
+gobject_introspection yes
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+}
+
+configure.cmd       ./autogen.sh
+
+configure.args      --without-x \
+                    --disable-schemas-compile \
+                    --disable-silent-rules
+
+variant x11 {
+    configure.args-append   --x-includes=${prefix}/include \
+                            --x-libraries=${prefix}/lib
+    configure.args-delete   --without-x
+}
+
+default_variants    +x11
+
+post-activate {
+    system "${prefix}/bin/update-desktop-database ${prefix}/share/applications"
+    system "${prefix}/bin/glib-compile-schemas ${prefix}/share/glib-2.0/schemas"
+}
+
+livecheck.type      gnome

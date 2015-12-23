@@ -1,0 +1,29 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Gimp 2.31
+revision            3
+license             GPL-2+
+maintainers         devans openmaintainer
+description         Gimp Extensions/Plug-ins/Load and Save-Handlers in perl
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  5184010101cf8087b1bfa6aa1621f279b1935217 \
+                    sha256  151d12348ea24b872425ad9410d915e17008bd4344dbdc520fbd6e8b87cb4393
+
+if {${perl5.major} != ""} {
+    depends_lib-append  path:lib/libgimpbase-2.0:gimp2 \
+                        port:p${perl5.major}-gtk2 \
+                        port:p${perl5.major}-gtk2-ex-podviewer \
+                        port:p${perl5.major}-html-parser \
+                        port:p${perl5.major}-io-all \
+                        port:p${perl5.major}-io-stringy \
+                        port:p${perl5.major}-pdl \
+                        port:p${perl5.major}-web-scraper
+}

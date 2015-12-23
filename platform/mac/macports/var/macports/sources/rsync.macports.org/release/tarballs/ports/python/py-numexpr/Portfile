@@ -1,0 +1,51 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142176 2015-11-05 21:24:42Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-numexpr
+version             2.4.6
+revision            0
+categories-append   math
+platforms           darwin
+license             MIT
+
+python.versions     26 27 33 34 35
+
+maintainers         stromnov openmaintainer
+
+description         Multiple-operator array expression evaluator
+long_description    The numexpr package evaluates multiple-operator array \
+                    expressions many times faster than NumPy can. It accepts \
+                    the expression as a string, analyzes it, rewrites it \
+                    more efficiently, and compiles it on the fly into code \
+                    for its internal virtual machine (VM). Due to its \
+                    integrated just-in-time (JIT) compiler, it does not \
+                    require a compiler at runtime.
+
+homepage            https://github.com/pydata/numexpr
+master_sites        https://pypi.python.org/packages/source/n/numexpr/
+
+distname            numexpr-${version}
+
+checksums           rmd160  ae2f13d95809bb7b6abe8ceaaddce90b7ab63b8e \
+                    sha256  052397670dc56d7845ff894cd7d858e4f115491ecd93bcc0eda5cb83990c5da3
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-setuptools
+    depends_lib-append  port:py${python.version}-numpy
+
+    post-destroot {
+        xinstall -m 755 -d ${destroot}${prefix}/share/doc/${subport}
+        xinstall -m 644 -W ${worksrcpath} ANNOUNCE.rst LICENSE.txt README.rst \
+            RELEASE_NOTES.rst ${destroot}${prefix}/share/doc/${subport}
+    }
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/numexpr/json
+    livecheck.regex     {numexpr-(\d+(?:\.\d+)*)\.[tz]}
+}

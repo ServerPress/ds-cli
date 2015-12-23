@@ -1,0 +1,80 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139797 2015-08-27 18:45:04Z devans@macports.org $
+
+PortSystem          1.0
+
+name                libcdr-0.1
+set dname           libcdr
+version             0.1.1
+revision            1
+categories          graphics
+license             {GPL-2.1+ LGPL-2.1+ MPL-1.1+}
+maintainers         devans openmaintainer
+platforms           darwin
+homepage            https://wiki.documentfoundation.org/DLP/Libraries/${dname}
+master_sites        http://dev-www.libreoffice.org/src/${dname}
+
+description         Libcdr is a library and a set of tools for reading and converting binary files \
+                    produced by Corel DRAW.
+
+long_description    ${description}
+
+use_xz              yes
+
+distname            ${dname}-${version}
+
+checksums           sha256  d0a6e0667e5a37fe059bcb81d5077fc2abffc7e7bac86fe302fbcf927d58df1f \
+                    rmd160  5d6ea7a497103c1c6d889c8a74f0e97e13a3569f
+
+depends_build       port:pkgconfig
+
+depends_lib         port:librevenge \
+                    port:boost \
+                    port:icu \
+                    port:lcms2 \
+                    port:zlib
+
+# build fix for gcc-4.2 (#43487)
+if {[string match "*gcc*" ${configure.compiler}]} {
+    configure.cxxflags-append -Wno-long-long
+}
+
+# The packaged glibtool in 0.1.1 doesn't pass --stdlib=libc++ down at link time
+use_autoreconf  yes
+autoreconf.args -fvi
+
+# In boost 1.59.0, a number of symbols related to the Boost.System library have been renamed
+# for compatibility with the C++ committee's standard library specs.  The old symbols have been deprecated
+# and aliases to the new symbols are provided.  When boost headers are included, these aliases
+# can create dependencies on the Boost.System library even if no Boost.System symbols are actually used.
+# Typically this causes missing symbol errors during linking when LDFLAGS (legitimately) does not
+# include -lboost_system-mt.
+#
+# Asserting BOOST_SYSTEM_NO_DEPRECATED deactivates these aliases allowing this and other effected
+# ports to build as before.
+#
+# See http://www.boost.org/doc/libs/1_59_0/libs/system/doc/reference.html#Deprecated-names for details
+#
+# This workaround can be removed when the offending deprecation aliases are removed in a future
+# version of boost.
+
+configure.cppflags-append "-DBOOST_SYSTEM_NO_DEPRECATED"
+
+configure.args      --disable-werror \
+                    --disable-silent-rules \
+                    --without-docs
+
+variant docs description {Build API documentation} {
+    depends_build-append  port:doxygen
+    configure.args-replace --without-docs --with-docs
+}
+
+# delete binaries that conflict with libcdr
+
+post-destroot {
+    file delete -force ${destroot}${prefix}/bin
+}
+
+livecheck.type      regex
+livecheck.url       ${master_sites}
+livecheck.regex     "${dname}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

@@ -1,0 +1,20 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 140455 2015-09-19 19:26:04Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Math-Random 0.72
+# license per man page LEGALITIES section
+license             restrictive
+maintainers         nomaintainer
+categories-append   math
+platforms           darwin
+
+description         Perl extension for Random Number Generators
+
+long_description    ${description}
+
+checksums           rmd160  08cf461515a073815aca7bba56d8482f6d72e248 \
+                    sha256  be0522328811d96de505d9ebac3d096359026fa8d5c38f7bb999a78ec5bc254c

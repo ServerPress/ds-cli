@@ -1,0 +1,19 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143688 2015-12-17 19:51:15Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Regexp-Common 2015121601
+platforms           darwin
+maintainers         nomaintainer
+license             MIT
+supported_archs     noarch
+
+description         Provide commonly requested regular expressions
+
+long_description    ${description}
+
+checksums           rmd160  6cccc16632e0af43dce99a3604b989582318c9d2 \
+                    sha256  df47f46dbbad843b65d20c6a4e4683ba9ae6cdeaf171ee7b0749d77e93f29a42

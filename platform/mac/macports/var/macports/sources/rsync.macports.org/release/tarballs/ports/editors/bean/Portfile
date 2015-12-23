@@ -1,0 +1,44 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 123328 2014-08-08 03:00:27Z jmr@macports.org $
+
+PortSystem	1.0
+PortGroup xcode 1.0
+
+name        bean
+version     2.4.4
+categories  editors aqua
+license     GPL-2+
+maintainers	nomaintainer
+description	A small, simple rich text editor.
+long_description    \
+    Bean is a small, simple word processor (or more precisely, a rich text \
+    editor), with many niceties added to make writing convenient, efficient \
+    and comfortable.
+homepage    http://www.bean-osx.com/
+master_sites    http://www.bean-osx.com/source/
+
+distname    Bean-Source
+dist_subdir ${name}/${version}
+use_zip     yes
+
+checksums   rmd160  37f0a4eb786748231c699b4254fe9423d010c00f \
+            sha256  8c7005123cfe4d39b9963df9a77885bf2db2836fdb3088bada297f91e39aab18
+
+supported_archs	i386 ppc
+
+worksrcdir	Bean-[string map {. -} $version]
+
+patchfiles	ApplicationDelegate.m.diff
+
+xcode.target	Bean
+xcode.configuration	Release
+
+post-destroot {
+    foreach localization [glob ${worksrcpath}/Localizations/*.lproj] {
+        copy ${localization} ${destroot}${applications_dir}/Bean.app/Contents/Resources/
+    }
+}
+
+livecheck.type	regex
+livecheck.url	http://www.bean-osx.com/releases/availableVersion.xml
+livecheck.regex	"<availableVersion>(\[0-9\.\]+)</availableVersion>"

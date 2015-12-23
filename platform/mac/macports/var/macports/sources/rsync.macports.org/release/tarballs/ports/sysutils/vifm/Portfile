@@ -1,0 +1,29 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
+
+PortSystem 1.0
+
+name                vifm
+version             0.7.7
+revision            1
+categories          sysutils
+license             GPL-2+
+maintainers         larre-borges.com:matias
+description         ncurses based file manager with vi like keybindings
+long_description    Vifm is a ncurses based file manager with vi like \
+                    keybindings. If you use vi, vifm gives you complete \
+                    keyboard control over your files without having to \
+                    learn a new set of commands.
+homepage            http://vifm.info/
+platforms           darwin
+master_sites        sourceforge:project/vifm/vifm
+use_bzip2           yes
+
+checksums           rmd160  20318f384853e597f88a6214932229a13d7c0d7a \
+                    sha256  0dc0271c016ab2d2017bc3c2389bd2ab747603f1c05f425a8a181f5cdaacd4d1
+
+depends_lib         port:ncurses
+
+livecheck.type      regex
+livecheck.url       http://sourceforge.net/projects/${name}/files/
+livecheck.regex     ${name}-(\[0-9.\]+)${extract.suffix}

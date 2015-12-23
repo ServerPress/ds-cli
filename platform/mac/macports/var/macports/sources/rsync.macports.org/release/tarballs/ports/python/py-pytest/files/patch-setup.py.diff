@@ -1,0 +1,20 @@
+--- setup.py.orig	2015-12-11 22:35:54.000000000 +0300
++++ setup.py	2015-12-18 16:26:09.000000000 +0300
+@@ -82,16 +82,7 @@
+ 
+ 
+ def cmdline_entrypoints(versioninfo, platform, basename):
+-    target = 'pytest:main'
+-    if platform.startswith('java'):
+-        points = {'py.test-jython': target}
+-    else:
+-        if basename.startswith('pypy'):
+-            points = {'py.test-%s' % basename: target}
+-        else: # cpython
+-            points = {'py.test-%s.%s' % versioninfo[:2] : target}
+-        points['py.test'] = target
+-    return points
++    return {'py.test': 'pytest:main'}
+ 
+ 
+ def make_entry_points():

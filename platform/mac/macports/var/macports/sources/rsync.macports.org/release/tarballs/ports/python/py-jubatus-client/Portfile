@@ -1,0 +1,36 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138179 2015-07-01 12:01:01Z hum@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+set real_name       jubatus
+name                py-${real_name}-client
+version             0.8.0
+python.versions     27
+python.default_version 27
+categories-append   devel
+maintainers         hum openmaintainer
+
+description         a Python client for jubatus, a highly distributed online machine learning system
+long_description    ${description}
+
+homepage            http://pypi.python.org/pypi/${real_name}
+platforms           darwin
+license             MIT
+
+master_sites        http://pypi.python.org/packages/source/j/${real_name}/
+distname            ${real_name}-${version}
+checksums           rmd160  3a1ecaba2197c1e8cafdf1fe16f9a8485c7865a6 \
+                    sha256  14d23853d3a90b1114c4c523804f4e14434a30db00e9ae4800082ae64a3b4aa0
+
+if {${name} ne ${subport}} {
+    depends_build-append port:py${python.version}-setuptools
+    depends_lib-append   port:py${python.version}-msgpack
+
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/${real_name}
+    livecheck.regex     "${real_name}/(\\d+(?:\\.\\d+)*(-p\\d+)?)"
+}

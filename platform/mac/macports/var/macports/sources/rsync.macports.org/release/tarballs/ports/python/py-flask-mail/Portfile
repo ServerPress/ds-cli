@@ -1,0 +1,38 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 128265 2014-11-17 17:59:19Z aronnax@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-flask-mail
+set real_name       Flask-Mail
+version             0.9.1
+python.versions     27 34
+categories-append   www
+maintainers         aronnax openmaintainer
+description         Flask Mail extension
+long_description    \
+    A Flask extension for sending email messages.
+
+license             BSD
+platforms           darwin
+homepage            http://pythonhosted.org/Flask-Mail/
+master_sites        http://pypi.python.org/packages/source/[string index ${real_name} 0]/${real_name}/
+distname            ${real_name}-${version}
+checksums           md5     04b35a42a44ec7aa724ec8ce55e2e08e \
+                    rmd160  1408261d04ec35861350fafe53dae4d862ddc10d \
+                    sha256  22e5eb9a940bf407bcf30410ecc3708f3c56cc44b29c34e1726fe85006935f41
+
+if {${name} eq ${subport}} {
+    livecheck.url           ${master_sites}
+    livecheck.type          regex
+    livecheck.regex         [format "%s-%s" ${real_name} {(\d+(?:\.\d+)*)}]
+} else {
+    depends_build-append    port:py${python.version}-setuptools \
+                            port:py${python.version}-sphinx
+
+    depends_lib-append      port:py${python.version}-flask \
+                            port:py${python.version}-blinker
+
+    livecheck.type          none
+}

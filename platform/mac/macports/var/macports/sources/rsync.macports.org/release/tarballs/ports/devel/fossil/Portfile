@@ -1,0 +1,98 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142378 2015-11-10 20:05:39Z ciserlohn@macports.org $
+
+PortSystem          1.0
+
+name                fossil
+version             1.34
+epoch               20110901182519
+categories          devel
+platforms           darwin
+license             BSD
+maintainers         ciserlohn
+
+description         Simple, high-reliability, distributed software configuration management
+
+long_description    Fossil is a distributed software configuration management which supports \
+                    distributed version control, distributed bug tracking, distributed wiki, \
+                    and a distributed blog mechanism all in single integrated package. It provides \
+                    an easy-to-use web interface to access and administrate projects over the \
+                    built-in webserver or CGI.
+
+homepage            http://www.fossil-scm.org/
+
+master_sites        ${homepage}download/
+distname            ${name}-src-${version}
+
+checksums           rmd160  bc4c1f171e7f6232d7c1af0120e3553dac881a5f \
+                    sha256  53a6b83e878feced9ac7705f87e5b6ea82727314e3e19202ae1c46c7e4dba49f
+
+test.run            yes
+
+depends_lib         port:tcl \
+                    port:zlib \
+                    path:lib/libssl.dylib:openssl \
+                    port:libiconv
+
+configure.args-append       --with-tcl=${prefix}/lib \
+                            --with-th1-docs \
+                            --with-th1-hooks \
+                            --json
+
+configure.env-append CC_FOR_BUILD="${configure.cc} [get_canonical_archflags]"
+
+configure.ldflags-append    -liconv
+
+post-destroot {
+    set docdir ${destroot}${prefix}/share/doc/${name}
+    xinstall -d ${docdir}
+    xinstall -m 644 -W ${worksrcpath} \
+        COPYRIGHT-BSD2.txt \
+        ${docdir}
+}
+
+post-activate {
+    
+    if [file exists $::env(HOME)/.fossil] {
+        ui_msg "* Trying to rebuild known repositories:" 
+
+        set exec_cmd exec
+        set fossil_list {fossil all list}
+        set fossil_rebuild {fossil rebuild}
+
+        if [catch {eval $exec_cmd $fossil_list} repositories] {
+            ui_error "failed to execute $fossil_list"
+        }
+
+        if [llength $repositories] {
+            foreach repo $repositories {
+                if {![catch {eval $exec_cmd $fossil_rebuild $repo} result]} {
+                    ui_msg "* successfully rebuild $repo"
+                } else {
+                    ui_msg "* failed to rebuild $repo"
+                }
+            }
+        } else {
+            ui_msg "* No repositories found"
+        }
+
+        ui_msg "* Finished rebuilding repositories"
+    }
+}
+
+# remove after 2016-11-10
+variant readline description {Legacy compatibility variant} {}
+
+notes "
+It is recommended to rebuild repositories created with earlier versions of\
+fossil. To rebuild a repository run:
+
+fossil rebuild /<path>/<to>/<repository>
+
+Rebuilding a repository is a safe operation\; executing it more then once will\
+not harm the integrity of a repository.
+"
+
+livecheck.type      regex
+livecheck.url       ${homepage}/download.html
+livecheck.regex     {Version ([\d.]*)}

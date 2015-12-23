@@ -8,7 +8,7 @@
 <link rel="up" href="glib-data-types.html" title="GLib Data Types">
 <link rel="prev" href="glib-Trash-Stacks.html" title="Trash Stacks">
 <link rel="next" href="glib-Strings.html" title="Strings">
-<meta name="generator" content="GTK-Doc V1.21.1 (XML mode)">
+<meta name="generator" content="GTK-Doc V1.24 (XML mode)">
 <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF">
@@ -508,7 +508,6 @@ a function call.</p>
 <div class="refsect3">
 <a name="id-1.6.7.7.2.8"></a><h4>Returns</h4>
 <p> a new <a class="link" href="glib-Hash-Tables.html#GHashTable" title="GHashTable"><span class="type">GHashTable</span></a></p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -568,7 +567,6 @@ if you don't want to supply such a function. </p></td>
 <div class="refsect3">
 <a name="id-1.6.7.7.3.7"></a><h4>Returns</h4>
 <p> a new <a class="link" href="glib-Hash-Tables.html#GHashTable" title="GHashTable"><span class="type">GHashTable</span></a></p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -619,7 +617,6 @@ must be an element of randomness that an attacker is unable to guess.</p>
 <div class="refsect3">
 <a name="id-1.6.7.7.4.11"></a><h4>Returns</h4>
 <p> the hash value corresponding to the key</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -658,7 +655,6 @@ and <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><c
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>a</code></em>
 = <em class="parameter"><code>b</code></em>
 ; <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> otherwise</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -707,7 +703,6 @@ key is freed using that function.</p>
 <div class="refsect3">
 <a name="id-1.6.7.7.6.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if the key did not exist yet</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -755,8 +750,7 @@ If you supplied a <em class="parameter"><code>key_destroy_func</code></em>
 </div>
 <div class="refsect3">
 <a name="id-1.6.7.7.7.6"></a><h4>Returns</h4>
-<p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> of the key did not exist yet</p>
-<p></p>
+<p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if the key did not exist yet</p>
 </div>
 </div>
 <hr>
@@ -797,9 +791,8 @@ the discussion in the section description.</p>
 <div class="refsect3">
 <a name="id-1.6.7.7.8.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if the key did not exist yet</p>
-<p></p>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -837,9 +830,8 @@ g_hash_table_contains (<em class="parameter"><code><a class="link" href="glib-Ha
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if <em class="parameter"><code>key</code></em>
 is in <em class="parameter"><code>hash_table</code></em>
 , <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> otherwise.</p>
-<p></p>
 </div>
-<p class="since">Since 2.32</p>
+<p class="since">Since: <a class="link" href="api-index-2-32.html#api-index-2.32">2.32</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -865,7 +857,6 @@ g_hash_table_size (<em class="parameter"><code><a class="link" href="glib-Hash-T
 <div class="refsect3">
 <a name="id-1.6.7.7.10.6"></a><h4>Returns</h4>
 <p> the number of key/value pairs in the <a class="link" href="glib-Hash-Tables.html#GHashTable" title="GHashTable"><span class="type">GHashTable</span></a>.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -958,7 +949,6 @@ of <em class="parameter"><code>hash_table</code></em>
 <div class="refsect3">
 <a name="id-1.6.7.7.12.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if the key was found in the <a class="link" href="glib-Hash-Tables.html#GHashTable" title="GHashTable"><span class="type">GHashTable</span></a></p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -1061,7 +1051,7 @@ evaluates to <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="T
 requested property is found, <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a> is returned. </p>
 <p><span class="annotation">[<acronym title="NULL is OK, both for passing and for returning."><span class="acronym">allow-none</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.4</p>
+<p class="since">Since: <a class="link" href="api-index-2-4.html#api-index-2.4">2.4</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1138,7 +1128,6 @@ yourself.</p>
 <div class="refsect3">
 <a name="id-1.6.7.7.16.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if the key was found and removed from the <a class="link" href="glib-Hash-Tables.html#GHashTable" title="GHashTable"><span class="type">GHashTable</span></a></p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -1174,7 +1163,6 @@ calling the key and value destroy functions.</p>
 <div class="refsect3">
 <a name="id-1.6.7.7.17.6"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if the key was found and removed from the <a class="link" href="glib-Hash-Tables.html#GHashTable" title="GHashTable"><span class="type">GHashTable</span></a></p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -1221,7 +1209,6 @@ key/value pairs in the hash table.</p>
 <div class="refsect3">
 <a name="id-1.6.7.7.18.7"></a><h4>Returns</h4>
 <p> the number of key/value pairs removed</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -1267,7 +1254,6 @@ key/value pairs in the hash table.</p>
 <div class="refsect3">
 <a name="id-1.6.7.7.19.7"></a><h4>Returns</h4>
 <p> the number of key/value pairs removed.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -1295,7 +1281,7 @@ values are freed yourself.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.12</p>
+<p class="since">Since: <a class="link" href="api-index-2-12.html#api-index-2.12">2.12</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1319,7 +1305,7 @@ without calling the key and value destroy functions.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.12</p>
+<p class="since">Since: <a class="link" href="api-index-2-12.html#api-index-2.12">2.12</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1353,9 +1339,8 @@ To iterate over the entries in a <a class="link" href="glib-Hash-Tables.html#GHa
 table. The content of the list is owned by the hash table and
 should not be modified or freed. Use <a class="link" href="glib-Doubly-Linked-Lists.html#g-list-free" title="g_list_free ()"><code class="function">g_list_free()</code></a> when done
 using the list.</p>
-<p></p>
 </div>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1390,9 +1375,8 @@ To iterate over the entries in a <a class="link" href="glib-Hash-Tables.html#GHa
 table. The content of the list is owned by the hash table and
 should not be modified or freed. Use <a class="link" href="glib-Doubly-Linked-Lists.html#g-list-free" title="g_list_free ()"><code class="function">g_list_free()</code></a> when done
 using the list.</p>
-<p></p>
 </div>
-<p class="since">Since 2.14</p>
+<p class="since">Since: <a class="link" href="api-index-2-14.html#api-index-2.14">2.14</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1443,7 +1427,7 @@ first to transfer ownership of the keys.</p>
 <a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a>-terminated array containing each key from the table. </p>
 <p><span class="annotation">[<acronym title="Parameter points to an array of items."><span class="acronym">array</span></acronym> length=length][<acronym title="Free data container after the code is done."><span class="acronym">transfer container</span></acronym>]</span></p>
 </div>
-<p class="since">Since 2.40</p>
+<p class="since">Since: <a class="link" href="api-index-2-40.html#api-index-2.40">2.40</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1489,7 +1473,6 @@ key/value pair should be removed from the <a class="link" href="glib-Hash-Tables
 <a name="id-1.6.7.7.25.6"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if the key/value pair should be removed from the
 <a class="link" href="glib-Hash-Tables.html#GHashTable" title="GHashTable"><span class="type">GHashTable</span></a></p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -1591,9 +1574,8 @@ This function is MT-safe and may be called from any thread.</p>
 <div class="refsect3">
 <a name="id-1.6.7.7.29.6"></a><h4>Returns</h4>
 <p> the passed in <a class="link" href="glib-Hash-Tables.html#GHashTable" title="GHashTable"><span class="type">GHashTable</span></a></p>
-<p></p>
 </div>
-<p class="since">Since 2.10</p>
+<p class="since">Since: <a class="link" href="api-index-2-10.html#api-index-2.10">2.10</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1620,7 +1602,7 @@ This function is MT-safe and may be called from any thread.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.10</p>
+<p class="since">Since: <a class="link" href="api-index-2-10.html#api-index-2.10">2.10</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1644,14 +1626,14 @@ invalidates the returned iterator.</p>
 6
 7
 8</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="usertype">GHashTableIter</span><span class="normal"> iter</span><span class="symbol">;</span>
-<span class="usertype">gpointer</span><span class="normal"> key</span><span class="symbol">,</span><span class="normal"> value</span><span class="symbol">;</span>
+        <td class="listing_code"><pre class="programlisting">GHashTableIter iter<span class="gtkdoc opt">;</span>
+gpointer key<span class="gtkdoc opt">,</span> value<span class="gtkdoc opt">;</span>
 
-<span class="function"><a href="glib-Hash-Tables.html#g-hash-table-iter-init">g_hash_table_iter_init</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">iter</span><span class="symbol">,</span><span class="normal"> hash_table</span><span class="symbol">);</span>
-<span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="function"><a href="glib-Hash-Tables.html#g-hash-table-iter-next">g_hash_table_iter_next</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">iter</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">key</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">value</span><span class="symbol">))</span>
-<span class="normal">  </span><span class="cbracket">{</span>
-<span class="normal">    </span><span class="comment">// do something with key and value</span>
-<span class="normal">  </span><span class="cbracket">}</span></pre></td>
+<span class="function"><a href="glib-Hash-Tables.html#g-hash-table-iter-init">g_hash_table_iter_init</a></span> <span class="gtkdoc opt">(&amp;</span>iter<span class="gtkdoc opt">,</span> hash_table<span class="gtkdoc opt">);</span>
+<span class="keyword">while</span> <span class="gtkdoc opt">(</span><span class="function"><a href="glib-Hash-Tables.html#g-hash-table-iter-next">g_hash_table_iter_next</a></span> <span class="gtkdoc opt">(&amp;</span>iter<span class="gtkdoc opt">, &amp;</span>key<span class="gtkdoc opt">, &amp;</span>value<span class="gtkdoc opt">))</span>
+  <span class="gtkdoc opt">{</span>
+    <span class="gtkdoc slc">// do something with key and value</span>
+  <span class="gtkdoc opt">}</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -1680,7 +1662,7 @@ invalidates the returned iterator.</p>
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.16</p>
+<p class="since">Since: <a class="link" href="api-index-2-16.html#api-index-2.16">2.16</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1725,9 +1707,8 @@ pointed to as a result of this advancement. If <a class="link" href="glib-Standa
 <div class="refsect3">
 <a name="id-1.6.7.7.32.6"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#FALSE:CAPS" title="FALSE"><code class="literal">FALSE</code></a> if the end of the <a class="link" href="glib-Hash-Tables.html#GHashTable" title="GHashTable"><span class="type">GHashTable</span></a> has been reached.</p>
-<p></p>
 </div>
-<p class="since">Since 2.16</p>
+<p class="since">Since: <a class="link" href="api-index-2-16.html#api-index-2.16">2.16</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1755,9 +1736,8 @@ g_hash_table_iter_get_hash_table (<em class="parameter"><code><a class="link" hr
 <a name="id-1.6.7.7.33.6"></a><h4>Returns</h4>
 <p> the <a class="link" href="glib-Hash-Tables.html#GHashTable" title="GHashTable"><span class="type">GHashTable</span></a> associated with <em class="parameter"><code>iter</code></em>
 .</p>
-<p></p>
 </div>
-<p class="since">Since 2.16</p>
+<p class="since">Since: <a class="link" href="api-index-2-16.html#api-index-2.16">2.16</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1793,7 +1773,7 @@ from its associated <a class="link" href="glib-Hash-Tables.html#GHashTable" titl
 </tbody>
 </table></div>
 </div>
-<p class="since">Since 2.30</p>
+<p class="since">Since: <a class="link" href="api-index-2-30.html#api-index-2.30">2.30</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1818,11 +1798,11 @@ values are freed yourself.</p>
 3
 4
 5</pre></td>
-        <td class="listing_code"><pre class="programlisting"><span class="keyword">while</span><span class="normal"> </span><span class="symbol">(</span><span class="function"><a href="glib-Hash-Tables.html#g-hash-table-iter-next">g_hash_table_iter_next</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">iter</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">key</span><span class="symbol">,</span><span class="normal"> </span><span class="symbol">&amp;</span><span class="normal">value</span><span class="symbol">))</span>
-<span class="normal">  </span><span class="cbracket">{</span>
-<span class="normal">    </span><span class="keyword">if</span><span class="normal"> </span><span class="symbol">(</span><span class="normal">condition</span><span class="symbol">)</span>
-<span class="normal">      </span><span class="function"><a href="glib-Hash-Tables.html#g-hash-table-iter-remove">g_hash_table_iter_remove</a></span><span class="normal"> </span><span class="symbol">(&amp;</span><span class="normal">iter</span><span class="symbol">);</span>
-<span class="normal">  </span><span class="cbracket">}</span></pre></td>
+        <td class="listing_code"><pre class="programlisting"><span class="keyword">while</span> <span class="gtkdoc opt">(</span><span class="function"><a href="glib-Hash-Tables.html#g-hash-table-iter-next">g_hash_table_iter_next</a></span> <span class="gtkdoc opt">(&amp;</span>iter<span class="gtkdoc opt">, &amp;</span>key<span class="gtkdoc opt">, &amp;</span>value<span class="gtkdoc opt">))</span>
+  <span class="gtkdoc opt">{</span>
+    <span class="keyword">if</span> <span class="gtkdoc opt">(</span>condition<span class="gtkdoc opt">)</span>
+      <span class="function"><a href="glib-Hash-Tables.html#g-hash-table-iter-remove">g_hash_table_iter_remove</a></span> <span class="gtkdoc opt">(&amp;</span>iter<span class="gtkdoc opt">);</span>
+  <span class="gtkdoc opt">}</span></pre></td>
       </tr>
     </tbody>
   </table>
@@ -1844,7 +1824,7 @@ values are freed yourself.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.16</p>
+<p class="since">Since: <a class="link" href="api-index-2-16.html#api-index-2.16">2.16</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1871,7 +1851,7 @@ be called more than once for the same key/value pair.</p>
 </tr></tbody>
 </table></div>
 </div>
-<p class="since">Since 2.16</p>
+<p class="since">Since: <a class="link" href="api-index-2-16.html#api-index-2.16">2.16</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -1912,7 +1892,6 @@ stored in pointers, such as <code class="literal">GINT_TO_POINTER (n)</code>.</p
 <div class="refsect3">
 <a name="id-1.6.7.7.37.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if the two keys match.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -1945,7 +1924,6 @@ stored in pointers, such as <code class="literal">GINT_TO_POINTER (n)</code>.</p
 <div class="refsect3">
 <a name="id-1.6.7.7.38.7"></a><h4>Returns</h4>
 <p> a hash value corresponding to the key.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -1989,7 +1967,6 @@ directly: if your hash table's keys are of the form
 <div class="refsect3">
 <a name="id-1.6.7.7.39.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if the two keys match.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2022,7 +1999,6 @@ directly: if your hash table's keys are of the form
 <div class="refsect3">
 <a name="id-1.6.7.7.40.7"></a><h4>Returns</h4>
 <p> a hash value corresponding to the key.</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2063,9 +2039,8 @@ parameter, when using non-<a class="link" href="glib-Standard-Macros.html#NULL:C
 <div class="refsect3">
 <a name="id-1.6.7.7.41.6"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if the two keys match.</p>
-<p></p>
 </div>
-<p class="since">Since 2.22</p>
+<p class="since">Since: <a class="link" href="api-index-2-22.html#api-index-2.22">2.22</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2095,9 +2070,8 @@ when using non-<a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title=
 <div class="refsect3">
 <a name="id-1.6.7.7.42.7"></a><h4>Returns</h4>
 <p> a hash value corresponding to the key.</p>
-<p></p>
 </div>
-<p class="since">Since 2.22</p>
+<p class="since">Since: <a class="link" href="api-index-2-22.html#api-index-2.22">2.22</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2137,9 +2111,8 @@ parameter, when using non-<a class="link" href="glib-Standard-Macros.html#NULL:C
 <div class="refsect3">
 <a name="id-1.6.7.7.43.6"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if the two keys match.</p>
-<p></p>
 </div>
-<p class="since">Since 2.22</p>
+<p class="since">Since: <a class="link" href="api-index-2-22.html#api-index-2.22">2.22</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2170,9 +2143,8 @@ when using non-<a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title=
 <div class="refsect3">
 <a name="id-1.6.7.7.44.6"></a><h4>Returns</h4>
 <p> a hash value corresponding to the key.</p>
-<p></p>
 </div>
-<p class="since">Since 2.22</p>
+<p class="since">Since: <a class="link" href="api-index-2-22.html#api-index-2.22">2.22</a></p>
 </div>
 <hr>
 <div class="refsect2">
@@ -2214,7 +2186,6 @@ see <a class="link" href="glib-String-Utility-Functions.html#g-strcmp0" title="g
 <div class="refsect3">
 <a name="id-1.6.7.7.45.7"></a><h4>Returns</h4>
 <p> <a class="link" href="glib-Standard-Macros.html#TRUE:CAPS" title="TRUE"><code class="literal">TRUE</code></a> if the two keys match</p>
-<p></p>
 </div>
 </div>
 <hr>
@@ -2231,8 +2202,11 @@ uses the signed value of each byte.</p>
 <p>It can be passed to <a class="link" href="glib-Hash-Tables.html#g-hash-table-new" title="g_hash_table_new ()"><code class="function">g_hash_table_new()</code></a> as the <em class="parameter"><code>hash_func</code></em>
  parameter,
 when using non-<a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title="NULL"><code class="literal">NULL</code></a> strings as keys in a <a class="link" href="glib-Hash-Tables.html#GHashTable" title="GHashTable"><span class="type">GHashTable</span></a>.</p>
+<p>Note that this function may not be a perfect fit for all use cases.
+For example, it produces some hash collisions with strings as short
+as 2.</p>
 <div class="refsect3">
-<a name="id-1.6.7.7.46.7"></a><h4>Parameters</h4>
+<a name="id-1.6.7.7.46.8"></a><h4>Parameters</h4>
 <div class="informaltable"><table width="100%" border="0">
 <colgroup>
 <col width="150px" class="parameters_name">
@@ -2247,9 +2221,8 @@ when using non-<a class="link" href="glib-Standard-Macros.html#NULL:CAPS" title=
 </table></div>
 </div>
 <div class="refsect3">
-<a name="id-1.6.7.7.46.8"></a><h4>Returns</h4>
+<a name="id-1.6.7.7.46.9"></a><h4>Returns</h4>
 <p> a hash value corresponding to the key</p>
-<p></p>
 </div>
 </div>
 </div>
@@ -2276,7 +2249,6 @@ with <a class="link" href="glib-Hash-Tables.html#g-hash-table-iter-init" title="
 </div>
 </div>
 <div class="footer">
-<hr>
-          Generated by GTK-Doc V1.21.1</div>
+<hr>Generated by GTK-Doc V1.24</div>
 </body>
 </html>

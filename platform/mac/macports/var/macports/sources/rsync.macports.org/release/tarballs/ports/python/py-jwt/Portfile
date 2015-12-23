@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141819 2015-10-29 14:34:36Z petr@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+set _name           PyJWT
+set _n              [string index ${_name} 0]
+
+name                py-jwt
+version             1.4.0
+categories-append   security
+platforms           darwin
+supported_archs     noarch
+license             MIT
+maintainers         petr openmaintainer
+
+description         JSON Web Token implementation in Python
+long_description    ${description}
+
+homepage            https://pypi.python.org/pypi/${_name}/${version}
+master_sites        https://pypi.python.org/packages/source/${_n}/${_name}/
+distname            ${_name}-${version}
+
+checksums           md5     2f9bd9226d72b13d19d2c557114d03dc \
+                    rmd160  19491dd595b1fb1ac73bfe9778cc26342cc5cf1d \
+                    sha256  e1b2386cfad541445b1d43e480b02ca37ec57259fd1a23e79415b57ba5d8a694
+
+python.versions     27 34 35
+
+if {${name} ne ${subport}} {
+    depends_build-append    port:py${python.version}-setuptools
+
+    livecheck.type  none
+} else {
+    livecheck.type  regex
+    livecheck.url   https://pypi.python.org/pypi/${_name}/json
+    livecheck.regex "\"${_name}-(\[.\\d\]+)\\.tar\\.gz\""
+}

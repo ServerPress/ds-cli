@@ -1,0 +1,42 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim: fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138474 2015-07-09 18:17:39Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           muniversal 1.0
+
+name                libev
+epoch               1
+version             4.20
+revision            0
+categories          devel net
+platforms           darwin
+license             {BSD GPL-2+}
+
+maintainers         stromnov openmaintainer
+
+description         asynchronous event library
+
+long_description    libev is a full-featured and high-performance event \
+                    loop that is loosely modelled after libevent.
+
+homepage            http://software.schmorp.de/pkg/libev.html
+master_sites        http://dist.schmorp.de/libev/Attic/
+
+checksums           rmd160  58c52e5bb2c3911238c704daaa052d5dbde71b6e \
+                    sha256  f870334c7fa961e7f31087c7d76abf849f596e3048f8ed2a0aaa983cd73d449e
+
+patchfiles          patch-configure.ac.diff
+
+use_autoreconf      yes
+autoreconf.args     -fvi
+
+post-destroot {
+    move ${destroot}${prefix}/include/event.h ${destroot}${prefix}/include/ev-event.h
+}
+
+test.run            yes
+test.target         verify
+
+livecheck.type      regex
+livecheck.url       http://dist.schmorp.de/libev/
+livecheck.regex     ${name}-(\[0-9.\]+)\\.

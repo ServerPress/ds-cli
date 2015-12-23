@@ -1,0 +1,22 @@
+# $Id: Portfile 79091 2011-06-02 04:19:39Z ryandesign@macports.org $
+
+PortSystem 1.0
+
+name             zsync
+version          0.6.2
+categories       net
+maintainers      coateconnection.com:dlc
+description      file transfer program
+long_description \
+	zsync is a file transfer program. It allows you to download a \
+	file from a remote web server, where you have a copy of an \
+	older version of the file on your computer already. zsync \
+	downloads only the new parts of the file. It uses the same \
+	algorithm as rsync.
+platforms        darwin
+homepage         http://zsync.moria.org.uk/
+master_sites     http://zsync.moria.org.uk/download/
+use_bzip2        yes
+
+checksums           sha1    5e69f084c8adaad6a677b68f7388ae0f9507617a \
+                    rmd160  3a7ce9f72cde7960cb3c9ede629bae23fca40153

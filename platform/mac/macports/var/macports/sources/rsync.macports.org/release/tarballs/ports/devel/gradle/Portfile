@@ -1,0 +1,68 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142664 2015-11-19 08:45:04Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                gradle
+version             2.9
+categories          devel java groovy
+license             Apache-2
+maintainers         nomaintainer
+
+description         An open-source build system that is based on the Groovy language
+long_description    Gradle is a build system which offers you ease, power and freedom. \
+                    You can choose the balance for yourself. It has powerful multi-project build \
+                    support. It has a layer on top of Ivy that provides a build-by-convention \
+                    integration for Ivy. It gives you always the choice between the flexibility \
+                    of Ant and the convenience of a build-by-convention behavior.
+
+homepage            http://www.gradle.org/
+platforms           darwin
+distname            ${name}-${version}-bin
+master_sites        http://services.gradle.org/distributions
+
+checksums           rmd160  f8f51562bdd290cbd2b7bcee6b4af0f559537c1d \
+                    sha256  c9159ec4362284c0a38d73237e224deae6139cbde0db4f0f44e1c7691dd3de2f
+
+worksrcdir          ${name}-${version}
+set workTarget      ""
+
+use_zip             yes
+use_configure       no
+
+build.cmd           true
+
+platform darwin {
+    build.env       JAVA_HOME=/Library/Java/Home
+}
+
+pre-destroot {
+    # Remove extraneous bat files
+    foreach f [glob -directory ${worksrcpath}${workTarget}/bin *.bat] {
+        delete $f
+    }
+}
+
+destroot    {
+    # Create the target java directory
+    xinstall -m 755 -d ${destroot}${prefix}/share/java/${name}
+
+    # Copy over the needed elements of our directory tree
+    copy ${worksrcpath}/bin \
+        ${worksrcpath}/lib \
+        ${worksrcpath}/LICENSE \
+        ${worksrcpath}/NOTICE \
+        ${destroot}${prefix}/share/java/${name}
+
+    # Symlink gradle into the bin directory
+    ln -s ${prefix}/share/java/${name}/bin/gradle ${destroot}${prefix}/bin
+}
+
+notes "
+Remember to set the environment variable GRADLE_HOME to the path to the gradle\
+distribution: ${prefix}/share/java/${name}
+"
+
+livecheck.type  regex
+livecheck.url   ${master_sites}
+livecheck.regex ${name}-(\\d+\\.\\d+(\\.\\d+)?)-all\\.zip

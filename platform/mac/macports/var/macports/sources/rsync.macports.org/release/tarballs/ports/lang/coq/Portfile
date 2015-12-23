@@ -1,0 +1,67 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 137992 2015-06-24 16:17:51Z mww@macports.org $
+
+PortSystem          1.0
+
+name                coq
+version             8.4pl6
+revision            1
+platforms           darwin
+categories          lang math
+license             LGPL-2.1
+maintainers         piermont.com:perry
+
+description         Proof assistant for higher-order logic
+long_description    Coq is a proof assistant for higher-order logic, \
+                    which allows the development of computer programs \
+                    consistent with their formal specification. It is \
+                    developed using Objective Caml and Camlp4.
+homepage            http://coq.inria.fr/
+
+depends_lib         port:ocaml \
+                    port:camlp5
+
+master_sites        http://coq.inria.fr/distrib/V${version}/files/
+checksums           rmd160  f57f6e5732d3977f3346dda2749f4b9628604018 \
+                    sha256  a540a231a9970a49353ca039f3544616ff86a208966ab1c593779ae13c91ebd6
+
+configure.pre_args  -prefix ${prefix}
+configure.args      -emacslib ${prefix}/share/emacs/site-lisp/ \
+                    -mandir ${prefix}/share/man \
+                    -coqdocdir ${prefix}/share/coq/latex \
+                    -coqide none \
+                    -with-doc no
+build.target        world
+
+destroot.target     install
+destroot.destdir    COQINSTALLPREFIX=${destroot}
+
+# ocaml is not universal
+universal_variant   no
+
+notes "
+The style file for LaTeX documentation,\
+coqdoc.sty, is in ${prefix}/share/coq/latex.\
+Add this to your TEXINPUTS if you wish to\
+use it.
+"
+
+variant doc description {Build documentation} {
+    depends_build-append    port:hevea \
+                            port:netpbm \
+                            port:texlive \
+                            port:texlive-latex-extra
+    configure.args-delete   -with-doc no
+    configure.args-append   -with-doc yes
+    use_parallel_build      no
+}
+
+variant coqide description {Install CoqIDE} {
+    depends_lib-append      port:lablgtk2
+    configure.args-delete   -coqide none
+    configure.args-append   -coqide opt
+}
+
+livecheck.type      regex
+livecheck.url       ${homepage}/download/
+livecheck.regex     "<a href=\"distrib/V(\\d+(?:\\.\\w+)*)/files/coq-\\1\\.tar\\.gz\">"

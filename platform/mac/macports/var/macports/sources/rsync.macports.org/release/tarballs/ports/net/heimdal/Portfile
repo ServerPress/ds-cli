@@ -1,0 +1,103 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142698 2015-11-20 16:55:09Z landonf@macports.org $
+
+PortSystem          1.0
+
+name                heimdal
+version             1.5.3
+checksums           rmd160  834660b4c0fe81a3aac4ffd9d8d37d74add1fa70 \
+                    sha256  aac27bedb33c341b6aed202af07ccc816146a893148721f8123abbbf93bbfea5
+
+maintainers         nomaintainer
+categories          net security
+platforms           darwin
+
+license             BSD MIT Permissive
+homepage            http://www.h5l.org/
+description         Kerberos is a network authentication protocol.
+long_description    \
+    Kerberos provides a means of verifying the identities of principals, (e.g., \
+    a workstation user or a network server) on an open (unprotected) network. \
+    This is accomplished without relying on authentication by the host \
+    operating system, without basing trust on host addresses, without requiring \
+    physical security of all the hosts on the network, and under the assumption \
+    that packets traveling along the network can be read, modified, and \
+    inserted at will.
+
+master_sites        ${homepage}dist/src/
+
+depends_lib         port:readline \
+                    port:gettext
+
+# See https://trac.macports.org/ticket/44738, drop when integrated upstream
+# Patch from https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=711221
+patch.pre_args      -p1
+patchfiles          heimdal-texi.diff
+
+# Use a separate prefix to avoid conflicts with the port kerberos5
+# (and openssl, if that variant is selected)
+configure.pre_args  --prefix=${prefix}/libexec/heimdal
+configure.args      \
+    --sysconfdir=${prefix}/etc \
+    --enable-shared            \
+    --enable-static            \
+    --enable-pthread-support   \
+    --with-readline=${prefix}  \
+    --with-libintl=${prefix}   \
+    --without-x                \
+    --without-openldap         \
+    --without-openssl          \
+    --without-sqlite3
+
+build.env-append    LC_CTYPE=C
+
+# ./kadm5_locl.h:77:10: fatal error: 'kadm5_err.h' file not found
+use_parallel_build  no
+
+variant x11 description \
+    {Enable X11 use in libraries, and build X11-related applications} {
+    depends_lib-append      port:xorg-libice \
+                            port:xorg-libXau \
+                            port:xorg-libXt \
+                            port:xorg-libsm \
+                            port:xorg-libX11 \
+                            port:xorg-libXdmcp
+    configure.args-delete   --without-x
+    configure.args-append   --with-x=${prefix}
+}
+
+variant openldap description \
+    {Enable LDAP database support for keeping track of Kerberos information} {
+    depends_lib-append      port:openldap
+    configure.args-delete   --without-openldap
+    configure.args-append   --with-openldap=${prefix}
+}
+
+# heimdal fails with openssl-1.0.0a due to removal of md2
+#variant openssl description \
+#    {Use OpenSSL libraries instead of internal ones for crypto and ssl related functions} {
+#    depends_lib-append     path:lib/libssl.dylib:openssl
+#    configure.args-delete  --without-openssl
+#    configure.args-append  --with-openssl=${prefix}
+#}
+
+variant sqlite3 description \
+    {Enable SQlite3 database support for keeping track of Kerberos information} {
+    depends_lib-append      port:sqlite3
+    configure.args-delete   --without-sqlite3
+    configure.args-append   --with-sqlite3=${prefix}
+}
+
+post-patch {
+    # Tiger does not have the CommonCrypto support needed for -openssl
+    if {${os.platform} eq "darwin" && ${os.major} < 9} {
+        reinplace "s:def __APPLE__: 0:" ${worksrcpath}/lib/hcrypto/evp-cc.c
+    }
+}
+
+test.run            yes
+test.target         check
+
+livecheck.type      regex
+livecheck.url       ${master_sites}
+livecheck.regex     "[quotemeta ${name}]-(\\d+(?:\\.\\d+)*)[quotemeta ${extract.suffix}]"

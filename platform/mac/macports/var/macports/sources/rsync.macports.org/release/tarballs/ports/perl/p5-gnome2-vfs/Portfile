@@ -1,0 +1,32 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Gnome2-VFS 1.082
+revision            1
+license             LGPL-2.1+
+maintainers         nomaintainer
+description         Bindings to Gtk+ library
+long_description    Perl bindings to the 2.x series of the Gtk+ graphical user interface \
+                    library.  This module allows you to write graphical user interfaces in \
+                    a perlish and object-oriented way, freeing you from the casting and \
+                    memory management in C, yet remaining very close in spirit to original \
+                    API.
+
+platforms           darwin
+
+homepage            http://gtk2-perl.sourceforge.net/
+master_sites        sourceforge:project/gtk2-perl/Gnome2_VFS/${perl5.moduleversion}
+
+checksums           rmd160  998e6926590276b0f4706ae2a4df45ec801be96f \
+                    sha256  19dacfedef8770300861cb75f98ca5402e6e56501a888af3c18266a0790911b7
+
+if {${perl5.major} != ""} {
+    depends_lib-append  lib:libgnomevfs-2:gnome-vfs \
+                        port:p${perl5.major}-extutils-depends \
+                        port:p${perl5.major}-extutils-pkgconfig \
+                        port:p${perl5.major}-glib
+}

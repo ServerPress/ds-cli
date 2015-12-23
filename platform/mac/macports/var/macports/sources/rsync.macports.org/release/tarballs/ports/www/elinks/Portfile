@@ -1,0 +1,69 @@
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
+
+PortSystem          1.0
+PortGroup           muniversal 1.0
+
+name                elinks
+conflicts           elinks-devel
+epoch               1
+version             0.11.7
+revision            3
+categories          www
+platforms           darwin
+license             GPL-2
+maintainers         nomaintainer
+description         text mode web browser
+long_description    ELinks is an advanced and well-established feature-rich \
+                    text mode web (HTTP/FTP/..) browser.  ELinks can render \
+                    both frames and tables, is highly customizable and can \
+                    be extended via Lua or Guile scripts.
+
+homepage            http://elinks.or.cz/
+master_sites        ${homepage}download/
+use_bzip2           yes
+checksums           md5     fcd087a6d2415cd4c6fd1db53dceb646 \
+                    sha1    d13edc1477d0ab32cafe7d3c1f3a23ae1c0a5c54 \
+                    rmd160  2e6e863d08f9accb71892ba6f236f795c83cba9c
+
+depends_lib         path:lib/libssl.dylib:openssl \
+                    port:bzip2 \
+                    port:expat \
+                    port:spidermonkey
+
+configure.args      --mandir=${prefix}/share/man \
+                    --disable-nls \
+                    --without-guile \
+                    --without-lua \
+                    --without-gnutls \
+                    --with-openssl=${prefix} \
+                    --with-spidermonkey=${prefix} \
+                    --without-zlib
+# zlib support is broken in 0.11, ticket #24143
+
+variant col256 description {Use 256 colours if supported by the terminal} {
+    post-extract {
+        reinplace "s|CONFIG_256_COLORS=no|CONFIG_256_COLORS=yes|" \
+            ${worksrcpath}/features.conf
+    }
+}
+
+variant lua description {Build with Lua support} {
+    depends_lib-append      port:lua50
+
+    configure.args-delete   --without-lua
+    configure.args-append   --with-lua
+}
+
+variant perl description {Build with Perl support} {
+    depends_lib-append      path:bin/perl:perl5
+
+    patchfiles-append       patch-perl.diff
+
+    configure.args-append   --with-perl
+}
+
+use_parallel_build no
+
+livecheck.url	${master_sites}
+livecheck.type	regex
+livecheck.regex "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

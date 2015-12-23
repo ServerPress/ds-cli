@@ -1,0 +1,11 @@
+--- makefile.in.orig
++++ makefile.in
+@@ -1229,7 +1229,7 @@
+ #
+ # gcc -dynamiclib -install_name libliquid.dylib -o libliquid.dylib libmodem.a libutility.a 
+ libliquid.dylib: $(objects)
+-	$(CC) -dynamiclib -install_name $@ -o $@ $^ $(LDFLAGS)
++	$(CC) -dynamiclib -install_name $(exec_prefix)/lib/$@ -o $@ $^ $(LDFLAGS)
+ 
+ # linux, et al
+ libliquid.so: libliquid.a

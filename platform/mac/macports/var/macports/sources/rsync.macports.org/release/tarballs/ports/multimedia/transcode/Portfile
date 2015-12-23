@@ -1,0 +1,185 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 125494 2014-09-18 20:53:06Z devans@macports.org $
+
+PortSystem 1.0
+
+name        transcode
+version     1.1.7
+revision    15
+epoch       1
+license     GPL-2+
+categories  multimedia
+maintainers cogweb.net:lionteeth devans
+description Video and audio processing tools
+long_description    transcode is a suite of tools, all of which are \
+            command line utilities, for transcoding various \
+            video, audio, and container formats, running on a \
+            platform that supports shared libraries and threads.\
+            \
+            Decoding and encoding is done by modules that are \
+            responsible for feeding transcode with raw video/ \
+            audio streams (import modules) and encoding the frames \
+            (export modules). \
+            \
+            It includes a variety of video and audio filters, \
+            including (but not limited to) video de-interlacing, \
+            audio resampling, framerate conversion, different \
+            resizing algorithms, smoothing, sharpening, denoisifying, \
+            and cutting.
+
+homepage        https://bitbucket.org/france/transcode-tcforge/overview
+
+master_sites    https://bitbucket.org/france/transcode-tcforge/downloads/
+
+use_bzip2       yes
+
+checksums       md5     9bb25a796a8591fb764de46ee87ce505 \
+                sha1    e35df68b960eb56ef0a59a4cdbed1491be56aee6
+
+depends_build   port:pkgconfig
+
+depends_lib     path:lib/libavcodec.dylib:ffmpeg \
+                port:libmpeg2 \
+                port:libdvdread \
+                port:jpeg \
+                port:lame
+
+platforms       darwin
+
+patchfiles      patch-configure.diff \
+                patch-avilib-avidump.c.diff \
+                patch-ffmpeg-0.11.diff \
+                patch-filter-filter_pp.c.diff \
+                patch-encode-Makefile.in.diff \
+                patch-ffmpeg-2.0.diff \
+                patch-ffmpeg-2.4.diff \
+                patch-freetype-2.5.1.diff
+
+configure.args  --disable-mmx \
+                --enable-libmpeg2 \
+                --enable-libmpeg2convert \
+                --without-x
+
+# Optional components
+
+universal_variant no
+
+variant mmx description {enable mmx optimizations} {
+     configure.args-delete --disable-mmx
+}
+
+variant full requires a52dec faac freetype imagemagick libdv libogg libpostproc libquicktime libsdl libtheora libvorbis libxml2 lzo mjpegtools x264 xvid description {enable all optional components except deprecated} {
+}
+
+variant a52dec description {enable support for decoding ATSC A/52 streams} {
+    depends_lib-append port:a52dec
+    configure.args-append --enable-a52 --with-a52-prefix=${prefix}
+}
+
+variant faac requires experimental description {enable AAC encoding support via libfaac (experimental)} {
+    depends_lib-append port:faac
+    configure.args-append --enable-faac --with-faac-prefix=${prefix}
+}
+
+variant freetype description {enable support for the FreeType font engine} {
+    depends_lib-append port:freetype
+    configure.args-append --enable-freetype2
+}
+
+variant imagemagick description {enable support for the manipulation of still images} {
+    depends_lib-append port:ImageMagick
+    configure.args-append --enable-imagemagick --with-imagemagick-prefix=${prefix}
+}
+
+variant libdv description {enable support for the Digital Video format via libdv} {
+    depends_lib-append port:libdv
+    configure.args-append --enable-libdv
+}
+
+variant libogg description {enable support for encoding and decoding ogg audio} {
+    depends_lib-append port:libogg
+    configure.args-append --enable-ogg
+}
+
+variant libpostproc description {enable libpostproc support from ffmpeg} {
+    configure.args-append --enable-libpostproc
+}
+
+variant libquicktime description {enable support for QuickTime video} {
+# use only libquicktime-devel until libquicktime is upgraded to build
+# with ffmpeg-2.0
+#    depends_lib-append path:lib/libquicktime.dylib:libquicktime-devel
+    depends_lib-append port:libquicktime-devel
+    configure.args-append --enable-libquicktime
+}
+
+variant libtheora description {enable support for the open video codec theora} {
+    depends_lib-append port:libtheora
+    configure.args-append --enable-theora
+}
+
+variant libvorbis description {enable support for a fully open compressed audio format} {
+    depends_lib-append port:libvorbis
+    configure.args-append --enable-vorbis
+}
+
+variant libxml2 description {enable support for the XML metalanguage} {
+    depends_lib-append port:libxml2
+    configure.args-append --enable-libxml2
+}
+
+variant lzo requires experimental description {enable lossless data compression via lzo2 (experimental)} {
+    depends_lib-append port:lzo2
+    configure.args-append --enable-lzo --with-lzo-prefix=${prefix}
+}
+
+variant mjpegtools description {enable mjpegtools support} {
+    depends_lib-append port:mjpegtools
+    configure.args-append --enable-mjpegtools
+}
+
+variant x264 requires experimental description {enable support for encoding H264/AVC video (experimental)} {
+    depends_lib-append port:x264
+    configure.args-append --enable-x264
+}
+
+variant xvid requires experimental description {enable support for the open Xvid video codec (experimental)} {
+    depends_lib-append port:XviD
+    configure.args-append --enable-xvid --with-xvid-prefix=${prefix}
+}
+
+variant experimental description {enable new, experimental or even incomplete components} {
+    configure.args-append --enable-experimental
+}
+
+variant deprecated description {enable deprecated or even broken components} {
+    configure.args-append --enable-deprecated
+}
+
+#
+# Display options
+#
+
+variant libsdl description {enable Simple DirectMedia Layer display support} {
+    depends_lib-append port:libsdl
+    configure.args-append --enable-sdl
+}
+
+variant x11 {
+    depends_lib-append port:xorg-libXv
+    depends_lib-append port:xorg-libXaw
+    depends_lib-append port:xpm
+    configure.args-append --x-includes=${prefix}/include
+    configure.args-append --x-libraries=${prefix}/lib
+    configure.args-delete --without-x
+}
+
+default_variants +x11
+
+platform darwin {
+    configure.args-append --build=${build_arch}-apple-darwin${os.major}
+}
+
+livecheck.type  regex
+livecheck.url   ${master_sites}
+livecheck.regex "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"

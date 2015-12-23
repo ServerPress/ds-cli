@@ -1,0 +1,32 @@
+# $Id: Portfile 124205 2014-08-20 22:28:00Z jmr@macports.org $
+
+PortSystem 1.0
+
+set langcode        id
+name                aspell-dict-${langcode}
+version             1.2-0
+categories          textproc
+license             GPL-2
+maintainers         nomaintainer
+description         ${langcode} dictionary for aspell
+long_description    ${description}
+homepage	        http://aspell.net/
+platforms	        darwin
+supported_archs     noarch
+
+master_sites	    gnu:aspell/dict/${langcode}
+distname	        aspell5-${langcode}-${version}
+checksums           md5     9136385a6ce0ff0d113427ab3c974254 \
+                    sha1    7c4ce9252d74927a8b22a7af5260b3b22cc11a3c \
+                    rmd160  9d1f368e0b691c9351462ca751c7abfe4423130a
+
+use_bzip2           yes
+
+depends_build       port:aspell
+
+configure.pre_args  {}
+configure.args      --vars \
+                    ASPELL=${prefix}/bin/aspell \
+                    WORD_LIST_COMPRESS=${prefix}/bin/word-list-compress
+
+livecheck.regex     >aspell(?:5|6)?-${langcode}-(.*?)\\.tar\\.

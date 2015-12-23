@@ -1,0 +1,21 @@
+# $Id: Portfile 96302 2012-08-07 07:00:13Z ryandesign@macports.org $
+
+PortSystem 1.0
+
+name		jikes
+version		1.22
+categories	lang java devel
+license		IBMPL-1
+maintainers	nomaintainer
+description	High performance Java compiler
+long_description	\
+	Jikes is a compiler that translates Java source files as \
+	defined in The Java Language Specification into the \
+	bytecoded instruction set and binary format defined in \
+	The Java Virtual Machine Specification.
+platforms	darwin
+homepage       	http://jikes.sourceforge.net/
+use_bzip2      	yes
+master_sites   	sourceforge
+checksums	md5 cda958c7fef6b43b803e1d1ef9afcb85
+configure.args  --infodir=${prefix}/share/info --mandir=${prefix}/share/man

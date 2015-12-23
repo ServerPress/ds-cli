@@ -1,0 +1,23 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143574 2015-12-15 06:12:56Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Math-BigInt-GMP 1.47
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Math::BigInt::GMP - Use the GMP library for Math::BigInt routines
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  8564e62ee26fcfee028e029fd9eee6bae4da62eb \
+                    sha256  9ed3101d39fc118e025604e48894b88bf674f44c745a591c580987b2f24127e8
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:gmp \
+                    port:p${perl5.major}-math-bigint
+}

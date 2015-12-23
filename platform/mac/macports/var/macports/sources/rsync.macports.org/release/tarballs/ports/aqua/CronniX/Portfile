@@ -1,0 +1,37 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 79547 2011-06-17 22:12:38Z ryandesign@macports.org $
+
+PortSystem              1.0
+PortGroup               xcode 1.0
+
+name                    CronniX
+version                 3.0.2
+categories              aqua
+maintainers             ryandesign
+license                 GPL-3
+homepage                http://code.google.com/p/cronnix/
+xcode.target            ${name}
+
+fetch.type              svn
+svn.url                 http://cronnix.googlecode.com/svn/trunk
+svn.revision            83
+worksrcdir              trunk
+
+description \
+    graphical frontend for scheduling cronjobs
+
+long_description \
+    ${name} is a Mac OS X frontend to the Unix scheduler cron. Cron is a \
+    system service that allows scheduled execution of scripts and programs.
+
+post-destroot {
+    fs-traverse dir ${destroot} {
+        if {[file isdirectory ${dir}]} {
+            file attributes ${dir} -permissions u+w
+        }
+    }
+}
+
+livecheck.type          regex
+livecheck.url           http://cronnix.googlecode.com/svn/tags
+livecheck.regex         release-(\[0-9.\]+)

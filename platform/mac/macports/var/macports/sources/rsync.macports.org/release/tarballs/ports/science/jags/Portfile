@@ -1,0 +1,39 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142046 2015-11-02 21:14:40Z dstrubbe@macports.org $
+
+PortSystem          1.0
+PortGroup           compilers 1.0
+
+name                jags
+version             4.0.0
+set major           [lindex [split ${version} .] 0]
+categories          science
+license             GPL-2
+platforms           darwin
+maintainers         uchicago.edu:dmeliza openmaintainer
+description         Just Another Gibbs Sampler
+long_description    JAGS is a program for analysis of Bayesian hierarchical \
+                    models using Markov Chain Monte Carlo (MCMC) simulation, \
+                    not wholly unlike BUGS.
+homepage            http://mcmc-jags.sourceforge.net/
+master_sites        sourceforge:project/mcmc-jags/JAGS/${major}.x/Source
+distname            JAGS-${version}
+
+checksums           rmd160  21b82152f8a112f5dc1544a46396c6758207c1a2 \
+                    sha256  a1d572269029d90d4e8b25757fd7ae9678994bd682937ec505ddcf06185d2c4c
+
+depends_build       port:libtool
+
+compilers.choose   cc cxx f77
+compilers.setup    require_fortran
+
+universal_variant   no
+
+# note: BLAS/LAPACK is an optional dependency
+configure.args      --with-blas='-framework Accelerate'
+
+# note: actually seems to contain source of SuiteSparse, which is another port
+
+livecheck.type          sourceforge
+livecheck.name          mcmc-jags
+livecheck.regex         /JAGS-(\[0-9.\]+)${extract.suffix}

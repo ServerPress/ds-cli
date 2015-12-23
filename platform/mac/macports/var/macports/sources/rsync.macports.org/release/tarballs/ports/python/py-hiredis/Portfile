@@ -1,0 +1,35 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134825 2015-04-08 11:30:02Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-hiredis
+version             0.2.0
+revision            0
+categories-append   devel databases
+platforms           darwin
+license             BSD
+
+python.versions     27 33 34
+
+maintainers         stromnov openmaintainer
+
+description         Python wrapper for hiredis
+long_description    ${description}
+
+homepage            https://github.com/pietern/hiredis-py
+master_sites        https://pypi.python.org/packages/source/h/hiredis/
+
+distname            hiredis-${version}
+
+checksums           rmd160  5bced44970eaaf3e91835da4c966663b7af388e9 \
+                    sha256  ca958e13128e49674aa4a96f02746f5de5973f39b57297b84d59fd44d314d5b5
+
+if {${name} ne ${subport}} {
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       https://pypi.python.org/pypi/hiredis/json
+    livecheck.regex     {hiredis-(\d+(?:\.\d+)*)\.[tz]}
+}

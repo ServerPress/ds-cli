@@ -1,0 +1,30 @@
+# $Id: Portfile 134033 2015-03-17 16:39:10Z jeremyhu@macports.org $
+
+PortSystem 1.0
+
+name            xorg-libXvMC
+version         1.0.9
+categories      x11 devel
+license         X11
+maintainers     jeremyhu openmaintainer
+description     X.org libXvMC
+homepage        http://www.x.org
+platforms       darwin macosx
+long_description Xvideo extension library with Motion Compression
+master_sites     xorg:individual/lib/
+
+distname    libXvMC-${version}
+checksums           sha1    6fc54831734e781b2848b6f7e3bcc4f752665f21 \
+                    rmd160  d19143cf9ddfbd2b3d1e854c4e0eaa9655ab2d3c \
+                    sha256  0703d7dff6ffc184f1735ca5d4eb9dbb402b522e08e008f2f96aee16c40a5756
+
+use_bzip2   yes
+use_parallel_build      yes
+
+depends_build   port:pkgconfig
+
+depends_lib     port:xorg-libXv
+
+livecheck.type  regex
+livecheck.url   http://xorg.freedesktop.org/archive/individual/lib/?C=M&O=D
+livecheck.regex libXvMC-(\\d+(?:\\.\\d+)*)

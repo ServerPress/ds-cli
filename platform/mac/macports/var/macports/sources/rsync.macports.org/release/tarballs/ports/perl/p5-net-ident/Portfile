@@ -1,0 +1,23 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Net-Ident 1.24
+maintainers         nomaintainer
+license             {Artistic-1 GPL}
+
+description         Look up the username on the remote end of a TCP/IP \
+                    connection
+long_description    Net::Ident is a module that looks up the username on \
+                    the remote side of a TCP/IP connection through the \
+                    ident (auth/tap) protocol described in RFC1413 \
+                    (which supersedes RFC931).
+
+checksums           rmd160  e62465be148b9fd288bf92259471a88da49c9c43 \
+                    sha256  5f5f1142185a67b87406a3fb31f221564f61838a70ef4c07284a66c55e82ad05
+
+platforms           darwin
+supported_archs     noarch

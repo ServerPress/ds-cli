@@ -1,0 +1,34 @@
+# $Id: Portfile 118641 2014-04-06 15:42:51Z mww@macports.org $
+
+PortSystem 1.0
+
+name			scheme48
+version			1.9.1
+categories		lang scheme
+platforms		darwin
+maintainers		mww
+license			BSD
+description		Scheme byte-code interpreter
+long_description	Scheme 48 is an implementation of Scheme written by \
+				Richard Kelsey and Jonathan Rees. It is based on a byte-code \
+				interpreter and is designed to be used as a testbed for \
+				experiments in implementation techniques and as an \
+				expository tool.
+
+homepage		http://s48.org/
+master_sites	${homepage}/${version}/
+extract.suffix	.tgz
+checksums           rmd160  5c227af04519f5266f66952f38a52c85c7e4124a \
+                    sha256  9ce76702fabf0a884762b95148f5e16d16f63e20fcf042af7cb51d7509ab2789
+
+variant universal	{}
+
+#patchfiles	patch-Makefile.in.diff
+
+configure.args	--mandir=${prefix}/share/man --enable-gc=bibop
+
+build.target	enough
+
+livecheck.type	regex
+livecheck.url	${homepage}
+livecheck.regex	(\[0-9\]+\.\[0-9\]+)/download

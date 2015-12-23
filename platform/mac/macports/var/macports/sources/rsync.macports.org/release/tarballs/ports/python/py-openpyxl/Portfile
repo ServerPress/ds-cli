@@ -1,0 +1,41 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142762 2015-11-22 20:59:53Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-openpyxl
+version             2.3.1
+revision            0
+categories-append   textproc
+platforms           darwin
+license             MIT/Expat
+supported_archs     noarch
+
+python.versions     27 34 35
+
+maintainers         stromnov openmaintainer
+
+description         read/write Excel 2007 xlsx/xlsm files
+
+long_description    openpyxl is a pure python reader and writer of Excel \
+                    OpenXML files. It is ported from the PHPExcel project.
+
+homepage            http://openpyxl.readthedocs.org
+master_sites        pypi:[string index ${python.rootname} 0]/${python.rootname}
+
+distname            ${python.rootname}-${version}
+
+checksums           rmd160  4a546097294254bf9d460985f3e9809290ed56c3 \
+                    sha256  a011136406b5fa11eb25160b5a5b1bf2c3551a2a3c1ba2123649c0f79a8505c2
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-setuptools
+
+    depends_lib-append  port:py${python.version}-jdcal
+
+    livecheck.type      none
+} else {
+    livecheck.type      pypi
+}

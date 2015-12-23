@@ -1,0 +1,37 @@
+# $Id: Portfile 119228 2014-04-21 00:31:21Z dports@macports.org $
+
+PortSystem 1.0
+
+name                ext2fuse
+version             0.8.1
+revision            2
+categories          fuse
+license             GPL-2+
+platforms           darwin
+maintainers         nomaintainer
+
+description         ext2 filesystem in user space
+long_description    Implementation of the ext2 filesystem in user space, \
+                    using the FUSE library.
+
+homepage            http://ext2fuse.sourceforge.net/
+master_sites        sourceforge
+distname            ${name}-src-${version}
+
+checksums           md5 8926c6eeb9ea17846466ca4bd7143489 \
+                    sha1 6a13fce7842ead1485a4f48cb57c1272d990b5a5 \
+                    rmd160 7ba8c6f88550d1dcf4de235ab39dd13249e36eea
+
+depends_build       port:pkgconfig
+depends_lib         port:osxfuse \
+                    port:e2fsprogs
+
+# e2fsprogs does not build for i386
+universal_variant   no
+
+configure.cflags-append -std=gnu89 
+configure.cflags-append -D__FreeBSD__=10
+configure.cflags-append -I${prefix}/include/osxfuse/fuse
+configure.cflags-append -DENABLE_SWAPFS
+configure.cppflags -I${prefix}/include/osxfuse/fuse
+configure.ldflags-append -losxfuse

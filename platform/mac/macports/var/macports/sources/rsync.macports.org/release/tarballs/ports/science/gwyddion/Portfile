@@ -1,0 +1,97 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142003 2015-11-01 22:22:43Z rowue@macports.org $
+
+PortSystem          1.0
+
+name                gwyddion
+version             2.42
+categories          science x11
+platforms           darwin
+license             gpl-2
+# revision            1
+maintainers         rowue gwyddion.net:yeti
+description         Software for SPM Analysis
+
+long_description \
+    Gwyddion is a modular program for SPM (scanning probe microscopy) data \
+    visualization and analysis. It uses gtk2 for the user interface.
+
+homepage            http://gwyddion.net
+# master_sites        sourceforge
+master_sites        sourceforge:project/gwyddion/gwyddion/${version}
+use_xz              yes
+use_parallel_build  yes
+
+checksums           sha256  fc3f69f09158bf1c5592b9497d41f30f721161d82b917644544d887673eaacae \
+                    rmd160  0516eab69e8bfab43ba47e86d5bb931c39a72bb7
+
+depends_build       port:pkgconfig
+
+depends_lib         port:gtk2 \
+                    port:libxml2 \
+                    port:fftw-3 \
+                    port:zlib \
+                    port:libzip \
+                    port:bzip2 \
+                    port:libpng \
+                    port:gtkglext
+
+configure.args      --disable-desktop-file-update \
+                    --x-include=${prefix}/include \
+                    --x-lib=${prefix}/lib
+
+variant quartz description { Build gwyddion with quartz gl support } {
+    depends_lib-append    port:gtk-osx-application-gtk2
+    patchfiles-append     patch-gtk-osx-application-gtk2.diff
+}
+
+variant pygwy description { Build gwyddion with python support } {
+    ui_msg "For console python support you have to set DYLD_FALLBACK_LIBRARY_PATH to $prefix/lib"
+    set python.prefix     ${frameworks_dir}/Python.framework/Versions/2.7
+    configure.pkg_config_path ${python.prefix}/lib/pkgconfig
+    depends_lib-append    port:py-pygtk \
+                          port:python27
+    configure.cflags-append -I${python.prefix}/include
+}
+
+variant debug description { Enable debugging } {
+    configure.cflags-append "-O0 -g"
+}
+
+post-destroot {
+    xinstall -m 755 -d ${destroot}${applications_dir}/gwyddion.app/Contents/MacOS
+    if {[variant_isset quartz]} {
+        xinstall ${filespath}/gwyddion.quartz ${destroot}${applications_dir}/gwyddion.app/Contents/MacOS/gwyddion
+        reinplace "s|@PREFIX@|${prefix}|" ${destroot}${applications_dir}/gwyddion.app/Contents/MacOS/gwyddion
+    } else {
+        xinstall ${filespath}/gwyddion ${destroot}${applications_dir}/gwyddion.app/Contents/MacOS
+        reinplace "s|@APPDIR@|${applications_dir}|" ${destroot}${applications_dir}/gwyddion.app/Contents/MacOS/gwyddion
+        reinplace "s|@PREFIX@|${prefix}|" ${destroot}${applications_dir}/gwyddion.app/Contents/MacOS/gwyddion
+    }
+    if {[variant_isset pygwy]} {
+    	set python.prefix   ${frameworks_dir}/Python.framework/Versions/2.7
+    	set python.site_packages    ${python.prefix}/lib/python2.7/site-packages/
+        xinstall -m 755 -d ${destroot}${python.site_packages}
+        move ${destroot}${prefix}/lib/python2.7/site-packages/gwy.so ${destroot}${python.site_packages}
+        move ${destroot}${prefix}/lib/python2.7/site-packages/gwy.la ${destroot}${python.site_packages}
+    }
+    xinstall -m 755 -d ${destroot}${applications_dir}/gwyddion.app/Contents/Resources
+    xinstall -m 0644 ${filespath}/gwyddion.icns ${destroot}${applications_dir}/gwyddion.app/Contents/Resources
+    xinstall -m 0644 ${filespath}/Info.plist ${destroot}${applications_dir}/gwyddion.app/Contents/
+    reinplace "s|@VERSION@|${version}|" ${destroot}${applications_dir}/gwyddion.app/Contents/Info.plist
+    system "echo 'APPL????' > ${destroot}${applications_dir}/gwyddion.app/Contents/PkgInfo"
+}
+
+post-activate {
+        system "${prefix}/bin/update-mime-database ${prefix}/share/mime ; true"
+}
+
+platform darwin 8 {
+	post-activate {
+		if {[file exists ${prefix}/lib/pkgconfig/gl.pc]} {
+            if {![variant_isset quartz]} {
+			    ui_msg "openGL support currently requires you to use MacPorts' X11 server (xorg-server) rather than Apple's."
+            }
+		}
+	}
+}

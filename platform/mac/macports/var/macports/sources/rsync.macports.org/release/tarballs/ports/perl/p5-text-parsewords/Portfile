@@ -1,0 +1,19 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Text-ParseWords 3.30
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         parse text into an array of tokens or array of arrays
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  3d22f2f6f56f0c56020654c8678aec9db88f6814 \
+                    sha256  85e0238179dd43997e58c66bd51611182bc7d533505029a2db0d3232edaff5e8
+
+supported_archs     noarch

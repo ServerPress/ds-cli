@@ -1,0 +1,34 @@
+# $Id: Portfile 110798 2013-09-06 15:24:38Z jmr@macports.org $
+
+PortSystem      1.0
+
+name            most
+version         5.0.0a
+revision        1
+categories      textproc
+license         GPL-2+
+platforms       darwin
+maintainers     nomaintainer
+description     powerful paging program
+
+long_description \
+    MOST is a powerful paging program for Unix, VMS, MSDOS, and \
+    win32 systems. Unlike other well-known paging programs \
+    most supports multiple windows and can scroll left and right. \
+    Why settle for less?
+
+homepage        http://www.jedsoft.org/${name}/
+master_sites    ftp://space.mit.edu/pub/davis/${name}/
+use_bzip2       yes
+
+checksums       md5 4c42abfc8d3ace1b0e0062ea021a5917 \
+                sha1 de9fe30ae405c32f8424f10571839519a25f3043 \
+                rmd160 759525e5c914f474d7188890cec65bca1fe1b024
+
+depends_lib     port:slang2
+
+destroot.args   DOC_DIR=${prefix}/share/doc/${name}-${version}
+
+livecheck.type      regex
+livecheck.regex     {Version (\d+(?:\.\d+)*)}
+livecheck.version   [strsed ${version} {/[a-z]$//}]

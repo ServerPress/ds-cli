@@ -1,0 +1,48 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 134318 2015-03-22 06:42:51Z ionic@macports.org $
+
+PortSystem          1.0
+
+name                tnftpd
+version             20130325
+revision            1
+categories          net
+license             BSD
+maintainers         snc openmaintainer
+description         Internet File Transfer Protocol server
+long_description    ${name} is the Internet File Transfer Protocol server \
+                    process.  The server uses the TCP protocol and listens at \
+                    the port specified in the ``ftp'' service specification\; \
+                    see services(5).
+    
+homepage            ftp://ftp.netbsd.org/pub/NetBSD/misc/tnftp/
+platforms           darwin
+
+master_sites        ${homepage}
+checksums           rmd160  e5eea84e187fe52a1f839b3375140275202350f5 \
+                    sha256  331006f0bcee593af3f4faaaf1de8db825e2aa60449be1c961916b37d562e147
+
+use_autoconf        yes
+
+configure.args-append   --with-pam
+
+destroot {
+    xinstall -m 755 ${worksrcpath}/src/${name} ${destroot}${prefix}/sbin/
+
+    xinstall -m 444 ${worksrcpath}/src/ftpd.conf.man ${destroot}${prefix}/share/man/man5/ftpd.conf.5
+    xinstall -m 444 ${worksrcpath}/src/ftpusers.man ${destroot}${prefix}/share/man/man5/ftpdusers.5
+    xinstall -m 444 ${worksrcpath}/src/${name}.man ${destroot}${prefix}/share/man/man8/${name}.8
+
+    xinstall -d -m 555 ${destroot}${prefix}/share/${name}/examples/
+    xinstall -m 444 ${worksrcpath}/examples/ftpd.conf ${destroot}${prefix}/share/${name}/ftpd.conf.default
+    xinstall -m 444 ${worksrcpath}/examples/ftpusers ${destroot}${prefix}/share/${name}/ftpusers
+
+    xinstall -m 444 ${worksrcpath}/COPYING ${destroot}${prefix}/share/${name}/
+    xinstall -m 444 ${worksrcpath}/NEWS ${destroot}${prefix}/share/${name}/
+    xinstall -m 444 ${worksrcpath}/README ${destroot}${prefix}/share/${name}/
+    xinstall -m 444 ${worksrcpath}/THANKS ${destroot}${prefix}/share/${name}/
+}
+
+livecheck.type      regex
+livecheck.url       http://ftp.netbsd.org/pub/NetBSD/misc/tnftp/
+livecheck.regex     ${name}-(\\d+)

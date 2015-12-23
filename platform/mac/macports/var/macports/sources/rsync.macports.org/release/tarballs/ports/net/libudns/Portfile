@@ -1,0 +1,44 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 110110 2013-08-26 11:20:46Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                libudns
+version             0.2
+categories          net
+license             LGPL-2.1+
+platforms           darwin
+maintainers         nomaintainer
+description         DNS resolver library
+long_description    UDNS is a stub DNS resolver library with ability to \
+                    perform both syncronous and asyncronous DNS queries.
+
+homepage            http://www.corpit.ru/mjt/udns.html
+master_sites        http://www.corpit.ru/mjt/udns/
+distname            udns-${version}
+
+checksums           rmd160  41d090516ef2f67f4d9a4a11c1db5347bf9392c8 \
+                    sha256  558c7d7acc358e13f91f73ba7fef0ed094010716a8dcee286eef05d0ff264224
+
+patchfiles          patch-Makefile.in.diff
+
+configure.pre_args
+configure.universal_args-delete --disable-dependency-tracking
+
+destroot {
+    xinstall -W ${worksrcpath} dnsget ex-rdns rblcheck \
+        ${destroot}${prefix}/bin
+
+    xinstall -W ${worksrcpath} udns.h \
+        ${destroot}${prefix}/include
+    xinstall -W ${worksrcpath} libudns.a \
+        ${destroot}${prefix}/lib
+
+    xinstall -W ${worksrcpath} dnsget.1 rblcheck.1 \
+        ${destroot}${prefix}/share/man/man1
+    xinstall -W ${worksrcpath} udns.3 \
+        ${destroot}${prefix}/share/man/man3
+}
+
+livecheck.type      regex
+livecheck.regex     {version of the library is (\d+(?:\.\d+)*)}

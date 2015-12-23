@@ -1,0 +1,27 @@
+# $Id: Portfile 128808 2014-11-27 17:05:13Z jmr@macports.org $
+
+PortSystem 1.0
+
+name			yabasic
+version			2.763
+revision                1
+categories		lang
+platforms		darwin
+license			{Artistic-1 GPL-2}
+maintainers		nomaintainer
+description		yet another basic language
+long_description	Yabasic implements the most common and simple elements \
+				of the basic language. It comes with goto/gosub, with \
+				various loops, with user defined subroutines and Libraries. \
+				Yabasic does monochrome line graphics and printing.
+
+homepage		http://www.yabasic.de/
+master_sites	${homepage}/download/
+checksums		md5 98f0cb59db973b89753abcc24b2c5ec2
+
+depends_lib \
+	port:xorg-libsm \
+	port:xorg-libX11
+
+configure.args	--mandir=${prefix}/share/man
+

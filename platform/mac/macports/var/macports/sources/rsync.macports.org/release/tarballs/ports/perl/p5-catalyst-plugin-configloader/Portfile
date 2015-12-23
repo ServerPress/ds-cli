@@ -1,0 +1,27 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Catalyst-Plugin-ConfigLoader 0.34
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Load config files of various types
+long_description    This module will attempt to load find and load a \
+                    configuration file of various types. Currently it \
+                    supports YAML, JSON, XML, INI and Perl formats.
+
+platforms           darwin
+
+checksums           rmd160  c929c5aac0a7f73250fb2f46eb2df8733fa5e89d \
+                    sha256  b8c073686e8bfdb4867a25012d6883a75f454e6a36d77d6be6a6af7a36b947a6
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-catalyst-runtime \
+                    port:p${perl5.major}-config-any \
+                    port:p${perl5.major}-data-visitor \
+                    port:p${perl5.major}-mro-compat
+}

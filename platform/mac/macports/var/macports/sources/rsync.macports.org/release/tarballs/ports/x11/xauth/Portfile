@@ -1,0 +1,41 @@
+# $Id: Portfile 132934 2015-02-15 06:25:29Z jeremyhu@macports.org $
+
+PortSystem          1.0
+
+name                xauth
+version             1.0.9
+revision            1
+categories          x11
+license             X11
+platforms           darwin
+maintainers         jeremyhu openmaintainer
+description         X11 authority file utility
+long_description    ${description}
+
+homepage            http://www.x.org/
+master_sites        xorg:individual/app/
+
+checksums           sha1    5d1f9f59aea271af8fc098cedef469f7a9337747 \
+                    rmd160  f67ba3729fb9b610beaf286b4962e6b10b6050f9 \
+                    sha256  56ce1523eb48b1f8a4f4244fe1c3d8e6af1a3b7d4b0e6063582421b0b68dc28f
+
+use_bzip2	    yes
+use_parallel_build  yes
+
+patch.pre_args      -p1
+patchfiles \
+    0001-Fix-for-xauth-failing-on-ENOSPC-disk-full.patch \
+    0002-Update-DISPLAY-parsing-to-work-with-new-launchd-path.patch \
+    0003-Fix-HAVE_STRLCPY-case.patch \
+    0004-include-POSIX-standard-limits.h-for-PATH_MAX-instead.patch
+
+depends_build \
+	port:pkgconfig
+
+depends_lib \
+	port:xorg-libXext \
+	port:xorg-libXmu
+
+livecheck.type  regex
+livecheck.url   http://xorg.freedesktop.org/archive/individual/app/?C=M&O=D
+livecheck.regex ${name}-(\\d+(?:\\.\\d+)*)

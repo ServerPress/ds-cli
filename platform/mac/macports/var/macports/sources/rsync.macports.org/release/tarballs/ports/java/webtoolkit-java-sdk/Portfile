@@ -1,0 +1,41 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139044 2015-07-30 16:26:18Z ionic@macports.org $
+
+PortSystem              1.0
+
+name                    webtoolkit-java-sdk
+version                 2.7.0
+categories              java devel
+license                 Apache-2 BSD Permissive EPL-1 LGPL-2.1+ {NPL-1.1 GPL}
+maintainers             nomaintainer
+platforms               darwin
+supported_archs         noarch
+
+description             Google Web Toolkit SDK for Java
+
+long_description        Google Web Toolkit (GWT) is a development toolkit for \
+                        building and optimizing complex browser-based applications.
+
+homepage                http://www.gwtproject.org/
+master_sites            http://storage.googleapis.com/gwt-releases/
+distname                gwt-${version}
+use_zip                 yes
+
+checksums               sha256 aa65061b73836190410720bea422eb8e787680d7bc0c2b244ae6c9a0d24747b3 \
+                        rmd160 4c730e3ca663f4e2d8dd61f40efd16b804cfe9a4
+
+use_configure           no
+
+livecheck.type          regex
+livecheck.url           ${homepage}release-notes.html
+livecheck.regex         "Release Notes for (\\d+\\.\\d+(\\.\\d+)?)"
+
+build                   {}
+
+destroot {
+    # Create the target java directory
+    xinstall -d ${destroot}${prefix}/share/java/${name}
+
+    # Copy over the needed elements of our directory tree
+    copy {*}[glob ${worksrcpath}/*] ${destroot}${prefix}/share/java/${name}
+}

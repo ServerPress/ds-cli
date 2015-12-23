@@ -1,0 +1,33 @@
+# $Id: Portfile 134144 2015-03-19 01:16:09Z mmoll@macports.org $
+
+PortSystem 1.0
+PortGroup cmake 1.0
+cmake.out_of_source yes
+
+name                tinyxml
+version             2.6.2
+revision            3
+categories          textproc
+maintainers         openmaintainer mmoll
+license             zlib
+description         Simple, small, C++ XML parser
+long_description    TinyXML is a simple, small, C++ XML parser that can be \
+                    easily integrating into other programs.
+homepage            http://www.grinninglizard.com/tinyxml/
+platforms           darwin
+master_sites        sourceforge:project/${name}/${name}/${version}
+
+checksums           rmd160  162880af0cb1a284268cc18ec582f51c55120a76 \
+                    sha1    a425a22ff331dafa570b2a508a37a85a4eaa4127
+patchfiles          patch-tinyxml.h.diff
+distname            ${name}_[strsed ${version} {g/\./_/}]
+worksrcdir          ${name}
+use_zip             yes
+
+post-extract {
+    copy ${filespath}/CMakeLists.txt ${worksrcpath}
+    copy ${filespath}/tinyxml.pc ${worksrcpath}
+    reinplace "s|@@PREFIX@@|${prefix}|g;s|@@VERSION@@|${version}|g" ${worksrcpath}/tinyxml.pc
+}
+
+livecheck.type      sourceforge

@@ -1,0 +1,32 @@
+# $Id: Portfile 122477 2014-07-23 02:22:43Z eborisch@macports.org $
+
+PortSystem 1.0
+PortGroup select 1.0
+
+name                    mpi_select
+version                 0.0
+revision                3
+categories              sysutils
+platforms               darwin
+license                 BSD
+maintainers             eborisch
+supported_archs         noarch
+description             common files for selecting default mpi version
+long_description        This port installs files that allow 'port select' to \
+                        be used to create links to the preferred default \
+                        version of mpi.
+
+homepage                http://www.macports.org/
+
+distfiles
+
+use_configure           no
+build                   {}
+# install all files
+destroot {
+    select::install mpi ${filespath}/base
+    select::install mpi ${filespath}/none
+}
+
+livecheck.type     none
+

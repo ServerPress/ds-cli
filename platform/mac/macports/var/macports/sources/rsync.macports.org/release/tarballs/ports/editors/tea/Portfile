@@ -1,0 +1,35 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 140555 2015-09-22 21:00:30Z ryandesign@macports.org $
+
+PortSystem              1.0
+PortGroup               qmake 1.0
+
+name                    tea
+version                 41.1.0
+description             TEA is the powerful text editor for GNU/Linux and *BSD.
+long_description        ${description}
+maintainers             ryandesign openmaintainer
+categories              editors
+license                 GPL-3
+platforms               darwin
+
+homepage                http://semiletov.org/tea
+master_sites            ${homepage}/dloads/
+use_bzip2               yes
+
+checksums               rmd160  1ff6bdbd735df81921df9370547a8d99ae6ff672 \
+                        sha256  65ea128739802b7626a5a59de12b0e885dcef7a83f7bcd06b6d3aea830ed8717
+
+depends_lib-append      port:aspell \
+                        port:hunspell \
+                        port:zlib
+
+patchfiles-append       patch-src.pro.diff
+
+destroot {
+    copy ${worksrcpath}/bin/tea.app ${destroot}${applications_dir}
+}
+
+livecheck.type          regex
+livecheck.url           [lindex ${master_sites} 0]
+livecheck.regex         ${name}-(\[0-9.\]+)${extract.suffix}

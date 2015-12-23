@@ -1,0 +1,22 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 140160 2015-09-10 22:23:30Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         ExtUtils-Command 1.20
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         utilities to replace common UNIX commands in Makefiles etc.
+long_description    ${description}
+
+platforms           darwin
+
+checksums           rmd160  a8531a0e66206bf859831529d4a123a775c565b8 \
+                    sha256  740cccc93ba851aae803695b7a5b65ccbaa78bf4e96aa2e54f3f632c87a98c98
+
+if {${perl5.major} != ""} {
+    conflicts       port:p${perl5.major}-extutils-makemaker
+    supported_archs noarch
+}

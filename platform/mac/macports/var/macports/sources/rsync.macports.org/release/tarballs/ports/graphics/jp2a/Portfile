@@ -1,0 +1,25 @@
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
+
+PortSystem        1.0
+name              jp2a
+version           0.9.19
+revision          4
+categories        graphics
+platforms         darwin
+maintainers       sublevel3.org:csl
+description       converts JPEG images to ASCII
+long_description  The jp2a program will read JPEG images and print them \
+                  in ASCII characters.  Options let you control the output \
+                  size. You know you want it.
+homepage          http://jp2a.sourceforge.net/
+master_sites      sourceforge
+checksums         md5 a140ca34b81cb4f978c0d5e8d57e410c \
+                  sha1 97153342e5e9ee1f769c1db708f85b15a24f9575 \
+                  rmd160 6263bc4cff91092ec77059070a82aaec70878409 
+depends_lib       port:jpeg port:curl path:lib/libssl.dylib:openssl
+use_bzip2         yes
+configure.args    --with-jpeg-prefix=${prefix} \
+                  --enable-curl --with-curl-config=${prefix}/bin \
+                   --mandir=\\\${prefix}/share/man
+destroot.destdir  prefix=${destroot}${prefix}
+

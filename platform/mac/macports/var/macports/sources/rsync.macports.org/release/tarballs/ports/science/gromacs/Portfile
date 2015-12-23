@@ -1,0 +1,78 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143374 2015-12-11 17:52:24Z dstrubbe@macports.org $
+
+PortSystem          1.0
+PortGroup           muniversal 1.0
+PortGroup           cmake 1.0
+PortGroup           mpi 1.0
+
+name                gromacs
+version             5.1.1
+categories          science math
+license             GPL-2
+maintainers         dstrubbe openmaintainer
+description         The World's fastest Molecular Dynamics package
+long_description    GROMACS is a versatile package to perform molecular \
+                    dynamics, i.e. simulate the Newtonian equations of motion for \
+                    systems with hundreds to millions of particles. It is primarily \
+                    designed for biochemical molecules like proteins and lipids that \
+                    have a lot of complicated bonded interactions, but since GROMACS is \
+                    extremely fast at calculating the nonbonded interactions (that \
+                    usually dominate simulations) many groups are also using it for \
+                    research on non-biological systems, e.g. polymers.
+platforms           darwin
+
+homepage            http://www.gromacs.org/
+master_sites        ftp://ftp.gromacs.org/pub/gromacs \
+                    http://cluster.earlham.edu/detail/home/charliep/packages
+
+checksums           rmd160  d01093aa77122262c4a12db5807e73e66e983206 \
+                    sha256  9316fd0be320e2dd8c048f905df5be115e1b230c4ca4f3a7ef5892a1fc0bc212
+
+depends_build-append \
+                    port:pkgconfig
+
+depends_lib-append  port:fftw-3-single port:libxml2
+
+# FIXME: enable use of avx when appropriate, instead of just SSE
+configure.args-append  -DGMX_SIMD:STRING="SSE4.1" -DBUILD_TESTING:BOOL=ON -DGMX_X11:BOOL=ON
+# boost?
+
+compilers.choose    cc cxx
+mpi.setup
+
+test.run     yes
+test.target  check
+test.env-append DYLD_LIBRARY_PATH=${worksrcpath}/lib
+
+# I encountered this problem with the last test, when using MPI:
+#Program mdrun-mpi-test, VERSION 5.1.1
+#Memory allocation/freeing error:
+#Character buffer too small!
+#For more information and tips for troubleshooting, please check the GROMACS
+#website at http://www.gromacs.org/Documentation/Errors
+
+pre-configure {
+    if {[mpi_variant_isset]} {
+        configure.args-append  -DGMX_MPI:BOOL=ON -DMPIEXEC:STRING="${mpi.exec}"
+    }
+}
+
+variant double description "Build in double precision" {
+    depends_lib-delete      port:fftw-3-single
+    depends_lib-append      port:fftw-3
+    configure.args-append   --enable-double
+}
+
+subport ${name}-double {
+    replaced_by gromacs
+    PortGroup obsolete 1.0
+    revision 1
+    pre-fetch {
+        ui_warn "Subport 'gromacs-double' is replaced by variant 'gromacs +double'."
+    }
+}
+
+livecheck.type          regex
+livecheck.url           ${homepage}Downloads
+livecheck.regex         ${name}-(\[0-9.\]+)${extract.suffix}

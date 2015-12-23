@@ -1,0 +1,29 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 110673 2013-09-03 07:43:48Z sharky@macports.org $
+
+PortSystem      1.0
+PortGroup       qt4 1.0
+
+name            qxmpp
+version         0.7.6
+categories      devel net
+license         LGPL-2.1
+platforms       darwin
+maintainers     nomaintainer
+
+description     Cross-platform C++ XMPP library
+long_description \
+    QXmpp is a cross-platform C++ XMPP library built upon Qt. \
+    It strives to be as easy to use as possible.
+
+homepage        http://code.google.com/p/qxmpp/
+master_sites    googlecode
+
+checksums       md5     ee45a97313306ded2ff0f6618a3ed1e1 \
+                sha1    a87b4b5c94d1f4dc723cbbb7799cf4067c7e5ea2 \
+                rmd160  77a852e2ec11819480a122e311517ff4ec57b973
+
+depends_lib-append  port:speex port:libtheora
+
+configure.cmd       ${qt_qmake_cmd}
+configure.pre_args  PREFIX=${prefix} QXMPP_USE_SPEEX=1 QXMPP_USE_THEORA=1

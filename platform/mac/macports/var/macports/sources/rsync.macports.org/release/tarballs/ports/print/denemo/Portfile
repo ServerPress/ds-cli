@@ -1,0 +1,71 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139148 2015-08-04 00:15:38Z devans@macports.org $
+
+PortSystem          1.0
+
+name                denemo
+version             1.2.4
+categories          print audio x11
+platforms           darwin
+maintainers         nomaintainer
+license             GPL-3+
+
+description         Denemo is a unique score editor
+
+long_description    Denemo is a unique score editor which exports notation \
+                    to LilyPond and ABC music formats. It also acts as a \
+                    frontend for Csound score files. Denemo is different from \
+                    most graphic music editors\; this is partly because it \
+                    was created to help edit LilyPond notation and partly \
+                    because of its unique design philosophy.
+
+homepage            http://www.denemo.org/
+master_sites        gnu
+
+checksums           rmd160  428225696ef9d100ee6fe37422c46fe02c508c84 \
+                    sha256  9993bc4fa6ee9bc697e1091dcfa08254fa3ced1884c6b70b6e8e92c961b38db8
+
+depends_build       port:intltool \
+                    port:pkgconfig \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool
+
+depends_lib         port:aubio \
+                    port:evince \
+                    port:fluidsynth \
+                    port:gettext \
+                    port:gtksourceview3 \
+                    port:gtk3 \
+                    port:guile \
+                    port:jack \
+                    port:librsvg \
+                    port:portaudio \
+                    port:portmidi \
+                    port:rubberband
+
+depends_run         port:qtplay
+
+patchfiles          patch-configure.ac.diff
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+post-patch {
+    xinstall -m 755 ${filespath}/autogen.sh ${worksrcpath}
+    reinplace "s|/usr/|${prefix}/|" ${worksrcpath}/autogen.sh
+}
+
+configure.cmd       ./autogen.sh && ./configure
+
+configure.args      --enable-evince \
+                    --enable-fluidsynth \
+                    --enable-gtk3 \
+                    --enable-guile_2_0 \
+                    --enable-jack \
+                    --enable-portaudio \
+                    --enable-portmidi \
+                    --enable-rubberband
+
+variant csound description "Csound can be used for playback." {
+    depends_run-append port:csound
+}

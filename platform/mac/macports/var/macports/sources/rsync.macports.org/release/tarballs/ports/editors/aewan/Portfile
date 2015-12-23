@@ -1,0 +1,26 @@
+# $Id: Portfile 139469 2015-08-18 01:10:17Z jmr@macports.org $
+
+PortSystem 1.0
+
+name			aewan
+version			1.0.01
+revision        1
+categories		editors
+license			GPL-2+
+platforms		darwin
+maintainers		nomaintainer
+description		Curses-based program for the creation and editing of ascii art
+long_description	${description}
+
+homepage		http://aewan.sourceforge.net/
+master_sites	sourceforge:project/aewan/aewan/aewan-${version}
+
+checksums		md5 89545338d1eba311297b520f9dc1b976
+
+depends_lib		port:ncurses port:zlib
+
+configure.args	--mandir=${prefix}/share/man
+
+livecheck.type	regex
+livecheck.url	${homepage}download.html
+livecheck.regex	${name}-(\[0-9.\]+)${extract.suffix}

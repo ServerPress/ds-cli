@@ -1,0 +1,66 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 142801 2015-11-24 00:33:27Z jeremyhu@macports.org $
+
+PortSystem              1.0
+name                    libmacho
+version                 877.5
+subport ${name}-headers { }
+categories              devel
+platforms               darwin
+maintainers             jeremyhu openmaintainer
+license                 APSL-2
+description             libmacho is a library for managing mach-o files (parsing sections, etc)
+long_description        ${description} \
+                        It is included as part of the host libSystem on OS X, but this version \
+                        may be needed for newer functionality.
+
+homepage                http://opensource.apple.com/source/cctools/
+master_sites            http://opensource.apple.com/tarballs/cctools/
+
+distname                cctools-${version}
+
+checksums               rmd160  a4cc2423f491cd09316d4ff63919d850d05f09a5 \
+                        sha256  5e7525c86581d9dead8a8508a9e824101765d05a3e14d612de1aa38def9adde9
+
+use_configure           no
+
+if {${subport} == "${name}-headers"} {
+    supported_archs         noarch
+    universal_variant       no
+    use_configure           no
+    build {}
+
+    destroot.args           DSTROOT=${destroot}${prefix} RC_ProjectSourceVersion=${version}
+    destroot.target         installhdrs
+
+    post-destroot {
+        file rename -force ${destroot}${prefix}/usr/include ${destroot}${prefix}/
+        file delete -force ${destroot}${prefix}/usr
+    }
+} elseif {${subport} == "${name}"} {
+    # Technically not needed, but subports will expect depending on libunwind to pull in the headers
+    depends_lib-append port:libmacho-headers
+
+    variant universal       {}
+
+    build.dir               ${worksrcpath}/libmacho
+    destroot.dir            ${build.dir}
+
+    build.target            libmacho.a libmacho.dylib
+    build.args \
+        CC="${configure.cc}" \
+        RC_CFLAGS="${configure.cflags} [get_canonical_archflags]" \
+        RC_ARCHS="[get_canonical_archs]" \
+        DEPENDENT_LIBS="" \
+        RC_ProjectSourceVersion=${version} \
+        INSTALL_NAME="${prefix}/lib/libmacho.1.dylib"
+
+    destroot {
+        xinstall -m 644 ${destroot.dir}/libmacho.a ${destroot}${prefix}/lib
+        xinstall -m 755 ${destroot.dir}/libmacho.dylib ${destroot}${prefix}/lib/libmacho.1.dylib
+        ln -s libmacho.1.dylib ${destroot}${prefix}/lib/libmacho.dylib
+    }
+}
+
+livecheck.type          regex
+livecheck.regex         "cctools-(\[\\d.\]+)"

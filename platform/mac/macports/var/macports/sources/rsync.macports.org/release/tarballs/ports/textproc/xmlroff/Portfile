@@ -1,0 +1,46 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 119134 2014-04-17 22:41:03Z pixilla@macports.org $
+
+PortSystem          1.0
+PortGroup           xmlcatalog 1.0
+
+name                xmlroff
+version             0.6.2
+revision            1
+categories          textproc
+platforms           darwin
+maintainers         nomaintainer
+license             BSD
+description         An XSL formatter producing PDF and PostScript.
+long_description \
+    Creates formatted output -- pages containing text in a \
+    variety of type styles and sizes -- from an input XML \
+    document and an XSL stylesheet.
+homepage            http://xmlroff.org/
+master_sites        ${homepage}download/
+
+checksums           rmd160  a20e052ba7adae1e704f5f2620d14456872245c7 \
+                    sha256  305be62e51406baaa74870cb95f813f436a756170d2cd14eb48ffd13c7b20f74
+
+depends_build       port:pkgconfig
+
+depends_lib         port:libxml2 \
+                    port:atk \
+                    path:lib/pkgconfig/glib-2.0.pc:glib2 \
+                    port:gtk2 \
+                    port:libart_lgpl \
+                    port:libbonobo \
+                    port:libgnomeprint \
+                    port:libidl \
+                    port:libxslt \
+                    port:orbit2 \
+                    path:lib/pkgconfig/pango.pc:pango \
+                    port:pangoxsl \
+                    port:xmlcatmgr
+
+patchfiles          patch-glib-2.32.diff
+
+configure.ldflags-append    "-framework CoreFoundation"
+
+# Specify catalog to add (catalog for xmlroff's libfo library)
+xml.catalog "${prefix}/share/xml/libfo-${version}/catalog.xml"

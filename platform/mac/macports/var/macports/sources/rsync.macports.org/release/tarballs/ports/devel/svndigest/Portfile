@@ -1,0 +1,38 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139743 2015-08-26 02:57:01Z ionic@macports.org $
+
+PortSystem          1.0
+
+name                svndigest
+version             0.10.3
+categories          devel
+platforms           darwin
+license             GPL-3+
+maintainers         gmail.com:pj31042
+
+description         Create statistics of a subversion repository
+
+long_description    ${name} is a tool to extract development information and \
+                    statistics from a subversion repository. Svndigest is \
+                    written in C++ and extracts repository history using the \
+                    Subversion API. The resulting report is written to a user \
+                    specifiable directory in HTML format.
+
+homepage            http://dev.thep.lu.se/svndigest
+master_sites        sourceforge:project/svndigest
+
+checksums           rmd160  26c6b76d57cd9ba6fb213bccb08de1345084dcdb \
+                    sha256  e5367457409f51c6ad9fb33dd9707b865485dd55ca9fa7edb92bd5e8ad0acc88
+
+depends_build       port:pkgconfig
+
+depends_lib         port:subversion \
+                    port:apr \
+                    port:plplot
+
+use_parallel_build  yes
+
+test.run            yes
+test.target         check
+
+livecheck.regex     /${name}-(\[0-9.\]+)${extract.suffix}

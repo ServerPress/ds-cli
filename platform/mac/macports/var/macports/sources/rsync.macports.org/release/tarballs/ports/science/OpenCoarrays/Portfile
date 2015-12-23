@@ -1,0 +1,62 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141655 2015-10-25 14:25:15Z ryandesign@macports.org $
+
+PortSystem          1.0
+PortGroup           cmake 1.0
+PortGroup           github 1.0
+PortGroup           mpi 1.0
+
+github.setup        sourceryinstitute opencoarrays 1.1.2
+name                OpenCoarrays
+categories          science parallel devel
+platforms           darwin
+license             BSD
+maintainers         gmail.com:fanfarillo.gcc
+
+description         Library for multi-image coarray Fortran suppport
+long_description    OpenCoarrays is an open-source software project \
+                    for developing, porting and tuning transport \
+                    layers that support coarray Fortran compilers. \
+                    We target compilers that conform to the coarray \
+                    parallel programming feature set specified in the \
+                    Fortran 2008 standard. We also support several \
+                    features proposed for Fortran 2015 in the draft \
+                    Technical Specification 'TS18508 Additional \
+                    Parallel Features in Fortran'.
+homepage            http://opencoarrays.org
+
+mpi.setup           require require_fortran \
+                    -gcc44 -gcc45 -gcc46 -gcc47 -gcc48 -gcc49 \
+                    -dragonegg -clang -llvm -fortran
+universal_variant   no
+if {![variant_isset gcc5] && ![variant_isset gcc6]} {
+    default_variants +gcc5
+}
+
+checksums           rmd160  8914372f24ae5b117f7f4f0c740513b57c39c348 \
+                    sha256  2bac4c5222dc921d4ad45ad355cd7e2c2aa3444448b86e2a8193e308b270e140
+
+#patchfiles          tests-compiler.patch
+
+cmake.out_of_source yes
+
+post-patch {
+    reinplace "s|mpicc|${prefix}/bin/mpicc-${mpi.name}|g" \
+        src/make.inc src/mpi/Makefile src/tests/unit/simple/CMakeLists.txt
+}
+
+# Required to run the test phase.
+pre-configure {
+    configure.args-append \
+        -DMPIEXEC=${prefix}/bin/${mpi.exec} \
+        -DMPI_C_COMPILER=${prefix}/bin/mpicc-${mpi.name} \
+        -DMPI_Fortran_COMPILER=${prefix}/bin/mpif90-${mpi.name} 
+}
+
+#test.run            yes
+#test.target         test
+
+post-destroot {
+    move ${destroot}${prefix}/mod/opencoarrays.mod \
+            ${destroot}${prefix}/include
+}

@@ -1,0 +1,42 @@
+# $Id: Portfile 132855 2015-02-11 20:40:25Z jeremyhu@macports.org $
+
+PortSystem          1.0
+
+name                fox
+version             1.6.46
+revision            3
+description         The FOX GUI toolkit
+long_description    FOX is a C++ based Toolkit for developing Graphical \
+                    User Interfaces easily and effectively.
+maintainers         lylejohnson.name:lyle
+categories          x11
+platforms           darwin
+license             LGPL-2.1+
+
+homepage            http://www.fox-toolkit.org/
+master_sites        http://ftp.fox-toolkit.org/pub/
+checksums           rmd160  a3c37e0431053b68f63f22c0d0b2bf969dac583b \
+                    sha256  4ba84261be19c938ff3fc8fda5a4ceac6469e87205d90869fd5d92124b8ebbe0
+
+depends_build \
+	port:pkgconfig
+
+depends_lib \
+	port:tiff \
+	port:libpng \
+	port:jpeg \
+	port:xorg-libXcursor \
+	port:Xft2 \
+	port:xorg-libXrandr \
+	port:freetype \
+	port:libGLU \
+	port:mesa
+
+configure.args      --with-x --with-xft --with-opengl
+configure.cppflags-append -I${prefix}/include/freetype2
+
+use_parallel_build	yes
+
+livecheck.type      regex
+livecheck.url       ${homepage}download.html
+livecheck.regex     /${name}-(\[0-9.\]+)${extract.suffix}.*STABLE

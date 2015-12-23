@@ -1,0 +1,120 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 126953 2014-10-18 00:55:50Z ryandesign@macports.org $
+
+PortSystem          1.0
+
+name                smlnj
+version             110.77
+categories          lang ml
+license             BSD
+maintainers         bfulgham
+description         Standard ML of New Jersey
+long_description \
+    Standard ML of New Jersey (abbreviated SML/NJ) is a \
+    compiler for the Standard ML '97 programming language \
+    with associated libraries, tools, and documentation. \
+    SML/NJ is free, open source software.
+homepage            http://www.smlnj.org/
+platforms           darwin
+
+master_sites        http://smlnj.cs.uchicago.edu/dist/working/${version}/
+dist_subdir         ${name}/${version}_${revision}
+
+distfiles
+checksums
+
+# Files needed for basic distribution.
+set srcs [list \
+    ckit.tgz e622a99888c272dc68527c84821409b470bd95e8 \
+    cml.tgz 24e833d7d1823dbbc746495fa3cd2ad11f08e255 \
+    cm.tgz 83833ebe9d95fc55aca2f7ccccff4100515811fe \
+    compiler.tgz cbb89b260db0798a6789de4e57d47ffbe07c30c5 \
+    config.tgz 5ff0c668c2db40fcfbf9ee4e2de30fa5baf04a8b \
+    doc.tgz df27b1e5a92256fac7bd2357b6bfa591f031f2ec \
+    eXene.tgz c3fddae262c2d2678fc5f627c8a90825084ab796 \
+    heap2asm.tgz 4a8fcfe8091e6778780be6e75557c45fa6ce3c41 \
+    ml-burg.tgz 0a5dda6ea13a542d9432ecca0bf4bba2d911e6a3 \
+    ml-lex.tgz 7996904e21b0bf3bf7521abcec346aed98914d0a \
+    ml-lpt.tgz 5a0bd3b6fc72ea5fe979db2946efeb6d4dd78b13 \
+    MLRISC.tgz 0aac4f1b1cdbf8e0d36799ed6d15cf52ce60a571 \
+    ml-yacc.tgz d7ad6194d1935de976f1590cf8a86a3f36bab23a \
+    nlffi.tgz 36cfd562540813cd97f805c182f844cbbd7d6c8a \
+    pgraph.tgz b8efe014b28fdbd232497414f2b0b0877d103081 \
+    runtime.tgz 36355402a231269a10fe5b919e267c52ea60900c \
+    smlnj-c.tgz 05c170fa19ed7311acfa20ead3e585e74f7522cb \
+    smlnj-lib.tgz cc50341c409163e93df148e51631214e5924fdf3 \
+    system.tgz 4888f982a02ccc2336290de4451e89056033c649 \
+    trace-debug-profile.tgz c8bd75a2dab6a70dafdee9db96361a581d407b33 \
+]
+
+foreach {tarball checksum} $srcs {
+    distfiles-append $tarball
+    checksums-append $tarball sha1 $checksum
+}
+
+
+# Platform-specific boot code (omitted: sparc-unix, x86-win32)
+platform powerpc {
+    distfiles-append boot.ppc-unix.tgz
+    checksums-append boot.ppc-unix.tgz sha1 00ec95e3b80e21dca86b24ec28e7041b2ae0b461
+}
+platform i386 {
+    distfiles-append boot.x86-unix.tgz
+    checksums-append boot.x86-unix.tgz sha1 1b821f982df134ab51aaafb0a44bf6c204a0d84a
+}
+
+### extract ###
+extract.mkdir       yes
+extract.only        config.tgz
+
+### patch ###
+patchfiles          patch-config__install.sh-correct-compiler.diff
+
+post-patch {
+    reinplace "s|@CC@|${configure.cc}|" ${worksrcpath}/config/install.sh
+    reinplace "s|@CPP@|${configure.cc}|" ${worksrcpath}/config/install.sh
+    reinplace "s|@CFLAGS@|${configure.cflags}|" ${worksrcpath}/config/install.sh
+    reinplace "s|@LDFLAGS@|${configure.ldflags}|" ${worksrcpath}/config/install.sh
+}
+
+### configure ###
+configure {
+    reinplace "s|SRCARCHIVEURL=.*|SRCARCHIVEURL=file://${distpath}|" \
+        ${worksrcpath}/config/srcarchiveurl
+    reinplace "s|#request src-smlnj|request src-smlnj|" \
+        ${worksrcpath}/config/targets
+    reinplace "s|#request eXene|request eXene|" \
+        ${worksrcpath}/config/targets
+    reinplace "s|#request mlrisc-tools|request mlrisc-tools|" \
+        ${worksrcpath}/config/targets
+    reinplace "s|#request heap2asm |request heap2asm|" \
+        ${worksrcpath}/config/targets
+}
+
+### build ###
+build.env           URLGETTER=curl
+build.cmd           ${worksrcpath}/config/install.sh
+build.target
+
+### destroot ###
+destroot {
+    set smlnj_home ${prefix}/share/smlnj
+
+    file mkdir ${destroot}${smlnj_home}
+    file copy ${worksrcpath}/bin ${destroot}${smlnj_home}
+    file copy ${worksrcpath}/lib ${destroot}${smlnj_home}
+
+    xinstall -m 555 ${filespath}/sml.sh ${destroot}${prefix}/bin/sml
+    reinplace "s|__SMLNJ_HOME__|${smlnj_home}|g" \
+        ${destroot}${prefix}/bin/sml
+
+    foreach prog [glob -directory ${worksrcpath}/bin *] {
+        set progname [file tail $prog]
+        if {![string equal $progname sml]} {
+            ln -s sml ${destroot}${prefix}/bin/${progname}
+        }
+    }
+}
+
+livecheck.type      regex
+livecheck.regex     {/working/([0-9.]+)/}

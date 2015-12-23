@@ -1,0 +1,56 @@
+--- bin/tSmoke.orig	2011-10-05 02:51:46.000000000 -0700
++++ bin/tSmoke	2013-01-16 12:15:36.000000000 -0800
+@@ -53,8 +53,8 @@
+ # Point the lib variables to your implementation
+ use FindBin;
+ # PERL5LIB
+-use lib "$FindBin::Bin/../thirdparty/lib/perl5";
+-use lib "$FindBin::Bin/../lib";
++use lib "__PERL5__ARCHLIB__/auto/RRDs";
++use lib "__PREFIX__/lib/smokeping/lib";
+ 
+ use Smokeping;
+ use Net::SMTP;
+@@ -63,7 +63,7 @@
+ use RRDs;
+ 
+ # Point to your Smokeping config file
+-my $cfgfile = "etc/config.dist";
++my $cfgfile = "__PREFIX__/etc/smokeping/config";
+ 
+ # global variables
+ my $cfg;
+@@ -484,33 +484,6 @@
+ 
+ =head1 SETUP
+ 
+-When installing tSmoke, some variables must be adjusted to fit your local system.
+-
+-We need to use the following B<libraries>:
+-
+-=over
+-
+-=item Smokeping
+-
+-=item RRDTool Perl bindings
+-
+-=item Getopt::Long
+-
+-=back
+-
+-Set up your libraries:
+-
+- use lib "/usr/local/smokeping/lib";
+- use lib "/usr/local/rrdtool-1.0.39/lib/perl";
+-
+-Point to your Smokeping B<config> file
+-
+- my $cfgfile = "/usr/local/smokeping/etc/config";
+-
+-Modify the Smokeping config file to include a path for tmail in the
+-General section:
+-
+- tmail = /usr/local/smokeping/etc/tmail
+ 
+ =head1 COPYRIGHT
+ 

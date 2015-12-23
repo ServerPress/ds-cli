@@ -1,0 +1,36 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:filetype=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143160 2015-12-05 14:05:21Z ryandesign@macports.org $
+
+PortSystem              1.0
+PortGroup               php 1.1
+
+name                    php-solr
+version                 2.3.0
+categories-append       devel
+license                 PHP-3.01
+platforms               darwin
+maintainers             ryandesign openmaintainer
+
+php.branches            5.3 5.4 5.5 5.6
+php.pecl                yes
+
+description             a PHP interface to Apache Solr
+
+long_description        ${name} is an extremely fast, light-weight, feature-rich \
+                        library that allows PHP developers to communicate easily \
+                        and efficiently with Apache Solr server instances.
+
+checksums               rmd160  c53442fc7b936c2d520340785e2c78ec681d6a47 \
+                        sha256  d90db2ea0a32b8190d65d931e144c01f6238e95e1b91f9d38ddcb2bf68aad7a0
+
+if {${name} ne ${subport}} {
+    depends_build-append    port:curl \
+                            port:libxml2
+    
+    depends_lib-append      port:${php}-curl
+    
+    configure.args-append   --with-curl=${prefix} \
+                            --with-libxml-dir=${prefix}
+    
+    use_parallel_build      yes
+}

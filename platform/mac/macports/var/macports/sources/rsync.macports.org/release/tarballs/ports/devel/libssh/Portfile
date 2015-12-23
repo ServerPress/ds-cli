@@ -1,0 +1,64 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139229 2015-08-08 03:10:35Z jeremyhu@macports.org $
+
+PortSystem          1.0
+PortGroup           cmake 1.0
+
+name                libssh
+epoch               1
+version             0.7.0
+revision            2
+master_sites        https://git.libssh.org/projects/libssh.git/snapshot/
+use_bzip2           yes
+checksums           rmd160  ab4b2fb7ce62ba900f50a3a19a2de58551ceea46 \
+                    sha256  f284aeb40a637d97e065df0f3b7902458ac17050c3f4057b5eca2dbcb1a9c179
+
+set major           [join [lrange [split ${version} .] 0 1] .]
+categories          devel security net
+platforms           darwin
+maintainers         cal ionic openmaintainer
+license             LGPL-2.1
+
+description         an SSH library
+
+long_description    The ssh library was designed to be used by \
+                    programmers needing a working SSH implementation \
+                    by the mean of a library.
+
+homepage            http://www.libssh.org
+
+patchfiles          patch-src_channels.c-readd-deprecated-ssh_forward_listen.diff
+
+depends_build-append \
+                    port:pkgconfig
+
+depends_lib         path:lib/libssl.dylib:openssl \
+                    port:zlib
+
+default_variants    +kerberos5
+
+post-extract {
+    file mkdir ${workpath}/build
+}
+
+cmake.out_of_source yes
+
+# clear configure.cppflags to prevent the cmake portgroup from adding them to
+# cflags, which breaks the build in presence of an older version, because it
+# puts -I$prefix/include before the local include directories of the port
+configure.cppflags
+configure.args-append \
+                    -DWITH_GCRYPT=OFF \
+                    -DWITH_INTERNAL_DOC=OFF \
+                    -DWITH_LIBZ=ON \
+                    -DWITH_GSSAPI=OFF
+
+variant kerberos5 description {Enable GSSApi/Kerberos support} {
+    depends_lib-append      port:kerberos5
+    configure.args-replace  -DWITH_GSSAPI=OFF \
+                            -DWITH_GSSAPI=ON
+}
+
+livecheck.type      regex
+livecheck.url       http://git.libssh.org/projects/libssh.git/refs/
+livecheck.regex     ${name}-(\\d+\\.\\d+(\\.\\d+)+)

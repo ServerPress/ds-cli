@@ -1,0 +1,37 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 140628 2015-09-28 11:41:34Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-mistune
+version             0.7.1
+revision            0
+categories-append   devel textproc
+platforms           darwin
+license             BSD
+
+python.versions     27 34 35
+
+maintainers         stromnov openmaintainer
+
+description         The fastest markdown parser in pure Python.
+long_description    ${description}
+
+homepage            https://github.com/lepture/mistune
+master_sites        pypi:[string index ${python.rootname} 0]/${python.rootname}
+
+distname            ${python.rootname}-${version}
+
+checksums           rmd160  07aa2032b607ca34d3a4835eb9cee8f73b23c2b4 \
+                    sha256  6076dedf768348927d991f4371e5a799c6a0158b16091df08ee85ee231d929a7
+
+if {${name} ne ${subport}} {
+    depends_build-append \
+                        port:py${python.version}-setuptools \
+                        port:py${python.version}-cython
+
+    livecheck.type      none
+} else {
+    livecheck.type      pypi
+}

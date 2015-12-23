@@ -1,0 +1,42 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 128221 2014-11-16 20:08:47Z khindenburg@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-eventlet
+version             0.15.2
+categories-append   devel
+license             MIT BSD Apache-2
+platforms           darwin
+supported_archs     noarch
+maintainers         nomaintainer
+
+description         Coroutine-based networking library
+long_description    Eventlet is a networking library written in \
+                    Python. It achieves high scalability by using \
+                    non-blocking io while at the same time \
+                    retaining high programmer usability by using \
+                    coroutines to make the non-blocking io \
+                    operations appear blocking at the source code \
+                    level.
+
+homepage            http://eventlet.net/
+master_sites        http://pypi.python.org/packages/source/e/eventlet/
+distname            eventlet-${version}
+
+checksums           rmd160  ccede58cb51dac0dc6c5bfd4b8dea3a18340e2c5 \
+                    sha256  eaec368ce7b819f8615dcb51f63dcb5c910538cdedc99e4bba4c90ed0bf70fdc
+
+python.versions     26 27
+
+if {${name} ne ${subport}} {
+    depends_build       port:py${python.version}-setuptools
+    depends_lib         port:py${python.version}-greenlet
+    
+    livecheck.type      none
+} else {
+    livecheck.type      regex
+    livecheck.url       ${master_sites}
+    livecheck.regex     "eventlet-(\\d+(?:\\.\\d+)*)"
+}

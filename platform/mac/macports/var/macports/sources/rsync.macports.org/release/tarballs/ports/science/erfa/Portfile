@@ -1,0 +1,21 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 139019 2015-07-29 10:14:25Z robitaille@macports.org $
+
+PortSystem              1.0
+PortGroup               github 1.0
+
+github.setup            liberfa erfa 1.2.0 v
+categories              science
+maintainers             robitaille openmaintainer
+license                 BSD
+platforms               darwin
+
+description             Essential Routines for Fundamental Astronomy
+
+long_description        Essential Routines for Fundamental Astronomy
+
+github.tarball_from     releases
+
+checksums               md5 63e8e694d53add33c16f3f494d2b65f4 \
+                        rmd160  889ac72a5585aa086afe10b82fa6328dd4261cff \
+                        sha256  361bc9c5f783140aa337eba8379476ec45ec13627a8c839ccc1aaec104ad3316

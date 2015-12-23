@@ -1,0 +1,27 @@
+# $Id: Portfile 112319 2013-10-18 10:58:22Z jmr@macports.org $
+
+PortSystem 1.0
+
+name			htpdate
+version			0.9.1
+categories		net
+license			GPL-2+
+platforms		darwin
+maintainers		nomaintainer
+description		network time synchronization over http protocol
+long_description	${description}
+
+homepage		http://www.clevervest.com/htp/
+master_sites	${homepage}archive/c/
+checksums		sha1 e0b1a3ae9ba755471102f28a2b8a7e2dc77addc7
+use_bzip2		yes
+
+use_configure	no
+
+build.args		CC=${configure.cc}
+
+destroot.destdir	prefix=${destroot}${prefix} STRIP=/usr/bin/strip
+
+livecheck.type	regex
+livecheck.url	[lindex ${master_sites} 0]
+livecheck.regex	${name}-(\[0-9.\]+)\\.tar

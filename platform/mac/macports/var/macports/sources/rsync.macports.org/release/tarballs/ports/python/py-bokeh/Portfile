@@ -1,0 +1,62 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 141362 2015-10-16 10:04:52Z stromnov@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-bokeh
+version             0.10.0
+revision            0
+categories-append   devel
+platforms           darwin
+license             BSD
+
+python.versions     27 34
+
+maintainers         stromnov openmaintainer
+
+description         Bokeh is an implementation of Grammar of Graphics
+
+long_description    Bokeh (pronounced boh-Kay) is an implementation of \
+                    Grammar of Graphics for Python, that also supports \
+                    the customized rendering flexibility of Protovis and d3.
+
+homepage            http://github.com/bokeh/bokeh
+master_sites        pypi:[string index ${python.rootname} 0]/${python.rootname}
+
+distname            ${python.rootname}-${version}
+
+checksums           rmd160  548c6c21aacabf7be0ad87bdc0122e54597bd98b \
+                    sha256  2d8bd8c98e2f62b2a28328d3cc95bfbe257742fa7efc9c382b4c8ae4a141df14
+
+if {${name} ne ${subport}} {
+    depends_lib-append  port:py${python.version}-flask \
+                        port:py${python.version}-jinja2 \
+                        port:py${python.version}-markupsafe \
+                        port:py${python.version}-werkzeug \
+                        port:py${python.version}-greenlet \
+                        port:py${python.version}-itsdangerous \
+                        port:py${python.version}-numpy \
+                        port:py${python.version}-pandas \
+                        port:py${python.version}-dateutil \
+                        port:py${python.version}-tz \
+                        port:py${python.version}-redis \
+                        port:py${python.version}-requests \
+                        port:py${python.version}-six \
+                        port:py${python.version}-pygments \
+                        port:py${python.version}-pystache \
+                        port:py${python.version}-markdown \
+                        port:py${python.version}-yaml \
+                        port:py${python.version}-colorama
+
+    if {${python.version} < 30} {
+        depends_lib-append  port:py${python.version}-gevent \
+                            port:py${python.version}-gevent-websocket
+    }
+
+    depends_run-append  port:redis
+
+    livecheck.type      none
+} else {
+    livecheck.type      pypi
+}

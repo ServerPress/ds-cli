@@ -1,0 +1,92 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143592 2015-12-15 15:02:40Z ryandesign@macports.org $
+
+PortSystem              1.0
+PortGroup               muniversal 1.0
+
+name                    wget
+version                 1.17.1
+categories              net www
+maintainers             ryandesign openmaintainer
+license                 GPL-3+
+homepage                http://www.gnu.org/software/wget/
+platforms               darwin freebsd
+use_parallel_build      yes
+master_sites            gnu
+use_xz                  yes
+
+description \
+    internet file retriever
+
+long_description \
+    GNU Wget is a free software package for retrieving files using HTTP, \
+    HTTPS and FTP, the most widely-used Internet protocols. It is a \
+    non-interactive commandline tool, so it may easily be called from \
+    scripts, cron jobs, terminals without Xsupport, etc.
+
+checksums               rmd160  8ad5e9936c66ced9ad4ffc5012484a38f4a15cee \
+                        sha256  fe559b61eb9cc01635ac6206a14e02cb51591838c35fa83c7a4aacae0bdd97c9
+
+configure.args \
+    --without-ssl
+
+depends_build           bin:makeinfo:texinfo \
+                        bin:pod2man:perl5 \
+                        port:pkgconfig
+
+depends_lib \
+    port:libidn \
+    port:gettext \
+    port:nettle \
+    port:pcre
+
+patchfiles              nawk.patch \
+                        prefix.patch
+
+# Ensure libuuid doesn't get used even if the ossp-uuid port is installed.
+configure.args-append       ac_cv_header_uuid_uuid_h=no
+
+# Remove test variant and use depends_test when that becomes available (#38208)
+pre-test {
+    if {![variant_isset test]} {
+        ui_error "To run the tests, you must select the +test variant."
+        return -code error "+test variant not selected"
+    }
+}
+variant test description {Add dependencies needed to run tests} {
+    depends_build-append    port:p5-libwww-perl \
+                            port:p5-io-socket-ssl
+    test.run                yes
+    test.target             check
+}
+
+variant ssl description {Build with SSL support using GnuTLS} {
+    depends_lib-append      port:gnutls
+    configure.args-delete   --without-ssl
+}
+
+default_variants        +ssl
+
+post-patch {
+    reinplace "s|@PREFIX@|${prefix}|g" \
+        ${worksrcpath}/ChangeLog \
+        ${worksrcpath}/README \
+        ${worksrcpath}/NEWS \
+        ${worksrcpath}/doc/sample.wgetrc \
+        ${worksrcpath}/doc/wget.texi
+}
+
+post-destroot {
+    # Install documentation.
+    set docdir ${destroot}${prefix}/share/doc/${name}
+    xinstall -d ${docdir}
+    xinstall -W ${worksrcpath} -m 0644 AUTHORS COPYING ChangeLog MAILING-LIST NEWS README ${docdir}
+    
+    # Rename sample wgetrc file so we don't clobber a user's real config file on upgrade.
+    move ${destroot}${prefix}/etc/wgetrc ${destroot}${prefix}/etc/wgetrc.sample
+}
+
+notes "
+To customize wget, you can copy ${prefix}/etc/wgetrc.sample to\
+${prefix}/etc/wgetrc and then make changes.
+"

@@ -1,0 +1,124 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 143690 2015-12-17 22:44:45Z devans@macports.org $
+
+PortSystem          1.0
+PortGroup           muniversal 1.0
+PortGroup           compiler_blacklist_versions 1.0
+PortGroup           gobject_introspection 1.0
+
+name                gegl-devel
+conflicts           gegl
+set git_name        gegl
+set git_commit      e1a6b5c164478fe9b82917ab468e5018e1705bd6
+set git_date        20151215
+version             0.3.5-${git_date}
+license             {GPL-3+ LGPL-3+}
+categories          graphics
+maintainers         devans
+platforms           darwin
+
+description         GEGL is a graph based image processing framework.
+
+long_description    GEGL is a graph based image processing framework offering image processing and \
+                    compositing on large images. GEGL is suitable for projects ranging from small \
+                    one-off projects to interactive applications. This is the development version \
+                    based on a recent snapshot of upstream git master.
+
+homepage            http://gegl.org/
+master_sites        https://git.gnome.org/browse/${git_name}/snapshot/
+
+distname            ${git_name}-${git_commit}
+
+checksums           rmd160  8a389ad74c326e36b9540670d2db371ce4a21065 \
+                    sha256  0ac3386911882e45e8b4023fcb8bdb99d1aa0b5ec2a2ac3457dd83697cc4bcab
+
+depends_build       port:pkgconfig \
+                    port:intltool \
+                    port:w3m \
+                    port:autoconf \
+                    port:automake \
+                    port:libtool \
+                    port:python27
+
+depends_lib         port:babl-devel \
+                    port:gtk2 \
+                    port:jpeg \
+                    port:lua \
+                    path:bin/dot:graphviz \
+                    port:openexr \
+                    port:exiv2 \
+                    port:gexiv2 \
+                    port:json-glib \
+                    port:libraw \
+                    port:librsvg \
+                    port:libsdl \
+                    path:lib/libavcodec.dylib:ffmpeg \
+                    port:libspiro \
+                    port:vala
+
+patchfiles          patch-configure.ac.diff \
+                    patch-force-intltoolize.diff
+
+post-patch {
+    # http://trac.macports.org/ticket/35148
+    if {${os.major} < 10} {
+        reinplace "s|OpenGL/CGLDevice.h|OpenGL/CGLTypes.h|" ${worksrcpath}/gegl/opencl/cl_gl.h
+    }
+
+    # Not sure what they expected by using these macros... they only belong in system headers...
+    reinplace "s/AVAILABLE_MAC_OS_X_VERSION_10_6_AND_LATER//" ${worksrcpath}/gegl/opencl/cl_platform.h
+}
+
+gobject_introspection yes
+
+compiler.blacklist-append gcc-4.0 *gcc-4.2
+
+# reconfigure using upstream autogen.sh for intltool 0.51 compatibility
+
+configure.cmd       ./autogen.sh
+
+configure.python    ${prefix}/bin/python2.7
+
+configure.args      --disable-docs \
+                    --disable-silent-rules \
+                    --without-umfpack
+
+platform darwin {
+    if {[variant_isset universal]} {
+        # In order to build universal on Leopard, you need MacPorts 2.1
+        set merger_configure_args(x86_64) --build=${build_arch}-apple-${os.platform}${os.version}
+        set merger_configure_cflags(ppc) -fno-altivec
+        set merger_configure_cxxflags(ppc) -fno-altivec
+    } elseif {${build_arch} == "ppc"} {
+        configure.cflags-append -fno-altivec
+        configure.cxxflags-append -fno-altivec
+    } elseif {${build_arch} == "x86_64"} {
+        configure.args-append --build=${build_arch}-apple-${os.platform}${os.version}
+    }
+}
+
+variant html_doc description {Build html docs with enscript and asciidoc} {
+    depends_build-append port:asciidoc
+    configure.args-delete --disable-docs
+    configure.args-append --enable-docs
+}
+
+variant workshop description {Enable build of workshop operations} {
+    depends_lib-append port:lensfun
+    configure.args-append --enable-workshop
+}
+
+#
+# the following dummy variants are used
+# to identify this port's binary dependencies
+# inherited from libsdl and librsvg
+#
+
+variant x11 conflicts quartz {}
+variant quartz conflicts x11 {}
+
+if {![variant_isset quartz]} {
+    default_variants +x11
+}
+
+livecheck.type      none

@@ -1,0 +1,24 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 138528 2015-07-11 09:40:02Z mojca@macports.org $
+
+PortSystem          1.0
+PortGroup           perl5 1.0
+
+perl5.branches      5.16 5.18 5.20 5.22
+perl5.setup         Test-LongString 0.17 ../by-authors/id/R/RG/RGARCIA/
+license             {Artistic-1 GPL}
+maintainers         nomaintainer
+description         Tests strings for equality, with more helpful failures
+long_description    ${description}
+
+checksums           rmd160  76baf20d08667a43b1f6ad263e76b22110eed5bb \
+                    sha256  abc4349eaf04d1bec1e464166a3018591ea846d8f3c5c9c8af4ac4905d3e974f
+
+platforms           darwin
+
+if {${perl5.major} != ""} {
+    depends_lib-append \
+                    port:p${perl5.major}-test-simple
+
+    supported_archs noarch
+}
