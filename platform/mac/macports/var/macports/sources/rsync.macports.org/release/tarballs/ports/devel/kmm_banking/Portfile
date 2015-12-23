@@ -1,9 +1,0 @@
-# $Id: Portfile 111972 2013-10-07 17:33:23Z mk@macports.org $
-
-PortSystem              1.0
-name                    kmm_banking
-version                 1.0
-revision                3
-replaced_by             kmymoney4
-PortGroup               obsolete 1.0
-

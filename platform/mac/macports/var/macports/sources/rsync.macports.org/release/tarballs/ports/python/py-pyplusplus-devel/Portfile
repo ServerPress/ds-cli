@@ -1,9 +1,0 @@
-# $Id: Portfile 127281 2014-10-24 19:38:26Z mmoll@macports.org $
-
-PortSystem          1.0
-replaced_by         py-pyplusplus
-PortGroup           obsolete 1.0
-
-name                py-pyplusplus-devel
-version             20140721
-maintainers         nomaintainer
