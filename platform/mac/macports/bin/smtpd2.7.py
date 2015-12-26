@@ -1,1 +1,0 @@
-/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin/smtpd2.7.py

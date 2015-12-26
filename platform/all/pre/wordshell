@@ -1,7 +1,6 @@
 #!/bin/bash
 # Note - if you change that path to bash, then you should also change it in the configuration section below
-
-VERSION="1.3.128 (2015-05-25)"
+VERSION="1.3.132 (2015-09-24)"
 
 # (c) David Anderson 2011-
 #
@@ -92,7 +91,7 @@ EXCLUDE_GLOB_FTP="wponlinebackup/tmp/*"
 EXCLUDE_GLOB_RSYNC="wponlinebackup/tmp/*"
 
 # Where to fetch a wp-wordshell-controller.php script of sufficiently high protocol from
-REMOTE_MANAGER_MINIMUM_PROTOCOL=19
+REMOTE_MANAGER_MINIMUM_PROTOCOL=20
 REMOTE_MANAGER_FROM="https://wordshellnet.s3.amazonaws.com/wp-wordshell-controller.php.$REMOTE_MANAGER_MINIMUM_PROTOCOL"
 
 SELINUX=0
@@ -353,7 +352,7 @@ The following are also valid with --database:
 
 --refreshcache     :	Ensure freshness of our local cached copy of the site, then exit. You could use this to prime all the caches for quicker subsequent operation (e.g. in a cron job before your working day starts). If the cache was recently updated, then this is a no-op; to enforce an update, add --sync.
 --listrollbacks    :	Show possible rollbacks for a given site (and plugin/theme, if indicated)
---deleterollbacks  :	Deletes all stored rollbacks older than 90 days, or the specified number (e.g. deleterollbacks=45)
+--deleterollbacks  :	Deletes all stored rollbacks older than 90 days, or the specified number of days (e.g. --deleterollbacks=45)
 
 ${BOLD}Mode-specific options:${OFFBOLD}
 
@@ -398,6 +397,7 @@ ${BOLD}List, update, restore and delete modes:${OFFBOLD}
 --inactive         :	Operate on plugins/themes only if they are inactive
 --currentversion=<ver>:	Operate on entities only if the installed version matches this one. You can use --cver= as a shorter alias. This switch is also available in rollback mode. Prefix the version with x to negate the test, e.g. --cver=x3.3 means \"not version 3.3\".
 --fast             :	Decide which sites to work on based upon WordShell's internal cache of sites (the effect of this option is to cut out the sync-ing of all sites, if you have chosen to work upon all sites)
+--nochecksum       :	If files are being sycned over HTTP, then don't (internally) ask for and check the checksum. This is intended only for if you hit a PHP execution timeout and can't increase it.
 
 ${BOLD}Activate and deactivate modes:${OFFBOLD}
 --network          :	When used with --activate on a WP multisite installation, performs \"network activation\" of the plugin (see http://codex.wordpress.org/Multisite_Network_Administration#Plugins)
@@ -590,6 +590,7 @@ USER_EMAIL=""
 USER_ROLE=""
 FAST=0
 PHPLINT=1
+CALCULATE_CHECKSUM=1
 ALREADY_LINTED=0
 NETWORK_PLUGIN=0
 NETWORK_BLOGID=-1
@@ -670,7 +671,7 @@ function parse_option() {
 	elif [[ $i =~ $SEARCHREPLACEREGEX ]]; then mode_switch "searchandreplace"; SEARCHANDREPLACE_SEARCH=${BASH_REMATCH[1]}; SEARCHANDREPLACE_REPLACE=${BASH_REMATCH[2]}
 	elif [ "$i" = "--downloadonly" ]; then mode_switch "downloadonly";
 	elif [ "$i" = "--deleterollbacks" ]; then mode_switch "deleterollbacks";
-	elif [[ $i =~ "^--deleterollbacks=([0-9]+)$" ]]; then mode_switch "deleterollbacks"; DELETEROLLBACKDAYS=${BASH_REMATCH[1]};
+	elif [[ $i =~ ^--deleterollbacks=([0-9]+)$ ]]; then mode_switch "deleterollbacks"; DELETEROLLBACKDAYS=${BASH_REMATCH[1]};
 	elif [[ $i =~ ^--email=(.*)$ ]]; then USER_EMAIL=${BASH_REMATCH[1]};
 	elif [[ $i =~ ^--reassign=(.*)$ ]]; then POSTS_REASSIGN=${BASH_REMATCH[1]};
 	elif [[ $i =~ ^--role=(.*)$ ]]; then USER_ROLE=${BASH_REMATCH[1]};
@@ -698,6 +699,7 @@ function parse_option() {
 	elif [ "$i" = "--network" ]; then NETWORK_PLUGIN=1
 	elif [ "$i" = "--noconfirmpristine" ]; then CONFIRM_WHEN_NO_PRISTINE=0
 	elif [ "$i" = "--nolint" ]; then PHPLINT=0
+	elif [ "$i" = "--nochecksum" ]; then CALCULATE_CHECKSUM=0
 	elif [ "$i" = "--skipmakerollback" ]; then SKIPMAKEROLLBACK=1
 	elif [ "$i" = "--disableftptls" ]; then DISABLEFTPTLS=1
 	elif [ "$i" = "--requireftptls" ]; then REQUIREFTPTLS=1
@@ -1294,7 +1296,7 @@ if [[ $METAMODE != "everything" && $METAMODE != "pluginsandthemes" ]]; then
 		MODE="normal"
 	fi
 
-	[[ ( $ONLYACTIVE -eq 1 || $ONLYINACTIVE -eq 1 || $FAST -eq 1 ) && ( $MODE != "list" && $MODE != "normal" && $MODE != "delete" ) ]] && options_abort "Can only specify --fast, --active or --inactive in list, delete, restore and update modes (not with --$MODE)"
+	[[ ( $ONLYACTIVE -eq 1 || $ONLYINACTIVE -eq 1 || $FAST -eq 1 ) && ( $MODE != "list" && $MODE != "normal" && $MODE != "delete" && $MODE != "checkmodifications" ) ]] && options_abort "Can only specify --active or --inactive in list, delete, restore and update modes, and --fast only in those and checkmodifications mode (not with --$MODE)"
 
 	if [[ $MODE = "addsite" ]]; then
 		if [[ -n $SITE && $SITE != "new" ]]; then
@@ -1434,13 +1436,13 @@ if [[ -n $LFTP && ( -z $3 || $3 = "passwarning" || $3 = "testonly" || $3 =~ "try
 elif [[ -n $CURL && ( -z $3 || $3 = "passwarning" || $3 = "testonly" || $3 =~ "tryonlycurl" ) ]]; then
 	if [[ -n $CURL ]]; then
 		[[ $DEBUG -ge 1 ]] && ws_event_info "url_get: curl: $1"
-		local CURLOPTS=""
+		local CURLOPTS="--location"
 		local CURL_URL=$1
 		local CURLUSER=""
 		local CURLRET
 		[[ $1 =~ ^s?ftp ]] && CURLOPTS="$CURL_FTPOPTIONS "
 		# --location forces curl to follow any Location: headers; otherwise the test may fail (a redirect code comes successfully back, though the site you'd get if you followed it may be down)
-		[[ $3 =~ testonly ]] && CURLOPTS="$CURLOPTS --fail --location"
+		[[ $3 =~ testonly ]] && CURLOPTS="$CURLOPTS --fail"
 		if [[ $1 =~ ^(https?|s?ftps?)://([^/]+):([^/]+)\@(.*)$ ]]; then
 			CURLUSER="user = \"${BASH_REMATCH[2]}:${BASH_REMATCH[3]}\"
 "
@@ -3443,7 +3445,9 @@ function rpc_mirror_get() {
 	local FINDDIR="$RDIR/$RMIRROR_DIR"
 	[[ $RDIR = "." ]] && FINDDIR="$RMIRROR_DIR"
 
-	remotecli_process "findfiles5:$FINDDEPTH:$FINDDIR" tellfile
+	local FINDCOM="findfiles5"
+	[[ $CALCULATE_CHECKSUM -eq 0 ]] && FINDCOM="findfiles0"
+	remotecli_process "$FINDCOM:$FINDDEPTH:$FINDDIR" tellfile
 	FINDEM=$REMOTECLI_OUTPUT
 	local REM_ANS=`head -1 $FINDEM`
 	if [[ $REM_ANS = "AUTHOK:OK" ]]; then
@@ -4346,6 +4350,7 @@ function site_reinvoke() {
 		[[ $REQUIREFTPTLS -eq 1 ]] && EXTRAPARAMS="$EXTRAPARAMS --requireftptls"
 		[[ $DISABLEFTPTLS -eq 1 ]] && EXTRAPARAMS="$EXTRAPARAMS --disableftptls"
 		[[ $PHPLINT -eq 0 ]] && EXTRAPARAMS="$EXTRAPARAMS --nolint"
+		[[ $CALCULATE_CHECKSUM -eq 0 ]] && EXTRAPARAMS="$EXTRAPARAMS --nochecksum"
 		[[ $CONFIRM_WHEN_NO_PRISTINE -eq 0 ]] && EXTRAPARAMS="$EXTRAPARAMS --noconfirmpristine"
 		ws_cd "$ORIGDIR"
 		[[ -n $CURRENTVERSION ]] && EXTRAPARAMS="$EXTRAPARAMS --cver=$CURRENTVERSION"
@@ -5036,7 +5041,7 @@ fi
 # Setup finished: now we have the site and its access details, and they are sanity-checked; we can start processing most modes
 
 # Apply the filters from --fast (exit if nothing to do) (these are never set with --core)
-if [[ ( $MODE = "delete" || $MODE = "normal" || $MODE = "restore" || $MODE = "rollback" || $MODE = "list" ) && ( $FAST -eq 1 ) ]]; then
+if [[ ( $MODE = "delete" || $MODE = "normal" || $MODE = "restore" || $MODE = "rollback" || $MODE = "list" || $MODE = "checkmodifications" ) && ( $FAST -eq 1 ) ]]; then
 	if [[ ! -e "$WORKINGDIR_FULL/current/$SITE/$METAMODE_DIR/$PLUGIN" ]]; then
 		[[ $DEBUG -ge 1 ]] && ws_event_debug "$SITE: $PLUGIN: Nothing to do: ${METAMODE} is not present in the local cache, and --fast was given"
 		exit
@@ -5849,6 +5854,7 @@ if [[ $PLUGIN = "all" ]]; then
 			[[ $REQUIREFTPTLS -eq 1 ]] && EXTRAPARAMS="$EXTRAPARAMS --requireftptls"
 			[[ $DISABLEFTPTLS -eq 1 ]] && EXTRAPARAMS="$EXTRAPARAMS --disableftptls"
 			[[ $PHPLINT -eq 0 ]] && EXTRAPARAMS="$EXTRAPARAMS --nolint"
+			[[ $CALCULATE_CHECKSUM -eq 0 ]] && EXTRAPARAMS="$EXTRAPARAMS --nochecksum"
 			[[ $CONFIRM_WHEN_NO_PRISTINE -eq 0 ]] && EXTRAPARAMS="$EXTRAPARAMS --noconfirmpristine"
 			[[ $METAMODE = "theme" ]] && EXTRAPARAMS="$EXTRAPARAMS --theme"
 			ws_cd "$ORIGDIR"
