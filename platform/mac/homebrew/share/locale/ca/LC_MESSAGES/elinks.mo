@@ -1,0 +1,1 @@
+../../../../Cellar/elinks/0.11.7_2/share/locale/ca/LC_MESSAGES/elinks.mo

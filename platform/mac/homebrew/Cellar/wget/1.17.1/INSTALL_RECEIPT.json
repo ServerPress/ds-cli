@@ -1,0 +1,1 @@
+{"compiler":"clang","used_options":[],"built_as_bottle":false,"time":1450943634,"stdlib":null,"unused_options":["--with-iri","--with-libmetalink","--with-gpgme","--with-pcre","--with-debug","--without-openssl","--with-libressl"],"HEAD":null,"poured_from_bottle":false,"source":{"spec":"stable","path":"/usr/local/Library/Formula/wget.rb","tap":"Homebrew/homebrew"}}
