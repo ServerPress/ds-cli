@@ -1,5 +1,146 @@
 GNU coreutils NEWS                                    -*- outline -*-
 
+* Noteworthy changes in release 8.24 (2015-07-03) [stable]
+
+** Bug fixes
+
+  dd supports more robust SIGINFO/SIGUSR1 handling for outputting statistics.
+  Previously those signals may have inadvertently terminated the process.
+
+  df --local no longer hangs with inaccessible remote mounts.
+  [bug introduced in coreutils-8.21]
+
+  du now silently ignores all directory cycles due to bind mounts.
+  Previously it would issue a warning and exit with a failure status.
+  [bug introduced in coreutils-8.1 and partially fixed in coreutils-8.23]
+
+  chroot again calls chroot(DIR) and chdir("/"), even if DIR is "/".
+  This handles separate bind mounted "/" trees, and environments
+  depending on the implicit chdir("/").
+  [bugs introduced in coreutils-8.23]
+
+  cp no longer issues an incorrect warning about directory hardlinks when a
+  source directory is specified multiple times.  Now, consistent with other
+  file types, a warning is issued for source directories with duplicate names,
+  or with -H the directory is copied again using the symlink name.
+
+  factor avoids writing partial lines, thus supporting parallel operation.
+  [the bug dates back to the initial implementation]
+
+  head, od, split, tac, tail, and wc no longer mishandle input from files in
+  /proc and /sys file systems that report somewhat-incorrect file sizes.
+
+  mkdir --parents -Z now correctly sets the context for the last component,
+  even if the parent directory exists and has a different default context.
+  [bug introduced with the -Z restorecon functionality in coreutils-8.22]
+
+  numfmt no longer outputs incorrect overflowed values seen with certain
+  large numbers, or with numbers with increased precision.
+  [bug introduced when numfmt was added in coreutils-8.21]
+
+  numfmt now handles leading zeros correctly, not counting them when
+  settings processing limits, and making them optional with floating point.
+  [bug introduced when numfmt was added in coreutils-8.21]
+
+  paste no longer truncates output for large input files.  This would happen
+  for example with files larger than 4GiB on 32 bit systems with a '\n'
+  character at the 4GiB position.
+  [the bug dates back to the initial implementation]
+
+  rm indicates the correct number of arguments in its confirmation prompt,
+  on all platforms.  [bug introduced in coreutils-8.22]
+
+  shuf -i with a single redundant operand, would crash instead of issuing
+  a diagnostic.  [bug introduced in coreutils-8.22]
+
+  tail releases inotify resources when unused.  Previously it could exhaust
+  resources with many files, or with -F if files were replaced many times.
+  [bug introduced in coreutils-7.5]
+
+  tail -f again follows changes to a file after it's renamed.
+  [bug introduced in coreutils-7.5]
+
+  tail --follow no longer misses changes to files if those files were
+  replaced before inotify watches were created.
+  [bug introduced in coreutils-7.5]
+
+  tail --follow consistently outputs all data for a truncated file.
+  [bug introduced in the beginning]
+
+  tail --follow=name correctly outputs headers for multiple files
+  when those files are being created or renamed.
+  [bug introduced in coreutils-7.5]
+
+** New features
+
+  chroot accepts the new --skip-chdir option to not change the working directory
+  to "/" after changing into the chroot(2) jail, thus retaining the current wor-
+  king directory.  The new option is only permitted if the new root directory is
+  the old "/", and therefore is useful with the --group and --userspec options.
+
+  dd accepts a new status=progress level to print data transfer statistics
+  on stderr approximately every second.
+
+  numfmt can now process multiple fields with field range specifications similar
+  to cut, and supports setting the output precision with the --format option.
+
+  split accepts a new --separator option to select a record separator character
+  other than the default newline character.
+
+  stty allows setting the "extproc" option where supported, which is
+  a useful setting with high latency links.
+
+  sync no longer ignores arguments, and syncs each specified file, or with the
+  --file-system option, the file systems associated with each specified file.
+
+  tee accepts a new --output-error option to control operation with pipes
+  and output errors in general.
+
+** Changes in behavior
+
+  df no longer suppresses separate exports of the same remote device, as
+  these are generally explicitly mounted.  The --total option does still
+  suppress duplicate remote file systems.
+  [suppression was introduced in coreutils-8.21]
+
+  mv no longer supports moving a file to a hardlink, instead issuing an error.
+  The implementation was susceptible to races in the presence of multiple mv
+  instances, which could result in both hardlinks being deleted.  Also on case
+  insensitive file systems like HFS, mv would just remove a hardlinked 'file'
+  if called like `mv file File`.  The feature was added in coreutils-5.0.1.
+
+  numfmt --from-unit and --to-unit options now interpret suffixes as SI units,
+  and IEC (power of 2) units are now specified by appending 'i'.
+
+  tee will exit early if there are no more writable outputs.
+
+  tee does not treat the file operand '-' as meaning standard output any longer,
+  for better conformance to POSIX.  This feature was added in coreutils-5.3.0.
+
+  timeout --foreground no longer sends SIGCONT to the monitored process,
+  which was seen to cause intermittent issues with GDB for example.
+
+** Improvements
+
+  cp,install,mv will convert smaller runs of NULs in the input to holes,
+  and cp --sparse=always avoids speculative preallocation on XFS for example.
+
+  cp will read sparse files more efficiently when the destination is a
+  non regular file.  For example when copying a disk image to a device node.
+
+  mv will try a reflink before falling back to a standard copy, which is
+  more efficient when moving files across BTRFS subvolume boundaries.
+
+  stat and tail now know about IBRIX.  stat -f --format=%T now reports the file
+  system type, and tail -f uses polling for files on IBRIX file systems.
+
+  wc -l processes short lines much more efficiently.
+
+  References from --help and the man pages of utilities have been corrected
+  in various cases, and more direct links to the corresponding online
+  documentation are provided.
+
+
 * Noteworthy changes in release 8.23 (2014-07-18) [stable]
 
 ** Bug fixes
@@ -841,7 +982,7 @@ GNU coreutils NEWS                                    -*- outline -*-
 ** Bug fixes
 
   chown and chgrp with the -v --from= options, now output the correct owner.
-  I.E. for skipped files, the original ownership is output, not the new one.
+  I.e., for skipped files, the original ownership is output, not the new one.
   [bug introduced in sh-utils-2.0g]
 
   cp -r could mistakenly change the permissions of an existing destination
@@ -2364,7 +2505,7 @@ GNU coreutils NEWS                                    -*- outline -*-
   the DF_BLOCK_SIZE, BLOCK_SIZE, and BLOCKSIZE environment variables.  It
   is still affected by POSIXLY_CORRECT, though.
 
-  Using pr -m -s (i.e. merging files, with TAB as the output separator)
+  Using pr -m -s (i.e., merging files, with TAB as the output separator)
   no longer inserts extraneous spaces between output columns.
 
 * Noteworthy changes in release 6.8 (2007-02-24) [not-unstable]
@@ -4217,7 +4358,7 @@ packages, see ./old/*/NEWS.
 
 ========================================================================
 
-Copyright (C) 2001-2014 Free Software Foundation, Inc.
+Copyright (C) 2001-2015 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.3 or

@@ -29,9 +29,9 @@
 MACHINE="i686"
 OS="cygwin"
 CC="gcc"
-CFLAGS=" -DPROGRAM='bash.exe' -DCONF_HOSTTYPE='i686' -DCONF_OSTYPE='cygwin' -DCONF_MACHTYPE='i686-pc-cygwin' -DCONF_VENDOR='pc' -DLOCALEDIR='/usr/share/locale' -DPACKAGE='bash' -DSHELL -DHAVE_CONFIG_H -DRECYCLES_PIDS   -I.  -I/usr/src/bash-4.3.39-2.i686/src/bash-4.3 -I/usr/src/bash-4.3.39-2.i686/src/bash-4.3/include -I/usr/src/bash-4.3.39-2.i686/src/bash-4.3/lib  -DWORDEXP_OPTION -ggdb -O2 -pipe -Wimplicit-function-declaration -fdebug-prefix-map=/usr/src/bash-4.3.39-2.i686/build=/usr/src/debug/bash-4.3.39-2 -fdebug-prefix-map=/usr/src/bash-4.3.39-2.i686/src/bash-4.3=/usr/src/debug/bash-4.3.39-2"
+CFLAGS=" -DPROGRAM='bash.exe' -DCONF_HOSTTYPE='i686' -DCONF_OSTYPE='cygwin' -DCONF_MACHTYPE='i686-pc-cygwin' -DCONF_VENDOR='pc' -DLOCALEDIR='/usr/share/locale' -DPACKAGE='bash' -DSHELL -DHAVE_CONFIG_H -DRECYCLES_PIDS   -I.  -I/usr/src/bash-4.3.42-4.i686/src/bash-4.3 -I/usr/src/bash-4.3.42-4.i686/src/bash-4.3/include -I/usr/src/bash-4.3.42-4.i686/src/bash-4.3/lib  -DWORDEXP_OPTION -ggdb -O2 -pipe -Wimplicit-function-declaration -fdebug-prefix-map=/usr/src/bash-4.3.42-4.i686/build=/usr/src/debug/bash-4.3.42-4 -fdebug-prefix-map=/usr/src/bash-4.3.42-4.i686/src/bash-4.3=/usr/src/debug/bash-4.3.42-4"
 RELEASE="4.3"
-PATCHLEVEL="39"
+PATCHLEVEL="42"
 RELSTATUS="release"
 MACHTYPE="i686-pc-cygwin"
 

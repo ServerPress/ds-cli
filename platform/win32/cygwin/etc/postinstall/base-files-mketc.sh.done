@@ -6,7 +6,7 @@
 # with this software. 
 # If not, see <http://creativecommons.org/publicdomain/zero/1.0/>. 
 
-# base-files version 4.2-3
+# base-files version 4.2-4
 
 # Create symbolic links from some /etc files to the Windows equivalents
 # Set perms to /tmp directory
@@ -23,9 +23,15 @@ fi
 
 for mketc in ${FILES}
 do
+  if [ -L "/etc/${mketc}" ]
+  then
+    realpath -e "/etc/${mketc}" || unlink "/etc/${mketc}"
+  fi
   if [ ! -e "/etc/${mketc}" -a ! -L "/etc/${mketc}" ]
   then
-    /usr/bin/ln -s -v "${WINETC}/${mketc}" "/etc/${mketc}"
+    # Windows only uses the first 8 characters
+    WFILE="${WINETC}/$(expr substr "${mketc}" 1 8)"
+    /usr/bin/ln -s -v "${WFILE}" "/etc/${mketc}"
   fi
 done
 

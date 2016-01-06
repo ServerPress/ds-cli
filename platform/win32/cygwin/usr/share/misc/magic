@@ -299,7 +299,7 @@
 0	string 		.key		AmigaDOS script
 
 #------------------------------------------------------------
-# $File: android,v 1.7 2014/11/10 05:08:23 christos Exp $
+# $File: android,v 1.8 2015/03/19 18:04:37 christos Exp $
 # Various android related magic entries
 #------------------------------------------------------------
 
@@ -436,6 +436,12 @@
 >16		lelong	x			\b, Total of %d
 >12		lelong	x			\b %d-byte output blocks in
 >20		lelong	x			\b %d input chunks.
+
+# Android binary XML magic
+# In include/androidfw/ResourceTypes.h:
+# RES_XML_TYPE = 0x0003 followed by the size of the header (ResXMLTree_header),
+# which is 8 bytes (2 bytes type + 2 bytes header size + 4 bytes size).
+0	lelong	0x00080003	Android binary XML
 
 #------------------------------------------------------------------------------
 # $File: animation,v 1.56 2014/10/23 23:12:51 christos Exp $
@@ -1499,7 +1505,7 @@
 0	long		0100554		APL workspace (Ken's original?)
 
 #------------------------------------------------------------------------------
-# $File: apple,v 1.29 2014/04/30 21:41:02 christos Exp $
+# $File: apple,v 1.30 2015/04/13 13:09:06 christos Exp $
 # apple:  file(1) magic for Apple file formats
 #
 0	search/1/t	FiLeStArTfIlEsTaRt	binscii (apple ][) text
@@ -1800,6 +1806,15 @@
 #http://en.wikipedia.org/wiki/.DS_Store
 0	string	\0\0\0\1Bud1\0		Apple Desktop Services Store
 
+# HFS/HFS+ Resource fork files (andrew.roazen@nau.edu Apr 13 2015)
+# Usually not in separate files, but have either filename rsrc with
+# no extension, or a filename corresponding to another file, with
+# extensions rsr/rsrc
+0	string  \000\000\001\000
+>4	leshort 0
+>>16    lelong  0			Apple HFS/HFS+ resource fork
+
+
 #------------------------------------------------------------------------------
 # $File: applix,v 1.5 2009/09/19 16:28:08 christos Exp $
 # applix:  file(1) magic for Applixware
@@ -1813,7 +1828,7 @@
 >7	string		MACRO			Macro
 >7	string		BUILDER			Builder Object
 #------------------------------------------------------------------------------
-# $File: archive,v 1.88 2014/08/16 10:42:17 christos Exp $
+# $File: archive,v 1.90 2015/04/24 15:44:12 christos Exp $
 # archive:  file(1) magic for archive formats (see also "msdos" for self-
 #           extracting compressed archives)
 #
@@ -2528,7 +2543,7 @@
 >>>4	byte		0x0a		\b, at least v1.0 to extract
 >>>4	byte		0x0b		\b, at least v1.1 to extract
 >>>4	byte		0x14		\b, at least v2.0 to extract
->>>4	byte		0x2d		\b, at least v3.0 to extract
+>>>4	byte		0x2d		\b, at least v4.5 to extract
 >>>0x161	string		WINZIP		\b, WinZIP self-extracting
 
 # StarView Metafile
@@ -2725,6 +2740,9 @@
 # ZPAQ: http://mattmahoney.net/dc/zpaq.html
 0	string	zPQ	ZPAQ stream
 >3	byte	x	\b, level %d
+# From: Barry Carter <carter.barry@gmail.com>
+# http://encode.ru/threads/456-zpaq-updates/page32
+0	string	7kSt	ZPAQ file
 
 # BBeB ebook, unencrypted (LRF format)
 # URL: http://www.sven.de/librie/Librie/LrfFormat
@@ -2847,7 +2865,7 @@
 >364	string		>\0		of '%s'
 
 #------------------------------------------------------------------------------
-# $File: audio,v 1.71 2014/05/14 23:30:28 christos Exp $
+# $File: audio,v 1.73 2015/03/15 23:21:42 christos Exp $
 # audio:  file(1) magic for sound formats (see also "iff")
 #
 # Jan Nicolai Langfeldt (janl@ifi.uio.no), Dan Quinlan (quinlan@yggdrasil.com),
@@ -3147,7 +3165,7 @@
 >>5	byte		&0x40	\b, extended header
 >>5	byte		&0x20	\b, experimental
 >>5	byte		&0x10	\b, footer present
->(6.I)	indirect	x	\b, contains: 
+>(6.I+10)	indirect	x	\b, contains: 
 
 # NSF (NES sound file) magic
 0	string		NESM\x1a	NES Sound File
@@ -3159,6 +3177,21 @@
 >122	byte&0x2	=1		dual PAL/NTSC
 >122	byte&0x1	=1		PAL
 >122	byte&0x1	=0		NTSC
+
+# NSFE (Extended NES sound file) magic
+# http://slickproductions.org/docs/NSF/nsfespec.txt 
+# From: David Pflug <david@pflug.email>
+0	string		NSFE		Extended NES Sound File
+>48	search/0x1000	auth
+>>&0	string		>\0		("%s"
+>>>&1	string		>\0		by %s
+>>>>&1	string		>\0		\b, copyright %s
+>>>>>&1	string		>\0		\b, ripped by %s
+>20	byte		x		\b), %d tracks,
+>18	byte&0x2	=1		dual PAL/NTSC
+>18     byte&0x2	=0
+>>18	byte&0x1	=1		PAL
+>>18	byte&0x1	=0		NTSC
 
 # Type: SNES SPC700 sound files
 # From: Josh Triplett <josh@freedesktop.org>
@@ -3995,7 +4028,7 @@
 0	string	MegaCad23\0	MegaCAD 2D/3D drawing
 
 #------------------------------------------------------------------------------
-# $File: cafebabe,v 1.17 2015/01/01 17:07:00 christos Exp $
+# $File: cafebabe,v 1.20 2015/05/29 14:21:58 christos Exp $
 # Cafe Babes unite!
 #
 # Since Java bytecode and Mach-O universal binaries have the same magic number,
@@ -4023,6 +4056,8 @@
 >>4	belong		0x0030		(Java 1.4)
 >>4	belong		0x0031		(Java 1.5)
 >>4	belong		0x0032		(Java 1.6)
+>>4	belong		0x0033		(Java 1.7)
+>>4	belong		0x0034		(Java 1.8)
 
 0	belong		0xcafed00d	JAR compressed with pack200,
 >5	byte		x		version %d.
@@ -4045,17 +4080,42 @@
 
 0	belong		0xcafebabe
 >4	belong		1		Mach-O universal binary with 1 architecture:
+!:mime application/x-mach-binary
 >>8	use		mach-o		\b
 >4	belong		>1
 >>4	belong		<20		Mach-O universal binary with %d architectures:
+!:mime application/x-mach-binary
 >>>8	use		mach-o		\b
 >>>28	use		mach-o		\b
->>4	belong		>2
+>>4	belong		2
 >>>48	use		mach-o		\b
->>4	belong		>3
+>>4	belong		3
 >>>68	use		mach-o		\b
+>>4	belong		4
+>>>88	use		mach-o		\b
 
 ### MACH-O END ###
+
+#------------------------------------------------------------------------------
+# $File: cbor,v 1.1 2015/01/28 01:05:21 christos Exp $
+# cbor:  file(1) magic for CBOR files as defined in RFC 7049
+
+0	string	\xd9\xd9\xf7 Concise Binary Object Representation (CBOR) container
+!:mime	application/cbor
+>3	ubyte	<0x20	(positive integer)
+>3	ubyte	<0x40
+>>3	ubyte	>0x1f	(negative integer)
+>3	ubyte	<0x60
+>>3	ubyte	>0x3f	(byte string)
+>3	ubyte	<0x80
+>>3	ubyte	>0x5f	(text string)
+>3	ubyte	<0xa0
+>3	ubyte	>0x7f	(array)
+>3	ubyte	<0xc0
+>>3	ubyte	>0x9f	(map)
+>3	ubyte	<0xe0
+>>3	ubyte	>0xbf	(tagged)
+>3	ubyte	>0xdf	(other)
 
 #------------------------------------------------------------------------------
 # $File: cddb,v 1.4 2009/09/19 16:28:08 christos Exp $
@@ -4244,7 +4304,7 @@
 4	string		prof		CLIPPER instruction profile
 
 #------------------------------------------------------------------------------
-# $File: commands,v 1.51 2014/09/27 00:12:55 christos Exp $
+# $File: commands,v 1.52 2015/06/04 19:16:55 christos Exp $
 # commands:  file(1) magic for various shells and interpreters
 #
 #0	string/w	:			shell archive or script for antique kernel text
@@ -4322,6 +4382,8 @@
 !:mime	text/x-shellscript
 0	string/wb	#!\ /usr/local/bin/bash	Bourne-Again shell script executable (binary data)
 !:mime	text/x-shellscript
+0	string/wt	#!\ /usr/bin/env\ bash	Bourne-Again shell script text executable
+!:mime	text/x-shellscript
 
 # PHP scripts
 # Ulf Harnhammar <ulfh@update.uu.se>
@@ -4375,7 +4437,7 @@
 0	string		msc		Message Sequence Chart (chart)
 0	string		submsc		Message Sequence Chart (subchart)
 #------------------------------------------------------------------------------
-# $File: compress,v 1.62 2014/09/13 14:27:12 christos Exp $
+# $File: compress,v 1.63 2015/03/11 19:27:35 christos Exp $
 # compress:  file(1) magic for pure-compression formats (no archives)
 #
 # compress, gzip, pack, compact, huf, squeeze, crunch, freeze, yabba, etc.
@@ -4577,6 +4639,7 @@
 
 # http://tukaani.org/xz/xz-file-format.txt
 0	ustring		\xFD7zXZ\x00		XZ compressed data
+!:strength * 2
 !:mime	application/x-xz
 
 # https://github.com/ckolivas/lrzip/blob/master/doc/magic.header.txt
@@ -4639,7 +4702,7 @@
 !:mime	application/zlib
 
 #------------------------------------------------------------------------------
-# $File: console,v 1.19 2013/02/06 14:18:52 christos Exp $
+# $File: console,v 1.20 2015/03/15 23:21:42 christos Exp $
 # Console game magic
 # Toby Deshane <hac@shoelace.digivill.net>
 #    ines:  file(1) magic for Marat's iNES Nintendo Entertainment System
@@ -4816,9 +4879,19 @@
 # From: Serge van den Boom <svdb@stack.nl>
 0	string		\x01ZZZZZ\x01	3DO "Opera" file system
 
-# From Gurkan Sengun <gurkan@linuks.mine.nu>, www.linuks.mine.nu
+# From: Gurkan Sengun <gurkan@linuks.mine.nu>, www.linuks.mine.nu
+# From: David Pflug <david@pflug.email>
+# is the offset 12 or the offset 16 correct?
+# GBS (Game Boy Sound) magic
+# ftp://ftp.modland.com/pub/documents/format_documentation/\
+# Gameboy%20Sound%20System%20(.gbs).txt 
 0	string		GBS		Nintendo Gameboy Music/Audio Data
-12	string		GameBoy\ Music\ Module	Nintendo Gameboy Music Module
+#12	string		GameBoy\ Music\ Module	Nintendo Gameboy Music Module
+>16	string		>\0	("%s" by
+>48	string		>\0	%s, copyright
+>80	string		>\0	%s),
+>3	byte		x	version %d,
+>4	byte		x	%d tracks
 
 # Playstations Patch Files from: From: Thomas Klausner <tk@giga.or.at>
 0	string	PPF30			Playstation Patch File version 3.0
@@ -5090,7 +5163,7 @@
 >15	long		>30		$BS, block size: %i bytes
 
 #------------------------------------------------------------------------------
-# $File: database,v 1.43 2014/10/28 15:47:39 christos Exp $
+# $File: database,v 1.44 2015/07/02 18:25:57 christos Exp $
 # database:  file(1) magic for various databases
 #
 # extracted from header/code files by Graeme Wilford (eep2gw@ee.surrey.ac.uk)
@@ -5623,7 +5696,9 @@
 
 # From:  Stephane Blondon http://www.yaal.fr
 # Database file for Zope (done by FileStorage)
-0	string		FS21	Zope Object Database File Storage (data)
+0	string	FS21	Zope Object Database File Storage v3 (data)
+0	string	FS30	Zope Object Database File Storage v4 (data)
+
 # Cache file for the database of Zope (done by ClientStorage)
 0	string		ZEC3	Zope Object Database Client Cache File (data)
 
@@ -5904,7 +5979,7 @@
 >0	leshort	7		end of medium (for floppy).
 
 #------------------------------------------------------------------------------
-# $File: dyadic,v 1.6 2014/06/01 19:14:42 christos Exp $
+# $File: dyadic,v 1.7 2015/05/27 18:02:48 christos Exp $
 # Dyadic: file(1) magic for Dyalog APL.
 #
 # updated by Joerg Jenderek at Oct 2013
@@ -5950,6 +6025,11 @@
 >>>1	byte		0x12		component file 64-bit level 3 journaled checksummed
 >>>1	byte		0x13		component file 32-bit non-journaled checksummed
 >>>1	byte		0x14		component file 64-bit non-journaled checksummed
+>>>1	byte		0x15		component file under construction
+>>>1	byte		0x16		DFS component file 64-bit level 1 journaled checksummed
+>>>1	byte		0x17		DFS component file 64-bit level 2 journaled checksummed
+>>>1	byte		0x18		DFS component file 64-bit level 3 journaled checksummed
+>>>1	byte		0x19		external workspace
 >>>1	byte		0x80		DDB
 >>>2	byte		x		version %d
 >>>3	byte		x		\b.%d
@@ -6001,7 +6081,7 @@
 >4	lelong	>2		Universal EFI binary with %d architectures
 
 #------------------------------------------------------------------------------
-# $File: elf,v 1.68 2014/09/19 19:05:57 christos Exp $
+# $File: elf,v 1.69 2015/06/16 17:23:08 christos Exp $
 # elf:  file(1) magic for ELF executables
 #
 # We have to check the byte order flag to see what byte order all the
@@ -6015,6 +6095,32 @@
 # Modified by (3): Christian 'Dr. Disk' Hechelmann <drdisk@ds9.au.s.shuttle.de> (fix of core support)
 # Modified by (4): <gerardo.cacciari@gmail.com> (VMS Itanium)
 # Modified by (5): Matthias Urlichs <smurf@debian.org> (Listing of many architectures)
+
+0	name		elf-mips
+>0	lelong&0xf0000000	0x00000000	MIPS-I
+>0	lelong&0xf0000000	0x10000000	MIPS-II
+>0	lelong&0xf0000000	0x20000000	MIPS-III
+>0	lelong&0xf0000000	0x30000000	MIPS-IV
+>0	lelong&0xf0000000	0x40000000	MIPS-V
+>0	lelong&0xf0000000	0x50000000	MIPS32
+>0	lelong&0xf0000000	0x60000000	MIPS64
+>0	lelong&0xf0000000	0x70000000	MIPS32 rel2
+>0	lelong&0xf0000000	0x80000000	MIPS64 rel2
+>0	lelong&0xf0000000	0x90000000	MIPS32 rel6
+>0	lelong&0xf0000000	0xa0000000	MIPS64 rel6
+
+0	name		elf-sparc
+>0	lelong&0x00ffff00	0x00000100	V8+ Required,
+>0	lelong&0x00ffff00	0x00000200	Sun UltraSPARC1 Extensions Required,
+>0	lelong&0x00ffff00	0x00000400	HaL R1 Extensions Required,
+>0	lelong&0x00ffff00	0x00000800	Sun UltraSPARC3 Extensions Required,
+>0	lelong&0x3		0		total store ordering,
+>0	lelong&0x3		1		partial store ordering,
+>0	lelong&0x3		2		relaxed memory ordering,
+
+0	name		elf-pa-risc
+>2	leshort		0x0214		2.0
+>0	leshort		&0x0008		(LP64)
 
 0	name		elf-le
 >16	leshort		0		no file type,
@@ -6056,47 +6162,26 @@
 >18	leshort		8
 # only for 32-bit
 >>4	byte		1
->>>36  lelong&0xf0000000	0x00000000	MIPS-I
->>>36  lelong&0xf0000000	0x10000000	MIPS-II
->>>36  lelong&0xf0000000	0x20000000	MIPS-III
->>>36  lelong&0xf0000000	0x30000000	MIPS-IV
->>>36  lelong&0xf0000000	0x40000000	MIPS-V
->>>36  lelong&0xf0000000	0x50000000	MIPS32
->>>36  lelong&0xf0000000	0x60000000	MIPS64
->>>36  lelong&0xf0000000	0x70000000	MIPS32 rel2
->>>36  lelong&0xf0000000	0x80000000	MIPS64 rel2
+>>>36	use		elf-mips
 # only for 64-bit
 >>4	byte		2
->>>48  lelong&0xf0000000	0x00000000	MIPS-I
->>>48  lelong&0xf0000000	0x10000000	MIPS-II
->>>48  lelong&0xf0000000	0x20000000	MIPS-III
->>>48  lelong&0xf0000000	0x30000000	MIPS-IV
->>>48  lelong&0xf0000000	0x40000000	MIPS-V
->>>48  lelong&0xf0000000	0x50000000	MIPS32
->>>48  lelong&0xf0000000	0x60000000	MIPS64
->>>48  lelong&0xf0000000	0x70000000	MIPS32 rel2
->>>48  lelong&0xf0000000	0x80000000	MIPS64 rel2
+>>>48	use		elf-mips
 >18	leshort		9		Amdahl,
 >18	leshort		10		MIPS (deprecated),
 >18	leshort		11		RS6000,
 >18	leshort		15		PA-RISC,
 # only for 32-bit
 >>4	byte		1
->>>38	leshort		0x0214		2.0
->>>36	leshort		&0x0008		(LP64)
+>>>36	use		elf-pa-risc
 # only for 64-bit
 >>4	byte		2
->>>50	leshort		0x0214		2.0
->>>48	leshort		&0x0008		(LP64)
+>>>48	use		elf-pa-risc
 >18	leshort		16		nCUBE,
 >18	leshort		17		Fujitsu VPP500,
 >18	leshort		18		SPARC32PLUS,
 # only for 32-bit
 >>4	byte		1
->>>36	lelong&0xffff00	0x000100	V8+ Required,
->>>36	lelong&0xffff00	0x000200	Sun UltraSPARC1 Extensions Required,
->>>36	lelong&0xffff00	0x000400	HaL R1 Extensions Required,
->>>36	lelong&0xffff00	0x000800	Sun UltraSPARC3 Extensions Required,
+>>>36	use		elf-sparc
 >18	leshort		19		Intel 80960,
 >18	leshort		20		PowerPC or cisco 4500,
 >18	leshort		21		64-bit PowerPC or cisco 7500,
@@ -6118,12 +6203,7 @@
 >18	leshort		42		Renesas SH,
 >18	leshort		43		SPARC V9,
 >>4	byte		2
->>>48	lelong&0xffff00	0x000200	Sun UltraSPARC1 Extensions Required,
->>>48	lelong&0xffff00	0x000400	HaL R1 Extensions Required,
->>>48	lelong&0xffff00	0x000800	Sun UltraSPARC3 Extensions Required,
->>>48	lelong&0x3	0		total store ordering,
->>>48	lelong&0x3	1		partial store ordering,
->>>48	lelong&0x3	2		relaxed memory ordering,
+>>>48	use		elf-sparc
 >18	leshort		44		Siemens Tricore Embedded Processor,
 >18	leshort		45		Argonaut RISC Core, Argonaut Technologies Inc.,
 >18	leshort		46		Renesas H8/300,
@@ -6467,7 +6547,7 @@
 0       string          FCS3.0          Flow Cytometry Standard (FCS) data, version 3.0
 
 #------------------------------------------------------------------------------
-# $File: filesystems,v 1.108 2015/01/01 17:43:47 christos Exp $
+# $File: filesystems,v 1.109 2015/02/22 01:22:54 christos Exp $
 # filesystems:  file(1) magic for different filesystems
 #
 0	name	partid  
@@ -8396,6 +8476,7 @@
 >>38917	string    3         (version 2.0)
 >>38917	byte     >0x33      (unknown version, ID 0x%X)
 >>38917	byte     <0x31      (unknown version, ID 0x%X)
+>0x1FE	leshort  0xAA55     (DOS/MBR boot sector)
 # "application id" which appears to be used as a volume label
 >32808	string/T  >\0       '%s'
 >34816	string    \000CD001\001EL\ TORITO\ SPECIFICATION    (bootable)
@@ -8953,9 +9034,9 @@
 >22	beshort		x	\b.%d
 
 #------------------------------------------------------------------------------
-# $File: fortran,v 1.8 2014/06/03 19:01:34 christos Exp $
+# $File: fortran,v 1.9 2015/06/17 19:55:27 christos Exp $
 # FORTRAN source
-0	regex/100l	\^[Cc][\ \t]	FORTRAN program
+0	regex/100l	\^[Cc][\ \t]	FORTRAN program text
 !:mime	text/x-fortran
 !:strength - 5
 
@@ -9757,7 +9838,7 @@
 >22	leshort		x			\b/%d local
 
 #------------------------------------------------------------------------------
-# $File: gnu,v 1.15 2014/02/06 14:21:02 christos Exp $
+# $File: gnu,v 1.16 2015/04/19 22:59:25 christos Exp $
 # gnu:  file(1) magic for various GNU tools
 #
 # GNU nlsutils message catalog file format
@@ -9836,7 +9917,9 @@
 0	long	0x950412DE		GNU-format message catalog data
 
 # gettext message catalogue
-0	regex	\^msgid\ 		GNU gettext message catalogue text
+0	search/1024	\nmsgid
+>&0	search/1024	\nmsgstr	GNU gettext message catalogue text
+!:strength +100
 !:mime text/x-po
 
 #------------------------------------------------------------------------------
@@ -10870,7 +10953,7 @@
 >8	string          IFZS		\b, Z-machine or Glulx saved game file (Quetzal)
 
 #------------------------------------------------------------------------------
-# $File: images,v 1.102 2015/01/02 02:36:35 christos Exp $
+# $File: images,v 1.106 2015/02/22 01:26:05 christos Exp $
 # images:  file(1) magic for image formats (see also "iff", and "c-lang" for
 # XPM bitmaps)
 #
@@ -10906,42 +10989,48 @@
 # PBMPLUS images
 # The next byte following the magic is always whitespace.
 # strength is changed to try these patterns before "x86 boot sector"
+0	name		netpbm
+>3	regex/s		=[0-9]{1,50}\ [0-9]{1,50}	Netpbm PPM image data
+>>&0	regex		=[0-9]{1,50} 			\b, size = %s x
+>>>&0	regex		=[0-9]{1,50}			\b %s
+
 0	search/1	P1		
->3	regex		=[0-9]{0,50}\ [0-9]{0,50}		Netpbm PBM image text
->3	regex		=[0-9]{1,50}\ 		\b, size = %sx
->>3	regex		=\ [0-9]{1,50}	\b%s
+>0	use		netpbm
+>>0	string		x	\b, bitmap
 !:strength + 45
 !:mime	image/x-portable-bitmap
+
 0	search/1	P2		
->3	regex		=[0-9]{0,50}\ [0-9]{0,50}		Netpbm PGM image text
->3	regex		=[0-9]{1,50}\ 		\b, size = %sx
->>3	regex		=\ [0-9]{1,50}	\b%s
+>0	use		netpbm
+>>0	string		x	\b, greymap
 !:strength + 45
 !:mime	image/x-portable-greymap
+
 0	search/1	P3
->3	regex		=[0-9]{0,50}\ [0-9]{0,50}		Netpbm PPM image text
->3	regex		=[0-9]{1,50}\ 		\b, size = %sx
->>3	regex		=\ [0-9]{1,50}	\b%s
+>0	use		netpbm
+>>0	string		x	\b, pixmap
 !:strength + 45
 !:mime	image/x-portable-pixmap
+
+
 0	string		P4		
->3	regex		=[0-9]{0,50}\ [0-9]{0,50}		Netpbm PBM "rawbits" image data
->3	regex		=[0-9]{1,50}\ 		\b, size = %sx
->>3	regex		=\ [0-9]{1,50}	\b%s
+>0	use		netpbm
+>>0	string		x	\b, rawbits, bitmap
 !:strength + 45
 !:mime	image/x-portable-bitmap
+
 0	string		P5		
->3	regex		=[0-9]{0,50}\ [0-9]{0,50}		Netpbm PGM "rawbits" image data
->3	regex		=[0-9]{1,50}\ 		\b, size = %sx
->>3	regex		=\ [0-9]{1,50}	\b%s
+>0	use		netpbm
+>>0	string		x	\b, rawbits, greymap
 !:strength + 45
 !:mime	image/x-portable-greymap
+
 0	string		P6		
->3	regex		=[0-9]{0,50}\ [0-9]{0,50}		Netpbm PPM "rawbits" image data
->3	regex		=[0-9]{1,50}\ 		\b, size = %sx
->>3	regex		=\ [0-9]{1,50}	\b%s
+>0	use		netpbm
+>>0	string		x	\b, rawbits, pixmap
 !:strength + 45
 !:mime	image/x-portable-pixmap
+
 0	string		P7		Netpbm PAM image file
 !:mime	image/x-portable-pixmap
 
@@ -11037,6 +11126,7 @@
 >>>>8	leshort		x		\b(unknown 0x%x)
 >>>12	use		tiff_entry
 >0	leshort		0x106		\b, PhotometricIntepretation=
+>>8	clear		x
 >>8	leshort		0		\bWhiteIsZero
 >>8	leshort		1		\bBlackIsZero
 >>8	leshort		2		\bRGB
@@ -11045,6 +11135,7 @@
 >>8	leshort		5		\bCMYK
 >>8	leshort		6		\bYCbCr
 >>8	leshort		8		\bCIELab
+>>8	default		x
 >>>8	leshort		x		\b(unknown=0x%x)
 >>12	use		tiff_entry
 # FillOrder
@@ -11548,7 +11639,26 @@
 >25	string	>\0	dated %.14s
 
 # GEM Image: Version 1, Headerlen 8 (Wolfram Kleff)
-0	belong		0x00010008	GEM Image data
+# Format variations from: Bernd Nuernberger <bernd.nuernberger@web.de>
+# See http://fileformats.archiveteam.org/wiki/GEM_Raster
+# For variations, also see:
+#    http://www.seasip.info/Gem/ff_img.html (Ventura) 
+#    http://www.atari-wiki.com/?title=IMG_file (XIMG, STTT)
+#    http://www.fileformat.info/format/gemraster/spec/index.htm (XIMG, STTT)
+#    http://sylvana.net/1stguide/1STGUIDE.ENG (TIMG)
+0       beshort     0x0001
+>2      beshort     0x0008      GEM Image data
+>>0     use gem_info
+>2      beshort     0x0009      GEM Image data (Ventura)
+>>0     use gem_info
+16      string      XIMG\0      GEM XIMG Image data
+>0      use gem_info
+16      string      STTT\0\x10  GEM STTT Image data 
+>0      use gem_info
+16      string      TIMG\0      GEM TIMG Image data
+>0      use gem_info
+
+0   name        gem_info
 >12	beshort		x		%d x
 >14	beshort		x		%d,
 >4	beshort		x		%d planes,
@@ -11906,11 +12016,6 @@
 # From: "Tano M. Fotang" <mfotang@quanteq.com>
 0	string	\x46\x4d\x52\x00	ISO/IEC 19794-2 Format Minutiae Record (FMR)
 
-# WEBP https://developers.google.com/speed/webp/docs/riff_container
-#0	string	RIFF
-#>8	string	WEBP	Web/P image data
-#>>4	lelong	x	\b, %d bytes
-
 # doc: http://www.shikino.co.jp/eng/products/images/FLOWER.jpg.zip
 # example: http://www.shikino.co.jp/eng/products/images/FLOWER.wdp.zip
 90	bequad		0x574D50484F544F00	JPEG-XR Image
@@ -12167,7 +12272,7 @@
 !:mime application/javascript
 
 #------------------------------------------------------------------------------
-# $File: jpeg,v 1.25 2015/01/02 16:56:50 christos Exp $
+# $File: jpeg,v 1.29 2015/04/10 15:36:02 christos Exp $
 # JPEG images
 # SunOS 5.5.1 had
 #
@@ -12179,7 +12284,8 @@
 0	beshort		0xffd8		JPEG image data
 !:mime	image/jpeg
 !:apple	8BIMJPEG
-!:strength +2
+!:strength *3
+!:ext jpeg/jpg/jpe/jfif
 >6	string		JFIF		\b, JFIF standard
 # The following added by Erik Rossen <rossen@freesurf.ch> 1999-09-06
 # in a vain attempt to add image size reporting for JFIF.  Note that these
@@ -12208,7 +12314,8 @@
 # This uses recursion...
 0		name		jpeg_segment
 >0	beshort		0xFFFE
->>(2.S+2)	use			jpeg_segment
+# Recursion handled by FFE0
+#>>(2.S+2)	use			jpeg_segment
 >>2	pstring/HJ	x		\b, comment: "%s"
 
 >0	beshort		0xFFC0
@@ -12237,6 +12344,7 @@
 >>(2.S+2)	use			jpeg_segment
 
 >0	beshort		0xFFE1		
+# Recursion handled by FFE0
 #>>(2.S+2)	use			jpeg_segment
 >>4	string		Exif		\b, Exif Standard: [
 >>>10	indirect/r	x		
@@ -12252,7 +12360,8 @@
 # D9: End of image
 # Dn: Restart
 >0	beshort&0xFFD0	=0xFFD0
->>(2.S+2)	use			jpeg_segment
+>>0	beshort&0xFFE0	!0xFFE0
+>>>(2.S+2)	use			jpeg_segment
 
 #>0	beshort		x		unknown 0x%x
 #>>(2.S+2)	use			jpeg_segment
@@ -12427,7 +12536,7 @@
 0	beshort		0x8000		lif file
 
 #------------------------------------------------------------------------------
-# $File: linux,v 1.59 2014/11/03 21:03:36 christos Exp $
+# $File: linux,v 1.62 2015/05/03 13:06:36 christos Exp $
 # linux:  file(1) magic for Linux files
 #
 # Values for Linux/i386 binaries, from Daniel Quinlan <quinlan@yggdrasil.com>
@@ -12860,6 +12969,31 @@
 >13		byte		1		\b, require visibility
 >16		string		x		\b, root %s
 
+# Dump files for iproute2 tool. Generated by the "ip r|a save" command. URL:
+# https://www.linuxfoundation.org/collaborate/workgroups/networking/iproute2
+# From: Pavel Emelyanov <xemul@parallels.com>
+0		lelong		0x45311224	iproute2 routes dump
+0		lelong		0x47361222	iproute2 addresses dump
+
+# Image and service files for CRIU tool.
+# URL: http://criu.org
+# From: Pavel Emelyanov <xemul@parallels.com>
+0		lelong		0x54564319	CRIU image file v1.1
+0		lelong		0x55105940	CRIU service file
+0		lelong		0x58313116	CRIU inventory
+
+# Kdump compressed dump files
+# http://sourceforge.net/p/makedumpfile/code/ci/master/tree/IMPLEMENTATION
+
+0		string		KDUMP          	Kdump compressed dump
+>8		long		x		v%d
+>12		string		>\0		\b, system %s
+>77		string		>\0		\b, node %s
+>142		string		>\0		\b, release %s
+>207		string		>\0		\b, version %s
+>272		string		>\0		\b, machine %s
+>337		string		>\0		\b, domain %s
+
 #------------------------------------------------------------------------------
 # $File: lisp,v 1.23 2009/09/19 16:28:10 christos Exp $
 # lisp:  file(1) magic for lisp programs
@@ -12975,7 +13109,7 @@
 !:mime	text/x-m4
 
 #------------------------------------------------------------
-# $File: mach,v 1.19 2014/04/30 21:41:02 christos Exp $
+# $File: mach,v 1.20 2015/05/21 18:28:41 christos Exp $
 # Mach has two magic numbers, 0xcafebabe and 0xfeedface.
 # Unfortunately the first, cafebabe, is shared with
 # Java ByteCode, so they are both handled in the file "cafebabe".
@@ -13182,10 +13316,12 @@
 #
 0	lelong&0xfffffffe	0xfeedface	Mach-O
 !:strength +1
+!:mime application/x-mach-binary
 >0	use	\^mach-o-be
 
 0	belong&0xfffffffe	0xfeedface	Mach-O
 !:strength +1
+!:mime application/x-mach-binary
 >0	use	mach-o-be
 
 #------------------------------------------------------------------------------
@@ -13582,7 +13718,7 @@
 0	belong		0xF11E041C	magic binary file for file(1) cmd
 >4	belong		x		(version %d) (big endian)
 #------------------------------------------------------------------------------
-# $File: mail.news,v 1.22 2013/01/04 14:22:07 christos Exp $
+# $File: mail.news,v 1.23 2015/06/29 14:44:26 christos Exp $
 # mail.news:  file(1) magic for mail and news
 #
 # Unfortunately, saved netnews also has From line added in some news software.
@@ -13624,6 +13760,7 @@
 
 # From: Simon Matter <simon.matter@invoca.ch>
 0	string		\241\002\213\015skiplist\ file\0\0\0	Cyrus skiplist DB
+0	string		\241\002\213\015twoskip\ file\0\0\0\0	Cyrus twoskip DB
 
 # JAM(mbp) Fidonet message area databases
 # JHR file
@@ -13666,7 +13803,7 @@
 
 
 #------------------------------------------------------------------------------
-# $File: map,v 1.1 2014/06/03 18:22:25 christos Exp $
+# $File: map,v 1.3 2015/07/09 15:16:41 christos Exp $
 # map:  file(1) magic for Map data
 #
 
@@ -13674,9 +13811,11 @@
 8	string	.FIT		FIT Map data
 >15	byte	0
 >>35	belong	x		\b, unit id %d
-# 20 years after unix epoch
 >>39	lelong	x		\b, serial %u
->>43	ledate/631152000 x	\b, %s
+# http://pub.ks-and-ks.ne.jp/cycling/edge500_fit.shtml
+# 20 years after unix epoch
+# TZ=GMT date -d '1989-12-31 0:00' +%s
+>>43	leldate+631065600	x	\b, %s
 
 >>47	leshort x		\b, manufacturer %d
 >>47	leshort	1		\b (garmin)
@@ -13783,7 +13922,7 @@
 0	string	.MCAD\t		Mathcad document
 
 #------------------------------------------------------------------------------
-# $File: mathematica,v 1.7 2009/09/19 16:28:10 christos Exp $
+# $File: mathematica,v 1.8 2015/04/09 20:01:40 christos Exp $
 # mathematica:  file(1) magic for mathematica files
 # "H. Nanosecond" <aldomel@ix.netcom.com>
 # Mathematica a multi-purpose math program
@@ -13791,13 +13930,16 @@
 
 #mathematica .mb
 0	string	\064\024\012\000\035\000\000\000	Mathematica version 2 notebook
+!:ext mb
 0	string	\064\024\011\000\035\000\000\000	Mathematica version 2 notebook
+!:ext mb
 
 # .ma
 # multiple possibilites:
 
 0	string	(*^\n\n::[\011frontEndVersion\ =\ 	Mathematica notebook
 #>41	string	>\0	%s
+!:ext mb
 
 #0	string	(*^\n\n::[\011palette	Mathematica notebook version 2.x
 
@@ -13808,13 +13950,21 @@
 
 # generic:
 0	string	(*^\r\r::[\011	Mathematica notebook version 2.x
+!:ext mb
 0	string	(*^\r\n\r\n::[\011	Mathematica notebook version 2.x
+!:ext mb
 0	string	(*^\015			Mathematica notebook version 2.x
+!:ext mb
 0	string	(*^\n\r\n\r::[\011	Mathematica notebook version 2.x
+!:ext mb
 0	string	(*^\r::[\011	Mathematica notebook version 2.x
+!:ext mb
 0	string	(*^\r\n::[\011	Mathematica notebook version 2.x
+!:ext mb
 0	string	(*^\n\n::[\011	Mathematica notebook version 2.x
+!:ext mb
 0	string	(*^\n::[\011	Mathematica notebook version 2.x
+!:ext mb
 
 
 # Mathematica .mx files
@@ -14115,14 +14265,23 @@
 0	long	31415		Mirage Assembler m.out executable
 
 #-----------------------------------------------------------------------------
-# $File: misctools,v 1.14 2014/03/06 16:08:58 christos Exp $
+# $File: misctools,v 1.15 2015/04/15 18:29:30 christos Exp $
 # misctools:  file(1) magic for miscellaneous UNIX tools.
 #
 0	search/1	%%!!			X-Post-It-Note text
 0	string/c	BEGIN:VCALENDAR		vCalendar calendar file
 !:mime	text/calendar
+# updated by Joerg Jenderek at Apr 2015
+# Extension: .vcf
+# http://en.wikipedia.org/wiki/VCard
 0	string/c	BEGIN:VCARD		vCard visiting card
-!:mime	text/x-vcard
+# deprecated
+#!:mime	text/x-vcard
+!:mime	text/vcard
+# VERSION must come right after BEGIN for 3.0 or 4.0 except in 2.1 , where it can be anywhere
+>12	search/14000/c	VERSION:		
+# VERSION 2.1 , 3.0 or 4.0
+>>&0	string		x			\b, version %-.3s
 
 # Summary: Libtool library file
 # Extension: .la
@@ -14168,7 +14327,7 @@
 0	string	\001\001\001\001	MMDF mailbox
 
 #------------------------------------------------------------------------------
-# $File: modem,v 1.5 2010/09/20 18:55:20 rrt Exp $
+# $File: modem,v 1.6 2015/02/14 17:35:47 christos Exp $
 # modem:  file(1) magic for modem programs
 #
 # From: Florian La Roche <florian@knorke.saar.de>
@@ -14201,6 +14360,17 @@
 0    string    PVF2\n         portable voice format
 >5   string >\0          (ascii %s)
 
+# From: Bernd Nuernberger <bernd.nuernberger@web.de>
+# Brooktrout G3 fax data incl. 128 byte header
+# Common suffixes: 3??, BRK, BRT, BTR
+0	leshort		0x01bb
+>2	leshort		0x0100		Brooktrout 301 fax image,
+>>9	leshort		x		%d x
+>>0x2d	leshort		x		%d
+>>6	leshort		200		\b, fine resolution
+>>6	leshort		100		\b, normal resolution
+>>11	byte		1		\b, G3 compression
+>>11	byte		2		\b, G32D compression
 
 #------------------------------------------------------------------------------
 # $File: motorola,v 1.11 2014/04/30 21:41:02 christos Exp $
@@ -14274,13 +14444,14 @@
 >8      beshort         x               (version %04x)
 
 #------------------------------------------------------------------------------
-# $File: mozilla,v 1.4 2009/09/19 16:28:11 christos Exp $
+# $File: mozilla,v 1.6 2015/01/25 16:20:46 christos Exp $
 # mozilla:  file(1) magic for Mozilla XUL fastload files 
 # (XUL.mfasl and XPC.mfasl)
 # URL:	http://www.mozilla.org/
 # From:	Josh Triplett <josh@freedesktop.org>
 
 0	string	XPCOM\nMozFASL\r\n\x1A		Mozilla XUL fastload data
+0	string	mozLz4a				Mozilla lz4 compressed bookmark data
 
 #------------------------------------------------------------------------------
 # $File: msdos,v 1.100 2014/06/03 19:17:27 christos Exp $
@@ -15542,6 +15713,13 @@
 >>>>26	string		>\0		(version %.3s)
 
 
+#------------------------------------------------------------------------------
+# nasa:	file(1) magic 
+
+# From: Barry Carter <carter.barry@gmail.com>
+0	string	DAF/SPK				NASA SPICE file (binary format)
+0	string	DAFETF\ NAIF\ DAF\ ENCODED	NASA SPICE file (transfer format)
+
 #-----------------------------------------------------------------------------
 # $File: natinst,v 1.6 2014/06/03 19:17:27 christos Exp $
 # natinst:  file(1) magic for National Instruments Code Files
@@ -16119,14 +16297,15 @@
 >>36	belong		1		MathCoPro/FPU/MAU Required
 
 #------------------------------------------------------------------------------
-# $File: os2,v 1.7 2009/09/19 16:28:11 christos Exp $
+# $File: os2,v 1.8 2015/01/05 00:17:13 christos Exp $
 # os2:  file(1) magic for OS/2 files
 #
 
 # Provided 1998/08/22 by
 # David Mediavilla <davidme.news@REMOVEIFNOTSPAMusa.net>
 1	search/1	InternetShortcut	MS Windows 95 Internet shortcut text
->24	search/1	>\ 			(URL=<%s>)
+>17	search/100	URL= 			(URL=<
+>>&0	string		x			\b%s>)
 
 # OS/2 URL objects
 # Provided 1998/08/22 by
@@ -16515,7 +16694,7 @@
 0	short	0x2a17	"compact bitmap" format (Poskanzer)
 
 #------------------------------------------------------------------------------
-# $File: pdf,v 1.7 2013/08/22 07:47:26 christos Exp $
+# $File: pdf,v 1.8 2015/01/11 18:19:18 christos Exp $
 # pdf:  file(1) magic for Portable Document Format
 #
 
@@ -16523,6 +16702,11 @@
 !:mime	application/pdf
 >5	byte		x		\b, version %c
 >7	byte		x		\b.%c
+
+0	string		\012%PDF-	PDF document
+!:mime	application/pdf
+>6	byte		x		\b, version %c
+>8	byte		x		\b.%c
 
 # From: Nick Schmalenberger <nick@schmalenberger.us>
 # Forms Data Format
@@ -16573,49 +16757,59 @@
 0	leshort		0431		PDP-11 overlaid separate executable
 >8	leshort		>0		not stripped
 #------------------------------------------------------------------------------
-# $File: perl,v 1.22 2014/04/28 12:04:35 christos Exp $
+# $File: perl,v 1.24 2015/03/27 17:58:58 christos Exp $
 # perl:  file(1) magic for Larry Wall's perl language.
 #
 # The `eval' lines recognizes an outrageously clever hack.
 # Keith Waclena <keith@cerberus.uchicago.edu>
 # Send additions to <perl5-porters@perl.org>
-0	search/1	eval\ "exec\ /bin/perl		Perl script text
+0	search/1024	eval\ "exec\ perl		Perl script text
 !:mime	text/x-perl
-0	search/1	eval\ "exec\ /usr/bin/perl	Perl script text
+0	search/1024	eval\ "exec\ /bin/perl		Perl script text
 !:mime	text/x-perl
-0	search/1	eval\ "exec\ /usr/local/bin/perl	Perl script text
+0	search/1024	eval\ "exec\ /usr/bin/perl	Perl script text
 !:mime	text/x-perl
-0	search/1	eval\ '(exit\ $?0)'\ &&\ eval\ 'exec	Perl script text
+0	search/1024	eval\ "exec\ /usr/local/bin/perl	Perl script text
 !:mime	text/x-perl
-0	search/1	#!/usr/bin/env\ perl	Perl script text executable
+0	search/1024	eval\ 'exec\ perl		Perl script text
 !:mime	text/x-perl
-0	search/1	#!\ /usr/bin/env\ perl	Perl script text executable
+0	search/1024	eval\ 'exec\ /bin/perl		Perl script text
 !:mime	text/x-perl
-0	search/1	#!
->0	regex	\^#!.*/bin/perl$	Perl script text executable
+0	search/1024	eval\ 'exec\ /usr/bin/perl	Perl script text
+!:mime	text/x-perl
+0	search/1024	eval\ 'exec\ /usr/local/bin/perl	Perl script text
+!:mime	text/x-perl
+0	search/1024	eval\ '(exit\ $?0)'\ &&\ eval\ 'exec	Perl script text
+!:mime	text/x-perl
+0	search/1024	#!/usr/bin/env\ perl	Perl script text executable
+!:mime	text/x-perl
+0	search/1024	#!\ /usr/bin/env\ perl	Perl script text executable
+!:mime	text/x-perl
+0	search/1024	#!
+>0	regex	\^#!.*/bin/perl([[:space:]].*)*$	Perl script text executable
 !:mime	text/x-perl
 
 # by Dmitry V. Levin and Alexey Tourbin
 # check the first line
-0	search/1	package
+0	search/1024	package
 >0	regex		\^package[\ \t]+[0-9A-Za-z_:]+\ *;	Perl5 module source text
 !:strength + 10
 # not 'p', check other lines
-0	search/1	!p
+0	search/1024	!p
 >0	regex		\^package[\ \t]+[0-9A-Za-z_:]+\ *;
 >>0	regex		\^1\ *;|\^(use|sub|my)\ .*[(;{=]	Perl5 module source text
 !:strength + 10
 
 # Perl POD documents
 # From: Tom Hukins <tom@eborcom.com>
-0	search/1/W	\=pod\n		Perl POD document text
-0	search/1/W	\n\=pod\n	Perl POD document text
-0	search/1/W	\=head1\ 	Perl POD document text
-0	search/1/W	\n\=head1\ 	Perl POD document text
-0	search/1/W	\=head2\ 	Perl POD document text
-0	search/1/W	\n\=head2\ 	Perl POD document text
-0	search/1/W	\=encoding\ 	Perl POD document text
-0	search/1/W	\n\=encoding\ 	Perl POD document text
+0	search/1024/W	\=pod\n		Perl POD document text
+0	search/1024/W	\n\=pod\n	Perl POD document text
+0	search/1024/W	\=head1\ 	Perl POD document text
+0	search/1024/W	\n\=head1\ 	Perl POD document text
+0	search/1024/W	\=head2\ 	Perl POD document text
+0	search/1024/W	\n\=head2\ 	Perl POD document text
+0	search/1024/W	\=encoding\ 	Perl POD document text
+0	search/1024/W	\n\=encoding\ 	Perl POD document text
 
 
 # Perl Storable data files.
@@ -17574,7 +17768,7 @@
 0	string	#\ Bazaar\ merge\ directive\ format Bazaar merge directive
 
 #------------------------------------------------------------------------------
-# $File: riff,v 1.30 2014/09/23 17:02:12 christos Exp $
+# $File: riff,v 1.31 2015/02/14 17:30:03 christos Exp $
 # riff:  file(1) magic for RIFF format
 # See
 #
@@ -17804,6 +17998,7 @@
 # AMV-type AVI file: http://wiki.multimedia.cx/index.php?title=AMV
 >8	string		AMV\040		\b, AMV 
 >8      string          WEBP            \b, Web/P image
+!:mime	image/webp
 >>12	use		riff-walk
 
 #
@@ -18198,7 +18393,7 @@
 >>>124	lelong	>0		version %d
 
 #------------------------------------------------------------------------------
-# $File: sereal,v 1.2 2014/11/11 20:10:49 christos Exp $
+# $File: sereal,v 1.3 2015/02/05 19:14:45 christos Exp $
 # sereal: file(1) magic the Sereal binary serialization format
 #
 # From: Ævar Arnfjörð Bjarmason <avarab@gmail.com>
@@ -18214,13 +18409,23 @@
 #
 # See https://github.com/Sereal/Sereal/commit/35372ae01d in the
 # Sereal.git repository for test Sereal data.
-0	string		\=srl   Sereal data
+0	name		sereal
+>4	byte&0x0F	x		(version %d,
+>4	byte&0xF0	0x00		uncompressed)
+>4	byte&0xF0	0x10		compressed with non-incremental Snappy)
+>4	byte&0xF0	0x20		compressed with incremental Snappy)
+>4	byte&0xF0	>0x20		unknown subformat, flag: %d>>4)
+
+0	string/b	\=srl		Sereal data packet
 !:mime application/sereal
->4	byte&0x0F	x	(version %d,
->4	byte&0xF0	0x00	uncompressed)
->4	byte&0xF0	0x10	compressed with non-incremental Snappy)
->4	byte&0xF0	0x20	compressed with incremental Snappy)
->4	byte&0xF0	>0x20	unknown subformat, flag: %d>>4)
+>&0	use		sereal
+0	string/b	\=\xF3rl	Sereal data packet
+!:mime application/sereal
+>&0	use		sereal
+0	string/b	\=\xC3\xB3rl	Sereal data packet, UTF-8 encoded
+!:mime application/sereal
+>&0	use		sereal
+
 
 #------------------------------------------------------------------------------
 # $File: sgi,v 1.21 2014/04/30 21:41:02 christos Exp $
@@ -18360,7 +18565,7 @@
 8	string	CIMG		Alias Maya Image File
 8	string	DEEP		Alias Maya Image File
 #------------------------------------------------------------------------------
-# $File: sgml,v 1.30 2013/12/21 14:27:24 christos Exp $
+# $File: sgml,v 1.31 2015/03/11 19:38:04 christos Exp $
 # Type:	SVG Vectorial Graphics
 # From:	Noel Torres <tecnico@ejerciciosresueltos.com>
 0	string		\<?xml\ version="
@@ -18405,24 +18610,44 @@
 0	search/4096/cWt	\<!doctype\ html	HTML document text
 !:mime	text/html
 !:strength + 5
-0	search/4096/cwt	\<head			HTML document text
+
+0	search/4096/cwt	\<head\>		HTML document text
 !:mime	text/html
 !:strength + 5
-0	search/4096/cwt	\<title			HTML document text
+0	search/4096/cWt	\<head\ 		HTML document text
 !:mime	text/html
 !:strength + 5
-0	search/4096/cwt	\<html			HTML document text
+0	search/4096/cwt	\<title\>		HTML document text
 !:mime	text/html
 !:strength + 5
-0	search/4096/cwt	\<script 		HTML document text
+0	search/4096/cWt	\<title\ 		HTML document text
 !:mime	text/html
 !:strength + 5
-0	search/4096/cwt	\<style 		HTML document text
+0	search/4096/cwt	\<html\>		HTML document text
 !:mime	text/html
 !:strength + 5
-0	search/4096/cwt	\<table			HTML document text
+0	search/4096/cWt	\<html\ 		HTML document text
 !:mime	text/html
 !:strength + 5
+0	search/4096/cwt	\<script\> 		HTML document text
+!:mime	text/html
+!:strength + 5
+0	search/4096/cWt	\<script\ 		HTML document text
+!:mime	text/html
+!:strength + 5
+0	search/4096/cwt	\<style\> 		HTML document text
+!:mime	text/html
+!:strength + 5
+0	search/4096/cWt	\<style\  		HTML document text
+!:mime	text/html
+!:strength + 5
+0	search/4096/cwt	\<table\>		HTML document text
+!:mime	text/html
+!:strength + 5
+0	search/4096/cWt	\<table\ 		HTML document text
+!:mime	text/html
+!:strength + 5
+
 0	search/4096/cwt	\<a\ href=		HTML document text
 !:mime	text/html
 !:strength + 5
@@ -20268,40 +20493,32 @@
 >4	string		>\0		\b, name '%s'
 
 #------------------------------------------------------------------------------
-# $File: varied.script,v 1.10 2014/03/01 22:32:39 christos Exp $
+# $File: varied.script,v 1.11 2015/03/27 17:59:39 christos Exp $
 # varied.script:  file(1) magic for various interpreter scripts
 
 0	string/t		#!\ /			a
 >3	string		>\0			%s script text executable
-!:strength / 2
 
 0	string/b		#!\ /			a
 >3	string		>\0			%s script executable (binary data)
-!:strength / 2
 
 0	string/t		#!\t/			a
 >3	string		>\0			%s script text executable
-!:strength / 2
 
 0	string/b		#!\t/			a
 >3	string		>\0			%s script executable (binary data)
-!:strength / 2
 
 0	string/t		#!/			a
 >2	string		>\0			%s script text executable
-!:strength / 2
 
 0	string/b		#!/			a
 >2	string		>\0			%s script executable (binary data)
-!:strength / 2
 
 0	string/t		#!\ 			script text executable
 >3	string		>\0			for %s
-!:strength / 3
 
 0	string/b		#!\ 			script executable
 >3	string		>\0			for %s (binary data)
-!:strength / 3
 
 # using env
 0	string/t	#!/usr/bin/env		a
@@ -20575,7 +20792,7 @@
 0	belong	0x4d52564e	VMware nvram 
 
 #------------------------------------------------------------------------------
-# $File: vorbis,v 1.20 2014/09/23 16:35:08 christos Exp $
+# $File: vorbis,v 1.22 2015/03/28 15:14:55 christos Exp $
 # vorbis:  file(1) magic for Ogg/Vorbis files
 #
 # From Felix von Leitner <leitner@fefe.de>
@@ -20622,8 +20839,8 @@
 # non-Vorbis content: Skeleton
 >>28		string		fishead\0	\b, Skeleton
 !:mime		video/ogg
->>>36		short		x		v%u
->>>40		short		x		\b.%u
+>>>36		leshort		x		v%u
+>>>40		leshort		x		\b.%u
 # non-Vorbis content: Speex
 >>28		string		Speex\ \ \ 	\b, Speex audio
 !:mime		audio/ogg
@@ -20697,6 +20914,28 @@
 >>>>>>(84.b+117)	string		20020717	(1.0)
 >>>>>>(84.b+117)	string		20030909	(1.0.1)
 >>>>>>(84.b+117)	string		20040629	(1.1.0 RC1)
+
+# non-Vorbis content: Opus https://tools.ietf.org/html/draft-ietf-codec-oggopus-06#section-5
+>>28		string		OpusHead	\b, Opus audio,
+!:mime		audio/ogg
+>>>36		ubyte		>0x0F		UNKNOWN VERSION %u,
+>>>36		ubyte		&0x0F		version 0.%d
+>>>>46		ubyte		>1		
+>>>>>46		ubyte		!255		unknown channel mapping family %u,
+>>>>>37		ubyte		x		%u channels
+>>>>46		ubyte		0
+>>>>>37		ubyte		1		mono
+>>>>>37		ubyte		2		stereo
+>>>>46		ubyte		1		
+>>>>>37		ubyte		1		mono
+>>>>>37		ubyte		2		stereo
+>>>>>37		ubyte		3		linear surround
+>>>>>37		ubyte		4		quadraphonic
+>>>>>37		ubyte		5		5.0 surround
+>>>>>37		ubyte		6		5.1 surround
+>>>>>37		ubyte		7		6.1 surround
+>>>>>37		ubyte		8		7.1 surround
+>>>>40		lelong		!0		\b, %u Hz
 
 #------------------------------------------------------------------------------
 # $File: vxl,v 1.4 2009/09/19 16:28:13 christos Exp $

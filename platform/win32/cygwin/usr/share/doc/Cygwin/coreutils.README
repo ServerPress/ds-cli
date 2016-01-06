@@ -1,4 +1,4 @@
-Coreutils 8.23-4
+Coreutils 8.24-3
 ------------------------------------------
 GNU coreutils provides a collection of commonly used utilities essential
 to a standard POSIX environment.  It comprises the former textutils,
@@ -19,42 +19,41 @@ needed.  If you encounter difficulties in these areas, contact the
 cygwin mailing list.
 
 This release depends on features that did not exist prior to
-cygwin-1.7.32.  There are still corner cases of POSIX compliance that
+cygwin-2.2.0.  There are still corner cases of POSIX compliance that
 are impossible without more support from future cygwin versions, such
 as proper treatment of directory ctime or atomicity of some low-level
 functions, or outright impossible, such as hard links on a FAT drive.
 Cygwin provides its own `kill' that understands Windows pid's, so the
 coreutils version is renamed `gkill'.  Although coreutils provides
-an `uptime', on Cygwin you will need the `procps' package.  I would
-appreciate help in getting `stdbuf' ported to Cygwin.  There are
+an `uptime', on Cygwin you will need the `procps' package.  There are
 several bugs in the testsuite, so don't be alarmed at failures and
 use `make -k check' to make it to the end.
 
 Runtime requirements (these or newer):
-  bash-4.1.17-9
-  cygwin-1.7.32-1
+  bash-4.3.42-3
+  cygwin-2.2.1-1
   libattr1-2.4.46-1
-  libgcc1-4.8.3-3 [only needed on 32-bit]
-  libgmp10-6.0.0a-1
-  libiconv2-1.14-2
-  libintl8-0.18.3.2-2
-  tzcode-2013d-1
+  libgcc1-4.9.3-1 [only needed on 32-bit]
+  libgmp10-6.0.0a-2
+  libiconv2-1.14-3
+  libintl8-0.19.4-1
+  tzcode-2015f-1
 
 Additional build conditions (these or newer):
-  autoconf2.5-2.69-2
-  automake1.14-1.14.1-1
-  binutils-2.24.51-5
-  coreutils-8.23-2
-  cygport-0.17.0-1
+  autoconf2.5-2.69-3
+  automake1.15-1.15-1
+  binutils-2.25-1
+  coreutils-8.23-4
+  cygport-0.20.2-1
   gcc-4.7.3-1
-  gcc-core-4.8.3-3
-  gettext-devel-0.18.3.2-2
-  gnupg-1.4.18-1
+  gcc-core-4.9.3-1
+  gettext-devel-0.19.4-1
+  gnupg-1.4.19-2
   libattr-devel-2.4.46-1
-  libgmp-devel-6.0.0a-1
-  patch-2.7.1-1
-  perl-5.14.2-3
-  xz-5.0.5-1
+  libgmp-devel-6.0.0a-2
+  patch-2.7.4-1
+  perl-5.22.0-1
+  xz-5.2.1-1
 
 Canonical homepage:
   https://savannah.gnu.org/projects/coreutils
@@ -72,16 +71,16 @@ Language:
 ------------------------------------
 
 Build instructions:
-  unpack coreutils-8.23-4-src.tar.xz
+  unpack coreutils-8.24-3-src.tar.xz
     if you use setup to install this src package, it will be
     unpacked under /usr/src automatically
   cd /usr/src
   cygport coreutils.cygport all
 
 This will create:
-  /usr/src/coreutils-8.23-4.tar.xz
-  /usr/src/coreutils-8.23-4-src.tar.xz
-  /usr/src/coreutils-debuginfo-8.23-4.tar.xz
+  /usr/src/coreutils-8.24-3.tar.xz
+  /usr/src/coreutils-8.24-3-src.tar.xz
+  /usr/src/coreutils-debuginfo/coreutils-debuginfo-8.24-3.tar.xz
 
 Or use 'cygport coreutils.cygport prep' to get a patched source directory
 
@@ -92,6 +91,16 @@ version at <http://cygwin.com/packages/>.
 ------------------
 
 Port Notes:
+
+----------  coreutils-8.24-3 -- 2015-08-26 ---------
+Fix bug in fix attempted in 8.23-4 that caused an accidental regression
+in 'cp -r'.
+
+----------  coreutils-8.24-2 -- 2015-08-26 ---------
+Port stdbuf to cygwin, via a patch by Yaakov Selkowitz.
+
+----------  coreutils-8.24-1 -- 2015-08-25 ---------
+New upstream release.
 
 ----------  coreutils-8.23-4 -- 2014-10-13 ---------
 Fix 'cp -rp dir1 dir2' regression.

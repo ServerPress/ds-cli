@@ -440,4 +440,295 @@
 2015/07/09 19:33:45 Selected local directory: C:\Users\scarroll\Downloads
 2015/07/09 19:33:46 net: Direct
 2015/07/09 19:33:47 site: ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/
-2015/07/10 00:09:37 Ending cygwin install
+2015/12/29 10:50:41 Ending cygwin install
+2015/12/29 10:51:43 Starting cygwin install, version 2.873
+2015/12/29 10:51:43 User has backup/restore rights
+2015/12/29 10:51:43 Current Directory: C:\Users\scarroll\Downloads
+2015/12/29 10:51:43 Could not open service McShield for query, start and stop. McAfee may not be installed, or we don't have access.
+2015/12/29 10:51:50 source: network install
+2015/12/29 10:51:53 root: C:\cygwin system
+2015/12/29 10:51:55 Selected local directory: C:\Users\scarroll\Downloads
+2015/12/29 10:51:56 net: Direct
+2015/12/29 10:51:58 site: ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/
+2015/12/29 10:52:30 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/_update-info-dir/_update-info-dir-01469-1.tar.bz2
+2015/12/29 10:52:32 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/base-files/base-files-4.2-4.tar.xz
+2015/12/29 10:52:38 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/bash/bash-4.3.42-4.tar.xz
+2015/12/29 10:52:41 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/ca-certificates/ca-certificates-2.6-1.tar.xz
+2015/12/29 10:53:00 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/coreutils/coreutils-8.24-3.tar.xz
+2015/12/29 10:53:02 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/csih/csih-0.9.9-1.tar.xz
+2015/12/29 10:53:06 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/curl/curl-7.45.0-1.tar.xz
+2015/12/29 10:53:07 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/cygutils/cygutils-1.4.15-2.tar.xz
+2015/12/29 10:53:27 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/cygwin/cygwin-2.3.1-1.tar.xz
+2015/12/29 10:53:29 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/diffutils/diffutils-3.3-3.tar.xz
+2015/12/29 10:53:32 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/file/file-5.24-1.tar.xz
+2015/12/29 10:53:34 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/less/less-481-1.tar.xz
+2015/12/29 10:53:38 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/lftp/lftp-4.6.5-1.tar.xz
+2015/12/29 10:53:40 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/curl/libcurl4/libcurl4-7.45.0-1.tar.xz
+2015/12/29 10:53:41 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/gmp/libgmp10/libgmp10-6.1.0-2p1.tar.xz
+2015/12/29 10:53:45 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/gnutls/libgnutls28/libgnutls28-3.3.17-1.tar.xz
+2015/12/29 10:53:46 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/krb5/libgssapi_krb5_2/libgssapi_krb5_2-1.13.2-3.tar.xz
+2015/12/29 10:53:47 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/gettext/libintl8/libintl8-0.19.5.1-2.tar.xz
+2015/12/29 10:53:48 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/krb5/libk5crypto3/libk5crypto3-1.13.2-3.tar.xz
+2015/12/29 10:53:52 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/krb5/libkrb5_3/libkrb5_3-1.13.2-3.tar.xz
+2015/12/29 10:53:53 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/krb5/libkrb5support0/libkrb5support0-1.13.2-3.tar.xz
+2015/12/29 10:53:55 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/xz/liblzma5/liblzma5-5.2.2-1.tar.xz
+2015/12/29 10:53:58 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/ncurses/libncursesw10/libncursesw10-6.0-1.20151017.tar.xz
+2015/12/29 10:54:01 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/openldap/libopenldap2_4_2/libopenldap2_4_2-2.4.42-1.tar.xz
+2015/12/29 10:54:12 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/openssl/libopenssl100/libopenssl100-1.0.2e-1.tar.xz
+2015/12/29 10:54:14 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/pcre/libpcre1/libpcre1-8.37-2.tar.xz
+2015/12/29 10:54:15 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/libsigsegv/libsigsegv2/libsigsegv2-2.10-2.tar.xz
+2015/12/29 10:54:16 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/libtasn1/libtasn1_6/libtasn1_6-4.5-1.tar.xz
+2015/12/29 10:54:19 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/m4/m4-1.4.17-2.tar.xz
+2015/12/29 10:54:27 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/man-db/man-db-2.7.4-1.tar.xz
+2015/12/29 10:54:28 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/md5deep/md5deep-4.4-1.tar.xz
+2015/12/29 10:54:31 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/mintty/mintty-2.2.2-0.tar.xz
+2015/12/29 10:54:34 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/ncurses/ncurses-6.0-1.20151017.tar.xz
+2015/12/29 10:54:41 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/openssh/openssh-7.1p1-1.tar.xz
+2015/12/29 10:54:51 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/openssl/openssl-1.0.2e-1.tar.xz
+2015/12/29 10:55:18 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/perl/perl-5.22.1-1.tar.xz
+2015/12/29 10:55:20 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/perl/perl_autorebase/perl_autorebase-5.22.1-1.tar.xz
+2015/12/29 10:55:25 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/perl/perl_base/perl_base-5.22.1-1.tar.xz
+2015/12/29 10:55:26 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/run/run-1.3.4-2.tar.xz
+2015/12/29 10:55:29 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/tcsh/tcsh-6.19.00-2.tar.xz
+2015/12/29 10:55:30 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/ncurses/terminfo/terminfo-6.0-1.20151017.tar.xz
+2015/12/29 10:55:33 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/tzcode/tzcode-2015g-1.tar.xz
+2015/12/29 10:55:36 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/unzip/unzip-6.0-15.tar.xz
+2015/12/29 10:56:02 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/vim/vim-common/vim-common-7.4.891-1.tar.xz
+2015/12/29 10:56:06 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/vim/vim-minimal/vim-minimal-7.4.891-1.tar.xz
+2015/12/29 10:56:11 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/wget/wget-1.17.1-1.tar.xz
+2015/12/29 10:56:13 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/vim/xxd/xxd-7.4.891-1.tar.xz
+2015/12/29 10:56:15 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/xz/xz-5.2.2-1.tar.xz
+2015/12/29 10:56:17 Running preremove script for  _update-info-dir
+2015/12/29 10:56:17 Running preremove script for  base-files
+2015/12/29 10:56:17 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/preremove/base-files.sh"
+2015/12/29 10:56:18 Running preremove script for  bash
+2015/12/29 10:56:18 Running preremove script for  ca-certificates
+2015/12/29 10:56:18 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/preremove/ca-certificates.sh"
+2015/12/29 10:56:18 Running preremove script for  coreutils
+2015/12/29 10:56:18 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/preremove/coreutils.sh"
+2015/12/29 10:56:18 Running preremove script for  csih
+2015/12/29 10:56:18 Running preremove script for  curl
+2015/12/29 10:56:18 Running preremove script for  cygutils
+2015/12/29 10:56:18 Running preremove script for  cygwin
+2015/12/29 10:56:18 Running preremove script for  diffutils
+2015/12/29 10:56:18 Running preremove script for  file
+2015/12/29 10:56:18 Running preremove script for  less
+2015/12/29 10:56:18 Running preremove script for  lftp
+2015/12/29 10:56:18 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/preremove/lftp.sh"
+2015/12/29 10:56:18 Running preremove script for  libcurl4
+2015/12/29 10:56:18 Running preremove script for  libgmp10
+2015/12/29 10:56:18 Running preremove script for  libgnutls28
+2015/12/29 10:56:18 Running preremove script for  libgssapi_krb5_2
+2015/12/29 10:56:18 Running preremove script for  libintl8
+2015/12/29 10:56:18 Running preremove script for  libk5crypto3
+2015/12/29 10:56:18 Running preremove script for  libkrb5_3
+2015/12/29 10:56:18 Running preremove script for  libkrb5support0
+2015/12/29 10:56:18 Running preremove script for  liblzma5
+2015/12/29 10:56:18 Running preremove script for  libncursesw10
+2015/12/29 10:56:18 Running preremove script for  libopenldap2_4_2
+2015/12/29 10:56:18 Running preremove script for  libopenssl100
+2015/12/29 10:56:18 Running preremove script for  libpcre1
+2015/12/29 10:56:18 Running preremove script for  libsigsegv2
+2015/12/29 10:56:18 Running preremove script for  libtasn1_6
+2015/12/29 10:56:18 Running preremove script for  m4
+2015/12/29 10:56:18 Running preremove script for  man-db
+2015/12/29 10:56:18 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/preremove/man-db.sh"
+2015/12/29 10:56:18 Running preremove script for  md5deep
+2015/12/29 10:56:18 Running preremove script for  mintty
+2015/12/29 10:56:18 Running preremove script for  ncurses
+2015/12/29 10:56:18 Running preremove script for  openssh
+2015/12/29 10:56:18 Running preremove script for  openssl
+2015/12/29 10:56:18 Running preremove script for  perl
+2015/12/29 10:56:18 Running preremove script for  perl_autorebase
+2015/12/29 10:56:18 Running preremove script for  perl_base
+2015/12/29 10:56:18 Running preremove script for  run
+2015/12/29 10:56:18 Running preremove script for  tcsh
+2015/12/29 10:56:18 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/preremove/tcsh.sh"
+2015/12/29 10:56:18 Running preremove script for  terminfo
+2015/12/29 10:56:18 Running preremove script for  tzcode
+2015/12/29 10:56:18 Running preremove script for  unzip
+2015/12/29 10:56:18 Running preremove script for  vim-common
+2015/12/29 10:56:18 Running preremove script for  vim-minimal
+2015/12/29 10:56:18 Running preremove script for  wget
+2015/12/29 10:56:18 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/preremove/wget.sh"
+2015/12/29 10:56:18 Running preremove script for  xxd
+2015/12/29 10:56:18 Running preremove script for  xz
+2015/12/29 10:56:18 Uninstalling _update-info-dir
+2015/12/29 10:56:18 Uninstalling base-files
+2015/12/29 10:56:18 Uninstalling bash
+2015/12/29 10:56:18 Uninstalling ca-certificates
+2015/12/29 10:56:18 Uninstalling coreutils
+2015/12/29 10:56:18 Uninstalling csih
+2015/12/29 10:56:18 Uninstalling curl
+2015/12/29 10:56:18 Uninstalling cygutils
+2015/12/29 10:56:18 Uninstalling cygwin
+2015/12/29 10:56:18 Uninstalling diffutils
+2015/12/29 10:56:18 Uninstalling file
+2015/12/29 10:56:18 Uninstalling less
+2015/12/29 10:56:18 Uninstalling lftp
+2015/12/29 10:56:19 Uninstalling libcurl4
+2015/12/29 10:56:19 Uninstalling libgmp10
+2015/12/29 10:56:19 Uninstalling libgnutls28
+2015/12/29 10:56:19 Uninstalling libgssapi_krb5_2
+2015/12/29 10:56:19 Uninstalling libintl8
+2015/12/29 10:56:19 Uninstalling libk5crypto3
+2015/12/29 10:56:19 Uninstalling libkrb5_3
+2015/12/29 10:56:19 Uninstalling libkrb5support0
+2015/12/29 10:56:19 Uninstalling liblzma5
+2015/12/29 10:56:19 Uninstalling libncursesw10
+2015/12/29 10:56:19 Uninstalling libopenldap2_4_2
+2015/12/29 10:56:19 Uninstalling libopenssl100
+2015/12/29 10:56:19 Uninstalling libpcre1
+2015/12/29 10:56:19 Uninstalling libsigsegv2
+2015/12/29 10:56:19 Uninstalling libtasn1_6
+2015/12/29 10:56:19 Uninstalling m4
+2015/12/29 10:56:19 Uninstalling man-db
+2015/12/29 10:56:19 Uninstalling md5deep
+2015/12/29 10:56:19 Uninstalling mintty
+2015/12/29 10:56:19 Uninstalling ncurses
+2015/12/29 10:56:19 Uninstalling openssh
+2015/12/29 10:56:19 Uninstalling openssl
+2015/12/29 10:56:19 Uninstalling perl
+2015/12/29 10:56:19 Uninstalling perl_autorebase
+2015/12/29 10:56:19 Uninstalling perl_base
+2015/12/29 10:56:19 Uninstalling run
+2015/12/29 10:56:19 Uninstalling tcsh
+2015/12/29 10:56:19 Uninstalling terminfo
+2015/12/29 10:56:20 Uninstalling tzcode
+2015/12/29 10:56:20 Uninstalling unzip
+2015/12/29 10:56:20 Uninstalling vim-common
+2015/12/29 10:56:21 Uninstalling vim-minimal
+2015/12/29 10:56:21 Uninstalling wget
+2015/12/29 10:56:21 Uninstalling xxd
+2015/12/29 10:56:21 Uninstalling xz
+2015/12/29 10:56:21 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/_update-info-dir/_update-info-dir-01469-1.tar.bz2
+2015/12/29 10:56:21 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/base-files/base-files-4.2-4.tar.xz
+2015/12/29 10:56:21 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/bash/bash-4.3.42-4.tar.xz
+2015/12/29 10:56:21 io_stream_cygfile: fopen(/usr/bin/bash.exe) failed 13 Permission denied
+2015/12/29 10:56:21 Failed to open cygfile:///usr/bin/bash.exe for writing.
+2015/12/29 14:22:56 running: C:\cygwin\bin\kill.exe -TERM 1792
+2015/12/29 14:23:05 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/ca-certificates/ca-certificates-2.6-1.tar.xz
+2015/12/29 14:23:05 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/coreutils/coreutils-8.24-3.tar.xz
+2015/12/29 14:23:07 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/csih/csih-0.9.9-1.tar.xz
+2015/12/29 14:23:08 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/curl/curl-7.45.0-1.tar.xz
+2015/12/29 14:23:08 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/cygutils/cygutils-1.4.15-2.tar.xz
+2015/12/29 14:23:08 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/cygwin/cygwin-2.3.1-1.tar.xz
+2015/12/29 14:23:09 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/diffutils/diffutils-3.3-3.tar.xz
+2015/12/29 14:23:09 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/file/file-5.24-1.tar.xz
+2015/12/29 14:23:09 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/less/less-481-1.tar.xz
+2015/12/29 14:23:09 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/lftp/lftp-4.6.5-1.tar.xz
+2015/12/29 14:23:10 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/curl/libcurl4/libcurl4-7.45.0-1.tar.xz
+2015/12/29 14:23:10 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/gmp/libgmp10/libgmp10-6.1.0-2p1.tar.xz
+2015/12/29 14:23:10 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/gnutls/libgnutls28/libgnutls28-3.3.17-1.tar.xz
+2015/12/29 14:23:10 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/krb5/libgssapi_krb5_2/libgssapi_krb5_2-1.13.2-3.tar.xz
+2015/12/29 14:23:10 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/gettext/libintl8/libintl8-0.19.5.1-2.tar.xz
+2015/12/29 14:23:10 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/krb5/libk5crypto3/libk5crypto3-1.13.2-3.tar.xz
+2015/12/29 14:23:10 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/krb5/libkrb5_3/libkrb5_3-1.13.2-3.tar.xz
+2015/12/29 14:23:10 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/krb5/libkrb5support0/libkrb5support0-1.13.2-3.tar.xz
+2015/12/29 14:23:10 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/xz/liblzma5/liblzma5-5.2.2-1.tar.xz
+2015/12/29 14:23:10 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/ncurses/libncursesw10/libncursesw10-6.0-1.20151017.tar.xz
+2015/12/29 14:23:10 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/openldap/libopenldap2_4_2/libopenldap2_4_2-2.4.42-1.tar.xz
+2015/12/29 14:23:10 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/openssl/libopenssl100/libopenssl100-1.0.2e-1.tar.xz
+2015/12/29 14:23:11 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/pcre/libpcre1/libpcre1-8.37-2.tar.xz
+2015/12/29 14:23:11 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/libsigsegv/libsigsegv2/libsigsegv2-2.10-2.tar.xz
+2015/12/29 14:23:11 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/libtasn1/libtasn1_6/libtasn1_6-4.5-1.tar.xz
+2015/12/29 14:23:11 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/m4/m4-1.4.17-2.tar.xz
+2015/12/29 14:23:11 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/man-db/man-db-2.7.4-1.tar.xz
+2015/12/29 14:23:12 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/md5deep/md5deep-4.4-1.tar.xz
+2015/12/29 14:23:12 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/mintty/mintty-2.2.2-0.tar.xz
+2015/12/29 14:23:12 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/ncurses/ncurses-6.0-1.20151017.tar.xz
+2015/12/29 14:23:12 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/openssh/openssh-7.1p1-1.tar.xz
+2015/12/29 14:23:13 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/openssl/openssl-1.0.2e-1.tar.xz
+2015/12/29 14:23:13 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/perl/perl-5.22.1-1.tar.xz
+2015/12/29 14:23:19 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/perl/perl_autorebase/perl_autorebase-5.22.1-1.tar.xz
+2015/12/29 14:23:19 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/perl/perl_base/perl_base-5.22.1-1.tar.xz
+2015/12/29 14:23:20 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/run/run-1.3.4-2.tar.xz
+2015/12/29 14:23:20 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/tcsh/tcsh-6.19.00-2.tar.xz
+2015/12/29 14:23:21 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/ncurses/terminfo/terminfo-6.0-1.20151017.tar.xz
+2015/12/29 14:23:21 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/tzcode/tzcode-2015g-1.tar.xz
+2015/12/29 14:23:27 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/unzip/unzip-6.0-15.tar.xz
+2015/12/29 14:23:27 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/vim/vim-common/vim-common-7.4.891-1.tar.xz
+2015/12/29 14:24:19 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/vim/vim-minimal/vim-minimal-7.4.891-1.tar.xz
+2015/12/29 14:24:19 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/wget/wget-1.17.1-1.tar.xz
+2015/12/29 14:24:19 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/vim/xxd/xxd-7.4.891-1.tar.xz
+2015/12/29 14:24:19 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/xz/xz-5.2.2-1.tar.xz
+2015/12/29 14:24:20 Changing gid back to original
+2015/12/29 14:24:20 running: C:\cygwin\bin\dash.exe "/etc/postinstall/0p_000_autorebase.dash"
+2015/12/29 14:24:24 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/update-info-dir.sh"
+2015/12/29 14:24:25 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/coreutils.sh"
+2015/12/29 14:24:25 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/bash.sh"
+2015/12/29 14:24:25 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/base-files-mketc.sh"
+2015/12/29 14:24:25 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/base-files-profile.sh"
+2015/12/29 14:24:26 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/ca-certificates.sh"
+2015/12/29 14:24:27 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/lftp.sh"
+2015/12/29 14:24:27 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/man-db.sh"
+2015/12/29 14:24:27 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/mintty.sh"
+2015/12/29 14:24:27 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/openssh.sh"
+2015/12/29 14:24:27 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/tcsh.sh"
+2015/12/29 14:24:27 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/wget.sh"
+2015/12/29 14:24:27 Changing gid to Administrators
+2015/12/29 14:24:41 note: Installation Complete
+2015/12/29 14:24:41 Ending cygwin install
+2015/12/29 14:25:24 Starting cygwin install, version 2.873
+2015/12/29 14:25:24 User has backup/restore rights
+2015/12/29 14:25:24 Current Directory: C:\Users\scarroll\Downloads
+2015/12/29 14:25:24 Could not open service McShield for query, start and stop. McAfee may not be installed, or we don't have access.
+2015/12/29 14:25:33 source: network install
+2015/12/29 14:25:35 root: C:\cygwin system
+2015/12/29 14:25:39 Selected local directory: C:\Users\scarroll\Downloads
+2015/12/29 14:25:40 net: Direct
+2015/12/29 14:25:40 Can't resolve `cygwin.com'
+2015/12/29 14:25:42 site: ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/
+2015/12/29 14:25:42 Can't resolve `ftp.mirrorservice.org'
+2015/12/29 14:25:42 Can't resolve `ftp.mirrorservice.org'
+2015/12/29 14:25:42 Can't resolve `ftp.mirrorservice.org'
+2015/12/29 14:25:42 Can't resolve `ftp.mirrorservice.org'
+2015/12/29 14:25:42 Can't resolve `ftp.mirrorservice.org'
+2015/12/29 14:25:42 Can't resolve `ftp.mirrorservice.org'
+2015/12/29 14:25:42 mbox note: Unable to get setup from <ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/>
+2015/12/29 14:26:14 site: ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/
+2015/12/29 14:26:59 Adding required dependency libapr1: Selecting version 1.5.2-2 for installation.
+2015/12/29 14:26:59 Adding required dependency libaprutil1: Selecting version 1.5.4-2 for installation.
+2015/12/29 14:26:59 Adding required dependency libiodbc2: Selecting version 3.52.8-2 for installation.
+2015/12/29 14:26:59 Adding required dependency libmysqlclient18: Selecting version 5.5.45-1 for installation.
+2015/12/29 14:26:59 Adding required dependency libneon27: Selecting version 0.30.1-1 for installation.
+2015/12/29 14:26:59 Adding required dependency libpq5: Selecting version 9.4.5-1 for installation.
+2015/12/29 14:26:59 Adding required dependency libproxy1: Selecting version 0.4.11-5 for installation.
+2015/12/29 14:26:59 Adding required dependency libserf1_0: Selecting version 1.3.8-1 for installation.
+2015/12/29 14:26:59 Adding required dependency libsqlite3_0: Selecting version 3.9.2-1 for installation.
+2015/12/29 14:27:00 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/libapr1/libapr1-1.5.2-2.tar.xz
+2015/12/29 14:27:01 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/libaprutil1/libaprutil1-1.5.4-2.tar.xz
+2015/12/29 14:27:04 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/libiodbc/libiodbc2/libiodbc2-3.52.8-2.tar.bz2
+2015/12/29 14:27:06 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/mysql/libmysqlclient18/libmysqlclient18-5.5.45-1.tar.xz
+2015/12/29 14:27:07 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/neon/libneon27/libneon27-0.30.1-1.tar.xz
+2015/12/29 14:27:09 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/postgresql/libpq5/libpq5-9.4.5-1.tar.xz
+2015/12/29 14:27:10 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/libproxy/libproxy1/libproxy1-0.4.11-5.tar.xz
+2015/12/29 14:27:11 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/serf/libserf1_0/libserf1_0-1.3.8-1.tar.xz
+2015/12/29 14:27:13 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/sqlite3/libsqlite3_0/libsqlite3_0-3.9.2-1.tar.xz
+2015/12/29 14:27:23 Downloaded C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/subversion/subversion-1.9.3-1.tar.xz
+2015/12/29 14:27:25 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/libapr1/libapr1-1.5.2-2.tar.xz
+2015/12/29 14:27:25 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/libaprutil1/libaprutil1-1.5.4-2.tar.xz
+2015/12/29 14:27:25 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/libiodbc/libiodbc2/libiodbc2-3.52.8-2.tar.bz2
+2015/12/29 14:27:25 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/mysql/libmysqlclient18/libmysqlclient18-5.5.45-1.tar.xz
+2015/12/29 14:27:25 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/neon/libneon27/libneon27-0.30.1-1.tar.xz
+2015/12/29 14:27:25 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/postgresql/libpq5/libpq5-9.4.5-1.tar.xz
+2015/12/29 14:27:25 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/libproxy/libproxy1/libproxy1-0.4.11-5.tar.xz
+2015/12/29 14:27:25 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/serf/libserf1_0/libserf1_0-1.3.8-1.tar.xz
+2015/12/29 14:27:25 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/sqlite3/libsqlite3_0/libsqlite3_0-3.9.2-1.tar.xz
+2015/12/29 14:27:25 Extracting from file://C:\Users\scarroll\Downloads/ftp%3a%2f%2fftp.mirrorservice.org%2fsites%2fsourceware.org%2fpub%2fcygwin%2f/x86/release/subversion/subversion-1.9.3-1.tar.xz
+2015/12/29 14:27:26 Changing gid back to original
+2015/12/29 14:27:26 running: C:\cygwin\bin\dash.exe "/etc/postinstall/0p_000_autorebase.dash"
+2015/12/29 14:27:29 Changing gid to Administrators
+2015/12/29 14:28:36 note: Installation Complete
+2015/12/29 14:28:36 Ending cygwin install
+2015/12/29 14:30:05 Starting cygwin install, version 2.873
+2015/12/29 14:30:05 User has backup/restore rights
+2015/12/29 14:30:05 Current Directory: C:\Users\scarroll\Downloads
+2015/12/29 14:30:05 Could not open service McShield for query, start and stop. McAfee may not be installed, or we don't have access.
+2015/12/29 14:30:07 source: network install
+2015/12/29 14:30:10 source: network install
+2015/12/29 14:30:11 root: C:\cygwin system
+2015/12/29 14:30:12 Selected local directory: C:\Users\scarroll\Downloads
+2015/12/29 14:30:13 net: Direct
+2015/12/29 14:30:14 site: ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/
+2015/12/29 14:30:32 Ending cygwin install

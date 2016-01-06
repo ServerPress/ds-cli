@@ -1,3 +1,309 @@
+2015-10-08  Colin Watson  <cjwatson@debian.org>
+
+	* Version: 2.7.4.
+
+2015-10-08  Colin Watson  <cjwatson@debian.org>
+
+	man: Honour MANWIDTH in conjunction with -Z
+
+	* src/man.c (get_roff_line_length): Also consider line_length if
+	ditroff is set.
+	(make_roff_command): Try add_roff_line_length regardless of troff.
+	The line length is passed to the macro package, not to the output
+	device, although get_roff_line_length will still sometimes not use
+	it (e.g. if using the "ps" device).  Fixes Debian bug #801241.
+	* NEWS: Document this.
+
+2015-10-08  Colin Watson  <cjwatson@debian.org>
+
+	man: Exit 3 if formatter exits non-zero
+
+	* src/man.c (format_display): Keep track of exit statuses from both
+	format_cmd and disp_cmd, and exit CHILD_FAIL if either is non-zero
+	and non-SIGPIPE.  Fixes Debian bug #801261.
+	* NEWS: Document this.
+
+2015-09-22  Colin Watson  <cjwatson@debian.org>
+
+	Fix replace.sed prerequisite syntax
+
+	Suffix rules may not have prerequisites.  Thanks to Nikola Forró; fixes
+	Fedora bug #1263930.
+
+	* man/Rules.man: Declare dependency of $(MANS) on replace.sed
+	separately rather than trying to do so in suffix rules.
+	* NEWS: Document this.
+
+2015-09-22  Colin Watson  <cjwatson@debian.org>
+
+	Fix crash in manpath deduplication
+
+	* src/manp.c (create_pathlist): Handle NULL return from
+	canonicalize_file_name.
+	* NEWS: Document this.
+
+2015-09-22  Colin Watson  <cjwatson@debian.org>
+
+	Upgrade config.guess/config.sub
+
+	* build-aux/config.guess, build-aux/config.sub: Upgrade to
+	2015-08-20.
+
+2015-09-21  Nikola Forró  <nforro@redhat.com>
+
+	Fix typos in italian manpath man page
+
+2015-09-16  zwpwjwtz  <zwpwjwtz@126.com>
+
+	Update Simplified Chinese manual page translation
+
+	* man/po4a/po/zh_CN.po: Update from Translation Project.
+	* man/THANKS: Add translator credit.
+
+2015-09-09  Colin Watson  <cjwatson@debian.org>
+
+	* Version: 2.7.3.
+
+2015-09-09  Colin Watson  <cjwatson@debian.org>
+
+	Pacify gcc -Wlogical-not-parentheses
+
+	* src/man.c (find_cat_file): Add extra parentheses around
+	logical-not on the LHS of a comparison.
+	* lib/util.c (is_changed): Likewise in header comment.
+
+2015-09-09  OGAWA Hirofumi  <hirofumi@mail.parknet.co.jp>
+
+	Restore the ability to use 'man -a' noninteractively
+
+	Fixes Debian bug #798094.
+
+	* src/man.c (do_prompt): Return 0 immediately (i.e. view) if neither
+	stdin nor stdout is a tty.
+	* NEWS: Document this.
+
+2015-09-09  Mike Frysinger  <vapier@gentoo.org>
+
+	Fix crash when current directory is unreadable
+
+	Fixes Savannah bug #45861.
+
+	* src/man.c (make_display_command): Check have_cwd before trying to
+	use cwd.
+	* NEWS: Document this.
+
+2015-09-09  Colin Watson  <cjwatson@debian.org>
+
+	Document squeeze-blank-lines fix
+
+	* NEWS: Document Rafael's squeeze-blank-lines fix.
+
+2015-09-09  Colin Watson  <cjwatson@debian.org>
+
+	Fix use-after-free in ult_src
+
+	Reported by Hanno Boeck.  Fixes Savannah bug #45854.
+
+	* src/ult_src.c (ult_src): Take a copy of base when recursing rather
+	than passing it directly as the new name argument, since it may be
+	freed by the recursive call.
+	* NEWS: Document this.
+
+2015-09-09  Colin Watson  <cjwatson@debian.org>
+
+	Remove unnecessary check before free
+
+	* src/ult_src.c (ult_src): Don't check whether base is non-NULL
+	before freeing it.
+
+2015-08-30  Rafael Kitover  <rkitover@gmail.com>
+
+	Squeeze blank lines internally instead of pager -s
+
+	Add a pipecmd in make_display_command to combine multiple blank lines in
+	the output into one, which is what e.g. less -s does.
+
+	Stop automatically appending -s to pager command in configure.
+
+	Fixes Debian bug #796584.
+
+	* configure.ac: Stop automatically appending -s to pager command.
+	* src/man.c (squeeze_blank_lines): New function.
+	(make_display_command): Add squeeze_blank_lines to display pipeline.
+
+2015-08-29  Colin Watson  <cjwatson@debian.org>
+
+	Make sure CACHEDIR.TAG has correct ownership
+
+	* src/mandb.c (mandb): Change CACHEDIR.TAG's owner to
+	man_owner->pw_uid when running as root in global manpaths.
+	(process_manpath): Pass global_manpath to mandb.
+
+2015-08-29  Colin Watson  <cjwatson@debian.org>
+
+	Rewrite CACHEDIR.TAG and databases if they cannot be read
+
+	Fixes Debian bug #797019.
+
+	* src/mandb.c (mandb): Rewrite CACHEDIR.TAG and databases if they
+	cannot be read (probably due to incorrect ownership).
+	* NEWS: Document this.
+
+2015-08-22  Colin Watson  <cjwatson@debian.org>
+
+	Try to get terminal width from /dev/tty
+
+	If man is running within something like lesspipe, then there may be
+	a current tty that neither stdin nor stdout points to.  Try to get
+	hold of it using /dev/tty.  Fixes Fedora bug #1255930.
+
+	* lib/linelength.c (get_line_length): Try /dev/tty before either
+	stdout or stdin.
+	* NEWS: Document this.
+
+2015-08-16  Colin Watson  <cjwatson@debian.org>
+
+	* Version: 2.7.2.
+
+2015-08-16  Jordi Mallach  <jordi@gnu.org>
+
+	* po/ca.po: Update from Translation Project.
+
+2015-08-16  Colin Watson  <cjwatson@debian.org>
+
+	Upgrade to Automake 1:1.15-3 (from Debian).
+
+	* NEWS: Document a couple more changes since 2.7.1.
+
+2015-08-02  Colin Watson  <cjwatson@debian.org>
+
+	Upgrade to Automake 1.15.
+
+2015-08-02  Colin Watson  <cjwatson@debian.org>
+
+	Fix inaccurate description of "man -f"
+
+	It's equivalent to "whatis", not "whatis -r".  Fixes Fedora
+	bug #1249377.
+
+	* man/man1/man.man1 (EXAMPLES): "man -k" and "man -f" are equivalent to
+	"apropos" and "whatis" respectively, not "apropos -r" and "whatis -r".
+	* man/po4a/po/man-db-manpages.pot, man/po4a/po/*.po: Update; unfuzzy all
+	translations.
+
+2015-08-02  Lauri Nurmi  <lanurmi@iki.fi>
+
+	* po/fi.po: Update from Translation Project.
+
+2015-04-08  Colin Watson  <cjwatson@debian.org>
+
+	Allow using GDBM's NDBM compatibility layer
+
+	This isn't very useful in practice since anyone using this could just
+	use GDBM directly instead, but it's helpful for testing.
+
+	* configure.ac: Check for gdbm-ndbm.h and libgdbm_compat.
+
+2015-04-08  Colin Watson  <cjwatson@debian.org>
+
+	Clean up freeing of datum structures
+
+	* libdb/mydbm.h (MYDBM_FREE): Remove.
+	(MYDBM_FREE_DPTR): New macro.  This zeros the data pointer to avoid
+	double-free problems.
+	* libdb/db_delete.c (dbdelete): Use MYDBM_FREE_DPTR.
+	* libdb/db_gdbm.c (man_gdbm_open_wrapper, sortkey_hashtable_free):
+	Likewise.
+	* libdb/db_lookup.c (dblookup, dblookup_pattern): Likewise.
+	* libdb/db_store.c (dbstore): Likewise.
+	* libdb/db_ver.c (dbver_rd, dbver_wr): Likewise.
+	* src/accessdb.c (main): Likewise.
+	* src/catman.c (parse_for_sec): Likewise.
+	* src/check_mandirs.c (sanity_check_db, purge_pointers, purge_missing):
+	Likewise.
+	* src/whatis.c (do_apropos): Likewise.
+
+2015-04-08  Colin Watson  <cjwatson@debian.org>
+
+	Stop storing the database handle in a global variable
+
+	Fixes Ubuntu bug #1304261.
+
+	* libdb/db_delete.c (dbdelete): Take a dbf parameter.  Update all
+	callers and prototypes.
+	* libdb/db_lookup.c (dblookup, dblookup_all, dblookup_exact,
+	dblookup_pattern): Likewise.
+	* libdb/db_store.c (replace_if_necessary, dbstore): Likewise.
+	* src/check_mandirs.c (test_manfile, add_dir_entries, sanity_check_db,
+	purge_pointers, purge_normal, purge_whatis): Likewise.
+	* src/descriptions_store.c (store_descriptions): Likewise.
+	* src/straycats.c (check_for_stray, open_catdir): Likewise.
+	* src/whatis.c (resolve_pointers, display, do_whatis_section, do_whatis,
+	do_apropos): Likewise.
+
+	* src/accessdb.c (main): Declare dbf here rather than at file scope.
+	* src/catman.c (parse_for_sec): Likewise.
+	* src/check_mandirs.c (testmandirs, update_db_time, update_db,
+	purge_missing): Likewise.
+	* src/man.c (dbdelete_wrapper, try_db): Likewise.
+	* src/mandb.c (update_one_file): Likewise.
+	* src/straycats.c (straycats): Likewise.
+	* src/whatis.c (search): Likewise.
+
+	* libdb/mydbm.h (dbf): Remove.
+	* src/catman.c (dbf): Rename to ...
+	(dbf_close_post_fork): ... this.
+	(rdopen_db): Merge into ...
+	(parse_for_sec): ... here.
+
+2015-03-05  Colin Watson  <cjwatson@debian.org>
+
+	man: Avoid dubious use of freopen to reopen base streams
+
+	freopen doesn't actually work properly when base streams have been
+	closed (at least with glibc), and it seems better to simply refuse to
+	operate in such a non-conforming environment.
+
+	* src/man.c (check_standard_fds): New function.
+	(main): Call it rather than using freopen.
+
+2014-11-16  Colin Watson  <cjwatson@debian.org>
+
+	Allow building from git without gnulib-tool
+
+	Since we don't want to keep Gnulib translations in revision control,
+	we need gnulib-tool on $PATH when generating the build system in
+	order to fetch them, but it's unnecessarily awkward to require
+	everyone to have this just in order to build man-db from git.  Allow
+	building without this, although it is still required for "make
+	dist".
+
+	* configure.ac: No longer issue an error if gnulib/po/Makefile.in.in
+	is missing.  Instead, set the Automake conditional HAVE_GNULIB_PO to
+	true if and only if gnulib/po/POTFILES.in exists, and only create
+	gnulib/po/Makefile.in if gnulib/po/Makefile.in.in exists.
+	* Makefile.am (SUBDIRS): Only include gnulib/po if HAVE_GNULIB_PO is
+	true.
+
+2014-11-14  Colin Watson  <cjwatson@debian.org>
+
+	apropos/whatis: Don't truncate names if long output was requested
+
+	* src/whatis.c (display): Leave page_name intact if long_output is
+	true.  Reported by Calle Erlandsson.
+
+2014-11-11  David Prévot  <david@tilapin.org>
+
+	* man/po4a/po/fr.po: Update from Translation Project.
+
+2014-11-08  Colin Watson  <cjwatson@debian.org>
+
+	Pass -l through to apropos/whatis
+
+	Fixes Fedora bug #1161747.
+
+	* src/man.c (do_extern): Pass the -l option through.
+
 2014-11-07  Colin Watson  <cjwatson@debian.org>
 
 	* Version: 2.7.1.

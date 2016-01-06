@@ -1,3 +1,23 @@
+===============================================================================
+====                                                                       ====
+====                       This file is deprecated                         ====
+====                                                                       ====
+===============================================================================
+
+2015-08-30  Corinna Vinschen  <vinschen@redhat.com>
+
+	* cygwin-service-installation-helper.sh: Throughout replace *server1014
+	with *server1016.
+	* native/winProductName.c (products): Add missing values since W10.
+	(GetOSDisplayString): Rename Server 2014 to Server 2016.
+
+2015-04-02  Achim Gratz  <Stromeko@NexGo.DE>
+
+	* cygwin-service-installation-helper.sh
+	(csih_create_privileged_user): Also add
+	SeDenyInteractiveLogonRight to the service user. otherwise it will
+	be shown on the logon screen in some versions of Windows.
+
 2015-02-23  Achim Gratz  <Stromeko@NexGo.DE>
 
 	* cygwin-service-installation-helper.sh (csih_use_file_etc):

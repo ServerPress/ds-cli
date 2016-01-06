@@ -1,3 +1,32 @@
+2015-08-22  Achim Gratz  <Stromeko@NexGo.DE>
+
+	* configure.ac: Bump version number.  Add strcasecmp to
+	AC_CHECK_FUNCS.
+
+2015-08-13  Achim Gratz  <Stromeko@NexGo.DE>
+
+	* src/util.c (run2_quote_strdup): When quoting, do not simply skip
+	empty arguments but return '""'.
+
+2015-08-13  Achim Gratz  <Stromeko@NexGo.DE>
+
+	* src/run.c (file_exists_multi): Hoist char* t out of loop and
+	initialize NULL.  Remove redundant truncation of fullname.
+
+2015-08-13  Achim Gratz  <Stromeko@NexGo.DE>
+
+	* src/run.c (xemacs_special): Replace stricmp with strcasecmp throughout.
+	* src/util.c (run2_ends_with): Ditto.
+
+2015-08-13  Achim Gratz <Stromeko@NexGo.DE>
+
+	* src/run.c (parse_args): Implement -wait/--wait and
+	-quote/--quote as valid long options, we prefer the double-dash
+	variant.
+	* src/run.1.in: All long options are preferedly using leading
+	double dashes.  Document the fact that single slashes work on two
+	of them for backwards compatibility.
+
 2014-09-06  Achim Gratz <Stromeko@Stromeko.DE>
 
 	* configure.ac: Bump version number.  Correct some type, header
@@ -81,7 +110,7 @@
 
 	Support cygwin64, mingw64
 	* configure.ac: Detect cygwin64 and mingw64. Detect
-	signature of _spawnv() and spawnv(). Update to 
+	signature of _spawnv() and spawnv(). Update to
 	recent autotools.
 	* src/Makefile.am: Use correct entrypoint for 64bit
 	platforms.
@@ -240,7 +269,7 @@
 	* build-aux/.cvsignore: New.
 	* m4/.cvsignore: New.
 
-2006-05-22  Charles Wilson  <cygwin@cwilson.fastmail.fm> 
+2006-05-22  Charles Wilson  <cygwin@cwilson.fastmail.fm>
 
 	Release 1.1.10
 
@@ -347,7 +376,7 @@
 	release are still present, because they were added right
 	back in run-1.1.5...
 
-	Finally, ALL of these changes, from this point down to 
+	Finally, ALL of these changes, from this point down to
 	the release of version 1.1.4 below, are one single checkin
 	in the repository, because we no longer have access to
 	the development repository of the time.
@@ -372,7 +401,7 @@
 2004-10-06  Alexander Gottwald  <ago at freedesktop dot org>
 
 	* run.c: Added ability to expand PATH variable with
-	-p <dir> parameter 
+	-p <dir> parameter
 
 2004-03-11    <harold@codeweavers.com>
 
@@ -409,7 +438,7 @@ Version 1.1.2 -  5-Dec-98 (NOT RELEASED)
 	  are called on paths/pathlists that are already in posix format
 	  they return garbage in B19. So don't call them when you don't
 	  have to.
-	- CYGWIN: added #defines to enable building under both B19 and 
+	- CYGWIN: added #defines to enable building under both B19 and
 	  B20 without modifying the source code. UNTESTED under B20.
 
 Version 1.1.1 - 30-Nov-98 (NOT RELEASED)
@@ -422,12 +451,12 @@ Version 1.1.0 - 18-Nov-98 (NOT RELEASED)
 --------------------------
 	- added ability to search PATH for the target
 	- added ability to specify explicit path information for
-	  the target, which removed requirement that run.exe and 
+	  the target, which removed requirement that run.exe and
 	  the target be in the same directory
 	- added "simple" mode of operation, where run.exe is
 	  renamed to runXXXXXX.exe, to run target XXXXXX
 	- SHOWSTOPPER: cygwin version gets confused if '\\' character
-	  appears in the argument list 
+	  appears in the argument list
 
 Version 1.0.0 - 29-Sept-98
 --------------------------

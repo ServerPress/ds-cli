@@ -50,7 +50,7 @@ Individual utilities
 * cksum: (coreutils)cksum invocation.           Print POSIX CRC checksum.
 * cmp: (diffutils)Invoking cmp.                 Compare 2 files byte by byte.
 * comm: (coreutils)comm invocation.             Compare sorted files by line.
-* coreutils: (coreutils)coreutils invocation.   Multi-call program.
+* coreutils: (coreutils)Multi-call invocation.  Multi-call program.
 * cp: (coreutils)cp invocation.                 Copy files.
 * csplit: (coreutils)csplit invocation.         Split by context.
 * cut: (coreutils)cut invocation.               Print selected parts of lines.
@@ -125,7 +125,7 @@ Individual utilities
 * stdbuf: (coreutils)stdbuf invocation.         Modify stdio buffering.
 * stty: (coreutils)stty invocation.             Print/change terminal settings.
 * sum: (coreutils)sum invocation.               Print traditional checksum.
-* sync: (coreutils)sync invocation.             Synchronize memory and disk.
+* sync: (coreutils)sync invocation.             Synchronize memory to disk.
 * tac: (coreutils)tac invocation.               Reverse files.
 * tail: (coreutils)tail invocation.             Output the last part of files.
 * tar: (tar)tar invocation.                     Invoking GNU `tar'.

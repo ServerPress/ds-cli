@@ -1,4 +1,4 @@
-bash 4.3.39-2
+bash 4.3.42-4
 ------------------------------------------
 Bash is an sh-compatible shell that incorporates useful features from
 the Korn shell (ksh) and C shell (csh).  It is intended to conform to
@@ -70,28 +70,27 @@ proposing idle ideas.  This turn of events has already been talked to
 death on the mailing lists by people with many ideas, but few patches.
 
 Runtime requirements (these or newer):
-  coreutils-8.23-4
-  cygwin-2.0.2-1
-  libgcc1-4.9.2-3 [only on 32-bit]
+  coreutils-8.24-3
+  cygwin-2.2.1-1
+  libgcc1-4.9.3-1 [only on 32-bit]
   libiconv2-1.14-3
-  libintl8-0.19.4-1
-  libncursesw10-5.9-20150516-1
+  libintl8-0.19.5.1-2
+  libncursesw10-5.9-20150530-1
   libreadline7-6.3.8-1
 
 Additional build conditions (these or newer):
-  bash-4.3.33-1
+  bash-4.3.42-3
   binutils-2.25-1
   bison-3.0.4-1
-  cygport-0.20.0-1
+  cygport-0.20.2-1
   gcc-4.7.3-1
-  gcc-core-4.9.2-3
-  gettext-0.19.4-1
-  libiconv2-1.14-3
-  libncurses-devel-5.9-20150516-1 [only needed on 64-bit]
-  libncursesw-devel-5.9-20150516-1 [only needed on 32-bit]
+  gcc-core-4.9.3-1
+  gettext-0.19.5.1-2
+  libncurses-devel-5.9-20150530-1 [only needed on 64-bit]
+  libncursesw-devel-5.9-20150530-1 [only needed on 32-bit]
   libreadline-devel-6.3.8-1
   make-4.1-1
-  ncurses-5.9-20150516-1
+  ncurses-5.9-20150530-1
   windows-default-manifest-6.4-1
 
 Canonical homepage:
@@ -101,7 +100,7 @@ Canonical download:
   http://www.gnu.org/software/bash/#downloading
 
 License:
-  GPLv2+
+  GPLv3+
 
 Language:
   C
@@ -109,16 +108,16 @@ Language:
 ------------------------------------
 
 Build instructions:
-  unpack bash-4.3.39-2-src.tar.xz
+  unpack bash-4.3.42-4-src.tar.xz
     if you use setup to install this src package, it will be
     unpacked under /usr/src automatically
   cd /usr/src
   cygport bash.cygport all
 
 This will create:
-  /usr/src/bash-4.3.39-2.tar.xz
-  /usr/src/bash-4.3.39-2-src.tar.xz
-  /usr/src/bash-debuginfo-4.3.39-2.tar.xz
+  /usr/src/bash-4.3.42-4.tar.xz
+  /usr/src/bash-4.3.42-4-src.tar.xz
+  /usr/src/bash-debuginfo/bash-debuginfo-4.3.42-4.tar.xz
 
 Or use 'cygport bash.cygport prep' to get a patched source directory
 
@@ -129,6 +128,13 @@ at <http://cygwin.com/packages/>.
 ------------------
 
 Port Notes:
+
+----- version 4.3.42-4 -- 2015-09-24 -----
+Fix upstream typo that broke \r handling on text mounts (thanks to
+Jeff Downs).
+
+----- version 4.3.42-3 -- 2015-08-25 -----
+Fold in new official upstream patches.
 
 ----- version 4.3.39-2 -- 2015-06-03 -----
 Fold in new official upstream patches.

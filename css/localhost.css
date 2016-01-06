@@ -1,0 +1,17 @@
+table.dev-sites>tbody>tr>td {
+	height: 60px;
+}
+
+.ds-site-actions-container {
+	display: none;
+	font-size: 80%;
+}
+
+.ds-action.ds-cli:before {
+	font-family: 'serverpress';
+	position: relative;
+	font-size: small;
+	content: '\e824';
+	top: -1px;
+	margin-right: 2px;
+}

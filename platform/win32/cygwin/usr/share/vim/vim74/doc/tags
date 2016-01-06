@@ -76,6 +76,7 @@ $VIMRUNTIME	starting.txt	/*$VIMRUNTIME*
 'bdir'	options.txt	/*'bdir'*
 'bdlay'	options.txt	/*'bdlay'*
 'beautify'	vi_diff.txt	/*'beautify'*
+'belloff'	options.txt	/*'belloff'*
 'beval'	options.txt	/*'beval'*
 'bex'	options.txt	/*'bex'*
 'bexpr'	options.txt	/*'bexpr'*
@@ -89,6 +90,7 @@ $VIMRUNTIME	starting.txt	/*$VIMRUNTIME*
 'bk'	options.txt	/*'bk'*
 'bkc'	options.txt	/*'bkc'*
 'bl'	options.txt	/*'bl'*
+'bo'	options.txt	/*'bo'*
 'bomb'	options.txt	/*'bomb'*
 'breakat'	options.txt	/*'breakat'*
 'breakindent'	options.txt	/*'breakindent'*
@@ -250,6 +252,8 @@ $VIMRUNTIME	starting.txt	/*$VIMRUNTIME*
 'fileignorecase'	options.txt	/*'fileignorecase'*
 'filetype'	options.txt	/*'filetype'*
 'fillchars'	options.txt	/*'fillchars'*
+'fixendofline'	options.txt	/*'fixendofline'*
+'fixeol'	options.txt	/*'fixeol'*
 'fk'	options.txt	/*'fk'*
 'fkmap'	options.txt	/*'fkmap'*
 'fl'	vi_diff.txt	/*'fl'*
@@ -544,6 +548,8 @@ $VIMRUNTIME	starting.txt	/*$VIMRUNTIME*
 'nofen'	options.txt	/*'nofen'*
 'nofic'	options.txt	/*'nofic'*
 'nofileignorecase'	options.txt	/*'nofileignorecase'*
+'nofixendofline'	options.txt	/*'nofixendofline'*
+'nofixeol'	options.txt	/*'nofixeol'*
 'nofk'	options.txt	/*'nofk'*
 'nofkmap'	options.txt	/*'nofkmap'*
 'nofoldenable'	options.txt	/*'nofoldenable'*
@@ -2002,11 +2008,13 @@ $VIMRUNTIME	starting.txt	/*$VIMRUNTIME*
 :cclose	quickfix.txt	/*:cclose*
 :cd	editing.txt	/*:cd*
 :cd-	editing.txt	/*:cd-*
+:cdo	quickfix.txt	/*:cdo*
 :ce	change.txt	/*:ce*
 :center	change.txt	/*:center*
 :cex	quickfix.txt	/*:cex*
 :cexpr	quickfix.txt	/*:cexpr*
 :cf	quickfix.txt	/*:cf*
+:cfdo	quickfix.txt	/*:cfdo*
 :cfile	quickfix.txt	/*:cfile*
 :cfir	quickfix.txt	/*:cfir*
 :cfirst	quickfix.txt	/*:cfirst*
@@ -2350,6 +2358,7 @@ $VIMRUNTIME	starting.txt	/*$VIMRUNTIME*
 :lclose	quickfix.txt	/*:lclose*
 :lcs	if_cscop.txt	/*:lcs*
 :lcscope	if_cscop.txt	/*:lcscope*
+:ldo	quickfix.txt	/*:ldo*
 :le	change.txt	/*:le*
 :left	change.txt	/*:left*
 :lefta	windows.txt	/*:lefta*
@@ -2368,6 +2377,7 @@ $VIMRUNTIME	starting.txt	/*$VIMRUNTIME*
 :lex	quickfix.txt	/*:lex*
 :lexpr	quickfix.txt	/*:lexpr*
 :lf	quickfix.txt	/*:lf*
+:lfdo	quickfix.txt	/*:lfdo*
 :lfile	quickfix.txt	/*:lfile*
 :lfir	quickfix.txt	/*:lfir*
 :lfirst	quickfix.txt	/*:lfirst*
@@ -4451,6 +4461,7 @@ OffTheSpot	mbyte.txt	/*OffTheSpot*
 OnTheSpot	mbyte.txt	/*OnTheSpot*
 Operator-pending	intro.txt	/*Operator-pending*
 Operator-pending-mode	intro.txt	/*Operator-pending-mode*
+OptionSet	autocmd.txt	/*OptionSet*
 OverTheSpot	mbyte.txt	/*OverTheSpot*
 P	change.txt	/*P*
 PATHEXT	eval.txt	/*PATHEXT*
@@ -5178,6 +5189,7 @@ complete_CTRL-E	insert.txt	/*complete_CTRL-E*
 complete_CTRL-Y	insert.txt	/*complete_CTRL-Y*
 complete_add()	eval.txt	/*complete_add()*
 complete_check()	eval.txt	/*complete_check()*
+completed_item-variable	eval.txt	/*completed_item-variable*
 completion-functions	usr_41.txt	/*completion-functions*
 complex-change	change.txt	/*complex-change*
 complex-repeat	repeat.txt	/*complex-repeat*
@@ -6119,6 +6131,7 @@ getbufline()	eval.txt	/*getbufline()*
 getbufvar()	eval.txt	/*getbufvar()*
 getchar()	eval.txt	/*getchar()*
 getcharmod()	eval.txt	/*getcharmod()*
+getcharsearch()	eval.txt	/*getcharsearch()*
 getcmdline()	eval.txt	/*getcmdline()*
 getcmdpos()	eval.txt	/*getcmdpos()*
 getcmdtype()	eval.txt	/*getcmdtype()*
@@ -6475,6 +6488,7 @@ i_CTRL-G_<Down>	insert.txt	/*i_CTRL-G_<Down>*
 i_CTRL-G_<Up>	insert.txt	/*i_CTRL-G_<Up>*
 i_CTRL-G_CTRL-J	insert.txt	/*i_CTRL-G_CTRL-J*
 i_CTRL-G_CTRL-K	insert.txt	/*i_CTRL-G_CTRL-K*
+i_CTRL-G_U	insert.txt	/*i_CTRL-G_U*
 i_CTRL-G_j	insert.txt	/*i_CTRL-G_j*
 i_CTRL-G_k	insert.txt	/*i_CTRL-G_k*
 i_CTRL-G_u	insert.txt	/*i_CTRL-G_u*
@@ -7691,6 +7705,7 @@ session-file	starting.txt	/*session-file*
 set-option	options.txt	/*set-option*
 set-spc-auto	spell.txt	/*set-spc-auto*
 setbufvar()	eval.txt	/*setbufvar()*
+setcharsearch()	eval.txt	/*setcharsearch()*
 setcmdpos()	eval.txt	/*setcmdpos()*
 setline()	eval.txt	/*setline()*
 setloclist()	eval.txt	/*setloclist()*
@@ -8395,6 +8410,7 @@ v:charconvert_from	eval.txt	/*v:charconvert_from*
 v:charconvert_to	eval.txt	/*v:charconvert_to*
 v:cmdarg	eval.txt	/*v:cmdarg*
 v:cmdbang	eval.txt	/*v:cmdbang*
+v:completed_item	eval.txt	/*v:completed_item*
 v:count	eval.txt	/*v:count*
 v:count1	eval.txt	/*v:count1*
 v:ctype	eval.txt	/*v:ctype*
@@ -8422,6 +8438,9 @@ v:mouse_lnum	eval.txt	/*v:mouse_lnum*
 v:mouse_win	eval.txt	/*v:mouse_win*
 v:oldfiles	eval.txt	/*v:oldfiles*
 v:operator	eval.txt	/*v:operator*
+v:option_new	eval.txt	/*v:option_new*
+v:option_old	eval.txt	/*v:option_old*
+v:option_type	eval.txt	/*v:option_type*
 v:prevcount	eval.txt	/*v:prevcount*
 v:profiling	eval.txt	/*v:profiling*
 v:progname	eval.txt	/*v:progname*
@@ -8453,11 +8472,13 @@ v_<Esc>	visual.txt	/*v_<Esc>*
 v_=	change.txt	/*v_=*
 v_>	change.txt	/*v_>*
 v_C	change.txt	/*v_C*
+v_CTRL-A	change.txt	/*v_CTRL-A*
 v_CTRL-C	visual.txt	/*v_CTRL-C*
 v_CTRL-G	visual.txt	/*v_CTRL-G*
 v_CTRL-H	change.txt	/*v_CTRL-H*
 v_CTRL-O	visual.txt	/*v_CTRL-O*
 v_CTRL-V	visual.txt	/*v_CTRL-V*
+v_CTRL-X	change.txt	/*v_CTRL-X*
 v_CTRL-Z	starting.txt	/*v_CTRL-Z*
 v_CTRL-\_CTRL-G	intro.txt	/*v_CTRL-\\_CTRL-G*
 v_CTRL-\_CTRL-N	intro.txt	/*v_CTRL-\\_CTRL-N*
@@ -8513,7 +8534,9 @@ v_gJ	change.txt	/*v_gJ*
 v_gN	visual.txt	/*v_gN*
 v_gV	visual.txt	/*v_gV*
 v_g]	tagsrch.txt	/*v_g]*
+v_g_CTRL-A	change.txt	/*v_g_CTRL-A*
 v_g_CTRL-G	editing.txt	/*v_g_CTRL-G*
+v_g_CTRL-X	change.txt	/*v_g_CTRL-X*
 v_g_CTRL-]	tagsrch.txt	/*v_g_CTRL-]*
 v_gf	editing.txt	/*v_gf*
 v_gn	visual.txt	/*v_gn*

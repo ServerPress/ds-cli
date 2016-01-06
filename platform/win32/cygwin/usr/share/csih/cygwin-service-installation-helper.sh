@@ -1,7 +1,7 @@
 #    --  #!/bin/bash  --
 # cygwin-service-installation-helper.sh
 #
-# Copyright (c) 2010-2014 Charles S. Wilson, Corinna Vinschen,
+# Copyright (c) 2010-2015 Charles S. Wilson, Corinna Vinschen,
 #                    Pierre Humblett, and others listed in
 #                    AUTHORS
 #
@@ -70,7 +70,7 @@
 #    csih_is_exactly_server2008r2
 #    csih_is_exactly_server2012
 #    csih_is_exactly_server2012r2
-#    csih_is_exactly_server2014
+#    csih_is_exactly_server2016
 #    csih_version_ge
 #    csih_version_le
 #    csih_version_gt
@@ -1060,19 +1060,18 @@ csih_is_exactly_windows10()
 #NOTE: do not make _csih_exactly_windows10 readonly YET
 
 # ======================================================================
-# Routine: csih_is_exactly_server2014
+# Routine: csih_is_exactly_server2016
 #   returns 0 (true) if the system is one of the variants of
-#      Windows 2012 Server but NOT one of the variants of Windows 8,
-#      nor some newer edition.
+#      Windows 2016 Server.
 #   returns 1 (false) otherwise
 # ======================================================================
-csih_is_exactly_server2014()
+csih_is_exactly_server2016()
 {
   csih_stacktrace "${@}"
   $_csih_trace
-  test ${_csih_exactly_server2014} -gt 0
-} # === End of csih_is_exactly_server2014() === #
-#NOTE: do not make _csih_exactly_server2014 readonly YET
+  test ${_csih_exactly_server2016} -gt 0
+} # === End of csih_is_exactly_server2016() === #
+#NOTE: do not make _csih_exactly_server2016 readonly YET
 
 # ======================================================================
 # Routine: csih_win_product_name
@@ -2442,6 +2441,12 @@ readonly -f csih_account_has_necessary_privileges
 # ======================================================================
 _csih_setup()
 {
+  local uid
+  local gid
+  local user_sid
+  local grp_sid
+  local perms="d..x..x..[xt]"
+
   csih_stacktrace "${@}"
   $_csih_trace
   if [ "$_csih_setup_already_called" -eq 0 ]
@@ -2462,7 +2467,17 @@ _csih_setup()
       csih_error "Problem with LocalSystem or Adminstrator IDs"
     fi
 
-    if ! csih_check_dir_perms "${LOCALSTATEDIR}" "d..x..x..[xt]"
+    uid=$(/usr/bin/stat -c '%u' ${LOCALSTATEDIR})
+    gid=$(/usr/bin/stat -c '%g' ${LOCALSTATEDIR})
+    user_sid=$(/usr/bin/getent -w passwd $uid | awk -F: '{print $4}')
+    grp_sid=$(/usr/bin/getent -w group $gid | awk -F: '{print $4}')
+
+    if [ "${user_sid}" = "${grp_sid}" ]
+    then
+      perms="d..x.....[xt]"
+    fi
+
+    if ! csih_check_dir_perms "${LOCALSTATEDIR}" "${perms}"
     then
       csih_error "Problem with ${LOCALSTATEDIR} directory. Exiting."
     fi
@@ -2867,7 +2882,8 @@ csih_select_privileged_username()
     if ! csih_use_file_etc "passwd"
     then
       # This test succeeds on domain member machines only, not on DCs.
-      if [ "\\\\${COMPUTERNAME,,*}" != "${LOGONSERVER,,*}" ]
+      if [ "\\\\${COMPUTERNAME,,*}" != "${LOGONSERVER,,*}" \
+	   -a "${LOGONSERVER}" != "\\\\MicrosoftAccount" ]
       then
 	# Lowercase of USERDOMAIN
       	csih_PRIVILEGED_USERNAME="${COMPUTERNAME,,*}+${username}"
@@ -3036,6 +3052,7 @@ csih_create_privileged_user()
         /usr/bin/editrights -a SeAssignPrimaryTokenPrivilege -u ${csih_PRIVILEGED_USERNAME} &&
         /usr/bin/editrights -a SeCreateTokenPrivilege -u ${csih_PRIVILEGED_USERNAME} &&
         /usr/bin/editrights -a SeTcbPrivilege -u ${csih_PRIVILEGED_USERNAME} &&
+        /usr/bin/editrights -a SeDenyInteractiveLogonRight -u ${csih_PRIVILEGED_USERNAME} &&
         /usr/bin/editrights -a SeDenyRemoteInteractiveLogonRight -u ${csih_PRIVILEGED_USERNAME} &&
         /usr/bin/editrights -a SeServiceLogonRight -u ${csih_PRIVILEGED_USERNAME} &&
         username_got_all_rights="yes"
@@ -3374,9 +3391,9 @@ _csih_late_initialization_code()
   rstatus=$?
   if [ "$rstatus" -eq 0 ]
   then
-    if   echo "${productName}" | /usr/bin/grep -q " Server 2014 "
+    if   echo "${productName}" | /usr/bin/grep -q " Server 2016 "
     then
-    	_csih_exactly_server2014=1
+    	_csih_exactly_server2016=1
     elif echo "${productName}" | /usr/bin/grep -q " Windows 10 "
     then
         _csih_exactly_windows10=1
@@ -3431,7 +3448,7 @@ readonly _csih_exactly_vista _csih_exactly_server2008
 readonly _csih_exactly_server2008r2 _csih_exactly_windows7
 readonly _csih_exactly_server2012 _csih_exactly_windows8
 readonly _csih_exactly_server2012r2 _csih_exactly_windows8_1
-readonly _csih_exactly_server2014 _csih_exactly_windows10
+readonly _csih_exactly_server2016 _csih_exactly_windows10
 readonly _csih_win_product_name
 
 if [ "cygwin-service-installation-helper.sh" = "$csih_progname_base" ]

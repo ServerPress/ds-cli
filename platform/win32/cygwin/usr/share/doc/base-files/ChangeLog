@@ -2,17 +2,26 @@ Cygwin base system miscellaneous files
 --------------------------------------
 TODO:
 -----
-    * Write a cygport file.
     * Should future versions relay in /etc/mkshrc to set PS1 properly for mksh
       if mksh supports sourcing /etc/mkshrc for interactive-login sessions?
     * Ask zsh mantainer to put /etc/zprofile and /etc/zshrc in place during
       installation.
-    * Should users with GID 544/0 have /usr/bin/sbin in their paths?
+    * Should users with GID 544 have /usr/bin/sbin in their paths?
     * Enhance admins' prompt (ideas include the known # sign and using another
       color, red?).
 
 Change Log
 ----------
+4.2-4 (bugfix release)
+    * etc/postinstall/base-files-mketc.sh: Windows only uses 8 characters
+      for files in the WINETC directory.  Check if the symlink target
+      exists and remove the symlink if not (to fix "protocols" where
+      "protocol" should be used).  Truncate the target file names to eight
+      characters for new symlinks.  Reported by Walter L., see
+      cygwin.com/ml/cygwin/2015-09/msg00371.html
+    * etc/defaults/etc/profile: Remove test for invalid user or group
+      accounts and the instructions on how to create passwd and group file
+      contents.
 4.2-3 (intermediate release)
     * remove MANPATH from /etc/profile
       see cygwin.com/ml/cygwin/2014-05/msg00352.html

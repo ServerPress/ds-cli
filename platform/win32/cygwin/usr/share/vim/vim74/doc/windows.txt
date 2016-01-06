@@ -715,7 +715,8 @@ can also get to them with the buffer list commands, like ":bnext".
 			{cmd} must not open or close windows or reorder them.
 			{not in Vi} {not available when compiled without the
 			|+listcmds| feature}
-			Also see |:tabdo|, |:argdo| and |:bufdo|.
+			Also see |:tabdo|, |:argdo|, |:bufdo|, |:cdo|, |:ldo|,
+			|:cfdo| and |:lfdo|
 
 							*:bufdo*
 :[range]bufdo[!] {cmd}	Execute {cmd} in each buffer in the buffer list or if
@@ -743,7 +744,8 @@ can also get to them with the buffer list commands, like ":bnext".
 			each buffer.
 			{not in Vi} {not available when compiled without the
 			|+listcmds| feature}
-			Also see |:tabdo|, |:argdo| and |:windo|.
+			Also see |:tabdo|, |:argdo|, |:windo|, |:cdo|, |:ldo|,
+			|:cfdo| and |:lfdo|
 
 Examples: >
 
@@ -986,9 +988,10 @@ A buffer can also be unlisted.  This means it exists, but it is not in the
 list of buffers. |unlisted-buffer|
 
 
-:files[!]					*:files*
-:buffers[!]					*:buffers* *:ls*
-:ls[!]		Show all buffers.  Example:
+:files[!] [flags]				*:files*
+:buffers[!] [flags]				*:buffers* *:ls*
+:ls[!] [flags]
+		Show all buffers.  Example:
 
 			1 #h   "/test/text"		line 1 ~
 			2u     "asdf"			line 0 ~
@@ -998,8 +1001,8 @@ list of buffers. |unlisted-buffer|
 		(the term "unlisted" is a bit confusing then...).
 
 		Each buffer has a unique number.  That number will not change,
-		so you can always go to a specific buffer with ":buffer N" or
-		"N CTRL-^", where N is the buffer number.
+		thus you can always go to a specific buffer with ":buffer N"
+		or "N CTRL-^", where N is the buffer number.
 
 		Indicators (chars in the same column are mutually exclusive):
 		u	an unlisted buffer (only displayed when [!] is used)
@@ -1013,6 +1016,21 @@ list of buffers. |unlisted-buffer|
 		   =	a readonly buffer
 		    +	a modified buffer
 		    x   a buffer with read errors
+
+		[flags] can be a combination of the following characters,
+		which restrict the buffers to be listed:
+		     +   modified buffers
+		     -   buffers with 'modifiable' off
+		     =   readonly buffers
+		     a   active buffers
+		     u   unloaded buffers (overrides the "!")
+		     h   hidden buffers
+		     x   buffers with a read error
+		     %   current buffer
+		     #   alternate buffer
+		Combining flags means they are "and"ed together, e.g.:
+		     h+   hidden buffers which are modified
+		     a+   active buffers which are modified
 
 						*:bad* *:badd*
 :bad[d]	[+lnum] {fname}

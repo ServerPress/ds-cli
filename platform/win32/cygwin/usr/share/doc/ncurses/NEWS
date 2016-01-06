@@ -25,7 +25,7 @@
 -- sale, use or other dealings in this Software without prior written        --
 -- authorization.                                                            --
 -------------------------------------------------------------------------------
--- $Id: NEWS,v 1.2431 2015/05/31 00:14:53 tom Exp $
+-- $Id: NEWS,v 1.2509 2015/10/17 22:02:46 tom Exp $
 -------------------------------------------------------------------------------
 
 This is a log of changes that ncurses has gone through since Zeyd started
@@ -44,6 +44,176 @@ See the AUTHORS file for the corresponding full names.
 
 Changes through 1.9.9e did not credit all contributions;
 it is not possible to add this information.
+
+20151017
+	+ modify ncurses/Makefile.in to sort keys.list in POSIX locale
+	  (Debian #801864, patch by Esa Peuha).
+	+ remove an early-return from _nc_do_color, which can interfere with
+	  data needed by bkgd when ncurses is configured with extended colors
+	  (patch by Denis Tikhomirov).
+	> fixes for OS/2 (patches by KO Myung-Hun)
+	+ use button instead of kbuf[0] in EMX-specific part of lib_mouse.c
+	+ support building with libtool on OS/2
+	+ use stdc++ on OS/2 kLIBC
+	+ clear cf_XOPEN_SOURCE on OS/2
+
+20151010
+	+ add configure check for openpty to test/configure script, for ditto.
+	+ minor fixes to test/view.c in investigating Debian #790847.
+	+ update autoconf patch to 2.52.20150926, incorporates a fix for Cdk.
+	+ add workaround for breakage of POSIX makefiles by recent binutils
+	  change.
+	+ improve check for working poll() by using posix_openpt() as a
+	  fallback in case there is no valid terminal on the standard input
+	  (prompted by discussion on bug-ncurses mailing list, Debian #676461).
+
+20150926
+	+ change makefile rule for removing resulting.map to distclean rather
+	  than clean.
+	+ add /lib/terminfo to terminfo-dirs in ".deb" test-package.
+	+ add note on portability of resizeterm and wresize to manual pages.
+
+20150919
+	+ clarify in resizeterm.3x how KEY_RESIZE is pushed onto the input
+	  stream.
+	+ clarify in curs_getch.3x that the keypad mode affects ability to
+	  read KEY_MOUSE codes, but does not affect KEY_RESIZE.
+	+ add overlooked build-fix needed with Cygwin for separate Ada95
+	  configure script, cf: 20150606 (report by Nicolas Boulenguez)
+
+20150912
+	+ fixes for configure/build using clang on OSX (prompted by report by
+	  William Gallafent).
+	  + do not redefine "inline" in ncurses_cfg.h; this was originally to
+	    solve a problem with gcc/g++, but is aggravated by clang's misuse
+	    of symbols to pretend it is gcc.
+	  + add braces to configure script to prevent unwanted add of
+	    "-lstdc++" to the CXXLIBS symbol.
+	  + improve/update test-program used for checking existence of stdc++
+	    library.
+	  + if $CXXLIBS is set, the linkage test uses that in addition to $LIBS
+
+20150905
+	+ add note in curs_addch.3x about line-drawing when it depends upon
+	  UTF-8.
+	+ add tic -q option for consistency with infocmp, use it to suppress
+	  all comments from the "tic -I" output.
+	+ modify infocmp -q option to suppress the "Reconstructed from"
+	  header.
+	+ add infocmp/tic -Q option, which allows one to dump the compiled
+	  form of the terminal entry, in hexadecimal or base64.
+
+20150822
+	+ sort options in usage message for infocmp, to make it simpler to
+	  see unused letters.
+	+ update usage message for tic, adding "-0" option.
+	+ documented differences in ESCDELAY versus AIX's implementation.
+	+ fix some compiler warnings from ports.
+	+ modify --with-pkg-config-libdir option to make it possible to install
+	  ".pc" files even if pkg-config is not found (adapted from patch by
+	  Joshua Root).
+
+20150815
+	+ disallow "no" as a possible value for "--with-shlib-version" option,
+	  overlooked in cleanup-changes for 20000708 (report by Tommy Alex).
+	+ update release notes in INSTALL.
+	+ regenerate llib-* files to help with review for release notes.
+
+20150810
+	+ workaround for Debian #65617, which was fixed in mawk's upstream
+	  releases in 2009 (report by Sven Joachim).  See
+	  	http://invisible-island.net/mawk/CHANGES.html#t20090727
+
+20150808 6.0 release for upload to ftp.gnu.org
+
+20150808
+	+ build-fix for Ada95 on older platforms without stdint.h
+	+ build-fix for Solaris, whose /bin/sh and /usr/bin/sed are non-POSIX.
+	+ update release announcement, summarizing more than 800 changes across
+	  more than 200 snapshots.
+	+ minor fixes to manpages, etc., to simplify linking from announcement
+	  page.
+
+20150725
+	+ updated llib-* files.
+	+ build-fixes for ncurses library "test_progs" rule.
+	+ use alternate workaround for gcc 5.x feature (adapted from patch by
+	  Mikhail Peselnik).
+	+ add status line to tmux via xterm+sl (patch by Nicholas Marriott).
+	+ fixes for st 0.5 from testing with tack -TD
+	+ review/improve several manual pages to break up wall-of-text:
+	  curs_add_wch.3x, curs_attr.3x, curs_bkgd.3x, curs_bkgrnd.3x,
+	  curs_getcchar.3x, curs_getch.3x, curs_kernel.3x, curs_mouse.3x,
+	  curs_outopts.3x, curs_overlay.3x, curs_pad.3x, curs_termattrs.3x
+	  curs_trace.3x, and curs_window.3x
+
+20150719
+	+ correct an old logic error for %A and %O in tparm (report by "zreed").
+	+ improve documentation for signal handlers by adding section in the
+	  curs_initscr.3x page.
+	+ modify logic in make_keys.c to not assume anything about the size
+	  of strnames and strfnames variables, since those may be functions
+	  in the thread- or broken-linker configurations (problem found by
+	  Coverity).
+	+ modify test/configure script to check for pthreads configuration,
+	  e.g., ncursestw library.
+
+20150711
+	+ modify scripts to build/use test-packages for the pthreads
+	  configuration of ncurses6.
+	+ add references to ttytype and termcap symbols in demo_terminfo.c and
+	  demo_termcap.c to ensure that when building ncursest.map, etc., that
+	  the corresponding names such as _nc_ttytype are added to the list of
+	  versioned symbols (report by Werner Fink)
+	+ fix regression from 20150704 (report/patch by Werner Fink).
+
+20150704
+	+ fix a few problems reported by Coverity.
+	+ fix comparison against "/usr/include" in misc/gen-pkgconfig.in
+	  (report by Daiki Ueno, Debian #790548, cf:  20141213).
+
+20150627
+	+ modify configure script to remove deprecated ABI 5 symbols when
+	  building ABI 6.
+	+ add symbols _nc_Default_Field, _nc_Default_Form, _nc_has_mouse to
+	  map-files, but marked as deprecated so that they can easily be
+	  suppressed from ABI 6 builds (Debian #788610).
+	+ comment-out "screen.xterm" entry, and inherit screen.xterm-256color
+	  from xterm-new (report by Richard Birkett) -TD
+	+ modify read_entry.c to set the error-return to -1 if no terminal
+	  databases were found, as documented for setupterm.
+	+ add test_setupterm.c to demonstrate normal/error returns from the
+	  setupterm and restartterm functions.
+	+ amend cleanup change from 20110813 which removed redundant definition
+	  of ret_error, etc., from tinfo_driver.c, to account for the fact that
+	  it should return a bool rather than int (report/analysis by Johannes
+	  Schindelin).
+
+20150613
+	+ fix overflow warning for OSX with lib_baudrate.c (cf: 20010630).
+	+ modify script used to generate map/sym files to mark 5.9.20150530 as
+	  the last "5.9" version, and regenerated the files.  That makes the
+	  files not use ".current" for the post-5.9 symbols.  This also
+	  corrects the label for _nc_sigprocmask used in when weak symbols are
+	  configured for the ncursest/ncursestw libraries (prompted by
+	  discussion with Sven Joachim).
+	+ fix typo in NEWS (report by Sven Joachim).
+
+20150606 pre-release
+	+ make ABI 6 the default by updates to dist.mk and VERSION, with the
+	  intention that the existing ABI 5 should build as before using the
+	  "--with-abi-version=5" option.
+	+ regenerate ada- and man-html documentation.
+	+ minor fixes to color- and util-manpages.
+	+ fix a regression in Ada95/gen/Makefile.in, to handle special case of
+	  Cygwin, which uses the broken-linker feature.
+	+ amend fix for CF_NCURSES_CONFIG used in test/configure to assume that
+	  ncurses package scripts work when present for cross-compiling, as the
+	  lessor of two evils (cf: 20150530).
+	+ add check in configure script to disallow conflicting options
+	  "--with-termlib" and "--enable-term-driver".
+	+ move defaults for "--disable-lp64" and "--with-versioned-syms" into
+	  CF_ABI_DEFAULTS macro.
 
 20150530
 	+ change private type for Event_Mask in Ada95 binding to work when
@@ -698,8 +868,6 @@ it is not possible to add this information.
 	  together initialization- or reset-strings.  The problem dates to
 	  1.9.7a, but was overlooked until changes in -Wlogical-op warnings for
 	  gcc 4.8 (report by David Binderman).
-	+ updated CF_GCC_WARNINGS to documented options for gcc 4.9.0, adding
-	  checks for -Wextra, -Wignored-qualifiers and -Wlogical-op
 	+ updated CF_GCC_WARNINGS to documented options for gcc 4.9.0, moving
 	  checks for -Wextra and -Wdeclaration-after-statement into the macro,
 	  and adding checks for -Wignored-qualifiers, -Wlogical-op and
@@ -1557,7 +1725,7 @@ it is not possible to add this information.
 	+ modify check_existence() in db_iterator.c to simply check if the
 	  path is a directory or file, according to the need.  Checking for
 	  directory size also gives no usable result with OS/2 (cf: 20120107).
-	+ support OS/2 kLIBC (patch by KO Myung-Han).
+	+ support OS/2 kLIBC (patch by KO Myung-Hun).
 
 20120114
 	+ several improvements to test/movewindow.c (prompted by discussion on

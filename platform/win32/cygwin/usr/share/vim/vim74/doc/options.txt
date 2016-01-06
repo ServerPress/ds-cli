@@ -1126,6 +1126,47 @@ A jump table for the options with a short description can be found at |Q_op|.
 	expression evaluates to a |List| this is equal to using each List item
 	as a string and putting "\n" in between them.
 
+						*'belloff'* *'bo'*
+'belloff' 'bo'		string	(default "")
+			global
+			{not in Vi}
+	Specifies for which events the bell will not be rung. It is a comma
+	separated list of items. For each item that is present, the bell
+	will be silenced. This is most useful to specify specific events in
+	insert mode to be silenced.
+
+	item	    meaning when present	~
+	all	    All events.
+	backspace   When hitting <BS> or <Del> and deleting results in an
+		    error.
+	cursor	    Fail to move around using the cursor keys or
+		    <PageUp>/<PageDown> in |Insert-mode|.
+	complete    Error occurred when using |i_CTRL-X_CTRL-K| or
+		    |i_CTRL-X_CTRL-T|.
+	copy	    Cannot copy char from insert mode using |i_CTRL-Y| or
+		    |i_CTRL-E|.
+	ctrlg	    Unknown Char after <C-G> in Insert mode.
+	error	    Other Error occurred (e.g. try to join last line)
+		    (mostly used in |Normal-mode| or |Cmdline-mode|).
+	esc	    hitting <Esc> in |Normal-mode|.
+	ex	    In |Visual-mode|, hitting |Q| results in an error.
+	hangul	    Error occurred when using hangul input.
+	insertmode  Pressing <Esc> in 'insertmode'.
+	lang	    Calling the beep module for Lua/Mzscheme/TCL.
+	mess	    No output available for |g<|.
+	showmatch   Error occurred for 'showmatch' function.
+	operator    Empty region error |cpo-E|.
+	register    Unknown register after <C-R> in |Insert-mode|.
+	shell	    Bell from shell output |:!|.
+	spell	    Error happened on spell suggest.
+	wildmode    More matches in |cmdline-completion| available
+		    (depends on the 'wildmode' setting).
+
+	This is most useful, to fine tune when in insert mode the bell should
+	be rung. For normal mode and ex commands, the bell is often rung to
+	indicate that an error occurred. It can be silenced by adding the
+	"error" keyword.
+
 				     *'binary'* *'bin'* *'nobinary'* *'nobin'*
 'binary' 'bin'		boolean	(default off)
 			local to buffer
@@ -1849,6 +1890,14 @@ A jump table for the options with a short description can be found at |Q_op|.
 	   preview  Show extra information about the currently selected
 		    completion in the preview window.  Only works in
 		    combination with "menu" or "menuone".
+
+	   noinsert Do not insert any text for a match until the user selects
+		    a match from the menu. Only works in combination with
+		    "menu" or "menuone". No effect if "longest" is present.
+
+	   noselect Do not select a match in the menu, force the user to
+		    select one from the menu. Only works in combination with
+		    "menu" or "menuone".
 
 
 						*'concealcursor'* *'cocu'*
@@ -2694,15 +2743,16 @@ A jump table for the options with a short description can be found at |Q_op|.
 			local to buffer
 			{not in Vi}
 	When writing a file and this option is off and the 'binary' option
-	is on, no <EOL> will be written for the last line in the file.  This
-	option is automatically set when starting to edit a new file, unless
-	the file does not have an <EOL> for the last line in the file, in
-	which case it is reset.  Normally you don't have to set or reset this
-	option.  When 'binary' is off the value is not used when writing the
-	file.  When 'binary' is on it is used to remember the presence of a
-	<EOL> for the last line in the file, so that when you write the file
-	the situation from the original file can be kept.  But you can change
-	it if you want to.
+	is on, or 'fixeol' option is off, no <EOL> will be written for the
+	last line in the file.  This option is automatically set or reset when
+	starting to edit a new file, depending on whether file has an <EOL>
+	for the last line in the file.  Normally you don't have to set or
+	reset this option.
+	When 'binary' is off and 'fixeol' is on the value is not used when
+	writing the file.  When 'binary' is on or 'fixeol' is off it is used
+	to remember the presence of a <EOL> for the last line in the file, so
+	that when you write the file the situation from the original file can
+	be kept.  But you can change it if you want to.
 
 			     *'equalalways'* *'ea'* *'noequalalways'* *'noea'*
 'equalalways' 'ea'	boolean	(default on)
@@ -2743,7 +2793,8 @@ A jump table for the options with a short description can be found at |Q_op|.
 	makes a difference for error messages, the bell will be used always
 	for a lot of errors without a message (e.g., hitting <Esc> in Normal
 	mode).  See 'visualbell' on how to make the bell behave like a beep,
-	screen flash or do nothing.
+	screen flash or do nothing. See 'belloff' to finetune when to ring the
+	bell.
 
 						*'errorfile'* *'ef'*
 'errorfile' 'ef'	string	(Amiga default: "AztecC.Err",
@@ -3086,6 +3137,17 @@ A jump table for the options with a short description can be found at |Q_op|.
 	  vert:c	VertSplit		|hl-VertSplit|
 	  fold:c	Folded			|hl-Folded|
 	  diff:c	DiffDelete		|hl-DiffDelete|
+
+		*'fixendofline'* *'fixeol'* *'nofixendofline'* *'nofixeol'*
+'fixendofline' 'fixeol'	boolean	(default on)
+			local to buffer
+			{not in Vi}
+	When writing a file and this option is on, <EOL> at the end of file
+	will be restored if missing. Turn this option off if you want to
+	preserve the situation from the original file.
+	When the 'binary' option is set the value of this option doesn't
+	matter.
+	See the 'endofline' option.
 
 					*'fkmap'* *'fk'* *'nofkmap'* *'nofk'*
 'fkmap' 'fk'		boolean (default off)			*E198*
@@ -7347,14 +7409,12 @@ A jump table for the options with a short description can be found at |Q_op|.
 	the GUI it only applies to the keyboard ( 'encoding' is used for the
 	display).  Except for the Mac when 'macatsui' is off, then
 	'termencoding' should be "macroman".
-	In the Win32 console version the default value is the console codepage
-	when it differs from the ANSI codepage.
 								*E617*
 	Note: This does not apply to the GTK+ 2 GUI.  After the GUI has been
 	successfully initialized, 'termencoding' is forcibly set to "utf-8".
 	Any attempts to set a different value will be rejected, and an error
 	message is shown.
-	For the Win32 GUI 'termencoding' is not used for typed characters,
+	For the Win32 GUI and console versions 'termencoding' is not used,
 	because the Win32 system always passes Unicode characters.
 	When empty, the same encoding is used as for the 'encoding' option.
 	This is the normal value.

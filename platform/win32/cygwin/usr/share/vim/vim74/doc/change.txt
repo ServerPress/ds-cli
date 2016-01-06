@@ -156,6 +156,9 @@ only after a '.').
 The 'B' and 'M' flags in 'formatoptions' change the behavior for inserting
 spaces before and after a multi-byte character |fo-table|.
 
+The '[ mark is set at the end of the first line that was joined, '] at the end
+of the resulting line.
+
 
 ==============================================================================
 2. Delete and insert				*delete-insert* *replacing*
@@ -376,9 +379,42 @@ Adding and subtracting ~
 CTRL-A			Add [count] to the number or alphabetic character at
 			or after the cursor.  {not in Vi}
 
+							*v_CTRL-A*
+{Visual}CTRL-A		Add [count] to the number or alphabetic character in
+			the highlighted text.  {not in Vi}
+
+							*v_g_CTRL-A*
+{Visual}g CTRL-A	Add [count] to the number or alphabetic character in
+			the highlighted text. If several lines are
+		        highlighted, each one will be incremented by an
+			additional [count] (so effectively creating a
+			[count] incrementing sequence).  {not in Vi}
+			For Example, if you have this list of numbers:
+				1. ~
+				1. ~
+				1. ~
+				1. ~
+			Move to the second "1." and Visually select three
+			lines, pressing g CTRL-A results in:
+				1. ~
+				2. ~
+				3. ~
+				4. ~
+
 							*CTRL-X*
 CTRL-X			Subtract [count] from the number or alphabetic
 			character at or after the cursor.  {not in Vi}
+
+							*v_CTRL-X*
+{Visual}CTRL-X		Subtract [count] from the number or alphabetic
+			character in the highlighted text.  {not in Vi}
+
+							*v_g_CTRL-X*
+{Visual}g CTRL-X	Subtract [count] from the number or alphabetic
+			character in the highlighted text. If several lines
+			are highlighted, each value will be decremented by an
+			additional [count] (so effectively creating a [count]
+			decrementing sequence).  {not in Vi}
 
 The CTRL-A and CTRL-X commands work for (signed) decimal numbers, unsigned
 octal and hexadecimal numbers and alphabetic characters.  This depends on the
@@ -395,6 +431,9 @@ octal and hexadecimal numbers and alphabetic characters.  This depends on the
 - When 'nrformats' includes "alpha", Vim will change the alphabetic character
   under or after the cursor.  This is useful to make lists with an alphabetic
   index.
+
+For decimals a leading negative sign is considered for incrementing/
+decrementing, for octal and hey values, it won't be considered.
 
 For numbers with leading zeros (including all octal and hexadecimal numbers),
 Vim preserves the number of characters in the number when possible.  CTRL-A on

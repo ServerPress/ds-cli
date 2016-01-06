@@ -1,4 +1,4 @@
-diffutils 3.3-2
+diffutils 3.3-3
 ------------------------------------------
 Diffutils includes four utilities: diff, cmp, diff3 and sdiff.  Diff
 compares two files and shows the differences, line by line.  The cmp
@@ -11,27 +11,28 @@ changes and warnings about conflicts.  The sdiff command can be used
 to merge two files interactively.
 
 Runtime requirements (these or newer):
-  bash-4.1.14-7
-  coreutils-8.23-2
-  cygwin-1.7.32-1
-  libgcc1-4.8.3-3 [only on 32-bit]
-  libintl8-0.18.3.2-2
-  libsigsegv2-2.10-1 [only on 32-bit]
+  bash-4.3.39-2
+  coreutils-8.23-4
+  cygwin-2.1.0-1
+  libgcc1-4.9.3-1 [only on 32-bit]
+  libintl8-0.19.4-1
+  libsigsegv2-2.10-2
 
 Additional build conditions (these or newer):
-  binutils-2.24.51-5
-  cygport-0.17.0-1
+  binutils-2.25-1
+  cygport-0.20.2-1
   gcc-4.7.3-1
-  gcc-core-4.8.3-3
+  gcc-core-4.9.3-1
   libiconv-1.14-2
-  libsigsegv-2.10-1 [only on 32-bit]
-  xz-5.0.5-1
+  libsigsegv-devel-2.10-2
+  windows-default-manifest-6.4-1
+  xz-5.2.1-1
 
 Canonical homepage:
   http://www.gnu.org/software/diffutils
 
 Canonical download:
-  ftp://ftp.gnu.org/diffutils/
+  ftp://ftp.gnu.org/pub/gnu/diffutils/
 
 License:
   GPLv3+
@@ -42,16 +43,16 @@ Language:
 ------------------------------------
 
 Build instructions:
-  unpack diffutils-3.3-2-src.tar.xz
+  unpack diffutils-3.3-3-src.tar.xz
     if you use setup to install this src package, it will be
     unpacked under /usr/src automatically
   cd /usr/src
   cygport diffutils.cygport all
 
 This will create:
-  /usr/src/diffutils-3.3-2.tar.xz
-  /usr/src/diffutils-3.3-2-src.tar.xz
-  /usr/src/diffutils-debuginfo-3.3-2.tar.xz
+  /usr/src/diffutils-3.3-3.tar.xz
+  /usr/src/diffutils-3.3-3-src.tar.xz
+  /usr/src/diffutils-debuginfo/diffutils-debuginfo-3.3-3.tar.xz
 
 Or use 'cygport diffutils.cygport prep' to get a patched source directory
 
@@ -62,6 +63,10 @@ version at <http://cygwin.com/packages/>.
 ------------------
 
 Port Notes:
+
+----- version 3.3-3 -- 2015-07-20 -----
+Rebuild to take advantage of new stack overflow detection in cygwin.
+Fix packaging bug that omitted translation files.
 
 ----- version 3.3-2 -- 2014-09-30 -----
 New maintainer, Eric Blake. First 32-bit build to use libsigsegv (64-bit

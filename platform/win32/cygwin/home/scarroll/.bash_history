@@ -1,7 +1,3 @@
-rm /Users
-ls /
-ls -la /
-cd 
 pwd
 ls -la /
 cd /Users
@@ -125,376 +121,380 @@ dir *.sys /h
 dir --help
 ls
 exit
-exit
-clear
-ls 
-clear
-exit
-clear
-clear
-nano /etc/hosts
 nano /etc/hosts
 exit
-sudo /Cygwin.bat
-nano /etc/hosts
-clear
-node
-npm
+svn
 exit
-nano /etc/hosts
-cygstart --action=runas cmd
-cd ~/bin/sudo
-ls /bin
-nano /bin/sudo
-sudo cmd
-chmod +x /bin/sudo
-sudo cmd
+exit
 mintty
-sudo mintty
-ls /cygwin
-ls /Cygwin.bat
-Cygwin.bat
-/Cygwin.bat
-exit
-node
-npm
-clear
-sudo su
-exit
-pwd
-cd /xampplite
-cd ds-plugins
-cd
-cd .ssh
-ssh-keygen
-ssh-keygen -t rsa -C "steve@serverpress.com"
-cat ~/.ssh/id_rsa.pub
-cd
-cd .ssh
-pwd
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC0UolbDSeFAp7G2Z/oMhvXE7yUZBR3NAJPwfukpH1U7qGaNSmNlZ32jI1oxvmN2i6jOWmoujF3+hu7n1GuYiAY2+YS6QCErl69r3K38N8zQ/TqDU98I0R2FlsSDsbFv6fdNh3ZuN/b1mXFka67FUmKjfy02DI5ZNjFgbt5Z22MHvWrl2oGLHs4ASghQTUoU5Q0YBFBZjbxsl4YBbjWCM/1+pShO4MMQOUX4kpY3F2hRYjCV2XrJ6QBlOkBBI04xJILpku4jYHFVuLenLZKiyCp0096GDHevML6fnW3eQbp+iIULQtJt6iNZVcjHdaV8kPghTDCk0l3P6gjJ4FyS/Lf steve@serverpress.com
-cat ~/.ssh/id_rsa.pub
-clear
-cd /xampplite/ds-plugins
-git clone git@git.serverpress.com:ServerPress/dev-cli.git dev-cli
-git fetch git@git.serverpress.com:ServerPress/dev-cli.git dev-cli
-git pull git@git.serverpress.com:ServerPress/dev-cli.git dev-cli
-git clone git@git.serverpress.com:ServerPress/dev-cli.git dev-cli-git
-cd
-cd .ssh
-chgrp Users *
-cd xampplite
-cd /xampplite/ds-plugins
-git clone git@git.serverpress.com:ServerPress/dev-cli.git dev-cli-git
-ls ~/home/scarroll/.ssh -la
-ls -la ~/home/scarroll/.ssh 
-ls -la ~/home/scarroll/.ssh
-ls -la ~/home/scarroll
-ls ~/
-ls ~/home/scarroll
-ls ~/.ssh
-ls -la ~/.ssh
-git clone git@git.serverpress.com:ServerPress/dev-cli.git dev-cli-git
-git clone git.serverpress.com:ServerPress/dev-cli.git dev-cli-git
-git clone steveorevo@git.serverpress.com:ServerPress/dev-cli.git dev-cli-git
-git clone steveorevo@git.serverpress.com:ServerPress/dev-cli.git dev-cli-git
-git clone steveorevo@git.serverpress.com:ServerPress/dev-cli.git dev-cli-git
-git clone http://git.serverpress.com/ServerPress/dev-cli.git dev-cli-git
-pwd
-cd dev-cli
-git update
-git help
-git
-exit
-pwd
-ls
-wget
-exit
-pwd
-ls /
-mkdir /tmp
+mintty --help
 ls -la
-ls -la /
 exit
-git status
-git
 exit
-git
-git status
-cd /xampplite/ds-plugins
-git status
-cd ds-cli
-ls
-cd dev-cli
-git status
-clear
-git status
-git commit -a -m 'added git binaries'
-git status
-git push
-git remote -v
-git push
-chmod 600 /home/scarroll/.ssh/id_rsa
-chmod 600 /home/scarroll/.ssh/id_rsa.pub
-git push
-nano .gitignore
-cd /Users/scarroll/Desktop
-pwd
-cd /Users/scarroll
-cd /Users
+exit
+mintty --help
+mintty --exec ls -la
+mintty ls la
+mintty ls -la
+mintty ls
+exit
+symfix
+find /bin
+exit
+cd /xampplite
 cd /
 ls
-cd Users
+cd cygdrive/xampplite
+cd cygdrive/c/xampplite
+cd ds-plugins
 ls
-cd cygdrive/c
-cd Users
-cd scarroll
-ls
+cd ds-cli
+find . -type f -exec   awk 'FNR==1 && /GIVEN_STRING/ { print FILENAME ": " $0; }; FNR>1 {nextfile}' {} +
+find $DS_CLI/platform/win32 -type f -sizeeeeeeeeee-exec   gawk 'FNR==1 && /!<symlink>/ { print FILENAME ": " $0; }; FNR>1 {nextfile}' {} +
 clear
-cd Desktop
-dir
-unzip test.zip
+clear
+clear
+find $DS_CLI/platform/win32 -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME ": " $0; }; FNR>1 {nextfile}' {} +
+clear
+find $DS_CLI/platform/win32 -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { echo FILENAME ": " $0; }; FNR>1 {nextfile}' {} +
+find $DS_CLI/platform/win32 -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { echo FILENAME ": " $0; }; FNR>1 {nextfile}' {} +
+find $DS_CLI/platform/win32 -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { ls -la; }; FNR>1 {nextfile}' {} +
+find $DS_CLI/platform/win32 -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} +
+attrib
+attrib c:\xampplite\ds-plugins\ds-cli/platform/win32/cygwin/usr/ssl/certs/ca-bundle.trust.crt
+find $DS_CLI/platform/win32 -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILNAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g'
+find $DS_CLI/platform/win32 -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILNAME }; FNR>1 {nextfile}' {} + | print sed 's/\\/\//g'
+find $DS_CLI/platform/win32 -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILNAME }; FNR>1 {nextfile}' | print sed 's/\\/\//g'
+find $DS_CLI/platform/win32 -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILNAME }; FNR>1 {nextfile}'
+find $DS_CLI/platform/win32 -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILNAME }; FNR>1 {nextfile}' {}
+find $DS_CLI/platform/win32 -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILNAME }; FNR>1 {nextfile}' {} +
+find $DS_CLI/platform/win32 -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME ": " $0; }; FNR>1 {nextfile}' {} +
+find $DS_CLI/platform/win32 -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME ": " $0; }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g'
+find $DS_CLI/platform/win32 -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g'
+find $DS_CLI/platform/win32 -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g' | attrib
+find $DS_CLI/platform/win32 -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g'
+find $DS_CLI/platform/win32 -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g' | attrib
+find $DS_CLI/platform/win32 -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g' | attrib
+find $DS_CLI/platform/win32/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g' | attrib
+find $DS_CLI/platform/win32/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g' | attrib
+find $DS_CLI/platform/win32/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g'
+find $DS_CLI/platform/win32/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g';
+find $DS_CLI/platform/win32/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g'
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g' | attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g' 
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g' 
+man sed
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g' -e attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g' | print $0
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g' | echo
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g' | print
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g' | attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g' -e attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g'
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g' > attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g' >> attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' 
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' 
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | attrib $0
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | attrib &1
+attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | attrib $*
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | attrib $1
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | $1
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | attrib $0
+attrib $0
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs attrib lA
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed 's/\\/\//g' attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -i 's/\\/\//g' attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -i 's/\\/\//g' attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -i 's/\\/\//g' | grep 'zipinfo'
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -i 's/\\/\//g'
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -i 's/\\/\//g' 
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' 
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | grep 'zipinfo'
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -0 attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -0 attrib ./
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs 
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -d
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -d
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -d '\n'
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -d '\n' attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -0 '\n' attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -0 attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -0 
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs attrib -0 
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -n
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -n0
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs 0
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -n 2
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -n 1
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -n 1 attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -n 1 attrib +s
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -n 1 attrib 
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -n 1 attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -n 1 
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -n 1
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -n 1
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -n 1 attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -n 1 attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g'
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -n 1 attrib +s
+dir $DS_CLI\platform\win32\cygwin\bin
+pwd
+cd platform
+cd win32
+cd cygwin
+cd bin
 ls -la
-php
-php --help
-php -a
-php -v
-php -r echo "hello"
-php -r echo "hello";
-php -r < echo "hello"; >
-php -r < echo "hello" >
-php -r < echo "hello"
-php
-php
-php
-php
-php
-php -a
-php -a
-php -a
-wger
-wget
-php -a
-php -a
-php -a
-php -a
-php -a
-nano test.php
-php test.php
+attrib
+symfix
+fdsf
+symfix hello
+echo $DS_CLI
+echo $DS_CLI\platform\win32\cygwin\bin
+symfix $DS_CLI\platform\win32\cygwin\bin
+symfix $DS_CLI/platform/win32/cygwin/bin
+symfix $DS_CLI/platform/win32/cygwin/bin
+symfix $DS_CLI/platform/win32/cygwin/bin
+symfix $DS_CLI/platform/win32/cygwin/bin
+symfix $DS_CLI/platform/win32/cygwin/bin
+symfix $DS_CLI/platform/win32/cygwin/bin
+symfix
+symfix
+ls /bin
+symfix
+symfix
+find /bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -n 1 attrib
+find /bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -n 1 attrib
+symfix
+jjj
+symfix
+symfix
+symfix
+symfix
+find /bin
+find /bin
+symfix
+symfix
+symfix
+bash
+symfix
+symfix
+symfix
+symfix
+symfix
+symfix
+symfix
+symfix
+symfix
+find
+boot.sh
+boot.sh
+symfix
+symfix
+symfix
+symfix
+symfix
+symfix
+symfix
+symfix
+symfix
+echo --rcfile $DS_CLI/platform/mac/boot.sh -i
 env
+echo $BASH_ENV
+set BASH_ENV = PATH=%DS_CLI%\platform\all\pre;%DS_CLI%\platform\win32\pre;%DS_CLI%\platform\win32\cygwin\bin;c:\xampplite\php;c:\xampplite\mysql\bin;c:\xampplite\perl\bin;c:\xampplite\apache\bin;c:\xampplite\other;%DS_CLI%\vendor\wp-cli\wp-cli\bin;%DS_CLI%\platform\win32\nodejs\;%PATH%
+set BASH_ENV=$DS_CLI\platform\win32\boot.bat
+symfix
 clear
-cmd
-exit
-exit
-wget
-clear
-exit
-wget
-exit
-wget
-clear
-cd
-exit
-exit
-wget
-clear
-exit
-exit
+symfix
+symfix
+symfix
+ls -la find
+symfix
+ls ex*
+symfix
+export
+symfix
+symfix
+symfix
+export
+symfix
+symfix
+symfix
+symfix
+symfix
 pwd
-cd ~
-pwd
-exit
-exit
-exit
+find
+cd ..
+find
+clear
+cd ..
+ls
+cd pre
+ls
+symfix
+ls
+ls\r
+nano symfix
+symfix
+nano symfix
+chmod +x symfix
+symfix
+./symfix
+symfix
+symfix
+symfix
+symfix
+wordshell
+clear
+symfix
+symfix
+symfix
+symfix
+export
+cat -v symfix
+cd ..
+cd ..
+cd $DS_CLI
+cd platform
+ls
+cd win32
+ls
+cd pre
+ls
+cat -v symfix
+nano symfix
+cat -v symfix
+rm symfix
+nano symfix
+symfix
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -n 1 attrib
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -n 1 attrib
+history
+history
+find $DS_CLI/platform/win32/cygwin/bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + | sed -e 's/\\/\//g' | xargs -n 1 attrib +s
+nano symfix
+nano symfix
+symfix
+nano symfix
+symfix /bin
+nano symfix
+symfix /bin
+ls /usr
+cd usr
+ls
+cd /usr
+ls
+ls -la
+attrib
+attrib /
+attrib ./
+attrib
+cd bin
+cd /bin
+attrib
+attrib -s /bin/zipinfo
+attrib -s //bin//zipinfo
+attrib -s c:\\xampplite\\ds-plugins\\ds-cli\\platoform\\win32\\cygwin\\bin\\zipinfo
+attrib -s c:\\xampplite\\ds-plugins\\ds-cli\\platform\\win32\\cygwin\\bin\\zipinfo
+attrib
+symfix /bin
+symfix /bin
+symfix '/bin'
+symfix 
+attrib
+attrib -s c:\\xampplite\\ds-plugins\\ds-cli\\platform\\win32\\cygwin\\bin\\zipinfo
+attrib
+ls
+cd /cygdrive/c/xampplite/ds-plugins/ds-cli/platform/win32/pre
+nano symfix
+symfix
+ls -la /bin
+attrib -s c:\\xampplite\\ds-plugins\\ds-cli\\platform\\win32\\cygwin\\bin\\zipinfo
+attrib -s c:\\xampplite\\ds-plugins\\ds-cli\\platform\\win32\\cygwin\\bin
+attrib c:\\xampplite\\ds-plugins\\ds-cli\\platform\\win32\\cygwin\\bin
+attrib c:\\xampplite\\ds-plugins\\ds-cli\\platform\\win32\\cygwin\\bin\\zipinfo
+symfix /bin
+attrib c:\\xampplite\\ds-plugins\\ds-cli\\platform\\win32\\cygwin\\bin\\zipinfo
+symfix $DS_CLI/platform/
+attrib c:\\xampplite\\ds-plugins\\ds-cli\\platform\\win32\\cygwin\\bin\\zipinfo
+ls /cygdrive/c
+attrib c:\\xampplite\\ds-plugins\\ds-cli\\platform\\win32\\cygwin\\bin\\zipinfo
+symfix $DS_CLI/platform/win32/cygwin/bin
+attrib c:\\xampplite\\ds-plugins\\ds-cli\\platform\\win32\\cygwin\\bin\\zipinfo
+attrib -c c:\\xampplite\\ds-plugins\\ds-cli\\platform\\win32\\cygwin\\bin\\zipinfo
+attrib -s c:\\xampplite\\ds-plugins\\ds-cli\\platform\\win32\\cygwin\\bin\\zipinfo
+attrib c:\\xampplite\\ds-plugins\\ds-cli\\platform\\win32\\cygwin\\bin\\zipinfo
+symfix $DS_CLI/platform/win32/cygwin/bin
+nano symfix
+nano symfix
+symfix
+symfix $DS_CLI/platform/win32/cygwin/bin
+nano symfix
+symfix $DS_CLI/platform/win32/cygwin/bin
+nano symfix
+symfix $DS_CLI/platform/win32/cygwin/bin
+nano symfix
+symfix $DS_CLI/platform/win32/cygwin/bin
+symfix
+nano symfix
+symfix $DS_CLI/platform/win32/cygwin/bin
+nano symfix
+symfix $DS_CLI/platform/win32/cygwin/bin
+nano symfix
+symfix $DS_CLI/platform/win32/cygwin/bin
+symfix
+nano symfix
+symfix
+symfix $DS_CLI/platform/win32/cygwin/bin
+nano symfix
+symfix $DS_CLI/platform/win32/cygwin/bin
+attrib $DS_CLI/platform/win32/cygwin/bin
+attrib $DS_CLI/platform/win32/cygwin/bin/
+attrib $DS_CLI/platform/win32/cygwin/bin/*.*
+attrib -s $DS_CLI/platform/win32/cygwin/bin/zipinfo
+attrib $DS_CLI/platform/win32/cygwin/bin/*.*
+symfix $DS_CLI/platform/win32/cygwin/bin
+attrib $DS_CLI/platform/win32/cygwin/bin/*.*
+symfix 
+nano symfix
+symfix 
+ls -loa
+whoami
+sudo
+sudo 
 exit
 bash --help
-pwe
-pwd
+man bash
 exit
-wget
-wp
-wordshell
-composer
-exit
-pwd
-pwd
-pwd
-cd "C:\Users\scarroll\Documents\Websites\www.example.dev/"
-exit
-pwd
-exit
-pwd
-lftp
-exit
-pwd
-wget
-composer
-clear
-ls -la
-clear
-lftp
-exit
-exit
-exit
-whoami
-nano /etc/hosts
-nano /windows/system/drivers/etc/hosts
-cd /windows
-cd c:\windows
-cd system32
-cd drivers
-cd etc
-nano hosts
-exit
-ls -la
-pwd
-exit
-exit
-exit
-echo $0
-exit
-echo $0
-exit
-echo $0
-exit
-echo $0
-exit
-source
-exit
-exit
-echo $0
-exit
-exit
-logout
-logout
-exit
-exit
-echo $0
-exit
-echo $0
-exit
-exit
-exit
-exit
-exit
-env
-exit
-env
-exit
-exit
-pwd
-exit
-pwd
-exit
-chere
-exit
-exit
-pwd
-env
-exit
-pwd
-exit
-cd /Users
-pwd
-exit
-ls -la
-cd
-pwd
-ls 
-ls -la
-cd
-pwd
-cd .ssh
-ls -la
-cd
-pwd
-cd /Users
-alias
-alias --help
-man alias
-exit
-echo $0
-exit
-echo $0
-exit
-echo $currentFolder
-echo hi
-exit
-exit
-exit
-pwd
-wget
-ls
-cd /Users/scarroll
-clear
-ln --help
-cd
-pwd
-cd;cd .ssh
-cd
-cd ~
-pwd
-ln -s /cygdrive/c/Users ./Users
-ls
-cd /Users
-cd /Users
-ls -la
-rm Users
-ls 
-ls -la
-ln -s /cygdrive/c/Users ./Users/
-ln -s /cygdrive/c/Users/ ./Users
-cd /Users
-ls -la
-rm Users
-ls -la
-ln -s /cygdrive/c/Users Users
-cd Users
-cd /Users
-ls 
-ls -la
-ls 
-cd
-ls 
-rm Users
-ls 
-ls -la
-clear
-ln -s /cygdrive/c/Users /Users
+man bash
+man bash
 cd /
-ls -la
-cd Users
-ls Users
-pwd
-ls 
-ls Users
-ls /Users
-rm /Users
-cd /
-ln -s /cygdrive/c/Users /Users
-cd /Users
-ls
-ls -la
-cd 
-cd /
-ls -la
-exit
-env
-HOME=/Users/scarroll
-env
-cd
-pwd
-cd .ssh
-cd ~
 pwd
 ls
+find $PP -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + 
+find /bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} + 
+clear
+clear
+find /bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} +
+clear
+find /bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} +
+clear
+find /bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME}; FNR>1 {nextfile}' {} +
 exit
-cd /
-ls -la
-rm Users
-ls -la
-exit
-cd /etc
-ls
-nano nsswitch.conf
+find /bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} +
+find / -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} +
+find /bin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} +
+find /etc -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} +
+find /lib -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} +
+find /sbin -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} +
+find /var -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} +
+find /usr -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} +
+find /dev -type f -size -512c -exec gawk 'FNR==1 && /!<symlink>/ { print FILENAME }; FNR>1 {nextfile}' {} +
 exit

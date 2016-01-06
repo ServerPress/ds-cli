@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Boot native CLI
+# Boot native CLI with homebrew extensions
 #
 unset HISTFILE;
 export DS_CLI="/Applications/XAMPP/ds-plugins/ds-cli"
