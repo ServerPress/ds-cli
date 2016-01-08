@@ -11,6 +11,7 @@ require __DIR__ . '/vendor/autoload.php';
 
 use Steveorevo\String;
 use Steveorevo\WP_Hooks;
+include_once( 'ds-launch-cli.php' );
 
 /**
  * Lets get started
@@ -31,7 +32,7 @@ class DS_CLI extends WP_Hooks {
 		$url = $url->getLeftMost( '.dev' )->concat( '.dev/ds-plugins/ds-cli' )->__toString();
 		wp_enqueue_style( 'serverpress', $url .  '/fontello/css/serverpress.css' );
 		wp_enqueue_style( 'sp-animation', $url .  '/fontello/css/animation.css' );
-		wp_enqueue_script( 'ds-cli', $url . '/ds-cli.js', array( 'jquery' ) );
+		wp_enqueue_script( 'ds-cli', $url . '/js/ds-cli.js', array( 'jquery' ) );
 		wp_localize_script( 'ds-cli', 'ds_cli', array(
 			'ajaxurl' => admin_url( 'admin-ajax.php' ),
 			'nonce' => wp_create_nonce( 'ds-cli-nonce' )
@@ -96,29 +97,7 @@ class DS_CLI extends WP_Hooks {
 	 */
 	public function wp_ajax_ds__cli__submit() {
 		if ( ! wp_verify_nonce( $_POST['nonce'], 'ds-cli-nonce' ) ) return;
-
-		global $ds_runtime;
-		if ( PHP_OS !== 'Darwin' ){
-
-			// Windows
-			$launch = $ds_runtime->ds_plugins_dir . "/ds-cli/platform/win32/boot.bat ";
-			$launch .= "cd \"" . ABSPATH . "\" &";
-			$launch .= "c:\\xampplite\\ds-plugins\\ds-cli\\platform\\win32\\cygwin\\bin\\mintty";
-		}else{
-
-			// Macintosh
-			$launch = $ds_runtime->ds_plugins_dir . "/ds-cli/platform/mac/boot.sh ";
-			$launch .= "osascript -e '";
-			$launch .= "tell application \"Terminal\"\n";
-			$launch .= "  do script \"\n";
-			$launch .= "    source " . $ds_runtime->ds_plugins_dir . "/ds-cli/platform/mac/boot.sh" . "\n";
-			$launch .= "    cd \\\"" . ABSPATH . "\\\"\n";
-			$launch .= "    clear\"\n";
-			$launch .= "  activate\n";
-			$launch .= "end tell\n";
-			$launch .= "'";
-		}
-		exec( apply_filters( "ds_cli_launch", $launch ) );
+		ds_launch_cli( ABSPATH );
 		exit();
 	}
 }
