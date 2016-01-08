@@ -57,7 +57,14 @@ if ( $ds_runtime->last_ui_event !== false ) {
 			ds_cli_exec( "symfix " . $cygwin . "/lib" );
 			ds_cli_exec( "symfix " . $cygwin . "/bin" );
 			ds_cli_exec( "symfix " . $cygwin . "/usr" );
-			ds_cli_exec( "symfix " . $cygwin . "/Users" );
+
+			// Clean up user folder by hiding dot folders and files.
+			$files = scandir( getenv('USERPROFILE') );
+			foreach( $files as $dot ) {
+				if ( substr( $dot, 0, 1 ) === '.' && $dot !== '.' && $dot !== '..' ) {
+					exec( 'attrib +H "' . getenv('USERPROFILE') . "\\" . $dot . '"' );
+				}
+			}
 		}
 	}
 	/**
