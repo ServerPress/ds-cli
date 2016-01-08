@@ -57,6 +57,7 @@ if ( $ds_runtime->last_ui_event !== false ) {
 			ds_cli_exec( "symfix " . $cygwin . "/lib" );
 			ds_cli_exec( "symfix " . $cygwin . "/bin" );
 			ds_cli_exec( "symfix " . $cygwin . "/usr" );
+			ds_cli_exec( "symfix " . $cygwin . "/Users" );
 		}
 	}
 	/**
@@ -92,6 +93,6 @@ function ds_cli_localhost_scripts() {
 $ds_runtime->add_action( 'list_domain', 'ds_cli_list_domain_link' );
 function ds_cli_list_domain_link( $domain ) {
 	echo '<div class="ds-site-actions-container">';
-	echo '<a href="http://localhost/ds-plugins/ds-cli/launch-ds-cli.php" data-domain="'.$domain.'" class="ds-cli ds-action">DS CLI</a>';
+	echo '<a href="http://localhost/ds-plugins/ds-cli/ds-launch-cli.php" data-domain="'.$domain.'" class="ds-cli ds-action">DS CLI</a>';
 	echo '</div>';
 }
