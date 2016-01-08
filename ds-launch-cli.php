@@ -15,8 +15,10 @@ function ds_launch_cli( $cwd ) {
 	global $ds_runtime;
 	if ( PHP_OS !== 'Darwin' ){
 		// Windows
+
 		$launch = $ds_runtime->ds_plugins_dir . "/ds-cli/platform/win32/boot.bat ";
 		$launch .= "cd \"" . $cwd . "\" &";
+		$launch .= "del %USERPROFILE%\\.bash_history &";
 		$launch .= "c:\\xampplite\\ds-plugins\\ds-cli\\platform\\win32\\cygwin\\bin\\mintty";
 	} else{
 		// Macintosh
@@ -31,5 +33,6 @@ function ds_launch_cli( $cwd ) {
 		$launch .= "end tell\n";
 		$launch .= "'";
 	}
+	$ds_runtime->do_action( 'pre_ds_launch_cli', $launch );
 	exec( $launch );
 }
