@@ -41,6 +41,8 @@ function ds_launch_cli( $cwd ) {
 		$launch .= "end tell\n";
 		$launch .= "'";
 	}
-	$ds_runtime->do_action( 'pre_ds_launch_cli', $launch );
-	exec( $launch );
+	global $ds_launch_cli;
+	$ds_launch_cli = $launch;
+	$ds_runtime->do_action( 'pre_ds_launch_cli' );
+	exec( $ds_launch_cli );
 }
