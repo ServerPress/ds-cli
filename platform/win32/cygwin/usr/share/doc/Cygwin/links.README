@@ -1,0 +1,102 @@
+links
+------------------------------------------
+
+Text mode WWW browser
+
+A lynx-like character mode browser. It includes support for
+rendering tables and frames, features background downloads, can
+display colors and has many other features. nlike lynx, links supports
+the HTML TABLE tag. Links also allows you to download files in the
+background.
+
+Runtime requirements:
+  libbz2_1
+  libgcc1
+  libopenssl100
+  liblzma5
+  zlib0
+
+Build requirements:
+  quilt
+  libbz2-devel
+  liblzmadec-devel
+  openssl-devel
+  zlib-devel
+
+Canonical homepage:
+  http://freecode.com/projects/links
+  http://links.twibright.com
+  http://packages.debian.org/links
+
+Canonical download:
+  http://artax.karlin.mff.cuni.cz/~mikulas/vyplody/links/download/
+
+Version control repository:
+
+Mailing list:
+  <links-list@linuxfromscratch.org>
+  http://linuxfromscratch.org/pipermail/links-list/
+  http://dir.gmane.org/gmane.comp.lang.links.general
+
+IRC channel:
+
+Upstream contact:
+  Author: Mikulas Patocka <mikulas@twibright.com>
+  Bugs: Mikulas Patocka <mikulas@twibright.com>, brain@twibright.com, clock@twibright.com, perm@twibright.com
+
+License:
+  GPL
+
+Language:
+  C
+
+------------------------------------
+
+Build instructions:
+  unpack links-2.8-2-src.tar.bz2
+    if you use setup to install this src package, it will be
+    unpacked under /usr/src automatically
+  cd /usr/src
+  ./links*.sh all
+
+This will create:
+  links-2.8-2.tar.xz
+  links-2.8-2-src.tar.xz
+
+-------------------------------------------
+
+Files included in the binary distribution:
+  See Cygwin package archive
+
+------------------
+
+Port Notes:
+
+----- version 2.8-2 -----
+- Security patch added. Thanks to Yaakov Selkowitz <yselkowitz@cygwin.com>
+- It was discovered that links does not verify SSL certificates, defeating
+  the purpose of the security SSL is supposed to provide.
+- http://pkgs.fedoraproject.org/cgit/links.git/plain/links-2.2-ssl-verify.patch
+
+----- version 2.8-1 -----
+- New upstream release 2014-04-10 Jari Aalto
+
+----- version 2.7-1 -----
+- New upstream release 2012-09-15 Jari Aalto
+
+----- version 2.5-1 -----
+- New upstream release 2012-01-29 Jari Aalto
+
+----- version 2.2-1 -----
+- New upstream release 2010-06-24 Jari Aalto
+
+----- version 1.00pre20-1 -----
+- New maintainer, 2007-08-12 Jari Aalto.
+- New upstream release.
+
+----- version 0.99pre14-1 -----
+- Initial release, 2003-11-27 Harold L Hunt II <huntharo@msu.edu>
+- Add patch to fix the File->OS Shell and File->New Window commands
+  (Frederic L. W. Meunier)
+
+Cygwin port maintained by: Jari Aalto <jari.aalto@cante.net>

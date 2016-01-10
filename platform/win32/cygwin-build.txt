@@ -1,0 +1,20 @@
+#
+# The following items were executed to create the DS-CLI ready install for Windows
+#
+http://cygwin.com/setup-x86.exe
+lynx -source rawgit.com/transcode-open/apt-cyg/master/apt-cyg > apt-cyg
+install apt-cyg /bin
+apt-cyg install wget
+apt-cyg install nano
+apt-cyg install ncurses
+apt-cyg install curl
+apt-cyg install lftp
+apt-cyg install w3m
+apt-cyg install links
+apt-cya install patch
+apt-cyg install subversion
+apt-cyg install git
+cd /usr/bin/links;ln -s ./links elinks
+apt-cyg install zip
+apt-cyg install unzip
+echo "db_home: /%H" >> /etc/nsswitch.conf

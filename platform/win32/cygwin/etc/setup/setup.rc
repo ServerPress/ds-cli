@@ -1,13 +1,10 @@
 last-cache
 	C:\Users\scarroll\Downloads
 mirrors-lst
-	http://box-soft.com/;box-soft.com;United States;Illinois
 	http://cygwin.mirror.constant.com/;cygwin.mirror.constant.com;United States;New Jersey
 	http://mirror.devback.com/cygwin/;mirror.devback.com;Europe;Netherlands
 	http://cygwin.mirrors.hoobly.com/;cygwin.mirrors.hoobly.com;United States;Pennsylvania
 	http://mirrors.koehn.com/cygwin/cygwin-ftp/;mirrors.koehn.com;United States;Missouri
-	ftp://mirrorcatalogs.com/cygwin/;mirrorcatalogs.com;United States;Colorado
-	http://cygwin.mirrorcatalogs.com/;cygwin.mirrorcatalogs.com;United States;Colorado
 	ftp://cygwin.mirrors.pair.com/;cygwin.mirrors.pair.com;United States;Pennsylvania
 	http://cygwin.mirrors.pair.com/;cygwin.mirrors.pair.com;United States;Pennsylvania
 	http://cygwin.parentingamerica.com/;cygwin.parentingamerica.com;Canada;Montreal
@@ -21,16 +18,14 @@ mirrors-lst
 	ftp://mirror.cs.vt.edu/pub/cygwin/cygwin/;mirror.cs.vt.edu;United States;Virginia
 	http://mirror.cs.vt.edu/pub/cygwin/cygwin/;mirror.cs.vt.edu;United States;Virginia
 	http://mirrors.chauf.net/cygwin/;mirrors.chauf.net;Europe;France
+	http://ftp.daum.net/cygwin/;ftp.daum.net;Asia;Korea
 	http://cygwin.mirror.gtcomm.net/;cygwin.mirror.gtcomm.net;Canada;Montreal
 	ftp://mirrors.netix.net/cygwin/;mirrors.netix.net;Europe;Bulgaria
 	http://mirrors.netix.net/cygwin/;mirrors.netix.net;Europe;Bulgaria
 	ftp://mirror.nexcess.net/cygwin/;mirror.nexcess.net;United States;Michigan
 	http://mirror.nexcess.net/cygwin/;mirror.nexcess.net;United States;Michigan
-	ftp://mirror.internode.on.net/pub/cygwin/;mirror.internode.on.net;Australasia;Australia
-	http://mirror.internode.on.net/pub/cygwin/;mirror.internode.on.net;Australasia;Australia
 	http://piotrkosoft.net/pub/mirrors/cygwin/;piotrkosoft.net;Europe;Poland
 	ftp://ftp.piotrkosoft.net/pub/mirrors/cygwin/;ftp.piotrkosoft.net;Europe;Poland
-	http://cygwin.refractal.net/;cygwin.refractal.net;United States;New Jersey
 	http://cygwin.mirror.uk.sargasso.net/;cygwin.mirror.uk.sargasso.net;Europe;UK
 	ftp://mirrors.sonic.net/cygwin/;mirrors.sonic.net;United States;California
 	http://mirrors.sonic.net/cygwin/;mirrors.sonic.net;United States;California
@@ -54,6 +49,7 @@ mirrors-lst
 	ftp://cygwin.osuosl.org/pub/cygwin/;cygwin.osuosl.org;United States;Oregon
 	http://cygwin.osuosl.org/;cygwin.osuosl.org;United States;Oregon
 	http://mirror.team-cymru.org/cygwin/;mirror.team-cymru.org;United States;Illinois
+	ftp://gd.tuwien.ac.at/gnu/cygwin/;gd.tuwien.ac.at;Europe;Austria
 	http://gd.tuwien.ac.at/gnu/cygwin/;gd.tuwien.ac.at;Europe;Austria
 	ftp://mirror.easyname.at/cygwin/;mirror.easyname.at;Europe;Austria
 	http://mirror.easyname.at/cygwin/;mirror.easyname.at;Europe;Austria
@@ -79,8 +75,6 @@ mirrors-lst
 	http://ftp.hawo.stw.uni-erlangen.de/cygwin/;ftp.hawo.stw.uni-erlangen.de;Europe;Germany
 	http://cygwin.mbwarez.dk/;cygwin.mbwarez.dk;Europe;Denmark
 	http://cygwin.localhost.equipment/;cygwin.localhost.equipment;Europe;Netherlands
-	ftp://ftp.rediris.es/mirror/cygwin/;ftp.rediris.es;Europe;Spain
-	http://ftp.rediris.es/mirror/cygwin/;ftp.rediris.es;Europe;Spain
 	ftp://ftp.funet.fi/pub/mirrors/cygwin.com/pub/cygwin/;ftp.funet.fi;Europe;Finland
 	ftp://ftp.ntua.gr/pub/pc/cygwin/;ftp.ntua.gr;Europe;Greece
 	ftp://ftp.cc.uoc.gr/mirrors/cygwin/;ftp.cc.uoc.gr;Europe;Greece
@@ -110,7 +104,9 @@ mirrors-lst
 	http://cygwin.uib.no/;cygwin.uib.no;Europe;Norway
 	ftp://mirrors.vianett.no/pub/cygwin/;mirrors.vianett.no;Europe;Norway
 	http://mirrors.vianett.no/cygwin/;mirrors.vianett.no;Europe;Norway
-	ftp://sunsite.icm.edu.pl/pub/cygnus/cygwin/;sunsite.icm.edu.pl;Europe;Poland
+	http://cygwin.viem-it.no/;cygwin.viem-it.no;Europe;Norway
+	ftp://ucmirror.canterbury.ac.nz/pub/cygwin/;ucmirror.canterbury.ac.nz;Australasia;New Zealand
+	http://ucmirror.canterbury.ac.nz/cygwin/;ucmirror.canterbury.ac.nz;Australasia;New Zealand
 	ftp://ftp.eq.uc.pt/pub/software/pc/prog/cygwin/;ftp.eq.uc.pt;Europe;Portugal
 	http://ftp.eq.uc.pt/software/pc/prog/cygwin/;ftp.eq.uc.pt;Europe;Portugal
 	ftp://ftp.rnl.tecnico.ulisboa.pt/pub/cygwin/;ftp.rnl.tecnico.ulisboa.pt;Europe;Portugal
@@ -129,10 +125,8 @@ mirrors-lst
 	http://ftp.yzu.edu.tw/cygwin/;ftp.yzu.edu.tw;Asia;Taiwan
 	ftp://cygwin.ip-connect.vn.ua/mirror/cygwin.com/;cygwin.ip-connect.vn.ua;Europe;Ukraine
 	ftp://ftp.is.co.za/mirrors/cygwin/;ftp.is.co.za;Africa;South Africa
-chooser_window_settings
-	44,2,3,4294967295,4294967295,4294967295,4294967295,242,186,788,586
 last-mirror
-	ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/
+	http://cygwin.mirror.constant.com/
 net-method
 	Direct
 last-action

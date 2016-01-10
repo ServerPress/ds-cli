@@ -1,47 +1,26 @@
-2015/12/29 14:30:05 Starting cygwin install, version 2.873
-2015/12/29 14:30:05 User has backup/restore rights
-2015/12/29 14:30:05 Current Directory: C:\Users\scarroll\Downloads
-2015/12/29 14:30:05 Could not open service McShield for query, start and stop. McAfee may not be installed, or we don't have access.
-2015/12/29 14:30:07 source: network install
-2015/12/29 14:30:10 source: network install
-2015/12/29 14:30:11 root: C:\cygwin system
-2015/12/29 14:30:12 Selected local directory: C:\Users\scarroll\Downloads
-2015/12/29 14:30:13 net: Direct
+2016/01/09 18:01:41 Starting cygwin install, version 2.873
+2016/01/09 18:01:41 User has backup/restore rights
+2016/01/09 18:01:41 Current Directory: C:\Users\scarroll\Downloads
+2016/01/09 18:01:41 Could not open service McShield for query, start and stop. McAfee may not be installed, or we don't have access.
+2016/01/09 18:01:44 source: network install
+2016/01/09 18:01:45 root: C:\cygwin system
+2016/01/09 18:01:45 Selected local directory: C:\Users\scarroll\Downloads
+2016/01/09 18:01:46 net: Direct
 Loaded cached mirror list
 get_url_to_membuf http://cygwin.com/mirrors.lst
 getUrlToStream http://cygwin.com/mirrors.lst
-2015/12/29 14:30:14 site: ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/
-get_url_to_membuf ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/x86/setup.xz.sig
-getUrlToStream ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/x86/setup.xz.sig
-ftp > 220-----------------------------------------------------------------------------
-ftp > 220-Welcome to the University of Kent's UK Mirror Service.
-ftp > 220-
-ftp > 220-More information can be found at our web site: http://www.mirrorservice.org/
-ftp > 220-Please send comments or questions to help@mirrorservice.org.
-ftp > 220-----------------------------------------------------------------------------
-ftp > 220 
-ftp > 331 Please specify the password.
-ftp > 230 Login successful.
-ftp > 200 Switching to Binary mode.
-ftp > 227 Entering Passive Mode (212,219,56,184,160,96).
-ftp > 550 Failed to open file.
+2016/01/09 18:01:48 site: http://cygwin.mirror.constant.com/
+get_url_to_membuf http://cygwin.mirror.constant.com/x86/setup.xz.sig
+getUrlToStream http://cygwin.mirror.constant.com/x86/setup.xz.sig
 getUrlToStream failed!
 get_url_to_membuf failed!
-get_url_to_membuf ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/x86/setup.xz
-getUrlToStream ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/x86/setup.xz
-ftp > 227 Entering Passive Mode (212,219,56,184,112,55).
-ftp > 550 Failed to open file.
+get_url_to_membuf http://cygwin.mirror.constant.com/x86/setup.xz
+getUrlToStream http://cygwin.mirror.constant.com/x86/setup.xz
 getUrlToStream failed!
 get_url_to_membuf failed!
-get_url_to_membuf ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/x86/setup.bz2.sig
-getUrlToStream ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/x86/setup.bz2.sig
-ftp > 227 Entering Passive Mode (212,219,56,184,80,111).
-ftp > 150 Opening BINARY mode data connection for /sites/sourceware.org/pub/cygwin/x86/setup.bz2.sig (72 bytes).
-ftp > 226 Transfer complete.
-get_url_to_membuf ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/x86/setup.bz2
-getUrlToStream ftp://ftp.mirrorservice.org/sites/sourceware.org/pub/cygwin/x86/setup.bz2
-ftp > 227 Entering Passive Mode (212,219,56,184,52,170).
-ftp > 150 Opening BINARY mode data connection for /sites/sourceware.org/pub/cygwin/x86/setup.bz2 (1986002 bytes).
-ftp > 226 Transfer complete.
+get_url_to_membuf http://cygwin.mirror.constant.com/x86/setup.bz2.sig
+getUrlToStream http://cygwin.mirror.constant.com/x86/setup.bz2.sig
+get_url_to_membuf http://cygwin.mirror.constant.com/x86/setup.bz2
+getUrlToStream http://cygwin.mirror.constant.com/x86/setup.bz2
 .ini setup_version is 2.873, our setup_version is 2.873
-2015/12/29 14:30:32 Ending cygwin install
+2016/01/09 18:10:36 Ending cygwin install

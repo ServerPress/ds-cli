@@ -1,1 +1,1 @@
-{"unused_options":[],"built_as_bottle":false,"poured_from_bottle":false,"time":1450943734,"compiler":"clang","used_options":[],"HEAD":null,"stdlib":null,"source":{"tap":"Homebrew/homebrew","spec":"stable","path":"/usr/local/Library/Formula/lftp.rb"}}
+{"compiler":"clang","HEAD":null,"poured_from_bottle":false,"source":{"tap":"Homebrew/homebrew","spec":"stable","path":"/usr/local/Library/Formula/lftp.rb"},"used_options":[],"unused_options":[],"stdlib":null,"time":1452414299,"built_as_bottle":false}

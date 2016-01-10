@@ -1,1 +1,1 @@
-{"poured_from_bottle":false,"compiler":"clang","source":{"spec":"stable","tap":"Homebrew/homebrew","path":"/usr/local/Library/Formula/openssl.rb"},"used_options":[],"built_as_bottle":false,"time":1450943583,"stdlib":null,"unused_options":["--universal","--without-test"],"HEAD":null}
+{"time":1452414182,"source":{"spec":"stable","path":"/usr/local/Library/Formula/openssl.rb","tap":"Homebrew/homebrew"},"built_as_bottle":false,"HEAD":null,"compiler":"clang","used_options":[],"stdlib":null,"poured_from_bottle":false,"unused_options":["--without-test","--universal"]}
