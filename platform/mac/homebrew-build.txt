@@ -1,6 +1,11 @@
 #
 # The following items were executed to create the DS-CLI ready install for Mac
 #
+# OS X 10.7.5
+
+http://adcdownload.apple.com/Developer_Tools/command_line_tools_os_x_lion_for_xcode__april_2013/xcode462_cltools_10_76938260a.dmg
+http://adcdownload.apple.com/Developer_Tools/xcode_4.6.2/xcode4620419895a.dmg
+
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew install git
 brew install wget
@@ -8,7 +13,7 @@ brew install lftp
 brew install w3m
 brew install elinks
 brew install svn
-brew install node
+brew install homebrew/versions/node4-lts
 cd /usr/local/bin;ln -s /usr/bin/curl
 cd /usr/local/lib;ln -s ../Cellar/readline/6.3.8/lib/libreadline.6.3.dylib libreadline.6.dylib
 cd /usr/local/lib;ln -s ../Cellar/subversion/1.9.3/libexec/serf/lib/libserf-1.dylib libserf-1.dylib
