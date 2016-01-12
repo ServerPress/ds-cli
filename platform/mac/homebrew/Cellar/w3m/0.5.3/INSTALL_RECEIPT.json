@@ -1,1 +1,1 @@
-{"source":{"path":"/usr/local/Library/Formula/w3m.rb","tap":"Homebrew/homebrew","spec":"stable"},"built_as_bottle":false,"used_options":[],"poured_from_bottle":false,"HEAD":null,"stdlib":null,"compiler":"clang","unused_options":[],"time":1452414377}
+{"HEAD":"c686f6cf4a160c72efcc7cd4598a6b59bbf7c6e5","unused_options":[],"stdlib":null,"compiler":"clang","used_options":[],"time":1452583226,"built_as_bottle":false,"source":{"tap":"Homebrew/homebrew","spec":"stable","path":"/usr/local/Library/Formula/w3m.rb"},"poured_from_bottle":false}

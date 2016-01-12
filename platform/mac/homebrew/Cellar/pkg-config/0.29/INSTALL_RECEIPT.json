@@ -1,1 +1,1 @@
-{"source":{"spec":"stable","tap":"Homebrew/homebrew","path":"/usr/local/Library/Formula/pkg-config.rb"},"HEAD":null,"unused_options":[],"built_as_bottle":false,"time":1452414015,"used_options":[],"stdlib":null,"poured_from_bottle":false,"compiler":"clang"}
+{"compiler":"clang","time":1452581213,"used_options":[],"poured_from_bottle":false,"HEAD":"c686f6cf4a160c72efcc7cd4598a6b59bbf7c6e5","stdlib":null,"source":{"path":"/usr/local/Library/Formula/pkg-config.rb","tap":"Homebrew/homebrew","spec":"stable"},"built_as_bottle":false,"unused_options":[]}

@@ -1,1 +1,1 @@
-{"unused_options":["--universal"],"compiler":"clang","poured_from_bottle":false,"stdlib":null,"used_options":[],"time":1452413927,"HEAD":null,"built_as_bottle":false,"source":{"path":"/usr/local/Library/Formula/xz.rb","tap":"Homebrew/homebrew","spec":"stable"}}
+{"compiler":"clang","unused_options":["--universal"],"used_options":[],"built_as_bottle":false,"poured_from_bottle":false,"time":1452580914,"HEAD":"c686f6cf4a160c72efcc7cd4598a6b59bbf7c6e5","source":{"path":"/usr/local/Library/Formula/xz.rb","tap":"Homebrew/homebrew","spec":"stable"},"stdlib":null}
