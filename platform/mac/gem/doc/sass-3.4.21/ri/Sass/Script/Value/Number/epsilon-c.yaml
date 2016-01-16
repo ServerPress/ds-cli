@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Used in checking equality of floating point numbers. Any numbers within an `epsilon` of each other are considered functionally equal. The value for epsilon is one tenth of the current numeric precision.
+full_name: Sass::Script::Value::Number::epsilon
+is_singleton: true
+name: epsilon
+params: ()
+visibility: public

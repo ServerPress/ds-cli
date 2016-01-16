@@ -1,0 +1,22 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Return the key for the sass file.
+- !ruby/struct:SM::Flow::P 
+  body: The `(sass_dirname, sass_basename)` pair should uniquely identify the Sass document, but otherwise there are no restrictions on their content.
+- !ruby/struct:SM::Flow::P 
+  body: "@param sass_dirname [String]"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  The fully-expanded location of the Sass file.\n  This corresponds to the directory name on a filesystem.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@param sass_basename [String] The name of the Sass file that is being referenced."
+- !ruby/struct:SM::Flow::VERB 
+  body: "  This corresponds to the basename on a filesystem.\n"
+full_name: Sass::CacheStores::Base#key
+is_singleton: false
+name: key
+params: (sass_dirname, sass_basename)
+visibility: public

@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: ""
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Sets a variable that indicates that the first level of rule nodes shouldn't include the parent selector by default.
+full_name: Sass::Tree::Visitors::Perform#visit_atroot
+is_singleton: false
+name: visit_atroot
+params: (node) {|| ...}
+visibility: protected

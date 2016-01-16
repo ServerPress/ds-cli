@@ -1,0 +1,22 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Computes a single longest common subsequence for `x` and `y`. If there are more than one longest common subsequences, the one returned is that which starts first in `x`.
+- !ruby/struct:SM::Flow::P 
+  body: "@param x [Array] @param y [Array] @yield [a, b] An optional block to use in place of a check for equality"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  between elements of `x` and `y`.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@yieldreturn [Object, nil] If the two values register as equal,"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  this will return the value to use in the LCS array.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Array] The LCS"
+full_name: Sass::Util#lcs
+is_singleton: false
+name: lcs
+params: (x, y, &block)
+visibility: public

@@ -1,0 +1,20 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Add a feature to Sass. Plugins can use this to easily expose their availability to end users. Plugins must prefix their feature names with a dash to distinguish them from official features.
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  Sass.add_feature(&quot;-import-globbing&quot;)\n  Sass.add_feature(&quot;-math-cos&quot;)\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@param feature_name [String] The case sensitive name of the feature to"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  to add to Sass. Must begin with a dash.\n"
+full_name: Sass::Features#add_feature
+is_singleton: false
+name: add_feature
+params: (feature_name)
+visibility: public

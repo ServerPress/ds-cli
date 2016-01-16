@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@see Base#directories_to_watch"
+full_name: Sass::Importers::Filesystem#directories_to_watch
+is_singleton: false
+name: directories_to_watch
+params: ()
+visibility: public

@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@param value [Array&lt;String, Sass::Script::Tree::Node&gt;] See \\{#value}"
+full_name: Sass::Tree::DirectiveNode::new
+is_singleton: true
+name: new
+params: (value)
+visibility: public

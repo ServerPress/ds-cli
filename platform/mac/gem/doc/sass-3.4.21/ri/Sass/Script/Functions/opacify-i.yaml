@@ -1,0 +1,25 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: 
+- !ruby/object:RI::AliasName 
+  name: fade_in
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Makes a color more opaque. Takes a color and a number between 0 and 1, and returns a color with the opacity increased by that amount.
+- !ruby/struct:SM::Flow::P 
+  body: "@see #transparentize @example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  opacify(rgba(0, 0, 0, 0.5), 0.1) =&gt; rgba(0, 0, 0, 0.6)\n  opacify(rgba(0, 0, 17, 0.8), 0.2) =&gt; #001\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload opacify($color, $amount)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $color [Sass::Script::Value::Color]\n  @param $amount [Sass::Script::Value::Number] The amount to increase the\n    opacity by, between 0 and 1\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Script::Value::Color] @raise [ArgumentError] if `$amount` is out of bounds, or either parameter"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  is the wrong type\n"
+full_name: Sass::Script::Functions#opacify
+is_singleton: false
+name: opacify
+params: (color, amount)
+visibility: public

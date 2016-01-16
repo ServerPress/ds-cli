@@ -1,0 +1,17 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: []
+
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A mixin for subclasses of {Sass::Script::Parser} that makes them usable by {SCSS::Parser} to parse SassScript. In particular, the parser won't raise an error when there's more content in the lexer once lexing is done. In addition, the parser doesn't support `!` for a variable prefix.
+constants: []
+
+full_name: Sass::SCSS::ScriptParser
+includes: []
+
+instance_methods: []
+
+name: ScriptParser
+superclass: 

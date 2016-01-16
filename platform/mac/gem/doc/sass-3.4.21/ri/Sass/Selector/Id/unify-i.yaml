@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns `nil` if `sels` contains an {Id} selector with a different name than this one.
+- !ruby/struct:SM::Flow::P 
+  body: "@see Selector#unify"
+full_name: Sass::Selector::Id#unify
+is_singleton: false
+name: unify
+params: (sels)
+visibility: public

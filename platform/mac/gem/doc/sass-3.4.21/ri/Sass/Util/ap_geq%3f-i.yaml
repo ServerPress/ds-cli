@@ -1,0 +1,18 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns whether this environment is using ActionPack of a version greater than or equal to that specified.
+- !ruby/struct:SM::Flow::P 
+  body: "@param version [String] The string version number to check against."
+- !ruby/struct:SM::Flow::VERB 
+  body: "  Should be greater than or equal to Rails 3,\n  because otherwise ActionPack::VERSION isn't autoloaded\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Boolean]"
+full_name: Sass::Util#ap_geq?
+is_singleton: false
+name: ap_geq?
+params: (version)
+visibility: public

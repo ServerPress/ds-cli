@@ -1,0 +1,22 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Rounds a number up to the next whole number.
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  ceil(10.4px) =&gt; 11px\n  ceil(10.6px) =&gt; 11px\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload ceil($number)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $number [Sass::Script::Value::Number]\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Script::Value::Number] @raise [ArgumentError] if `$number` isn't a number"
+full_name: Sass::Script::Functions#ceil
+is_singleton: false
+name: ceil
+params: (number)
+visibility: public

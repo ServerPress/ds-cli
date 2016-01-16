@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns `path` with all symlinks resolved.
+- !ruby/struct:SM::Flow::P 
+  body: "@param path [String, Pathname] @return [Pathname]"
+full_name: Sass::Util#realpath
+is_singleton: false
+name: realpath
+params: (path)
+visibility: public

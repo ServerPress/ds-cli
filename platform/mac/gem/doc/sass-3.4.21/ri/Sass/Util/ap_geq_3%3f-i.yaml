@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns whether this environment is using ActionPack version 3.0.0 or greater.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Boolean]"
+full_name: Sass::Util#ap_geq_3?
+is_singleton: false
+name: ap_geq_3?
+params: ()
+visibility: public

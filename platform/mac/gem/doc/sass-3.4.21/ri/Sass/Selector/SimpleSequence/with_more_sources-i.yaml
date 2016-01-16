@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Return a copy of this simple sequence with `sources` merged into the {SimpleSequence#sources} set.
+- !ruby/struct:SM::Flow::P 
+  body: "@param sources [Set&lt;Sequence&gt;] @return [SimpleSequence]"
+full_name: Sass::Selector::SimpleSequence#with_more_sources
+is_singleton: false
+name: with_more_sources
+params: (sources)
+visibility: public

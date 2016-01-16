@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Computes the CSS corresponding to this static CSS tree.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [String] The resulting CSS @see Sass::Tree"
+full_name: Sass::Tree::Node#css
+is_singleton: false
+name: css
+params: ()
+visibility: public

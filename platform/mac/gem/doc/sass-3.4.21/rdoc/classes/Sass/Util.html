@@ -1,0 +1,2018 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: Sass::Util</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">Sass::Util</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/sass/util/cross_platform_random_rb.html">
+                lib/sass/util/cross_platform_random.rb
+                </a>
+        <br />
+                <a href="../../files/lib/sass/util/normalized_map_rb.html">
+                lib/sass/util/normalized_map.rb
+                </a>
+        <br />
+                <a href="../../files/lib/sass/util/subset_map_rb.html">
+                lib/sass/util/subset_map.rb
+                </a>
+        <br />
+                <a href="../../files/lib/sass/util/test_rb.html">
+                lib/sass/util/test.rb
+                </a>
+        <br />
+                <a href="../../files/lib/sass/util_rb.html">
+                lib/sass/util.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+A module containing various useful functions. @comment
+</p>
+<pre>
+  rubocop:disable ModuleLength
+</pre>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000879">abstract</a>&nbsp;&nbsp;
+      <a href="#M000887">ap_geq?</a>&nbsp;&nbsp;
+      <a href="#M000886">ap_geq_3?</a>&nbsp;&nbsp;
+      <a href="#M000870">array_minus</a>&nbsp;&nbsp;
+      <a href="#M000889">av_template_class</a>&nbsp;&nbsp;
+      <a href="#M000876">caller_info</a>&nbsp;&nbsp;
+      <a href="#M000874">check_range</a>&nbsp;&nbsp;
+      <a href="#M000909">check_sass_encoding</a>&nbsp;&nbsp;
+      <a href="#M000897">cleanpath</a>&nbsp;&nbsp;
+      <a href="#M000880">deprecated</a>&nbsp;&nbsp;
+      <a href="#M000902">destructure</a>&nbsp;&nbsp;
+      <a href="#M000912">enum_cons</a>&nbsp;&nbsp;
+      <a href="#M000913">enum_slice</a>&nbsp;&nbsp;
+      <a href="#M000911">enum_with_index</a>&nbsp;&nbsp;
+      <a href="#M000914">extract!</a>&nbsp;&nbsp;
+      <a href="#M000918">extract_values</a>&nbsp;&nbsp;
+      <a href="#M000900">file_uri_from_path</a>&nbsp;&nbsp;
+      <a href="#M000916">flatten_vertically</a>&nbsp;&nbsp;
+      <a href="#M000895">glob</a>&nbsp;&nbsp;
+      <a href="#M000869">group_by_to_a</a>&nbsp;&nbsp;
+      <a href="#M000910">has?</a>&nbsp;&nbsp;
+      <a href="#M000868">hash_to_a</a>&nbsp;&nbsp;
+      <a href="#M000919">inject_values</a>&nbsp;&nbsp;
+      <a href="#M000917">inspect_obj</a>&nbsp;&nbsp;
+      <a href="#M000862">intersperse</a>&nbsp;&nbsp;
+      <a href="#M000891">ironruby?</a>&nbsp;&nbsp;
+      <a href="#M000906">jruby1_6?</a>&nbsp;&nbsp;
+      <a href="#M000893">jruby?</a>&nbsp;&nbsp;
+      <a href="#M000894">jruby_version</a>&nbsp;&nbsp;
+      <a href="#M000922">json_escape_string</a>&nbsp;&nbsp;
+      <a href="#M000923">json_value_of</a>&nbsp;&nbsp;
+      <a href="#M000867">lcs</a>&nbsp;&nbsp;
+      <a href="#M000888">listen_geq_2?</a>&nbsp;&nbsp;
+      <a href="#M000907">macruby?</a>&nbsp;&nbsp;
+      <a href="#M000856">map_hash</a>&nbsp;&nbsp;
+      <a href="#M000854">map_keys</a>&nbsp;&nbsp;
+      <a href="#M000855">map_vals</a>&nbsp;&nbsp;
+      <a href="#M000871">max</a>&nbsp;&nbsp;
+      <a href="#M000860">merge_adjacent_strings</a>&nbsp;&nbsp;
+      <a href="#M000872">min</a>&nbsp;&nbsp;
+      <a href="#M000915">ord</a>&nbsp;&nbsp;
+      <a href="#M000908">ordered_hash</a>&nbsp;&nbsp;
+      <a href="#M000896">pathname</a>&nbsp;&nbsp;
+      <a href="#M000866">paths</a>&nbsp;&nbsp;
+      <a href="#M000857">powerset</a>&nbsp;&nbsp;
+      <a href="#M000885">rails_env</a>&nbsp;&nbsp;
+      <a href="#M000884">rails_root</a>&nbsp;&nbsp;
+      <a href="#M000892">rbx?</a>&nbsp;&nbsp;
+      <a href="#M000898">realpath</a>&nbsp;&nbsp;
+      <a href="#M000899">relative_path_from</a>&nbsp;&nbsp;
+      <a href="#M000861">replace_subseq</a>&nbsp;&nbsp;
+      <a href="#M000858">restrict</a>&nbsp;&nbsp;
+      <a href="#M000901">retry_on_windows</a>&nbsp;&nbsp;
+      <a href="#M000859">round</a>&nbsp;&nbsp;
+      <a href="#M000903">ruby1?</a>&nbsp;&nbsp;
+      <a href="#M000904">ruby1_8?</a>&nbsp;&nbsp;
+      <a href="#M000905">ruby1_9_2?</a>&nbsp;&nbsp;
+      <a href="#M000883">sass_warn</a>&nbsp;&nbsp;
+      <a href="#M000852">scope</a>&nbsp;&nbsp;
+      <a href="#M000882">silence_sass_warnings</a>&nbsp;&nbsp;
+      <a href="#M000881">silence_warnings</a>&nbsp;&nbsp;
+      <a href="#M000863">slice_by</a>&nbsp;&nbsp;
+      <a href="#M000921">sourcemap_name</a>&nbsp;&nbsp;
+      <a href="#M000865">strip_string_array</a>&nbsp;&nbsp;
+      <a href="#M000875">subsequence?</a>&nbsp;&nbsp;
+      <a href="#M000864">substitute</a>&nbsp;&nbsp;
+      <a href="#M000853">to_hash</a>&nbsp;&nbsp;
+      <a href="#M000873">undefined_conversion_error_char</a>&nbsp;&nbsp;
+      <a href="#M000878">version_geq</a>&nbsp;&nbsp;
+      <a href="#M000877">version_gt</a>&nbsp;&nbsp;
+      <a href="#M000890">windows?</a>&nbsp;&nbsp;
+      <a href="#M000920">with_extracted_values</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Module <a href="Util/Test.html" class="link">Sass::Util::Test</a><br />
+Class <a href="Util/CrossPlatformRandom.html" class="link">Sass::Util::CrossPlatformRandom</a><br />
+Class <a href="Util/MultibyteStringScanner.html" class="link">Sass::Util::MultibyteStringScanner</a><br />
+Class <a href="Util/NormalizedMap.html" class="link">Sass::Util::NormalizedMap</a><br />
+Class <a href="Util/SubsetMap.html" class="link">Sass::Util::SubsetMap</a><br />
+
+    </div>
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">RUBY_VERSION_COMPONENTS</td>
+          <td>=</td>
+          <td class="context-item-value">RUBY_VERSION.split(&quot;.&quot;).map {|s| s.to_i}</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+An array of ints representing the Ruby version number. @api public
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">RUBY_ENGINE</td>
+          <td>=</td>
+          <td class="context-item-value">defined?(::RUBY_ENGINE) ? ::RUBY_ENGINE : &quot;ruby&quot;</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+The Ruby engine we&#8216;re running under. Defaults to `&quot;ruby&quot;`
+if the top-level constant is undefined. @api public
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">CHARSET_REGEXP</td>
+          <td>=</td>
+          <td class="context-item-value">/\A@charset &quot;([^&quot;]+)&quot;/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">UTF_8_BOM</td>
+          <td>=</td>
+          <td class="context-item-value">&quot;\xEF\xBB\xBF&quot;.force_encoding('BINARY')</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">UTF_16BE_BOM</td>
+          <td>=</td>
+          <td class="context-item-value">&quot;\xFE\xFF&quot;.force_encoding('BINARY')</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">UTF_16LE_BOM</td>
+          <td>=</td>
+          <td class="context-item-value">&quot;\xFF\xFE&quot;.force_encoding('BINARY')</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">VLQ_BASE_SHIFT</td>
+          <td>=</td>
+          <td class="context-item-value">5</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">VLQ_BASE</td>
+          <td>=</td>
+          <td class="context-item-value">1 &lt;&lt; VLQ_BASE_SHIFT</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">VLQ_BASE_MASK</td>
+          <td>=</td>
+          <td class="context-item-value">VLQ_BASE - 1</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">VLQ_CONTINUATION_BIT</td>
+          <td>=</td>
+          <td class="context-item-value">VLQ_BASE</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">BASE64_DIGITS</td>
+          <td>=</td>
+          <td class="context-item-value">('A'..'Z').to_a + ('a'..'z').to_a + ('0'..'9').to_a + ['+', '/']</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">BASE64_DIGIT_MAP</td>
+          <td>=</td>
+          <td class="context-item-value">begin       map = {}</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000879" class="method-detail">
+        <a name="M000879"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000879.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000879.html');return false;">
+          <span class="method-name">abstract</span><span class="method-args">(obj)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Throws a NotImplementedError for an <a
+href="Util.html#M000879">abstract</a> method.
+</p>
+<p>
+@param obj [Object] `self` @raise [NotImplementedError]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000887" class="method-detail">
+        <a name="M000887"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000887.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000887.html');return false;">
+          <span class="method-name">ap_geq?</span><span class="method-args">(version)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns whether this environment is using ActionPack of a version greater
+than or equal to that specified.
+</p>
+<p>
+@param version [String] The string version number to check against.
+</p>
+<pre>
+  Should be greater than or equal to Rails 3,
+  because otherwise ActionPack::VERSION isn't autoloaded
+</pre>
+<p>
+@return [Boolean]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000886" class="method-detail">
+        <a name="M000886"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000886.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000886.html');return false;">
+          <span class="method-name">ap_geq_3?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns whether this environment is using ActionPack version 3.0.0 or
+greater.
+</p>
+<p>
+@return [Boolean]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000870" class="method-detail">
+        <a name="M000870"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000870.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000870.html');return false;">
+          <span class="method-name">array_minus</span><span class="method-args">(minuend, subtrahend)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a sub-array of `minuend` containing only elements that are also in
+`subtrahend`. Ensures that the return value has the same order as
+`minuend`, even on Rubinius where that&#8216;s not guaranteed by `Array#-`.
+</p>
+<p>
+@param minuend [Array] @param subtrahend [Array] @return [Array]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000889" class="method-detail">
+        <a name="M000889"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000889.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000889.html');return false;">
+          <span class="method-name">av_template_class</span><span class="method-args">(name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns an ActionView::Template* class. In pre-3.0 versions of Rails, most
+of these classes were of the form `ActionView::TemplateFoo`, while
+afterwards they were of the form `ActionView;:Template::Foo`.
+</p>
+<p>
+@param name [to_s] The name of the class to get.
+</p>
+<pre>
+  For example, `:Error` will return `ActionView::TemplateError`
+  or `ActionView::Template::Error`.
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000876" class="method-detail">
+        <a name="M000876"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000876.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000876.html');return false;">
+          <span class="method-name">caller_info</span><span class="method-args">(entry = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns information about the caller of the previous method.
+</p>
+<p>
+@param entry [String] An entry in the `caller` list, or a similarly
+formatted string @return [[String, Fixnum, (String, nil)]]
+</p>
+<pre>
+  An array containing the filename, line, and method name of the caller.
+  The method name may be nil
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000874" class="method-detail">
+        <a name="M000874"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000874.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000874.html');return false;">
+          <span class="method-name">check_range</span><span class="method-args">(name, range, value, unit = '')</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Asserts that `value` falls within `range` (inclusive), leaving room for
+slight floating-point errors.
+</p>
+<p>
+@param name [String] The name of the value. Used in the error message.
+@param range [Range] The allowed range of values. @param value [Numeric, <a
+href="Script/Value/Number.html">Sass::Script::Value::Number</a>] The value
+to check. @param unit [String] The unit of the value. Used in error
+reporting. @return [Numeric] `value` adjusted to fall within range, if it
+</p>
+<pre>
+  was outside by a floating-point margin.
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000909" class="method-detail">
+        <a name="M000909"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000909.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000909.html');return false;">
+          <span class="method-name">check_sass_encoding</span><span class="method-args">(str)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Like {\check_encoding}, but also checks for a `@charset` declaration at the
+beginning of the file and uses that encoding if it exists.
+</p>
+<p>
+<a href="../Sass.html">Sass</a> follows <a href="CSS.html">CSS</a>&#8216;s
+decoding rules.
+</p>
+<p>
+@param str [String] The string of which to check the encoding @return
+[(String, Encoding)] The original string encoded as UTF-8,
+</p>
+<pre>
+  and the source encoding of the string (or `nil` under Ruby 1.8)
+</pre>
+<p>
+@raise [Encoding::UndefinedConversionError] if the source encoding
+</p>
+<pre>
+  cannot be converted to UTF-8
+</pre>
+<p>
+@raise [ArgumentError] if the document uses an unknown encoding with
+`@charset` @raise [<a href="SyntaxError.html">Sass::SyntaxError</a>] If the
+document declares an encoding that
+</p>
+<pre>
+  doesn't match its contents, or it doesn't declare an encoding and its
+  contents are invalid in the native encoding.
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000897" class="method-detail">
+        <a name="M000897"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000897.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000897.html');return false;">
+          <span class="method-name">cleanpath</span><span class="method-args">(path)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Like `Pathname#cleanpath`, but normalizes Windows <a
+href="Util.html#M000866">paths</a> to always use backslash separators.
+Normally, `Pathname#cleanpath` actually does the reverse &#8212; it will
+convert backslashes to forward slashes, which can break
+`Pathname#relative_path_from`.
+</p>
+<p>
+@param path [String, Pathname] @return [Pathname]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000880" class="method-detail">
+        <a name="M000880"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000880.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000880.html');return false;">
+          <span class="method-name">deprecated</span><span class="method-args">(obj, message = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Prints a deprecation warning for the caller method.
+</p>
+<p>
+@param obj [Object] `self` @param message [String] A message describing
+what to do instead.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000902" class="method-detail">
+        <a name="M000902"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000902.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000902.html');return false;">
+          <span class="method-name">destructure</span><span class="method-args">(val)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Prepare a value for a destructuring assignment (e.g. `a, b = val`). This
+works around a performance bug when using ActiveSupport, and only needs to
+be called when `val` is likely to be `nil` reasonably often.
+</p>
+<p>
+See [this bug report](<a
+href="http://redmine.ruby-lang.org/issues/4917">redmine.ruby-lang.org/issues/4917</a>).
+</p>
+<p>
+@param val [Object] @return [Object]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000912" class="method-detail">
+        <a name="M000912"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000912.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000912.html');return false;">
+          <span class="method-name">enum_cons</span><span class="method-args">(enum, n)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+A version of `Enumerable#enum_cons` that works in Ruby 1.8 and 1.9.
+</p>
+<p>
+@param enum [Enumerable] The enumerable to get the enumerator for @param n
+[Fixnum] The size of each cons @return [Enumerator] The consed enumerator
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000913" class="method-detail">
+        <a name="M000913"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000913.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000913.html');return false;">
+          <span class="method-name">enum_slice</span><span class="method-args">(enum, n)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+A version of `Enumerable#enum_slice` that works in Ruby 1.8 and 1.9.
+</p>
+<p>
+@param enum [Enumerable] The enumerable to get the enumerator for @param n
+[Fixnum] The size of each slice @return [Enumerator] The consed enumerator
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000911" class="method-detail">
+        <a name="M000911"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000911.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000911.html');return false;">
+          <span class="method-name">enum_with_index</span><span class="method-args">(enum)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+A version of `Enumerable#enum_with_index` that works in Ruby 1.8 and 1.9.
+</p>
+<p>
+@param enum [Enumerable] The enumerable to get the enumerator for @return
+[Enumerator] The with-index enumerator
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000914" class="method-detail">
+        <a name="M000914"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000914.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000914.html');return false;">
+          <span class="method-name">extract!</span><span class="method-args">(array) {|e| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Destructively removes all elements from an array that match a block, and
+returns the removed elements.
+</p>
+<p>
+@param array [Array] The array from which to remove elements. @yield [el]
+Called for each element. @yieldparam el [*] The element to test.
+@yieldreturn [Boolean] Whether or not to extract the element. @return
+[Array] The extracted elements.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000918" class="method-detail">
+        <a name="M000918"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000918.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000918.html');return false;">
+          <span class="method-name">extract_values</span><span class="method-args">(arr)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Extracts the non-string vlaues from an array containing both strings and
+non-strings. These values are replaced with escape sequences. This can be
+undone using \{inject_values}.
+</p>
+<p>
+This is useful e.g. when we want to do string manipulation on an
+interpolated string.
+</p>
+<p>
+The precise format of the resulting string is not guaranteed. However, it
+is guaranteed that newlines and whitespace won&#8216;t be affected.
+</p>
+<p>
+@param arr [Array] The array from which values are extracted. @return
+[(String, Array)] The resulting string, and an array of extracted values.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000900" class="method-detail">
+        <a name="M000900"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000900.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000900.html');return false;">
+          <span class="method-name">file_uri_from_path</span><span class="method-args">(path)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Converts `path` to a &quot;file:&quot; URI. This handles Windows <a
+href="Util.html#M000866">paths</a> correctly.
+</p>
+<p>
+@param path [String, Pathname] @return [String]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000916" class="method-detail">
+        <a name="M000916"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000916.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000916.html');return false;">
+          <span class="method-name">flatten_vertically</span><span class="method-args">(arrs)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Flattens the first level of nested arrays in `arrs`. Unlike
+`Array#flatten`, this orders the result by taking the first values from
+each array in order, then the second, and so on.
+</p>
+<p>
+@param arrs [Array] The array to flatten. @return [Array] The flattened
+array.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000895" class="method-detail">
+        <a name="M000895"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000895.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000895.html');return false;">
+          <span class="method-name">glob</span><span class="method-args">(path) {|f| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Like `Dir.glob`, but works with backslash-separated <a
+href="Util.html#M000866">paths</a> on Windows.
+</p>
+<p>
+@param path [String]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000869" class="method-detail">
+        <a name="M000869"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000869.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000869.html');return false;">
+          <span class="method-name">group_by_to_a</span><span class="method-args">(enum) {|e| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Performs the equivalent of `enum.group_by.to_a`, but with a guaranteed
+order. Unlike {<a href="Util.html#M000868">Util#hash_to_a</a>}, the
+resulting order isn&#8216;t sorted key order; instead, it&#8216;s the same
+order as `group_by` has under Ruby 1.9 (key appearance order).
+</p>
+<p>
+@param enum [Enumerable] @return [Array&lt;[Object, Array]&gt;] An array of
+pairs.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000910" class="method-detail">
+        <a name="M000910"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000910.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000910.html');return false;">
+          <span class="method-name">has?</span><span class="method-args">(attr, klass, method)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Checks to see if a class has a given method. For example:
+</p>
+<pre>
+    Sass::Util.has?(:public_instance_method, String, :gsub) #=&gt; true
+</pre>
+<p>
+Method collections like `Class#instance_methods` return strings in Ruby 1.8
+and symbols in Ruby 1.9 and on, so this handles checking for them in a
+compatible way.
+</p>
+<p>
+@param attr [to_s] The (singular) name of the method-collection method
+</p>
+<pre>
+  (e.g. `:instance_methods`, `:private_methods`)
+</pre>
+<p>
+@param klass [Module] The class to check the methods of which to check
+@param method [String, Symbol] The name of the method do check for @return
+[Boolean] Whether or not the given collection has the given method
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000868" class="method-detail">
+        <a name="M000868"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000868.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000868.html');return false;">
+          <span class="method-name">hash_to_a</span><span class="method-args">(hash)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Converts a Hash to an Array. This is usually identical to `Hash#to_a`, with
+the following exceptions:
+</p>
+<ul>
+<li>In Ruby 1.8, `Hash#to_a` is not deterministically ordered, but this is.
+
+</li>
+<li>In Ruby 1.9 when running tests, this is ordered in the same way it would be
+under Ruby 1.8 (sorted key order rather than insertion order).
+
+</li>
+</ul>
+<p>
+@param hash [Hash] @return [Array]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000919" class="method-detail">
+        <a name="M000919"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000919.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000919.html');return false;">
+          <span class="method-name">inject_values</span><span class="method-args">(str, values)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Undoes \{extract_values} by transforming a string with escape sequences
+into an array of strings and non-string values.
+</p>
+<p>
+@param str [String] The string with escape sequences. @param values [Array]
+The array of values to inject. @return [Array] The array of strings and
+values.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000917" class="method-detail">
+        <a name="M000917"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000917.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000917.html');return false;">
+          <span class="method-name">inspect_obj</span><span class="method-args">(obj)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Like `Object#inspect`, but preserves non-ASCII characters rather than
+escaping them under Ruby 1.9.2. This is necessary so that the precompiled
+Haml template can be `encode`d into `@options[:encoding]` before being
+evaluated.
+</p>
+<p>
+@param obj {Object} @return {String}
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000862" class="method-detail">
+        <a name="M000862"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000862.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000862.html');return false;">
+          <span class="method-name">intersperse</span><span class="method-args">(enum, val)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Intersperses a value in an enumerable, as would be done with `Array#join`
+but without concatenating the array together afterwards.
+</p>
+<p>
+@param enum [Enumerable] @param val @return [Array]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000891" class="method-detail">
+        <a name="M000891"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000891.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000891.html');return false;">
+          <span class="method-name">ironruby?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Whether or not this is running on IronRuby.
+</p>
+<p>
+@return [Boolean]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000906" class="method-detail">
+        <a name="M000906"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000906.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000906.html');return false;">
+          <span class="method-name">jruby1_6?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Wehter or not this is running under JRuby 1.6 or lower.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000893" class="method-detail">
+        <a name="M000893"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000893.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000893.html');return false;">
+          <span class="method-name">jruby?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Whether or not this is running on JRuby.
+</p>
+<p>
+@return [Boolean]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000894" class="method-detail">
+        <a name="M000894"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000894.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000894.html');return false;">
+          <span class="method-name">jruby_version</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns an array of ints representing the JRuby version number.
+</p>
+<p>
+@return [Array&lt;Fixnum&gt;]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000922" class="method-detail">
+        <a name="M000922"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000922.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000922.html');return false;">
+          <span class="method-name">json_escape_string</span><span class="method-args">(s)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Escapes certain characters so that the result can be used as the JSON
+string value. Returns the original string if no escaping is necessary.
+</p>
+<p>
+@param s [String] The string to be escaped @return [String] The escaped
+string
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000923" class="method-detail">
+        <a name="M000923"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000923.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000923.html');return false;">
+          <span class="method-name">json_value_of</span><span class="method-args">(v)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Converts the argument into a valid JSON value.
+</p>
+<p>
+@param v [Fixnum, String, Array, Boolean, nil] @return [String]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000867" class="method-detail">
+        <a name="M000867"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000867.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000867.html');return false;">
+          <span class="method-name">lcs</span><span class="method-args">(x, y, &amp;block)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Computes a single longest common subsequence for `x` and `y`. If there are
+more than one longest common subsequences, the one returned is that which
+starts first in `x`.
+</p>
+<p>
+@param x [Array] @param y [Array] @yield [a, b] An optional block to use in
+place of a check for equality
+</p>
+<pre>
+  between elements of `x` and `y`.
+</pre>
+<p>
+@yieldreturn [Object, nil] If the two values register as equal,
+</p>
+<pre>
+  this will return the value to use in the LCS array.
+</pre>
+<p>
+@return [Array] The LCS
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000888" class="method-detail">
+        <a name="M000888"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000888.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000888.html');return false;">
+          <span class="method-name">listen_geq_2?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns whether this environment is using Listen version 2.0.0 or greater.
+</p>
+<p>
+@return [Boolean]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000907" class="method-detail">
+        <a name="M000907"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000907.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000907.html');return false;">
+          <span class="method-name">macruby?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Whether or not this is running under MacRuby.
+</p>
+<p>
+@return [Boolean]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000856" class="method-detail">
+        <a name="M000856"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000856.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000856.html');return false;">
+          <span class="method-name">map_hash</span><span class="method-args">(hash) {|k, v| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Maps the key-value pairs of a hash according to a block.
+</p>
+<p>
+@example
+</p>
+<pre>
+  map_hash({:foo =&gt; &quot;bar&quot;, :baz =&gt; &quot;bang&quot;}) {|k, v| [k.to_s, v.to_sym]}
+    #=&gt; {&quot;foo&quot; =&gt; :bar, &quot;baz&quot; =&gt; :bang}
+</pre>
+<p>
+@param hash [Hash] The hash to map @yield [key, value] A block in which the
+key-value pairs are transformed @yieldparam [key] The hash key @yieldparam
+[value] The hash value @yieldreturn [(Object, Object)] The new value for
+the `[key, value]` pair @return [Hash] The mapped hash @see <a
+href="Util.html#M000854">map_keys</a> @see <a
+href="Util.html#M000855">map_vals</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000854" class="method-detail">
+        <a name="M000854"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000854.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000854.html');return false;">
+          <span class="method-name">map_keys</span><span class="method-args">(hash) {|k| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Maps the keys in a hash according to a block.
+</p>
+<p>
+@example
+</p>
+<pre>
+  map_keys({:foo =&gt; &quot;bar&quot;, :baz =&gt; &quot;bang&quot;}) {|k| k.to_s}
+    #=&gt; {&quot;foo&quot; =&gt; &quot;bar&quot;, &quot;baz&quot; =&gt; &quot;bang&quot;}
+</pre>
+<p>
+@param hash [Hash] The hash to map @yield [key] A block in which the keys
+are transformed @yieldparam key [Object] The key that should be mapped
+@yieldreturn [Object] The new value for the key @return [Hash] The mapped
+hash @see <a href="Util.html#M000855">map_vals</a> @see <a
+href="Util.html#M000856">map_hash</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000855" class="method-detail">
+        <a name="M000855"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000855.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000855.html');return false;">
+          <span class="method-name">map_vals</span><span class="method-args">(hash) {|v| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Maps the values in a hash according to a block.
+</p>
+<p>
+@example
+</p>
+<pre>
+  map_values({:foo =&gt; &quot;bar&quot;, :baz =&gt; &quot;bang&quot;}) {|v| v.to_sym}
+    #=&gt; {:foo =&gt; :bar, :baz =&gt; :bang}
+</pre>
+<p>
+@param hash [Hash] The hash to map @yield [value] A block in which the
+values are transformed @yieldparam value [Object] The value that should be
+mapped @yieldreturn [Object] The new value for the value @return [Hash] The
+mapped hash @see <a href="Util.html#M000854">map_keys</a> @see <a
+href="Util.html#M000856">map_hash</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000871" class="method-detail">
+        <a name="M000871"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000871.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000871.html');return false;">
+          <span class="method-name">max</span><span class="method-args">(val1, val2)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the maximum of `val1` and `val2`. We use this over \{Array.max} to
+avoid unnecessary garbage collection.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000860" class="method-detail">
+        <a name="M000860"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000860.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000860.html');return false;">
+          <span class="method-name">merge_adjacent_strings</span><span class="method-args">(arr)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Concatenates all strings that are adjacent in an array, while leaving other
+elements as they are.
+</p>
+<p>
+@example
+</p>
+<pre>
+  merge_adjacent_strings([1, &quot;foo&quot;, &quot;bar&quot;, 2, &quot;baz&quot;])
+    #=&gt; [1, &quot;foobar&quot;, 2, &quot;baz&quot;]
+</pre>
+<p>
+@param arr [Array] @return [Array] The enumerable with strings merged
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000872" class="method-detail">
+        <a name="M000872"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000872.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000872.html');return false;">
+          <span class="method-name">min</span><span class="method-args">(val1, val2)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the minimum of `val1` and `val2`. We use this over \{Array.min} to
+avoid unnecessary garbage collection.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000915" class="method-detail">
+        <a name="M000915"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000915.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000915.html');return false;">
+          <span class="method-name">ord</span><span class="method-args">(c)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the ASCII code of the given character.
+</p>
+<p>
+@param c [String] All characters but the first are ignored. @return
+[Fixnum] The ASCII code of `c`.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000908" class="method-detail">
+        <a name="M000908"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000908.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000908.html');return false;">
+          <span class="method-name">ordered_hash</span><span class="method-args">(*pairs_or_hash)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Converts a hash or a list of pairs into an order-preserving hash.
+</p>
+<p>
+On Ruby 1.8.7, this uses the orderedhash gem to simulate an
+order-preserving hash. On Ruby 1.9 and up, it just uses the native Hash
+class, since that preserves the order itself.
+</p>
+<p>
+@overload <a href="Util.html#M000908">ordered_hash</a>(hash)
+</p>
+<pre>
+  @param hash [Hash] a normal hash to convert to an ordered hash
+  @return [Hash]
+</pre>
+<p>
+@overload <a href="Util.html#M000908">ordered_hash</a>(*pairs)
+</p>
+<pre>
+  @example
+    ordered_hash([:foo, &quot;bar&quot;], [:baz, &quot;bang&quot;])
+      #=&gt; {:foo =&gt; &quot;bar&quot;, :baz =&gt; &quot;bang&quot;}
+    ordered_hash #=&gt; {}
+  @param pairs [Array&lt;(Object, Object)&gt;] the list of key/value pairs for
+    the hash.
+  @return [Hash]
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000896" class="method-detail">
+        <a name="M000896"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000896.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000896.html');return false;">
+          <span class="method-name">pathname</span><span class="method-args">(path)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Like `Pathname.new`, but normalizes Windows <a
+href="Util.html#M000866">paths</a> to always use backslash separators.
+</p>
+<p>
+`Pathname#relative_path_from` can break if the two pathnames aren&#8216;t
+consistent in their slash style.
+</p>
+<p>
+@param path [String] @return [Pathname]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000866" class="method-detail">
+        <a name="M000866"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000866.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000866.html');return false;">
+          <span class="method-name">paths</span><span class="method-args">(arrs)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return an array of all possible <a href="Util.html#M000866">paths</a>
+through the given arrays.
+</p>
+<p>
+@param arrs [Array&lt;Array&gt;] @return [Array&lt;Arrays&gt;]
+</p>
+<p>
+@example
+</p>
+<pre>
+  paths([[1, 2], [3, 4], [5]]) #=&gt;
+    # [[1, 3, 5],
+    #  [2, 3, 5],
+    #  [1, 4, 5],
+    #  [2, 4, 5]]
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000857" class="method-detail">
+        <a name="M000857"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000857.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000857.html');return false;">
+          <span class="method-name">powerset</span><span class="method-args">(arr)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Computes the <a href="Util.html#M000857">powerset</a> of the given array.
+This is the set of all subsets of the array.
+</p>
+<p>
+@example
+</p>
+<pre>
+  powerset([1, 2, 3]) #=&gt;
+    Set[Set[], Set[1], Set[2], Set[3], Set[1, 2], Set[2, 3], Set[1, 3], Set[1, 2, 3]]
+</pre>
+<p>
+@param arr [Enumerable] @return [Set&lt;Set&gt;] The subsets of `arr`
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000885" class="method-detail">
+        <a name="M000885"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000885.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000885.html');return false;">
+          <span class="method-name">rails_env</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the environment of the Rails application, if this is running in a
+Rails context. Returns `nil` if no such environment is defined.
+</p>
+<p>
+@return [String, nil]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000884" class="method-detail">
+        <a name="M000884"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000884.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000884.html');return false;">
+          <span class="method-name">rails_root</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the root of the Rails application, if this is running in a Rails
+context. Returns `nil` if no such root is defined.
+</p>
+<p>
+@return [String, nil]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000892" class="method-detail">
+        <a name="M000892"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000892.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000892.html');return false;">
+          <span class="method-name">rbx?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Whether or not this is running on Rubinius.
+</p>
+<p>
+@return [Boolean]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000898" class="method-detail">
+        <a name="M000898"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000898.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000898.html');return false;">
+          <span class="method-name">realpath</span><span class="method-args">(path)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns `path` with all symlinks resolved.
+</p>
+<p>
+@param path [String, Pathname] @return [Pathname]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000899" class="method-detail">
+        <a name="M000899"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000899.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000899.html');return false;">
+          <span class="method-name">relative_path_from</span><span class="method-args">(path, from)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns `path` relative to `from`.
+</p>
+<p>
+This is like `Pathname#relative_path_from` except it accepts both strings
+and pathnames, it handles Windows path separators correctly, and it throws
+an error rather than crashing if the <a href="Util.html#M000866">paths</a>
+use different encodings (<a
+href="https://github.com/ruby/ruby/pull/713">github.com/ruby/ruby/pull/713</a>).
+</p>
+<p>
+@param path [String, Pathname] @param from [String, Pathname] @return
+[Pathname?]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000861" class="method-detail">
+        <a name="M000861"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000861.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000861.html');return false;">
+          <span class="method-name">replace_subseq</span><span class="method-args">(arr, subseq, replacement)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Non-destructively replaces all occurrences of a subsequence in an array
+with another subsequence.
+</p>
+<p>
+@example
+</p>
+<pre>
+  replace_subseq([1, 2, 3, 4, 5], [2, 3], [:a, :b])
+    #=&gt; [1, :a, :b, 4, 5]
+</pre>
+<p>
+@param arr [Array] The array whose subsequences will be replaced. @param
+subseq [Array] The subsequence to find and replace. @param replacement
+[Array] The sequence that `subseq` will be replaced with. @return [Array]
+`arr` with `subseq` replaced with `replacement`.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000858" class="method-detail">
+        <a name="M000858"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000858.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000858.html');return false;">
+          <span class="method-name">restrict</span><span class="method-args">(value, range)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Restricts a number to falling within a given range. Returns the number if
+it falls within the range, or the closest value in the range if it
+doesn&#8216;t.
+</p>
+<p>
+@param value [Numeric] @param range [Range&lt;Numeric&gt;] @return
+[Numeric]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000901" class="method-detail">
+        <a name="M000901"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000901.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000901.html');return false;">
+          <span class="method-name">retry_on_windows</span><span class="method-args">() {|unless windows?| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Retries a filesystem operation if it fails on Windows. Windows has weird
+and flaky locking rules that can cause operations to fail.
+</p>
+<p>
+@yield [] The filesystem operation.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000859" class="method-detail">
+        <a name="M000859"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000859.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000859.html');return false;">
+          <span class="method-name">round</span><span class="method-args">(value)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Like [Fixnum.round], but leaves rooms for slight floating-point
+differences.
+</p>
+<p>
+@param value [Numeric] @return [Numeric]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000903" class="method-detail">
+        <a name="M000903"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000903.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000903.html');return false;">
+          <span class="method-name">ruby1?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Whether or not this is running under a Ruby version under 2.0.
+</p>
+<p>
+@return [Boolean]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000904" class="method-detail">
+        <a name="M000904"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000904.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000904.html');return false;">
+          <span class="method-name">ruby1_8?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Whether or not this is running under Ruby 1.8 or lower.
+</p>
+<p>
+Note that IronRuby counts as Ruby 1.8, because it doesn&#8216;t support the
+Ruby 1.9 encoding API.
+</p>
+<p>
+@return [Boolean]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000905" class="method-detail">
+        <a name="M000905"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000905.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000905.html');return false;">
+          <span class="method-name">ruby1_9_2?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Whether or not this is running under Ruby 1.9.2 exactly.
+</p>
+<p>
+@return [Boolean]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000883" class="method-detail">
+        <a name="M000883"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000883.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000883.html');return false;">
+          <span class="method-name">sass_warn</span><span class="method-args">(msg)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The same as `Kernel#warn`, but is silenced by \{silence_sass_warnings}.
+</p>
+<p>
+@param msg [String]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000852" class="method-detail">
+        <a name="M000852"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000852.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000852.html');return false;">
+          <span class="method-name">scope</span><span class="method-args">(file)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the path of a file relative to the <a href="../Sass.html">Sass</a>
+root directory.
+</p>
+<p>
+@param file [String] The filename relative to the <a
+href="../Sass.html">Sass</a> root @return [String] The filename relative to
+the the working directory
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000882" class="method-detail">
+        <a name="M000882"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000882.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000882.html');return false;">
+          <span class="method-name">silence_sass_warnings</span><span class="method-args">() {|| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Silences all <a href="../Sass.html">Sass</a> warnings within a block.
+</p>
+<p>
+@yield A block in which no <a href="../Sass.html">Sass</a> warnings will be
+printed
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000881" class="method-detail">
+        <a name="M000881"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000881.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000881.html');return false;">
+          <span class="method-name">silence_warnings</span><span class="method-args">() {|| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Silence all output to STDERR within a block.
+</p>
+<p>
+@yield A block in which no output will be printed to STDERR
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000863" class="method-detail">
+        <a name="M000863"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000863.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000863.html');return false;">
+          <span class="method-name">slice_by</span><span class="method-args">(enum) {|value| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000921" class="method-detail">
+        <a name="M000921"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000921.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000921.html');return false;">
+          <span class="method-name">sourcemap_name</span><span class="method-args">(css)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Builds a sourcemap file name given the generated <a href="CSS.html">CSS</a>
+file name.
+</p>
+<p>
+@param css [String] The generated <a href="CSS.html">CSS</a> file name.
+@return [String] The source map file name.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000865" class="method-detail">
+        <a name="M000865"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000865.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000865.html');return false;">
+          <span class="method-name">strip_string_array</span><span class="method-args">(arr)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Destructively strips whitespace from the beginning and end of the first and
+last elements, respectively, in the array (if those elements are strings).
+</p>
+<p>
+@param arr [Array] @return [Array] `arr`
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000875" class="method-detail">
+        <a name="M000875"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000875.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000875.html');return false;">
+          <span class="method-name">subsequence?</span><span class="method-args">(seq1, seq2)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns whether or not `seq1` is a subsequence of `seq2`. That is, whether
+or not `seq2` contains every element in `seq1` in the same order (and
+possibly more elements besides).
+</p>
+<p>
+@param seq1 [Array] @param seq2 [Array] @return [Boolean]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000864" class="method-detail">
+        <a name="M000864"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000864.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000864.html');return false;">
+          <span class="method-name">substitute</span><span class="method-args">(ary, from, to)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Substitutes a sub-array of one array with another sub-array.
+</p>
+<p>
+@param ary [Array] The array in which to make the substitution @param from
+[Array] The sequence of elements to replace with `to` @param to [Array] The
+sequence of elements to replace `from` with
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000853" class="method-detail">
+        <a name="M000853"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000853.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000853.html');return false;">
+          <span class="method-name">to_hash</span><span class="method-args">(arr)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Converts an array of `[key, value]` pairs to a hash.
+</p>
+<p>
+@example
+</p>
+<pre>
+  to_hash([[:foo, &quot;bar&quot;], [:baz, &quot;bang&quot;]])
+    #=&gt; {:foo =&gt; &quot;bar&quot;, :baz =&gt; &quot;bang&quot;}
+</pre>
+<p>
+@param arr [Array&lt;(Object, Object)&gt;] An array of pairs @return [Hash]
+A hash
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000873" class="method-detail">
+        <a name="M000873"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000873.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000873.html');return false;">
+          <span class="method-name">undefined_conversion_error_char</span><span class="method-args">(e)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a string description of the character that caused an
+`Encoding::UndefinedConversionError`.
+</p>
+<p>
+@param e [Encoding::UndefinedConversionError] @return [String]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000878" class="method-detail">
+        <a name="M000878"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000878.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000878.html');return false;">
+          <span class="method-name">version_geq</span><span class="method-args">(v1, v2)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns whether one version string represents the same or a more recent
+version than another.
+</p>
+<p>
+@param v1 [String] A version string. @param v2 [String] Another version
+string. @return [Boolean]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000877" class="method-detail">
+        <a name="M000877"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000877.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000877.html');return false;">
+          <span class="method-name">version_gt</span><span class="method-args">(v1, v2)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns whether one version string represents a more recent version than
+another.
+</p>
+<p>
+@param v1 [String] A version string. @param v2 [String] Another version
+string. @return [Boolean]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000890" class="method-detail">
+        <a name="M000890"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000890.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000890.html');return false;">
+          <span class="method-name">windows?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Whether or not this is running on Windows.
+</p>
+<p>
+@return [Boolean]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000920" class="method-detail">
+        <a name="M000920"></a>
+
+        <div class="method-heading">
+          <a href="Util.src/M000920.html" target="Code" class="method-signature"
+            onclick="popupCode('Util.src/M000920.html');return false;">
+          <span class="method-name">with_extracted_values</span><span class="method-args">(arr) {|str| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Allows modifications to be performed on the string form of an array
+containing both strings and non-strings.
+</p>
+<p>
+@param arr [Array] The array from which values are extracted. @yield [str]
+A block in which string manipulation can be done to the array. @yieldparam
+str [String] The string form of `arr`. @yieldreturn [String] The modified
+string. @return [Array] The modified, interpolated array.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

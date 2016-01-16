@@ -1,0 +1,60 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: Flags for the attribute selector (e.g. `i`).
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [String]"
+  name: flags
+  rw: R
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The attribute name.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Array&lt;String, Sass::Script::Tree::Node&gt;]"
+  name: name
+  rw: R
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The attribute namespace. `nil` means the default namespace, `&quot;&quot;` means no namespace, `&quot;*&quot;` means any namespace.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [String, nil]"
+  name: namespace
+  rw: R
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The matching operator, e.g. `&quot;=&quot;` or `&quot;^=&quot;`.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [String]"
+  name: operator
+  rw: R
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The right-hand side of the operator.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [String]"
+  name: value
+  rw: R
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: An attribute selector (e.g. `[href^=&quot;http://&quot;]`).
+constants: []
+
+full_name: Sass::Selector::Attribute
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: specificity
+- !ruby/object:RI::MethodSummary 
+  name: to_s
+name: Attribute
+superclass: Simple

@@ -1,0 +1,29 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: extended
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A lightweight infrastructure for defining and running callbacks. Callbacks are defined using \{#define_callback\} at the class level, and called using `run_#{name}` at the instance level.
+- !ruby/struct:SM::Flow::P 
+  body: Clients can add callbacks by calling the generated `on_#{name}` method, and passing in a block that's run when the callback is activated.
+- !ruby/struct:SM::Flow::P 
+  body: "@example Define a callback"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  class Munger\n    extend Sass::Callbacks\n    define_callback :string_munged\n\n    def munge(str)\n      res = str.gsub(/[a-z]/, '\\1\\1')\n      run_string_munged str, res\n      res\n    end\n  end\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@example Use a callback"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  m = Munger.new\n  m.on_string_munged {|str, res| puts &quot;#{str} was munged into #{res}!&quot;}\n  m.munge &quot;bar&quot; #=&gt; bar was munged into bbaarr!\n"
+constants: []
+
+full_name: Sass::Callbacks
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: define_callback
+name: Callbacks
+superclass: 

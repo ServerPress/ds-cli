@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Sass::Supports::Negation#deep_copy
+is_singleton: false
+name: deep_copy
+params: ()
+visibility: public

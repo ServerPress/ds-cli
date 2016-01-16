@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns the specificity of the selector.
+- !ruby/struct:SM::Flow::P 
+  body: The base is given by {Sass::Selector::SPECIFICITY_BASE}. This can be a number or a range representing possible specificities.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Fixnum, Range]"
+full_name: Sass::Selector::AbstractSequence#specificity
+is_singleton: false
+name: specificity
+params: ()
+visibility: public

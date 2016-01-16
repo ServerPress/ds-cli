@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Visit the child nodes for a given node. This can be overridden by subclasses that need to do something with the child nodes' return values.
+- !ruby/struct:SM::Flow::P 
+  body: This method is run when `visit_*` methods `yield`, and its return value is returned from the `yield`.
+- !ruby/struct:SM::Flow::P 
+  body: "@param parent [Tree::Node] The parent node of the children to visit. @return [Array&lt;Object&gt;] The return values of the `visit_*` methods for the children."
+full_name: Sass::Tree::Visitors::Base#visit_children
+is_singleton: false
+name: visit_children
+params: (parent)
+visibility: protected

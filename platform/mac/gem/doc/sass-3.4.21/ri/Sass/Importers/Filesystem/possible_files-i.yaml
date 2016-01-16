@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Given an `@import`ed path, returns an array of possible on-disk filenames and their corresponding syntaxes for that path.
+- !ruby/struct:SM::Flow::P 
+  body: "@param name [String] The filename. @return [Array(String, Symbol)] An array of pairs."
+- !ruby/struct:SM::Flow::VERB 
+  body: "  The first element of each pair is a filename to look for;\n  the second element is the syntax that file would be in (`:sass` or `:scss`).\n"
+full_name: Sass::Importers::Filesystem#possible_files
+is_singleton: false
+name: possible_files
+params: (name)
+visibility: protected

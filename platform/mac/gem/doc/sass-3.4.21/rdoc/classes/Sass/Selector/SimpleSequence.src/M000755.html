@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>superselector? (Sass::Selector::SimpleSequence)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/selector/simple_sequence.rb, line 255</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">superselector?</span>(<span class="ruby-identifier">their_sseq</span>, <span class="ruby-identifier">parents</span> = [])
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">base</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">base</span>.<span class="ruby-identifier">eql?</span>(<span class="ruby-identifier">their_sseq</span>.<span class="ruby-identifier">base</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">pseudo_elements</span>.<span class="ruby-identifier">eql?</span>(<span class="ruby-identifier">their_sseq</span>.<span class="ruby-identifier">pseudo_elements</span>)
+        <span class="ruby-identifier">our_spcs</span> = <span class="ruby-identifier">selector_pseudo_classes</span>
+        <span class="ruby-identifier">their_spcs</span> = <span class="ruby-identifier">their_sseq</span>.<span class="ruby-identifier">selector_pseudo_classes</span>
+
+        <span class="ruby-comment cmt"># Some psuedo-selectors can be subselectors of non-pseudo selectors.</span>
+        <span class="ruby-comment cmt"># Pull those out here so we can efficiently check against them below.</span>
+        <span class="ruby-identifier">their_subselector_pseudos</span> = <span class="ruby-node">%w[matches any nth-child nth-last-child]</span>.
+          <span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">name</span><span class="ruby-operator">|</span> <span class="ruby-identifier">their_spcs</span>[<span class="ruby-identifier">name</span>] <span class="ruby-operator">||</span> []}.<span class="ruby-identifier">flatten</span>
+
+        <span class="ruby-comment cmt"># If `self`'s non-pseudo simple selectors aren't a subset of `their_sseq`'s,</span>
+        <span class="ruby-comment cmt"># it's definitely not a superselector. This also considers being matched</span>
+        <span class="ruby-comment cmt"># by `:matches` or `:any`.</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">rest</span>.<span class="ruby-identifier">all?</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">our_sel</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">our_sel</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Pseudo</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">our_sel</span>.<span class="ruby-identifier">selector</span>
+          <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">their_sseq</span>.<span class="ruby-identifier">rest</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">our_sel</span>)
+          <span class="ruby-identifier">their_subselector_pseudos</span>.<span class="ruby-identifier">any?</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">their_pseudo</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">their_pseudo</span>.<span class="ruby-identifier">selector</span>.<span class="ruby-identifier">members</span>.<span class="ruby-identifier">all?</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">their_seq</span><span class="ruby-operator">|</span>
+              <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">their_seq</span>.<span class="ruby-identifier">members</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+              <span class="ruby-identifier">their_sseq</span> = <span class="ruby-identifier">their_seq</span>.<span class="ruby-identifier">members</span>.<span class="ruby-identifier">first</span>
+              <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">their_sseq</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">SimpleSequence</span>)
+              <span class="ruby-identifier">their_sseq</span>.<span class="ruby-identifier">rest</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">our_sel</span>)
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">our_spcs</span>.<span class="ruby-identifier">all?</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">_name</span>, <span class="ruby-identifier">pseudos</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">pseudos</span>.<span class="ruby-identifier">all?</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">pseudo</span><span class="ruby-operator">|</span> <span class="ruby-identifier">pseudo</span>.<span class="ruby-identifier">superselector?</span>(<span class="ruby-identifier">their_sseq</span>, <span class="ruby-identifier">parents</span>)}
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

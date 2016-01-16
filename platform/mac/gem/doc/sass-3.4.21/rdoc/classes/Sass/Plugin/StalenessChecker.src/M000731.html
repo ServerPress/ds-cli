@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>stylesheet_needs_update? (Sass::Plugin::StalenessChecker)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/plugin/staleness_checker.rb, line 62</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">stylesheet_needs_update?</span>(<span class="ruby-identifier">css_file</span>, <span class="ruby-identifier">template_file</span>, <span class="ruby-identifier">importer</span> = <span class="ruby-keyword kw">nil</span>)
+        <span class="ruby-identifier">template_file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">template_file</span>)
+        <span class="ruby-keyword kw">begin</span>
+          <span class="ruby-identifier">css_mtime</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">mtime</span>(<span class="ruby-identifier">css_file</span>)
+        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">ENOENT</span>
+          <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">stylesheet_modified_since?</span>(<span class="ruby-identifier">template_file</span>, <span class="ruby-identifier">css_mtime</span>, <span class="ruby-identifier">importer</span>)
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

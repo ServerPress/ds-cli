@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>_retrieve (Sass::CacheStores::Filesystem)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/cache_stores/filesystem.rb, line 18</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_retrieve</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">version</span>, <span class="ruby-identifier">sha</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">readable?</span>(<span class="ruby-identifier">path_to</span>(<span class="ruby-identifier">key</span>))
+        <span class="ruby-keyword kw">begin</span>
+          <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">path_to</span>(<span class="ruby-identifier">key</span>), <span class="ruby-value str">&quot;rb&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">readline</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">strip</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">version</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">readline</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">strip</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">sha</span>
+              <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">read</span>
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">end</span>
+          <span class="ruby-constant">File</span>.<span class="ruby-identifier">unlink</span> <span class="ruby-identifier">path_to</span>(<span class="ruby-identifier">key</span>)
+        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">ENOENT</span>
+          <span class="ruby-comment cmt"># Already deleted. Race condition?</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">EOFError</span>, <span class="ruby-constant">TypeError</span>, <span class="ruby-constant">ArgumentError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+        <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">sass_warn</span> <span class="ruby-node">&quot;Warning. Error encountered while reading cache #{path_to(key)}: #{e}&quot;</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

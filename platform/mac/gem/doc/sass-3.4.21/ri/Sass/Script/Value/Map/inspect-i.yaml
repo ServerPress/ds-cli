@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "Alias for #to_sass"
+full_name: Sass::Script::Value::Map#inspect
+is_singleton: false
+name: inspect
+params: (opts = {})
+visibility: public

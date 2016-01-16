@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Converts a node to Sass code that will generate it.
+- !ruby/struct:SM::Flow::P 
+  body: "@param options [{Symbol =&gt; Object}] An options hash (see {Sass::CSS#initialize}) @return [String] The Sass code corresponding to the node"
+full_name: Sass::Tree::Node#to_sass
+is_singleton: false
+name: to_sass
+params: (options = {})
+visibility: public

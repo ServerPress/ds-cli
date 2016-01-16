@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@param seqs_and_ops [Array&lt;SimpleSequence, String|Array&lt;Sass::Tree::Node, String&gt;&gt;]"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  See \\{#members}\n"
+full_name: Sass::Selector::Sequence::new
+is_singleton: true
+name: new
+params: (seqs_and_ops)
+visibility: public

@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@api private @return [Sass::Script::Value::ArgList]"
+full_name: Sass::Tree::Visitors::Perform::perform_splat
+is_singleton: true
+name: perform_splat
+params: (splat, performed_keywords, kwarg_splat, environment)
+visibility: public

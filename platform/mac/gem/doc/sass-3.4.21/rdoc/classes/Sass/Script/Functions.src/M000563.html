@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>adjust_color (Sass::Script::Functions)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/script/functions.rb, line 1126</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">adjust_color</span>(<span class="ruby-identifier">color</span>, <span class="ruby-identifier">kwargs</span>)
+      <span class="ruby-identifier">assert_type</span> <span class="ruby-identifier">color</span>, <span class="ruby-identifier">:Color</span>, <span class="ruby-identifier">:color</span>
+      <span class="ruby-identifier">with</span> = <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">map_hash</span>(
+        <span class="ruby-value str">&quot;red&quot;</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value">-255</span><span class="ruby-operator">..</span><span class="ruby-value">255</span>, <span class="ruby-value str">&quot;&quot;</span>],
+        <span class="ruby-value str">&quot;green&quot;</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value">-255</span><span class="ruby-operator">..</span><span class="ruby-value">255</span>, <span class="ruby-value str">&quot;&quot;</span>],
+        <span class="ruby-value str">&quot;blue&quot;</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value">-255</span><span class="ruby-operator">..</span><span class="ruby-value">255</span>, <span class="ruby-value str">&quot;&quot;</span>],
+        <span class="ruby-value str">&quot;hue&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">nil</span>,
+        <span class="ruby-value str">&quot;saturation&quot;</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value">-100</span><span class="ruby-operator">..</span><span class="ruby-value">100</span>, <span class="ruby-value str">&quot;%&quot;</span>],
+        <span class="ruby-value str">&quot;lightness&quot;</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value">-100</span><span class="ruby-operator">..</span><span class="ruby-value">100</span>, <span class="ruby-value str">&quot;%&quot;</span>],
+        <span class="ruby-value str">&quot;alpha&quot;</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value">-1</span><span class="ruby-operator">..</span><span class="ruby-value">1</span>, <span class="ruby-value str">&quot;&quot;</span>]
+      ) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">name</span>, (<span class="ruby-identifier">range</span>, <span class="ruby-identifier">units</span>)<span class="ruby-operator">|</span>
+        <span class="ruby-identifier">val</span> = <span class="ruby-identifier">kwargs</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">name</span>)
+        <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">val</span>
+        <span class="ruby-identifier">assert_type</span> <span class="ruby-identifier">val</span>, <span class="ruby-identifier">:Number</span>, <span class="ruby-identifier">name</span>
+        <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">check_range</span>(<span class="ruby-node">&quot;$#{name}: Amount&quot;</span>, <span class="ruby-identifier">range</span>, <span class="ruby-identifier">val</span>, <span class="ruby-identifier">units</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">range</span>
+        <span class="ruby-identifier">adjusted</span> = <span class="ruby-identifier">color</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">name</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">value</span>
+        <span class="ruby-identifier">adjusted</span> = [<span class="ruby-value">0</span>, <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">restrict</span>(<span class="ruby-identifier">adjusted</span>, <span class="ruby-identifier">range</span>)].<span class="ruby-identifier">max</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">range</span>
+        [<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-identifier">adjusted</span>]
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">kwargs</span>.<span class="ruby-identifier">empty?</span>
+        <span class="ruby-identifier">name</span>, <span class="ruby-identifier">val</span> = <span class="ruby-identifier">kwargs</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">first</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Unknown argument $#{name} (#{val})&quot;</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">color</span>.<span class="ruby-identifier">with</span>(<span class="ruby-identifier">with</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Runs the child nodes until the continuation expression becomes false.
+full_name: Sass::Tree::Visitors::Perform#visit_while
+is_singleton: false
+name: visit_while
+params: (node)
+visibility: protected

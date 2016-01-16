@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns whether or not this object is null.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Boolean] `false`"
+full_name: Sass::Script::Value::Base#null?
+is_singleton: false
+name: null?
+params: ()
+visibility: public

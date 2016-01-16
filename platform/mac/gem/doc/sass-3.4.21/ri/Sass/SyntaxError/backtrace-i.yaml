@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns the standard exception backtrace, including the Sass backtrace.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Array&lt;String&gt;]"
+full_name: Sass::SyntaxError#backtrace
+is_singleton: false
+name: backtrace
+params: ()
+visibility: public

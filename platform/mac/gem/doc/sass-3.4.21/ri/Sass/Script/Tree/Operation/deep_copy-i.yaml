@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@see Node#deep_copy"
+full_name: Sass::Script::Tree::Operation#deep_copy
+is_singleton: false
+name: deep_copy
+params: ()
+visibility: public

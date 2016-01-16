@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Sass::Util::MultibyteStringScanner#get_byte
+is_singleton: false
+name: get_byte
+params: ()
+visibility: public

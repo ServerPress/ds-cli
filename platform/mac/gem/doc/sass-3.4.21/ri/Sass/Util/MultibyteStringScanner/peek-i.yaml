@@ -1,0 +1,11 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: 
+- !ruby/object:RI::AliasName 
+  name: peep
+block_params: 
+comment: 
+full_name: Sass::Util::MultibyteStringScanner#peek
+is_singleton: false
+name: peek
+params: (len)
+visibility: public

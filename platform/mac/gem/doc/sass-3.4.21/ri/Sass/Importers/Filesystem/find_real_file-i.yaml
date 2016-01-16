@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Given a base directory and an `@import`ed name, finds an existant file that matches the name.
+- !ruby/struct:SM::Flow::P 
+  body: "@param dir [String] The directory relative to which to search. @param name [String] The filename to search for. @return [(String, Symbol)] A filename-syntax pair."
+full_name: Sass::Importers::Filesystem#find_real_file
+is_singleton: false
+name: find_real_file
+params: (dir, name, options)
+visibility: protected

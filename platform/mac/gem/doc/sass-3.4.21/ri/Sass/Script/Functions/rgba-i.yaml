@@ -1,0 +1,20 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "Creates a {Sass::Script::Value::Color Color} from red, green, blue, and alpha values. @see #rgb"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload rgba($red, $green, $blue, $alpha)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $red [Sass::Script::Value::Number] The amount of red in the\n    color. Must be between 0 and 255 inclusive or 0% and 100% inclusive\n  @param $green [Sass::Script::Value::Number] The amount of green in the\n    color. Must be between 0 and 255 inclusive or 0% and 100% inclusive\n  @param $blue [Sass::Script::Value::Number] The amount of blue in the\n    color. Must be between 0 and 255 inclusive or 0% and 100% inclusive\n  @param $alpha [Sass::Script::Value::Number] The opacity of the color.\n    Must be between 0 and 1 inclusive\n  @return [Sass::Script::Value::Color]\n  @raise [ArgumentError] if any parameter is the wrong type or out of\n    bounds\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload rgba($color, $alpha)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  Sets the opacity of an existing color.\n\n  @example\n    rgba(#102030, 0.5) =&gt; rgba(16, 32, 48, 0.5)\n    rgba(blue, 0.2)    =&gt; rgba(0, 0, 255, 0.2)\n\n  @param $color [Sass::Script::Value::Color] The color whose opacity will\n    be changed.\n  @param $alpha [Sass::Script::Value::Number] The new opacity of the\n    color. Must be between 0 and 1 inclusive\n  @return [Sass::Script::Value::Color]\n  @raise [ArgumentError] if `$alpha` is out of bounds or either parameter\n    is the wrong type\n"
+full_name: Sass::Script::Functions#rgba
+is_singleton: false
+name: rgba
+params: (*args)
+visibility: public

@@ -1,0 +1,15 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: 
+- !ruby/object:RI::AliasName 
+  name: to_sass
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns a string representation of the color. This is usually the color's hex value, but if the color has a name that's used instead.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [String] The string representation"
+full_name: Sass::Script::Value::Color#to_s
+is_singleton: false
+name: to_s
+params: (opts = {})
+visibility: public

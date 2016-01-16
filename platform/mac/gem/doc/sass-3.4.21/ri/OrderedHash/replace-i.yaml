@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: When replacing with another hash, the initial order of our keys must come from the other hash -- ordered or not.
+full_name: OrderedHash#replace
+is_singleton: false
+name: replace
+params: (other)
+visibility: public

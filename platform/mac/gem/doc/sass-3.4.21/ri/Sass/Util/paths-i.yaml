@@ -1,0 +1,18 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Return an array of all possible paths through the given arrays.
+- !ruby/struct:SM::Flow::P 
+  body: "@param arrs [Array&lt;Array&gt;] @return [Array&lt;Arrays&gt;]"
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  paths([[1, 2], [3, 4], [5]]) #=&gt;\n    # [[1, 3, 5],\n    #  [2, 3, 5],\n    #  [1, 4, 5],\n    #  [2, 4, 5]]\n"
+full_name: Sass::Util#paths
+is_singleton: false
+name: paths
+params: (arrs)
+visibility: public

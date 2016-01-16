@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Prepare a value for a destructuring assignment (e.g. `a, b = val`). This works around a performance bug when using ActiveSupport, and only needs to be called when `val` is likely to be `nil` reasonably often.
+- !ruby/struct:SM::Flow::P 
+  body: See [this bug report](http://redmine.ruby-lang.org/issues/4917).
+- !ruby/struct:SM::Flow::P 
+  body: "@param val [Object] @return [Object]"
+full_name: Sass::Util#destructure
+is_singleton: false
+name: destructure
+params: (val)
+visibility: public

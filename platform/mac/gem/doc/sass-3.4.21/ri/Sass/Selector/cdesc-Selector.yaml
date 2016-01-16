@@ -1,0 +1,24 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: []
+
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A namespace for nodes in the parse tree for selectors.
+- !ruby/struct:SM::Flow::P 
+  body: "{CommaSequence} is the toplevel selector, representing a comma-separated sequence of {Sequence}s, such as `foo bar, baz bang`. {Sequence} is the next level, representing {SimpleSequence}s separated by combinators (e.g. descendant or child), such as `foo bar` or `foo &gt; bar baz`. {SimpleSequence} is a sequence of selectors that all apply to a single element, such as `foo.bar[attr=val]`. Finally, {Simple} is the superclass of the simplest selectors, such as `.foo` or `#bar`."
+constants: 
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The base used for calculating selector specificity. The spec says this should be &quot;sufficiently high&quot;; it's extremely unlikely that any single selector sequence will contain 1,000 simple selectors.
+  name: SPECIFICITY_BASE
+  value: 1_000
+full_name: Sass::Selector
+includes: []
+
+instance_methods: []
+
+name: Selector
+superclass: 

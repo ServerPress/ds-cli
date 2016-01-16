@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: The green component of the color.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Fixnum]"
+full_name: Sass::Script::Value::Color#green
+is_singleton: false
+name: green
+params: ()
+visibility: public

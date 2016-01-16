@@ -1,0 +1,27 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The expression to return.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Script::Tree::Node]"
+  name: expr
+  rw: RW
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A dynamic node representing returning from a function.
+- !ruby/struct:SM::Flow::P 
+  body: "@see Sass::Tree"
+constants: []
+
+full_name: Sass::Tree::ReturnNode
+includes: []
+
+instance_methods: []
+
+name: ReturnNode
+superclass: Node

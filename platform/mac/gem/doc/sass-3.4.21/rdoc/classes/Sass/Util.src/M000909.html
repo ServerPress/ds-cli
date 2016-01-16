@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>check_sass_encoding (Sass::Util)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/util.rb, line 862</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">check_sass_encoding</span>(<span class="ruby-identifier">str</span>)
+      <span class="ruby-comment cmt"># On Ruby 1.8 we can't do anything complicated with encodings.</span>
+      <span class="ruby-comment cmt"># Instead, we just strip out a UTF-8 BOM if it exists and</span>
+      <span class="ruby-comment cmt"># sanitize according to Section 3.3 of CSS Syntax Level 3. We</span>
+      <span class="ruby-comment cmt"># don't sanitize null characters since they might be components</span>
+      <span class="ruby-comment cmt"># of other characters.</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ruby1_8?</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">str</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\A\xEF\xBB\xBF/</span>, <span class="ruby-value str">''</span>).<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\r\n?|\f/</span>, <span class="ruby-value str">&quot;\n&quot;</span>), <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-comment cmt"># Determine the fallback encoding following section 3.2 of CSS Syntax Level 3 and Encodings:</span>
+      <span class="ruby-comment cmt"># http://www.w3.org/TR/2013/WD-css-syntax-3-20130919/#determine-the-fallback-encoding</span>
+      <span class="ruby-comment cmt"># http://encoding.spec.whatwg.org/#decode</span>
+      <span class="ruby-identifier">binary</span> = <span class="ruby-identifier">str</span>.<span class="ruby-identifier">dup</span>.<span class="ruby-identifier">force_encoding</span>(<span class="ruby-value str">&quot;BINARY&quot;</span>)
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">binary</span>.<span class="ruby-identifier">start_with?</span>(<span class="ruby-constant">UTF_8_BOM</span>)
+        <span class="ruby-identifier">binary</span>.<span class="ruby-identifier">slice!</span> <span class="ruby-value">0</span>, <span class="ruby-constant">UTF_8_BOM</span>.<span class="ruby-identifier">length</span>
+        <span class="ruby-identifier">str</span> = <span class="ruby-identifier">binary</span>.<span class="ruby-identifier">force_encoding</span>(<span class="ruby-value str">'UTF-8'</span>)
+      <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">binary</span>.<span class="ruby-identifier">start_with?</span>(<span class="ruby-constant">UTF_16BE_BOM</span>)
+        <span class="ruby-identifier">binary</span>.<span class="ruby-identifier">slice!</span> <span class="ruby-value">0</span>, <span class="ruby-constant">UTF_16BE_BOM</span>.<span class="ruby-identifier">length</span>
+        <span class="ruby-identifier">str</span> = <span class="ruby-identifier">binary</span>.<span class="ruby-identifier">force_encoding</span>(<span class="ruby-value str">'UTF-16BE'</span>)
+      <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">binary</span>.<span class="ruby-identifier">start_with?</span>(<span class="ruby-constant">UTF_16LE_BOM</span>)
+        <span class="ruby-identifier">binary</span>.<span class="ruby-identifier">slice!</span> <span class="ruby-value">0</span>, <span class="ruby-constant">UTF_16LE_BOM</span>.<span class="ruby-identifier">length</span>
+        <span class="ruby-identifier">str</span> = <span class="ruby-identifier">binary</span>.<span class="ruby-identifier">force_encoding</span>(<span class="ruby-value str">'UTF-16LE'</span>)
+      <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">binary</span> <span class="ruby-operator">=~</span> <span class="ruby-constant">CHARSET_REGEXP</span>
+        <span class="ruby-identifier">charset</span> = <span class="ruby-identifier">$1</span>.<span class="ruby-identifier">force_encoding</span>(<span class="ruby-value str">'US-ASCII'</span>)
+        <span class="ruby-comment cmt"># Ruby 1.9.2 doesn't recognize a UTF-16 encoding without an endian marker.</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ruby1_9_2?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">charset</span>.<span class="ruby-identifier">downcase</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'utf-16'</span>
+          <span class="ruby-identifier">encoding</span> = <span class="ruby-constant">Encoding</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value str">'UTF-8'</span>)
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">encoding</span> = <span class="ruby-constant">Encoding</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">charset</span>)
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">encoding</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'UTF-16'</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">encoding</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'UTF-16BE'</span>
+            <span class="ruby-identifier">encoding</span> = <span class="ruby-constant">Encoding</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value str">'UTF-8'</span>)
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">str</span> = <span class="ruby-identifier">binary</span>.<span class="ruby-identifier">force_encoding</span>(<span class="ruby-identifier">encoding</span>)
+      <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">str</span>.<span class="ruby-identifier">encoding</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;ASCII-8BIT&quot;</span>
+        <span class="ruby-comment cmt"># Normally we want to fall back on believing the Ruby string</span>
+        <span class="ruby-comment cmt"># encoding, but if that's just binary we want to make sure</span>
+        <span class="ruby-comment cmt"># it's valid UTF-8.</span>
+        <span class="ruby-identifier">str</span> = <span class="ruby-identifier">str</span>.<span class="ruby-identifier">force_encoding</span>(<span class="ruby-value str">'utf-8'</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">find_encoding_error</span>(<span class="ruby-identifier">str</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">str</span>.<span class="ruby-identifier">valid_encoding?</span>
+
+      <span class="ruby-keyword kw">begin</span>
+        <span class="ruby-comment cmt"># If the string is valid, preprocess it according to section 3.3 of CSS Syntax Level 3.</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">str</span>.<span class="ruby-identifier">encode</span>(<span class="ruby-value str">&quot;UTF-8&quot;</span>).<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\r\n?|\f/</span>, <span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">tr</span>(<span class="ruby-value str">&quot;\u0000&quot;</span>, <span class="ruby-value str">&quot;�&quot;</span>), <span class="ruby-identifier">str</span>.<span class="ruby-identifier">encoding</span>
+      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">EncodingError</span>
+        <span class="ruby-identifier">find_encoding_error</span>(<span class="ruby-identifier">str</span>)
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

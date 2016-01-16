@@ -1,0 +1,30 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The mapping data ordered by the location in the target.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Array&lt;Mapping&gt;]"
+  name: data
+  rw: R
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+constants: []
+
+full_name: Sass::Source::Map
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: add
+- !ruby/object:RI::MethodSummary 
+  name: shift_output_lines
+- !ruby/object:RI::MethodSummary 
+  name: shift_output_offsets
+- !ruby/object:RI::MethodSummary 
+  name: to_json
+name: Map
+superclass: Object

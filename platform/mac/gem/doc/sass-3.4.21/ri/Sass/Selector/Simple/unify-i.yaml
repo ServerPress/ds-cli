@@ -1,0 +1,22 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Unifies this selector with a {SimpleSequence}'s {SimpleSequence#members members array}, returning another `SimpleSequence` members array that matches both this selector and the input selector.
+- !ruby/struct:SM::Flow::P 
+  body: By default, this just appends this selector to the end of the array (or returns the original array if this selector already exists in it).
+- !ruby/struct:SM::Flow::P 
+  body: "@param sels [Array&lt;Simple&gt;] A {SimpleSequence}'s {SimpleSequence#members members array} @return [Array&lt;Simple&gt;, nil] A {SimpleSequence} {SimpleSequence#members members array}"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  matching both `sels` and this selector,\n  or `nil` if this is impossible (e.g. unifying `#foo` and `#bar`)\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@raise [Sass::SyntaxError] If this selector cannot be unified."
+- !ruby/struct:SM::Flow::VERB 
+  body: "  This will only ever occur when a dynamic selector,\n  such as {Parent} or {Interpolation}, is used in unification.\n  Since these selectors should be resolved\n  by the time extension and unification happen,\n  this exception will only ever be raised as a result of programmer error\n"
+full_name: Sass::Selector::Simple#unify
+is_singleton: false
+name: unify
+params: (sels)
+visibility: public

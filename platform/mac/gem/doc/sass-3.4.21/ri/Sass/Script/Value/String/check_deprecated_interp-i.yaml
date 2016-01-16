@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Prints a warning if this string was created using potentially-deprecated interpolation.
+full_name: Sass::Script::Value::String#check_deprecated_interp
+is_singleton: false
+name: check_deprecated_interp
+params: ()
+visibility: public

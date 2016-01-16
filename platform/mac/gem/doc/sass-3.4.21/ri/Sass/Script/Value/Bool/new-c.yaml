@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: We override object creation so that users of the core API will not need to know that booleans are specific constants.
+- !ruby/struct:SM::Flow::P 
+  body: "@param value A ruby value that will be tested for truthiness. @return [Bool] TRUE if value is truthy, FALSE if value is falsey"
+full_name: Sass::Script::Value::Bool::new
+is_singleton: true
+name: new
+params: (value)
+visibility: public

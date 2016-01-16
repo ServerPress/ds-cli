@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Sass::Tree::Visitors::CheckNesting#invalid_import_parent?
+is_singleton: false
+name: invalid_import_parent?
+params: (parent, child)
+visibility: protected

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>rgb (Sass::Script::Functions)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/script/functions.rb, line 637</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rgb</span>(<span class="ruby-identifier">red</span>, <span class="ruby-identifier">green</span>, <span class="ruby-identifier">blue</span>)
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">calc?</span>(<span class="ruby-identifier">red</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">calc?</span>(<span class="ruby-identifier">green</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">calc?</span>(<span class="ruby-identifier">blue</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">unquoted_string</span>(<span class="ruby-node">&quot;rgb(#{red}, #{green}, #{blue})&quot;</span>)
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">assert_type</span> <span class="ruby-identifier">red</span>, <span class="ruby-identifier">:Number</span>, <span class="ruby-identifier">:red</span>
+      <span class="ruby-identifier">assert_type</span> <span class="ruby-identifier">green</span>, <span class="ruby-identifier">:Number</span>, <span class="ruby-identifier">:green</span>
+      <span class="ruby-identifier">assert_type</span> <span class="ruby-identifier">blue</span>, <span class="ruby-identifier">:Number</span>, <span class="ruby-identifier">:blue</span>
+
+      <span class="ruby-identifier">color_attrs</span> = [<span class="ruby-identifier">red</span>, <span class="ruby-identifier">green</span>, <span class="ruby-identifier">blue</span>].<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">is_unit?</span>(<span class="ruby-value str">&quot;%&quot;</span>)
+          <span class="ruby-identifier">c</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">*</span> <span class="ruby-value">255</span> <span class="ruby-operator">/</span> <span class="ruby-value">100.0</span>
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">unitless?</span>
+          <span class="ruby-identifier">c</span>.<span class="ruby-identifier">value</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Expected #{c} to be unitless or have a unit of % but got #{c}&quot;</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-comment cmt"># Don't store the string representation for function-created colors, both</span>
+      <span class="ruby-comment cmt"># because it's not very useful and because some functions aren't supported</span>
+      <span class="ruby-comment cmt"># on older browsers.</span>
+      <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Script</span><span class="ruby-operator">::</span><span class="ruby-constant">Value</span><span class="ruby-operator">::</span><span class="ruby-constant">Color</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">color_attrs</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

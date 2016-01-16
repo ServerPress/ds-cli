@@ -1,0 +1,26 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Like {\#check_encoding}, but also checks for a `@charset` declaration at the beginning of the file and uses that encoding if it exists.
+- !ruby/struct:SM::Flow::P 
+  body: Sass follows CSS's decoding rules.
+- !ruby/struct:SM::Flow::P 
+  body: "@param str [String] The string of which to check the encoding @return [(String, Encoding)] The original string encoded as UTF-8,"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  and the source encoding of the string (or `nil` under Ruby 1.8)\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@raise [Encoding::UndefinedConversionError] if the source encoding"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  cannot be converted to UTF-8\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@raise [ArgumentError] if the document uses an unknown encoding with `@charset` @raise [Sass::SyntaxError] If the document declares an encoding that"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  doesn't match its contents, or it doesn't declare an encoding and its\n  contents are invalid in the native encoding.\n"
+full_name: Sass::Util#check_sass_encoding
+is_singleton: false
+name: check_sass_encoding
+params: (str)
+visibility: public

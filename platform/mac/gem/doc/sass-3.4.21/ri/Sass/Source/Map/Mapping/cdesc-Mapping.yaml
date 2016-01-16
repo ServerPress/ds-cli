@@ -1,0 +1,26 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: []
+
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A mapping from one source range to another. Indicates that `input` was compiled to `output`.
+- !ruby/struct:SM::Flow::P 
+  body: "@!attribute input"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @return [Sass::Source::Range] The source range in the input document.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@!attribute output"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @return [Sass::Source::Range] The source range in the output document.\n"
+constants: []
+
+full_name: Sass::Source::Map::Mapping
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: inspect
+name: Mapping
+superclass: Struct.new(:input, :output)

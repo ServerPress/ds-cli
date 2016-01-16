@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Define a callback with the given name. This will define an `on_#{name}` method that registers a block, and a `run_#{name}` method that runs that block (optionall with some arguments).
+- !ruby/struct:SM::Flow::P 
+  body: "@param name [Symbol] The name of the callback @return [void]"
+full_name: Sass::Callbacks#define_callback
+is_singleton: false
+name: define_callback
+params: (name)
+visibility: protected

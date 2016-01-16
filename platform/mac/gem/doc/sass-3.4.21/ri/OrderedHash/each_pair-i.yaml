@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: key, self[key]
+comment: 
+full_name: OrderedHash#each_pair
+is_singleton: false
+name: each_pair
+params: () {|key, self[key]| ...}
+visibility: public

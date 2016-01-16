@@ -1,0 +1,43 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: Whether to include `to` in the loop or stop just before. @return [Boolean]
+  name: exclusive
+  rw: R
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The parse tree for the initial expression. @return [Script::Tree::Node]
+  name: from
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The parse tree for the final expression. @return [Script::Tree::Node]
+  name: to
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The name of the loop variable. @return [String]
+  name: var
+  rw: R
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A dynamic node representing a Sass `@for` loop.
+- !ruby/struct:SM::Flow::P 
+  body: "@see Sass::Tree"
+constants: []
+
+full_name: Sass::Tree::ForNode
+includes: []
+
+instance_methods: []
+
+name: ForNode
+superclass: Node

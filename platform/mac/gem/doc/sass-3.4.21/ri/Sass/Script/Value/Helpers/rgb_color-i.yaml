@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Construct a Sass Color from rgb values.
+- !ruby/struct:SM::Flow::P 
+  body: "@param red [::Number] The red component. Must be between 0 and 255 inclusive. @param green [::Number] The green component. Must be between 0 and 255 inclusive. @param blue [::Number] The blue component. Must be between 0 and 255 inclusive. @param alpha [::Number] The alpha channel. A number between 0 and 1."
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Script::Value::Color] the color object"
+full_name: Sass::Script::Value::Helpers#rgb_color
+is_singleton: false
+name: rgb_color
+params: (red, green, blue, alpha = nil)
+visibility: public

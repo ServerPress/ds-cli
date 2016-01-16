@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@param msg [String] The error message @param attrs [{Symbol =&gt; Object}] The information in the backtrace entry."
+- !ruby/struct:SM::Flow::VERB 
+  body: "  See \\{#sass_backtrace}\n"
+full_name: Sass::SyntaxError::new
+is_singleton: true
+name: new
+params: (msg, attrs = {})
+visibility: public

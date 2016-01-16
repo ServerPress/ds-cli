@@ -1,0 +1,20 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns the alpha component (opacity) of a color. This is 1 unless otherwise specified.
+- !ruby/struct:SM::Flow::P 
+  body: This function also supports the proprietary Microsoft `alpha(opacity=20)` syntax as a special case.
+- !ruby/struct:SM::Flow::P 
+  body: "@overload alpha($color)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $color [Sass::Script::Value::Color]\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Script::Value::Number] The alpha component, between 0 and 1 @raise [ArgumentError] if `$color` isn't a color"
+full_name: Sass::Script::Functions#alpha
+is_singleton: false
+name: alpha
+params: (*args)
+visibility: public

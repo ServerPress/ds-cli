@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Creates a new list literal.
+- !ruby/struct:SM::Flow::P 
+  body: "@param elements [Array&lt;Node&gt;] See \\{#elements} @param separator [Symbol] See \\{#separator}"
+full_name: Sass::Script::Tree::ListLiteral::new
+is_singleton: true
+name: new
+params: (elements, separator)
+visibility: public

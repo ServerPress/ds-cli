@@ -1,0 +1,22 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Check whether a mixin with the given name exists.
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  mixin-exists(nonexistent) =&gt; false\n\n  @mixin red-text { color: red; }\n  mixin-exists(red-text) =&gt; true\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload mixin_exists($name)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param name [Sass::Script::Value::String] The name of the mixin to\n    check.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Script::Value::Bool] Whether the mixin is defined."
+full_name: Sass::Script::Functions#mixin_exists
+is_singleton: false
+name: mixin_exists
+params: (name)
+visibility: public

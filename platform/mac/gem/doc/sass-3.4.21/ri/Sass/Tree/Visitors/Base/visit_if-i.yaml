@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: ""
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: `yield`s, then runs the visitor on the `@else` clause if the node has one. This exists to ensure that the contents of the `@else` clause get visited.
+full_name: Sass::Tree::Visitors::Base#visit_if
+is_singleton: false
+name: visit_if
+params: (node) {|| ...}
+visibility: protected

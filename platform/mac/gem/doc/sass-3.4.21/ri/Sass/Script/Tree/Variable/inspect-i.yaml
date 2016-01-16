@@ -1,0 +1,13 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: 
+- !ruby/object:RI::AliasName 
+  name: to_sass
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@return [String] A string representation of the variable"
+full_name: Sass::Script::Tree::Variable#inspect
+is_singleton: false
+name: inspect
+params: (opts = {})
+visibility: public

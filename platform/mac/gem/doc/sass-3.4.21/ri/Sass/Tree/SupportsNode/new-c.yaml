@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@param condition [Sass::Supports::Condition] See \\{#condition}"
+full_name: Sass::Tree::SupportsNode::new
+is_singleton: true
+name: new
+params: (name, condition)
+visibility: public

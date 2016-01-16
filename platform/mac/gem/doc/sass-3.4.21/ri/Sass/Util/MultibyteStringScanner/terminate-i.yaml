@@ -1,0 +1,11 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: 
+- !ruby/object:RI::AliasName 
+  name: clear
+block_params: 
+comment: 
+full_name: Sass::Util::MultibyteStringScanner#terminate
+is_singleton: false
+name: terminate
+params: ()
+visibility: public

@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Sass::Util::MultibyteStringScanner#check
+is_singleton: false
+name: check
+params: (pattern)
+visibility: public

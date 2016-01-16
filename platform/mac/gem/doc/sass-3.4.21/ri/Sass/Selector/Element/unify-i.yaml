@@ -1,0 +1,26 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Unification of an element selector is somewhat complicated, especially when a namespace is specified. First, if `sel` contains another {Element} with a different \{#name}, then the selectors can't be unified and `nil` is returned.
+- !ruby/struct:SM::Flow::P 
+  body: Otherwise, if `sel` doesn't specify a namespace, or it specifies any namespace (via `&quot;*&quot;`), then it's returned with this element selector (e.g. `.foo` becomes `a.foo` or `svg|a.foo`). Similarly, if this selector doesn't specify a namespace, the namespace from `sel` is used.
+- !ruby/struct:SM::Flow::P 
+  body: If both this selector <b>and</b> `sel` specify namespaces, those namespaces are unified via {Simple#unify_namespaces} and the unified namespace is used, if possible.
+- !ruby/struct:SM::Flow::P 
+  body: "@todo There are lots of cases that this documentation specifies;"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  make sure we thoroughly test **all of them**.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@todo Keep track of whether a default namespace has been declared"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  and handle namespace-unspecified selectors accordingly.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@see Selector#unify"
+full_name: Sass::Selector::Element#unify
+is_singleton: false
+name: unify
+params: (sels)
+visibility: public

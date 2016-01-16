@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@param build_source_mapping [Boolean] Whether to build a"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  \\{Sass::Source::Map} while creating the CSS output. The mapping will\n  be available from \\{#source_mapping} after the visitor has completed.\n"
+full_name: Sass::Tree::Visitors::ToCss::new
+is_singleton: true
+name: new
+params: (build_source_mapping = false)
+visibility: public

@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@see Node#bubbles?"
+full_name: Sass::Tree::AtRootNode#bubbles?
+is_singleton: false
+name: bubbles?
+params: ()
+visibility: public

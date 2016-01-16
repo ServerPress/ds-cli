@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns an ActionView::Template* class. In pre-3.0 versions of Rails, most of these classes were of the form `ActionView::TemplateFoo`, while afterwards they were of the form `ActionView;:Template::Foo`.
+- !ruby/struct:SM::Flow::P 
+  body: "@param name [#to_s] The name of the class to get."
+- !ruby/struct:SM::Flow::VERB 
+  body: "  For example, `:Error` will return `ActionView::TemplateError`\n  or `ActionView::Template::Error`.\n"
+full_name: Sass::Util#av_template_class
+is_singleton: false
+name: av_template_class
+params: (name)
+visibility: public

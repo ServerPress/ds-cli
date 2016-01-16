@@ -1,0 +1,29 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: node_name
+- !ruby/object:RI::MethodSummary 
+  name: visit
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: The abstract base class for Sass visitors. Visitors should extend this class, then implement `visit_*` methods for each node they care about (e.g. `visit_rule` for {RuleNode} or `visit_for` for {ForNode}). These methods take the node in question as argument. They may `yield` to visit the child nodes of the current node.
+- !ruby/struct:SM::Flow::P 
+  body: "<b>Note</b>: due to the unusual nature of {Sass::Tree::IfNode}, special care must be taken to ensure that it is properly handled. In particular, there is no built-in scaffolding for dealing with the return value of `@else` nodes."
+- !ruby/struct:SM::Flow::P 
+  body: "@abstract"
+constants: []
+
+full_name: Sass::Tree::Visitors::Base
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: visit
+- !ruby/object:RI::MethodSummary 
+  name: visit_children
+- !ruby/object:RI::MethodSummary 
+  name: visit_if
+name: Base
+superclass: Object

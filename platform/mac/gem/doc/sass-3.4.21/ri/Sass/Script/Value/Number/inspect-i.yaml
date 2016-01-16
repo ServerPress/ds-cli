@@ -1,0 +1,17 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: 
+- !ruby/object:RI::AliasName 
+  name: to_sass
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns a readable representation of this number.
+- !ruby/struct:SM::Flow::P 
+  body: This representation is valid CSS (and valid SassScript) as long as there is only one unit.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [String] The representation"
+full_name: Sass::Script::Value::Number#inspect
+is_singleton: false
+name: inspect
+params: (opts = {})
+visibility: public

@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns the given character.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [String]"
+full_name: Sass::Script::Lexer#char
+is_singleton: false
+name: char
+params: (pos = @scanner.pos)
+visibility: public

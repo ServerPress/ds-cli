@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@return [String] The name of the directive, including `@`."
+full_name: Sass::Tree::DirectiveNode#name
+is_singleton: false
+name: name
+params: ()
+visibility: public

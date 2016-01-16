@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@param modifier [Array&lt;String, Sass::Script::Tree::Node&gt;] See \\{#modifier} @param type [Array&lt;String, Sass::Script::Tree::Node&gt;] See \\{#type} @param expressions [Array&lt;Array&lt;String, Sass::Script::Tree::Node&gt;&gt;] See \\{#expressions}"
+full_name: Sass::Media::Query::new
+is_singleton: true
+name: new
+params: (modifier, type, expressions)
+visibility: public

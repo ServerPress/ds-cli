@@ -1,0 +1,22 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns a list of all keys in a map.
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  map-keys((&quot;foo&quot;: 1, &quot;bar&quot;: 2)) =&gt; &quot;foo&quot;, &quot;bar&quot;\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload map_keys($map)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $map [Map]\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [List] the list of keys, comma-separated @raise [ArgumentError] if `$map` is not a map"
+full_name: Sass::Script::Functions#map_keys
+is_singleton: false
+name: map_keys
+params: (map)
+visibility: public

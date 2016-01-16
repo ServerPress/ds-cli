@@ -1,0 +1,34 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The condition being negated.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Sass::Supports::Condition]"
+  name: condition
+  rw: RW
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A negation condition (`not CONDITION`).
+constants: []
+
+full_name: Sass::Supports::Negation
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: deep_copy
+- !ruby/object:RI::MethodSummary 
+  name: options=
+- !ruby/object:RI::MethodSummary 
+  name: perform
+- !ruby/object:RI::MethodSummary 
+  name: to_css
+- !ruby/object:RI::MethodSummary 
+  name: to_src
+name: Negation
+superclass: Condition

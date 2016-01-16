@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Sass::Exec::Base</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Sass::Exec::Base</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/sass/exec/base_rb.html">
+                lib/sass/exec/base.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+The abstract base class for <a href="../../Sass.html">Sass</a> executables.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M001031">color</a>&nbsp;&nbsp;
+      <a href="#M001027">encoding_option</a>&nbsp;&nbsp;
+      <a href="#M001025">get_line</a>&nbsp;&nbsp;
+      <a href="#M001021">new</a>&nbsp;&nbsp;
+      <a href="#M001023">parse</a>&nbsp;&nbsp;
+      <a href="#M001022">parse!</a>&nbsp;&nbsp;
+      <a href="#M001028">process_result</a>&nbsp;&nbsp;
+      <a href="#M001030">puts</a>&nbsp;&nbsp;
+      <a href="#M001029">puts_action</a>&nbsp;&nbsp;
+      <a href="#M001026">set_opts</a>&nbsp;&nbsp;
+      <a href="#M001024">to_s</a>&nbsp;&nbsp;
+      <a href="#M001032">write_output</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">COLORS</td>
+          <td>=</td>
+          <td class="context-item-value">{:red =&gt; 31, :green =&gt; 32, :yellow =&gt; 33}</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M001021" class="method-detail">
+        <a name="M001021"></a>
+
+        <div class="method-heading">
+          <a href="Base.src/M001021.html" target="Code" class="method-signature"
+            onclick="popupCode('Base.src/M001021.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+@param args [Array&lt;String&gt;] The command-line arguments
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M001023" class="method-detail">
+        <a name="M001023"></a>
+
+        <div class="method-heading">
+          <a href="Base.src/M001023.html" target="Code" class="method-signature"
+            onclick="popupCode('Base.src/M001023.html');return false;">
+          <span class="method-name">parse</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Parses the command-line arguments and runs the executable. This does not
+handle exceptions or exit the program.
+</p>
+<p>
+@see <a href="Base.html#M001023">parse</a>!
+</p>
+        </div>
+      </div>
+
+      <div id="method-M001022" class="method-detail">
+        <a name="M001022"></a>
+
+        <div class="method-heading">
+          <a href="Base.src/M001022.html" target="Code" class="method-signature"
+            onclick="popupCode('Base.src/M001022.html');return false;">
+          <span class="method-name">parse!</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Parses the command-line arguments and runs the executable. Calls
+`Kernel#exit` at the end, so it never returns.
+</p>
+<p>
+@see <a href="Base.html#M001023">parse</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M001024" class="method-detail">
+        <a name="M001024"></a>
+
+        <div class="method-heading">
+          <a href="Base.src/M001024.html" target="Code" class="method-signature"
+            onclick="popupCode('Base.src/M001024.html');return false;">
+          <span class="method-name">to_s</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+@return [String] A description of the executable
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Protected Instance methods</h3>
+
+      <div id="method-M001031" class="method-detail">
+        <a name="M001031"></a>
+
+        <div class="method-heading">
+          <a href="Base.src/M001031.html" target="Code" class="method-signature"
+            onclick="popupCode('Base.src/M001031.html');return false;">
+          <span class="method-name">color</span><span class="method-args">(color, str)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Wraps the given string in terminal escapes causing it to have the given <a
+href="Base.html#M001031">color</a>. If terminal escapes aren&#8216;t
+supported on this platform, just returns the string instead.
+</p>
+<p>
+@param <a href="Base.html#M001031">color</a> [Symbol] The name of the <a
+href="Base.html#M001031">color</a> to use.
+</p>
+<pre>
+  Can be `:red`, `:green`, or `:yellow`.
+</pre>
+<p>
+@param str [String] The string to wrap in the given <a
+href="Base.html#M001031">color</a>. @return [String] The wrapped string.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M001027" class="method-detail">
+        <a name="M001027"></a>
+
+        <div class="method-heading">
+          <a href="Base.src/M001027.html" target="Code" class="method-signature"
+            onclick="popupCode('Base.src/M001027.html');return false;">
+          <span class="method-name">encoding_option</span><span class="method-args">(opts)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set an option for specifying `Encoding.default_external`.
+</p>
+<p>
+@param opts [OptionParser]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M001025" class="method-detail">
+        <a name="M001025"></a>
+
+        <div class="method-heading">
+          <a href="Base.src/M001025.html" target="Code" class="method-signature"
+            onclick="popupCode('Base.src/M001025.html');return false;">
+          <span class="method-name">get_line</span><span class="method-args">(exception)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Finds the line of the source template on which an exception was raised.
+</p>
+<p>
+@param exception [Exception] The exception @return [String] The line number
+</p>
+        </div>
+      </div>
+
+      <div id="method-M001028" class="method-detail">
+        <a name="M001028"></a>
+
+        <div class="method-heading">
+          <a href="Base.src/M001028.html" target="Code" class="method-signature"
+            onclick="popupCode('Base.src/M001028.html');return false;">
+          <span class="method-name">process_result</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Processes the options set by the command-line arguments. In particular,
+sets `@options[:input]` and `@options[:output]` to appropriate IO streams.
+</p>
+<p>
+This is meant to be overridden by subclasses so they can run their
+respective programs.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M001030" class="method-detail">
+        <a name="M001030"></a>
+
+        <div class="method-heading">
+          <a href="Base.src/M001030.html" target="Code" class="method-signature"
+            onclick="popupCode('Base.src/M001030.html');return false;">
+          <span class="method-name">puts</span><span class="method-args">(*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Same as `Kernel.puts`, but doesn&#8216;t print anything if the
+`&#8212;quiet` option is set.
+</p>
+<p>
+@param args [Array] Passed on to `Kernel.puts`
+</p>
+        </div>
+      </div>
+
+      <div id="method-M001029" class="method-detail">
+        <a name="M001029"></a>
+
+        <div class="method-heading">
+          <a href="Base.src/M001029.html" target="Code" class="method-signature"
+            onclick="popupCode('Base.src/M001029.html');return false;">
+          <span class="method-name">puts_action</span><span class="method-args">(name, color, arg)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Prints a status message about performing the given action, colored using
+the given <a href="Base.html#M001031">color</a> (via terminal escapes) if
+possible.
+</p>
+<p>
+@param name [<a href="Base.html#M001024">to_s</a>] A short name for the
+action being performed.
+</p>
+<pre>
+  Shouldn't be longer than 11 characters.
+</pre>
+<p>
+@param <a href="Base.html#M001031">color</a> [Symbol] The name of the <a
+href="Base.html#M001031">color</a> to use for this action.
+</p>
+<pre>
+  Can be `:red`, `:green`, or `:yellow`.
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M001026" class="method-detail">
+        <a name="M001026"></a>
+
+        <div class="method-heading">
+          <a href="Base.src/M001026.html" target="Code" class="method-signature"
+            onclick="popupCode('Base.src/M001026.html');return false;">
+          <span class="method-name">set_opts</span><span class="method-args">(opts)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Tells optparse how to <a href="Base.html#M001023">parse</a> the arguments
+available for all executables.
+</p>
+<p>
+This is meant to be overridden by subclasses so they can add their own
+options.
+</p>
+<p>
+@param opts [OptionParser]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M001032" class="method-detail">
+        <a name="M001032"></a>
+
+        <div class="method-heading">
+          <a href="Base.src/M001032.html" target="Code" class="method-signature"
+            onclick="popupCode('Base.src/M001032.html');return false;">
+          <span class="method-name">write_output</span><span class="method-args">(text, destination)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

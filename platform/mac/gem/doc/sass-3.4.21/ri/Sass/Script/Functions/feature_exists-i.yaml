@@ -1,0 +1,44 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns whether a feature exists in the current Sass runtime.
+- !ruby/struct:SM::Flow::P 
+  body: "The following features are supported:"
+- !ruby/object:SM::Flow::LIST 
+  contents: 
+  - !ruby/struct:SM::Flow::LI 
+    label: "*"
+    body: `global-variable-shadowing` indicates that a local variable will shadow a global variable unless `!global` is used.
+  - !ruby/struct:SM::Flow::LI 
+    label: "*"
+    body: `extend-selector-pseudoclass` indicates that `@extend` will reach into selector pseudoclasses like `:not`.
+  - !ruby/struct:SM::Flow::LI 
+    label: "*"
+    body: `units-level-3` indicates full support for unit arithmetic using units defined in the [Values and Units Level 3][] spec.
+  type: :BULLET
+- !ruby/struct:SM::Flow::P 
+  body: "[Values and Units Level 3]: http://www.w3.org/TR/css3-values/"
+- !ruby/object:SM::Flow::LIST 
+  contents: 
+  - !ruby/struct:SM::Flow::LI 
+    label: "*"
+    body: `at-error` indicates that the Sass `@error` directive is supported.
+  type: :BULLET
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  feature-exists(some-feature-that-exists) =&gt; true\n  feature-exists(what-is-this-i-dont-know) =&gt; false\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload feature_exists($feature)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $feature [Sass::Script::Value::String] The name of the feature\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Script::Value::Bool] Whether the feature is supported in this version of Sass @raise [ArgumentError] if `$feature` isn't a string"
+full_name: Sass::Script::Functions#feature_exists
+is_singleton: false
+name: feature_exists
+params: (feature)
+visibility: public

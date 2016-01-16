@@ -1,0 +1,22 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Return a new selector with all selectors in `$selectors` nested beneath one another as though they had been nested in the stylesheet as `$selector1 { $selector2 { ... } }`.
+- !ruby/struct:SM::Flow::P 
+  body: Unlike most selector functions, `selector-nest` allows the parent selector `&amp;` to be used in any selector but the first.
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  selector-nest(&quot;.foo&quot;, &quot;.bar&quot;, &quot;.baz&quot;) =&gt; .foo .bar .baz\n  selector-nest(&quot;.a .foo&quot;, &quot;.b .bar&quot;) =&gt; .a .foo .b .bar\n  selector-nest(&quot;.foo&quot;, &quot;&amp;.bar&quot;) =&gt; .foo.bar\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload selector_nest($selectors...)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $selectors [[Sass::Script::Value::String, Sass::Script::Value::List]]\n    The selectors to nest. At least one selector must be passed. Each of\n    these can be either a string, a list of strings, or a list of lists of\n    strings as returned by `&amp;`.\n  @return [Sass::Script::Value::List]\n    A list of lists of strings representing the result of nesting\n    `$selectors`. This is in the same format as a selector returned by\n    `&amp;`.\n"
+full_name: Sass::Script::Functions#selector_nest
+is_singleton: false
+name: selector_nest
+params: (*selectors)
+visibility: public

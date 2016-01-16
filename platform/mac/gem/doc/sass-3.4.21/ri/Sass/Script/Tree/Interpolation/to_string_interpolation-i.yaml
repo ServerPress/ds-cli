@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Converts a script node into a corresponding string interpolation expression.
+- !ruby/struct:SM::Flow::P 
+  body: "@param node_or_interp [Sass::Script::Tree::Node] @return [Sass::Script::Tree::StringInterpolation]"
+full_name: Sass::Script::Tree::Interpolation#to_string_interpolation
+is_singleton: false
+name: to_string_interpolation
+params: (node_or_interp)
+visibility: protected

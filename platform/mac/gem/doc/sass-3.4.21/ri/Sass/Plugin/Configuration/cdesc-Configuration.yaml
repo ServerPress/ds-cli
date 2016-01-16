@@ -1,0 +1,34 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: []
+
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: We keep configuration in its own self-contained file so that we can load it independently in Rails 3, where the full plugin stuff is lazy-loaded.
+- !ruby/struct:SM::Flow::P 
+  body: Note that this is not guaranteed to be thread-safe. For guaranteed thread safety, use a separate {Sass::Plugin} for each thread.
+constants: []
+
+full_name: Sass::Plugin::Configuration
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: add_template_location
+- !ruby/object:RI::MethodSummary 
+  name: default_options
+- !ruby/object:RI::MethodSummary 
+  name: default_options
+- !ruby/object:RI::MethodSummary 
+  name: default_options
+- !ruby/object:RI::MethodSummary 
+  name: options
+- !ruby/object:RI::MethodSummary 
+  name: remove_template_location
+- !ruby/object:RI::MethodSummary 
+  name: reset!
+- !ruby/object:RI::MethodSummary 
+  name: template_location_array
+name: Configuration
+superclass: 

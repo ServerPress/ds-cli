@@ -1,0 +1,23 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "Converts a Hash to an Array. This is usually identical to `Hash#to_a`, with the following exceptions:"
+- !ruby/object:SM::Flow::LIST 
+  contents: 
+  - !ruby/struct:SM::Flow::LI 
+    label: "*"
+    body: In Ruby 1.8, `Hash#to_a` is not deterministically ordered, but this is.
+  - !ruby/struct:SM::Flow::LI 
+    label: "*"
+    body: In Ruby 1.9 when running tests, this is ordered in the same way it would be under Ruby 1.8 (sorted key order rather than insertion order).
+  type: :BULLET
+- !ruby/struct:SM::Flow::P 
+  body: "@param hash [Hash] @return [Array]"
+full_name: Sass::Util#hash_to_a
+is_singleton: false
+name: hash_to_a
+params: (hash)
+visibility: public

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>parse_at_root_query (Sass::SCSS::Parser)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/scss/parser.rb, line 81</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_at_root_query</span>
+        <span class="ruby-identifier">init_scanner!</span>
+        <span class="ruby-identifier">query</span> = <span class="ruby-identifier">at_root_query</span>
+        <span class="ruby-identifier">expected</span>(<span class="ruby-value str">&quot;@at-root query list&quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">query</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@scanner</span>.<span class="ruby-identifier">eos?</span>
+        <span class="ruby-identifier">query</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Parses a supports clause for an @import directive
+full_name: Sass::SCSS::Parser#parse_supports_clause
+is_singleton: false
+name: parse_supports_clause
+params: ()
+visibility: public

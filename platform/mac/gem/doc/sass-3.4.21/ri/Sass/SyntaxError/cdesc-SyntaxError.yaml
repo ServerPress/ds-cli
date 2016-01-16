@@ -1,0 +1,70 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: "The backtrace of the error within Sass files. This is an array of hashes containing information for a single entry. The hashes have the following keys:"
+  - !ruby/struct:SM::Flow::P 
+    body: "`:filename` : The name of the file in which the exception was raised,"
+  - !ruby/struct:SM::Flow::VERB 
+    body: "  or `nil` if no filename is available.\n"
+  - !ruby/struct:SM::Flow::P 
+    body: "`:mixin` : The name of the mixin in which the exception was raised,"
+  - !ruby/struct:SM::Flow::VERB 
+    body: "  or `nil` if it wasn't raised in a mixin.\n"
+  - !ruby/struct:SM::Flow::P 
+    body: "`:line` : The line of the file on which the error occurred. Never nil."
+  - !ruby/struct:SM::Flow::P 
+    body: This information is also included in standard backtrace format in the output of \{#backtrace}.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Aray&lt;{Symbol =&gt; Object&gt;}]"
+  name: sass_backtrace
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The text of the template where this error was raised.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [String]"
+  name: sass_template
+  rw: RW
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: exception_to_css
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: An exception class that keeps track of the line of the Sass template it was raised on and the Sass file that was being parsed (if applicable).
+- !ruby/struct:SM::Flow::P 
+  body: All Sass errors are raised as {Sass::SyntaxError}s.
+- !ruby/struct:SM::Flow::P 
+  body: When dealing with SyntaxErrors, it's important to provide filename and line number information. This will be used in various error reports to users, including backtraces; see \{#sass_backtrace} for details.
+- !ruby/struct:SM::Flow::P 
+  body: Some of this information is usually provided as part of the constructor. New backtrace entries can be added with \{#add_backtrace}, which is called when an exception is raised between files (e.g. with `@import`).
+- !ruby/struct:SM::Flow::P 
+  body: Often, a chunk of code will all have similar backtrace information - the same filename or even line. It may also be useful to have a default line number set. In those situations, the default values can be used by omitting the information on the original exception, and then calling \{#modify_backtrace} in a wrapper `rescue`. When doing this, be sure that all exceptions ultimately end up with the information filled in.
+constants: []
+
+full_name: Sass::SyntaxError
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: add_backtrace
+- !ruby/object:RI::MethodSummary 
+  name: backtrace
+- !ruby/object:RI::MethodSummary 
+  name: modify_backtrace
+- !ruby/object:RI::MethodSummary 
+  name: sass_backtrace_str
+- !ruby/object:RI::MethodSummary 
+  name: sass_filename
+- !ruby/object:RI::MethodSummary 
+  name: sass_line
+- !ruby/object:RI::MethodSummary 
+  name: sass_mixin
+- !ruby/object:RI::MethodSummary 
+  name: to_s
+name: SyntaxError
+superclass: StandardError

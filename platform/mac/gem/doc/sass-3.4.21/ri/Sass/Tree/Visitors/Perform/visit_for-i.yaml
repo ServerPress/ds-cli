@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Runs the child nodes once for each time through the loop, varying the variable each time.
+full_name: Sass::Tree::Visitors::Perform#visit_for
+is_singleton: false
+name: visit_for
+params: (node)
+visibility: protected

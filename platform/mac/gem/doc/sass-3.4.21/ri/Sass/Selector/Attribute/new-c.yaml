@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@param name [String] The attribute name @param namespace [String, nil] See \\{#namespace} @param operator [String] The matching operator, e.g. `&quot;=&quot;` or `&quot;^=&quot;` @param value [String] See \\{#value} @param flags [String] See \\{#flags}"
+full_name: Sass::Selector::Attribute::new
+is_singleton: true
+name: new
+params: (name, namespace, operator, value, flags)
+visibility: public

@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Shifts any output source ranges that lie on the first line forward one or more characters on that line.
+- !ruby/struct:SM::Flow::P 
+  body: "@param delta [Fixnum] The number of characters to shift the ranges"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  forward.\n"
+full_name: Sass::Source::Map#shift_output_offsets
+is_singleton: false
+name: shift_output_offsets
+params: (delta)
+visibility: public

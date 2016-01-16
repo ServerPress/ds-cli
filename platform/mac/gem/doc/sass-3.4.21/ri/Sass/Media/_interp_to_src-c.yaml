@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Converts an interpolation array to source.
+- !ruby/struct:SM::Flow::P 
+  body: "@param interp [Array&lt;String, Sass::Script::Tree::Node&gt;] The interpolation array to convert. @param options [{Symbol =&gt; Object}] An options hash (see {Sass::CSS#initialize}). @return [String]"
+full_name: Sass::Media::_interp_to_src
+is_singleton: true
+name: _interp_to_src
+params: (interp, options)
+visibility: public

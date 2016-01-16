@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>ap_geq? (Sass::Util)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/util.rb, line 561</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ap_geq?</span>(<span class="ruby-identifier">version</span>)
+      <span class="ruby-comment cmt"># The ActionPack module is always loaded automatically in Rails &gt;= 3</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-constant">ActionPack</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-constant">ActionPack</span><span class="ruby-operator">::</span><span class="ruby-constant">VERSION</span>) <span class="ruby-operator">&amp;&amp;</span>
+        <span class="ruby-keyword kw">defined?</span>(<span class="ruby-constant">ActionPack</span><span class="ruby-operator">::</span><span class="ruby-constant">VERSION</span><span class="ruby-operator">::</span><span class="ruby-constant">STRING</span>)
+
+      <span class="ruby-identifier">version_geq</span>(<span class="ruby-constant">ActionPack</span><span class="ruby-operator">::</span><span class="ruby-constant">VERSION</span><span class="ruby-operator">::</span><span class="ruby-constant">STRING</span>, <span class="ruby-identifier">version</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

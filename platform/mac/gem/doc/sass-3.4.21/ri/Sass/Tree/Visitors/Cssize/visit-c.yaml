@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@param root [Tree::Node] The root node of the tree to visit. @return [(Tree::Node, Sass::Util::SubsetMap)] The resulting tree of static nodes"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  <b>and</b> the extensions defined for this tree\n"
+full_name: Sass::Tree::Visitors::Cssize::visit
+is_singleton: true
+name: visit
+params: (root)
+visibility: public

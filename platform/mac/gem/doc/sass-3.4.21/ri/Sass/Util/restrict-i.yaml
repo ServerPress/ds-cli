@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Restricts a number to falling within a given range. Returns the number if it falls within the range, or the closest value in the range if it doesn't.
+- !ruby/struct:SM::Flow::P 
+  body: "@param value [Numeric] @param range [Range&lt;Numeric&gt;] @return [Numeric]"
+full_name: Sass::Util#restrict
+is_singleton: false
+name: restrict
+params: (value, range)
+visibility: public

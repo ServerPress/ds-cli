@@ -1,0 +1,20 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Parses a user-provided selector into a list of lists of strings as returned by `&amp;`.
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  selector-parse(&quot;.foo .bar, .baz .bang&quot;) =&gt; ('.foo' '.bar', '.baz' '.bang')\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload selector_parse($selector)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $selector [Sass::Script::Value::String, Sass::Script::Value::List]\n    The selector to parse. This can be either a string, a list of\n    strings, or a list of lists of strings as returned by `&amp;`.\n  @return [Sass::Script::Value::List]\n    A list of lists of strings representing `$selector`. This is\n    in the same format as a selector returned by `&amp;`.\n"
+full_name: Sass::Script::Functions#selector_parse
+is_singleton: false
+name: selector_parse
+params: (selector)
+visibility: public

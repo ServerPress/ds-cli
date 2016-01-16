@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>replace_subseq (Sass::Util)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/util.rb, line 191</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">replace_subseq</span>(<span class="ruby-identifier">arr</span>, <span class="ruby-identifier">subseq</span>, <span class="ruby-identifier">replacement</span>)
+      <span class="ruby-identifier">new</span> = []
+      <span class="ruby-identifier">matched</span> = []
+      <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
+      <span class="ruby-identifier">arr</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">elem</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">elem</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">subseq</span>[<span class="ruby-identifier">i</span>]
+          <span class="ruby-identifier">new</span>.<span class="ruby-identifier">push</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">matched</span>)
+          <span class="ruby-identifier">matched</span> = []
+          <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
+          <span class="ruby-identifier">new</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">elem</span>
+          <span class="ruby-keyword kw">next</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">subseq</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
+          <span class="ruby-identifier">matched</span> = []
+          <span class="ruby-identifier">i</span> = <span class="ruby-value">0</span>
+          <span class="ruby-identifier">new</span>.<span class="ruby-identifier">push</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">replacement</span>)
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">matched</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">elem</span>
+          <span class="ruby-identifier">i</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">new</span>.<span class="ruby-identifier">push</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">matched</span>)
+      <span class="ruby-identifier">new</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

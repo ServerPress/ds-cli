@@ -1,0 +1,33 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A map from sets to values. A value is \{#\[]= set} by providing a set (the &quot;set-set&quot;) and a value, which is then recorded as corresponding to that set. Values are \{#\[] accessed} by providing a set (the &quot;get-set&quot;) and returning all values that correspond to set-sets that are subsets of the get-set.
+- !ruby/struct:SM::Flow::P 
+  body: SubsetMap preserves the order of values as they're inserted.
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  ssm = SubsetMap.new\n  ssm[Set[1, 2]] = &quot;Foo&quot;\n  ssm[Set[2, 3]] = &quot;Bar&quot;\n  ssm[Set[1, 2, 3]] = &quot;Baz&quot;\n\n  ssm[Set[1, 2, 3]] #=&gt; [&quot;Foo&quot;, &quot;Bar&quot;, &quot;Baz&quot;]\n"
+constants: []
+
+full_name: Sass::Util::SubsetMap
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: "[]"
+- !ruby/object:RI::MethodSummary 
+  name: "[]="
+- !ruby/object:RI::MethodSummary 
+  name: each_value
+- !ruby/object:RI::MethodSummary 
+  name: empty?
+- !ruby/object:RI::MethodSummary 
+  name: get
+name: SubsetMap
+superclass: Object

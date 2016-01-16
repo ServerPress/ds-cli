@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>visit_for (Sass::Tree::Visitors::Perform)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/tree/visitors/perform.rb, line 255</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">visit_for</span>(<span class="ruby-identifier">node</span>)
+    <span class="ruby-identifier">from</span> = <span class="ruby-identifier">node</span>.<span class="ruby-identifier">from</span>.<span class="ruby-identifier">perform</span>(<span class="ruby-ivar">@environment</span>)
+    <span class="ruby-identifier">to</span> = <span class="ruby-identifier">node</span>.<span class="ruby-identifier">to</span>.<span class="ruby-identifier">perform</span>(<span class="ruby-ivar">@environment</span>)
+    <span class="ruby-identifier">from</span>.<span class="ruby-identifier">assert_int!</span>
+    <span class="ruby-identifier">to</span>.<span class="ruby-identifier">assert_int!</span>
+
+    <span class="ruby-identifier">to</span> = <span class="ruby-identifier">to</span>.<span class="ruby-identifier">coerce</span>(<span class="ruby-identifier">from</span>.<span class="ruby-identifier">numerator_units</span>, <span class="ruby-identifier">from</span>.<span class="ruby-identifier">denominator_units</span>)
+    <span class="ruby-identifier">direction</span> = <span class="ruby-identifier">from</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">to</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-value">? </span><span class="ruby-operator">-</span><span class="ruby-value">1</span> <span class="ruby-operator">:</span> <span class="ruby-value">1</span>
+    <span class="ruby-identifier">range</span> = <span class="ruby-constant">Range</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">direction</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">from</span>.<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">direction</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">to</span>.<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">node</span>.<span class="ruby-identifier">exclusive</span>)
+
+    <span class="ruby-identifier">with_environment</span> <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">SemiGlobalEnvironment</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@environment</span>) <span class="ruby-keyword kw">do</span>
+      <span class="ruby-identifier">range</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+        <span class="ruby-ivar">@environment</span>.<span class="ruby-identifier">set_local_var</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">var</span>,
+          <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Script</span><span class="ruby-operator">::</span><span class="ruby-constant">Value</span><span class="ruby-operator">::</span><span class="ruby-constant">Number</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">direction</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">i</span>,
+            <span class="ruby-identifier">from</span>.<span class="ruby-identifier">numerator_units</span>, <span class="ruby-identifier">from</span>.<span class="ruby-identifier">denominator_units</span>))
+        <span class="ruby-identifier">node</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">visit</span>(<span class="ruby-identifier">c</span>)}
+      <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">flatten</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>add_rules (Sass::Tree::RuleNode)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/tree/rule_node.rb, line 104</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_rules</span>(<span class="ruby-identifier">node</span>)
+      <span class="ruby-ivar">@rule</span> = <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">strip_string_array</span>(
+        <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">merge_adjacent_strings</span>(<span class="ruby-ivar">@rule</span> <span class="ruby-operator">+</span> [<span class="ruby-value str">&quot;\n&quot;</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">rule</span>))
+      <span class="ruby-identifier">try_to_parse_non_interpolated_rules</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

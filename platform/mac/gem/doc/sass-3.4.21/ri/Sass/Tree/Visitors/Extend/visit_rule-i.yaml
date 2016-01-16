@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Applies the extend to a single rule's selector.
+full_name: Sass::Tree::Visitors::Extend#visit_rule
+is_singleton: false
+name: visit_rule
+params: (node)
+visibility: protected

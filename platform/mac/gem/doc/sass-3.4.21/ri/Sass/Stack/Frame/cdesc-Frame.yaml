@@ -1,0 +1,56 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The filename of the file in which this stack frame was created.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [String]"
+  name: filename
+  rw: R
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The line number on which this stack frame was created.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [String]"
+  name: line
+  rw: R
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The name of the stack frame. For mixin frames, this is the mixin name; otherwise, it's `nil`.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [String?]"
+  name: name
+  rw: R
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The type of this stack frame. This can be `:import`, `:mixin`, or `:base`.
+  - !ruby/struct:SM::Flow::P 
+    body: `:base` indicates that this is the bottom-most frame, meaning that it represents a single line of code rather than a nested context. The stack will only ever have one base frame, and it will always be the most deeply-nested frame.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Symbol?]"
+  name: type
+  rw: R
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A single stack frame.
+constants: []
+
+full_name: Sass::Stack::Frame
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: is_base?
+- !ruby/object:RI::MethodSummary 
+  name: is_import?
+- !ruby/object:RI::MethodSummary 
+  name: is_mixin?
+name: Frame
+superclass: Object

@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: The SassScript `&lt;=` operation.
+- !ruby/struct:SM::Flow::P 
+  body: "@param other [Number] The right-hand side of the operator @return [Boolean] Whether this number is less than or equal to the other @raise [NoMethodError] if `other` is an invalid type"
+full_name: Sass::Script::Value::Number#lte
+is_singleton: false
+name: lte
+params: (other)
+visibility: public

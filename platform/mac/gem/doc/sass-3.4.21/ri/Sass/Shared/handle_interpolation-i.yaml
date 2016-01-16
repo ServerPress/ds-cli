@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: scan while scan.scan(/(.*?)(\\*)\
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Scans through a string looking for the interoplation-opening `#{` and, when it's found, yields the scanner to the calling code so it can handle it properly.
+- !ruby/struct:SM::Flow::P 
+  body: The scanner will have any backslashes immediately in front of the `#{` as the second capture group (`scan[2]`), and the text prior to that as the first (`scan[1]`).
+- !ruby/struct:SM::Flow::P 
+  body: "@yieldparam scan [StringScanner] The scanner scanning through the string @return [String] The text remaining in the scanner after all `#{`s have been processed"
+full_name: Sass::Shared#handle_interpolation
+is_singleton: false
+name: handle_interpolation
+params: (str) {|scan while scan.scan(/(.*?)(\\*)\| ...}
+visibility: public

@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@param expr [Script::Tree::Node] See \\{#expr}"
+full_name: Sass::Tree::WhileNode::new
+is_singleton: true
+name: new
+params: (expr)
+visibility: public

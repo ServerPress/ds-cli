@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Raise an error to the effect that `name` was expected in the input stream and wasn't found.
+- !ruby/struct:SM::Flow::P 
+  body: This calls \{#unpeek!} to rewind the scanner to immediately after the last returned token.
+- !ruby/struct:SM::Flow::P 
+  body: "@param name [String] The name of the entity that was expected but not found @raise [Sass::SyntaxError]"
+full_name: Sass::Script::Lexer#expected!
+is_singleton: false
+name: expected!
+params: (name)
+visibility: public

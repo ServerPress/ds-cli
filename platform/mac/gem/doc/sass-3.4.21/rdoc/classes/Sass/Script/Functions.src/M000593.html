@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>join (Sass::Script::Functions)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/script/functions.rb, line 1915</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">join</span>(<span class="ruby-identifier">list1</span>, <span class="ruby-identifier">list2</span>, <span class="ruby-identifier">separator</span> = <span class="ruby-identifier">identifier</span>(<span class="ruby-value str">&quot;auto&quot;</span>))
+      <span class="ruby-identifier">assert_type</span> <span class="ruby-identifier">separator</span>, <span class="ruby-identifier">:String</span>, <span class="ruby-identifier">:separator</span>
+      <span class="ruby-keyword kw">unless</span> <span class="ruby-node">%w[auto space comma]</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">separator</span>.<span class="ruby-identifier">value</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;Separator name must be space, comma, or auto&quot;</span>)
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">sep</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">separator</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'auto'</span>
+              <span class="ruby-identifier">list1</span>.<span class="ruby-identifier">separator</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">list2</span>.<span class="ruby-identifier">separator</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">:space</span>
+            <span class="ruby-keyword kw">else</span>
+              <span class="ruby-identifier">separator</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_sym</span>
+            <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">list</span>(<span class="ruby-identifier">list1</span>.<span class="ruby-identifier">to_a</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">list2</span>.<span class="ruby-identifier">to_a</span>, <span class="ruby-identifier">sep</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

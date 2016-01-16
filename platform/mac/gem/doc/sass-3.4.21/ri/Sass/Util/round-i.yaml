@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Like [Fixnum.round], but leaves rooms for slight floating-point differences.
+- !ruby/struct:SM::Flow::P 
+  body: "@param value [Numeric] @return [Numeric]"
+full_name: Sass::Util#round
+is_singleton: false
+name: round
+params: (value)
+visibility: public

@@ -1,0 +1,11 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: 
+- !ruby/object:RI::AliasName 
+  name: pointer
+block_params: 
+comment: 
+full_name: Sass::Util::MultibyteStringScanner#pos
+is_singleton: false
+name: pos
+params: ()
+visibility: public

@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Boolean] Whether or not this number has units that can be represented in CSS"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  (that is, zero or one \\{#numerator_units}).\n"
+full_name: Sass::Script::Value::Number#legal_units?
+is_singleton: false
+name: legal_units?
+params: ()
+visibility: public

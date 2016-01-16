@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Sass::Logger::Base#_log
+is_singleton: false
+name: _log
+params: (level, message)
+visibility: public

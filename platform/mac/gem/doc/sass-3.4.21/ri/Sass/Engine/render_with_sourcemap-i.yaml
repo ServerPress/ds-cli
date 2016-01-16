@@ -1,0 +1,30 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Render the template to CSS and return the source map.
+- !ruby/struct:SM::Flow::P 
+  body: "@param sourcemap_uri [String] The sourcemap URI to use in the"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  `@sourceMappingURL` comment. If this is relative, it should be relative\n  to the location of the CSS file.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [(String, Sass::Source::Map)] The rendered CSS and the associated"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  source map\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@raise [Sass::SyntaxError] if there's an error in the document, or if the"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  public URL for this document couldn't be determined.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@raise [Encoding::UndefinedConversionError] if the source encoding"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  cannot be converted to UTF-8\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@raise [ArgumentError] if the document uses an unknown encoding with `@charset`"
+full_name: Sass::Engine#render_with_sourcemap
+is_singleton: false
+name: render_with_sourcemap
+params: (sourcemap_uri)
+visibility: public

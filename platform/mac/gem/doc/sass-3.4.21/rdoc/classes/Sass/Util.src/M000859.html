@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>round (Sass::Util)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/util.rb, line 148</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">round</span>(<span class="ruby-identifier">value</span>)
+      <span class="ruby-comment cmt"># If the number is within epsilon of X.5, round up (or down for negative</span>
+      <span class="ruby-comment cmt"># numbers).</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">round</span> <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">value</span> <span class="ruby-operator">%</span> <span class="ruby-value">1</span>) <span class="ruby-operator">-</span> <span class="ruby-value">0</span><span class="ruby-value">.5</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">-1</span> <span class="ruby-operator">*</span> <span class="ruby-constant">Script</span><span class="ruby-operator">::</span><span class="ruby-constant">Value</span><span class="ruby-operator">::</span><span class="ruby-constant">Number</span>.<span class="ruby-identifier">epsilon</span>
+      <span class="ruby-identifier">value</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">ceil</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">floor</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

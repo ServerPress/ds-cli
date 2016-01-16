@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>signature (Sass::Script::Functions)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/script/functions.rb, line 440</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">signature</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-identifier">arg_arity</span>, <span class="ruby-identifier">kwarg_arity</span>)
+      <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@signatures</span>[<span class="ruby-identifier">method_name</span>]
+      <span class="ruby-ivar">@signatures</span>[<span class="ruby-identifier">method_name</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">signature</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">sig_arity</span> = <span class="ruby-identifier">signature</span>.<span class="ruby-identifier">args</span>.<span class="ruby-identifier">size</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">signature</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">sig_arity</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">arg_arity</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">kwarg_arity</span>
+        <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">sig_arity</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">arg_arity</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">kwarg_arity</span>
+
+        <span class="ruby-comment cmt"># We have enough args.</span>
+        <span class="ruby-comment cmt"># Now we need to figure out which args are varargs</span>
+        <span class="ruby-comment cmt"># and if the signature allows them.</span>
+        <span class="ruby-identifier">t_arg_arity</span>, <span class="ruby-identifier">t_kwarg_arity</span> = <span class="ruby-identifier">arg_arity</span>, <span class="ruby-identifier">kwarg_arity</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">sig_arity</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">t_arg_arity</span>
+          <span class="ruby-comment cmt"># we transfer some kwargs arity to args arity</span>
+          <span class="ruby-comment cmt"># if it does not have enough args -- assuming the names will work out.</span>
+          <span class="ruby-identifier">t_kwarg_arity</span> <span class="ruby-operator">-=</span> (<span class="ruby-identifier">sig_arity</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">t_arg_arity</span>)
+          <span class="ruby-identifier">t_arg_arity</span> = <span class="ruby-identifier">sig_arity</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">t_arg_arity</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">sig_arity</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">t_arg_arity</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">sig_arity</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">signature</span>.<span class="ruby-identifier">var_args</span>) <span class="ruby-operator">&amp;&amp;</span>
+           (<span class="ruby-identifier">t_kwarg_arity</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">t_kwarg_arity</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">signature</span>.<span class="ruby-identifier">var_kwargs</span>)
+          <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">signature</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-ivar">@signatures</span>[<span class="ruby-identifier">method_name</span>].<span class="ruby-identifier">first</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

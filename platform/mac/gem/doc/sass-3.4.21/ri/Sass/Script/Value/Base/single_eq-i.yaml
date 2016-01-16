@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: The SassScript `=` operation (used for proprietary MS syntax like `alpha(opacity=20)`).
+- !ruby/struct:SM::Flow::P 
+  body: "@param other [Value] The right-hand side of the operator @return [Script::Value::String] A string containing both values"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  separated by `&quot;=&quot;`\n"
+full_name: Sass::Script::Value::Base#single_eq
+is_singleton: false
+name: single_eq
+params: (other)
+visibility: public

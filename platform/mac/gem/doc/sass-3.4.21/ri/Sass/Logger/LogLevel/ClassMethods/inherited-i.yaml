@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Sass::Logger::LogLevel::ClassMethods#inherited
+is_singleton: false
+name: inherited
+params: (subclass)
+visibility: public

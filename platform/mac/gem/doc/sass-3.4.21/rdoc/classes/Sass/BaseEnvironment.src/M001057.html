@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>inherited_hash_writer (Sass::BaseEnvironment)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/environment.rb, line 33</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inherited_hash_writer</span>(<span class="ruby-identifier">name</span>)
+        <span class="ruby-identifier">class_eval</span> <span class="ruby-value str">&quot;def set_\#{name}(name, value)\nname = name.tr('_', '-')\n@\#{name}s[name] = value unless try_set_\#{name}(name, value)\nend\n\ndef try_set_\#{name}(name, value)\n@\#{name}s ||= {}\nif @\#{name}s.include?(name)\n@\#{name}s[name] = value\ntrue\nelsif @parent &amp;&amp; !@parent.global?\n@parent.try_set_\#{name}(name, value)\nelse\nfalse\nend\nend\nprotected :try_set_\#{name}\n\ndef set_local_\#{name}(name, value)\n@\#{name}s ||= {}\n@\#{name}s[name.tr('_', '-')] = value\nend\n\ndef set_global_\#{name}(name, value)\nglobal_env.set_\#{name}(name, value)\nend\n&quot;</span>, <span class="ruby-keyword kw">__FILE__</span>, <span class="ruby-keyword kw">__LINE__</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>check_deprecated_interp (Sass::Script::Value::String)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/script/value/string.rb, line 121</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">check_deprecated_interp</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@deprecated_interp_equivalent</span>
+
+      <span class="ruby-comment cmt"># rubocop:disable GlobalVars</span>
+      <span class="ruby-identifier">$_</span><span class="ruby-identifier">sass_deprecated_interp_warnings</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Set</span>.<span class="ruby-identifier">new</span>
+      <span class="ruby-identifier">key</span> = [<span class="ruby-identifier">source_range</span>.<span class="ruby-identifier">start_pos</span>.<span class="ruby-identifier">line</span>, <span class="ruby-identifier">source_range</span>.<span class="ruby-identifier">file</span>, <span class="ruby-ivar">@deprecated_interp_equivalent</span>]
+      <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">$_</span><span class="ruby-identifier">sass_deprecated_interp_warnings</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
+      <span class="ruby-identifier">$_</span><span class="ruby-identifier">sass_deprecated_interp_warnings</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">key</span>
+      <span class="ruby-comment cmt"># rubocop:enable GlobalVars</span>
+
+      <span class="ruby-identifier">location</span> = <span class="ruby-node">&quot;on line #{source_range.start_pos.line}&quot;</span>
+      <span class="ruby-identifier">location</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot; of #{source_range.file}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">source_range</span>.<span class="ruby-identifier">file</span>
+      <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">sass_warn</span> <span class="ruby-value str">&quot;DEPRECATION WARNING \#{location}: \\\#{} interpolation near operators will be simplified\nin a future version of Sass. To preserve the current behavior, use quotes:\n\n  \#{@deprecated_interp_equivalent}\n&quot;</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

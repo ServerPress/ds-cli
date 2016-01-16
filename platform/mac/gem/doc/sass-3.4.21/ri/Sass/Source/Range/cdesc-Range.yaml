@@ -1,0 +1,48 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The ending position of the range in the document (exclusive).
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Sass::Source::Position]"
+  name: end_pos
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The file in which this source range appears. This can be nil if the file is unknown or not yet generated.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [String]"
+  name: file
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The importer that imported the file in which this source range appears. This is nil for target ranges.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Sass::Importers::Base]"
+  name: importer
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The starting position of the range in the document (inclusive).
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Sass::Source::Position]"
+  name: start_pos
+  rw: RW
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+constants: []
+
+full_name: Sass::Source::Range
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: inspect
+name: Range
+superclass: Object

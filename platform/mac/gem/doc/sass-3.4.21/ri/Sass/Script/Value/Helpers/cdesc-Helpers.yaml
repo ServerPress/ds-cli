@@ -1,0 +1,53 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: []
+
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Provides helper functions for creating sass values from within ruby methods. @since `3.3.0` @comment
+- !ruby/struct:SM::Flow::VERB 
+  body: "  rubocop:disable ModuleLength\n"
+constants: 
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: "@private"
+  name: VALID_UNIT
+  value: /#{Sass::SCSS::RX::NMSTART}#{Sass::SCSS::RX::NMCHAR}|%*/
+full_name: Sass::Script::Value::Helpers
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: bool
+- !ruby/object:RI::MethodSummary 
+  name: calc?
+- !ruby/object:RI::MethodSummary 
+  name: hex_color
+- !ruby/object:RI::MethodSummary 
+  name: hsl_color
+- !ruby/object:RI::MethodSummary 
+  name: identifier
+- !ruby/object:RI::MethodSummary 
+  name: list
+- !ruby/object:RI::MethodSummary 
+  name: map
+- !ruby/object:RI::MethodSummary 
+  name: "null"
+- !ruby/object:RI::MethodSummary 
+  name: number
+- !ruby/object:RI::MethodSummary 
+  name: parse_complex_selector
+- !ruby/object:RI::MethodSummary 
+  name: parse_compound_selector
+- !ruby/object:RI::MethodSummary 
+  name: parse_selector
+- !ruby/object:RI::MethodSummary 
+  name: quoted_string
+- !ruby/object:RI::MethodSummary 
+  name: rgb_color
+- !ruby/object:RI::MethodSummary 
+  name: unquoted_string
+name: Helpers
+superclass: 

@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Sass::Supports::Declaration#to_src
+is_singleton: false
+name: to_src
+params: (options)
+visibility: public

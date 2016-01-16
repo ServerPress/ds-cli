@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>value (Sass::Script::Value::String)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/script/value/string.rb, line 17</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">value</span>(<span class="ruby-identifier">contents</span>)
+      <span class="ruby-identifier">contents</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">&quot;\\\n&quot;</span>, <span class="ruby-value str">&quot;&quot;</span>).<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/\\(?:([0-9a-fA-F]{1,6})\s?|(.))/</span>) <span class="ruby-keyword kw">do</span>
+        <span class="ruby-keyword kw">next</span> <span class="ruby-identifier">$2</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">$2</span>
+        <span class="ruby-comment cmt"># Handle unicode escapes as per CSS Syntax Level 3 section 4.3.8.</span>
+        <span class="ruby-identifier">code_point</span> = <span class="ruby-identifier">$1</span>.<span class="ruby-identifier">to_i</span>(<span class="ruby-value">16</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">code_point</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">code_point</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0x10</span><span class="ruby-constant">FFFF</span> <span class="ruby-operator">||</span>
+            (<span class="ruby-identifier">code_point</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0x</span><span class="ruby-constant">D800</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">code_point</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">0x</span><span class="ruby-constant">DFFF</span>)
+          <span class="ruby-value str">'�'</span>
+        <span class="ruby-keyword kw">else</span>
+          [<span class="ruby-identifier">code_point</span>].<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;U&quot;</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

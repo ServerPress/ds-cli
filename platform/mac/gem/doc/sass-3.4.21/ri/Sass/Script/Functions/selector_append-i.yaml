@@ -1,0 +1,20 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Return a new selector with all selectors in `$selectors` appended one another as though they had been nested in the stylesheet as `$selector1 { &amp;$selector2 { ... } }`.
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  selector-append(&quot;.foo&quot;, &quot;.bar&quot;, &quot;.baz&quot;) =&gt; .foo.bar.baz\n  selector-append(&quot;.a .foo&quot;, &quot;.b .bar&quot;) =&gt; &quot;a .foo.b .bar&quot;\n  selector-append(&quot;.foo&quot;, &quot;-suffix&quot;) =&gt; &quot;.foo-suffix&quot;\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload selector_append($selectors...)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $selectors [[Sass::Script::Value::String, Sass::Script::Value::List]]\n    The selectors to append. At least one selector must be passed. Each of\n    these can be either a string, a list of strings, or a list of lists of\n    strings as returned by `&amp;`.\n  @return [Sass::Script::Value::List]\n    A list of lists of strings representing the result of appending\n    `$selectors`. This is in the same format as a selector returned by\n    `&amp;`.\n  @raise [ArgumentError] if a selector could not be appended.\n"
+full_name: Sass::Script::Functions#selector_append
+is_singleton: false
+name: selector_append
+params: (*selectors)
+visibility: public

@@ -1,0 +1,55 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  name: root
+  rw: RW
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: The default importer, used for any strings found in the load path. Simply loads Sass files from the filesystem using the default logic.
+constants: 
+- !ruby/object:RI::Constant 
+  comment: 
+  name: REDUNDANT_DIRECTORY
+  value: /#{Regexp.escape(File::SEPARATOR)}\.#{Regexp.escape(File::SEPARATOR)}/
+full_name: Sass::Importers::Filesystem
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: directories_to_watch
+- !ruby/object:RI::MethodSummary 
+  name: eql?
+- !ruby/object:RI::MethodSummary 
+  name: escape_glob_characters
+- !ruby/object:RI::MethodSummary 
+  name: extensions
+- !ruby/object:RI::MethodSummary 
+  name: find
+- !ruby/object:RI::MethodSummary 
+  name: find_real_file
+- !ruby/object:RI::MethodSummary 
+  name: find_relative
+- !ruby/object:RI::MethodSummary 
+  name: hash
+- !ruby/object:RI::MethodSummary 
+  name: key
+- !ruby/object:RI::MethodSummary 
+  name: mtime
+- !ruby/object:RI::MethodSummary 
+  name: possible_files
+- !ruby/object:RI::MethodSummary 
+  name: public_url
+- !ruby/object:RI::MethodSummary 
+  name: remove_root
+- !ruby/object:RI::MethodSummary 
+  name: split
+- !ruby/object:RI::MethodSummary 
+  name: to_s
+- !ruby/object:RI::MethodSummary 
+  name: watched_file?
+name: Filesystem
+superclass: Base

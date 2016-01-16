@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Evaluates the node.
+- !ruby/struct:SM::Flow::P 
+  body: \{#perform} shouldn't be overridden directly; instead, override \{#_perform}.
+- !ruby/struct:SM::Flow::P 
+  body: "@param environment [Sass::Environment] The environment in which to evaluate the SassScript @return [Sass::Script::Value] The SassScript object that is the value of the SassScript"
+full_name: Sass::Script::Tree::Node#perform
+is_singleton: false
+name: perform
+params: (environment)
+visibility: public

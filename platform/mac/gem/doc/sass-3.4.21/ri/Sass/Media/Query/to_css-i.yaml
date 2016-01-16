@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns the CSS for the media query.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [String]"
+full_name: Sass::Media::Query#to_css
+is_singleton: false
+name: to_css
+params: ()
+visibility: public

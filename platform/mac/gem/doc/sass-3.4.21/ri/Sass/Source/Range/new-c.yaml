@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@param start_pos [Sass::Source::Position] See \\{#start_pos} @param end_pos [Sass::Source::Position] See \\{#end_pos} @param file [String] See \\{#file} @param importer [Sass::Importers::Base] See \\{#importer}"
+full_name: Sass::Source::Range::new
+is_singleton: true
+name: new
+params: (start_pos, end_pos, file, importer = nil)
+visibility: public

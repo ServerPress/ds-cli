@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: The number of bytes into the current line of the lexer's current position (1-based).
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Fixnum]"
+full_name: Sass::Script::Lexer#offset
+is_singleton: false
+name: offset
+params: ()
+visibility: public

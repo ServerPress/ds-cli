@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Sass::Script::Functions::EvaluationContext</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Sass::Script::Functions::EvaluationContext</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../../files/lib/sass/script/functions_rb.html">
+                lib/sass/script/functions.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+The context in which methods in {<a
+href="../Functions.html">Script::Functions</a>} are evaluated. That means
+that all instance methods of {<a
+href="EvaluationContext.html">EvaluationContext</a>} are available to use
+in functions.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000627">assert_integer</a>&nbsp;&nbsp;
+      <a href="#M000625">assert_type</a>&nbsp;&nbsp;
+      <a href="#M000626">assert_unit</a>&nbsp;&nbsp;
+      <a href="#M000624">new</a>&nbsp;&nbsp;
+      <a href="#M000628">perform</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name"><a href="../Functions.html">Functions</a></span>
+        <span class="include-name"><a href="../Value/Helpers.html">Value::Helpers</a></span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">TYPE_NAMES</td>
+          <td>=</td>
+          <td class="context-item-value">{:ArgList =&gt; 'variable argument list'}</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+The human-readable names for [<a
+href="../Value/Base.html">Sass::Script::Value::Base</a>]. The default is
+just the downcased name of the type.
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">environment</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc">
+The environment for this function. This environment&#8216;s
+{Environment#parent} is the global environment, and its
+{Environment#caller} is a read-only view of the local environment of the
+caller of this function.
+
+<p>
+@return [<a href="../../Environment.html">Environment</a>]
+</p>
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">options</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc">
+The options hash for the {<a href="../../Engine.html">Sass::Engine</a>}
+that is processing the function call
+
+<p>
+@return [{Symbol =&gt; Object}]
+</p>
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000624" class="method-detail">
+        <a name="M000624"></a>
+
+        <div class="method-heading">
+          <a href="EvaluationContext.src/M000624.html" target="Code" class="method-signature"
+            onclick="popupCode('EvaluationContext.src/M000624.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(environment)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+@param environment [<a href="../../Environment.html">Environment</a>] See
+\{environment}
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000627" class="method-detail">
+        <a name="M000627"></a>
+
+        <div class="method-heading">
+          <a href="EvaluationContext.src/M000627.html" target="Code" class="method-signature"
+            onclick="popupCode('EvaluationContext.src/M000627.html');return false;">
+          <span class="method-name">assert_integer</span><span class="method-args">(number, name = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Asserts that the value is an integer.
+</p>
+<p>
+@example
+</p>
+<pre>
+  assert_integer 2px
+  assert_integer 2.5px
+    =&gt; SyntaxError: &quot;Expected 2.5px to be an integer&quot;
+  assert_integer 2.5px, &quot;width&quot;
+    =&gt; SyntaxError: &quot;Expected width to be an integer but got 2.5px&quot;
+</pre>
+<p>
+@param number [<a href="../Value/Base.html">Sass::Script::Value::Base</a>]
+The value to be validated. @param name [::String] The name of the parameter
+being validated. @raise [ArgumentError] if number is not an integer or is
+not a number.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000625" class="method-detail">
+        <a name="M000625"></a>
+
+        <div class="method-heading">
+          <a href="EvaluationContext.src/M000625.html" target="Code" class="method-signature"
+            onclick="popupCode('EvaluationContext.src/M000625.html');return false;">
+          <span class="method-name">assert_type</span><span class="method-args">(value, type, name = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Asserts that the type of a given SassScript value is the expected type
+(designated by a symbol).
+</p>
+<p>
+Valid types are `:Bool`, `:Color`, `:Number`, and `:String`. Note that
+`:String` will match both double-quoted strings and unquoted identifiers.
+</p>
+<p>
+@example
+</p>
+<pre>
+  assert_type value, :String
+  assert_type value, :Number
+</pre>
+<p>
+@param value [<a href="../Value/Base.html">Sass::Script::Value::Base</a>] A
+SassScript value @param type [Symbol] The name of the type the value is
+expected to be @param name [String, Symbol, nil] The name of the argument.
+@raise [ArgumentError] if value is not of the correct type.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000626" class="method-detail">
+        <a name="M000626"></a>
+
+        <div class="method-heading">
+          <a href="EvaluationContext.src/M000626.html" target="Code" class="method-signature"
+            onclick="popupCode('EvaluationContext.src/M000626.html');return false;">
+          <span class="method-name">assert_unit</span><span class="method-args">(number, unit, name = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Asserts that the unit of the number is as expected.
+</p>
+<p>
+@example
+</p>
+<pre>
+  assert_unit number, &quot;px&quot;
+  assert_unit number, nil
+</pre>
+<p>
+@param number [<a
+href="../Value/Number.html">Sass::Script::Value::Number</a>] The number to
+be validated. @param unit [::String]
+</p>
+<pre>
+  The unit that the number must have.
+  If nil, the number must be unitless.
+</pre>
+<p>
+@param name [::String] The name of the parameter being validated. @raise
+[ArgumentError] if number is not of the correct unit or is not a number.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000628" class="method-detail">
+        <a name="M000628"></a>
+
+        <div class="method-heading">
+          <a href="EvaluationContext.src/M000628.html" target="Code" class="method-signature"
+            onclick="popupCode('EvaluationContext.src/M000628.html');return false;">
+          <span class="method-name">perform</span><span class="method-args">(node, env = environment.caller)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Performs a node that has been delayed for execution.
+</p>
+<p>
+@private @param node [<a
+href="../Tree/Node.html">Sass::Script::Tree::Node</a>,
+</p>
+<pre>
+  Sass::Script::Value::Base] When this is a tree node, it's
+  performed in the caller's environment. When it's a value
+  (which can happen when the value had to be performed already
+  -- like for a splat), it's returned as-is.
+</pre>
+<p>
+@param env [<a href="../../Environment.html">Sass::Environment</a>] The
+environment within which to <a
+href="EvaluationContext.html#M000628">perform</a> the node.
+</p>
+<pre>
+  Defaults to the (read-only) environment of the caller.
+</pre>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

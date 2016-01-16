@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: k, v1, v2
+comment: 
+full_name: OrderedHash#merge
+is_singleton: false
+name: merge
+params: (other_hash) {|k, v1, v2| ...}
+visibility: public

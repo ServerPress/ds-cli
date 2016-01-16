@@ -1,0 +1,24 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Parses a user-provided compound selector.
+- !ruby/struct:SM::Flow::P 
+  body: A compound selector cannot contain combinators or commas.
+- !ruby/struct:SM::Flow::P 
+  body: "@param value [Sass::Script::Value::String] The selector to parse. @param name [Symbol, nil]"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  If provided, the name of the selector argument. This is used\n  for error reporting.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@param allow_parent_ref [Boolean]"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  Whether the parsed selector should allow parent references.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Selector::SimpleSequence] The parsed selector. @throw [ArgumentError] if the parse failed for any reason."
+full_name: Sass::Script::Value::Helpers#parse_compound_selector
+is_singleton: false
+name: parse_compound_selector
+params: (value, name = nil, allow_parent_ref = false)
+visibility: public

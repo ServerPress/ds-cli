@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: (f)
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Like `Dir.glob`, but works with backslash-separated paths on Windows.
+- !ruby/struct:SM::Flow::P 
+  body: "@param path [String]"
+full_name: Sass::Util#glob
+is_singleton: false
+name: glob
+params: (path) {|f| ...}
+visibility: public

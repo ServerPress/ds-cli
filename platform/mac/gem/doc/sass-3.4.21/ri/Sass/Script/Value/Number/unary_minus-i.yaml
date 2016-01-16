@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: The SassScript unary `-` operation (e.g. `-$a`).
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Number] The negative value of this number"
+full_name: Sass::Script::Value::Number#unary_minus
+is_singleton: false
+name: unary_minus
+params: ()
+visibility: public

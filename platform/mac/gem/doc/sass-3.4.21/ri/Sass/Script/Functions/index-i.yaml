@@ -1,0 +1,28 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns the position of a value within a list. If the value isn't found, returns `null` instead.
+- !ruby/struct:SM::Flow::P 
+  body: Note that unlike some languages, the first item in a Sass list is number 1, the second number 2, and so forth.
+- !ruby/struct:SM::Flow::P 
+  body: This can return the position of a pair in a map as well.
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  index(1px solid red, solid) =&gt; 2\n  index(1px solid red, dashed) =&gt; null\n  index((width: 10px, height: 20px), (height 20px)) =&gt; 2\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload index($list, $value)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $list [Sass::Script::Value::Base]\n  @param $value [Sass::Script::Value::Base]\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Script::Value::Number, Sass::Script::Value::Null] The"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  1-based index of `$value` in `$list`, or `null`\n"
+full_name: Sass::Script::Functions#index
+is_singleton: false
+name: index
+params: (list, value)
+visibility: public

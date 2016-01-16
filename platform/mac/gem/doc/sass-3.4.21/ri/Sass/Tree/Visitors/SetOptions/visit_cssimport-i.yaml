@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: ""
+comment: 
+full_name: Sass::Tree::Visitors::SetOptions#visit_cssimport
+is_singleton: false
+name: visit_cssimport
+params: (node) {|| ...}
+visibility: protected

@@ -1,0 +1,28 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Removes a template-location/css-location mapping. This means that Sass/SCSS files in `template_location` will no longer be compiled to CSS files in `css_location`.
+- !ruby/struct:SM::Flow::P 
+  body: This is preferred over manually manipulating the {file:SASS_REFERENCE.md#template_location-option `:template_location` option} since the option can be in multiple formats.
+- !ruby/struct:SM::Flow::P 
+  body: Note that this method will change `options[:template_location]` to be in the Array format. This means that even if `options[:template_location]` had previously been a Hash or a String, it will now be an Array.
+- !ruby/struct:SM::Flow::P 
+  body: "@param template_location [String]"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  The location where Sass/SCSS files were,\n  which is now going to be ignored.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@param css_location [String]"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  The location where compiled CSS files went, but will no longer go.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Boolean]"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  Non-`nil` if the given mapping already existed and was removed,\n  or `nil` if nothing was changed.\n"
+full_name: Sass::Plugin::Configuration#remove_template_location
+is_singleton: false
+name: remove_template_location
+params: (template_location, css_location = options[:css_location])
+visibility: public

@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: ""
+comment: 
+full_name: Sass::Tree::Visitors::DeepCopy#visit_for
+is_singleton: false
+name: visit_for
+params: (node) {|| ...}
+visibility: protected

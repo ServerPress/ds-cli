@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns the hash code of this value. Two objects' hash codes should be equal if the objects are equal.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Fixnum] The hash code."
+full_name: Sass::Script::Value::Base#hash
+is_singleton: false
+name: hash
+params: ()
+visibility: public

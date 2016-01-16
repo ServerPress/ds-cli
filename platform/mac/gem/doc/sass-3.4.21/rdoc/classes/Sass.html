@@ -1,0 +1,809 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: Sass</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">Sass</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/lib/sass/cache_stores/base_rb.html">
+                lib/sass/cache_stores/base.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/cache_stores/chain_rb.html">
+                lib/sass/cache_stores/chain.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/cache_stores/filesystem_rb.html">
+                lib/sass/cache_stores/filesystem.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/cache_stores/memory_rb.html">
+                lib/sass/cache_stores/memory.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/cache_stores/null_rb.html">
+                lib/sass/cache_stores/null.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/cache_stores_rb.html">
+                lib/sass/cache_stores.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/callbacks_rb.html">
+                lib/sass/callbacks.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/css_rb.html">
+                lib/sass/css.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/engine_rb.html">
+                lib/sass/engine.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/environment_rb.html">
+                lib/sass/environment.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/error_rb.html">
+                lib/sass/error.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/exec_rb.html">
+                lib/sass/exec.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/features_rb.html">
+                lib/sass/features.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/importers/base_rb.html">
+                lib/sass/importers/base.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/importers/deprecated_path_rb.html">
+                lib/sass/importers/deprecated_path.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/importers/filesystem_rb.html">
+                lib/sass/importers/filesystem.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/importers_rb.html">
+                lib/sass/importers.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/logger/log_level_rb.html">
+                lib/sass/logger/log_level.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/logger_rb.html">
+                lib/sass/logger.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/plugin/configuration_rb.html">
+                lib/sass/plugin/configuration.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/plugin/rack_rb.html">
+                lib/sass/plugin/rack.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/plugin/staleness_checker_rb.html">
+                lib/sass/plugin/staleness_checker.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/plugin_rb.html">
+                lib/sass/plugin.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/repl_rb.html">
+                lib/sass/repl.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/root_rb.html">
+                lib/sass/root.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/script/css_lexer_rb.html">
+                lib/sass/script/css_lexer.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/script/css_parser_rb.html">
+                lib/sass/script/css_parser.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/script/lexer_rb.html">
+                lib/sass/script/lexer.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/script/parser_rb.html">
+                lib/sass/script/parser.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/script_rb.html">
+                lib/sass/script.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/scss/css_parser_rb.html">
+                lib/sass/scss/css_parser.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/scss/parser_rb.html">
+                lib/sass/scss/parser.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/scss/rx_rb.html">
+                lib/sass/scss/rx.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/scss/script_lexer_rb.html">
+                lib/sass/scss/script_lexer.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/scss/script_parser_rb.html">
+                lib/sass/scss/script_parser.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/scss/static_parser_rb.html">
+                lib/sass/scss/static_parser.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/scss_rb.html">
+                lib/sass/scss.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/selector/abstract_sequence_rb.html">
+                lib/sass/selector/abstract_sequence.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/selector/comma_sequence_rb.html">
+                lib/sass/selector/comma_sequence.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/selector/pseudo_rb.html">
+                lib/sass/selector/pseudo.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/selector/sequence_rb.html">
+                lib/sass/selector/sequence.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/selector/simple_rb.html">
+                lib/sass/selector/simple.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/selector/simple_sequence_rb.html">
+                lib/sass/selector/simple_sequence.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/selector_rb.html">
+                lib/sass/selector.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/shared_rb.html">
+                lib/sass/shared.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/stack_rb.html">
+                lib/sass/stack.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/tree/at_root_node_rb.html">
+                lib/sass/tree/at_root_node.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/tree/content_node_rb.html">
+                lib/sass/tree/content_node.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/tree/debug_node_rb.html">
+                lib/sass/tree/debug_node.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/tree/error_node_rb.html">
+                lib/sass/tree/error_node.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/tree/function_node_rb.html">
+                lib/sass/tree/function_node.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/tree/import_node_rb.html">
+                lib/sass/tree/import_node.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/tree/mixin_def_node_rb.html">
+                lib/sass/tree/mixin_def_node.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/tree/node_rb.html">
+                lib/sass/tree/node.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/tree/return_node_rb.html">
+                lib/sass/tree/return_node.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/tree/root_node_rb.html">
+                lib/sass/tree/root_node.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/tree/variable_node_rb.html">
+                lib/sass/tree/variable_node.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/tree/warn_node_rb.html">
+                lib/sass/tree/warn_node.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/util/cross_platform_random_rb.html">
+                lib/sass/util/cross_platform_random.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/util/normalized_map_rb.html">
+                lib/sass/util/normalized_map.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/util/subset_map_rb.html">
+                lib/sass/util/subset_map.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/util/test_rb.html">
+                lib/sass/util/test.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/util_rb.html">
+                lib/sass/util.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass/version_rb.html">
+                lib/sass/version.rb
+                </a>
+        <br />
+                <a href="../files/lib/sass_rb.html">
+                lib/sass.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+The module that contains everything <a href="Sass.html">Sass</a>-related:
+</p>
+<ul>
+<li>{<a href="Sass/Engine.html">Sass::Engine</a>} is the class used to render
+<a href="Sass.html">Sass</a>/<a href="Sass/SCSS.html">SCSS</a> within Ruby
+code.
+
+</li>
+<li>{<a href="Sass/Plugin.html">Sass::Plugin</a>} is interfaces with web
+frameworks (Rails and Merb in particular).
+
+</li>
+<li>{<a href="Sass/SyntaxError.html">Sass::SyntaxError</a>} is raised when <a
+href="Sass.html">Sass</a> encounters an error.
+
+</li>
+<li>{<a href="Sass/CSS.html">Sass::CSS</a>} handles conversion of <a
+href="Sass/CSS.html">CSS</a> to <a href="Sass.html">Sass</a>.
+
+</li>
+</ul>
+<p>
+Also see the {file:SASS_REFERENCE.md full <a href="Sass.html">Sass</a>
+reference}.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000027">absolute_path</a>&nbsp;&nbsp;
+      <a href="#M000028">atomic_create_and_write_file</a>&nbsp;&nbsp;
+      <a href="#M000031">compile</a>&nbsp;&nbsp;
+      <a href="#M000032">compile_file</a>&nbsp;&nbsp;
+      <a href="#M000025">encode_vlq</a>&nbsp;&nbsp;
+      <a href="#M000026">escape_uri</a>&nbsp;&nbsp;
+      <a href="#M000029">load_listen!</a>&nbsp;&nbsp;
+      <a href="#M000030">load_paths</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Module <a href="Sass/CacheStores.html" class="link">Sass::CacheStores</a><br />
+Module <a href="Sass/Callbacks.html" class="link">Sass::Callbacks</a><br />
+Module <a href="Sass/Exec.html" class="link">Sass::Exec</a><br />
+Module <a href="Sass/Features.html" class="link">Sass::Features</a><br />
+Module <a href="Sass/Importers.html" class="link">Sass::Importers</a><br />
+Module <a href="Sass/Logger.html" class="link">Sass::Logger</a><br />
+Module <a href="Sass/Media.html" class="link">Sass::Media</a><br />
+Module <a href="Sass/Plugin.html" class="link">Sass::Plugin</a><br />
+Module <a href="Sass/SCSS.html" class="link">Sass::SCSS</a><br />
+Module <a href="Sass/Script.html" class="link">Sass::Script</a><br />
+Module <a href="Sass/Selector.html" class="link">Sass::Selector</a><br />
+Module <a href="Sass/Shared.html" class="link">Sass::Shared</a><br />
+Module <a href="Sass/Source.html" class="link">Sass::Source</a><br />
+Module <a href="Sass/Supports.html" class="link">Sass::Supports</a><br />
+Module <a href="Sass/Tree.html" class="link">Sass::Tree</a><br />
+Module <a href="Sass/Util.html" class="link">Sass::Util</a><br />
+Module <a href="Sass/Version.html" class="link">Sass::Version</a><br />
+Class <a href="Sass/BaseEnvironment.html" class="link">Sass::BaseEnvironment</a><br />
+Class <a href="Sass/CSS.html" class="link">Sass::CSS</a><br />
+Class <a href="Sass/Engine.html" class="link">Sass::Engine</a><br />
+Class <a href="Sass/Environment.html" class="link">Sass::Environment</a><br />
+Class <a href="Sass/ReadOnlyEnvironment.html" class="link">Sass::ReadOnlyEnvironment</a><br />
+Class <a href="Sass/Repl.html" class="link">Sass::Repl</a><br />
+Class <a href="Sass/SemiGlobalEnvironment.html" class="link">Sass::SemiGlobalEnvironment</a><br />
+Class <a href="Sass/Stack.html" class="link">Sass::Stack</a><br />
+Class <a href="Sass/StaticConditionalContext.html" class="link">Sass::StaticConditionalContext</a><br />
+Class <a href="Sass/SyntaxError.html" class="link">Sass::SyntaxError</a><br />
+Class <a href="Sass/UnitConversionError.html" class="link">Sass::UnitConversionError</a><br />
+
+    </div>
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Callable</td>
+          <td>=</td>
+          <td class="context-item-value">Struct.new(:name, :args, :splat, :environment, :tree, :has_content, :type)</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+A <a href="Sass.html">Sass</a> mixin or function.
+
+<p>
+`name`: `String` : The name of the mixin/function.
+</p>
+<p>
+`args`: `Array&lt;(<a
+href="Sass/Script/Tree/Node.html">Script::Tree::Node</a>, <a
+href="Sass/Script/Tree/Node.html">Script::Tree::Node</a>)&gt;` : The
+arguments for the mixin/function.
+</p>
+<pre>
+  Each element is a tuple containing the variable node of the argument
+  and the parse tree for the default value of the argument.
+</pre>
+<p>
+`splat`: `<a href="Sass/Script/Tree/Node.html">Script::Tree::Node</a>?` :
+The variable node of the splat argument for this callable, or null.
+</p>
+<p>
+`environment`: {<a href="Sass/Environment.html">Sass::Environment</a>} :
+The environment in which the mixin/function was defined.
+</p>
+<pre>
+  This is captured so that the mixin/function can have access
+  to local variables defined in its scope.
+</pre>
+<p>
+`tree`: `Array&lt;<a href="Sass/Tree/Node.html">Tree::Node</a>&gt;` : The
+parse tree for the mixin/function.
+</p>
+<p>
+`has_content`: `Boolean` : Whether the callable accepts a content block.
+</p>
+<p>
+`type`: `String` : The user-friendly name of the type of the callable.
+</p>
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ROOT_DIR</td>
+          <td>=</td>
+          <td class="context-item-value">File.expand_path(File.join(__FILE__, &quot;../../..&quot;))</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+The root directory of the <a href="Sass.html">Sass</a> source tree. This
+may be overridden by the package manager if the lib directory is separated
+from the main source tree. @api public
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">URI_ESCAPE</td>
+          <td>=</td>
+          <td class="context-item-value">URI.const_defined?(&quot;DEFAULT_PARSER&quot;) ? URI::DEFAULT_PARSER : URI</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+This is a hack around the fact that you can&#8216;t instantiate a URI
+parser on 1.8, so we have to have this hacky stuff to work around it. When
+1.8 support is dropped, we can remove this method.
+
+<p>
+@private
+</p>
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ATOMIC_WRITE_MUTEX</td>
+          <td>=</td>
+          <td class="context-item-value">Mutex.new</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+@private
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">VERSION</td>
+          <td>=</td>
+          <td class="context-item-value">version[:string] unless defined?(Sass::VERSION)</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+A string representing the version of <a href="Sass.html">Sass</a>. A more
+fine-grained representation is available from Sass.version. @api public
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">logger</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">tests_running</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+@private
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000031" class="method-detail">
+        <a name="M000031"></a>
+
+        <div class="method-heading">
+          <a href="Sass.src/M000031.html" target="Code" class="method-signature"
+            onclick="popupCode('Sass.src/M000031.html');return false;">
+          <span class="method-name">compile</span><span class="method-args">(contents, options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Compile a <a href="Sass.html">Sass</a> or <a href="Sass/SCSS.html">SCSS</a>
+string to <a href="Sass/CSS.html">CSS</a>. Defaults to <a
+href="Sass/SCSS.html">SCSS</a>.
+</p>
+<p>
+@param contents [String] The contents of the <a href="Sass.html">Sass</a>
+file. @param options [{Symbol =&gt; Object}] An options hash;
+</p>
+<pre>
+  see {file:SASS_REFERENCE.md#sass_options the Sass options documentation}
+</pre>
+<p>
+@raise [<a href="Sass/SyntaxError.html">Sass::SyntaxError</a>] if
+there&#8216;s an error in the document @raise
+[Encoding::UndefinedConversionError] if the source encoding
+</p>
+<pre>
+  cannot be converted to UTF-8
+</pre>
+<p>
+@raise [ArgumentError] if the document uses an unknown encoding with
+`@charset`
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000032" class="method-detail">
+        <a name="M000032"></a>
+
+        <div class="method-heading">
+          <a href="Sass.src/M000032.html" target="Code" class="method-signature"
+            onclick="popupCode('Sass.src/M000032.html');return false;">
+          <span class="method-name">compile_file</span><span class="method-args">(filename, *args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Compile a file on disk to <a href="Sass/CSS.html">CSS</a>.
+</p>
+<p>
+@raise [<a href="Sass/SyntaxError.html">Sass::SyntaxError</a>] if
+there&#8216;s an error in the document @raise
+[Encoding::UndefinedConversionError] if the source encoding
+</p>
+<pre>
+  cannot be converted to UTF-8
+</pre>
+<p>
+@raise [ArgumentError] if the document uses an unknown encoding with
+`@charset`
+</p>
+<p>
+@overload <a href="Sass.html#M000032">compile_file</a>(filename, options =
+{})
+</p>
+<pre>
+  Return the compiled CSS rather than writing it to a file.
+
+  @param filename [String] The path to the Sass, SCSS, or CSS file on disk.
+  @param options [{Symbol =&gt; Object}] An options hash;
+    see {file:SASS_REFERENCE.md#sass_options the Sass options documentation}
+  @return [String] The compiled CSS.
+</pre>
+<p>
+@overload <a href="Sass.html#M000032">compile_file</a>(filename,
+css_filename, options = {})
+</p>
+<pre>
+  Write the compiled CSS to a file.
+
+  @param filename [String] The path to the Sass, SCSS, or CSS file on disk.
+  @param options [{Symbol =&gt; Object}] An options hash;
+    see {file:SASS_REFERENCE.md#sass_options the Sass options documentation}
+  @param css_filename [String] The location to which to write the compiled CSS.
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000030" class="method-detail">
+        <a name="M000030"></a>
+
+        <div class="method-heading">
+          <a href="Sass.src/M000030.html" target="Code" class="method-signature"
+            onclick="popupCode('Sass.src/M000030.html');return false;">
+          <span class="method-name">load_paths</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The global load paths for <a href="Sass.html">Sass</a> files. This is meant
+for plugins and libraries to register the paths to their <a
+href="Sass.html">Sass</a> stylesheets to that they may be `@imported`. This
+load path is used by every instance of {<a
+href="Sass/Engine.html">Sass::Engine</a>}. They are lower-precedence than
+any load paths passed in via the {file:SASS_REFERENCE.md#load_paths-option
+`:<a href="Sass.html#M000030">load_paths</a>` option}.
+</p>
+<p>
+If the `SASS_PATH` environment variable is set, the initial value of `<a
+href="Sass.html#M000030">load_paths</a>` will be initialized based on that.
+The variable should be a colon-separated list of path names
+(semicolon-separated on Windows).
+</p>
+<p>
+Note that files on the global load path are never compiled to <a
+href="Sass/CSS.html">CSS</a> themselves, even if they aren&#8216;t
+partials. They exist only to be imported.
+</p>
+<p>
+@example
+</p>
+<pre>
+  Sass.load_paths &lt;&lt; File.dirname(__FILE__ + '/sass')
+</pre>
+<p>
+@return [Array&lt;String, Pathname, <a
+href="Sass/Importers/Base.html">Sass::Importers::Base</a>&gt;]
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000027" class="method-detail">
+        <a name="M000027"></a>
+
+        <div class="method-heading">
+          <a href="Sass.src/M000027.html" target="Code" class="method-signature"
+            onclick="popupCode('Sass.src/M000027.html');return false;">
+          <span class="method-name">absolute_path</span><span class="method-args">(path, dir_string = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+A cross-platform implementation of `File.absolute_path`.
+</p>
+<p>
+@param path [String] @param dir_string [String] The directory to consider
+[path] relative to. @return [String] The absolute version of `path`.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000028" class="method-detail">
+        <a name="M000028"></a>
+
+        <div class="method-heading">
+          <a href="Sass.src/M000028.html" target="Code" class="method-signature"
+            onclick="popupCode('Sass.src/M000028.html');return false;">
+          <span class="method-name">atomic_create_and_write_file</span><span class="method-args">(filename, perms = 0666) {|tmpfile| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This creates a temp file and yields it for writing. When the write is
+complete, the file is moved into the desired location. The atomicity of
+this operation is provided by the filesystem&#8216;s rename operation.
+</p>
+<p>
+@param filename [String] The file to write to. @param perms [Integer] The
+permissions used for creating this file.
+</p>
+<pre>
+  Will be masked by the process umask. Defaults to readable/writeable
+  by all users however the umask usually changes this to only be writable
+  by the process's user.
+</pre>
+<p>
+@yieldparam tmpfile [Tempfile] The temp file that can be written to.
+@return The value returned by the block.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000025" class="method-detail">
+        <a name="M000025"></a>
+
+        <div class="method-heading">
+          <a href="Sass.src/M000025.html" target="Code" class="method-signature"
+            onclick="popupCode('Sass.src/M000025.html');return false;">
+          <span class="method-name">encode_vlq</span><span class="method-args">(value)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Encodes `value` as VLQ (<a
+href="http://en.wikipedia.org/wiki/VLQ">en.wikipedia.org/wiki/VLQ</a>).
+</p>
+<p>
+@param value [Fixnum] @return [String] The encoded value
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000026" class="method-detail">
+        <a name="M000026"></a>
+
+        <div class="method-heading">
+          <a href="Sass.src/M000026.html" target="Code" class="method-signature"
+            onclick="popupCode('Sass.src/M000026.html');return false;">
+          <span class="method-name">escape_uri</span><span class="method-args">(string)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+URI-escape `string`.
+</p>
+<p>
+@param string [String] @return [String]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000029" class="method-detail">
+        <a name="M000029"></a>
+
+        <div class="method-heading">
+          <a href="Sass.src/M000029.html" target="Code" class="method-signature"
+            onclick="popupCode('Sass.src/M000029.html');return false;">
+          <span class="method-name">load_listen!</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

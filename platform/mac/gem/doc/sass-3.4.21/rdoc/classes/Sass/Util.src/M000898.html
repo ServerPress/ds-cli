@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>realpath (Sass::Util)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/util.rb, line 685</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">realpath</span>(<span class="ruby-identifier">path</span>)
+      <span class="ruby-identifier">path</span> = <span class="ruby-constant">Pathname</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">path</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">path</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Pathname</span>)
+
+      <span class="ruby-comment cmt"># Explicitly DON'T run #pathname here. We don't want to convert</span>
+      <span class="ruby-comment cmt"># to Windows directory separators because we're comparing these</span>
+      <span class="ruby-comment cmt"># against the paths returned by Listen, which use forward</span>
+      <span class="ruby-comment cmt"># slashes everywhere.</span>
+      <span class="ruby-keyword kw">begin</span>
+        <span class="ruby-identifier">path</span>.<span class="ruby-identifier">realpath</span>
+      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">SystemCallError</span>
+        <span class="ruby-comment cmt"># If [path] doesn't actually exist, don't bail, just</span>
+        <span class="ruby-comment cmt"># return the original.</span>
+        <span class="ruby-identifier">path</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

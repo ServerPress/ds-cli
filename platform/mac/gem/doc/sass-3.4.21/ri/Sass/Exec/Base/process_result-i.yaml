@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Processes the options set by the command-line arguments. In particular, sets `@options[:input]` and `@options[:output]` to appropriate IO streams.
+- !ruby/struct:SM::Flow::P 
+  body: This is meant to be overridden by subclasses so they can run their respective programs.
+full_name: Sass::Exec::Base#process_result
+is_singleton: false
+name: process_result
+params: ()
+visibility: protected

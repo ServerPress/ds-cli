@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>_perform (Sass::Script::Tree::StringInterpolation)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/script/tree/string_interpolation.rb, line 89</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_perform</span>(<span class="ruby-identifier">environment</span>)
+      <span class="ruby-identifier">res</span> = <span class="ruby-value str">&quot;&quot;</span>
+      <span class="ruby-identifier">before</span> = <span class="ruby-ivar">@before</span>.<span class="ruby-identifier">perform</span>(<span class="ruby-identifier">environment</span>)
+      <span class="ruby-identifier">res</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">before</span>.<span class="ruby-identifier">value</span>
+      <span class="ruby-identifier">mid</span> = <span class="ruby-ivar">@mid</span>.<span class="ruby-identifier">perform</span>(<span class="ruby-identifier">environment</span>)
+      <span class="ruby-identifier">res</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-identifier">mid</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Script</span><span class="ruby-operator">::</span><span class="ruby-constant">Value</span><span class="ruby-operator">::</span><span class="ruby-constant">String</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">mid</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">mid</span>.<span class="ruby-identifier">to_s</span>(<span class="ruby-identifier">:quote</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:none</span>))
+      <span class="ruby-identifier">res</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@after</span>.<span class="ruby-identifier">perform</span>(<span class="ruby-identifier">environment</span>).<span class="ruby-identifier">value</span>
+      <span class="ruby-identifier">opts</span>(<span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Script</span><span class="ruby-operator">::</span><span class="ruby-constant">Value</span><span class="ruby-operator">::</span><span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">res</span>, <span class="ruby-identifier">before</span>.<span class="ruby-identifier">type</span>))
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

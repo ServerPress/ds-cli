@@ -1,0 +1,17 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: 
+- !ruby/object:RI::AliasName 
+  name: ==
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Checks equality between this and another object.
+- !ruby/struct:SM::Flow::P 
+  body: By default, this is based on the value of \{#to_a}, so if that contains information irrelevant to the identity of the selector, this should be overridden.
+- !ruby/struct:SM::Flow::P 
+  body: "@param other [Object] The object to test equality against @return [Boolean] Whether or not this is equal to `other`"
+full_name: Sass::Selector::Simple#eql?
+is_singleton: false
+name: eql?
+params: (other)
+visibility: public

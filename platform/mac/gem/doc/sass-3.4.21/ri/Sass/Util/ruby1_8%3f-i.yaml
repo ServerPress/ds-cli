@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Whether or not this is running under Ruby 1.8 or lower.
+- !ruby/struct:SM::Flow::P 
+  body: Note that IronRuby counts as Ruby 1.8, because it doesn't support the Ruby 1.9 encoding API.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Boolean]"
+full_name: Sass::Util#ruby1_8?
+is_singleton: false
+name: ruby1_8?
+params: ()
+visibility: public

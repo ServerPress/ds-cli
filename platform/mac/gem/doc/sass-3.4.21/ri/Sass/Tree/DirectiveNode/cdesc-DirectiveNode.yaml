@@ -1,0 +1,56 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: "@see RuleNode#group_end"
+  name: group_end
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The text of the directive after any interpolated SassScript has been resolved. Only set once \{Tree::Visitors::Perform} has been run.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [String]"
+  name: resolved_value
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: "@see RuleNode#tabs"
+  name: tabs
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The text of the directive, `@` and all, with interpolation included.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Array&lt;String, Sass::Script::Tree::Node&gt;]"
+  name: value
+  rw: RW
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+- !ruby/object:RI::MethodSummary 
+  name: resolved
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A static node representing an unprocessed Sass `@`-directive. Directives known to Sass, like `@for` and `@debug`, are handled by their own nodes; only CSS directives like `@media` and `@font-face` become {DirectiveNode}s.
+- !ruby/struct:SM::Flow::P 
+  body: `@import` and `@charset` are special cases; they become {ImportNode}s and {CharsetNode}s, respectively.
+- !ruby/struct:SM::Flow::P 
+  body: "@see Sass::Tree"
+constants: []
+
+full_name: Sass::Tree::DirectiveNode
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: bubbles?
+- !ruby/object:RI::MethodSummary 
+  name: name
+- !ruby/object:RI::MethodSummary 
+  name: normalized_name
+name: DirectiveNode
+superclass: Node

@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: In MRI the Hash class is core and written in C. In particular, methods are programmed with explicit C function calls and polymorphism is not honored.
+- !ruby/struct:SM::Flow::P 
+  body: For example, []= is crucial in this implementation to maintain the @keys array but hash.c invokes rb_hash_aset() originally. This prevents method reuse through inheritance and forces us to reimplement stuff.
+- !ruby/struct:SM::Flow::P 
+  body: "For instance, we cannot use the inherited #merge! because albeit the algorithm itself would work, our []= is not being called at all by the C code."
+full_name: OrderedHash::new
+is_singleton: true
+name: new
+params: (*args)
+visibility: public

@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A cross-platform implementation of `File.absolute_path`.
+- !ruby/struct:SM::Flow::P 
+  body: "@param path [String] @param dir_string [String] The directory to consider [path] relative to. @return [String] The absolute version of `path`."
+full_name: Sass#absolute_path
+is_singleton: false
+name: absolute_path
+params: (path, dir_string = nil)
+visibility: public

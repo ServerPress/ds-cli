@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>visit_atroot (Sass::Tree::Visitors::Cssize)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/tree/visitors/cssize.rb, line 168</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">visit_atroot</span>(<span class="ruby-identifier">node</span>)
+    <span class="ruby-comment cmt"># If there aren't any more directives or rules that this @at-root needs to</span>
+    <span class="ruby-comment cmt"># exclude, we can get rid of it and just evaluate the children.</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@parents</span>.<span class="ruby-identifier">none?</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">n</span><span class="ruby-operator">|</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">exclude_node?</span>(<span class="ruby-identifier">n</span>)}
+      <span class="ruby-identifier">results</span> = <span class="ruby-identifier">visit_children_without_parent</span>(<span class="ruby-identifier">node</span>)
+      <span class="ruby-identifier">results</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">tabs</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">tabs</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">bubblable?</span>(<span class="ruby-identifier">c</span>)}
+      <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">results</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">bubblable?</span>(<span class="ruby-identifier">results</span>.<span class="ruby-identifier">last</span>)
+        <span class="ruby-identifier">results</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">group_end</span> = <span class="ruby-identifier">node</span>.<span class="ruby-identifier">group_end</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">results</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-comment cmt"># If this @at-root excludes the immediate parent, return it as-is so that it</span>
+    <span class="ruby-comment cmt"># can be bubbled up by the parent node.</span>
+    <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Bubble</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">node</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">exclude_node?</span>(<span class="ruby-identifier">parent</span>)
+
+    <span class="ruby-comment cmt"># Otherwise, duplicate the current parent and move it into the @at-root</span>
+    <span class="ruby-comment cmt"># node. As above, returning an @at-root node signals to the parent directive</span>
+    <span class="ruby-comment cmt"># that it should be bubbled upwards.</span>
+    <span class="ruby-identifier">bubble</span>(<span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,71 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The argument to the selector, or `nil` if no argument was given.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [String, nil]"
+  name: arg
+  rw: R
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The name of the selector.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [String]"
+  name: name
+  rw: R
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The selector argument, or `nil` if no selector exists.
+  - !ruby/struct:SM::Flow::P 
+    body: If this and \{#arg\} are both set, \{#arg\} is considered a non-selector prefix.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [CommaSequence]"
+  name: selector
+  rw: R
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: Like \{#type}, but returns the type of selector this looks like, rather than the type it is semantically. This only differs from type for selectors in \{ACTUALLY_ELEMENTS}.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Symbol]"
+  name: syntactic_type
+  rw: R
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A pseudoclass (e.g. `:visited`) or pseudoelement (e.g. `::first-line`) selector. It can have arguments (e.g. `:nth-child(2n+1)`) which can contain selectors (e.g. `:nth-child(2n+1 of .foo)`).
+constants: 
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: Some pseudo-class-syntax selectors are actually considered pseudo-elements and must be treated differently. This is a list of such selectors.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Set&lt;String&gt;]"
+  name: ACTUALLY_ELEMENTS
+  value: "%w[after before first-line first-letter].to_set"
+full_name: Sass::Selector::Pseudo
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: normalized_name
+- !ruby/object:RI::MethodSummary 
+  name: specificity
+- !ruby/object:RI::MethodSummary 
+  name: superselector?
+- !ruby/object:RI::MethodSummary 
+  name: to_s
+- !ruby/object:RI::MethodSummary 
+  name: type
+- !ruby/object:RI::MethodSummary 
+  name: unify
+- !ruby/object:RI::MethodSummary 
+  name: with_selector
+name: Pseudo
+superclass: Simple

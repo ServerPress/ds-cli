@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns the singleton compiler instance. This compiler has been pre-configured according to the plugin configuration.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Plugin::Compiler]"
+full_name: Sass::Plugin#compiler
+is_singleton: false
+name: compiler
+params: ()
+visibility: public

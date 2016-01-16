@@ -1,0 +1,29 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  name: disabled
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  name: log_level
+  rw: RW
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+constants: []
+
+full_name: Sass::Logger::Base
+includes: 
+- !ruby/object:RI::IncludedModule 
+  name: Sass::Logger::LogLevel
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: _log
+- !ruby/object:RI::MethodSummary 
+  name: log
+- !ruby/object:RI::MethodSummary 
+  name: logging_level?
+name: Base
+superclass: Object

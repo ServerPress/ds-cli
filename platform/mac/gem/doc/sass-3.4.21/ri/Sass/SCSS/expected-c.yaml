@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@private"
+full_name: Sass::SCSS::expected
+is_singleton: true
+name: expected
+params: (scanner, expected, line)
+visibility: public

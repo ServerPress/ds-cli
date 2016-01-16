@@ -1,0 +1,17 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: []
+
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A namespace for the `@supports` condition parse tree.
+constants: []
+
+full_name: Sass::Supports
+includes: []
+
+instance_methods: []
+
+name: Supports
+superclass: 

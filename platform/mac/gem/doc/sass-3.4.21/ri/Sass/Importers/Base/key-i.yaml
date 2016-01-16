@@ -1,0 +1,24 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Get the cache key pair for the given Sass URI. The URI need not be checked for validity.
+- !ruby/struct:SM::Flow::P 
+  body: The only strict requirement is that the returned pair of strings uniquely identify the file at the given URI. However, the first component generally corresponds roughly to the directory, and the second to the basename, of the URI.
+- !ruby/struct:SM::Flow::P 
+  body: Note that keys must be unique *across importers*. Thus it's probably a good idea to include the importer name at the beginning of the first component.
+- !ruby/struct:SM::Flow::P 
+  body: "@param uri [String] A URI known to be valid for this importer. @param options [{Symbol =&gt; Object}] Options for the Sass file"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  containing the `@import` currently being checked.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [(String, String)] The key pair which uniquely identifies"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  the file at the given URI.\n"
+full_name: Sass::Importers::Base#key
+is_singleton: false
+name: key
+params: (uri, options)
+visibility: public

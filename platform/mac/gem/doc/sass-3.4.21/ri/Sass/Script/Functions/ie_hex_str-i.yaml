@@ -1,0 +1,26 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Converts a color into the format understood by IE filters.
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  ie-hex-str(#abc) =&gt; #FFAABBCC\n  ie-hex-str(#3322BB) =&gt; #FF3322BB\n  ie-hex-str(rgba(0, 255, 0, 0.5)) =&gt; #8000FF00\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload ie_hex_str($color)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $color [Sass::Script::Value::Color]\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Script::Value::String] The IE-formatted string"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  representation of the color\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@raise [ArgumentError] if `$color` isn't a color"
+full_name: Sass::Script::Functions#ie_hex_str
+is_singleton: false
+name: ie_hex_str
+params: (color)
+visibility: public

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Sass::Tree::Visitors::Extend</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Sass::Tree::Visitors::Extend</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../../files/lib/sass/tree/visitors/extend_rb.html">
+                lib/sass/tree/visitors/extend.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="Base.html">
+                Sass::Tree::Visitors::Base
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+A visitor for performing selector inheritance on a static <a
+href="../../CSS.html">CSS</a> tree.
+</p>
+<p>
+Destructively modifies the tree.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000202">new</a>&nbsp;&nbsp;
+      <a href="#M000201">visit</a>&nbsp;&nbsp;
+      <a href="#M000203">visit</a>&nbsp;&nbsp;
+      <a href="#M000204">visit_children</a>&nbsp;&nbsp;
+      <a href="#M000205">visit_rule</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000202" class="method-detail">
+        <a name="M000202"></a>
+
+        <div class="method-heading">
+          <a href="Extend.src/M000202.html" target="Code" class="method-signature"
+            onclick="popupCode('Extend.src/M000202.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(extends)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000201" class="method-detail">
+        <a name="M000201"></a>
+
+        <div class="method-heading">
+          <a href="Extend.src/M000201.html" target="Code" class="method-signature"
+            onclick="popupCode('Extend.src/M000201.html');return false;">
+          <span class="method-name">visit</span><span class="method-args">(root, extends)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Performs the given extensions on the static <a
+href="../../CSS.html">CSS</a> tree based in `root`, then validates that all
+extends matched some selector.
+</p>
+<p>
+@param root [<a href="../Node.html">Tree::Node</a>] The root node of the
+tree to <a href="Extend.html#M000201">visit</a>. @param extends [<a
+href="../../Util/SubsetMap.html">Sass::Util::SubsetMap</a>{<a
+href="../../Selector/Simple.html">Selector::Simple</a> =&gt;
+</p>
+<pre>
+                                      Sass::Tree::Visitors::Cssize::Extend}]
+  The extensions to perform on this tree.
+</pre>
+<p>
+@return [Object] The return value of \{<a
+href="Extend.html#M000201">visit</a>} for the root node.
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Protected Instance methods</h3>
+
+      <div id="method-M000203" class="method-detail">
+        <a name="M000203"></a>
+
+        <div class="method-heading">
+          <a href="Extend.src/M000203.html" target="Code" class="method-signature"
+            onclick="popupCode('Extend.src/M000203.html');return false;">
+          <span class="method-name">visit</span><span class="method-args">(node)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+If an exception is raised, this adds proper metadata to the backtrace.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000204" class="method-detail">
+        <a name="M000204"></a>
+
+        <div class="method-heading">
+          <a href="Extend.src/M000204.html" target="Code" class="method-signature"
+            onclick="popupCode('Extend.src/M000204.html');return false;">
+          <span class="method-name">visit_children</span><span class="method-args">(parent)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Keeps track of the current parent directives.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000205" class="method-detail">
+        <a name="M000205"></a>
+
+        <div class="method-heading">
+          <a href="Extend.src/M000205.html" target="Code" class="method-signature"
+            onclick="popupCode('Extend.src/M000205.html');return false;">
+          <span class="method-name">visit_rule</span><span class="method-args">(node)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Applies the extend to a single rule&#8216;s selector.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

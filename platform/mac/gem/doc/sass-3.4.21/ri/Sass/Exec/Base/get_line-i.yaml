@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Finds the line of the source template on which an exception was raised.
+- !ruby/struct:SM::Flow::P 
+  body: "@param exception [Exception] The exception @return [String] The line number"
+full_name: Sass::Exec::Base#get_line
+is_singleton: false
+name: get_line
+params: (exception)
+visibility: protected

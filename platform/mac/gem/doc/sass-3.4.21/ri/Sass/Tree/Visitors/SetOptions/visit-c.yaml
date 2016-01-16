@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@param root [Tree::Node] The root node of the tree to visit. @param options [{Symbol =&gt; Object}] The options has to set."
+full_name: Sass::Tree::Visitors::SetOptions::visit
+is_singleton: true
+name: visit
+params: (root, options)
+visibility: public

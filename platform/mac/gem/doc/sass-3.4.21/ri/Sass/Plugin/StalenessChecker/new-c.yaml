@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Creates a new StalenessChecker for checking the staleness of several stylesheets at once.
+- !ruby/struct:SM::Flow::P 
+  body: "@param options [{Symbol =&gt; Object}]"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  See {file:SASS_REFERENCE.md#sass_options the Sass options documentation}.\n"
+full_name: Sass::Plugin::StalenessChecker::new
+is_singleton: true
+name: new
+params: (options)
+visibility: public

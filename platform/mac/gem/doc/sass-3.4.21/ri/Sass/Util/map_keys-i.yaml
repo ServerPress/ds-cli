@@ -1,0 +1,18 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: (k)
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Maps the keys in a hash according to a block.
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  map_keys({:foo =&gt; &quot;bar&quot;, :baz =&gt; &quot;bang&quot;}) {|k| k.to_s}\n    #=&gt; {&quot;foo&quot; =&gt; &quot;bar&quot;, &quot;baz&quot; =&gt; &quot;bang&quot;}\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@param hash [Hash] The hash to map @yield [key] A block in which the keys are transformed @yieldparam key [Object] The key that should be mapped @yieldreturn [Object] The new value for the key @return [Hash] The mapped hash @see #map_vals @see #map_hash"
+full_name: Sass::Util#map_keys
+is_singleton: false
+name: map_keys
+params: (hash) {|k| ...}
+visibility: public

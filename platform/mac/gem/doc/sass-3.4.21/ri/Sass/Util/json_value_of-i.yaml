@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Converts the argument into a valid JSON value.
+- !ruby/struct:SM::Flow::P 
+  body: "@param v [Fixnum, String, Array, Boolean, nil] @return [String]"
+full_name: Sass::Util#json_value_of
+is_singleton: false
+name: json_value_of
+params: (v)
+visibility: public

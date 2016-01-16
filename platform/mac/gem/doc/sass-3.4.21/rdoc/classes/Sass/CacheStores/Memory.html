@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Sass::CacheStores::Memory</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Sass::CacheStores::Memory</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/sass/cache_stores/memory_rb.html">
+                lib/sass/cache_stores/memory.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="Base.html">
+                Base
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+A backend for the <a href="../../Sass.html">Sass</a> cache using in-process
+memory.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M001012">_dump</a>&nbsp;&nbsp;
+      <a href="#M001013">_load</a>&nbsp;&nbsp;
+      <a href="#M001014">new</a>&nbsp;&nbsp;
+      <a href="#M001017">reset!</a>&nbsp;&nbsp;
+      <a href="#M001015">retrieve</a>&nbsp;&nbsp;
+      <a href="#M001016">store</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M001013" class="method-detail">
+        <a name="M001013"></a>
+
+        <div class="method-heading">
+          <a href="Memory.src/M001013.html" target="Code" class="method-signature"
+            onclick="popupCode('Memory.src/M001013.html');return false;">
+          <span class="method-name">_load</span><span class="method-args">(repr)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+If we deserialize this class, just make a <a
+href="Memory.html#M001014">new</a> empty one.
+</p>
+<p>
+@private
+</p>
+        </div>
+      </div>
+
+      <div id="method-M001014" class="method-detail">
+        <a name="M001014"></a>
+
+        <div class="method-heading">
+          <a href="Memory.src/M001014.html" target="Code" class="method-signature"
+            onclick="popupCode('Memory.src/M001014.html');return false;">
+          <span class="method-name">new</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Create a <a href="Memory.html#M001014">new</a>, empty cache <a
+href="Memory.html#M001016">store</a>.
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M001012" class="method-detail">
+        <a name="M001012"></a>
+
+        <div class="method-heading">
+          <a href="Memory.src/M001012.html" target="Code" class="method-signature"
+            onclick="popupCode('Memory.src/M001012.html');return false;">
+          <span class="method-name">_dump</span><span class="method-args">(depth)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Since the {<a href="Memory.html">Memory</a>} <a
+href="Memory.html#M001016">store</a> is stored in the <a
+href="../../Sass.html">Sass</a> tree&#8216;s options hash, when the options
+get serialized as part of serializing the tree, you get crazy exponential
+growth in the size of the cached objects unless you don&#8216;t dump the
+cache.
+</p>
+<p>
+@private
+</p>
+        </div>
+      </div>
+
+      <div id="method-M001017" class="method-detail">
+        <a name="M001017"></a>
+
+        <div class="method-heading">
+          <a href="Memory.src/M001017.html" target="Code" class="method-signature"
+            onclick="popupCode('Memory.src/M001017.html');return false;">
+          <span class="method-name">reset!</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Destructively clear the cache.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M001015" class="method-detail">
+        <a name="M001015"></a>
+
+        <div class="method-heading">
+          <a href="Memory.src/M001015.html" target="Code" class="method-signature"
+            onclick="popupCode('Memory.src/M001015.html');return false;">
+          <span class="method-name">retrieve</span><span class="method-args">(key, sha)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+@see <a href="Base.html#M001010">Base#retrieve</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M001016" class="method-detail">
+        <a name="M001016"></a>
+
+        <div class="method-heading">
+          <a href="Memory.src/M001016.html" target="Code" class="method-signature"
+            onclick="popupCode('Memory.src/M001016.html');return false;">
+          <span class="method-name">store</span><span class="method-args">(key, sha, obj)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+@see <a href="Base.html#M001009">Base#store</a>
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

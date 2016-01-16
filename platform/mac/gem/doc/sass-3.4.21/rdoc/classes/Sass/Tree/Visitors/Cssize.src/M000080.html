@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>visit_media (Sass::Tree::Visitors::Cssize)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/tree/visitors/cssize.rb, line 255</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">visit_media</span>(<span class="ruby-identifier">node</span>)
+    <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">bubble</span>(<span class="ruby-identifier">node</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">parent</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Tree</span><span class="ruby-operator">::</span><span class="ruby-constant">RuleNode</span>)
+    <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Bubble</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">node</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">parent</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Tree</span><span class="ruby-operator">::</span><span class="ruby-constant">MediaNode</span>)
+
+    <span class="ruby-keyword kw">yield</span>
+
+    <span class="ruby-identifier">debubble</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">children</span>, <span class="ruby-identifier">node</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">child</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword kw">next</span> <span class="ruby-identifier">child</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Tree</span><span class="ruby-operator">::</span><span class="ruby-constant">MediaNode</span>)
+      <span class="ruby-comment cmt"># Copies of `node` can be bubbled, and we don't want to merge it with its</span>
+      <span class="ruby-comment cmt"># own query.</span>
+      <span class="ruby-keyword kw">next</span> <span class="ruby-identifier">child</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">resolved_query</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">resolved_query</span>
+      <span class="ruby-keyword kw">next</span> <span class="ruby-identifier">child</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">resolved_query</span> = <span class="ruby-identifier">child</span>.<span class="ruby-identifier">resolved_query</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">resolved_query</span>)
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

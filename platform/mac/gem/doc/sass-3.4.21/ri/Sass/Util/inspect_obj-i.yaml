@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Like `Object#inspect`, but preserves non-ASCII characters rather than escaping them under Ruby 1.9.2. This is necessary so that the precompiled Haml template can be `#encode`d into `@options[:encoding]` before being evaluated.
+- !ruby/struct:SM::Flow::P 
+  body: "@param obj {Object} @return {String}"
+full_name: Sass::Util#inspect_obj
+is_singleton: false
+name: inspect_obj
+params: (obj)
+visibility: public

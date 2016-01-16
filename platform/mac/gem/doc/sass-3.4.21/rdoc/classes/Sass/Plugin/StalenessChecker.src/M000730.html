@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>new (Sass::Plugin::StalenessChecker)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/plugin/staleness_checker.rb, line 43</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">options</span>)
+        <span class="ruby-comment cmt"># URIs that are being actively checked for staleness. Protects against</span>
+        <span class="ruby-comment cmt"># import loops.</span>
+        <span class="ruby-ivar">@actively_checking</span> = <span class="ruby-constant">Set</span>.<span class="ruby-identifier">new</span>
+
+        <span class="ruby-comment cmt"># Entries in the following instance-level caches are never explicitly expired.</span>
+        <span class="ruby-comment cmt"># Instead they are supposed to automatically go out of scope when a series of staleness</span>
+        <span class="ruby-comment cmt"># checks (this instance of StalenessChecker was created for) is finished.</span>
+        <span class="ruby-ivar">@mtimes</span>, <span class="ruby-ivar">@dependencies_stale</span>, <span class="ruby-ivar">@parse_trees</span> = {}, {}, {}
+        <span class="ruby-ivar">@options</span> = <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Engine</span>.<span class="ruby-identifier">normalize_options</span>(<span class="ruby-identifier">options</span>)
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

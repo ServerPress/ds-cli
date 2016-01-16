@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Checks whether or not a variable is defined for this context.
+- !ruby/struct:SM::Flow::P 
+  body: "@param name [Symbol] The name of the variable @return [Boolean]"
+full_name: Sass::StaticConditionalContext#method_missing
+is_singleton: false
+name: method_missing
+params: (name, *args)
+visibility: public

@@ -1,0 +1,17 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: []
+
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Visitors are used to traverse the Sass parse tree. Visitors should extend {Visitors::Base}, which provides a small amount of scaffolding for traversal.
+constants: []
+
+full_name: Sass::Tree::Visitors
+includes: []
+
+instance_methods: []
+
+name: Visitors
+superclass: 

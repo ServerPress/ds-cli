@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Processes the options set by the command-line arguments, and runs the CSS compiler appropriately.
+full_name: Sass::Exec::SassConvert#process_result
+is_singleton: false
+name: process_result
+params: ()
+visibility: public

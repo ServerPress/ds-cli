@@ -1,0 +1,34 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The key/value pairs that make up this map node. This isn't a Hash so that we can detect key collisions once all the keys have been performed.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Array&lt;(Node, Node)&gt;]"
+  name: pairs
+  rw: R
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A class representing a map literal. When resolved, this returns a {Sass::Script::Node::Map}.
+constants: []
+
+full_name: Sass::Script::Tree::MapLiteral
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: _perform
+- !ruby/object:RI::MethodSummary 
+  name: children
+- !ruby/object:RI::MethodSummary 
+  name: deep_copy
+- !ruby/object:RI::MethodSummary 
+  name: inspect
+- !ruby/object:RI::MethodSummary 
+  name: to_sass
+name: MapLiteral
+superclass: Node

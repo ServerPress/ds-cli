@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>do_extend (Sass::Selector::Sequence)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/selector/sequence.rb, line 109</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">do_extend</span>(<span class="ruby-identifier">extends</span>, <span class="ruby-identifier">parent_directives</span>, <span class="ruby-identifier">replace</span>, <span class="ruby-identifier">seen</span>, <span class="ruby-identifier">original</span>)
+        <span class="ruby-identifier">extended_not_expanded</span> = <span class="ruby-identifier">members</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">sseq_or_op</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword kw">next</span> [[<span class="ruby-identifier">sseq_or_op</span>]] <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">sseq_or_op</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">SimpleSequence</span>)
+          <span class="ruby-identifier">extended</span> = <span class="ruby-identifier">sseq_or_op</span>.<span class="ruby-identifier">do_extend</span>(<span class="ruby-identifier">extends</span>, <span class="ruby-identifier">parent_directives</span>, <span class="ruby-identifier">replace</span>, <span class="ruby-identifier">seen</span>)
+
+          <span class="ruby-comment cmt"># The First Law of Extend says that the generated selector should have</span>
+          <span class="ruby-comment cmt"># specificity greater than or equal to that of the original selector.</span>
+          <span class="ruby-comment cmt"># In order to ensure that, we record the original selector's</span>
+          <span class="ruby-comment cmt"># (`extended.first`) original specificity.</span>
+          <span class="ruby-identifier">extended</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">add_sources!</span>([<span class="ruby-keyword kw">self</span>]) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">original</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">has_placeholder?</span>
+
+          <span class="ruby-identifier">extended</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">seq</span><span class="ruby-operator">|</span> <span class="ruby-identifier">seq</span>.<span class="ruby-identifier">members</span>}
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">weaves</span> = <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">paths</span>(<span class="ruby-identifier">extended_not_expanded</span>).<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span> <span class="ruby-identifier">weave</span>(<span class="ruby-identifier">path</span>)}
+        <span class="ruby-identifier">trim</span>(<span class="ruby-identifier">weaves</span>).<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span> <span class="ruby-constant">Sequence</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">p</span>)}
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

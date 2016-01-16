@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>visit_import (Sass::Tree::Visitors::SetOptions)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/tree/visitors/set_options.rb, line 64</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">visit_import</span>(<span class="ruby-identifier">node</span>)
+    <span class="ruby-comment cmt"># We have no good way of propagating the new options through an Engine</span>
+    <span class="ruby-comment cmt"># instance, so we just null it out. This also lets us avoid caching an</span>
+    <span class="ruby-comment cmt"># imported Engine along with the importing source tree.</span>
+    <span class="ruby-identifier">node</span>.<span class="ruby-identifier">imported_file</span> = <span class="ruby-keyword kw">nil</span>
+    <span class="ruby-keyword kw">yield</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

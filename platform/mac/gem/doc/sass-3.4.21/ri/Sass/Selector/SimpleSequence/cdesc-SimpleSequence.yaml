@@ -1,0 +1,76 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The array of individual selectors.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Array&lt;Simple&gt;]"
+  name: members
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: This sequence source range.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Sass::Source::Range]"
+  name: source_range
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: "The extending selectors that caused this selector sequence to be generated. For example:"
+  - !ruby/struct:SM::Flow::VERB 
+    body: "    a.foo { ... }\n    b.bar {@extend a}\n    c.baz {@extend b}\n"
+  - !ruby/struct:SM::Flow::P 
+    body: The generated selector `b.foo.bar` has `{b.bar}` as its `sources` set, and the generated selector `c.foo.bar.baz` has `{b.bar, c.baz}` as its `sources` set.
+  - !ruby/struct:SM::Flow::P 
+    body: This is populated during the {Sequence#do_extend} process.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return {Set&lt;Sequence&gt;}"
+  name: sources
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: "@see \\{#subject?}"
+  name: subject
+  rw: W
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A unseparated sequence of selectors that all apply to a single element. For example, `.foo#bar[attr=baz]` is a simple sequence of the selectors `.foo`, `#bar`, and `[attr=baz]`.
+constants: []
+
+full_name: Sass::Selector::SimpleSequence
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: base
+- !ruby/object:RI::MethodSummary 
+  name: do_extend
+- !ruby/object:RI::MethodSummary 
+  name: inspect
+- !ruby/object:RI::MethodSummary 
+  name: pseudo_elements
+- !ruby/object:RI::MethodSummary 
+  name: resolve_parent_refs
+- !ruby/object:RI::MethodSummary 
+  name: rest
+- !ruby/object:RI::MethodSummary 
+  name: selector_pseudo_classes
+- !ruby/object:RI::MethodSummary 
+  name: subject?
+- !ruby/object:RI::MethodSummary 
+  name: superselector?
+- !ruby/object:RI::MethodSummary 
+  name: to_s
+- !ruby/object:RI::MethodSummary 
+  name: unify
+- !ruby/object:RI::MethodSummary 
+  name: with_more_sources
+name: SimpleSequence
+superclass: AbstractSequence

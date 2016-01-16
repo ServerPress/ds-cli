@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Hash] Hash with the keys as they were stored (before normalization)."
+full_name: Sass::Util::NormalizedMap#as_stored
+is_singleton: false
+name: as_stored
+params: ()
+visibility: public

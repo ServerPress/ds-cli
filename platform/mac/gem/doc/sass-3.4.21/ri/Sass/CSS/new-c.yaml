@@ -1,0 +1,22 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@param template [String] The CSS stylesheet."
+- !ruby/struct:SM::Flow::VERB 
+  body: "  This stylesheet can be encoded using any encoding\n  that can be converted to Unicode.\n  If the stylesheet contains an `@charset` declaration,\n  that overrides the Ruby encoding\n  (see {file:SASS_REFERENCE.md#encodings the encoding documentation})\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@option options :old [Boolean] (false)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "    Whether or not to output old property syntax\n    (`:color blue` as opposed to `color: blue`).\n    This is only meaningful when generating Sass code,\n    rather than SCSS.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@option options :indent [String] (&quot; &quot;)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "    The string to use for indenting each line. Defaults to two spaces.\n"
+full_name: Sass::CSS::new
+is_singleton: true
+name: new
+params: (template, options = {})
+visibility: public

@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Takes a string and returns a CSS identifier that will have the value of the given string.
+- !ruby/struct:SM::Flow::P 
+  body: "@param str [String] The string to escape @return [String] The escaped string"
+full_name: Sass::SCSS::RX::escape_ident
+is_singleton: true
+name: escape_ident
+params: (str)
+visibility: public

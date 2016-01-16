@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>populate_extends (Sass::Selector::CommaSequence)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/selector/comma_sequence.rb, line 100</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">populate_extends</span>(<span class="ruby-identifier">extends</span>, <span class="ruby-identifier">extendee</span>, <span class="ruby-identifier">extend_node</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">parent_directives</span> = [])
+        <span class="ruby-identifier">extendee</span>.<span class="ruby-identifier">members</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">seq</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">seq</span>.<span class="ruby-identifier">members</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">SyntaxError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Can't extend #{seq}: can't extend nested selectors&quot;</span>)
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-identifier">sseq</span> = <span class="ruby-identifier">seq</span>.<span class="ruby-identifier">members</span>.<span class="ruby-identifier">first</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">sseq</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Selector</span><span class="ruby-operator">::</span><span class="ruby-constant">SimpleSequence</span>)
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">SyntaxError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Can't extend #{seq}: invalid selector&quot;</span>)
+          <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">sseq</span>.<span class="ruby-identifier">members</span>.<span class="ruby-identifier">any?</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">ss</span><span class="ruby-operator">|</span> <span class="ruby-identifier">ss</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Selector</span><span class="ruby-operator">::</span><span class="ruby-constant">Parent</span>)}
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">SyntaxError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Can't extend #{seq}: can't extend parent selectors&quot;</span>)
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-identifier">sel</span> = <span class="ruby-identifier">sseq</span>.<span class="ruby-identifier">members</span>
+          <span class="ruby-identifier">members</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">member</span><span class="ruby-operator">|</span>
+            <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">member</span>.<span class="ruby-identifier">members</span>.<span class="ruby-identifier">last</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Selector</span><span class="ruby-operator">::</span><span class="ruby-constant">SimpleSequence</span>)
+              <span class="ruby-identifier">raise</span> <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">SyntaxError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;#{member} can't extend: invalid selector&quot;</span>)
+            <span class="ruby-keyword kw">end</span>
+
+            <span class="ruby-identifier">extends</span>[<span class="ruby-identifier">sel</span>] = <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Tree</span><span class="ruby-operator">::</span><span class="ruby-constant">Visitors</span><span class="ruby-operator">::</span><span class="ruby-constant">Cssize</span><span class="ruby-operator">::</span><span class="ruby-constant">Extend</span>.<span class="ruby-identifier">new</span>(
+              <span class="ruby-identifier">member</span>, <span class="ruby-identifier">sel</span>, <span class="ruby-identifier">extend_node</span>, <span class="ruby-identifier">parent_directives</span>, <span class="ruby-identifier">:not_found</span>)
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

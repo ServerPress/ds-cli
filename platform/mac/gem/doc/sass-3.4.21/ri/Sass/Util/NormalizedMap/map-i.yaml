@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: (k, v)
+comment: 
+full_name: Sass::Util::NormalizedMap#map
+is_singleton: false
+name: map
+params: () {|k, v| ...}
+visibility: public

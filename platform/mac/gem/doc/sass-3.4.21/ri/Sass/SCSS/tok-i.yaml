@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Sass::SCSS#tok
+is_singleton: false
+name: tok
+params: (rx, last_group_lookahead = false)
+visibility: public

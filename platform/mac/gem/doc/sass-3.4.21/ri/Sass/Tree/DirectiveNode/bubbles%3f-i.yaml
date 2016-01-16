@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Sass::Tree::DirectiveNode#bubbles?
+is_singleton: false
+name: bubbles?
+params: ()
+visibility: public

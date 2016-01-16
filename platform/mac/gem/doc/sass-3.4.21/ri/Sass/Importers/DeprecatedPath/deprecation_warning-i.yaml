@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@return [String] The deprecation warning that will be printed the first"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  time an import occurs.\n"
+full_name: Sass::Importers::DeprecatedPath#deprecation_warning
+is_singleton: false
+name: deprecation_warning
+params: ()
+visibility: protected

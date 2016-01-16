@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Sass::SCSS::StaticParser#parse_keyframes_selector
+is_singleton: false
+name: parse_keyframes_selector
+params: ()
+visibility: public

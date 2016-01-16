@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>color (Sass::Exec::Base)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/exec/base.rb, line 159</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">color</span>(<span class="ruby-identifier">color</span>, <span class="ruby-identifier">str</span>)
+      <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;[BUG] Unrecognized color #{color}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">COLORS</span>[<span class="ruby-identifier">color</span>]
+
+      <span class="ruby-comment cmt"># Almost any real Unix terminal will support color,</span>
+      <span class="ruby-comment cmt"># so we just filter for Windows terms (which don't set TERM)</span>
+      <span class="ruby-comment cmt"># and not-real terminals, which aren't ttys.</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">str</span> <span class="ruby-keyword kw">if</span> <span class="ruby-constant">ENV</span>[<span class="ruby-value str">&quot;TERM&quot;</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-constant">ENV</span>[<span class="ruby-value str">&quot;TERM&quot;</span>].<span class="ruby-identifier">empty?</span> <span class="ruby-operator">||</span> <span class="ruby-operator">!</span><span class="ruby-constant">STDOUT</span>.<span class="ruby-identifier">tty?</span>
+      <span class="ruby-node">&quot;\e[#{COLORS[color]}m#{str}\e[0m&quot;</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

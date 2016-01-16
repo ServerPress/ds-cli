@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: Sass::Shared</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">Sass::Shared</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/sass/shared_rb.html">
+                lib/sass/shared.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+This module contains functionality that&#8216;s shared between Haml and <a
+href="../Sass.html">Sass</a>.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000711">balance</a>&nbsp;&nbsp;
+      <a href="#M000710">handle_interpolation</a>&nbsp;&nbsp;
+      <a href="#M000712">human_indentation</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000711" class="method-detail">
+        <a name="M000711"></a>
+
+        <div class="method-heading">
+          <a href="Shared.src/M000711.html" target="Code" class="method-signature"
+            onclick="popupCode('Shared.src/M000711.html');return false;">
+          <span class="method-name">balance</span><span class="method-args">(scanner, start, finish, count = 0)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Moves a scanner through a balanced pair of characters. For example:
+</p>
+<pre>
+    Foo (Bar (Baz bang) bop) (Bang (bop bip))
+    ^                       ^
+    from                    to
+</pre>
+<p>
+@param scanner [StringScanner] The string scanner to move @param start
+[Character] The character opening the balanced pair.
+</p>
+<pre>
+  A `Fixnum` in 1.8, a `String` in 1.9
+</pre>
+<p>
+@param finish [Character] The character closing the balanced pair.
+</p>
+<pre>
+  A `Fixnum` in 1.8, a `String` in 1.9
+</pre>
+<p>
+@param count [Fixnum] The number of opening characters matched
+</p>
+<pre>
+  before calling this method
+</pre>
+<p>
+@return [(String, String)] The string matched within the balanced pair
+</p>
+<pre>
+  and the rest of the string.
+  `[&quot;Foo (Bar (Baz bang) bop)&quot;, &quot; (Bang (bop bip))&quot;]` in the example above.
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000710" class="method-detail">
+        <a name="M000710"></a>
+
+        <div class="method-heading">
+          <a href="Shared.src/M000710.html" target="Code" class="method-signature"
+            onclick="popupCode('Shared.src/M000710.html');return false;">
+          <span class="method-name">handle_interpolation</span><span class="method-args">(str) {|scan while scan.scan(/(.*?)(\\*)\| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Scans through a string looking for the interoplation-opening `#{` and, when
+it&#8216;s found, yields the scanner to the calling code so it can handle
+it properly.
+</p>
+<p>
+The scanner will have any backslashes immediately in front of the `#{` as
+the second capture group (`scan[2]`), and the text prior to that as the
+first (`scan[1]`).
+</p>
+<p>
+@yieldparam scan [StringScanner] The scanner scanning through the string
+@return [String] The text remaining in the scanner after all `#{`s have
+been processed
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000712" class="method-detail">
+        <a name="M000712"></a>
+
+        <div class="method-heading">
+          <a href="Shared.src/M000712.html" target="Code" class="method-signature"
+            onclick="popupCode('Shared.src/M000712.html');return false;">
+          <span class="method-name">human_indentation</span><span class="method-args">(indentation, was = false)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Formats a string for use in error messages about indentation.
+</p>
+<p>
+@param indentation [String] The string used for indentation @param was
+[Boolean] Whether or not to add `&quot;was&quot;` or `&quot;were&quot;`
+</p>
+<pre>
+  (depending on how many characters were in `indentation`)
+</pre>
+<p>
+@return [String] The name of the indentation (e.g. `&quot;12 spaces&quot;`,
+`&quot;1 tab&quot;`)
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

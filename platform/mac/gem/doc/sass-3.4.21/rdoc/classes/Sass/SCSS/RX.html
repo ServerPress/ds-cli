@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: Sass::SCSS::RX</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">Sass::SCSS::RX</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/sass/scss/rx_rb.html">
+                lib/sass/scss/rx.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+A module containing regular expressions used for lexing tokens in an <a
+href="../SCSS.html">SCSS</a> document. Most of these are taken from [the
+CSS3 spec](<a
+href="http://www.w3.org/TR/css3-syntax/#lexical">www.w3.org/TR/css3-syntax/#lexical</a>),
+although some have been modified for various reasons.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000696">escape_char</a>&nbsp;&nbsp;
+      <a href="#M000695">escape_ident</a>&nbsp;&nbsp;
+      <a href="#M000697">quote</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">H</td>
+          <td>=</td>
+          <td class="context-item-value">/[0-9a-fA-F]/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">NL</td>
+          <td>=</td>
+          <td class="context-item-value">/\n|\r\n|\r|\f/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">UNICODE</td>
+          <td>=</td>
+          <td class="context-item-value">/\\#{H}{1,6}[ \t\r\n\f]?/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">NONASCII</td>
+          <td>=</td>
+          <td class="context-item-value">/[#{s}]/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ESCAPE</td>
+          <td>=</td>
+          <td class="context-item-value">/#{UNICODE}|\\[ -~#{s}]/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">NMSTART</td>
+          <td>=</td>
+          <td class="context-item-value">/[_a-zA-Z]|#{NONASCII}|#{ESCAPE}/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">NMCHAR</td>
+          <td>=</td>
+          <td class="context-item-value">/[a-zA-Z0-9_-]|#{NONASCII}|#{ESCAPE}/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">STRING1</td>
+          <td>=</td>
+          <td class="context-item-value">/\&quot;((?:[^\n\r\f\\&quot;]|\\#{NL}|#{ESCAPE})*)\&quot;/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">STRING2</td>
+          <td>=</td>
+          <td class="context-item-value">/\'((?:[^\n\r\f\\']|\\#{NL}|#{ESCAPE})*)\'/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">IDENT</td>
+          <td>=</td>
+          <td class="context-item-value">/-*#{NMSTART}#{NMCHAR}*/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">NAME</td>
+          <td>=</td>
+          <td class="context-item-value">/#{NMCHAR}+/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">STRING</td>
+          <td>=</td>
+          <td class="context-item-value">/#{STRING1}|#{STRING2}/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">URLCHAR</td>
+          <td>=</td>
+          <td class="context-item-value">/[#%&amp;*-~]|#{NONASCII}|#{ESCAPE}/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">URL</td>
+          <td>=</td>
+          <td class="context-item-value">/(#{URLCHAR}*)/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">W</td>
+          <td>=</td>
+          <td class="context-item-value">/[ \t\r\n\f]*/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">VARIABLE</td>
+          <td>=</td>
+          <td class="context-item-value">/(\$)(#{Sass::SCSS::RX::IDENT})/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">RANGE</td>
+          <td>=</td>
+          <td class="context-item-value">/(?:#{H}|\?){1,6}/</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+This is more liberal than the spec&#8216;s definition, but that definition
+didn&#8216;t work well with the greediness rules
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">S</td>
+          <td>=</td>
+          <td class="context-item-value">/[ \t\r\n\f]+/</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">COMMENT</td>
+          <td>=</td>
+          <td class="context-item-value">%r{/\*([^*]|\*+[^/*])*\**\*/}</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">SINGLE_LINE_COMMENT</td>
+          <td>=</td>
+          <td class="context-item-value">%r{//.*(\n[ \t]*//.*)*}</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">CDO</td>
+          <td>=</td>
+          <td class="context-item-value">quote(&quot;&lt;!--&quot;)</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">CDC</td>
+          <td>=</td>
+          <td class="context-item-value">quote(&quot;--&gt;&quot;)</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">INCLUDES</td>
+          <td>=</td>
+          <td class="context-item-value">quote(&quot;~=&quot;)</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">DASHMATCH</td>
+          <td>=</td>
+          <td class="context-item-value">quote(&quot;|=&quot;)</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">PREFIXMATCH</td>
+          <td>=</td>
+          <td class="context-item-value">quote(&quot;^=&quot;)</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">SUFFIXMATCH</td>
+          <td>=</td>
+          <td class="context-item-value">quote(&quot;$=&quot;)</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">SUBSTRINGMATCH</td>
+          <td>=</td>
+          <td class="context-item-value">quote(&quot;*=&quot;)</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">HASH</td>
+          <td>=</td>
+          <td class="context-item-value">/##{NAME}/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">IMPORTANT</td>
+          <td>=</td>
+          <td class="context-item-value">/!#{W}important/i</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">UNIT</td>
+          <td>=</td>
+          <td class="context-item-value">/-?#{NMSTART}(?:[a-zA-Z0-9_]|#{NONASCII}|#{ESCAPE}|-(?!\.?\d))*|%/</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+A unit is like an IDENT, but disallows a hyphen followed by a digit. This
+allows &quot;1px-2px&quot; to be interpreted as subtraction rather than
+&quot;1&quot; with the unit &quot;px-2px&quot;. It also allows
+&quot;%&quot;.
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">UNITLESS_NUMBER</td>
+          <td>=</td>
+          <td class="context-item-value">/(?:[0-9]+|[0-9]*\.[0-9]+)(?:[eE][+-]?\d+)?/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">NUMBER</td>
+          <td>=</td>
+          <td class="context-item-value">/#{UNITLESS_NUMBER}(?:#{UNIT})?/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">PERCENTAGE</td>
+          <td>=</td>
+          <td class="context-item-value">/#{UNITLESS_NUMBER}%/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">URI</td>
+          <td>=</td>
+          <td class="context-item-value">/url\(#{W}(?:#{STRING}|#{URL})#{W}\)/i</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">FUNCTION</td>
+          <td>=</td>
+          <td class="context-item-value">/#{IDENT}\(/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">UNICODERANGE</td>
+          <td>=</td>
+          <td class="context-item-value">/u\+(?:#{H}{1,6}-#{H}{1,6}|#{RANGE})/i</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">PLUS</td>
+          <td>=</td>
+          <td class="context-item-value">/#{W}\+/</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+Defined in <a
+href="http://www.w3.org/TR/css3-selectors/#lex">www.w3.org/TR/css3-selectors/#lex</a>
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">GREATER</td>
+          <td>=</td>
+          <td class="context-item-value">/#{W}&gt;/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">TILDE</td>
+          <td>=</td>
+          <td class="context-item-value">/#{W}~/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">NOT</td>
+          <td>=</td>
+          <td class="context-item-value">quote(&quot;:not(&quot;, Regexp::IGNORECASE)</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">URL_PREFIX</td>
+          <td>=</td>
+          <td class="context-item-value">/url-prefix\(#{W}(?:#{STRING}|#{URL})#{W}\)/i</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+Defined in <a
+href="https://developer.mozilla.org/en/CSS/@-moz-document">developer.mozilla.org/en/CSS/@-moz-document</a>
+as a non-standard version of <a
+href="http://www.w3.org/TR/css3-conditional">www.w3.org/TR/css3-conditional</a>/
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">DOMAIN</td>
+          <td>=</td>
+          <td class="context-item-value">/domain\(#{W}(?:#{STRING}|#{URL})#{W}\)/i</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">HEXCOLOR</td>
+          <td>=</td>
+          <td class="context-item-value">/\#[0-9a-fA-F]+/</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+Custom
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">INTERP_START</td>
+          <td>=</td>
+          <td class="context-item-value">/#\{/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ANY</td>
+          <td>=</td>
+          <td class="context-item-value">/:(-[-\w]+-)?any\(/i</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">OPTIONAL</td>
+          <td>=</td>
+          <td class="context-item-value">/!#{W}optional/i</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">IDENT_START</td>
+          <td>=</td>
+          <td class="context-item-value">/-|#{NMSTART}/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">IDENT_HYPHEN_INTERP</td>
+          <td>=</td>
+          <td class="context-item-value">/-(#\{)/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">STRING1_NOINTERP</td>
+          <td>=</td>
+          <td class="context-item-value">/\&quot;((?:[^\n\r\f\\&quot;#]|#(?!\{)|#{ESCAPE})*)\&quot;/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">STRING2_NOINTERP</td>
+          <td>=</td>
+          <td class="context-item-value">/\'((?:[^\n\r\f\\'#]|#(?!\{)|#{ESCAPE})*)\'/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">STRING_NOINTERP</td>
+          <td>=</td>
+          <td class="context-item-value">/#{STRING1_NOINTERP}|#{STRING2_NOINTERP}/</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">STATIC_COMPONENT</td>
+          <td>=</td>
+          <td class="context-item-value">/#{IDENT}|#{STRING_NOINTERP}|#{HEXCOLOR}|[+-]?#{NUMBER}|\!important/i</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">STATIC_VALUE</td>
+          <td>=</td>
+          <td class="context-item-value">/#{STATIC_COMPONENT}(\s*[\s,\/]\s*#{STATIC_COMPONENT})*([;}])/i</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">STATIC_SELECTOR</td>
+          <td>=</td>
+          <td class="context-item-value">/(#{NMCHAR}|[ \t]|[,&gt;+*]|[:#.]#{NMSTART}){1,50}([{])/i</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000696" class="method-detail">
+        <a name="M000696"></a>
+
+        <div class="method-heading">
+          <a href="RX.src/M000696.html" target="Code" class="method-signature"
+            onclick="popupCode('RX.src/M000696.html');return false;">
+          <span class="method-name">escape_char</span><span class="method-args">(c)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Escapes a single character for a <a href="../CSS.html">CSS</a> identifier.
+</p>
+<p>
+@param c [String] The character to escape. Should have length 1 @return
+[String] The escaped character @private
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000695" class="method-detail">
+        <a name="M000695"></a>
+
+        <div class="method-heading">
+          <a href="RX.src/M000695.html" target="Code" class="method-signature"
+            onclick="popupCode('RX.src/M000695.html');return false;">
+          <span class="method-name">escape_ident</span><span class="method-args">(str)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Takes a string and returns a <a href="../CSS.html">CSS</a> identifier that
+will have the value of the given string.
+</p>
+<p>
+@param str [String] The string to escape @return [String] The escaped
+string
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000697" class="method-detail">
+        <a name="M000697"></a>
+
+        <div class="method-heading">
+          <a href="RX.src/M000697.html" target="Code" class="method-signature"
+            onclick="popupCode('RX.src/M000697.html');return false;">
+          <span class="method-name">quote</span><span class="method-args">(str, flags = 0)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Creates a Regexp from a plain text string, escaping all significant
+characters.
+</p>
+<p>
+@param str [String] The text of the regexp @param flags [Fixnum] Flags for
+the created regular expression @return [Regexp] @private
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

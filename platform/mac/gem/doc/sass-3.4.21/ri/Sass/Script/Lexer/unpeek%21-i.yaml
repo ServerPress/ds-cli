@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Rewinds the underlying StringScanner to before the token returned by \{#peek}.
+full_name: Sass::Script::Lexer#unpeek!
+is_singleton: false
+name: unpeek!
+params: ()
+visibility: public

@@ -1,0 +1,26 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Parses a string of SassScript
+- !ruby/struct:SM::Flow::P 
+  body: "@param value [String] The SassScript @param line [Fixnum] The number of the line on which the SassScript appeared."
+- !ruby/struct:SM::Flow::VERB 
+  body: "  Used for error reporting\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@param offset [Fixnum] The number of characters in on `line` that the SassScript started."
+- !ruby/struct:SM::Flow::VERB 
+  body: "  Used for error reporting\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@param options [{Symbol =&gt; Object}] An options hash;"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  see {file:SASS_REFERENCE.md#sass_options the Sass options documentation}\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Script::Tree::Node] The root node of the parse tree"
+full_name: Sass::Script::parse
+is_singleton: true
+name: parse
+params: (value, line, offset, options = {})
+visibility: public

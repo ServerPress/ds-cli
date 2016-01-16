@@ -1,0 +1,20 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Performs a node that has been delayed for execution.
+- !ruby/struct:SM::Flow::P 
+  body: "@private @param node [Sass::Script::Tree::Node,"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  Sass::Script::Value::Base] When this is a tree node, it's\n  performed in the caller's environment. When it's a value\n  (which can happen when the value had to be performed already\n  -- like for a splat), it's returned as-is.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@param env [Sass::Environment] The environment within which to perform the node."
+- !ruby/struct:SM::Flow::VERB 
+  body: "  Defaults to the (read-only) environment of the caller.\n"
+full_name: Sass::Script::Functions::EvaluationContext#perform
+is_singleton: false
+name: perform
+params: (node, env = environment.caller)
+visibility: public

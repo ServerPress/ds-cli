@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>listen_geq_2? (Sass::Util)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/util.rb, line 573</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">listen_geq_2?</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@listen_geq_2</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@listen_geq_2</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-ivar">@listen_geq_2</span> =
+        <span class="ruby-keyword kw">begin</span>
+          <span class="ruby-comment cmt"># Make sure we're loading listen/version from the same place that</span>
+          <span class="ruby-comment cmt"># we're loading listen itself.</span>
+          <span class="ruby-identifier">load_listen!</span>
+          <span class="ruby-identifier">require</span> <span class="ruby-value str">'listen/version'</span>
+          <span class="ruby-identifier">version_geq</span>(<span class="ruby-operator">::</span><span class="ruby-constant">Listen</span><span class="ruby-operator">::</span><span class="ruby-constant">VERSION</span>, <span class="ruby-value str">'2.0.0'</span>)
+        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">LoadError</span>
+          <span class="ruby-keyword kw">false</span>
+        <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

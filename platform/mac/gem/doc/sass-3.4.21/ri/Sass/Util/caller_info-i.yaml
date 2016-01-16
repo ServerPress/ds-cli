@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns information about the caller of the previous method.
+- !ruby/struct:SM::Flow::P 
+  body: "@param entry [String] An entry in the `#caller` list, or a similarly formatted string @return [[String, Fixnum, (String, nil)]]"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  An array containing the filename, line, and method name of the caller.\n  The method name may be nil\n"
+full_name: Sass::Util#caller_info
+is_singleton: false
+name: caller_info
+params: (entry = nil)
+visibility: public

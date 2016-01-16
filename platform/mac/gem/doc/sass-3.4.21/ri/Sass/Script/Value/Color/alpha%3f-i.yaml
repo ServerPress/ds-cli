@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns whether this color object is translucent; that is, whether the alpha channel is non-1.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Boolean]"
+full_name: Sass::Script::Value::Color#alpha?
+is_singleton: false
+name: alpha?
+params: ()
+visibility: public

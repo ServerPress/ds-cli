@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Sass::Script::Tree::StringInterpolation</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Sass::Script::Tree::StringInterpolation</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../../files/lib/sass/script/tree/string_interpolation_rb.html">
+                lib/sass/script/tree/string_interpolation.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="Node.html">
+                Node
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+A SassScript object representing `#{}` interpolation within a string.
+</p>
+<p>
+@see <a href="Interpolation.html">Interpolation</a>
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000474">_perform</a>&nbsp;&nbsp;
+      <a href="#M000472">children</a>&nbsp;&nbsp;
+      <a href="#M000473">deep_copy</a>&nbsp;&nbsp;
+      <a href="#M000470">inspect</a>&nbsp;&nbsp;
+      <a href="#M000469">new</a>&nbsp;&nbsp;
+      <a href="#M000468">quote</a>&nbsp;&nbsp;
+      <a href="#M000471">to_sass</a>&nbsp;&nbsp;
+      <a href="#M000467">type</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">after</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc">
+@return [<a href="StringInterpolation.html">StringInterpolation</a>, <a
+href="Literal.html">Literal</a>]
+
+<pre>
+    The string literal or string interpolation before this interpolation.
+</pre>
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">before</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc">
+@return [<a href="Literal.html">Literal</a>] The string literal before this
+interpolation.
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">mid</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc">
+@return [<a href="Node.html">Node</a>] The SassScript within the
+interpolation
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000469" class="method-detail">
+        <a name="M000469"></a>
+
+        <div class="method-heading">
+          <a href="StringInterpolation.src/M000469.html" target="Code" class="method-signature"
+            onclick="popupCode('StringInterpolation.src/M000469.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(before, mid, after)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Interpolation.html">Interpolation</a> in a string is of the form
+`&quot;before #{mid} after&quot;`, where `before` and `after` may include
+more interpolation.
+</p>
+<p>
+@param before [<a href="StringInterpolation.html">StringInterpolation</a>,
+<a href="Literal.html">Literal</a>] See {StringInterpolation#before} @param
+mid [<a href="Node.html">Node</a>] See {StringInterpolation#mid} @param
+after [<a href="Literal.html">Literal</a>] See {StringInterpolation#after}
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000472" class="method-detail">
+        <a name="M000472"></a>
+
+        <div class="method-heading">
+          <a href="StringInterpolation.src/M000472.html" target="Code" class="method-signature"
+            onclick="popupCode('StringInterpolation.src/M000472.html');return false;">
+          <span class="method-name">children</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the three components of the interpolation, `before`, `mid`, and
+`after`.
+</p>
+<p>
+@return [Array&lt;<a href="Node.html">Node</a>&gt;] @see initialize @see <a
+href="Node.html#M000523">Node#children</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000473" class="method-detail">
+        <a name="M000473"></a>
+
+        <div class="method-heading">
+          <a href="StringInterpolation.src/M000473.html" target="Code" class="method-signature"
+            onclick="popupCode('StringInterpolation.src/M000473.html');return false;">
+          <span class="method-name">deep_copy</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+@see <a href="Node.html#M000525">Node#deep_copy</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000470" class="method-detail">
+        <a name="M000470"></a>
+
+        <div class="method-heading">
+          <a href="StringInterpolation.src/M000470.html" target="Code" class="method-signature"
+            onclick="popupCode('StringInterpolation.src/M000470.html');return false;">
+          <span class="method-name">inspect</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+@return [String] A human-readable s-expression representation of the
+interpolation
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000468" class="method-detail">
+        <a name="M000468"></a>
+
+        <div class="method-heading">
+          <a href="StringInterpolation.src/M000468.html" target="Code" class="method-signature"
+            onclick="popupCode('StringInterpolation.src/M000468.html');return false;">
+          <span class="method-name">quote</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the <a href="StringInterpolation.html#M000468">quote</a> character
+that should be used to wrap a <a href="../../../Sass.html">Sass</a>
+representation of this interpolation.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000471" class="method-detail">
+        <a name="M000471"></a>
+
+        <div class="method-heading">
+          <a href="StringInterpolation.src/M000471.html" target="Code" class="method-signature"
+            onclick="popupCode('StringInterpolation.src/M000471.html');return false;">
+          <span class="method-name">to_sass</span><span class="method-args">(opts = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+@see <a href="Node.html#M000524">Node#to_sass</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000467" class="method-detail">
+        <a name="M000467"></a>
+
+        <div class="method-heading">
+          <a href="StringInterpolation.src/M000467.html" target="Code" class="method-signature"
+            onclick="popupCode('StringInterpolation.src/M000467.html');return false;">
+          <span class="method-name">type</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Whether this is a <a href="../../CSS.html">CSS</a> string or a <a
+href="../../CSS.html">CSS</a> identifier. The difference is that strings
+are written with double-quotes, while identifiers aren&#8216;t.
+</p>
+<p>
+String interpolations are only ever identifiers if they&#8216;re <a
+href="StringInterpolation.html#M000468">quote</a>-like functions such as
+`url()`.
+</p>
+<p>
+@return [Symbol] `:string` or `:identifier`
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Protected Instance methods</h3>
+
+      <div id="method-M000474" class="method-detail">
+        <a name="M000474"></a>
+
+        <div class="method-heading">
+          <a href="StringInterpolation.src/M000474.html" target="Code" class="method-signature"
+            onclick="popupCode('StringInterpolation.src/M000474.html');return false;">
+          <span class="method-name">_perform</span><span class="method-args">(environment)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Evaluates the interpolation.
+</p>
+<p>
+@param environment [<a href="../../Environment.html">Sass::Environment</a>]
+The environment in which to evaluate the SassScript @return [<a
+href="../Value/String.html">Sass::Script::Value::String</a>]
+</p>
+<pre>
+  The SassScript string that is the value of the interpolation
+</pre>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

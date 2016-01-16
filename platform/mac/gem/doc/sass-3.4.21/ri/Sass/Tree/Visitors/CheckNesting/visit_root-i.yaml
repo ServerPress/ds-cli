@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: ""
+comment: 
+full_name: Sass::Tree::Visitors::CheckNesting#visit_root
+is_singleton: false
+name: visit_root
+params: (node) {|| ...}
+visibility: protected

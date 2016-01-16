@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A string representation of the importer. Should be overridden by subclasses.
+- !ruby/struct:SM::Flow::P 
+  body: This is used to help debugging, and should usually just show the load path encapsulated by this importer.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [String]"
+full_name: Sass::Importers::Base#to_s
+is_singleton: false
+name: to_s
+params: ()
+visibility: public

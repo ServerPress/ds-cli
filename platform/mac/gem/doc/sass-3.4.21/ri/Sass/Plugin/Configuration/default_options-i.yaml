@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Different default options in a rails environment.
+full_name: Sass::Plugin::Configuration#default_options
+is_singleton: false
+name: default_options
+params: ()
+visibility: public

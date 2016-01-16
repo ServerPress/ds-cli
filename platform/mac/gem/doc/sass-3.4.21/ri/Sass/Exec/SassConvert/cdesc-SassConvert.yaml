@@ -1,0 +1,21 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: The `sass-convert` executable.
+constants: []
+
+full_name: Sass::Exec::SassConvert
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: process_result
+- !ruby/object:RI::MethodSummary 
+  name: set_opts
+name: SassConvert
+superclass: Base

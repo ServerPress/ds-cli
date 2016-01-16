@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Whether this is a CSS string or a CSS identifier. The difference is that strings are written with double-quotes, while identifiers aren't.
+- !ruby/struct:SM::Flow::P 
+  body: String interpolations are only ever identifiers if they're quote-like functions such as `url()`.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Symbol] `:string` or `:identifier`"
+full_name: Sass::Script::Tree::StringInterpolation#type
+is_singleton: false
+name: type
+params: ()
+visibility: public

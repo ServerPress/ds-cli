@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>selector_nest (Sass::Script::Functions)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/script/functions.rb, line 2417</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">selector_nest</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">selectors</span>)
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">selectors</span>.<span class="ruby-identifier">empty?</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;$selectors: At least one selector must be passed&quot;</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">parsed</span> = [<span class="ruby-identifier">parse_selector</span>(<span class="ruby-identifier">selectors</span>.<span class="ruby-identifier">first</span>, <span class="ruby-identifier">:selectors</span>)]
+      <span class="ruby-identifier">parsed</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">selectors</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>].<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">sel</span><span class="ruby-operator">|</span> <span class="ruby-identifier">parse_selector</span>(<span class="ruby-identifier">sel</span>, <span class="ruby-identifier">:selectors</span>, <span class="ruby-operator">!</span><span class="ruby-operator">!</span><span class="ruby-identifier">:parse_parent_ref</span>)}
+      <span class="ruby-identifier">parsed</span>.<span class="ruby-identifier">inject</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">result</span>, <span class="ruby-identifier">child</span><span class="ruby-operator">|</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">resolve_parent_refs</span>(<span class="ruby-identifier">result</span>)}.<span class="ruby-identifier">to_sass_script</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

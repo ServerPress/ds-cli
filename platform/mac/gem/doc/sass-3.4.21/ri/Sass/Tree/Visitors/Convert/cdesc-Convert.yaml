@@ -1,0 +1,73 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+- !ruby/object:RI::MethodSummary 
+  name: visit
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A visitor for converting a Sass tree into a source string.
+constants: []
+
+full_name: Sass::Tree::Visitors::Convert
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: visit_atroot
+- !ruby/object:RI::MethodSummary 
+  name: visit_charset
+- !ruby/object:RI::MethodSummary 
+  name: visit_children
+- !ruby/object:RI::MethodSummary 
+  name: visit_comment
+- !ruby/object:RI::MethodSummary 
+  name: visit_content
+- !ruby/object:RI::MethodSummary 
+  name: visit_cssimport
+- !ruby/object:RI::MethodSummary 
+  name: visit_debug
+- !ruby/object:RI::MethodSummary 
+  name: visit_directive
+- !ruby/object:RI::MethodSummary 
+  name: visit_each
+- !ruby/object:RI::MethodSummary 
+  name: visit_error
+- !ruby/object:RI::MethodSummary 
+  name: visit_extend
+- !ruby/object:RI::MethodSummary 
+  name: visit_for
+- !ruby/object:RI::MethodSummary 
+  name: visit_function
+- !ruby/object:RI::MethodSummary 
+  name: visit_if
+- !ruby/object:RI::MethodSummary 
+  name: visit_import
+- !ruby/object:RI::MethodSummary 
+  name: visit_keyframerule
+- !ruby/object:RI::MethodSummary 
+  name: visit_media
+- !ruby/object:RI::MethodSummary 
+  name: visit_mixin
+- !ruby/object:RI::MethodSummary 
+  name: visit_mixindef
+- !ruby/object:RI::MethodSummary 
+  name: visit_prop
+- !ruby/object:RI::MethodSummary 
+  name: visit_return
+- !ruby/object:RI::MethodSummary 
+  name: visit_root
+- !ruby/object:RI::MethodSummary 
+  name: visit_rule
+- !ruby/object:RI::MethodSummary 
+  name: visit_supports
+- !ruby/object:RI::MethodSummary 
+  name: visit_variable
+- !ruby/object:RI::MethodSummary 
+  name: visit_warn
+- !ruby/object:RI::MethodSummary 
+  name: visit_while
+name: Convert
+superclass: Sass::Tree::Visitors::Base

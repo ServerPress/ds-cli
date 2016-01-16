@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Store a {Sass::Tree::RootNode}.
+- !ruby/struct:SM::Flow::P 
+  body: "@param key [String] The key to store it under. @param sha [String] The checksum for the contents that are being stored. @param root [Object] The root node to cache."
+full_name: Sass::CacheStores::Base#store
+is_singleton: false
+name: store
+params: (key, sha, root)
+visibility: public

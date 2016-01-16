@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Substitutes a sub-array of one array with another sub-array.
+- !ruby/struct:SM::Flow::P 
+  body: "@param ary [Array] The array in which to make the substitution @param from [Array] The sequence of elements to replace with `to` @param to [Array] The sequence of elements to replace `from` with"
+full_name: Sass::Util#substitute
+is_singleton: false
+name: substitute
+params: (ary, from, to)
+visibility: public

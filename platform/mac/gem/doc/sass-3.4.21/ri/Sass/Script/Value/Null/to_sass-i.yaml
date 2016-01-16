@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Sass::Script::Value::Null#to_sass
+is_singleton: false
+name: to_sass
+params: (opts = {})
+visibility: public

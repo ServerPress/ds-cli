@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns the hue, saturation, and lightness components of the color.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Array&lt;Fixnum&gt;] A frozen three-element array of the"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  hue, saturation, and lightness values (respectively) of the color\n"
+full_name: Sass::Script::Value::Color#hsl
+is_singleton: false
+name: hsl
+params: ()
+visibility: public

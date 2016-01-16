@@ -1,0 +1,4541 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: Sass::Script::Functions</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">Sass::Script::Functions</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/sass/script/functions_rb.html">
+                lib/sass/script/functions.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+@comment
+</p>
+<pre>
+  YARD can't handle some multiline tags, and we need really long tags for function declarations.
+  rubocop:disable LineLength
+</pre>
+<p>
+Methods in this module are accessible from the SassScript context. For
+example, you can write
+</p>
+<pre>
+    $color: hsl(120deg, 100%, 50%)
+</pre>
+<p>
+and it will <a href="Functions.html#M000607">call</a> {<a
+href="Functions.html#M000543">Functions#hsl</a>}.
+</p>
+<p>
+The following functions are provided:
+</p>
+<p>
+*Note: These functions are described in more detail below.*
+</p>
+<p>
+## RGB <a href="Functions.html">Functions</a>
+</p>
+<p>
+\{<a href="Functions.html#M000541">rgb</a> <a
+href="Functions.html#M000541">rgb</a>($<a
+href="Functions.html#M000545">red</a>, $<a
+href="Functions.html#M000546">green</a>, $<a
+href="Functions.html#M000547">blue</a>)} : Creates a {<a
+href="Value/Color.html">Sass::Script::Value::Color</a> Color} from <a
+href="Functions.html#M000545">red</a>, <a
+href="Functions.html#M000546">green</a>, and <a
+href="Functions.html#M000547">blue</a>
+</p>
+<pre>
+  values.
+</pre>
+<p>
+\{<a href="Functions.html#M000542">rgba</a> <a
+href="Functions.html#M000542">rgba</a>($<a
+href="Functions.html#M000545">red</a>, $<a
+href="Functions.html#M000546">green</a>, $<a
+href="Functions.html#M000547">blue</a>, $<a
+href="Functions.html#M000551">alpha</a>)} : Creates a {<a
+href="Value/Color.html">Sass::Script::Value::Color</a> Color} from <a
+href="Functions.html#M000545">red</a>, <a
+href="Functions.html#M000546">green</a>, <a
+href="Functions.html#M000547">blue</a>, and
+</p>
+<pre>
+  alpha values.
+</pre>
+<p>
+\{<a href="Functions.html#M000545">red</a> <a
+href="Functions.html#M000545">red</a>($color)} : Gets the <a
+href="Functions.html#M000545">red</a> component of a color.
+</p>
+<p>
+\{<a href="Functions.html#M000546">green</a> <a
+href="Functions.html#M000546">green</a>($color)} : Gets the <a
+href="Functions.html#M000546">green</a> component of a color.
+</p>
+<p>
+\{<a href="Functions.html#M000547">blue</a> <a
+href="Functions.html#M000547">blue</a>($color)} : Gets the <a
+href="Functions.html#M000547">blue</a> component of a color.
+</p>
+<p>
+\{<a href="Functions.html#M000566">mix</a> <a
+href="Functions.html#M000566">mix</a>($color1, $color2, \[$weight\])} :
+Mixes two colors together.
+</p>
+<p>
+## HSL <a href="Functions.html">Functions</a>
+</p>
+<p>
+\{<a href="Functions.html#M000543">hsl</a> <a
+href="Functions.html#M000543">hsl</a>($<a
+href="Functions.html#M000548">hue</a>, $<a
+href="Functions.html#M000549">saturation</a>, $<a
+href="Functions.html#M000550">lightness</a>)} : Creates a {<a
+href="Value/Color.html">Sass::Script::Value::Color</a> Color} from <a
+href="Functions.html#M000548">hue</a>, <a
+href="Functions.html#M000549">saturation</a>, and
+</p>
+<pre>
+  lightness values.
+</pre>
+<p>
+\{<a href="Functions.html#M000544">hsla</a> <a
+href="Functions.html#M000544">hsla</a>($<a
+href="Functions.html#M000548">hue</a>, $<a
+href="Functions.html#M000549">saturation</a>, $<a
+href="Functions.html#M000550">lightness</a>, $<a
+href="Functions.html#M000551">alpha</a>)} : Creates a {<a
+href="Value/Color.html">Sass::Script::Value::Color</a> Color} from <a
+href="Functions.html#M000548">hue</a>, <a
+href="Functions.html#M000549">saturation</a>,
+</p>
+<pre>
+  lightness, and alpha values.
+</pre>
+<p>
+\{<a href="Functions.html#M000548">hue</a> <a
+href="Functions.html#M000548">hue</a>($color)} : Gets the <a
+href="Functions.html#M000548">hue</a> component of a color.
+</p>
+<p>
+\{<a href="Functions.html#M000549">saturation</a> <a
+href="Functions.html#M000549">saturation</a>($color)} : Gets the <a
+href="Functions.html#M000549">saturation</a> component of a color.
+</p>
+<p>
+\{<a href="Functions.html#M000550">lightness</a> <a
+href="Functions.html#M000550">lightness</a>($color)} : Gets the <a
+href="Functions.html#M000550">lightness</a> component of a color.
+</p>
+<p>
+\{<a href="Functions.html#M000561">adjust_hue</a> adjust-<a
+href="Functions.html#M000548">hue</a>($color, $degrees)} : Changes the <a
+href="Functions.html#M000548">hue</a> of a color.
+</p>
+<p>
+\{<a href="Functions.html#M000557">lighten</a> <a
+href="Functions.html#M000557">lighten</a>($color, $amount)} : Makes a color
+lighter.
+</p>
+<p>
+\{<a href="Functions.html#M000558">darken</a> <a
+href="Functions.html#M000558">darken</a>($color, $amount)} : Makes a color
+darker.
+</p>
+<p>
+\{<a href="Functions.html#M000559">saturate</a> <a
+href="Functions.html#M000559">saturate</a>($color, $amount)} : Makes a
+color more saturated.
+</p>
+<p>
+\{<a href="Functions.html#M000560">desaturate</a> <a
+href="Functions.html#M000560">desaturate</a>($color, $amount)} : Makes a
+color less saturated.
+</p>
+<p>
+\{<a href="Functions.html#M000567">grayscale</a> <a
+href="Functions.html#M000567">grayscale</a>($color)} : Converts a color to
+<a href="Functions.html#M000567">grayscale</a>.
+</p>
+<p>
+\{<a href="Functions.html#M000568">complement</a> <a
+href="Functions.html#M000568">complement</a>($color)} : Returns the <a
+href="Functions.html#M000568">complement</a> of a color.
+</p>
+<p>
+\{<a href="Functions.html#M000569">invert</a> <a
+href="Functions.html#M000569">invert</a>($color)} : Returns the inverse of
+a color.
+</p>
+<p>
+## Opacity <a href="Functions.html">Functions</a>
+</p>
+<p>
+\{<a href="Functions.html#M000551">alpha</a> <a
+href="Functions.html#M000551">alpha</a>($color)} / \{<a
+href="Functions.html#M000552">opacity</a> <a
+href="Functions.html#M000552">opacity</a>($color)} : Gets the <a
+href="Functions.html#M000551">alpha</a> component (<a
+href="Functions.html#M000552">opacity</a>) of a color.
+</p>
+<p>
+\{<a href="Functions.html#M000542">rgba</a> <a
+href="Functions.html#M000542">rgba</a>($color, $<a
+href="Functions.html#M000551">alpha</a>)} : Changes the <a
+href="Functions.html#M000551">alpha</a> component for a color.
+</p>
+<p>
+\{<a href="Functions.html#M000553">opacify</a> <a
+href="Functions.html#M000553">opacify</a>($color, $amount)} / \{<a
+href="Functions.html#M000554">fade_in</a> fade-in($color, $amount)} : Makes
+a color more opaque.
+</p>
+<p>
+\{<a href="Functions.html#M000555">transparentize</a> <a
+href="Functions.html#M000555">transparentize</a>($color, $amount)} / \{<a
+href="Functions.html#M000556">fade_out</a> fade-out($color, $amount)} :
+Makes a color more transparent.
+</p>
+<p>
+## Other Color <a href="Functions.html">Functions</a>
+</p>
+<p>
+\{<a href="Functions.html#M000563">adjust_color</a> adjust-color($color,
+\[$<a href="Functions.html#M000545">red</a>\], \[$<a
+href="Functions.html#M000546">green</a>\], \[$<a
+href="Functions.html#M000547">blue</a>\], \[$<a
+href="Functions.html#M000548">hue</a>\], \[$<a
+href="Functions.html#M000549">saturation</a>\], \[$<a
+href="Functions.html#M000550">lightness</a>\], \[$<a
+href="Functions.html#M000551">alpha</a>\])} : Increases or decreases one or
+more components of a color.
+</p>
+<p>
+\{<a href="Functions.html#M000564">scale_color</a> scale-color($color,
+\[$<a href="Functions.html#M000545">red</a>\], \[$<a
+href="Functions.html#M000546">green</a>\], \[$<a
+href="Functions.html#M000547">blue</a>\], \[$<a
+href="Functions.html#M000549">saturation</a>\], \[$<a
+href="Functions.html#M000550">lightness</a>\], \[$<a
+href="Functions.html#M000551">alpha</a>\])} : Fluidly scales one or more
+properties of a color.
+</p>
+<p>
+\{<a href="Functions.html#M000565">change_color</a> change-color($color,
+\[$<a href="Functions.html#M000545">red</a>\], \[$<a
+href="Functions.html#M000546">green</a>\], \[$<a
+href="Functions.html#M000547">blue</a>\], \[$<a
+href="Functions.html#M000548">hue</a>\], \[$<a
+href="Functions.html#M000549">saturation</a>\], \[$<a
+href="Functions.html#M000550">lightness</a>\], \[$<a
+href="Functions.html#M000551">alpha</a>\])} : Changes one or more
+properties of a color.
+</p>
+<p>
+\{<a href="Functions.html#M000562">ie_hex_str</a> ie-hex-str($color)} :
+Converts a color into the format understood by IE filters.
+</p>
+<p>
+## String <a href="Functions.html">Functions</a>
+</p>
+<p>
+\{<a href="Functions.html#M000570">unquote</a> <a
+href="Functions.html#M000570">unquote</a>($string)} : Removes quotes from a
+string.
+</p>
+<p>
+\{<a href="Functions.html#M000571">quote</a> <a
+href="Functions.html#M000571">quote</a>($string)} : Adds quotes to a
+string.
+</p>
+<p>
+\{<a href="Functions.html#M000572">str_length</a> str-<a
+href="Functions.html#M000590">length</a>($string)} : Returns the number of
+characters in a string.
+</p>
+<p>
+\{<a href="Functions.html#M000573">str_insert</a> str-insert($string,
+$insert, $<a href="Functions.html#M000596">index</a>)} : Inserts `$insert`
+into `$string` at `$<a href="Functions.html#M000596">index</a>`.
+</p>
+<p>
+\{<a href="Functions.html#M000574">str_index</a> str-<a
+href="Functions.html#M000596">index</a>($string, $substring)} : Returns the
+<a href="Functions.html#M000596">index</a> of the first occurrence of
+`$substring` in `$string`.
+</p>
+<p>
+\{<a href="Functions.html#M000575">str_slice</a> str-slice($string,
+$start-at, [$end-at])} : Extracts a substring from `$string`.
+</p>
+<p>
+\{<a href="Functions.html#M000576">to_upper_case</a>
+to-upper-case($string)} : Converts a string to upper case.
+</p>
+<p>
+\{<a href="Functions.html#M000577">to_lower_case</a>
+to-lower-case($string)} : Converts a string to lower case.
+</p>
+<p>
+## Number <a href="Functions.html">Functions</a>
+</p>
+<p>
+\{<a href="Functions.html#M000583">percentage</a> <a
+href="Functions.html#M000583">percentage</a>($number)} : Converts a <a
+href="Functions.html#M000581">unitless</a> number to a <a
+href="Functions.html#M000583">percentage</a>.
+</p>
+<p>
+\{<a href="Functions.html#M000584">round</a> <a
+href="Functions.html#M000584">round</a>($number)} : Rounds a number to the
+nearest whole number.
+</p>
+<p>
+\{<a href="Functions.html#M000585">ceil</a> <a
+href="Functions.html#M000585">ceil</a>($number)} : Rounds a number up to
+the next whole number.
+</p>
+<p>
+\{<a href="Functions.html#M000586">floor</a> <a
+href="Functions.html#M000586">floor</a>($number)} : Rounds a number down to
+the previous whole number.
+</p>
+<p>
+\{<a href="Functions.html#M000587">abs</a> <a
+href="Functions.html#M000587">abs</a>($number)} : Returns the absolute
+value of a number.
+</p>
+<p>
+\{<a href="Functions.html#M000588">min</a> <a
+href="Functions.html#M000588">min</a>($numbers&#8230;)\} : Finds the
+minimum of several numbers.
+</p>
+<p>
+\{<a href="Functions.html#M000589">max</a> <a
+href="Functions.html#M000589">max</a>($numbers&#8230;)\} : Finds the
+maximum of several numbers.
+</p>
+<p>
+\{<a href="Functions.html#M000615">random</a> <a
+href="Functions.html#M000615">random</a>([$limit])\} : Returns a <a
+href="Functions.html#M000615">random</a> number.
+</p>
+<p>
+## List <a href="Functions.html">Functions</a> {list-functions}
+</p>
+<p>
+Lists in <a href="../../Sass.html">Sass</a> are immutable; all list
+functions return a new list rather than updating the existing list
+in-place.
+</p>
+<p>
+All list functions work for maps as well, treating them as lists of pairs.
+</p>
+<p>
+\{<a href="Functions.html#M000590">length</a> <a
+href="Functions.html#M000590">length</a>($list)} : Returns the <a
+href="Functions.html#M000590">length</a> of a list.
+</p>
+<p>
+\{<a href="Functions.html#M000592">nth</a> <a
+href="Functions.html#M000592">nth</a>($list, $n)} : Returns a specific item
+in a list.
+</p>
+<p>
+\{set-<a href="Functions.html#M000592">nth</a> set-<a
+href="Functions.html#M000592">nth</a>($list, $n, $value)} : Replaces the <a
+href="Functions.html#M000592">nth</a> item in a list.
+</p>
+<p>
+\{<a href="Functions.html#M000593">join</a> <a
+href="Functions.html#M000593">join</a>($list1, $list2, \[$separator\])} :
+Joins together two lists into one.
+</p>
+<p>
+\{<a href="Functions.html#M000594">append</a> <a
+href="Functions.html#M000594">append</a>($list1, $val, \[$separator\])} :
+Appends a single value onto the end of a list.
+</p>
+<p>
+\{<a href="Functions.html#M000595">zip</a> <a
+href="Functions.html#M000595">zip</a>($lists&#8230;)} : Combines several
+lists into a single multidimensional list.
+</p>
+<p>
+\{<a href="Functions.html#M000596">index</a> <a
+href="Functions.html#M000596">index</a>($list, $value)} : Returns the
+position of a value within a list.
+</p>
+<p>
+\{<a href="Functions.html#M000597">list_separator</a>
+list-separator($list)} : Returns the separator of a list.
+</p>
+<p>
+## Map <a href="Functions.html">Functions</a> {map-functions}
+</p>
+<p>
+Maps in <a href="../../Sass.html">Sass</a> are immutable; all map functions
+return a new map rather than updating the existing map in-place.
+</p>
+<p>
+\{<a href="Functions.html#M000598">map_get</a> map-get($map, $key)} :
+Returns the value in a map associated with a given key.
+</p>
+<p>
+\{<a href="Functions.html#M000599">map_merge</a> map-merge($map1, $map2)} :
+Merges two maps together into a new map.
+</p>
+<p>
+\{<a href="Functions.html#M000600">map_remove</a> map-remove($map,
+$keys&#8230;)} : Returns a new map with keys removed.
+</p>
+<p>
+\{<a href="Functions.html#M000601">map_keys</a> map-keys($map)} : Returns a
+list of all keys in a map.
+</p>
+<p>
+\{<a href="Functions.html#M000602">map_values</a> map-values($map)} :
+Returns a list of all values in a map.
+</p>
+<p>
+\{<a href="Functions.html#M000603">map_has_key</a> map-has-key($map, $key)}
+: Returns whether a map has a value associated with a given key.
+</p>
+<p>
+\{<a href="Functions.html#M000604">keywords</a> <a
+href="Functions.html#M000604">keywords</a>($args)} : Returns the <a
+href="Functions.html#M000604">keywords</a> passed to a function that takes
+variable arguments.
+</p>
+<p>
+## <a href="../Selector.html">Selector</a> <a
+href="Functions.html">Functions</a>
+</p>
+<p>
+<a href="../Selector.html">Selector</a> functions are very liberal in the
+formats they support for selector arguments. They can take a plain string,
+a list of lists as returned by `&amp;` or anything in between:
+</p>
+<ul>
+<li>A plain string, such as `&quot;.foo .bar, .baz .bang&quot;`.
+
+</li>
+<li>A space-separated list of strings such as `(&quot;.foo&quot;
+&quot;.bar&quot;)`.
+
+</li>
+<li>A comma-separated list of strings such as `(&quot;.foo .bar&quot;,
+&quot;.baz .bang&quot;)`.
+
+</li>
+<li>A comma-separated list of space-separated lists of strings such as
+`((&quot;.foo&quot; &quot;.bar&quot;), (&quot;.baz&quot;
+&quot;.bang&quot;))`.
+
+</li>
+</ul>
+<p>
+In general, selector functions allow placeholder selectors (`%foo`) but
+disallow parent-reference selectors (`&amp;`).
+</p>
+<p>
+\{<a href="Functions.html#M000617">selector_nest</a>
+selector-nest($selectors&#8230;)} : Nests selector beneath one another like
+they would be nested in the
+</p>
+<pre>
+  stylesheet.
+</pre>
+<p>
+\{<a href="Functions.html#M000618">selector_append</a> selector-<a
+href="Functions.html#M000594">append</a>($selectors&#8230;)} : Appends
+selectors to one another without spaces in between.
+</p>
+<p>
+\{<a href="Functions.html#M000619">selector_extend</a>
+selector-extend($selector, $extendee, $extender)} : Extends `$extendee`
+with `$extender` within `$selector`.
+</p>
+<p>
+\{<a href="Functions.html#M000620">selector_replace</a>
+selector-replace($selector, $original, $replacement)} : Replaces
+`$original` with `$replacement` within `$selector`.
+</p>
+<p>
+\{<a href="Functions.html#M000621">selector_unify</a>
+selector-unify($selector1, $selector2)} : Unifies two selectors to produce
+a selector that matches
+</p>
+<pre>
+  elements matched by both.
+</pre>
+<p>
+\{<a href="Functions.html#M000623">is_superselector</a>
+is-superselector($super, $sub)} : Returns whether `$super` matches all the
+elements `$sub` does, and
+</p>
+<pre>
+  possibly more.
+</pre>
+<p>
+\{<a href="Functions.html#M000622">simple_selectors</a>
+simple-selectors($selector)} : Returns the simple selectors that comprise a
+compound selector.
+</p>
+<p>
+\{<a href="Functions.html#M000616">selector_parse</a>
+selector-parse($selector)} : Parses a selector into the format returned by
+`&amp;`.
+</p>
+<p>
+## Introspection <a href="Functions.html">Functions</a>
+</p>
+<p>
+\{<a href="Functions.html#M000579">feature_exists</a>
+feature-exists($feature)} : Returns whether a feature exists in the current
+<a href="../../Sass.html">Sass</a> runtime.
+</p>
+<p>
+\{<a href="Functions.html#M000610">variable_exists</a>
+variable-exists($name)} : Returns whether a variable with the given name
+exists in the current scope.
+</p>
+<p>
+\{<a href="Functions.html#M000611">global_variable_exists</a>
+global-variable-exists($name)} : Returns whether a variable with the given
+name exists in the global scope.
+</p>
+<p>
+\{<a href="Functions.html#M000612">function_exists</a>
+function-exists($name)} : Returns whether a function with the given name
+exists.
+</p>
+<p>
+\{<a href="Functions.html#M000613">mixin_exists</a> mixin-exists($name)} :
+Returns whether a mixin with the given name exists.
+</p>
+<p>
+\{<a href="Functions.html#M000614">inspect</a> <a
+href="Functions.html#M000614">inspect</a>($value)} : Returns the string
+representation of a value as it would be represented in <a
+href="../../Sass.html">Sass</a>.
+</p>
+<p>
+\{<a href="Functions.html#M000578">type_of</a> type-of($value)} : Returns
+the type of a value.
+</p>
+<p>
+\{<a href="Functions.html#M000580">unit</a> <a
+href="Functions.html#M000580">unit</a>($number)} : Returns the <a
+href="Functions.html#M000580">unit</a>(s) associated with a number.
+</p>
+<p>
+\{<a href="Functions.html#M000581">unitless</a> <a
+href="Functions.html#M000581">unitless</a>($number)} : Returns whether a
+number has units.
+</p>
+<p>
+\{<a href="Functions.html#M000582">comparable</a> <a
+href="Functions.html#M000582">comparable</a>($number1, $number2)} : Returns
+whether two numbers can be added, subtracted, or compared.
+</p>
+<p>
+\{<a href="Functions.html#M000607">call</a> <a
+href="Functions.html#M000607">call</a>($name, $args&#8230;)} : Dynamically
+calls a <a href="../../Sass.html">Sass</a> function.
+</p>
+<p>
+## Miscellaneous <a href="Functions.html">Functions</a>
+</p>
+<p>
+\{<a href="Functions.html#M000605">if</a> <a
+href="Functions.html#M000605">if</a>($condition, $<a
+href="Functions.html#M000605">if</a>-true, $<a
+href="Functions.html#M000605">if</a>-false)} : Returns one of two values,
+depending on whether or not `$condition` is
+</p>
+<pre>
+  true.
+</pre>
+<p>
+\{<a href="Functions.html#M000606">unique_id</a> unique-id()} : Returns a
+unique <a href="../CSS.html">CSS</a> identifier.
+</p>
+<p>
+## Adding Custom <a href="Functions.html">Functions</a>
+</p>
+<p>
+New <a href="../../Sass.html">Sass</a> functions can be added by adding
+Ruby methods to this module. For example:
+</p>
+<pre>
+    module Sass::Script::Functions
+      def reverse(string)
+        assert_type string, :String
+        Sass::Script::Value::String.new(string.value.reverse)
+      end
+      declare :reverse, [:string]
+    end
+</pre>
+<p>
+Calling {<a href="Functions.html#M000537">declare</a>} tells <a
+href="../../Sass.html">Sass</a> the argument names for your function. If
+omitted, the function will still work, but will not be able to accept
+keyword arguments. {<a href="Functions.html#M000537">declare</a>} can also
+allow your function to take arbitrary keyword arguments.
+</p>
+<p>
+There are a few things to keep in mind when modifying this module. First of
+all, the arguments passed are {<a href="Value.html">Value</a>} objects. <a
+href="Value.html">Value</a> objects are also expected to be returned. This
+means that Ruby values must be unwrapped and wrapped.
+</p>
+<p>
+Most <a href="Value.html">Value</a> objects support the {Value::Base#value
+value} accessor for getting their Ruby values. Color objects, though, must
+be accessed using {Sass::Script::Value::Color#rgb <a
+href="Functions.html#M000541">rgb</a>}, {Sass::Script::Value::Color#red <a
+href="Functions.html#M000545">red</a>}, {Sass::Script::Value::Color#blue <a
+href="Functions.html#M000546">green</a>}, or
+{Sass::Script::Value::Color#blue <a
+href="Functions.html#M000547">blue</a>}.
+</p>
+<p>
+Second, making Ruby functions accessible from <a
+href="../../Sass.html">Sass</a> introduces the temptation to do things like
+database access within stylesheets. This is generally a bad idea; since <a
+href="../../Sass.html">Sass</a> files are by default only compiled once,
+dynamic code is not a great fit.
+</p>
+<p>
+If you really, really need to compile <a href="../../Sass.html">Sass</a> on
+each request, first make sure you have adequate caching set up. Then you
+can use {<a href="../Engine.html">Sass::Engine</a>} to render the code,
+using the {file:SASS_REFERENCE.md#custom-option `options` parameter} to
+pass in data that {EvaluationContext#options can be accessed} from your <a
+href="../../Sass.html">Sass</a> functions.
+</p>
+<p>
+Within one of the functions in this module, methods of {<a
+href="Functions/EvaluationContext.html">EvaluationContext</a>} can be used.
+</p>
+<p>
+### Caveats
+</p>
+<p>
+When creating new {<a href="Value.html">Value</a>} objects within
+functions, be aware that it&#8216;s not safe to <a
+href="Functions.html#M000607">call</a> {Value::Base#to_s to_s} (or other
+methods that use the string representation) on those objects without first
+setting {Tree::Node#options= the options attribute}.
+</p>
+<p>
+@comment
+</p>
+<pre>
+  rubocop:enable LineLength
+  rubocop:disable ModuleLength
+</pre>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000587">abs</a>&nbsp;&nbsp;
+      <a href="#M000563">adjust_color</a>&nbsp;&nbsp;
+      <a href="#M000561">adjust_hue</a>&nbsp;&nbsp;
+      <a href="#M000551">alpha</a>&nbsp;&nbsp;
+      <a href="#M000594">append</a>&nbsp;&nbsp;
+      <a href="#M000547">blue</a>&nbsp;&nbsp;
+      <a href="#M000607">call</a>&nbsp;&nbsp;
+      <a href="#M000585">ceil</a>&nbsp;&nbsp;
+      <a href="#M000565">change_color</a>&nbsp;&nbsp;
+      <a href="#M000582">comparable</a>&nbsp;&nbsp;
+      <a href="#M000568">complement</a>&nbsp;&nbsp;
+      <a href="#M000608">counter</a>&nbsp;&nbsp;
+      <a href="#M000609">counters</a>&nbsp;&nbsp;
+      <a href="#M000558">darken</a>&nbsp;&nbsp;
+      <a href="#M000537">declare</a>&nbsp;&nbsp;
+      <a href="#M000560">desaturate</a>&nbsp;&nbsp;
+      <a href="#M000554">fade_in</a>&nbsp;&nbsp;
+      <a href="#M000556">fade_out</a>&nbsp;&nbsp;
+      <a href="#M000579">feature_exists</a>&nbsp;&nbsp;
+      <a href="#M000586">floor</a>&nbsp;&nbsp;
+      <a href="#M000612">function_exists</a>&nbsp;&nbsp;
+      <a href="#M000611">global_variable_exists</a>&nbsp;&nbsp;
+      <a href="#M000567">grayscale</a>&nbsp;&nbsp;
+      <a href="#M000546">green</a>&nbsp;&nbsp;
+      <a href="#M000543">hsl</a>&nbsp;&nbsp;
+      <a href="#M000544">hsla</a>&nbsp;&nbsp;
+      <a href="#M000548">hue</a>&nbsp;&nbsp;
+      <a href="#M000562">ie_hex_str</a>&nbsp;&nbsp;
+      <a href="#M000605">if</a>&nbsp;&nbsp;
+      <a href="#M000596">index</a>&nbsp;&nbsp;
+      <a href="#M000614">inspect</a>&nbsp;&nbsp;
+      <a href="#M000569">invert</a>&nbsp;&nbsp;
+      <a href="#M000623">is_superselector</a>&nbsp;&nbsp;
+      <a href="#M000593">join</a>&nbsp;&nbsp;
+      <a href="#M000604">keywords</a>&nbsp;&nbsp;
+      <a href="#M000590">length</a>&nbsp;&nbsp;
+      <a href="#M000557">lighten</a>&nbsp;&nbsp;
+      <a href="#M000550">lightness</a>&nbsp;&nbsp;
+      <a href="#M000597">list_separator</a>&nbsp;&nbsp;
+      <a href="#M000598">map_get</a>&nbsp;&nbsp;
+      <a href="#M000603">map_has_key</a>&nbsp;&nbsp;
+      <a href="#M000601">map_keys</a>&nbsp;&nbsp;
+      <a href="#M000599">map_merge</a>&nbsp;&nbsp;
+      <a href="#M000600">map_remove</a>&nbsp;&nbsp;
+      <a href="#M000602">map_values</a>&nbsp;&nbsp;
+      <a href="#M000589">max</a>&nbsp;&nbsp;
+      <a href="#M000588">min</a>&nbsp;&nbsp;
+      <a href="#M000566">mix</a>&nbsp;&nbsp;
+      <a href="#M000613">mixin_exists</a>&nbsp;&nbsp;
+      <a href="#M000592">nth</a>&nbsp;&nbsp;
+      <a href="#M000553">opacify</a>&nbsp;&nbsp;
+      <a href="#M000552">opacity</a>&nbsp;&nbsp;
+      <a href="#M000583">percentage</a>&nbsp;&nbsp;
+      <a href="#M000571">quote</a>&nbsp;&nbsp;
+      <a href="#M000615">random</a>&nbsp;&nbsp;
+      <a href="#M000540">random_number_generator</a>&nbsp;&nbsp;
+      <a href="#M000539">random_seed=</a>&nbsp;&nbsp;
+      <a href="#M000545">red</a>&nbsp;&nbsp;
+      <a href="#M000541">rgb</a>&nbsp;&nbsp;
+      <a href="#M000542">rgba</a>&nbsp;&nbsp;
+      <a href="#M000584">round</a>&nbsp;&nbsp;
+      <a href="#M000559">saturate</a>&nbsp;&nbsp;
+      <a href="#M000549">saturation</a>&nbsp;&nbsp;
+      <a href="#M000564">scale_color</a>&nbsp;&nbsp;
+      <a href="#M000618">selector_append</a>&nbsp;&nbsp;
+      <a href="#M000619">selector_extend</a>&nbsp;&nbsp;
+      <a href="#M000617">selector_nest</a>&nbsp;&nbsp;
+      <a href="#M000616">selector_parse</a>&nbsp;&nbsp;
+      <a href="#M000620">selector_replace</a>&nbsp;&nbsp;
+      <a href="#M000621">selector_unify</a>&nbsp;&nbsp;
+      <a href="#M000591">set_nth</a>&nbsp;&nbsp;
+      <a href="#M000538">signature</a>&nbsp;&nbsp;
+      <a href="#M000622">simple_selectors</a>&nbsp;&nbsp;
+      <a href="#M000574">str_index</a>&nbsp;&nbsp;
+      <a href="#M000573">str_insert</a>&nbsp;&nbsp;
+      <a href="#M000572">str_length</a>&nbsp;&nbsp;
+      <a href="#M000575">str_slice</a>&nbsp;&nbsp;
+      <a href="#M000577">to_lower_case</a>&nbsp;&nbsp;
+      <a href="#M000576">to_upper_case</a>&nbsp;&nbsp;
+      <a href="#M000555">transparentize</a>&nbsp;&nbsp;
+      <a href="#M000578">type_of</a>&nbsp;&nbsp;
+      <a href="#M000606">unique_id</a>&nbsp;&nbsp;
+      <a href="#M000580">unit</a>&nbsp;&nbsp;
+      <a href="#M000581">unitless</a>&nbsp;&nbsp;
+      <a href="#M000570">unquote</a>&nbsp;&nbsp;
+      <a href="#M000610">variable_exists</a>&nbsp;&nbsp;
+      <a href="#M000595">zip</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Class <a href="Functions/EvaluationContext.html" class="link">Sass::Script::Functions::EvaluationContext</a><br />
+
+    </div>
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">Signature</td>
+          <td>=</td>
+          <td class="context-item-value">Struct.new(:args, :delayed_args, :var_args, :var_kwargs, :deprecated)</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+A class representing a <a href="../../Sass.html">Sass</a> function <a
+href="Functions.html#M000538">signature</a>.
+
+<p>
+@attr args [Array&lt;String&gt;] The names of the arguments to the
+function. @attr delayed_args [Array&lt;String&gt;] The names of the
+arguments whose evaluation should be
+</p>
+<pre>
+  delayed.
+</pre>
+<p>
+@attr var_args [Boolean] Whether the function takes a variable number of
+arguments. @attr var_kwargs [Boolean] Whether the function takes an
+arbitrary set of keyword arguments.
+</p>
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+    <div id="aliases-list">
+      <h3 class="section-bar">External Aliases</h3>
+
+      <div class="name-list">
+                        <table summary="aliases">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">public_method_defined?</td>
+          <td>-&gt;</td>
+          <td class="context-item-value">callable?</td>
+        </tr>
+      <tr class="top-aligned-row context-row">
+        <td>&nbsp;</td>
+        <td colspan="2" class="context-item-desc">
+Returns whether user function with a given name exists.
+
+<p>
+@param function_name [String] @return [Boolean]
+</p>
+</td>
+      </tr>
+                        </table>
+      </div>
+    </div>
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000537" class="method-detail">
+        <a name="M000537"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000537.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000537.html');return false;">
+          <span class="method-name">declare</span><span class="method-args">(method_name, args, options = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Declare a <a href="../../Sass.html">Sass</a> <a
+href="Functions.html#M000538">signature</a> for a Ruby-defined function.
+This includes the names of the arguments, whether the function takes a
+variable number of arguments, and whether the function takes an arbitrary
+set of keyword arguments.
+</p>
+<p>
+It&#8216;s not necessary to <a href="Functions.html#M000537">declare</a> a
+<a href="Functions.html#M000538">signature</a> for a function. However,
+without a <a href="Functions.html#M000538">signature</a> it won&#8216;t
+support keyword arguments.
+</p>
+<p>
+A single function can have multiple signatures declared as long as each one
+takes a different number of arguments. It&#8216;s also possible to <a
+href="Functions.html#M000537">declare</a> multiple signatures that all take
+the same number of arguments, but none of them but the first will be used
+unless the user uses keyword arguments.
+</p>
+<p>
+@example
+</p>
+<pre>
+  declare :rgba, [:hex, :alpha]
+  declare :rgba, [:red, :green, :blue, :alpha]
+  declare :accepts_anything, [], :var_args =&gt; true, :var_kwargs =&gt; true
+  declare :some_func, [:foo, :bar, :baz], :var_kwargs =&gt; true
+</pre>
+<p>
+@param method_name [Symbol] The name of the method
+</p>
+<pre>
+  whose signature is being declared.
+</pre>
+<p>
+@param args [Array&lt;Symbol&gt;] The names of the arguments for the
+function <a href="Functions.html#M000538">signature</a>. @option options
+:var_args [Boolean] (false)
+</p>
+<pre>
+  Whether the function accepts a variable number of (unnamed) arguments
+  in addition to the named arguments.
+</pre>
+<p>
+@option options :var_kwargs [Boolean] (false)
+</p>
+<pre>
+  Whether the function accepts other keyword arguments
+  in addition to those in `:args`.
+  If this is true, the Ruby function will be passed a hash from strings
+  to {Value}s as the last argument.
+  In addition, if this is true and `:var_args` is not,
+  Sass will ensure that the last argument passed is a hash.
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000540" class="method-detail">
+        <a name="M000540"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000540.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000540.html');return false;">
+          <span class="method-name">random_number_generator</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Get <a href="../../Sass.html">Sass</a>&#8216;s internal <a
+href="Functions.html#M000615">random</a> number generator.
+</p>
+<p>
+@return [Random]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000539" class="method-detail">
+        <a name="M000539"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000539.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000539.html');return false;">
+          <span class="method-name">random_seed=</span><span class="method-args">(seed)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Sets the <a href="Functions.html#M000615">random</a> seed used by <a
+href="../../Sass.html">Sass</a>&#8216;s internal <a
+href="Functions.html#M000615">random</a> number generator.
+</p>
+<p>
+This can be used to ensure consistent <a
+href="Functions.html#M000615">random</a> number sequences which allows for
+consistent results when testing, etc.
+</p>
+<p>
+@param seed [Integer] @return [Integer] The same seed.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000538" class="method-detail">
+        <a name="M000538"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000538.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000538.html');return false;">
+          <span class="method-name">signature</span><span class="method-args">(method_name, arg_arity, kwarg_arity)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Determine the correct <a href="Functions.html#M000538">signature</a> for
+the number of arguments passed in for a given function. If no signatures
+match, the first <a href="Functions.html#M000538">signature</a> is returned
+for error messaging.
+</p>
+<p>
+@param method_name [Symbol] The name of the Ruby function to be called.
+@param arg_arity [Fixnum] The number of unnamed arguments the function was
+passed. @param kwarg_arity [Fixnum] The number of keyword arguments the
+function was passed.
+</p>
+<p>
+@return [{Symbol =&gt; Object}, nil]
+</p>
+<pre>
+  The signature options for the matching signature,
+  or nil if no signatures are declared for this function. See {declare}.
+</pre>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000587" class="method-detail">
+        <a name="M000587"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000587.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000587.html');return false;">
+          <span class="method-name">abs</span><span class="method-args">(number)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the absolute value of a number.
+</p>
+<p>
+@example
+</p>
+<pre>
+  abs(10px) =&gt; 10px
+  abs(-10px) =&gt; 10px
+</pre>
+<p>
+@overload <a href="Functions.html#M000587">abs</a>($number)
+</p>
+<pre>
+  @param $number [Sass::Script::Value::Number]
+</pre>
+<p>
+@return [<a href="Value/Number.html">Sass::Script::Value::Number</a>]
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> `$number`
+isn&#8216;t a number
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000563" class="method-detail">
+        <a name="M000563"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000563.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000563.html');return false;">
+          <span class="method-name">adjust_color</span><span class="method-args">(color, kwargs)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Increases or decreases one or more properties of a color. This can change
+the <a href="Functions.html#M000545">red</a>, <a
+href="Functions.html#M000546">green</a>, <a
+href="Functions.html#M000547">blue</a>, <a
+href="Functions.html#M000548">hue</a>, <a
+href="Functions.html#M000549">saturation</a>, value, and <a
+href="Functions.html#M000551">alpha</a> properties. The properties are
+specified as keyword arguments, and are added to or subtracted from the
+color&#8216;s current value for that property.
+</p>
+<p>
+All properties are optional. You can&#8216;t specify both RGB properties
+(`$<a href="Functions.html#M000545">red</a>`, `$<a
+href="Functions.html#M000546">green</a>`, `$<a
+href="Functions.html#M000547">blue</a>`) and HSL properties (`$<a
+href="Functions.html#M000548">hue</a>`, `$<a
+href="Functions.html#M000549">saturation</a>`, `$value`) at the same time.
+</p>
+<p>
+@example
+</p>
+<pre>
+  adjust-color(#102030, $blue: 5) =&gt; #102035
+  adjust-color(#102030, $red: -5, $blue: 5) =&gt; #0b2035
+  adjust-color(hsl(25, 100%, 80%), $lightness: -30%, $alpha: -0.4) =&gt; hsla(25, 100%, 50%, 0.6)
+</pre>
+<p>
+@overload <a href="Functions.html#M000563">adjust_color</a>($color, [$<a
+href="Functions.html#M000545">red</a>], [$<a
+href="Functions.html#M000546">green</a>], [$<a
+href="Functions.html#M000547">blue</a>], [$<a
+href="Functions.html#M000548">hue</a>], [$<a
+href="Functions.html#M000549">saturation</a>], [$<a
+href="Functions.html#M000550">lightness</a>], [$<a
+href="Functions.html#M000551">alpha</a>])
+</p>
+<pre>
+  @param $color [Sass::Script::Value::Color]
+  @param $red [Sass::Script::Value::Number] The adjustment to make on the
+    red component, between -255 and 255 inclusive
+  @param $green [Sass::Script::Value::Number] The adjustment to make on the
+    green component, between -255 and 255 inclusive
+  @param $blue [Sass::Script::Value::Number] The adjustment to make on the
+    blue component, between -255 and 255 inclusive
+  @param $hue [Sass::Script::Value::Number] The adjustment to make on the
+    hue component, in degrees
+  @param $saturation [Sass::Script::Value::Number] The adjustment to make on
+    the saturation component, between `-100%` and `100%` inclusive
+  @param $lightness [Sass::Script::Value::Number] The adjustment to make on
+    the lightness component, between `-100%` and `100%` inclusive
+  @param $alpha [Sass::Script::Value::Number] The adjustment to make on the
+    alpha component, between -1 and 1 inclusive
+</pre>
+<p>
+@return [<a href="Value/Color.html">Sass::Script::Value::Color</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> any parameter is
+the wrong type or out-of
+</p>
+<pre>
+  bounds, or if RGB properties and HSL properties are adjusted at the
+  same time
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000561" class="method-detail">
+        <a name="M000561"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000561.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000561.html');return false;">
+          <span class="method-name">adjust_hue</span><span class="method-args">(color, degrees)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Changes the <a href="Functions.html#M000548">hue</a> of a color. Takes a
+color and a number of degrees (usually between `-360deg` and `360deg`), and
+returns a color with the <a href="Functions.html#M000548">hue</a> rotated
+along the color wheel by that amount.
+</p>
+<p>
+@example
+</p>
+<pre>
+  adjust-hue(hsl(120, 30%, 90%), 60deg) =&gt; hsl(180, 30%, 90%)
+  adjust-hue(hsl(120, 30%, 90%), -60deg) =&gt; hsl(60, 30%, 90%)
+  adjust-hue(#811, 45deg) =&gt; #886a11
+</pre>
+<p>
+@overload <a href="Functions.html#M000561">adjust_hue</a>($color, $degrees)
+</p>
+<pre>
+  @param $color [Sass::Script::Value::Color]
+  @param $degrees [Sass::Script::Value::Number] The number of degrees to
+    rotate the hue
+</pre>
+<p>
+@return [<a href="Value/Color.html">Sass::Script::Value::Color</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> either parameter is
+the wrong type
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000551" class="method-detail">
+        <a name="M000551"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000551.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000551.html');return false;">
+          <span class="method-name">alpha</span><span class="method-args">(*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the <a href="Functions.html#M000551">alpha</a> component (<a
+href="Functions.html#M000552">opacity</a>) of a color. This is 1 unless
+otherwise specified.
+</p>
+<p>
+This function also supports the proprietary Microsoft `<a
+href="Functions.html#M000551">alpha</a>(opacity=20)` syntax as a special
+case.
+</p>
+<p>
+@overload <a href="Functions.html#M000551">alpha</a>($color)
+</p>
+<pre>
+  @param $color [Sass::Script::Value::Color]
+</pre>
+<p>
+@return [<a href="Value/Number.html">Sass::Script::Value::Number</a>] The
+<a href="Functions.html#M000551">alpha</a> component, between 0 and 1
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> `$color`
+isn&#8216;t a color
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000594" class="method-detail">
+        <a name="M000594"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000594.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000594.html');return false;">
+          <span class="method-name">append</span><span class="method-args">(list, val, separator = identifier(&quot;auto&quot;))</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Appends a single value onto the end of a list.
+</p>
+<p>
+Unless the `$separator` argument is passed, <a
+href="Functions.html#M000605">if</a> the list had only one item, the
+resulting list will be space-separated.
+</p>
+<p>
+Like all list functions, `<a href="Functions.html#M000594">append</a>()`
+returns a new list rather than modifying its argument in place.
+</p>
+<p>
+@example
+</p>
+<pre>
+  append(10px 20px, 30px) =&gt; 10px 20px 30px
+  append((blue, red), green) =&gt; blue, red, green
+  append(10px 20px, 30px 40px) =&gt; 10px 20px (30px 40px)
+  append(10px, 20px, comma) =&gt; 10px, 20px
+  append((blue, red), green, space) =&gt; blue red green
+</pre>
+<p>
+@overload <a href="Functions.html#M000594">append</a>($list, $val,
+$separator: auto)
+</p>
+<pre>
+  @param $list [Sass::Script::Value::Base]
+  @param $val [Sass::Script::Value::Base]
+  @param $separator [Sass::Script::Value::String] The list separator to use.
+    If this is `comma` or `space`, that separator will be used. If this is
+    `auto` (the default), the separator is determined as explained above.
+</pre>
+<p>
+@return [<a href="Value/List.html">Sass::Script::Value::List</a>]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000547" class="method-detail">
+        <a name="M000547"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000547.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000547.html');return false;">
+          <span class="method-name">blue</span><span class="method-args">(color)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Gets the <a href="Functions.html#M000547">blue</a> component of a color.
+Calculated from HSL where necessary via [this algorithm][<a
+href="Functions.html#M000543">hsl</a>-to-<a
+href="Functions.html#M000541">rgb</a>].
+</p>
+<p>
+[<a href="Functions.html#M000543">hsl</a>-to-<a
+href="Functions.html#M000541">rgb</a>]: <a
+href="http://www.w3.org/TR/css3-color/#hsl-color">www.w3.org/TR/css3-color/#hsl-color</a>
+</p>
+<p>
+@overload <a href="Functions.html#M000547">blue</a>($color)
+</p>
+<pre>
+  @param $color [Sass::Script::Value::Color]
+</pre>
+<p>
+@return [<a href="Value/Number.html">Sass::Script::Value::Number</a>] The
+<a href="Functions.html#M000547">blue</a> component, between 0 and
+</p>
+<pre>
+  255 inclusive
+</pre>
+<p>
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> `$color`
+isn&#8216;t a color
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000607" class="method-detail">
+        <a name="M000607"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000607.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000607.html');return false;">
+          <span class="method-name">call</span><span class="method-args">(name, *args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Dynamically calls a function. This can <a
+href="Functions.html#M000607">call</a> user-defined functions, built-in
+functions, or plain <a href="../CSS.html">CSS</a> functions. It will pass
+along all arguments, including keyword arguments, to the called function.
+</p>
+<p>
+@example
+</p>
+<pre>
+  call(rgb, 10, 100, 255) =&gt; #0a64ff
+  call(scale-color, #0a64ff, $lightness: -10%) =&gt; #0058ef
+
+  $fn: nth;
+  call($fn, (a b c), 2) =&gt; b
+</pre>
+<p>
+@overload <a href="Functions.html#M000607">call</a>($name, $args&#8230;)
+</p>
+<pre>
+  @param $name [String] The name of the function to call.
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000585" class="method-detail">
+        <a name="M000585"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000585.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000585.html');return false;">
+          <span class="method-name">ceil</span><span class="method-args">(number)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Rounds a number up to the next whole number.
+</p>
+<p>
+@example
+</p>
+<pre>
+  ceil(10.4px) =&gt; 11px
+  ceil(10.6px) =&gt; 11px
+</pre>
+<p>
+@overload <a href="Functions.html#M000585">ceil</a>($number)
+</p>
+<pre>
+  @param $number [Sass::Script::Value::Number]
+</pre>
+<p>
+@return [<a href="Value/Number.html">Sass::Script::Value::Number</a>]
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> `$number`
+isn&#8216;t a number
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000565" class="method-detail">
+        <a name="M000565"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000565.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000565.html');return false;">
+          <span class="method-name">change_color</span><span class="method-args">(color, kwargs)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Changes one or more properties of a color. This can change the <a
+href="Functions.html#M000545">red</a>, <a
+href="Functions.html#M000546">green</a>, <a
+href="Functions.html#M000547">blue</a>, <a
+href="Functions.html#M000548">hue</a>, <a
+href="Functions.html#M000549">saturation</a>, value, and <a
+href="Functions.html#M000551">alpha</a> properties. The properties are
+specified as keyword arguments, and replace the color&#8216;s current value
+for that property.
+</p>
+<p>
+All properties are optional. You can&#8216;t specify both RGB properties
+(`$<a href="Functions.html#M000545">red</a>`, `$<a
+href="Functions.html#M000546">green</a>`, `$<a
+href="Functions.html#M000547">blue</a>`) and HSL properties (`$<a
+href="Functions.html#M000548">hue</a>`, `$<a
+href="Functions.html#M000549">saturation</a>`, `$value`) at the same time.
+</p>
+<p>
+@example
+</p>
+<pre>
+  change-color(#102030, $blue: 5) =&gt; #102005
+  change-color(#102030, $red: 120, $blue: 5) =&gt; #782005
+  change-color(hsl(25, 100%, 80%), $lightness: 40%, $alpha: 0.8) =&gt; hsla(25, 100%, 40%, 0.8)
+</pre>
+<p>
+@overload <a href="Functions.html#M000565">change_color</a>($color, [$<a
+href="Functions.html#M000545">red</a>], [$<a
+href="Functions.html#M000546">green</a>], [$<a
+href="Functions.html#M000547">blue</a>], [$<a
+href="Functions.html#M000548">hue</a>], [$<a
+href="Functions.html#M000549">saturation</a>], [$<a
+href="Functions.html#M000550">lightness</a>], [$<a
+href="Functions.html#M000551">alpha</a>])
+</p>
+<pre>
+  @param $color [Sass::Script::Value::Color]
+  @param $red [Sass::Script::Value::Number] The new red component for the
+    color, within 0 and 255 inclusive
+  @param $green [Sass::Script::Value::Number] The new green component for
+    the color, within 0 and 255 inclusive
+  @param $blue [Sass::Script::Value::Number] The new blue component for the
+    color, within 0 and 255 inclusive
+  @param $hue [Sass::Script::Value::Number] The new hue component for the
+    color, in degrees
+  @param $saturation [Sass::Script::Value::Number] The new saturation
+    component for the color, between `0%` and `100%` inclusive
+  @param $lightness [Sass::Script::Value::Number] The new lightness
+    component for the color, within `0%` and `100%` inclusive
+  @param $alpha [Sass::Script::Value::Number] The new alpha component for
+    the color, within 0 and 1 inclusive
+</pre>
+<p>
+@return [<a href="Value/Color.html">Sass::Script::Value::Color</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> any parameter is
+the wrong type or out-of
+</p>
+<pre>
+  bounds, or if RGB properties and HSL properties are adjusted at the
+  same time
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000582" class="method-detail">
+        <a name="M000582"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000582.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000582.html');return false;">
+          <span class="method-name">comparable</span><span class="method-args">(number1, number2)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns whether two numbers can added, subtracted, or compared.
+</p>
+<p>
+@example
+</p>
+<pre>
+  comparable(2px, 1px) =&gt; true
+  comparable(100px, 3em) =&gt; false
+  comparable(10cm, 3mm) =&gt; true
+</pre>
+<p>
+@overload <a href="Functions.html#M000582">comparable</a>($number1,
+$number2)
+</p>
+<pre>
+  @param $number1 [Sass::Script::Value::Number]
+  @param $number2 [Sass::Script::Value::Number]
+</pre>
+<p>
+@return [<a href="Value/Bool.html">Sass::Script::Value::Bool</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> either parameter is
+the wrong type
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000568" class="method-detail">
+        <a name="M000568"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000568.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000568.html');return false;">
+          <span class="method-name">complement</span><span class="method-args">(color)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the <a href="Functions.html#M000568">complement</a> of a color.
+This is identical to `adjust-<a
+href="Functions.html#M000548">hue</a>(color, 180deg)`.
+</p>
+<p>
+@see <a href="Functions.html#M000561">adjust_hue</a> adjust-<a
+href="Functions.html#M000548">hue</a> @overload <a
+href="Functions.html#M000568">complement</a>($color)
+</p>
+<pre>
+  @param $color [Sass::Script::Value::Color]
+</pre>
+<p>
+@return [<a href="Value/Color.html">Sass::Script::Value::Color</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> `$color`
+isn&#8216;t a color
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000608" class="method-detail">
+        <a name="M000608"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000608.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000608.html');return false;">
+          <span class="method-name">counter</span><span class="method-args">(*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This function only exists as a workaround for IE7&#8216;s [`content: <a
+href="Functions.html#M000608">counter</a>` bug](<a
+href="http://jes.st/2013/ie7s-css-breaking-content-counter-bug">jes.st/2013/ie7s-css-breaking-content-counter-bug</a>/).
+It works identically to any other plain-<a href="../CSS.html">CSS</a>
+function, except it avoids adding spaces between the argument commas.
+</p>
+<p>
+@example
+</p>
+<pre>
+  counter(item, &quot;.&quot;) =&gt; counter(item,&quot;.&quot;)
+</pre>
+<p>
+@overload <a href="Functions.html#M000608">counter</a>($args&#8230;)
+@return [<a href="Value/String.html">Sass::Script::Value::String</a>]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000609" class="method-detail">
+        <a name="M000609"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000609.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000609.html');return false;">
+          <span class="method-name">counters</span><span class="method-args">(*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+This function only exists as a workaround for IE7&#8216;s [`content: <a
+href="Functions.html#M000608">counter</a>` bug](<a
+href="http://jes.st/2013/ie7s-css-breaking-content-counter-bug">jes.st/2013/ie7s-css-breaking-content-counter-bug</a>/).
+It works identically to any other plain-<a href="../CSS.html">CSS</a>
+function, except it avoids adding spaces between the argument commas.
+</p>
+<p>
+@example
+</p>
+<pre>
+  counters(item, &quot;.&quot;) =&gt; counters(item,&quot;.&quot;)
+</pre>
+<p>
+@overload <a href="Functions.html#M000609">counters</a>($args&#8230;)
+@return [<a href="Value/String.html">Sass::Script::Value::String</a>]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000558" class="method-detail">
+        <a name="M000558"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000558.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000558.html');return false;">
+          <span class="method-name">darken</span><span class="method-args">(color, amount)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Makes a color darker. Takes a color and a number between 0% and 100%, and
+returns a color with the <a href="Functions.html#M000550">lightness</a>
+decreased by that amount.
+</p>
+<p>
+@see <a href="Functions.html#M000557">lighten</a> @example
+</p>
+<pre>
+  darken(hsl(25, 100%, 80%), 30%) =&gt; hsl(25, 100%, 50%)
+  darken(#800, 20%) =&gt; #200
+</pre>
+<p>
+@overload <a href="Functions.html#M000558">darken</a>($color, $amount)
+</p>
+<pre>
+  @param $color [Sass::Script::Value::Color]
+  @param $amount [Sass::Script::Value::Number] The amount to decrease the
+    lightness by, between `0%` and `100%`
+</pre>
+<p>
+@return [<a href="Value/Color.html">Sass::Script::Value::Color</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> `$amount` is out of
+bounds, or either parameter
+</p>
+<pre>
+  is the wrong type
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000560" class="method-detail">
+        <a name="M000560"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000560.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000560.html');return false;">
+          <span class="method-name">desaturate</span><span class="method-args">(color, amount)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Makes a color less saturated. Takes a color and a number between 0% and
+100%, and returns a color with the <a
+href="Functions.html#M000549">saturation</a> decreased by that value.
+</p>
+<p>
+@see <a href="Functions.html#M000559">saturate</a> @example
+</p>
+<pre>
+  desaturate(hsl(120, 30%, 90%), 20%) =&gt; hsl(120, 10%, 90%)
+  desaturate(#855, 20%) =&gt; #726b6b
+</pre>
+<p>
+@overload <a href="Functions.html#M000560">desaturate</a>($color, $amount)
+</p>
+<pre>
+  @param $color [Sass::Script::Value::Color]
+  @param $amount [Sass::Script::Value::Number] The amount to decrease the
+    saturation by, between `0%` and `100%`
+</pre>
+<p>
+@return [<a href="Value/Color.html">Sass::Script::Value::Color</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> `$amount` is out of
+bounds, or either parameter
+</p>
+<pre>
+  is the wrong type
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000554" class="method-detail">
+        <a name="M000554"></a>
+
+        <div class="method-heading">
+          <span class="method-name">fade_in</span><span class="method-args">(color, amount)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Functions.html#M000553">opacify</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000556" class="method-detail">
+        <a name="M000556"></a>
+
+        <div class="method-heading">
+          <span class="method-name">fade_out</span><span class="method-args">(color, amount)</span>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Alias for <a href="Functions.html#M000555">transparentize</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000579" class="method-detail">
+        <a name="M000579"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000579.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000579.html');return false;">
+          <span class="method-name">feature_exists</span><span class="method-args">(feature)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns whether a feature exists in the current <a
+href="../../Sass.html">Sass</a> runtime.
+</p>
+<p>
+The following features are supported:
+</p>
+<ul>
+<li>`global-variable-shadowing` indicates that a local variable will shadow a
+global variable unless `!global` is used.
+
+</li>
+<li>`extend-selector-pseudoclass` indicates that `@extend` will reach into
+selector pseudoclasses like `:not`.
+
+</li>
+<li>`units-level-3` indicates full support for <a
+href="Functions.html#M000580">unit</a> arithmetic using units defined in
+the [Values and Units Level 3][] spec.
+
+</li>
+</ul>
+<p>
+[Values and Units Level 3]: <a
+href="http://www.w3.org/TR/css3-values">www.w3.org/TR/css3-values</a>/
+</p>
+<ul>
+<li>`at-error` indicates that the <a href="../../Sass.html">Sass</a> `@error`
+directive is supported.
+
+</li>
+</ul>
+<p>
+@example
+</p>
+<pre>
+  feature-exists(some-feature-that-exists) =&gt; true
+  feature-exists(what-is-this-i-dont-know) =&gt; false
+</pre>
+<p>
+@overload <a href="Functions.html#M000579">feature_exists</a>($feature)
+</p>
+<pre>
+  @param $feature [Sass::Script::Value::String] The name of the feature
+</pre>
+<p>
+@return [<a href="Value/Bool.html">Sass::Script::Value::Bool</a>] Whether
+the feature is supported in this version of <a
+href="../../Sass.html">Sass</a> @raise [ArgumentError] <a
+href="Functions.html#M000605">if</a> `$feature` isn&#8216;t a string
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000586" class="method-detail">
+        <a name="M000586"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000586.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000586.html');return false;">
+          <span class="method-name">floor</span><span class="method-args">(number)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Rounds a number down to the previous whole number.
+</p>
+<p>
+@example
+</p>
+<pre>
+  floor(10.4px) =&gt; 10px
+  floor(10.6px) =&gt; 10px
+</pre>
+<p>
+@overload <a href="Functions.html#M000586">floor</a>($number)
+</p>
+<pre>
+  @param $number [Sass::Script::Value::Number]
+</pre>
+<p>
+@return [<a href="Value/Number.html">Sass::Script::Value::Number</a>]
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> `$number`
+isn&#8216;t a number
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000612" class="method-detail">
+        <a name="M000612"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000612.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000612.html');return false;">
+          <span class="method-name">function_exists</span><span class="method-args">(name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Check whether a function with the given name exists.
+</p>
+<p>
+@example
+</p>
+<pre>
+  function-exists(lighten) =&gt; true
+
+  @function myfunc { @return &quot;something&quot;; }
+  function-exists(myfunc) =&gt; true
+</pre>
+<p>
+@overload <a href="Functions.html#M000612">function_exists</a>($name)
+</p>
+<pre>
+  @param name [Sass::Script::Value::String] The name of the function to
+    check.
+</pre>
+<p>
+@return [<a href="Value/Bool.html">Sass::Script::Value::Bool</a>] Whether
+the function is defined.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000611" class="method-detail">
+        <a name="M000611"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000611.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000611.html');return false;">
+          <span class="method-name">global_variable_exists</span><span class="method-args">(name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Check whether a variable with the given name exists in the global scope (at
+the top level of the file).
+</p>
+<p>
+@example
+</p>
+<pre>
+  $a-false-value: false;
+  global-variable-exists(a-false-value) =&gt; true
+
+  .foo {
+    $some-var: false;
+    @if global-variable-exists(some-var) { /* false, doesn't run */ }
+  }
+</pre>
+<p>
+@overload <a
+href="Functions.html#M000611">global_variable_exists</a>($name)
+</p>
+<pre>
+  @param $name [Sass::Script::Value::String] The name of the variable to
+    check. The name should not include the `$`.
+</pre>
+<p>
+@return [<a href="Value/Bool.html">Sass::Script::Value::Bool</a>] Whether
+the variable is defined in
+</p>
+<pre>
+  the global scope.
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000567" class="method-detail">
+        <a name="M000567"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000567.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000567.html');return false;">
+          <span class="method-name">grayscale</span><span class="method-args">(color)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Converts a color to <a href="Functions.html#M000567">grayscale</a>. This is
+identical to `<a href="Functions.html#M000560">desaturate</a>(color,
+100%)`.
+</p>
+<p>
+@see <a href="Functions.html#M000560">desaturate</a> @overload <a
+href="Functions.html#M000567">grayscale</a>($color)
+</p>
+<pre>
+  @param $color [Sass::Script::Value::Color]
+</pre>
+<p>
+@return [<a href="Value/Color.html">Sass::Script::Value::Color</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> `$color`
+isn&#8216;t a color
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000546" class="method-detail">
+        <a name="M000546"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000546.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000546.html');return false;">
+          <span class="method-name">green</span><span class="method-args">(color)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Gets the <a href="Functions.html#M000546">green</a> component of a color.
+Calculated from HSL where necessary via [this algorithm][<a
+href="Functions.html#M000543">hsl</a>-to-<a
+href="Functions.html#M000541">rgb</a>].
+</p>
+<p>
+[<a href="Functions.html#M000543">hsl</a>-to-<a
+href="Functions.html#M000541">rgb</a>]: <a
+href="http://www.w3.org/TR/css3-color/#hsl-color">www.w3.org/TR/css3-color/#hsl-color</a>
+</p>
+<p>
+@overload <a href="Functions.html#M000546">green</a>($color)
+</p>
+<pre>
+  @param $color [Sass::Script::Value::Color]
+</pre>
+<p>
+@return [<a href="Value/Number.html">Sass::Script::Value::Number</a>] The
+<a href="Functions.html#M000546">green</a> component, between 0 and
+</p>
+<pre>
+  255 inclusive
+</pre>
+<p>
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> `$color`
+isn&#8216;t a color
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000543" class="method-detail">
+        <a name="M000543"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000543.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000543.html');return false;">
+          <span class="method-name">hsl</span><span class="method-args">(hue, saturation, lightness)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Creates a {<a href="Value/Color.html">Sass::Script::Value::Color</a> Color}
+from <a href="Functions.html#M000548">hue</a>, <a
+href="Functions.html#M000549">saturation</a>, and <a
+href="Functions.html#M000550">lightness</a> values. Uses the algorithm from
+the [CSS3 spec][].
+</p>
+<p>
+[CSS3 spec]: <a
+href="http://www.w3.org/TR/css3-color/#hsl-color">www.w3.org/TR/css3-color/#hsl-color</a>
+</p>
+<p>
+@see <a href="Functions.html#M000544">hsla</a> @overload <a
+href="Functions.html#M000543">hsl</a>($<a
+href="Functions.html#M000548">hue</a>, $<a
+href="Functions.html#M000549">saturation</a>, $<a
+href="Functions.html#M000550">lightness</a>)
+</p>
+<pre>
+  @param $hue [Sass::Script::Value::Number] The hue of the color. Should be
+    between 0 and 360 degrees, inclusive
+  @param $saturation [Sass::Script::Value::Number] The saturation of the
+    color. Must be between `0%` and `100%`, inclusive
+  @param $lightness [Sass::Script::Value::Number] The lightness of the
+    color. Must be between `0%` and `100%`, inclusive
+</pre>
+<p>
+@return [<a href="Value/Color.html">Sass::Script::Value::Color</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> `$<a
+href="Functions.html#M000549">saturation</a>` or `$<a
+href="Functions.html#M000550">lightness</a>` are out of bounds
+</p>
+<pre>
+  or any parameter is the wrong type
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000544" class="method-detail">
+        <a name="M000544"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000544.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000544.html');return false;">
+          <span class="method-name">hsla</span><span class="method-args">(hue, saturation, lightness, alpha)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Creates a {<a href="Value/Color.html">Sass::Script::Value::Color</a> Color}
+from <a href="Functions.html#M000548">hue</a>, <a
+href="Functions.html#M000549">saturation</a>, <a
+href="Functions.html#M000550">lightness</a>, and <a
+href="Functions.html#M000551">alpha</a> values. Uses the algorithm from the
+[CSS3 spec][].
+</p>
+<p>
+[CSS3 spec]: <a
+href="http://www.w3.org/TR/css3-color/#hsl-color">www.w3.org/TR/css3-color/#hsl-color</a>
+</p>
+<p>
+@see <a href="Functions.html#M000543">hsl</a> @overload <a
+href="Functions.html#M000544">hsla</a>($<a
+href="Functions.html#M000548">hue</a>, $<a
+href="Functions.html#M000549">saturation</a>, $<a
+href="Functions.html#M000550">lightness</a>, $<a
+href="Functions.html#M000551">alpha</a>)
+</p>
+<pre>
+  @param $hue [Sass::Script::Value::Number] The hue of the color. Should be
+    between 0 and 360 degrees, inclusive
+  @param $saturation [Sass::Script::Value::Number] The saturation of the
+    color. Must be between `0%` and `100%`, inclusive
+  @param $lightness [Sass::Script::Value::Number] The lightness of the
+    color. Must be between `0%` and `100%`, inclusive
+  @param $alpha [Sass::Script::Value::Number] The opacity of the color. Must
+    be between 0 and 1, inclusive
+</pre>
+<p>
+@return [<a href="Value/Color.html">Sass::Script::Value::Color</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> `$<a
+href="Functions.html#M000549">saturation</a>`, `$<a
+href="Functions.html#M000550">lightness</a>`, or `$<a
+href="Functions.html#M000551">alpha</a>` are out
+</p>
+<pre>
+  of bounds or any parameter is the wrong type
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000548" class="method-detail">
+        <a name="M000548"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000548.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000548.html');return false;">
+          <span class="method-name">hue</span><span class="method-args">(color)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the <a href="Functions.html#M000548">hue</a> component of a color.
+See [the CSS3 HSL specification][<a href="Functions.html#M000543">hsl</a>].
+Calculated from RGB where necessary via [this algorithm][<a
+href="Functions.html#M000541">rgb</a>-to-<a
+href="Functions.html#M000543">hsl</a>].
+</p>
+<p>
+[<a href="Functions.html#M000543">hsl</a>]: <a
+href="http://en.wikipedia.org/wiki/HSL_and_HSV#Conversion_from_RGB_to_HSL_or_HSV">en.wikipedia.org/wiki/HSL_and_HSV#Conversion_from_RGB_to_HSL_or_HSV</a>
+[<a href="Functions.html#M000541">rgb</a>-to-<a
+href="Functions.html#M000543">hsl</a>]: <a
+href="http://en.wikipedia.org/wiki/HSL_and_HSV#Conversion_from_RGB_to_HSL_or_HSV">en.wikipedia.org/wiki/HSL_and_HSV#Conversion_from_RGB_to_HSL_or_HSV</a>
+</p>
+<p>
+@overload <a href="Functions.html#M000548">hue</a>($color)
+</p>
+<pre>
+  @param $color [Sass::Script::Value::Color]
+</pre>
+<p>
+@return [<a href="Value/Number.html">Sass::Script::Value::Number</a>] The
+<a href="Functions.html#M000548">hue</a> component, between 0deg and
+</p>
+<pre>
+  360deg
+</pre>
+<p>
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> `$color`
+isn&#8216;t a color
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000562" class="method-detail">
+        <a name="M000562"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000562.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000562.html');return false;">
+          <span class="method-name">ie_hex_str</span><span class="method-args">(color)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Converts a color into the format understood by IE filters.
+</p>
+<p>
+@example
+</p>
+<pre>
+  ie-hex-str(#abc) =&gt; #FFAABBCC
+  ie-hex-str(#3322BB) =&gt; #FF3322BB
+  ie-hex-str(rgba(0, 255, 0, 0.5)) =&gt; #8000FF00
+</pre>
+<p>
+@overload <a href="Functions.html#M000562">ie_hex_str</a>($color)
+</p>
+<pre>
+  @param $color [Sass::Script::Value::Color]
+</pre>
+<p>
+@return [<a href="Value/String.html">Sass::Script::Value::String</a>] The
+IE-formatted string
+</p>
+<pre>
+  representation of the color
+</pre>
+<p>
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> `$color`
+isn&#8216;t a color
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000605" class="method-detail">
+        <a name="M000605"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000605.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000605.html');return false;">
+          <span class="method-name">if</span><span class="method-args">(condition, if_true, if_false)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns one of two values, depending on whether or not `$condition` is
+true. Just like in `@<a href="Functions.html#M000605">if</a>`, all values
+other than `false` and `null` are considered to be true.
+</p>
+<p>
+@example
+</p>
+<pre>
+  if(true, 1px, 2px) =&gt; 1px
+  if(false, 1px, 2px) =&gt; 2px
+</pre>
+<p>
+@overload <a href="Functions.html#M000605">if</a>($condition, $<a
+href="Functions.html#M000605">if</a>-true, $<a
+href="Functions.html#M000605">if</a>-false)
+</p>
+<pre>
+  @param $condition [Sass::Script::Value::Base] Whether the `$if-true` or
+    `$if-false` will be returned
+  @param $if-true [Sass::Script::Tree::Node]
+  @param $if-false [Sass::Script::Tree::Node]
+</pre>
+<p>
+@return [<a href="Value/Base.html">Sass::Script::Value::Base</a>] `$<a
+href="Functions.html#M000605">if</a>-true` or `$<a
+href="Functions.html#M000605">if</a>-false`
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000596" class="method-detail">
+        <a name="M000596"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000596.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000596.html');return false;">
+          <span class="method-name">index</span><span class="method-args">(list, value)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the position of a value within a list. If the value isn&#8216;t
+found, returns `null` instead.
+</p>
+<p>
+Note that unlike some languages, the first item in a <a
+href="../../Sass.html">Sass</a> list is number 1, the second number 2, and
+so forth.
+</p>
+<p>
+This can return the position of a pair in a map as well.
+</p>
+<p>
+@example
+</p>
+<pre>
+  index(1px solid red, solid) =&gt; 2
+  index(1px solid red, dashed) =&gt; null
+  index((width: 10px, height: 20px), (height 20px)) =&gt; 2
+</pre>
+<p>
+@overload <a href="Functions.html#M000596">index</a>($list, $value)
+</p>
+<pre>
+  @param $list [Sass::Script::Value::Base]
+  @param $value [Sass::Script::Value::Base]
+</pre>
+<p>
+@return [<a href="Value/Number.html">Sass::Script::Value::Number</a>, <a
+href="Value/Null.html">Sass::Script::Value::Null</a>] The
+</p>
+<pre>
+  1-based index of `$value` in `$list`, or `null`
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000614" class="method-detail">
+        <a name="M000614"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000614.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000614.html');return false;">
+          <span class="method-name">inspect</span><span class="method-args">(value)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return a string containing the value as its <a
+href="../../Sass.html">Sass</a> representation.
+</p>
+<p>
+@overload <a href="Functions.html#M000614">inspect</a>($value)
+</p>
+<pre>
+  @param $value [Sass::Script::Value::Base] The value to inspect.
+</pre>
+<p>
+@return [<a href="Value/String.html">Sass::Script::Value::String</a>] A
+representation of the value as
+</p>
+<pre>
+  it would be written in Sass.
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000569" class="method-detail">
+        <a name="M000569"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000569.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000569.html');return false;">
+          <span class="method-name">invert</span><span class="method-args">(color)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the inverse (negative) of a color. The <a
+href="Functions.html#M000545">red</a>, <a
+href="Functions.html#M000546">green</a>, and <a
+href="Functions.html#M000547">blue</a> values are inverted, while the <a
+href="Functions.html#M000552">opacity</a> is left alone.
+</p>
+<p>
+@overload <a href="Functions.html#M000569">invert</a>($color)
+</p>
+<pre>
+  @param $color [Sass::Script::Value::Color]
+</pre>
+<p>
+@return [<a href="Value/Color.html">Sass::Script::Value::Color</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> `$color`
+isn&#8216;t a color
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000623" class="method-detail">
+        <a name="M000623"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000623.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000623.html');return false;">
+          <span class="method-name">is_superselector</span><span class="method-args">(sup, sub)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns whether `$super` is a superselector of `$sub`. This means that
+`$super` matches all the elements that `$sub` matches, as well as possibly
+additional elements. In general, simpler selectors tend to be
+superselectors of more complex oned.
+</p>
+<p>
+@example
+</p>
+<pre>
+  is-superselector(&quot;.foo&quot;, &quot;.foo.bar&quot;) =&gt; true
+  is-superselector(&quot;.foo.bar&quot;, &quot;.foo&quot;) =&gt; false
+  is-superselector(&quot;.bar&quot;, &quot;.foo .bar&quot;) =&gt; true
+  is-superselector(&quot;.foo .bar&quot;, &quot;.bar&quot;) =&gt; false
+</pre>
+<p>
+@overload <a href="Functions.html#M000623">is_superselector</a>($super,
+$sub)
+</p>
+<pre>
+  @param $super [Sass::Script::Value::String, Sass::Script::Value::List]
+    The potential superselector. This can be either a string, a list of
+    strings, or a list of lists of strings as returned by `&amp;`.
+  @param $sub [Sass::Script::Value::String, Sass::Script::Value::List]
+    The potential subselector. This can be either a string, a list of
+    strings, or a list of lists of strings as returned by `&amp;`.
+  @return [Sass::Script::Value::Bool]
+    Whether `$selector1` is a superselector of `$selector2`.
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000593" class="method-detail">
+        <a name="M000593"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000593.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000593.html');return false;">
+          <span class="method-name">join</span><span class="method-args">(list1, list2, separator = identifier(&quot;auto&quot;))</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Joins together two lists into one.
+</p>
+<p>
+Unless `$separator` is passed, <a href="Functions.html#M000605">if</a> one
+list is comma-separated and one is space-separated, the first
+parameter&#8216;s separator is used for the resulting list. If both lists
+have fewer than two items, spaces are used for the resulting list.
+</p>
+<p>
+Like all list functions, `<a href="Functions.html#M000593">join</a>()`
+returns a new list rather than modifying its arguments in place.
+</p>
+<p>
+@example
+</p>
+<pre>
+  join(10px 20px, 30px 40px) =&gt; 10px 20px 30px 40px
+  join((blue, red), (#abc, #def)) =&gt; blue, red, #abc, #def
+  join(10px, 20px) =&gt; 10px 20px
+  join(10px, 20px, comma) =&gt; 10px, 20px
+  join((blue, red), (#abc, #def), space) =&gt; blue red #abc #def
+</pre>
+<p>
+@overload <a href="Functions.html#M000593">join</a>($list1, $list2,
+$separator: auto)
+</p>
+<pre>
+  @param $list1 [Sass::Script::Value::Base]
+  @param $list2 [Sass::Script::Value::Base]
+  @param $separator [Sass::Script::Value::String] The list separator to use.
+    If this is `comma` or `space`, that separator will be used. If this is
+    `auto` (the default), the separator is determined as explained above.
+</pre>
+<p>
+@return [<a href="Value/List.html">Sass::Script::Value::List</a>]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000604" class="method-detail">
+        <a name="M000604"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000604.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000604.html');return false;">
+          <span class="method-name">keywords</span><span class="method-args">(args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the map of named arguments passed to a function or mixin that takes
+a variable argument list. The argument names are strings, and they do not
+contain the leading `$`.
+</p>
+<p>
+@example
+</p>
+<pre>
+  @mixin foo($args...) {
+    @debug keywords($args); //=&gt; (arg1: val, arg2: val)
+  }
+
+  @include foo($arg1: val, $arg2: val);
+</pre>
+<p>
+@overload <a href="Functions.html#M000604">keywords</a>($args)
+</p>
+<pre>
+  @param $args [Sass::Script::Value::ArgList]
+</pre>
+<p>
+@return [<a href="Value/Map.html">Sass::Script::Value::Map</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> `$args` isn&#8216;t
+a variable argument list
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000590" class="method-detail">
+        <a name="M000590"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000590.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000590.html');return false;">
+          <span class="method-name">length</span><span class="method-args">(list)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return the <a href="Functions.html#M000590">length</a> of a list.
+</p>
+<p>
+This can return the number of pairs in a map as well.
+</p>
+<p>
+@example
+</p>
+<pre>
+  length(10px) =&gt; 1
+  length(10px 20px 30px) =&gt; 3
+  length((width: 10px, height: 20px)) =&gt; 2
+</pre>
+<p>
+@overload <a href="Functions.html#M000590">length</a>($list)
+</p>
+<pre>
+  @param $list [Sass::Script::Value::Base]
+</pre>
+<p>
+@return [<a href="Value/Number.html">Sass::Script::Value::Number</a>]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000557" class="method-detail">
+        <a name="M000557"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000557.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000557.html');return false;">
+          <span class="method-name">lighten</span><span class="method-args">(color, amount)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Makes a color lighter. Takes a color and a number between `0%` and `100%`,
+and returns a color with the <a href="Functions.html#M000550">lightness</a>
+increased by that amount.
+</p>
+<p>
+@see <a href="Functions.html#M000558">darken</a> @example
+</p>
+<pre>
+  lighten(hsl(0, 0%, 0%), 30%) =&gt; hsl(0, 0, 30)
+  lighten(#800, 20%) =&gt; #e00
+</pre>
+<p>
+@overload <a href="Functions.html#M000557">lighten</a>($color, $amount)
+</p>
+<pre>
+  @param $color [Sass::Script::Value::Color]
+  @param $amount [Sass::Script::Value::Number] The amount to increase the
+    lightness by, between `0%` and `100%`
+</pre>
+<p>
+@return [<a href="Value/Color.html">Sass::Script::Value::Color</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> `$amount` is out of
+bounds, or either parameter
+</p>
+<pre>
+  is the wrong type
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000550" class="method-detail">
+        <a name="M000550"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000550.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000550.html');return false;">
+          <span class="method-name">lightness</span><span class="method-args">(color)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the <a href="Functions.html#M000550">lightness</a> component of a
+color. See [the CSS3 HSL specification][<a
+href="Functions.html#M000543">hsl</a>]. Calculated from RGB where necessary
+via [this algorithm][<a href="Functions.html#M000541">rgb</a>-to-<a
+href="Functions.html#M000543">hsl</a>].
+</p>
+<p>
+[<a href="Functions.html#M000543">hsl</a>]: <a
+href="http://en.wikipedia.org/wiki/HSL_and_HSV#Conversion_from_RGB_to_HSL_or_HSV">en.wikipedia.org/wiki/HSL_and_HSV#Conversion_from_RGB_to_HSL_or_HSV</a>
+[<a href="Functions.html#M000541">rgb</a>-to-<a
+href="Functions.html#M000543">hsl</a>]: <a
+href="http://en.wikipedia.org/wiki/HSL_and_HSV#Conversion_from_RGB_to_HSL_or_HSV">en.wikipedia.org/wiki/HSL_and_HSV#Conversion_from_RGB_to_HSL_or_HSV</a>
+</p>
+<p>
+@overload <a href="Functions.html#M000550">lightness</a>($color)
+</p>
+<pre>
+  @param $color [Sass::Script::Value::Color]
+</pre>
+<p>
+@return [<a href="Value/Number.html">Sass::Script::Value::Number</a>] The
+<a href="Functions.html#M000550">lightness</a> component, between 0%
+</p>
+<pre>
+  and 100%
+</pre>
+<p>
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> `$color`
+isn&#8216;t a color
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000597" class="method-detail">
+        <a name="M000597"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000597.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000597.html');return false;">
+          <span class="method-name">list_separator</span><span class="method-args">(list)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the separator of a list. If the list doesn&#8216;t have a separator
+due to having fewer than two elements, returns `space`.
+</p>
+<p>
+@example
+</p>
+<pre>
+  list-separator(1px 2px 3px) =&gt; space
+  list-separator(1px, 2px, 3px) =&gt; comma
+  list-separator('foo') =&gt; space
+</pre>
+<p>
+@overload <a href="Functions.html#M000597">list_separator</a>($list)
+</p>
+<pre>
+  @param $list [Sass::Script::Value::Base]
+</pre>
+<p>
+@return [<a href="Value/String.html">Sass::Script::Value::String</a>]
+`comma` or `space`
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000598" class="method-detail">
+        <a name="M000598"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000598.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000598.html');return false;">
+          <span class="method-name">map_get</span><span class="method-args">(map, key)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the value in a map associated with the given key. If the map
+doesn&#8216;t have such a key, returns `null`.
+</p>
+<p>
+@example
+</p>
+<pre>
+  map-get((&quot;foo&quot;: 1, &quot;bar&quot;: 2), &quot;foo&quot;) =&gt; 1
+  map-get((&quot;foo&quot;: 1, &quot;bar&quot;: 2), &quot;bar&quot;) =&gt; 2
+  map-get((&quot;foo&quot;: 1, &quot;bar&quot;: 2), &quot;baz&quot;) =&gt; null
+</pre>
+<p>
+@overload <a href="Functions.html#M000598">map_get</a>($map, $key)
+</p>
+<pre>
+  @param $map [Sass::Script::Value::Map]
+  @param $key [Sass::Script::Value::Base]
+</pre>
+<p>
+@return [<a href="Value/Base.html">Sass::Script::Value::Base</a>] The value
+indexed by `$key`, or `null`
+</p>
+<pre>
+  if the map doesn't contain the given key
+</pre>
+<p>
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> `$map` is
+not a map
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000603" class="method-detail">
+        <a name="M000603"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000603.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000603.html');return false;">
+          <span class="method-name">map_has_key</span><span class="method-args">(map, key)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns whether a map has a value associated with a given key.
+</p>
+<p>
+@example
+</p>
+<pre>
+  map-has-key((&quot;foo&quot;: 1, &quot;bar&quot;: 2), &quot;foo&quot;) =&gt; true
+  map-has-key((&quot;foo&quot;: 1, &quot;bar&quot;: 2), &quot;baz&quot;) =&gt; false
+</pre>
+<p>
+@overload <a href="Functions.html#M000603">map_has_key</a>($map, $key)
+</p>
+<pre>
+  @param $map [Sass::Script::Value::Map]
+  @param $key [Sass::Script::Value::Base]
+</pre>
+<p>
+@return [<a href="Value/Bool.html">Sass::Script::Value::Bool</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> `$map` is not a map
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000601" class="method-detail">
+        <a name="M000601"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000601.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000601.html');return false;">
+          <span class="method-name">map_keys</span><span class="method-args">(map)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a list of all keys in a map.
+</p>
+<p>
+@example
+</p>
+<pre>
+  map-keys((&quot;foo&quot;: 1, &quot;bar&quot;: 2)) =&gt; &quot;foo&quot;, &quot;bar&quot;
+</pre>
+<p>
+@overload <a href="Functions.html#M000601">map_keys</a>($map)
+</p>
+<pre>
+  @param $map [Map]
+</pre>
+<p>
+@return [List] the list of keys, comma-separated @raise [ArgumentError] <a
+href="Functions.html#M000605">if</a> `$map` is not a map
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000599" class="method-detail">
+        <a name="M000599"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000599.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000599.html');return false;">
+          <span class="method-name">map_merge</span><span class="method-args">(map1, map2)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Merges two maps together into a new map. Keys in `$map2` will take
+precedence over keys in `$map1`.
+</p>
+<p>
+This is the best way to add new values to a map.
+</p>
+<p>
+All keys in the returned map that also appear in `$map1` will have the same
+order as in `$map1`. New keys from `$map2` will be placed at the end of the
+map.
+</p>
+<p>
+Like all map functions, `map-merge()` returns a new map rather than
+modifying its arguments in place.
+</p>
+<p>
+@example
+</p>
+<pre>
+  map-merge((&quot;foo&quot;: 1), (&quot;bar&quot;: 2)) =&gt; (&quot;foo&quot;: 1, &quot;bar&quot;: 2)
+  map-merge((&quot;foo&quot;: 1, &quot;bar&quot;: 2), (&quot;bar&quot;: 3)) =&gt; (&quot;foo&quot;: 1, &quot;bar&quot;: 3)
+</pre>
+<p>
+@overload <a href="Functions.html#M000599">map_merge</a>($map1, $map2)
+</p>
+<pre>
+  @param $map1 [Sass::Script::Value::Map]
+  @param $map2 [Sass::Script::Value::Map]
+</pre>
+<p>
+@return [<a href="Value/Map.html">Sass::Script::Value::Map</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> either parameter is
+not a map
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000600" class="method-detail">
+        <a name="M000600"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000600.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000600.html');return false;">
+          <span class="method-name">map_remove</span><span class="method-args">(map, *keys)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a new map with keys removed.
+</p>
+<p>
+Like all map functions, `map-merge()` returns a new map rather than
+modifying its arguments in place.
+</p>
+<p>
+@example
+</p>
+<pre>
+  map-remove((&quot;foo&quot;: 1, &quot;bar&quot;: 2), &quot;bar&quot;) =&gt; (&quot;foo&quot;: 1)
+  map-remove((&quot;foo&quot;: 1, &quot;bar&quot;: 2, &quot;baz&quot;: 3), &quot;bar&quot;, &quot;baz&quot;) =&gt; (&quot;foo&quot;: 1)
+  map-remove((&quot;foo&quot;: 1, &quot;bar&quot;: 2), &quot;baz&quot;) =&gt; (&quot;foo&quot;: 1, &quot;bar&quot;: 2)
+</pre>
+<p>
+@overload <a href="Functions.html#M000600">map_remove</a>($map,
+$keys&#8230;)
+</p>
+<pre>
+  @param $map  [Sass::Script::Value::Map]
+  @param $keys [[Sass::Script::Value::Base]]
+</pre>
+<p>
+@return [<a href="Value/Map.html">Sass::Script::Value::Map</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> `$map` is not a map
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000602" class="method-detail">
+        <a name="M000602"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000602.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000602.html');return false;">
+          <span class="method-name">map_values</span><span class="method-args">(map)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a list of all values in a map. This list may include duplicate
+values, <a href="Functions.html#M000605">if</a> multiple keys have the same
+value.
+</p>
+<p>
+@example
+</p>
+<pre>
+  map-values((&quot;foo&quot;: 1, &quot;bar&quot;: 2)) =&gt; 1, 2
+  map-values((&quot;foo&quot;: 1, &quot;bar&quot;: 2, &quot;baz&quot;: 1)) =&gt; 1, 2, 1
+</pre>
+<p>
+@overload <a href="Functions.html#M000602">map_values</a>($map)
+</p>
+<pre>
+  @param $map [Map]
+</pre>
+<p>
+@return [List] the list of values, comma-separated @raise [ArgumentError]
+<a href="Functions.html#M000605">if</a> `$map` is not a map
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000589" class="method-detail">
+        <a name="M000589"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000589.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000589.html');return false;">
+          <span class="method-name">max</span><span class="method-args">(*values)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Finds the maximum of several numbers. This function takes any number of
+arguments.
+</p>
+<p>
+@example
+</p>
+<pre>
+  max(1px, 4px) =&gt; 4px
+  max(5em, 3em, 4em) =&gt; 5em
+</pre>
+<p>
+@overload <a href="Functions.html#M000589">max</a>($numbers&#8230;)
+</p>
+<pre>
+  @param $numbers [[Sass::Script::Value::Number]]
+</pre>
+<p>
+@return [<a href="Value/Number.html">Sass::Script::Value::Number</a>]
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> any argument
+isn&#8216;t a number, or <a href="Functions.html#M000605">if</a> not all of
+</p>
+<pre>
+  the arguments have comparable units
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000588" class="method-detail">
+        <a name="M000588"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000588.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000588.html');return false;">
+          <span class="method-name">min</span><span class="method-args">(*numbers)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Finds the minimum of several numbers. This function takes any number of
+arguments.
+</p>
+<p>
+@example
+</p>
+<pre>
+  min(1px, 4px) =&gt; 1px
+  min(5em, 3em, 4em) =&gt; 3em
+</pre>
+<p>
+@overload <a href="Functions.html#M000588">min</a>($numbers&#8230;)
+</p>
+<pre>
+  @param $numbers [[Sass::Script::Value::Number]]
+</pre>
+<p>
+@return [<a href="Value/Number.html">Sass::Script::Value::Number</a>]
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> any argument
+isn&#8216;t a number, or <a href="Functions.html#M000605">if</a> not all of
+</p>
+<pre>
+  the arguments have comparable units
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000566" class="method-detail">
+        <a name="M000566"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000566.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000566.html');return false;">
+          <span class="method-name">mix</span><span class="method-args">(color1, color2, weight = number(50))</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Mixes two colors together. Specifically, takes the average of each of the
+RGB components, optionally weighted by the given <a
+href="Functions.html#M000583">percentage</a>. The <a
+href="Functions.html#M000552">opacity</a> of the colors is also considered
+when weighting the components.
+</p>
+<p>
+The weight specifies the amount of the first color that should be included
+in the returned color. The default, `50%`, means that half the first color
+and half the second color should be used. `25%` means that a quarter of the
+first color and three quarters of the second color should be used.
+</p>
+<p>
+@example
+</p>
+<pre>
+  mix(#f00, #00f) =&gt; #7f007f
+  mix(#f00, #00f, 25%) =&gt; #3f00bf
+  mix(rgba(255, 0, 0, 0.5), #00f) =&gt; rgba(63, 0, 191, 0.75)
+</pre>
+<p>
+@overload <a href="Functions.html#M000566">mix</a>($color1, $color2,
+$weight: 50%)
+</p>
+<pre>
+  @param $color1 [Sass::Script::Value::Color]
+  @param $color2 [Sass::Script::Value::Color]
+  @param $weight [Sass::Script::Value::Number] The relative weight of each
+    color. Closer to `0%` gives more weight to `$color1`, closer to `100%`
+    gives more weight to `$color2`
+</pre>
+<p>
+@return [<a href="Value/Color.html">Sass::Script::Value::Color</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> `$weight` is out of
+bounds or any parameter is
+</p>
+<pre>
+  the wrong type
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000613" class="method-detail">
+        <a name="M000613"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000613.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000613.html');return false;">
+          <span class="method-name">mixin_exists</span><span class="method-args">(name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Check whether a mixin with the given name exists.
+</p>
+<p>
+@example
+</p>
+<pre>
+  mixin-exists(nonexistent) =&gt; false
+
+  @mixin red-text { color: red; }
+  mixin-exists(red-text) =&gt; true
+</pre>
+<p>
+@overload <a href="Functions.html#M000613">mixin_exists</a>($name)
+</p>
+<pre>
+  @param name [Sass::Script::Value::String] The name of the mixin to
+    check.
+</pre>
+<p>
+@return [<a href="Value/Bool.html">Sass::Script::Value::Bool</a>] Whether
+the mixin is defined.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000592" class="method-detail">
+        <a name="M000592"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000592.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000592.html');return false;">
+          <span class="method-name">nth</span><span class="method-args">(list, n)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Gets the <a href="Functions.html#M000592">nth</a> item in a list.
+</p>
+<p>
+Note that unlike some languages, the first item in a <a
+href="../../Sass.html">Sass</a> list is number 1, the second number 2, and
+so forth.
+</p>
+<p>
+This can return the <a href="Functions.html#M000592">nth</a> pair in a map
+as well.
+</p>
+<p>
+Negative <a href="Functions.html#M000596">index</a> values address elements
+in reverse order, starting with the last element in the list.
+</p>
+<p>
+@example
+</p>
+<pre>
+  nth(10px 20px 30px, 1) =&gt; 10px
+  nth((Helvetica, Arial, sans-serif), 3) =&gt; sans-serif
+  nth((width: 10px, length: 20px), 2) =&gt; length, 20px
+</pre>
+<p>
+@overload <a href="Functions.html#M000592">nth</a>($list, $n)
+</p>
+<pre>
+  @param $list [Sass::Script::Value::Base]
+  @param $n [Sass::Script::Value::Number] The index of the item to get.
+    Negative indices count from the end of the list.
+</pre>
+<p>
+@return [<a href="Value/Base.html">Sass::Script::Value::Base</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> `$n` isn&#8216;t an
+integer between 1 and the <a href="Functions.html#M000590">length</a>
+</p>
+<pre>
+  of `$list`
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000553" class="method-detail">
+        <a name="M000553"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000553.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000553.html');return false;">
+          <span class="method-name">opacify</span><span class="method-args">(color, amount)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Makes a color more opaque. Takes a color and a number between 0 and 1, and
+returns a color with the <a href="Functions.html#M000552">opacity</a>
+increased by that amount.
+</p>
+<p>
+@see <a href="Functions.html#M000555">transparentize</a> @example
+</p>
+<pre>
+  opacify(rgba(0, 0, 0, 0.5), 0.1) =&gt; rgba(0, 0, 0, 0.6)
+  opacify(rgba(0, 0, 17, 0.8), 0.2) =&gt; #001
+</pre>
+<p>
+@overload <a href="Functions.html#M000553">opacify</a>($color, $amount)
+</p>
+<pre>
+  @param $color [Sass::Script::Value::Color]
+  @param $amount [Sass::Script::Value::Number] The amount to increase the
+    opacity by, between 0 and 1
+</pre>
+<p>
+@return [<a href="Value/Color.html">Sass::Script::Value::Color</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> `$amount` is out of
+bounds, or either parameter
+</p>
+<pre>
+  is the wrong type
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000552" class="method-detail">
+        <a name="M000552"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000552.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000552.html');return false;">
+          <span class="method-name">opacity</span><span class="method-args">(color)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the <a href="Functions.html#M000551">alpha</a> component (<a
+href="Functions.html#M000552">opacity</a>) of a color. This is 1 unless
+otherwise specified.
+</p>
+<p>
+@overload <a href="Functions.html#M000552">opacity</a>($color)
+</p>
+<pre>
+  @param $color [Sass::Script::Value::Color]
+</pre>
+<p>
+@return [<a href="Value/Number.html">Sass::Script::Value::Number</a>] The
+<a href="Functions.html#M000551">alpha</a> component, between 0 and 1
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> `$color`
+isn&#8216;t a color
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000583" class="method-detail">
+        <a name="M000583"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000583.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000583.html');return false;">
+          <span class="method-name">percentage</span><span class="method-args">(number)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Converts a <a href="Functions.html#M000581">unitless</a> number to a <a
+href="Functions.html#M000583">percentage</a>.
+</p>
+<p>
+@example
+</p>
+<pre>
+  percentage(0.2) =&gt; 20%
+  percentage(100px / 50px) =&gt; 200%
+</pre>
+<p>
+@overload <a href="Functions.html#M000583">percentage</a>($number)
+</p>
+<pre>
+  @param $number [Sass::Script::Value::Number]
+</pre>
+<p>
+@return [<a href="Value/Number.html">Sass::Script::Value::Number</a>]
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> `$number`
+isn&#8216;t a <a href="Functions.html#M000581">unitless</a> number
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000571" class="method-detail">
+        <a name="M000571"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000571.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000571.html');return false;">
+          <span class="method-name">quote</span><span class="method-args">(string)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Add quotes to a string <a href="Functions.html#M000605">if</a> the string
+isn&#8216;t quoted, or returns the same string <a
+href="Functions.html#M000605">if</a> it is.
+</p>
+<p>
+@see <a href="Functions.html#M000570">unquote</a> @example
+</p>
+<pre>
+  quote(&quot;foo&quot;) =&gt; &quot;foo&quot;
+  quote(foo) =&gt; &quot;foo&quot;
+</pre>
+<p>
+@overload <a href="Functions.html#M000571">quote</a>($string)
+</p>
+<pre>
+  @param $string [Sass::Script::Value::String]
+</pre>
+<p>
+@return [<a href="Value/String.html">Sass::Script::Value::String</a>]
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> `$string`
+isn&#8216;t a string
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000615" class="method-detail">
+        <a name="M000615"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000615.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000615.html');return false;">
+          <span class="method-name">random</span><span class="method-args">(limit = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+@overload <a href="Functions.html#M000615">random</a>()
+</p>
+<pre>
+  Return a decimal between 0 and 1, inclusive of 0 but not 1.
+  @return [Sass::Script::Value::Number] A decimal value.
+</pre>
+<p>
+@overload <a href="Functions.html#M000615">random</a>($limit)
+</p>
+<pre>
+  Return an integer between 1 and `$limit`, inclusive of both 1 and `$limit`.
+  @param $limit [Sass::Script::Value::Number] The maximum of the random integer to be
+    returned, a positive integer.
+  @return [Sass::Script::Value::Number] An integer.
+  @raise [ArgumentError] if the `$limit` is not 1 or greater
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000545" class="method-detail">
+        <a name="M000545"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000545.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000545.html');return false;">
+          <span class="method-name">red</span><span class="method-args">(color)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Gets the <a href="Functions.html#M000545">red</a> component of a color.
+Calculated from HSL where necessary via [this algorithm][<a
+href="Functions.html#M000543">hsl</a>-to-<a
+href="Functions.html#M000541">rgb</a>].
+</p>
+<p>
+[<a href="Functions.html#M000543">hsl</a>-to-<a
+href="Functions.html#M000541">rgb</a>]: <a
+href="http://www.w3.org/TR/css3-color/#hsl-color">www.w3.org/TR/css3-color/#hsl-color</a>
+</p>
+<p>
+@overload <a href="Functions.html#M000545">red</a>($color)
+</p>
+<pre>
+  @param $color [Sass::Script::Value::Color]
+</pre>
+<p>
+@return [<a href="Value/Number.html">Sass::Script::Value::Number</a>] The
+<a href="Functions.html#M000545">red</a> component, between 0 and 255
+</p>
+<pre>
+  inclusive
+</pre>
+<p>
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> `$color`
+isn&#8216;t a color
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000541" class="method-detail">
+        <a name="M000541"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000541.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000541.html');return false;">
+          <span class="method-name">rgb</span><span class="method-args">(red, green, blue)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Creates a {<a href="Value/Color.html">Sass::Script::Value::Color</a> Color}
+object from <a href="Functions.html#M000545">red</a>, <a
+href="Functions.html#M000546">green</a>, and <a
+href="Functions.html#M000547">blue</a> values.
+</p>
+<p>
+@see <a href="Functions.html#M000542">rgba</a> @overload <a
+href="Functions.html#M000541">rgb</a>($<a
+href="Functions.html#M000545">red</a>, $<a
+href="Functions.html#M000546">green</a>, $<a
+href="Functions.html#M000547">blue</a>)
+</p>
+<pre>
+  @param $red [Sass::Script::Value::Number] The amount of red in the color.
+    Must be between 0 and 255 inclusive, or between `0%` and `100%`
+    inclusive
+  @param $green [Sass::Script::Value::Number] The amount of green in the
+    color. Must be between 0 and 255 inclusive, or between `0%` and `100%`
+    inclusive
+  @param $blue [Sass::Script::Value::Number] The amount of blue in the
+    color. Must be between 0 and 255 inclusive, or between `0%` and `100%`
+    inclusive
+</pre>
+<p>
+@return [<a href="Value/Color.html">Sass::Script::Value::Color</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> any parameter is
+the wrong type or out of bounds
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000542" class="method-detail">
+        <a name="M000542"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000542.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000542.html');return false;">
+          <span class="method-name">rgba</span><span class="method-args">(*args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Creates a {<a href="Value/Color.html">Sass::Script::Value::Color</a> Color}
+from <a href="Functions.html#M000545">red</a>, <a
+href="Functions.html#M000546">green</a>, <a
+href="Functions.html#M000547">blue</a>, and <a
+href="Functions.html#M000551">alpha</a> values. @see <a
+href="Functions.html#M000541">rgb</a>
+</p>
+<p>
+@overload <a href="Functions.html#M000542">rgba</a>($<a
+href="Functions.html#M000545">red</a>, $<a
+href="Functions.html#M000546">green</a>, $<a
+href="Functions.html#M000547">blue</a>, $<a
+href="Functions.html#M000551">alpha</a>)
+</p>
+<pre>
+  @param $red [Sass::Script::Value::Number] The amount of red in the
+    color. Must be between 0 and 255 inclusive or 0% and 100% inclusive
+  @param $green [Sass::Script::Value::Number] The amount of green in the
+    color. Must be between 0 and 255 inclusive or 0% and 100% inclusive
+  @param $blue [Sass::Script::Value::Number] The amount of blue in the
+    color. Must be between 0 and 255 inclusive or 0% and 100% inclusive
+  @param $alpha [Sass::Script::Value::Number] The opacity of the color.
+    Must be between 0 and 1 inclusive
+  @return [Sass::Script::Value::Color]
+  @raise [ArgumentError] if any parameter is the wrong type or out of
+    bounds
+</pre>
+<p>
+@overload <a href="Functions.html#M000542">rgba</a>($color, $<a
+href="Functions.html#M000551">alpha</a>)
+</p>
+<pre>
+  Sets the opacity of an existing color.
+
+  @example
+    rgba(#102030, 0.5) =&gt; rgba(16, 32, 48, 0.5)
+    rgba(blue, 0.2)    =&gt; rgba(0, 0, 255, 0.2)
+
+  @param $color [Sass::Script::Value::Color] The color whose opacity will
+    be changed.
+  @param $alpha [Sass::Script::Value::Number] The new opacity of the
+    color. Must be between 0 and 1 inclusive
+  @return [Sass::Script::Value::Color]
+  @raise [ArgumentError] if `$alpha` is out of bounds or either parameter
+    is the wrong type
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000584" class="method-detail">
+        <a name="M000584"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000584.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000584.html');return false;">
+          <span class="method-name">round</span><span class="method-args">(number)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Rounds a number to the nearest whole number.
+</p>
+<p>
+@example
+</p>
+<pre>
+  round(10.4px) =&gt; 10px
+  round(10.6px) =&gt; 11px
+</pre>
+<p>
+@overload <a href="Functions.html#M000584">round</a>($number)
+</p>
+<pre>
+  @param $number [Sass::Script::Value::Number]
+</pre>
+<p>
+@return [<a href="Value/Number.html">Sass::Script::Value::Number</a>]
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> `$number`
+isn&#8216;t a number
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000559" class="method-detail">
+        <a name="M000559"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000559.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000559.html');return false;">
+          <span class="method-name">saturate</span><span class="method-args">(color, amount = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Makes a color more saturated. Takes a color and a number between 0% and
+100%, and returns a color with the <a
+href="Functions.html#M000549">saturation</a> increased by that amount.
+</p>
+<p>
+@see <a href="Functions.html#M000560">desaturate</a> @example
+</p>
+<pre>
+  saturate(hsl(120, 30%, 90%), 20%) =&gt; hsl(120, 50%, 90%)
+  saturate(#855, 20%) =&gt; #9e3f3f
+</pre>
+<p>
+@overload <a href="Functions.html#M000559">saturate</a>($color, $amount)
+</p>
+<pre>
+  @param $color [Sass::Script::Value::Color]
+  @param $amount [Sass::Script::Value::Number] The amount to increase the
+    saturation by, between `0%` and `100%`
+</pre>
+<p>
+@return [<a href="Value/Color.html">Sass::Script::Value::Color</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> `$amount` is out of
+bounds, or either parameter
+</p>
+<pre>
+  is the wrong type
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000549" class="method-detail">
+        <a name="M000549"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000549.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000549.html');return false;">
+          <span class="method-name">saturation</span><span class="method-args">(color)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the <a href="Functions.html#M000549">saturation</a> component of a
+color. See [the CSS3 HSL specification][<a
+href="Functions.html#M000543">hsl</a>]. Calculated from RGB where necessary
+via [this algorithm][<a href="Functions.html#M000541">rgb</a>-to-<a
+href="Functions.html#M000543">hsl</a>].
+</p>
+<p>
+[<a href="Functions.html#M000543">hsl</a>]: <a
+href="http://en.wikipedia.org/wiki/HSL_and_HSV#Conversion_from_RGB_to_HSL_or_HSV">en.wikipedia.org/wiki/HSL_and_HSV#Conversion_from_RGB_to_HSL_or_HSV</a>
+[<a href="Functions.html#M000541">rgb</a>-to-<a
+href="Functions.html#M000543">hsl</a>]: <a
+href="http://en.wikipedia.org/wiki/HSL_and_HSV#Conversion_from_RGB_to_HSL_or_HSV">en.wikipedia.org/wiki/HSL_and_HSV#Conversion_from_RGB_to_HSL_or_HSV</a>
+</p>
+<p>
+@overload <a href="Functions.html#M000549">saturation</a>($color)
+</p>
+<pre>
+  @param $color [Sass::Script::Value::Color]
+</pre>
+<p>
+@return [<a href="Value/Number.html">Sass::Script::Value::Number</a>] The
+<a href="Functions.html#M000549">saturation</a> component, between 0%
+</p>
+<pre>
+  and 100%
+</pre>
+<p>
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> `$color`
+isn&#8216;t a color
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000564" class="method-detail">
+        <a name="M000564"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000564.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000564.html');return false;">
+          <span class="method-name">scale_color</span><span class="method-args">(color, kwargs)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Fluidly scales one or more properties of a color. Unlike \{<a
+href="Functions.html#M000563">adjust_color</a> adjust-color}, which changes
+a color&#8216;s properties by fixed amounts, \{<a
+href="Functions.html#M000564">scale_color</a> scale-color} fluidly changes
+them based on how high or low they already are. That means that lightening
+an already-light color with \{<a
+href="Functions.html#M000564">scale_color</a> scale-color} won&#8216;t
+change the <a href="Functions.html#M000550">lightness</a> much, but
+lightening a dark color by the same amount will change it more
+dramatically. This has the benefit of making `scale-color($color, &#8230;)`
+have a similar effect regardless of what `$color` is.
+</p>
+<p>
+For example, the <a href="Functions.html#M000550">lightness</a> of a color
+can be anywhere between `0%` and `100%`. If `scale-color($color, $<a
+href="Functions.html#M000550">lightness</a>: 40%)` is called, the resulting
+color&#8216;s <a href="Functions.html#M000550">lightness</a> will be 40% of
+the way between its original <a href="Functions.html#M000550">lightness</a>
+and 100. If `scale-color($color, $<a
+href="Functions.html#M000550">lightness</a>: -40%)` is called instead, the
+<a href="Functions.html#M000550">lightness</a> will be 40% of the way
+between the original and 0.
+</p>
+<p>
+This can change the <a href="Functions.html#M000545">red</a>, <a
+href="Functions.html#M000546">green</a>, <a
+href="Functions.html#M000547">blue</a>, <a
+href="Functions.html#M000549">saturation</a>, value, and <a
+href="Functions.html#M000551">alpha</a> properties. The properties are
+specified as keyword arguments. All arguments should be percentages between
+`0%` and `100%`.
+</p>
+<p>
+All properties are optional. You can&#8216;t specify both RGB properties
+(`$<a href="Functions.html#M000545">red</a>`, `$<a
+href="Functions.html#M000546">green</a>`, `$<a
+href="Functions.html#M000547">blue</a>`) and HSL properties (`$<a
+href="Functions.html#M000549">saturation</a>`, `$value`) at the same time.
+</p>
+<p>
+@example
+</p>
+<pre>
+  scale-color(hsl(120, 70%, 80%), $lightness: 50%) =&gt; hsl(120, 70%, 90%)
+  scale-color(rgb(200, 150%, 170%), $green: -40%, $blue: 70%) =&gt; rgb(200, 90, 229)
+  scale-color(hsl(200, 70%, 80%), $saturation: -90%, $alpha: -30%) =&gt; hsla(200, 7%, 80%, 0.7)
+</pre>
+<p>
+@overload <a href="Functions.html#M000564">scale_color</a>($color, [$<a
+href="Functions.html#M000545">red</a>], [$<a
+href="Functions.html#M000546">green</a>], [$<a
+href="Functions.html#M000547">blue</a>], [$<a
+href="Functions.html#M000549">saturation</a>], [$<a
+href="Functions.html#M000550">lightness</a>], [$<a
+href="Functions.html#M000551">alpha</a>])
+</p>
+<pre>
+  @param $color [Sass::Script::Value::Color]
+  @param $red [Sass::Script::Value::Number]
+  @param $green [Sass::Script::Value::Number]
+  @param $blue [Sass::Script::Value::Number]
+  @param $saturation [Sass::Script::Value::Number]
+  @param $lightness [Sass::Script::Value::Number]
+  @param $alpha [Sass::Script::Value::Number]
+</pre>
+<p>
+@return [<a href="Value/Color.html">Sass::Script::Value::Color</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> any parameter is
+the wrong type or out-of
+</p>
+<pre>
+  bounds, or if RGB properties and HSL properties are adjusted at the
+  same time
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000618" class="method-detail">
+        <a name="M000618"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000618.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000618.html');return false;">
+          <span class="method-name">selector_append</span><span class="method-args">(*selectors)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return a new selector with all selectors in `$selectors` appended one
+another as though they had been nested in the stylesheet as `$selector1 {
+&amp;$selector2 { &#8230; } }`.
+</p>
+<p>
+@example
+</p>
+<pre>
+  selector-append(&quot;.foo&quot;, &quot;.bar&quot;, &quot;.baz&quot;) =&gt; .foo.bar.baz
+  selector-append(&quot;.a .foo&quot;, &quot;.b .bar&quot;) =&gt; &quot;a .foo.b .bar&quot;
+  selector-append(&quot;.foo&quot;, &quot;-suffix&quot;) =&gt; &quot;.foo-suffix&quot;
+</pre>
+<p>
+@overload <a
+href="Functions.html#M000618">selector_append</a>($selectors&#8230;)
+</p>
+<pre>
+  @param $selectors [[Sass::Script::Value::String, Sass::Script::Value::List]]
+    The selectors to append. At least one selector must be passed. Each of
+    these can be either a string, a list of strings, or a list of lists of
+    strings as returned by `&amp;`.
+  @return [Sass::Script::Value::List]
+    A list of lists of strings representing the result of appending
+    `$selectors`. This is in the same format as a selector returned by
+    `&amp;`.
+  @raise [ArgumentError] if a selector could not be appended.
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000619" class="method-detail">
+        <a name="M000619"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000619.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000619.html');return false;">
+          <span class="method-name">selector_extend</span><span class="method-args">(selector, extendee, extender)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a new version of `$selector` with `$extendee` extended with
+`$extender`. This works just like the result of
+</p>
+<pre>
+    $selector { ... }
+    $extender { @extend $extendee }
+</pre>
+<p>
+@example
+</p>
+<pre>
+  selector-extend(&quot;.a .b&quot;, &quot;.b&quot;, &quot;.foo .bar&quot;) =&gt; .a .b, .a .foo .bar, .foo .a .bar
+</pre>
+<p>
+@overload <a href="Functions.html#M000619">selector_extend</a>($selector,
+$extendee, $extender)
+</p>
+<pre>
+  @param $selector [Sass::Script::Value::String, Sass::Script::Value::List]
+    The selector within which `$extendee` is extended with
+    `$extender`. This can be either a string, a list of strings,
+    or a list of lists of strings as returned by `&amp;`.
+  @param $extendee [Sass::Script::Value::String, Sass::Script::Value::List]
+    The selector being extended. This can be either a string, a
+    list of strings, or a list of lists of strings as returned
+    by `&amp;`.
+  @param $extender [Sass::Script::Value::String, Sass::Script::Value::List]
+    The selector being injected into `$selector`. This can be
+    either a string, a list of strings, or a list of lists of
+    strings as returned by `&amp;`.
+  @return [Sass::Script::Value::List]
+    A list of lists of strings representing the result of the
+    extension. This is in the same format as a selector returned
+    by `&amp;`.
+  @raise [ArgumentError] if the extension fails
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000617" class="method-detail">
+        <a name="M000617"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000617.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000617.html');return false;">
+          <span class="method-name">selector_nest</span><span class="method-args">(*selectors)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return a new selector with all selectors in `$selectors` nested beneath one
+another as though they had been nested in the stylesheet as `$selector1 {
+$selector2 { &#8230; } }`.
+</p>
+<p>
+Unlike most selector functions, `selector-nest` allows the parent selector
+`&amp;` to be used in any selector but the first.
+</p>
+<p>
+@example
+</p>
+<pre>
+  selector-nest(&quot;.foo&quot;, &quot;.bar&quot;, &quot;.baz&quot;) =&gt; .foo .bar .baz
+  selector-nest(&quot;.a .foo&quot;, &quot;.b .bar&quot;) =&gt; .a .foo .b .bar
+  selector-nest(&quot;.foo&quot;, &quot;&amp;.bar&quot;) =&gt; .foo.bar
+</pre>
+<p>
+@overload <a
+href="Functions.html#M000617">selector_nest</a>($selectors&#8230;)
+</p>
+<pre>
+  @param $selectors [[Sass::Script::Value::String, Sass::Script::Value::List]]
+    The selectors to nest. At least one selector must be passed. Each of
+    these can be either a string, a list of strings, or a list of lists of
+    strings as returned by `&amp;`.
+  @return [Sass::Script::Value::List]
+    A list of lists of strings representing the result of nesting
+    `$selectors`. This is in the same format as a selector returned by
+    `&amp;`.
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000616" class="method-detail">
+        <a name="M000616"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000616.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000616.html');return false;">
+          <span class="method-name">selector_parse</span><span class="method-args">(selector)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Parses a user-provided selector into a list of lists of strings as returned
+by `&amp;`.
+</p>
+<p>
+@example
+</p>
+<pre>
+  selector-parse(&quot;.foo .bar, .baz .bang&quot;) =&gt; ('.foo' '.bar', '.baz' '.bang')
+</pre>
+<p>
+@overload <a href="Functions.html#M000616">selector_parse</a>($selector)
+</p>
+<pre>
+  @param $selector [Sass::Script::Value::String, Sass::Script::Value::List]
+    The selector to parse. This can be either a string, a list of
+    strings, or a list of lists of strings as returned by `&amp;`.
+  @return [Sass::Script::Value::List]
+    A list of lists of strings representing `$selector`. This is
+    in the same format as a selector returned by `&amp;`.
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000620" class="method-detail">
+        <a name="M000620"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000620.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000620.html');return false;">
+          <span class="method-name">selector_replace</span><span class="method-args">(selector, original, replacement)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Replaces all instances of `$original` with `$replacement` in `$selector`
+</p>
+<p>
+This works by using `@extend` and throwing away the original selector. This
+means that it can be used to do very advanced replacements; see the
+examples below.
+</p>
+<p>
+@example
+</p>
+<pre>
+  selector-replace(&quot;.foo .bar&quot;, &quot;.bar&quot;, &quot;.baz&quot;) =&gt; &quot;.foo .baz&quot;
+  selector-replace(&quot;.foo.bar.baz&quot;, &quot;.foo.baz&quot;, &quot;.qux&quot;) =&gt; &quot;.bar.qux&quot;
+</pre>
+<p>
+@overload <a href="Functions.html#M000620">selector_replace</a>($selector,
+$original, $replacement)
+</p>
+<pre>
+  @param $selector [Sass::Script::Value::String, Sass::Script::Value::List]
+    The selector within which `$original` is replaced with
+    `$replacement`. This can be either a string, a list of
+    strings, or a list of lists of strings as returned by `&amp;`.
+  @param $original [Sass::Script::Value::String, Sass::Script::Value::List]
+    The selector being replaced. This can be either a string, a
+    list of strings, or a list of lists of strings as returned
+    by `&amp;`.
+  @param $replacement [Sass::Script::Value::String, Sass::Script::Value::List]
+    The selector that `$original` is being replaced with. This
+    can be either a string, a list of strings, or a list of
+    lists of strings as returned by `&amp;`.
+  @return [Sass::Script::Value::List]
+    A list of lists of strings representing the result of the
+    extension. This is in the same format as a selector returned
+    by `&amp;`.
+  @raise [ArgumentError] if the replacement fails
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000621" class="method-detail">
+        <a name="M000621"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000621.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000621.html');return false;">
+          <span class="method-name">selector_unify</span><span class="method-args">(selector1, selector2)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Unifies two selectors into a single selector that matches only elements
+matched by both input selectors. Returns `null` <a
+href="Functions.html#M000605">if</a> there is no such selector.
+</p>
+<p>
+Like the selector unification done for `@extend`, this doesn&#8216;t
+guarantee that the output selector will match <b>all</b> elements matched
+by both input selectors. For example, <a
+href="Functions.html#M000605">if</a> `.a .b` is unified with `.x .y`, `.a
+.x .b.y, .x .a .b.y` will be returned, but `.a.x .b.y` will not. This
+avoids exponential output size while matching all elements that are likely
+to exist in practice.
+</p>
+<p>
+@example
+</p>
+<pre>
+  selector-unify(&quot;.a&quot;, &quot;.b&quot;) =&gt; .a.b
+  selector-unify(&quot;.a .b&quot;, &quot;.x .y&quot;) =&gt; .a .x .b.y, .x .a .b.y
+  selector-unify(&quot;.a.b&quot;, &quot;.b.c&quot;) =&gt; .a.b.c
+  selector-unify(&quot;#a&quot;, &quot;#b&quot;) =&gt; null
+</pre>
+<p>
+@overload <a href="Functions.html#M000621">selector_unify</a>($selector1,
+$selector2)
+</p>
+<pre>
+  @param $selector1 [Sass::Script::Value::String, Sass::Script::Value::List]
+    The first selector to be unified. This can be either a
+    string, a list of strings, or a list of lists of strings as
+    returned by `&amp;`.
+  @param $selector2 [Sass::Script::Value::String, Sass::Script::Value::List]
+    The second selector to be unified. This can be either a
+    string, a list of strings, or a list of lists of strings as
+    returned by `&amp;`.
+  @return [Sass::Script::Value::List, Sass::Script::Value::Null]
+    A list of lists of strings representing the result of the
+    unification, or null if no unification exists. This is in
+    the same format as a selector returned by `&amp;`.
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000591" class="method-detail">
+        <a name="M000591"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000591.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000591.html');return false;">
+          <span class="method-name">set_nth</span><span class="method-args">(list, n, value)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return a new list, based on the list provided, but with the <a
+href="Functions.html#M000592">nth</a> element changed to the value given.
+</p>
+<p>
+Note that unlike some languages, the first item in a <a
+href="../../Sass.html">Sass</a> list is number 1, the second number 2, and
+so forth.
+</p>
+<p>
+Negative <a href="Functions.html#M000596">index</a> values address elements
+in reverse order, starting with the last element in the list.
+</p>
+<p>
+@example
+</p>
+<pre>
+  set-nth($list: 10px 20px 30px, $n: 2, $value: -20px) =&gt; 10px -20px 30px
+</pre>
+<p>
+@overload set-<a href="Functions.html#M000592">nth</a>($list, $n, $value)
+</p>
+<pre>
+  @param $list [Sass::Script::Value::Base] The list that will be copied, having the element
+    at index `$n` changed.
+  @param $n [Sass::Script::Value::Number] The index of the item to set.
+    Negative indices count from the end of the list.
+  @param $value [Sass::Script::Value::Base] The new value at index `$n`.
+</pre>
+<p>
+@return [<a href="Value/List.html">Sass::Script::Value::List</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> `$n` isn&#8216;t an
+integer between 1 and the <a href="Functions.html#M000590">length</a>
+</p>
+<pre>
+  of `$list`
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000622" class="method-detail">
+        <a name="M000622"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000622.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000622.html');return false;">
+          <span class="method-name">simple_selectors</span><span class="method-args">(selector)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the [simple selectors](<a
+href="http://dev.w3.org/csswg/selectors4/#simple">dev.w3.org/csswg/selectors4/#simple</a>)
+that comprise the compound selector `$selector`.
+</p>
+<p>
+Note that `$selector` **must be** a [compound selector](<a
+href="http://dev.w3.org/csswg/selectors4/#compound">dev.w3.org/csswg/selectors4/#compound</a>).
+That means it cannot contain commas or spaces. It also means that unlike
+other selector functions, this takes only strings, not lists.
+</p>
+<p>
+@example
+</p>
+<pre>
+  simple-selectors(&quot;.foo.bar&quot;) =&gt; &quot;.foo&quot;, &quot;.bar&quot;
+  simple-selectors(&quot;.foo.bar.baz&quot;) =&gt; &quot;.foo&quot;, &quot;.bar&quot;, &quot;.baz&quot;
+</pre>
+<p>
+@overload <a href="Functions.html#M000622">simple_selectors</a>($selector)
+</p>
+<pre>
+  @param $selector [Sass::Script::Value::String]
+    The compound selector whose simple selectors will be extracted.
+  @return [Sass::Script::Value::List]
+    A list of simple selectors in the compound selector.
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000574" class="method-detail">
+        <a name="M000574"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000574.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000574.html');return false;">
+          <span class="method-name">str_index</span><span class="method-args">(string, substring)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the <a href="Functions.html#M000596">index</a> of the first
+occurrence of `$substring` in `$string`. If there is no such occurrence,
+returns `null`.
+</p>
+<p>
+Note that unlike some languages, the first character in a <a
+href="../../Sass.html">Sass</a> string is number 1, the second number 2,
+and so forth.
+</p>
+<p>
+@example
+</p>
+<pre>
+  str-index(abcd, a)  =&gt; 1
+  str-index(abcd, ab) =&gt; 1
+  str-index(abcd, X)  =&gt; null
+  str-index(abcd, c)  =&gt; 3
+</pre>
+<p>
+@overload <a href="Functions.html#M000574">str_index</a>($string,
+$substring)
+</p>
+<pre>
+  @param $string [Sass::Script::Value::String]
+  @param $substring [Sass::Script::Value::String]
+</pre>
+<p>
+@return [<a href="Value/Number.html">Sass::Script::Value::Number</a>, <a
+href="Value/Null.html">Sass::Script::Value::Null</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> any parameter is
+the wrong type
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000573" class="method-detail">
+        <a name="M000573"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000573.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000573.html');return false;">
+          <span class="method-name">str_insert</span><span class="method-args">(original, insert, index)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Inserts `$insert` into `$string` at `$<a
+href="Functions.html#M000596">index</a>`.
+</p>
+<p>
+Note that unlike some languages, the first character in a <a
+href="../../Sass.html">Sass</a> string is number 1, the second number 2,
+and so forth.
+</p>
+<p>
+@example
+</p>
+<pre>
+  str-insert(&quot;abcd&quot;, &quot;X&quot;, 1) =&gt; &quot;Xabcd&quot;
+  str-insert(&quot;abcd&quot;, &quot;X&quot;, 4) =&gt; &quot;abcXd&quot;
+  str-insert(&quot;abcd&quot;, &quot;X&quot;, 5) =&gt; &quot;abcdX&quot;
+</pre>
+<p>
+@overload <a href="Functions.html#M000573">str_insert</a>($string, $insert,
+$<a href="Functions.html#M000596">index</a>)
+</p>
+<pre>
+  @param $string [Sass::Script::Value::String]
+  @param $insert [Sass::Script::Value::String]
+  @param $index [Sass::Script::Value::Number] The position at which
+    `$insert` will be inserted. Negative indices count from the end of
+    `$string`. An index that's outside the bounds of the string will insert
+    `$insert` at the front or back of the string
+</pre>
+<p>
+@return [<a href="Value/String.html">Sass::Script::Value::String</a>] The
+result string. This will be
+</p>
+<pre>
+  quoted if and only if `$string` was quoted
+</pre>
+<p>
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> any
+parameter is the wrong type
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000572" class="method-detail">
+        <a name="M000572"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000572.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000572.html');return false;">
+          <span class="method-name">str_length</span><span class="method-args">(string)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the number of characters in a string.
+</p>
+<p>
+@example
+</p>
+<pre>
+  str-length(&quot;foo&quot;) =&gt; 3
+</pre>
+<p>
+@overload <a href="Functions.html#M000572">str_length</a>($string)
+</p>
+<pre>
+  @param $string [Sass::Script::Value::String]
+</pre>
+<p>
+@return [<a href="Value/Number.html">Sass::Script::Value::Number</a>]
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> `$string`
+isn&#8216;t a string
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000575" class="method-detail">
+        <a name="M000575"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000575.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000575.html');return false;">
+          <span class="method-name">str_slice</span><span class="method-args">(string, start_at, end_at = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Extracts a substring from `$string`. The substring will begin at <a
+href="Functions.html#M000596">index</a> `$start-at` and ends at <a
+href="Functions.html#M000596">index</a> `$end-at`.
+</p>
+<p>
+Note that unlike some languages, the first character in a <a
+href="../../Sass.html">Sass</a> string is number 1, the second number 2,
+and so forth.
+</p>
+<p>
+@example
+</p>
+<pre>
+ str-slice(&quot;abcd&quot;, 2, 3)   =&gt; &quot;bc&quot;
+ str-slice(&quot;abcd&quot;, 2)      =&gt; &quot;bcd&quot;
+ str-slice(&quot;abcd&quot;, -3, -2) =&gt; &quot;bc&quot;
+ str-slice(&quot;abcd&quot;, 2, -2)  =&gt; &quot;bc&quot;
+</pre>
+<p>
+@overload <a href="Functions.html#M000575">str_slice</a>($string,
+$start-at, $end-at: -1)
+</p>
+<pre>
+  @param $start-at [Sass::Script::Value::Number] The index of the first
+    character of the substring. If this is negative, it counts from the end
+    of `$string`
+  @param $end-before [Sass::Script::Value::Number] The index of the last
+    character of the substring. If this is negative, it counts from the end
+    of `$string`. Defaults to -1
+  @return [Sass::Script::Value::String] The substring. This will be quoted
+    if and only if `$string` was quoted
+</pre>
+<p>
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> any
+parameter is the wrong type
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000577" class="method-detail">
+        <a name="M000577"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000577.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000577.html');return false;">
+          <span class="method-name">to_lower_case</span><span class="method-args">(string)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Convert a string to lower case,
+</p>
+<p>
+@example
+</p>
+<pre>
+  to-lower-case(ABCD) =&gt; abcd
+</pre>
+<p>
+@overload <a href="Functions.html#M000577">to_lower_case</a>($string)
+</p>
+<pre>
+  @param $string [Sass::Script::Value::String]
+</pre>
+<p>
+@return [<a href="Value/String.html">Sass::Script::Value::String</a>]
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> `$string`
+isn&#8216;t a string
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000576" class="method-detail">
+        <a name="M000576"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000576.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000576.html');return false;">
+          <span class="method-name">to_upper_case</span><span class="method-args">(string)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Converts a string to upper case.
+</p>
+<p>
+@example
+</p>
+<pre>
+  to-upper-case(abcd) =&gt; ABCD
+</pre>
+<p>
+@overload <a href="Functions.html#M000576">to_upper_case</a>($string)
+</p>
+<pre>
+  @param $string [Sass::Script::Value::String]
+</pre>
+<p>
+@return [<a href="Value/String.html">Sass::Script::Value::String</a>]
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> `$string`
+isn&#8216;t a string
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000555" class="method-detail">
+        <a name="M000555"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000555.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000555.html');return false;">
+          <span class="method-name">transparentize</span><span class="method-args">(color, amount)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Makes a color more transparent. Takes a color and a number between 0 and 1,
+and returns a color with the <a href="Functions.html#M000552">opacity</a>
+decreased by that amount.
+</p>
+<p>
+@see <a href="Functions.html#M000553">opacify</a> @example
+</p>
+<pre>
+  transparentize(rgba(0, 0, 0, 0.5), 0.1) =&gt; rgba(0, 0, 0, 0.4)
+  transparentize(rgba(0, 0, 0, 0.8), 0.2) =&gt; rgba(0, 0, 0, 0.6)
+</pre>
+<p>
+@overload <a href="Functions.html#M000555">transparentize</a>($color,
+$amount)
+</p>
+<pre>
+  @param $color [Sass::Script::Value::Color]
+  @param $amount [Sass::Script::Value::Number] The amount to decrease the
+    opacity by, between 0 and 1
+</pre>
+<p>
+@return [<a href="Value/Color.html">Sass::Script::Value::Color</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> `$amount` is out of
+bounds, or either parameter
+</p>
+<pre>
+  is the wrong type
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000578" class="method-detail">
+        <a name="M000578"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000578.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000578.html');return false;">
+          <span class="method-name">type_of</span><span class="method-args">(value)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the type of a value.
+</p>
+<p>
+@example
+</p>
+<pre>
+  type-of(100px)  =&gt; number
+  type-of(asdf)   =&gt; string
+  type-of(&quot;asdf&quot;) =&gt; string
+  type-of(true)   =&gt; bool
+  type-of(#fff)   =&gt; color
+  type-of(blue)   =&gt; color
+</pre>
+<p>
+@overload <a href="Functions.html#M000578">type_of</a>($value)
+</p>
+<pre>
+  @param $value [Sass::Script::Value::Base] The value to inspect
+</pre>
+<p>
+@return [<a href="Value/String.html">Sass::Script::Value::String</a>] The
+unquoted string name of the
+</p>
+<pre>
+  value's type
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000606" class="method-detail">
+        <a name="M000606"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000606.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000606.html');return false;">
+          <span class="method-name">unique_id</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a unique <a href="../CSS.html">CSS</a> identifier. The identifier
+is returned as an unquoted string. The identifier returned is only
+guaranteed to be unique within the scope of a single <a
+href="../../Sass.html">Sass</a> run.
+</p>
+<p>
+@overload <a href="Functions.html#M000606">unique_id</a>() @return [<a
+href="Value/String.html">Sass::Script::Value::String</a>]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000580" class="method-detail">
+        <a name="M000580"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000580.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000580.html');return false;">
+          <span class="method-name">unit</span><span class="method-args">(number)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the <a href="Functions.html#M000580">unit</a>(s) associated with a
+number. Complex units are sorted in alphabetical order by numerator and
+denominator.
+</p>
+<p>
+@example
+</p>
+<pre>
+  unit(100) =&gt; &quot;&quot;
+  unit(100px) =&gt; &quot;px&quot;
+  unit(3em) =&gt; &quot;em&quot;
+  unit(10px * 5em) =&gt; &quot;em*px&quot;
+  unit(10px * 5em / 30cm / 1rem) =&gt; &quot;em*px/cm*rem&quot;
+</pre>
+<p>
+@overload <a href="Functions.html#M000580">unit</a>($number)
+</p>
+<pre>
+  @param $number [Sass::Script::Value::Number]
+</pre>
+<p>
+@return [<a href="Value/String.html">Sass::Script::Value::String</a>] The
+<a href="Functions.html#M000580">unit</a>(s) of the number, as a
+</p>
+<pre>
+  quoted string
+</pre>
+<p>
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> `$number`
+isn&#8216;t a number
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000581" class="method-detail">
+        <a name="M000581"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000581.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000581.html');return false;">
+          <span class="method-name">unitless</span><span class="method-args">(number)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns whether a number has units.
+</p>
+<p>
+@example
+</p>
+<pre>
+  unitless(100) =&gt; true
+  unitless(100px) =&gt; false
+</pre>
+<p>
+@overload <a href="Functions.html#M000581">unitless</a>($number)
+</p>
+<pre>
+  @param $number [Sass::Script::Value::Number]
+</pre>
+<p>
+@return [<a href="Value/Bool.html">Sass::Script::Value::Bool</a>] @raise
+[ArgumentError] <a href="Functions.html#M000605">if</a> `$number`
+isn&#8216;t a number
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000570" class="method-detail">
+        <a name="M000570"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000570.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000570.html');return false;">
+          <span class="method-name">unquote</span><span class="method-args">(string)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Removes quotes from a string. If the string is already unquoted, this will
+return it unmodified.
+</p>
+<p>
+@see <a href="Functions.html#M000571">quote</a> @example
+</p>
+<pre>
+  unquote(&quot;foo&quot;) =&gt; foo
+  unquote(foo) =&gt; foo
+</pre>
+<p>
+@overload <a href="Functions.html#M000570">unquote</a>($string)
+</p>
+<pre>
+  @param $string [Sass::Script::Value::String]
+</pre>
+<p>
+@return [<a href="Value/String.html">Sass::Script::Value::String</a>]
+@raise [ArgumentError] <a href="Functions.html#M000605">if</a> `$string`
+isn&#8216;t a string
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000610" class="method-detail">
+        <a name="M000610"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000610.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000610.html');return false;">
+          <span class="method-name">variable_exists</span><span class="method-args">(name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Check whether a variable with the given name exists in the current scope or
+in the global scope.
+</p>
+<p>
+@example
+</p>
+<pre>
+  $a-false-value: false;
+  variable-exists(a-false-value) =&gt; true
+
+  variable-exists(nonexistent) =&gt; false
+</pre>
+<p>
+@overload <a href="Functions.html#M000610">variable_exists</a>($name)
+</p>
+<pre>
+  @param $name [Sass::Script::Value::String] The name of the variable to
+    check. The name should not include the `$`.
+</pre>
+<p>
+@return [<a href="Value/Bool.html">Sass::Script::Value::Bool</a>] Whether
+the variable is defined in
+</p>
+<pre>
+  the current scope.
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000595" class="method-detail">
+        <a name="M000595"></a>
+
+        <div class="method-heading">
+          <a href="Functions.src/M000595.html" target="Code" class="method-signature"
+            onclick="popupCode('Functions.src/M000595.html');return false;">
+          <span class="method-name">zip</span><span class="method-args">(*lists)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Combines several lists into a single multidimensional list. The <a
+href="Functions.html#M000592">nth</a> value of the resulting list is a
+space separated list of the source lists&#8217; <a
+href="Functions.html#M000592">nth</a> values.
+</p>
+<p>
+The <a href="Functions.html#M000590">length</a> of the resulting list is
+the <a href="Functions.html#M000590">length</a> of the shortest list.
+</p>
+<p>
+@example
+</p>
+<pre>
+  zip(1px 1px 3px, solid dashed solid, red green blue)
+  =&gt; 1px solid red, 1px dashed green, 3px solid blue
+</pre>
+<p>
+@overload <a href="Functions.html#M000595">zip</a>($lists&#8230;)
+</p>
+<pre>
+  @param $lists [[Sass::Script::Value::Base]]
+</pre>
+<p>
+@return [<a href="Value/List.html">Sass::Script::Value::List</a>]
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

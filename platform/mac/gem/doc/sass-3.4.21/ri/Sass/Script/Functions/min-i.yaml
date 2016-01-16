@@ -1,0 +1,24 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Finds the minimum of several numbers. This function takes any number of arguments.
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  min(1px, 4px) =&gt; 1px\n  min(5em, 3em, 4em) =&gt; 3em\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload min($numbers...)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $numbers [[Sass::Script::Value::Number]]\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Script::Value::Number] @raise [ArgumentError] if any argument isn't a number, or if not all of"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  the arguments have comparable units\n"
+full_name: Sass::Script::Functions#min
+is_singleton: false
+name: min
+params: (*numbers)
+visibility: public

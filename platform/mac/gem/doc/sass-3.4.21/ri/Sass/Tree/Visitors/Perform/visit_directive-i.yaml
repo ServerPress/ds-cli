@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Sass::Tree::Visitors::Perform#visit_directive
+is_singleton: false
+name: visit_directive
+params: (node)
+visibility: protected

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>version (Sass::Version)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/version.rb, line 47</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">version</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@@version</span> <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">defined?</span>(<span class="ruby-ivar">@@version</span>)
+
+      <span class="ruby-identifier">numbers</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">scope</span>(<span class="ruby-value str">'VERSION'</span>)).<span class="ruby-identifier">strip</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'.'</span>).
+        <span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">n</span><span class="ruby-operator">|</span> <span class="ruby-identifier">n</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^[0-9]+$/</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">n</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">n</span>}
+      <span class="ruby-identifier">name</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">scope</span>(<span class="ruby-value str">'VERSION_NAME'</span>)).<span class="ruby-identifier">strip</span>
+      <span class="ruby-ivar">@@version</span> = {
+        <span class="ruby-identifier">:major</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">numbers</span>[<span class="ruby-value">0</span>],
+        <span class="ruby-identifier">:minor</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">numbers</span>[<span class="ruby-value">1</span>],
+        <span class="ruby-identifier">:teeny</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">numbers</span>[<span class="ruby-value">2</span>],
+        <span class="ruby-identifier">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>
+      }
+
+      <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">date</span> = <span class="ruby-identifier">version_date</span>)
+        <span class="ruby-ivar">@@version</span>[<span class="ruby-identifier">:date</span>] = <span class="ruby-identifier">date</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">numbers</span>[<span class="ruby-value">3</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+        <span class="ruby-ivar">@@version</span>[<span class="ruby-identifier">:teeny</span>] = <span class="ruby-value">-1</span>
+        <span class="ruby-ivar">@@version</span>[<span class="ruby-identifier">:prerelease</span>] = <span class="ruby-identifier">numbers</span>[<span class="ruby-value">3</span>]
+        <span class="ruby-ivar">@@version</span>[<span class="ruby-identifier">:prerelease_number</span>] = <span class="ruby-identifier">numbers</span>[<span class="ruby-value">4</span>]
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-ivar">@@version</span>[<span class="ruby-identifier">:number</span>] = <span class="ruby-identifier">numbers</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'.'</span>)
+      <span class="ruby-ivar">@@version</span>[<span class="ruby-identifier">:string</span>] = <span class="ruby-ivar">@@version</span>[<span class="ruby-identifier">:number</span>].<span class="ruby-identifier">dup</span>
+
+      <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">rev</span> = <span class="ruby-identifier">revision_number</span>)
+        <span class="ruby-ivar">@@version</span>[<span class="ruby-identifier">:rev</span>] = <span class="ruby-identifier">rev</span>
+        <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">rev</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-value">?(</span>
+          <span class="ruby-ivar">@@version</span>[<span class="ruby-identifier">:string</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;.&quot;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">rev</span>[<span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-value">7</span>]
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-ivar">@@version</span>[<span class="ruby-identifier">:string</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot; (#{name})&quot;</span>
+      <span class="ruby-ivar">@@version</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

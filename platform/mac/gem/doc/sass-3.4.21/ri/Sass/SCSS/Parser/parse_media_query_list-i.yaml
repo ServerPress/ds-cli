@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Parses a media query list.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Media::QueryList] The parsed query list @raise [Sass::SyntaxError] if there's a syntax error in the query list,"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  or if it doesn't take up the entire input string.\n"
+full_name: Sass::SCSS::Parser#parse_media_query_list
+is_singleton: false
+name: parse_media_query_list
+params: ()
+visibility: public

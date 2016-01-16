@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@param root [Tree::Node] The root node of the tree to visit. @param environment [Sass::Environment] The lexical environment. @return [Tree::Node] The resulting tree of static nodes."
+full_name: Sass::Tree::Visitors::Perform::visit
+is_singleton: true
+name: visit
+params: (root, environment = nil)
+visibility: public

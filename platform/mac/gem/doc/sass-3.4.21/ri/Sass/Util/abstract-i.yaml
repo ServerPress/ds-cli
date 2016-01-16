@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Throws a NotImplementedError for an abstract method.
+- !ruby/struct:SM::Flow::P 
+  body: "@param obj [Object] `self` @raise [NotImplementedError]"
+full_name: Sass::Util#abstract
+is_singleton: false
+name: abstract
+params: (obj)
+visibility: public

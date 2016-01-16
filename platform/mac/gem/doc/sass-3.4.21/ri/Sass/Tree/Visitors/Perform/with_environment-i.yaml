@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: ""
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Runs a block of code with the current environment replaced with the given one.
+- !ruby/struct:SM::Flow::P 
+  body: "@param env [Sass::Environment] The new environment for the duration of the block. @yield A block in which the environment is set to `env`. @return [Object] The return value of the block."
+full_name: Sass::Tree::Visitors::Perform#with_environment
+is_singleton: false
+name: with_environment
+params: (env) {|| ...}
+visibility: protected

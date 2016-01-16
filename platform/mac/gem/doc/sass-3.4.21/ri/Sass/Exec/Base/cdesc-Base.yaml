@@ -1,0 +1,42 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: The abstract base class for Sass executables.
+constants: 
+- !ruby/object:RI::Constant 
+  comment: 
+  name: COLORS
+  value: "{:red => 31, :green => 32, :yellow => 33}"
+full_name: Sass::Exec::Base
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: color
+- !ruby/object:RI::MethodSummary 
+  name: encoding_option
+- !ruby/object:RI::MethodSummary 
+  name: get_line
+- !ruby/object:RI::MethodSummary 
+  name: parse
+- !ruby/object:RI::MethodSummary 
+  name: parse!
+- !ruby/object:RI::MethodSummary 
+  name: process_result
+- !ruby/object:RI::MethodSummary 
+  name: puts
+- !ruby/object:RI::MethodSummary 
+  name: puts_action
+- !ruby/object:RI::MethodSummary 
+  name: set_opts
+- !ruby/object:RI::MethodSummary 
+  name: to_s
+- !ruby/object:RI::MethodSummary 
+  name: write_output
+name: Base
+superclass: Object

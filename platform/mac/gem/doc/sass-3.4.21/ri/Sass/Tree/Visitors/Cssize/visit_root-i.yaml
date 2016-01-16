@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: ""
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: In Ruby 1.8, ensures that there's only one `@charset` directive and that it's at the top of the document.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [(Tree::Node, Sass::Util::SubsetMap)] The resulting tree of static nodes"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  <b>and</b> the extensions defined for this tree\n"
+full_name: Sass::Tree::Visitors::Cssize#visit_root
+is_singleton: false
+name: visit_root
+params: (node) {|| ...}
+visibility: protected

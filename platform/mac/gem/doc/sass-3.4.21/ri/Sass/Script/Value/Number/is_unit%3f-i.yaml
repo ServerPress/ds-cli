@@ -1,0 +1,22 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Checks whether the number has the numerator unit specified.
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  number = Sass::Script::Value::Number.new(10, &quot;px&quot;)\n  number.is_unit?(&quot;px&quot;) =&gt; true\n  number.is_unit?(nil) =&gt; false\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@param unit [::String, nil] The unit the number should have or nil if the number"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  should be unitless.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@see Number#unitless? The unitless? method may be more readable."
+full_name: Sass::Script::Value::Number#is_unit?
+is_singleton: false
+name: is_unit?
+params: (unit)
+visibility: public

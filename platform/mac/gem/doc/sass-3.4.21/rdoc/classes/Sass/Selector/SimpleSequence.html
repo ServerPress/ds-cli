@@ -1,0 +1,535 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Sass::Selector::SimpleSequence</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Sass::Selector::SimpleSequence</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/sass/selector/simple_sequence_rb.html">
+                lib/sass/selector/simple_sequence.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="AbstractSequence.html">
+                AbstractSequence
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+A unseparated sequence of selectors that all apply to a single element. For
+example, `.foo#bar[attr=baz]` is a simple sequence of the selectors `.foo`,
+`bar`, and `[attr=baz]`.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000746">base</a>&nbsp;&nbsp;
+      <a href="#M000753">do_extend</a>&nbsp;&nbsp;
+      <a href="#M000757">inspect</a>&nbsp;&nbsp;
+      <a href="#M000751">new</a>&nbsp;&nbsp;
+      <a href="#M000747">pseudo_elements</a>&nbsp;&nbsp;
+      <a href="#M000752">resolve_parent_refs</a>&nbsp;&nbsp;
+      <a href="#M000749">rest</a>&nbsp;&nbsp;
+      <a href="#M000748">selector_pseudo_classes</a>&nbsp;&nbsp;
+      <a href="#M000750">subject?</a>&nbsp;&nbsp;
+      <a href="#M000755">superselector?</a>&nbsp;&nbsp;
+      <a href="#M000756">to_s</a>&nbsp;&nbsp;
+      <a href="#M000754">unify</a>&nbsp;&nbsp;
+      <a href="#M000758">with_more_sources</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">members</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+The array of individual selectors.
+
+<p>
+@return [Array&lt;<a href="Simple.html">Simple</a>&gt;]
+</p>
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">source_range</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+This sequence source range.
+
+<p>
+@return [<a href="../Source/Range.html">Sass::Source::Range</a>]
+</p>
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">sources</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+The extending selectors that caused this selector sequence to be generated.
+For example:
+
+<pre>
+    a.foo { ... }
+    b.bar {@extend a}
+    c.baz {@extend b}
+</pre>
+<p>
+The generated selector `b.foo.bar` has `{b.bar}` as its `sources` set, and
+the generated selector `c.foo.bar.baz` has `{b.bar, c.baz}` as its
+`sources` set.
+</p>
+<p>
+This is populated during the {<a
+href="Sequence.html#M000800">Sequence#do_extend</a>} process.
+</p>
+<p>
+@return {Set&lt;<a href="Sequence.html">Sequence</a>&gt;}
+</p>
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">subject</td>
+          <td class="context-item-value">&nbsp;[W]&nbsp;</td>
+          <td class="context-item-desc">
+@see \{subject?}
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000751" class="method-detail">
+        <a name="M000751"></a>
+
+        <div class="method-heading">
+          <a href="SimpleSequence.src/M000751.html" target="Code" class="method-signature"
+            onclick="popupCode('SimpleSequence.src/M000751.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(selectors, subject, source_range = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+@param selectors [Array&lt;<a href="Simple.html">Simple</a>&gt;] See
+\{members} @param subject [Boolean] See \{subject?} @param source_range [<a
+href="../Source/Range.html">Sass::Source::Range</a>]
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000746" class="method-detail">
+        <a name="M000746"></a>
+
+        <div class="method-heading">
+          <a href="SimpleSequence.src/M000746.html" target="Code" class="method-signature"
+            onclick="popupCode('SimpleSequence.src/M000746.html');return false;">
+          <span class="method-name">base</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the element or universal selector in this sequence, if it exists.
+</p>
+<p>
+@return [<a href="Element.html">Element</a>, <a
+href="Universal.html">Universal</a>, nil]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000753" class="method-detail">
+        <a name="M000753"></a>
+
+        <div class="method-heading">
+          <a href="SimpleSequence.src/M000753.html" target="Code" class="method-signature"
+            onclick="popupCode('SimpleSequence.src/M000753.html');return false;">
+          <span class="method-name">do_extend</span><span class="method-args">(extends, parent_directives, replace, seen)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Non-destructively extends this selector with the extensions specified in a
+hash (which should come from {<a
+href="../Tree/Visitors/Cssize.html">Sass::Tree::Visitors::Cssize</a>}).
+</p>
+<p>
+@param extends [{<a href="Simple.html">Selector::Simple</a> =&gt;
+</p>
+<pre>
+                 Sass::Tree::Visitors::Cssize::Extend}]
+  The extensions to perform on this selector
+</pre>
+<p>
+@param parent_directives [Array&lt;<a
+href="../Tree/DirectiveNode.html">Sass::Tree::DirectiveNode</a>&gt;]
+</p>
+<pre>
+  The directives containing this selector.
+</pre>
+<p>
+@param seen [Set&lt;Array&lt;<a
+href="Simple.html">Selector::Simple</a>&gt;&gt;]
+</p>
+<pre>
+  The set of simple sequences that are currently being replaced.
+</pre>
+<p>
+@param original [Boolean]
+</p>
+<pre>
+  Whether this is the original selector being extended, as opposed to
+  the result of a previous extension that's being re-extended.
+</pre>
+<p>
+@return [Array&lt;<a href="Sequence.html">Sequence</a>&gt;] A list of
+selectors generated
+</p>
+<pre>
+  by extending this selector with `extends`.
+</pre>
+<p>
+@see <a href="CommaSequence.html#M000781">CommaSequence#do_extend</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000757" class="method-detail">
+        <a name="M000757"></a>
+
+        <div class="method-heading">
+          <a href="SimpleSequence.src/M000757.html" target="Code" class="method-signature"
+            onclick="popupCode('SimpleSequence.src/M000757.html');return false;">
+          <span class="method-name">inspect</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a string representation of the sequence. This is basically the
+selector string.
+</p>
+<p>
+@return [String]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000747" class="method-detail">
+        <a name="M000747"></a>
+
+        <div class="method-heading">
+          <a href="SimpleSequence.src/M000747.html" target="Code" class="method-signature"
+            onclick="popupCode('SimpleSequence.src/M000747.html');return false;">
+          <span class="method-name">pseudo_elements</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000752" class="method-detail">
+        <a name="M000752"></a>
+
+        <div class="method-heading">
+          <a href="SimpleSequence.src/M000752.html" target="Code" class="method-signature"
+            onclick="popupCode('SimpleSequence.src/M000752.html');return false;">
+          <span class="method-name">resolve_parent_refs</span><span class="method-args">(super_cseq)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Resolves the {<a href="Parent.html">Parent</a>} selectors within this
+selector by replacing them with the given parent selector, handling commas
+appropriately.
+</p>
+<p>
+@param super_cseq [<a href="CommaSequence.html">CommaSequence</a>] The
+parent selector @return [<a href="CommaSequence.html">CommaSequence</a>]
+This selector, with parent references resolved @raise [<a
+href="../SyntaxError.html">Sass::SyntaxError</a>] If a parent selector is
+invalid
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000749" class="method-detail">
+        <a name="M000749"></a>
+
+        <div class="method-heading">
+          <a href="SimpleSequence.src/M000749.html" target="Code" class="method-signature"
+            onclick="popupCode('SimpleSequence.src/M000749.html');return false;">
+          <span class="method-name">rest</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the non-<a href="SimpleSequence.html#M000746">base</a>,
+non-pseudo-element selectors in this sequence.
+</p>
+<p>
+@return [Set&lt;<a href="Simple.html">Simple</a>&gt;]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000748" class="method-detail">
+        <a name="M000748"></a>
+
+        <div class="method-heading">
+          <a href="SimpleSequence.src/M000748.html" target="Code" class="method-signature"
+            onclick="popupCode('SimpleSequence.src/M000748.html');return false;">
+          <span class="method-name">selector_pseudo_classes</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000750" class="method-detail">
+        <a name="M000750"></a>
+
+        <div class="method-heading">
+          <a href="SimpleSequence.src/M000750.html" target="Code" class="method-signature"
+            onclick="popupCode('SimpleSequence.src/M000750.html');return false;">
+          <span class="method-name">subject?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Whether or not this compound selector is the subject of the parent
+selector; that is, whether it is prepended with `$` and represents the
+actual element that will be selected.
+</p>
+<p>
+@return [Boolean]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000755" class="method-detail">
+        <a name="M000755"></a>
+
+        <div class="method-heading">
+          <a href="SimpleSequence.src/M000755.html" target="Code" class="method-signature"
+            onclick="popupCode('SimpleSequence.src/M000755.html');return false;">
+          <span class="method-name">superselector?</span><span class="method-args">(their_sseq, parents = [])</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns whether or not this selector matches all elements that the given
+selector matches (as well as possibly more).
+</p>
+<p>
+@example
+</p>
+<pre>
+  (.foo).superselector?(.foo.bar) #=&gt; true
+  (.foo).superselector?(.bar) #=&gt; false
+</pre>
+<p>
+@param their_sseq [<a href="SimpleSequence.html">SimpleSequence</a>] @param
+parents [Array&lt;<a href="SimpleSequence.html">SimpleSequence</a>,
+String&gt;] The parent selectors of `their_sseq`, if any. @return [Boolean]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000756" class="method-detail">
+        <a name="M000756"></a>
+
+        <div class="method-heading">
+          <a href="SimpleSequence.src/M000756.html" target="Code" class="method-signature"
+            onclick="popupCode('SimpleSequence.src/M000756.html');return false;">
+          <span class="method-name">to_s</span><span class="method-args">(opts = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+@see <a href="Simple.html#M000771">Simple#to_s</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000754" class="method-detail">
+        <a name="M000754"></a>
+
+        <div class="method-heading">
+          <a href="SimpleSequence.src/M000754.html" target="Code" class="method-signature"
+            onclick="popupCode('SimpleSequence.src/M000754.html');return false;">
+          <span class="method-name">unify</span><span class="method-args">(other)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Unifies this selector with another {<a
+href="SimpleSequence.html">SimpleSequence</a>}, returning another `<a
+href="SimpleSequence.html">SimpleSequence</a>` that is a subselector of
+both input selectors.
+</p>
+<p>
+@param other [<a href="SimpleSequence.html">SimpleSequence</a>] @return [<a
+href="SimpleSequence.html">SimpleSequence</a>, nil] A {<a
+href="SimpleSequence.html">SimpleSequence</a>} matching both `sels` and
+this selector,
+</p>
+<pre>
+  or `nil` if this is impossible (e.g. unifying `#foo` and `#bar`)
+</pre>
+<p>
+@raise [<a href="../SyntaxError.html">Sass::SyntaxError</a>] If this
+selector cannot be unified.
+</p>
+<pre>
+  This will only ever occur when a dynamic selector,
+  such as {Parent} or {Interpolation}, is used in unification.
+  Since these selectors should be resolved
+  by the time extension and unification happen,
+  this exception will only ever be raised as a result of programmer error
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000758" class="method-detail">
+        <a name="M000758"></a>
+
+        <div class="method-heading">
+          <a href="SimpleSequence.src/M000758.html" target="Code" class="method-signature"
+            onclick="popupCode('SimpleSequence.src/M000758.html');return false;">
+          <span class="method-name">with_more_sources</span><span class="method-args">(sources)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return a copy of this simple sequence with `sources` merged into the
+{SimpleSequence#sources} set.
+</p>
+<p>
+@param sources [Set&lt;<a href="Sequence.html">Sequence</a>&gt;] @return
+[<a href="SimpleSequence.html">SimpleSequence</a>]
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

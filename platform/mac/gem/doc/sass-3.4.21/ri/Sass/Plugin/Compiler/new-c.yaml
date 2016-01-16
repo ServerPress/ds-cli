@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Creates a new compiler.
+- !ruby/struct:SM::Flow::P 
+  body: "@param opts [{Symbol =&gt; Object}]"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  See {file:SASS_REFERENCE.md#sass_options the Sass options documentation}.\n"
+full_name: Sass::Plugin::Compiler::new
+is_singleton: true
+name: new
+params: (opts = {})
+visibility: public

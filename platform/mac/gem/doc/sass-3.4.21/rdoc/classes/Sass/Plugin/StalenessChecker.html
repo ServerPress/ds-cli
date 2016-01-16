@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Sass::Plugin::StalenessChecker</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Sass::Plugin::StalenessChecker</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/sass/plugin/staleness_checker_rb.html">
+                lib/sass/plugin/staleness_checker.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+The class handles `.s[ca]ss` file staleness checks via their mtime
+timestamps.
+</p>
+<p>
+To speed things up two level of caches are employed:
+</p>
+<ul>
+<li>A class-level dependency cache which stores @import paths for each file.
+This is a long-lived cache that is reused by every <a
+href="StalenessChecker.html">StalenessChecker</a> instance.
+
+</li>
+<li>Three short-lived instance-level caches, one for file mtimes, one for
+whether a file is stale during this particular run. and one for the parse
+tree for a file. These are only used by a single <a
+href="StalenessChecker.html">StalenessChecker</a> instance.
+
+</li>
+</ul>
+<p>
+Usage:
+</p>
+<ul>
+<li>For a one-off staleness check of a single `.s[ca]ss` file, the class-level
+{<a href="StalenessChecker.html#M000731">stylesheet_needs_update?</a>}
+method should be used.
+
+</li>
+<li>For a series of staleness checks (e.g. checking all files for staleness) a
+<a href="StalenessChecker.html">StalenessChecker</a> instance should be
+created, and the instance-level \{stylesheet_needs_update?} method should
+be used. the caches should make the whole process significantly faster.
+<b>WARNING</b>: It is important not to retain the instance for too long, as
+its instance-level caches are never explicitly expired.
+
+</li>
+</ul>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000730">new</a>&nbsp;&nbsp;
+      <a href="#M000732">stylesheet_modified_since?</a>&nbsp;&nbsp;
+      <a href="#M000734">stylesheet_modified_since?</a>&nbsp;&nbsp;
+      <a href="#M000733">stylesheet_needs_update?</a>&nbsp;&nbsp;
+      <a href="#M000731">stylesheet_needs_update?</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">dependencies_cache</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+TODO: attach this to a compiler instance. @private
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">dependency_cache_mutex</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000730" class="method-detail">
+        <a name="M000730"></a>
+
+        <div class="method-heading">
+          <a href="StalenessChecker.src/M000730.html" target="Code" class="method-signature"
+            onclick="popupCode('StalenessChecker.src/M000730.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(options)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Creates a <a href="StalenessChecker.html#M000730">new</a> <a
+href="StalenessChecker.html">StalenessChecker</a> for checking the
+staleness of several stylesheets at once.
+</p>
+<p>
+@param options [{Symbol =&gt; Object}]
+</p>
+<pre>
+  See {file:SASS_REFERENCE.md#sass_options the Sass options documentation}.
+</pre>
+        </div>
+      </div>
+
+      <div id="method-M000734" class="method-detail">
+        <a name="M000734"></a>
+
+        <div class="method-heading">
+          <a href="StalenessChecker.src/M000734.html" target="Code" class="method-signature"
+            onclick="popupCode('StalenessChecker.src/M000734.html');return false;">
+          <span class="method-name">stylesheet_modified_since?</span><span class="method-args">(template_file, mtime, importer = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns whether a <a href="../../Sass.html">Sass</a> or <a
+href="../SCSS.html">SCSS</a> stylesheet has been modified since a given
+time.
+</p>
+<p>
+The distinction between this method and the instance-level
+\{stylesheet_modified_since?} is that the instance method preserves mtime
+and stale-dependency caches, so it&#8216;s better to use when checking
+multiple stylesheets at once.
+</p>
+<p>
+@param template_file [String] The location of the <a
+href="../../Sass.html">Sass</a> or <a href="../SCSS.html">SCSS</a>
+template. @param mtime [Fixnum] The modification time to check against.
+@param importer [<a
+href="../Importers/Base.html">Sass::Importers::Base</a>] The importer used
+to locate the stylesheet.
+</p>
+<pre>
+  Defaults to the filesystem importer.
+</pre>
+<p>
+@return [Boolean] Whether the stylesheet has been modified.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000733" class="method-detail">
+        <a name="M000733"></a>
+
+        <div class="method-heading">
+          <a href="StalenessChecker.src/M000733.html" target="Code" class="method-signature"
+            onclick="popupCode('StalenessChecker.src/M000733.html');return false;">
+          <span class="method-name">stylesheet_needs_update?</span><span class="method-args">(css_file, template_file, importer = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns whether or not a given <a href="../CSS.html">CSS</a> file is out of
+date and needs to be regenerated.
+</p>
+<p>
+The distinction between this method and the instance-level
+\{stylesheet_needs_update?} is that the instance method preserves mtime and
+stale-dependency caches, so it&#8216;s better to use when checking multiple
+stylesheets at once.
+</p>
+<p>
+@param css_file [String] The location of the <a href="../CSS.html">CSS</a>
+file to check. @param template_file [String] The location of the <a
+href="../../Sass.html">Sass</a> or <a href="../SCSS.html">SCSS</a> template
+</p>
+<pre>
+  that is compiled to `css_file`.
+</pre>
+<p>
+@return [Boolean] Whether the stylesheet needs to be updated.
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000732" class="method-detail">
+        <a name="M000732"></a>
+
+        <div class="method-heading">
+          <a href="StalenessChecker.src/M000732.html" target="Code" class="method-signature"
+            onclick="popupCode('StalenessChecker.src/M000732.html');return false;">
+          <span class="method-name">stylesheet_modified_since?</span><span class="method-args">(template_file, mtime, importer = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns whether a <a href="../../Sass.html">Sass</a> or <a
+href="../SCSS.html">SCSS</a> stylesheet has been modified since a given
+time.
+</p>
+<p>
+@param template_file [String] The location of the <a
+href="../../Sass.html">Sass</a> or <a href="../SCSS.html">SCSS</a>
+template. @param mtime [Fixnum] The modification time to check against.
+@param importer [<a
+href="../Importers/Base.html">Sass::Importers::Base</a>] The importer used
+to locate the stylesheet.
+</p>
+<pre>
+  Defaults to the filesystem importer.
+</pre>
+<p>
+@return [Boolean] Whether the stylesheet has been modified.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000731" class="method-detail">
+        <a name="M000731"></a>
+
+        <div class="method-heading">
+          <a href="StalenessChecker.src/M000731.html" target="Code" class="method-signature"
+            onclick="popupCode('StalenessChecker.src/M000731.html');return false;">
+          <span class="method-name">stylesheet_needs_update?</span><span class="method-args">(css_file, template_file, importer = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns whether or not a given <a href="../CSS.html">CSS</a> file is out of
+date and needs to be regenerated.
+</p>
+<p>
+@param css_file [String] The location of the <a href="../CSS.html">CSS</a>
+file to check. @param template_file [String] The location of the <a
+href="../../Sass.html">Sass</a> or <a href="../SCSS.html">SCSS</a> template
+</p>
+<pre>
+  that is compiled to `css_file`.
+</pre>
+<p>
+@return [Boolean] Whether the stylesheet needs to be updated.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

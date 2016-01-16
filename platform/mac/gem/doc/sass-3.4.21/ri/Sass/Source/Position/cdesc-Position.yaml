@@ -1,0 +1,34 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The one-based line of the document associated with the position.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Fixnum]"
+  name: line
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The one-based offset in the line of the document associated with the position.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Fixnum]"
+  name: offset
+  rw: RW
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+constants: []
+
+full_name: Sass::Source::Position
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: after
+- !ruby/object:RI::MethodSummary 
+  name: inspect
+name: Position
+superclass: Object

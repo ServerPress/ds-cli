@@ -1,0 +1,20 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Prints a status message about performing the given action, colored using the given color (via terminal escapes) if possible.
+- !ruby/struct:SM::Flow::P 
+  body: "@param name [#to_s] A short name for the action being performed."
+- !ruby/struct:SM::Flow::VERB 
+  body: "  Shouldn't be longer than 11 characters.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@param color [Symbol] The name of the color to use for this action."
+- !ruby/struct:SM::Flow::VERB 
+  body: "  Can be `:red`, `:green`, or `:yellow`.\n"
+full_name: Sass::Exec::Base#puts_action
+is_singleton: false
+name: puts_action
+params: (name, color, arg)
+visibility: protected

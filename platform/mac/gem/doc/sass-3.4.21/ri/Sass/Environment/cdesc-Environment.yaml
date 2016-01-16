@@ -1,0 +1,28 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The enclosing environment, or nil if this is the global environment.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Environment]"
+  name: parent
+  rw: R
+class_methods: []
+
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: The lexical environment for SassScript. This keeps track of variable, mixin, and function definitions.
+- !ruby/struct:SM::Flow::P 
+  body: A new environment is created for each level of Sass nesting. This allows variables to be lexically scoped. The new environment refers to the environment in the upper scope, so it has access to variables defined in enclosing scopes, but new variables are defined locally.
+- !ruby/struct:SM::Flow::P 
+  body: Environment also keeps track of the {Engine} options so that they can be made available to {Sass::Script::Functions}.
+constants: []
+
+full_name: Sass::Environment
+includes: []
+
+instance_methods: []
+
+name: Environment
+superclass: BaseEnvironment

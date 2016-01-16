@@ -1,0 +1,42 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The comma-separated selector sequences represented by this class.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Array&lt;Sequence&gt;]"
+  name: members
+  rw: R
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A comma-separated sequence of selectors.
+constants: []
+
+full_name: Sass::Selector::CommaSequence
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: contains_parent_ref?
+- !ruby/object:RI::MethodSummary 
+  name: do_extend
+- !ruby/object:RI::MethodSummary 
+  name: inspect
+- !ruby/object:RI::MethodSummary 
+  name: populate_extends
+- !ruby/object:RI::MethodSummary 
+  name: resolve_parent_refs
+- !ruby/object:RI::MethodSummary 
+  name: superselector?
+- !ruby/object:RI::MethodSummary 
+  name: to_s
+- !ruby/object:RI::MethodSummary 
+  name: to_sass_script
+- !ruby/object:RI::MethodSummary 
+  name: unify
+name: CommaSequence
+superclass: AbstractSequence

@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: ""
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Runs a block of code with the current parent node replaced with the given node.
+- !ruby/struct:SM::Flow::P 
+  body: "@param parent [Tree::Node] The new parent for the duration of the block. @yield A block in which the parent is set to `parent`. @return [Object] The return value of the block."
+full_name: Sass::Tree::Visitors::Cssize#with_parent
+is_singleton: false
+name: with_parent
+params: (parent) {|| ...}
+visibility: protected

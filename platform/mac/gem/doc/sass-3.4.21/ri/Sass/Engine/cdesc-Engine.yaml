@@ -1,0 +1,129 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The options for the Sass engine. See {file:SASS_REFERENCE.md#sass_options the Sass options documentation}.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [{Symbol =&gt; Object}]"
+  name: options
+  rw: R
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: for_file
+- !ruby/object:RI::MethodSummary 
+  name: new
+- !ruby/object:RI::MethodSummary 
+  name: normalize_options
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "This class handles the parsing and compilation of the Sass template. Example usage:"
+- !ruby/struct:SM::Flow::VERB 
+  body: "    template = File.read('stylesheets/sassy.sass')\n    sass_engine = Sass::Engine.new(template)\n    output = sass_engine.render\n    puts output\n"
+constants: 
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The character that begins a CSS property.
+  name: PROPERTY_CHAR
+  value: "?:"
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The character that designates the beginning of a comment, either Sass or CSS.
+  name: COMMENT_CHAR
+  value: ?/
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The character that follows the general COMMENT_CHAR and designates a Sass comment, which is not output as a CSS comment.
+  name: SASS_COMMENT_CHAR
+  value: ?/
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The character that indicates that a comment allows interpolation and should be preserved even in `:compressed` mode.
+  name: SASS_LOUD_COMMENT_CHAR
+  value: ?!
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The character that follows the general COMMENT_CHAR and designates a CSS comment, which is embedded in the CSS document.
+  name: CSS_COMMENT_CHAR
+  value: ?*
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The character used to denote a compiler directive.
+  name: DIRECTIVE_CHAR
+  value: ?@
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: Designates a non-parsed rule.
+  name: ESCAPE_CHAR
+  value: ?\\
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: Designates block as mixin definition rather than CSS rules to output
+  name: MIXIN_DEFINITION_CHAR
+  value: ?=
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: Includes named mixin declared using MIXIN_DEFINITION_CHAR
+  name: MIXIN_INCLUDE_CHAR
+  value: ?+
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The regex that matches and extracts data from properties of the form `:name prop`.
+  name: PROPERTY_OLD
+  value: /^:([^\s=:"]+)\s*(?:\s+|$)(.*)/
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The default options for Sass::Engine. @api public
+  name: DEFAULT_OPTIONS
+  value: "{       :style => :nested,       :load_paths => [],       :cache => true,       :cache_location => './.sass-cache',       :syntax => :sass,       :filesystem_importer => Sass::Importers::Filesystem"
+- !ruby/object:RI::Constant 
+  comment: 
+  name: DIRECTIVES
+  value: Set[:mixin, :include, :function, :return, :debug, :warn, :for,       :each, :while, :if, :else, :extend, :import, :media, :charset, :content,       :at_root, :error]
+- !ruby/object:RI::Constant 
+  comment: 
+  name: MIXIN_DEF_RE
+  value: /^(?:=|@mixin)\s*(#{Sass::SCSS::RX::IDENT})(.*)$/
+- !ruby/object:RI::Constant 
+  comment: 
+  name: CONTENT_RE
+  value: /^@content\s*(.+)?$/
+- !ruby/object:RI::Constant 
+  comment: 
+  name: MIXIN_INCLUDE_RE
+  value: /^(?:\+|@include)\s*(#{Sass::SCSS::RX::IDENT})(.*)$/
+- !ruby/object:RI::Constant 
+  comment: 
+  name: FUNCTION_RE
+  value: /^@function\s*(#{Sass::SCSS::RX::IDENT})(.*)$/
+full_name: Sass::Engine
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: _dependencies
+- !ruby/object:RI::MethodSummary 
+  name: dependencies
+- !ruby/object:RI::MethodSummary 
+  name: render
+- !ruby/object:RI::MethodSummary 
+  name: render_with_sourcemap
+- !ruby/object:RI::MethodSummary 
+  name: source_encoding
+- !ruby/object:RI::MethodSummary 
+  name: to_css
+- !ruby/object:RI::MethodSummary 
+  name: to_tree
+name: Engine
+superclass: Object

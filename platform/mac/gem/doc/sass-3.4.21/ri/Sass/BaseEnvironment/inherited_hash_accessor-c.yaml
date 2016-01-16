@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "Note: when updating this, update sass/yard/inherited_hash.rb as well."
+full_name: Sass::BaseEnvironment::inherited_hash_accessor
+is_singleton: true
+name: inherited_hash_accessor
+params: (name)
+visibility: public

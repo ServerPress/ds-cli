@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns the value of the expression.
+full_name: Sass::Tree::Visitors::Perform#visit_return
+is_singleton: false
+name: visit_return
+params: (node)
+visibility: protected

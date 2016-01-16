@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Sass::Tree::Visitors::Convert#visit_function
+is_singleton: false
+name: visit_function
+params: (node)
+visibility: protected

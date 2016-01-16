@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: h, k
+comment: 
+full_name: OrderedHash#reject
+is_singleton: false
+name: reject
+params: () {|h, k| ...}
+visibility: public

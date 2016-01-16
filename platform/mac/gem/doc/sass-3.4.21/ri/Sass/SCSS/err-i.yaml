@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Sass::SCSS#err
+is_singleton: false
+name: err
+params: (msg)
+visibility: public

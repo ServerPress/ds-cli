@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Registers an extension in the `@extends` subset map.
+full_name: Sass::Tree::Visitors::Cssize#visit_extend
+is_singleton: false
+name: visit_extend
+params: (node)
+visibility: protected

@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Sass::Stack::Frame::new
+is_singleton: true
+name: new
+params: (filename, line, type, name = nil)
+visibility: public

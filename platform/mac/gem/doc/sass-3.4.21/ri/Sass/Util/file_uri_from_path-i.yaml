@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Converts `path` to a &quot;file:&quot; URI. This handles Windows paths correctly.
+- !ruby/struct:SM::Flow::P 
+  body: "@param path [String, Pathname] @return [String]"
+full_name: Sass::Util#file_uri_from_path
+is_singleton: false
+name: file_uri_from_path
+params: (path)
+visibility: public

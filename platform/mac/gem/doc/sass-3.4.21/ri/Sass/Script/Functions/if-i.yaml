@@ -1,0 +1,22 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns one of two values, depending on whether or not `$condition` is true. Just like in `@if`, all values other than `false` and `null` are considered to be true.
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  if(true, 1px, 2px) =&gt; 1px\n  if(false, 1px, 2px) =&gt; 2px\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload if($condition, $if-true, $if-false)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $condition [Sass::Script::Value::Base] Whether the `$if-true` or\n    `$if-false` will be returned\n  @param $if-true [Sass::Script::Tree::Node]\n  @param $if-false [Sass::Script::Tree::Node]\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Script::Value::Base] `$if-true` or `$if-false`"
+full_name: Sass::Script::Functions#if
+is_singleton: false
+name: if
+params: (condition, if_true, if_false)
+visibility: public

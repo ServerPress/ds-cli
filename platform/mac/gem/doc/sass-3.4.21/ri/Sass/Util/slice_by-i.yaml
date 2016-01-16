@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: (value)
+comment: 
+full_name: Sass::Util#slice_by
+is_singleton: false
+name: slice_by
+params: (enum) {|value| ...}
+visibility: public

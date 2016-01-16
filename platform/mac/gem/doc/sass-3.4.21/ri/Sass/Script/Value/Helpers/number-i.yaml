@@ -1,0 +1,20 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Construct a Sass Number from a ruby number.
+- !ruby/struct:SM::Flow::P 
+  body: "@param number [::Number] A numeric value. @param unit_string [::String] A unit string of the form"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  `numeral_unit1 * numeral_unit2 ... / denominator_unit1 * denominator_unit2 ...`\n  this is the same format that is returned by\n  {Sass::Script::Value::Number#unit_str the `unit_str` method}\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@see Sass::Script::Value::Number#unit_str"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Script::Value::Number] The sass number representing the given ruby number."
+full_name: Sass::Script::Value::Helpers#number
+is_singleton: false
+name: number
+params: (number, unit_string = nil)
+visibility: public

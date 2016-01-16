@@ -1,0 +1,22 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Compile a Sass or SCSS string to CSS. Defaults to SCSS.
+- !ruby/struct:SM::Flow::P 
+  body: "@param contents [String] The contents of the Sass file. @param options [{Symbol =&gt; Object}] An options hash;"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  see {file:SASS_REFERENCE.md#sass_options the Sass options documentation}\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@raise [Sass::SyntaxError] if there's an error in the document @raise [Encoding::UndefinedConversionError] if the source encoding"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  cannot be converted to UTF-8\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@raise [ArgumentError] if the document uses an unknown encoding with `@charset`"
+full_name: Sass::compile
+is_singleton: true
+name: compile
+params: (contents, options = {})
+visibility: public

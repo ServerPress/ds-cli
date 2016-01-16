@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Parses a SassScript expression, ending it when it encounters one of the given identifier tokens.
+- !ruby/struct:SM::Flow::P 
+  body: "@param tokens [#include?(String)] A set of strings that delimit the expression. @return [Script::Tree::Node] The root node of the parse tree @raise [Sass::SyntaxError] if the expression isn't valid SassScript"
+full_name: Sass::Script::Parser#parse_until
+is_singleton: false
+name: parse_until
+params: (tokens)
+visibility: public

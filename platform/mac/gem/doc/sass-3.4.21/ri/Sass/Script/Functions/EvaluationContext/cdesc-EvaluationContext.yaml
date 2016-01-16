@@ -1,0 +1,48 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The environment for this function. This environment's {Environment#parent} is the global environment, and its {Environment#caller} is a read-only view of the local environment of the caller of this function.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Environment]"
+  name: environment
+  rw: R
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The options hash for the {Sass::Engine} that is processing the function call
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [{Symbol =&gt; Object}]"
+  name: options
+  rw: R
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: The context in which methods in {Script::Functions} are evaluated. That means that all instance methods of {EvaluationContext} are available to use in functions.
+constants: 
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The human-readable names for [Sass::Script::Value::Base]. The default is just the downcased name of the type.
+  name: TYPE_NAMES
+  value: "{:ArgList => 'variable argument list'}"
+full_name: Sass::Script::Functions::EvaluationContext
+includes: 
+- !ruby/object:RI::IncludedModule 
+  name: Functions
+- !ruby/object:RI::IncludedModule 
+  name: Value::Helpers
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: assert_integer
+- !ruby/object:RI::MethodSummary 
+  name: assert_type
+- !ruby/object:RI::MethodSummary 
+  name: assert_unit
+- !ruby/object:RI::MethodSummary 
+  name: perform
+name: EvaluationContext
+superclass: Object

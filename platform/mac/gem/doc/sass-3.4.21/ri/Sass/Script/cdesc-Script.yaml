@@ -1,0 +1,39 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: const_missing
+- !ruby/object:RI::MethodSummary 
+  name: parse
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: SassScript is code that's embedded in Sass documents to allow for property values to be computed from variables.
+- !ruby/struct:SM::Flow::P 
+  body: This module contains code that handles the parsing and evaluation of SassScript.
+constants: 
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The regular expression used to parse variables.
+  name: MATCH
+  value: /^\$(#{Sass::SCSS::RX::IDENT})\s*:\s*(.+?)       (!#{Sass::SCSS::RX::IDENT}(?:\s+!#{Sass::SCSS::RX::IDENT})*)?$/x
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The regular expression used to validate variables without matching.
+  name: VALIDATE
+  value: /^\$#{Sass::SCSS::RX::IDENT}$/
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: "@private"
+  name: CONST_RENAMES
+  value: "{       :Literal => Sass::Script::Value::Base,       :ArgList => Sass::Script::Value::ArgList,       :Bool => Sass::Script::Value::Bool,       :Color => Sass::Script::Value::Color,       :List => Sass::Script::Value::List,       :Null => Sass::Script::Value::Null,       :Number => Sass::Script::Value::Number,       :String => Sass::Script::Value::String,       :Node => Sass::Script::Tree::Node,       :Funcall => Sass::Script::Tree::Funcall,       :Interpolation => Sass::Script::Tree::Interpolation,       :Operation => Sass::Script::Tree::Operation,       :StringInterpolation => Sass::Script::Tree::StringInterpolation,       :UnaryOperation => Sass::Script::Tree::UnaryOperation,       :Variable => Sass::Script::Tree::Variable,     }"
+full_name: Sass::Script
+includes: []
+
+instance_methods: []
+
+name: Script
+superclass: 

@@ -1,0 +1,24 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Return the length of a list.
+- !ruby/struct:SM::Flow::P 
+  body: This can return the number of pairs in a map as well.
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  length(10px) =&gt; 1\n  length(10px 20px 30px) =&gt; 3\n  length((width: 10px, height: 20px)) =&gt; 2\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload length($list)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $list [Sass::Script::Value::Base]\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Script::Value::Number]"
+full_name: Sass::Script::Functions#length
+is_singleton: false
+name: length
+params: (list)
+visibility: public

@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "Returns a human readable representation of the units in this number. For complex units this takes the form of: numerator_unit1 * numerator_unit2 / denominator_unit1 * denominator_unit2 @return [String] a string that represents the units in this number"
+full_name: Sass::Script::Value::Number#unit_str
+is_singleton: false
+name: unit_str
+params: ()
+visibility: public

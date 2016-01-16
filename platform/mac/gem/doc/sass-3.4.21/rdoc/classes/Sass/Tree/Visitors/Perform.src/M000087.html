@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>perform_splat (Sass::Tree::Visitors::Perform)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/tree/visitors/perform.rb, line 106</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">perform_splat</span>(<span class="ruby-identifier">splat</span>, <span class="ruby-identifier">performed_keywords</span>, <span class="ruby-identifier">kwarg_splat</span>, <span class="ruby-identifier">environment</span>)
+      <span class="ruby-identifier">args</span>, <span class="ruby-identifier">kwargs</span>, <span class="ruby-identifier">separator</span> = [], <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">:comma</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">splat</span>
+        <span class="ruby-identifier">splat</span> = <span class="ruby-identifier">splat</span>.<span class="ruby-identifier">perform</span>(<span class="ruby-identifier">environment</span>)
+        <span class="ruby-identifier">separator</span> = <span class="ruby-identifier">splat</span>.<span class="ruby-identifier">separator</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">separator</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">splat</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Script</span><span class="ruby-operator">::</span><span class="ruby-constant">Value</span><span class="ruby-operator">::</span><span class="ruby-constant">ArgList</span>)
+          <span class="ruby-identifier">args</span> = <span class="ruby-identifier">splat</span>.<span class="ruby-identifier">to_a</span>
+          <span class="ruby-identifier">kwargs</span> = <span class="ruby-identifier">splat</span>.<span class="ruby-identifier">keywords</span>
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">splat</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Script</span><span class="ruby-operator">::</span><span class="ruby-constant">Value</span><span class="ruby-operator">::</span><span class="ruby-constant">Map</span>)
+          <span class="ruby-identifier">kwargs</span> = <span class="ruby-identifier">arg_hash</span>(<span class="ruby-identifier">splat</span>)
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">args</span> = <span class="ruby-identifier">splat</span>.<span class="ruby-identifier">to_a</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">kwargs</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span><span class="ruby-operator">::</span><span class="ruby-constant">NormalizedMap</span>.<span class="ruby-identifier">new</span>
+      <span class="ruby-identifier">kwargs</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">performed_keywords</span>)
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">kwarg_splat</span>
+        <span class="ruby-identifier">kwarg_splat</span> = <span class="ruby-identifier">kwarg_splat</span>.<span class="ruby-identifier">perform</span>(<span class="ruby-identifier">environment</span>)
+        <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">kwarg_splat</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Script</span><span class="ruby-operator">::</span><span class="ruby-constant">Value</span><span class="ruby-operator">::</span><span class="ruby-constant">Map</span>)
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">SyntaxError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;Variable keyword arguments must be a map &quot;</span> <span class="ruby-operator">+</span>
+                                      <span class="ruby-node">&quot;(was #{kwarg_splat.inspect}).&quot;</span>)
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">kwargs</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">arg_hash</span>(<span class="ruby-identifier">kwarg_splat</span>))
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Script</span><span class="ruby-operator">::</span><span class="ruby-constant">Value</span><span class="ruby-operator">::</span><span class="ruby-constant">ArgList</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">args</span>, <span class="ruby-identifier">kwargs</span>, <span class="ruby-identifier">separator</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

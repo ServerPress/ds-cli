@@ -1,0 +1,20 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Return a string containing the value as its Sass representation.
+- !ruby/struct:SM::Flow::P 
+  body: "@overload inspect($value)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $value [Sass::Script::Value::Base] The value to inspect.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Script::Value::String] A representation of the value as"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  it would be written in Sass.\n"
+full_name: Sass::Script::Functions#inspect
+is_singleton: false
+name: inspect
+params: (value)
+visibility: public

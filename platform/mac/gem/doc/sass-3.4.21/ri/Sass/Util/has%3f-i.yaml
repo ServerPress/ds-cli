@@ -1,0 +1,22 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "Checks to see if a class has a given method. For example:"
+- !ruby/struct:SM::Flow::VERB 
+  body: "    Sass::Util.has?(:public_instance_method, String, :gsub) #=&gt; true\n"
+- !ruby/struct:SM::Flow::P 
+  body: Method collections like `Class#instance_methods` return strings in Ruby 1.8 and symbols in Ruby 1.9 and on, so this handles checking for them in a compatible way.
+- !ruby/struct:SM::Flow::P 
+  body: "@param attr [#to_s] The (singular) name of the method-collection method"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  (e.g. `:instance_methods`, `:private_methods`)\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@param klass [Module] The class to check the methods of which to check @param method [String, Symbol] The name of the method do check for @return [Boolean] Whether or not the given collection has the given method"
+full_name: Sass::Util#has?
+is_singleton: false
+name: has?
+params: (attr, klass, method)
+visibility: public

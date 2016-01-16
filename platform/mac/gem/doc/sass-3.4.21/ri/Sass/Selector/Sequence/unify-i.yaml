@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Unifies this with another selector sequence to produce a selector that matches (a subset of) the intersection of the two inputs.
+- !ruby/struct:SM::Flow::P 
+  body: "@param other [Sequence] @return [CommaSequence, nil] The unified selector, or nil if unification failed. @raise [Sass::SyntaxError] If this selector cannot be unified."
+- !ruby/struct:SM::Flow::VERB 
+  body: "  This will only ever occur when a dynamic selector,\n  such as {Parent} or {Interpolation}, is used in unification.\n  Since these selectors should be resolved\n  by the time extension and unification happen,\n  this exception will only ever be raised as a result of programmer error\n"
+full_name: Sass::Selector::Sequence#unify
+is_singleton: false
+name: unify
+params: (other)
+visibility: public

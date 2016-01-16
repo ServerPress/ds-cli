@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Tells optparse how to parse the arguments.
+- !ruby/struct:SM::Flow::P 
+  body: "@param opts [OptionParser]"
+full_name: Sass::Exec::SassScss#set_opts
+is_singleton: false
+name: set_opts
+params: (opts)
+visibility: protected

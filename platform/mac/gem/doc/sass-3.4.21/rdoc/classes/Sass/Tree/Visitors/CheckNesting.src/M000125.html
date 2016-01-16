@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>invalid_import_parent? (Sass::Tree::Visitors::CheckNesting)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/tree/visitors/check_nesting.rb, line 99</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">invalid_import_parent?</span>(<span class="ruby-identifier">parent</span>, <span class="ruby-identifier">child</span>)
+    <span class="ruby-keyword kw">unless</span> (<span class="ruby-ivar">@parents</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">class</span>} <span class="ruby-operator">&amp;</span> <span class="ruby-constant">INVALID_IMPORT_PARENTS</span>).<span class="ruby-identifier">empty?</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-value str">&quot;Import directives may not be used within control directives or mixins.&quot;</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">parent</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Tree</span><span class="ruby-operator">::</span><span class="ruby-constant">RootNode</span>)
+    <span class="ruby-keyword kw">return</span> <span class="ruby-value str">&quot;CSS import directives may only be used at the root of a document.&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">css_import?</span>
+  <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">SyntaxError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">e</span>.<span class="ruby-identifier">modify_backtrace</span>(<span class="ruby-identifier">:filename</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">imported_file</span>.<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:filename</span>])
+    <span class="ruby-identifier">e</span>.<span class="ruby-identifier">add_backtrace</span>(<span class="ruby-identifier">:filename</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">filename</span>, <span class="ruby-identifier">:line</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">line</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-identifier">e</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

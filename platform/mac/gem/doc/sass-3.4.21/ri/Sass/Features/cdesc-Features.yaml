@@ -1,0 +1,27 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: []
+
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Provides `Sass.has_feature?` which allows for simple feature detection by providing a feature name.
+constants: 
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: This is the set of features that can be detected.
+  - !ruby/struct:SM::Flow::P 
+    body: When this is updated, the documentation of `feature-exists()` should be updated as well.
+  name: KNOWN_FEATURES
+  value: Set[*%w{       global-variable-shadowing       extend-selector-pseudoclass       units-level-3       at-error     }]
+full_name: Sass::Features
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: add_feature
+- !ruby/object:RI::MethodSummary 
+  name: has_feature?
+name: Features
+superclass: 

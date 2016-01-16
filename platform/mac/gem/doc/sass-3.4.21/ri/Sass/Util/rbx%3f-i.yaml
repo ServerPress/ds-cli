@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Whether or not this is running on Rubinius.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Boolean]"
+full_name: Sass::Util#rbx?
+is_singleton: false
+name: rbx?
+params: ()
+visibility: public

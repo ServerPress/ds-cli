@@ -1,0 +1,26 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns a hash representing the version of Sass. The `:major`, `:minor`, and `:teeny` keys have their respective numbers as Fixnums. The `:name` key has the name of the version. The `:string` key contains a human-readable string representation of the version. The `:number` key is the major, minor, and teeny keys separated by periods. The `:date` key, which is not guaranteed to be defined, is the `DateTime`
+- !ruby/struct:SM::Flow::VERB 
+  body: "  at which this release was cut.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "If Sass is checked out from Git, the `:rev` key will have the revision hash. For example:"
+- !ruby/struct:SM::Flow::VERB 
+  body: "    {\n      :string =&gt; &quot;2.1.0.9616393&quot;,\n      :rev    =&gt; &quot;9616393b8924ef36639c7e82aa88a51a24d16949&quot;,\n      :number =&gt; &quot;2.1.0&quot;,\n      :date   =&gt; DateTime.parse(&quot;Apr 30 13:52:01 2009 -0700&quot;),\n      :major  =&gt; 2, :minor =&gt; 1, :teeny =&gt; 0\n    }\n"
+- !ruby/struct:SM::Flow::P 
+  body: "If a prerelease version of Sass is being used, the `:string` and `:number` fields will reflect the full version (e.g. `&quot;2.2.beta.1&quot;`), and the `:teeny` field will be `-1`. A `:prerelease` key will contain the name of the prerelease (e.g. `&quot;beta&quot;`), and a `:prerelease_number` key will contain the rerelease number. For example:"
+- !ruby/struct:SM::Flow::VERB 
+  body: "    {\n      :string =&gt; &quot;3.0.beta.1&quot;,\n      :number =&gt; &quot;3.0.beta.1&quot;,\n      :date   =&gt; DateTime.parse(&quot;Mar 31 00:38:04 2010 -0700&quot;),\n      :major =&gt; 3, :minor =&gt; 0, :teeny =&gt; -1,\n      :prerelease =&gt; &quot;beta&quot;,\n      :prerelease_number =&gt; 1\n    }\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [{Symbol =&gt; String/Fixnum}] The version hash @comment"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  rubocop:disable ClassVars\n"
+full_name: Sass::Version#version
+is_singleton: false
+name: version
+params: ()
+visibility: public

@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: the precision factor used in numeric output it is derived from the `precision` method.
+full_name: Sass::Script::Value::Number::precision_factor
+is_singleton: true
+name: precision_factor
+params: ()
+visibility: public

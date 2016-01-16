@@ -1,0 +1,49 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: Whether or not Sass has *<b>ever</b>* checked if the stylesheets need to be updated (in this Ruby instance).
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Boolean]"
+  name: checked_for_updates
+  rw: RW
+class_methods: []
+
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: This module provides a single interface to the compilation of Sass/SCSS files for an application. It provides global options and checks whether CSS files need to be updated.
+- !ruby/struct:SM::Flow::P 
+  body: This module is used as the primary interface with Sass when it's used as a plugin for various frameworks. All Rack-enabled frameworks are supported out of the box. The plugin is {file:SASS_REFERENCE.md#rails_merb_plugin automatically activated for Rails and Merb}. Other frameworks must enable it explicitly; see {Sass::Plugin::Rack}.
+- !ruby/struct:SM::Flow::P 
+  body: This module has a large set of callbacks available to allow users to run code (such as logging) when certain things happen. All callback methods are of the form `on_#{name}`, and they all take a block that's called when the given action occurs.
+- !ruby/struct:SM::Flow::P 
+  body: Note that this class proxies almost all methods to its {Sass::Plugin::Compiler} instance. See \{#compiler}.
+- !ruby/struct:SM::Flow::P 
+  body: "@example Using a callback"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  Sass::Plugin.on_updating_stylesheet do |template, css|\n    puts &quot;Compiling #{template} to #{css}&quot;\n  end\n  Sass::Plugin.update_stylesheets\n    #=&gt; Compiling app/sass/screen.scss to public/stylesheets/screen.css\n    #=&gt; Compiling app/sass/print.scss to public/stylesheets/print.css\n    #=&gt; Compiling app/sass/ie.scss to public/stylesheets/ie.css\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@see Sass::Plugin::Compiler"
+constants: []
+
+full_name: Sass::Plugin
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: check_for_updates
+- !ruby/object:RI::MethodSummary 
+  name: compiler
+- !ruby/object:RI::MethodSummary 
+  name: force_update_stylesheets
+- !ruby/object:RI::MethodSummary 
+  name: method_missing
+- !ruby/object:RI::MethodSummary 
+  name: options
+- !ruby/object:RI::MethodSummary 
+  name: respond_to?
+- !ruby/object:RI::MethodSummary 
+  name: update_stylesheets
+name: Plugin
+superclass: 

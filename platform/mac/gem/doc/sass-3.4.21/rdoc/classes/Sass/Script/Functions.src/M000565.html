@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>change_color (Sass::Script::Functions)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/script/functions.rb, line 1258</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">change_color</span>(<span class="ruby-identifier">color</span>, <span class="ruby-identifier">kwargs</span>)
+      <span class="ruby-identifier">assert_type</span> <span class="ruby-identifier">color</span>, <span class="ruby-identifier">:Color</span>, <span class="ruby-identifier">:color</span>
+      <span class="ruby-identifier">with</span> = <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">map_hash</span>(
+        <span class="ruby-value str">'red'</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value str">'Red value'</span>, <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">255</span>],
+        <span class="ruby-value str">'green'</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value str">'Green value'</span>, <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">255</span>],
+        <span class="ruby-value str">'blue'</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value str">'Blue value'</span>, <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">255</span>],
+        <span class="ruby-value str">'hue'</span> =<span class="ruby-operator">&gt;</span> [],
+        <span class="ruby-value str">'saturation'</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value str">'Saturation'</span>, <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">100</span>, <span class="ruby-value str">'%'</span>],
+        <span class="ruby-value str">'lightness'</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value str">'Lightness'</span>, <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">100</span>, <span class="ruby-value str">'%'</span>],
+        <span class="ruby-value str">'alpha'</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value str">'Alpha channel'</span>, <span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">1</span>]
+      ) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">name</span>, (<span class="ruby-identifier">desc</span>, <span class="ruby-identifier">range</span>, <span class="ruby-identifier">unit</span>)<span class="ruby-operator">|</span>
+        <span class="ruby-identifier">val</span> = <span class="ruby-identifier">kwargs</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">name</span>)
+        <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">val</span>
+        <span class="ruby-identifier">assert_type</span> <span class="ruby-identifier">val</span>, <span class="ruby-identifier">:Number</span>, <span class="ruby-identifier">name</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">range</span>
+          <span class="ruby-identifier">val</span> = <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">check_range</span>(<span class="ruby-identifier">desc</span>, <span class="ruby-identifier">range</span>, <span class="ruby-identifier">val</span>, <span class="ruby-identifier">unit</span>)
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">val</span> = <span class="ruby-identifier">val</span>.<span class="ruby-identifier">value</span>
+        <span class="ruby-keyword kw">end</span>
+
+        [<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-identifier">val</span>]
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">kwargs</span>.<span class="ruby-identifier">empty?</span>
+        <span class="ruby-identifier">name</span>, <span class="ruby-identifier">val</span> = <span class="ruby-identifier">kwargs</span>.<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">first</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Unknown argument $#{name} (#{val})&quot;</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">color</span>.<span class="ruby-identifier">with</span>(<span class="ruby-identifier">with</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

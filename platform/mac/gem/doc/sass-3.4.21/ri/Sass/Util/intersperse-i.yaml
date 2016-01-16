@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Intersperses a value in an enumerable, as would be done with `Array#join` but without concatenating the array together afterwards.
+- !ruby/struct:SM::Flow::P 
+  body: "@param enum [Enumerable] @param val @return [Array]"
+full_name: Sass::Util#intersperse
+is_singleton: false
+name: intersperse
+params: (enum, val)
+visibility: public

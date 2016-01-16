@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Modifies exception backtraces to include the imported file.
+full_name: Sass::Tree::Visitors::Cssize#visit_import
+is_singleton: false
+name: visit_import
+params: (node)
+visibility: protected

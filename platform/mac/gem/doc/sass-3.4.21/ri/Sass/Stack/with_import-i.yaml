@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: ""
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Pushes an import frame onto the stack.
+- !ruby/struct:SM::Flow::P 
+  body: "@param filename [String] See \\{Frame#filename}. @param line [String] See \\{Frame#line}. @yield [] A block in which the new frame is on the stack."
+full_name: Sass::Stack#with_import
+is_singleton: false
+name: with_import
+params: (filename, line) {|| ...}
+visibility: public

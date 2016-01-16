@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Sass::CacheStores::Null#was_set?
+is_singleton: false
+name: was_set?
+params: (key)
+visibility: public

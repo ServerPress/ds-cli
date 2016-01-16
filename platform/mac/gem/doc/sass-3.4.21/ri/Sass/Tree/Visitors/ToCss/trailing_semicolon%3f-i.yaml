@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Sass::Tree::Visitors::ToCss#trailing_semicolon?
+is_singleton: false
+name: trailing_semicolon?
+params: ()
+visibility: protected

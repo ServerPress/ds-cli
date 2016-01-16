@@ -1,0 +1,22 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Creates a new Engine. Note that Engine should only be used directly when compiling in-memory Sass code. If you're compiling a single Sass file from the filesystem, use \{Sass::Engine.for_file}. If you're compiling multiple files from the filesystem, use {Sass::Plugin}.
+- !ruby/struct:SM::Flow::P 
+  body: "@param template [String] The Sass template."
+- !ruby/struct:SM::Flow::VERB 
+  body: "  This template can be encoded using any encoding\n  that can be converted to Unicode.\n  If the template contains an `@charset` declaration,\n  that overrides the Ruby encoding\n  (see {file:SASS_REFERENCE.md#encodings the encoding documentation})\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@param options [{Symbol =&gt; Object}] An options hash."
+- !ruby/struct:SM::Flow::VERB 
+  body: "  See {file:SASS_REFERENCE.md#sass_options the Sass options documentation}.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@see {Sass::Engine.for_file} @see {Sass::Plugin}"
+full_name: Sass::Engine::new
+is_singleton: true
+name: new
+params: (template, options = {})
+visibility: public

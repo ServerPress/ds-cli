@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Construct a Sass Boolean.
+- !ruby/struct:SM::Flow::P 
+  body: "@param value [Object] A ruby object that will be tested for truthiness. @return [Sass::Script::Value::Bool] whether the ruby value is truthy."
+full_name: Sass::Script::Value::Helpers#bool
+is_singleton: false
+name: bool
+params: (value)
+visibility: public

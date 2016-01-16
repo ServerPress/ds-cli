@@ -1,0 +1,32 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Declare a Sass signature for a Ruby-defined function. This includes the names of the arguments, whether the function takes a variable number of arguments, and whether the function takes an arbitrary set of keyword arguments.
+- !ruby/struct:SM::Flow::P 
+  body: It's not necessary to declare a signature for a function. However, without a signature it won't support keyword arguments.
+- !ruby/struct:SM::Flow::P 
+  body: A single function can have multiple signatures declared as long as each one takes a different number of arguments. It's also possible to declare multiple signatures that all take the same number of arguments, but none of them but the first will be used unless the user uses keyword arguments.
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  declare :rgba, [:hex, :alpha]\n  declare :rgba, [:red, :green, :blue, :alpha]\n  declare :accepts_anything, [], :var_args =&gt; true, :var_kwargs =&gt; true\n  declare :some_func, [:foo, :bar, :baz], :var_kwargs =&gt; true\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@param method_name [Symbol] The name of the method"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  whose signature is being declared.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@param args [Array&lt;Symbol&gt;] The names of the arguments for the function signature. @option options :var_args [Boolean] (false)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  Whether the function accepts a variable number of (unnamed) arguments\n  in addition to the named arguments.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@option options :var_kwargs [Boolean] (false)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  Whether the function accepts other keyword arguments\n  in addition to those in `:args`.\n  If this is true, the Ruby function will be passed a hash from strings\n  to {Value}s as the last argument.\n  In addition, if this is true and `:var_args` is not,\n  Sass will ensure that the last argument passed is a hash.\n"
+full_name: Sass::Script::Functions::declare
+is_singleton: true
+name: declare
+params: (method_name, args, options = {})
+visibility: public

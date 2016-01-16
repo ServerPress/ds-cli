@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: True if \{#to_s} will return `nil`; that is, if the node shouldn't be rendered. Should only be called in a static tree.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Boolean]"
+full_name: Sass::Tree::Node#invisible?
+is_singleton: false
+name: invisible?
+params: ()
+visibility: public

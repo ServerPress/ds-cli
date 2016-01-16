@@ -1,0 +1,213 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: []
+
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A module containing various useful functions. @comment
+- !ruby/struct:SM::Flow::VERB 
+  body: "  rubocop:disable ModuleLength\n"
+constants: 
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: An array of ints representing the Ruby version number. @api public
+  name: RUBY_VERSION_COMPONENTS
+  value: RUBY_VERSION.split(".").map {|s| s.to_i}
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The Ruby engine we're running under. Defaults to `&quot;ruby&quot;` if the top-level constant is undefined. @api public
+  name: RUBY_ENGINE
+  value: "defined?(::RUBY_ENGINE) ? ::RUBY_ENGINE : \"ruby\""
+- !ruby/object:RI::Constant 
+  comment: 
+  name: CHARSET_REGEXP
+  value: /\A@charset "([^"]+)"/
+- !ruby/object:RI::Constant 
+  comment: 
+  name: UTF_8_BOM
+  value: "\"\\xEF\\xBB\\xBF\".force_encoding('BINARY')"
+- !ruby/object:RI::Constant 
+  comment: 
+  name: UTF_16BE_BOM
+  value: "\"\\xFE\\xFF\".force_encoding('BINARY')"
+- !ruby/object:RI::Constant 
+  comment: 
+  name: UTF_16LE_BOM
+  value: "\"\\xFF\\xFE\".force_encoding('BINARY')"
+- !ruby/object:RI::Constant 
+  comment: 
+  name: VLQ_BASE_SHIFT
+  value: "5"
+- !ruby/object:RI::Constant 
+  comment: 
+  name: VLQ_BASE
+  value: 1 << VLQ_BASE_SHIFT
+- !ruby/object:RI::Constant 
+  comment: 
+  name: VLQ_BASE_MASK
+  value: VLQ_BASE - 1
+- !ruby/object:RI::Constant 
+  comment: 
+  name: VLQ_CONTINUATION_BIT
+  value: VLQ_BASE
+- !ruby/object:RI::Constant 
+  comment: 
+  name: BASE64_DIGITS
+  value: ('A'..'Z').to_a + ('a'..'z').to_a + ('0'..'9').to_a + ['+', '/']
+- !ruby/object:RI::Constant 
+  comment: 
+  name: BASE64_DIGIT_MAP
+  value: begin       map = {}
+full_name: Sass::Util
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: abstract
+- !ruby/object:RI::MethodSummary 
+  name: ap_geq?
+- !ruby/object:RI::MethodSummary 
+  name: ap_geq_3?
+- !ruby/object:RI::MethodSummary 
+  name: array_minus
+- !ruby/object:RI::MethodSummary 
+  name: av_template_class
+- !ruby/object:RI::MethodSummary 
+  name: caller_info
+- !ruby/object:RI::MethodSummary 
+  name: check_range
+- !ruby/object:RI::MethodSummary 
+  name: check_sass_encoding
+- !ruby/object:RI::MethodSummary 
+  name: cleanpath
+- !ruby/object:RI::MethodSummary 
+  name: deprecated
+- !ruby/object:RI::MethodSummary 
+  name: destructure
+- !ruby/object:RI::MethodSummary 
+  name: enum_cons
+- !ruby/object:RI::MethodSummary 
+  name: enum_slice
+- !ruby/object:RI::MethodSummary 
+  name: enum_with_index
+- !ruby/object:RI::MethodSummary 
+  name: extract!
+- !ruby/object:RI::MethodSummary 
+  name: extract_values
+- !ruby/object:RI::MethodSummary 
+  name: file_uri_from_path
+- !ruby/object:RI::MethodSummary 
+  name: flatten_vertically
+- !ruby/object:RI::MethodSummary 
+  name: glob
+- !ruby/object:RI::MethodSummary 
+  name: group_by_to_a
+- !ruby/object:RI::MethodSummary 
+  name: has?
+- !ruby/object:RI::MethodSummary 
+  name: hash_to_a
+- !ruby/object:RI::MethodSummary 
+  name: inject_values
+- !ruby/object:RI::MethodSummary 
+  name: inspect_obj
+- !ruby/object:RI::MethodSummary 
+  name: intersperse
+- !ruby/object:RI::MethodSummary 
+  name: ironruby?
+- !ruby/object:RI::MethodSummary 
+  name: jruby1_6?
+- !ruby/object:RI::MethodSummary 
+  name: jruby?
+- !ruby/object:RI::MethodSummary 
+  name: jruby_version
+- !ruby/object:RI::MethodSummary 
+  name: json_escape_string
+- !ruby/object:RI::MethodSummary 
+  name: json_value_of
+- !ruby/object:RI::MethodSummary 
+  name: lcs
+- !ruby/object:RI::MethodSummary 
+  name: listen_geq_2?
+- !ruby/object:RI::MethodSummary 
+  name: macruby?
+- !ruby/object:RI::MethodSummary 
+  name: map_hash
+- !ruby/object:RI::MethodSummary 
+  name: map_keys
+- !ruby/object:RI::MethodSummary 
+  name: map_vals
+- !ruby/object:RI::MethodSummary 
+  name: max
+- !ruby/object:RI::MethodSummary 
+  name: merge_adjacent_strings
+- !ruby/object:RI::MethodSummary 
+  name: min
+- !ruby/object:RI::MethodSummary 
+  name: ord
+- !ruby/object:RI::MethodSummary 
+  name: ordered_hash
+- !ruby/object:RI::MethodSummary 
+  name: pathname
+- !ruby/object:RI::MethodSummary 
+  name: paths
+- !ruby/object:RI::MethodSummary 
+  name: powerset
+- !ruby/object:RI::MethodSummary 
+  name: rails_env
+- !ruby/object:RI::MethodSummary 
+  name: rails_root
+- !ruby/object:RI::MethodSummary 
+  name: rbx?
+- !ruby/object:RI::MethodSummary 
+  name: realpath
+- !ruby/object:RI::MethodSummary 
+  name: relative_path_from
+- !ruby/object:RI::MethodSummary 
+  name: replace_subseq
+- !ruby/object:RI::MethodSummary 
+  name: restrict
+- !ruby/object:RI::MethodSummary 
+  name: retry_on_windows
+- !ruby/object:RI::MethodSummary 
+  name: round
+- !ruby/object:RI::MethodSummary 
+  name: ruby1?
+- !ruby/object:RI::MethodSummary 
+  name: ruby1_8?
+- !ruby/object:RI::MethodSummary 
+  name: ruby1_9_2?
+- !ruby/object:RI::MethodSummary 
+  name: sass_warn
+- !ruby/object:RI::MethodSummary 
+  name: scope
+- !ruby/object:RI::MethodSummary 
+  name: silence_sass_warnings
+- !ruby/object:RI::MethodSummary 
+  name: silence_warnings
+- !ruby/object:RI::MethodSummary 
+  name: slice_by
+- !ruby/object:RI::MethodSummary 
+  name: sourcemap_name
+- !ruby/object:RI::MethodSummary 
+  name: strip_string_array
+- !ruby/object:RI::MethodSummary 
+  name: subsequence?
+- !ruby/object:RI::MethodSummary 
+  name: substitute
+- !ruby/object:RI::MethodSummary 
+  name: to_hash
+- !ruby/object:RI::MethodSummary 
+  name: undefined_conversion_error_char
+- !ruby/object:RI::MethodSummary 
+  name: version_geq
+- !ruby/object:RI::MethodSummary 
+  name: version_gt
+- !ruby/object:RI::MethodSummary 
+  name: windows?
+- !ruby/object:RI::MethodSummary 
+  name: with_extracted_values
+name: Util
+superclass: 

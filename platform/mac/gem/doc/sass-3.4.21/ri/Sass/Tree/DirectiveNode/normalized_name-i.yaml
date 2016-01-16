@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Strips out any vendor prefixes and downcases the directive name. @return [String] The normalized name of the directive.
+full_name: Sass::Tree::DirectiveNode#normalized_name
+is_singleton: false
+name: normalized_name
+params: ()
+visibility: public

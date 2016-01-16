@@ -1,0 +1,106 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  name: logger
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: "@private"
+  name: tests_running
+  rw: RW
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: compile
+- !ruby/object:RI::MethodSummary 
+  name: compile_file
+- !ruby/object:RI::MethodSummary 
+  name: load_paths
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "The module that contains everything Sass-related:"
+- !ruby/object:SM::Flow::LIST 
+  contents: 
+  - !ruby/struct:SM::Flow::LI 
+    label: "*"
+    body: "{Sass::Engine} is the class used to render Sass/SCSS within Ruby code."
+  - !ruby/struct:SM::Flow::LI 
+    label: "*"
+    body: "{Sass::Plugin} is interfaces with web frameworks (Rails and Merb in particular)."
+  - !ruby/struct:SM::Flow::LI 
+    label: "*"
+    body: "{Sass::SyntaxError} is raised when Sass encounters an error."
+  - !ruby/struct:SM::Flow::LI 
+    label: "*"
+    body: "{Sass::CSS} handles conversion of CSS to Sass."
+  type: :BULLET
+- !ruby/struct:SM::Flow::P 
+  body: Also see the {file:SASS_REFERENCE.md full Sass reference}.
+constants: 
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: A Sass mixin or function.
+  - !ruby/struct:SM::Flow::P 
+    body: "`name`: `String` : The name of the mixin/function."
+  - !ruby/struct:SM::Flow::P 
+    body: "`args`: `Array&lt;(Script::Tree::Node, Script::Tree::Node)&gt;` : The arguments for the mixin/function."
+  - !ruby/struct:SM::Flow::VERB 
+    body: "  Each element is a tuple containing the variable node of the argument\n  and the parse tree for the default value of the argument.\n"
+  - !ruby/struct:SM::Flow::P 
+    body: "`splat`: `Script::Tree::Node?` : The variable node of the splat argument for this callable, or null."
+  - !ruby/struct:SM::Flow::P 
+    body: "`environment`: {Sass::Environment} : The environment in which the mixin/function was defined."
+  - !ruby/struct:SM::Flow::VERB 
+    body: "  This is captured so that the mixin/function can have access\n  to local variables defined in its scope.\n"
+  - !ruby/struct:SM::Flow::P 
+    body: "`tree`: `Array&lt;Tree::Node&gt;` : The parse tree for the mixin/function."
+  - !ruby/struct:SM::Flow::P 
+    body: "`has_content`: `Boolean` : Whether the callable accepts a content block."
+  - !ruby/struct:SM::Flow::P 
+    body: "`type`: `String` : The user-friendly name of the type of the callable."
+  name: Callable
+  value: Struct.new(:name, :args, :splat, :environment, :tree, :has_content, :type)
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The root directory of the Sass source tree. This may be overridden by the package manager if the lib directory is separated from the main source tree. @api public
+  name: ROOT_DIR
+  value: File.expand_path(File.join(__FILE__, "../../.."))
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: This is a hack around the fact that you can't instantiate a URI parser on 1.8, so we have to have this hacky stuff to work around it. When 1.8 support is dropped, we can remove this method.
+  - !ruby/struct:SM::Flow::P 
+    body: "@private"
+  name: URI_ESCAPE
+  value: "URI.const_defined?(\"DEFAULT_PARSER\") ? URI::DEFAULT_PARSER : URI"
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: "@private"
+  name: ATOMIC_WRITE_MUTEX
+  value: Mutex.new
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: A string representing the version of Sass. A more fine-grained representation is available from Sass.version. @api public
+  name: VERSION
+  value: version[:string] unless defined?(Sass::VERSION)
+full_name: Sass
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: absolute_path
+- !ruby/object:RI::MethodSummary 
+  name: atomic_create_and_write_file
+- !ruby/object:RI::MethodSummary 
+  name: encode_vlq
+- !ruby/object:RI::MethodSummary 
+  name: escape_uri
+- !ruby/object:RI::MethodSummary 
+  name: load_listen!
+name: Sass
+superclass: 

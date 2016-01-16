@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Runs the visitor on a tree.
+- !ruby/struct:SM::Flow::P 
+  body: "@param root [Tree::Node] The root node of the Sass tree. @return [Object] The return value of \\{#visit} for the root node."
+full_name: Sass::Tree::Visitors::Base::visit
+is_singleton: true
+name: visit
+params: (root)
+visibility: public

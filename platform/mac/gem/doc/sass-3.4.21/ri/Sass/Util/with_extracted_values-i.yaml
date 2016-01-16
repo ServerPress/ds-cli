@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: str
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Allows modifications to be performed on the string form of an array containing both strings and non-strings.
+- !ruby/struct:SM::Flow::P 
+  body: "@param arr [Array] The array from which values are extracted. @yield [str] A block in which string manipulation can be done to the array. @yieldparam str [String] The string form of `arr`. @yieldreturn [String] The modified string. @return [Array] The modified, interpolated array."
+full_name: Sass::Util#with_extracted_values
+is_singleton: false
+name: with_extracted_values
+params: (arr) {|str| ...}
+visibility: public

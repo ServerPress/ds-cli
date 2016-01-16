@@ -1,0 +1,20 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns all values associated with subsets of `set`.
+- !ruby/struct:SM::Flow::P 
+  body: In the worst case, this runs in `O(m*max(n, log m))` time, where `n` is the size of `set` and `m` is the number of associations in the map. However, unless many keys in the map overlap with `set`, `m` will typically be much smaller.
+- !ruby/struct:SM::Flow::P 
+  body: "@param set [Set] The set to use as the map key. @return [Array&lt;(Object, #to_set)&gt;] An array of pairs,"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  where the first value is the value associated with a subset of `set`,\n  and the second value is that subset of `set`\n  (or whatever `#to_set` object was used to set the value)\n  This array is in insertion order.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@see #[]"
+full_name: Sass::Util::SubsetMap#get
+is_singleton: false
+name: get
+params: (set)
+visibility: public

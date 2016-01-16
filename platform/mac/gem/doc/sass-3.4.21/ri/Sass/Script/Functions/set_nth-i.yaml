@@ -1,0 +1,28 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Return a new list, based on the list provided, but with the nth element changed to the value given.
+- !ruby/struct:SM::Flow::P 
+  body: Note that unlike some languages, the first item in a Sass list is number 1, the second number 2, and so forth.
+- !ruby/struct:SM::Flow::P 
+  body: Negative index values address elements in reverse order, starting with the last element in the list.
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  set-nth($list: 10px 20px 30px, $n: 2, $value: -20px) =&gt; 10px -20px 30px\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload set-nth($list, $n, $value)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $list [Sass::Script::Value::Base] The list that will be copied, having the element\n    at index `$n` changed.\n  @param $n [Sass::Script::Value::Number] The index of the item to set.\n    Negative indices count from the end of the list.\n  @param $value [Sass::Script::Value::Base] The new value at index `$n`.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Script::Value::List] @raise [ArgumentError] if `$n` isn't an integer between 1 and the length"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  of `$list`\n"
+full_name: Sass::Script::Functions#set_nth
+is_singleton: false
+name: set_nth
+params: (list, n, value)
+visibility: public

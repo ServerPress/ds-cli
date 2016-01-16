@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Creates a new value.
+- !ruby/struct:SM::Flow::P 
+  body: "@param value [Object] The object for \\{#value}"
+full_name: Sass::Script::Value::Base::new
+is_singleton: true
+name: new
+params: (value = nil)
+visibility: public

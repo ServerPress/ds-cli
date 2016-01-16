@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Helper for \{#dependencies}.
+- !ruby/struct:SM::Flow::P 
+  body: "@private"
+full_name: Sass::Engine#_dependencies
+is_singleton: false
+name: _dependencies
+params: (seen, engines)
+visibility: public

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>deprecated (Sass::Util)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/util.rb, line 484</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">deprecated</span>(<span class="ruby-identifier">obj</span>, <span class="ruby-identifier">message</span> = <span class="ruby-keyword kw">nil</span>)
+      <span class="ruby-identifier">obj_class</span> = <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Class</span>) <span class="ruby-operator">?</span> <span class="ruby-node">&quot;#{obj}.&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{obj.class}#&quot;</span>
+      <span class="ruby-identifier">full_message</span> = <span class="ruby-node">&quot;DEPRECATION WARNING: #{obj_class}#{caller_info[2]} &quot;</span> <span class="ruby-operator">+</span>
+        <span class="ruby-node">&quot;will be removed in a future version of Sass.#{(&quot;\n&quot; + message) if message}&quot;</span>
+      <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">sass_warn</span> <span class="ruby-identifier">full_message</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

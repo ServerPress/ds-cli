@@ -1,0 +1,16 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: run
+comment: 
+constants: []
+
+full_name: Sass::Plugin::MerbBootLoader
+includes: []
+
+instance_methods: []
+
+name: MerbBootLoader
+superclass: Merb::BootLoader

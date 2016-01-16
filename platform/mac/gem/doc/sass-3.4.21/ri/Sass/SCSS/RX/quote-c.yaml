@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Creates a Regexp from a plain text string, escaping all significant characters.
+- !ruby/struct:SM::Flow::P 
+  body: "@param str [String] The text of the regexp @param flags [Fixnum] Flags for the created regular expression @return [Regexp] @private"
+full_name: Sass::SCSS::RX::quote
+is_singleton: true
+name: quote
+params: (str, flags = 0)
+visibility: public

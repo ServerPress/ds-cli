@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Parses an identifier with interpolation. Note that this won't assert that the identifier takes up the entire input string; it's meant to be used with `StringScanner`s as part of other parsers.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Array&lt;String, Sass::Script::Tree::Node&gt;, nil]"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  The interpolated identifier, or nil if none could be parsed\n"
+full_name: Sass::SCSS::Parser#parse_interp_ident
+is_singleton: false
+name: parse_interp_ident
+params: ()
+visibility: public

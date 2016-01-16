@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>with (Sass::Script::Value::Color)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/script/value/color.rb, line 423</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">with</span>(<span class="ruby-identifier">attrs</span>)
+      <span class="ruby-identifier">attrs</span> = <span class="ruby-identifier">attrs</span>.<span class="ruby-identifier">reject</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">_k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">nil?</span>}
+      <span class="ruby-identifier">hsl</span> = <span class="ruby-operator">!</span>([<span class="ruby-identifier">:hue</span>, <span class="ruby-identifier">:saturation</span>, <span class="ruby-identifier">:lightness</span>] <span class="ruby-operator">&amp;</span> <span class="ruby-identifier">attrs</span>.<span class="ruby-identifier">keys</span>).<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">rgb</span> = <span class="ruby-operator">!</span>([<span class="ruby-identifier">:red</span>, <span class="ruby-identifier">:green</span>, <span class="ruby-identifier">:blue</span>] <span class="ruby-operator">&amp;</span> <span class="ruby-identifier">attrs</span>.<span class="ruby-identifier">keys</span>).<span class="ruby-identifier">empty?</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hsl</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">rgb</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;Cannot specify HSL and RGB values for a color at the same time&quot;</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hsl</span>
+        [<span class="ruby-identifier">:hue</span>, <span class="ruby-identifier">:saturation</span>, <span class="ruby-identifier">:lightness</span>].<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span> <span class="ruby-identifier">attrs</span>[<span class="ruby-identifier">k</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">send</span>(<span class="ruby-identifier">k</span>)}
+      <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">rgb</span>
+        [<span class="ruby-identifier">:red</span>, <span class="ruby-identifier">:green</span>, <span class="ruby-identifier">:blue</span>].<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span> <span class="ruby-identifier">attrs</span>[<span class="ruby-identifier">k</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">send</span>(<span class="ruby-identifier">k</span>)}
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-comment cmt"># If we're just changing the alpha channel,</span>
+        <span class="ruby-comment cmt"># keep all the HSL/RGB stuff we've calculated</span>
+        <span class="ruby-identifier">attrs</span> = <span class="ruby-ivar">@attrs</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">attrs</span>)
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">attrs</span>[<span class="ruby-identifier">:alpha</span>] <span class="ruby-operator">||=</span> <span class="ruby-identifier">alpha</span>
+
+      <span class="ruby-constant">Color</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">attrs</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">:allow_both_rgb_and_hsl</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

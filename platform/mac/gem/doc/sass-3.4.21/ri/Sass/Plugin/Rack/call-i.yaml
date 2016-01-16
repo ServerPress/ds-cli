@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Process a request, checking the Sass stylesheets for changes and updating them if necessary.
+- !ruby/struct:SM::Flow::P 
+  body: "@param env The Rack request environment @return [(#to_i, {String =&gt; String}, Object)] The Rack response"
+full_name: Sass::Plugin::Rack#call
+is_singleton: false
+name: call
+params: (env)
+visibility: public

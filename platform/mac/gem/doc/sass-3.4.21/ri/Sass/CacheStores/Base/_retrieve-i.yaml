@@ -1,0 +1,24 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Retrieved cached contents. Must be implemented by all subclasses.
+- !ruby/struct:SM::Flow::P 
+  body: "Note: if the key exists but the sha or version have changed, then the key may be deleted by the cache store, if it wants to do so."
+- !ruby/struct:SM::Flow::P 
+  body: "@param key [String] The key to retrieve @param version [String] The current sass version."
+- !ruby/struct:SM::Flow::VERB 
+  body: "               Cached contents must not be retrieved across different versions of sass.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@param sha [String] The sha of the sass source."
+- !ruby/struct:SM::Flow::VERB 
+  body: "               Cached contents must not be retrieved if the sha has changed.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [String] The contents that were previously stored. @return [NilClass] when the cache key is not found or the version or sha have changed."
+full_name: Sass::CacheStores::Base#_retrieve
+is_singleton: false
+name: _retrieve
+params: (key, version, sha)
+visibility: public

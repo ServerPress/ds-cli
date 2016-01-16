@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@see Base#store"
+full_name: Sass::CacheStores::Chain#store
+is_singleton: false
+name: store
+params: (key, sha, obj)
+visibility: public

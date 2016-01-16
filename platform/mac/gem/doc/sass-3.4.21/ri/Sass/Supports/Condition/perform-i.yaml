@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Runs the SassScript in the supports condition.
+- !ruby/struct:SM::Flow::P 
+  body: "@param environment [Sass::Environment] The environment in which to run the script."
+full_name: Sass::Supports::Condition#perform
+is_singleton: false
+name: perform
+params: (environment)
+visibility: public

@@ -1,0 +1,46 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The array of {SimpleSequence simple selector sequences}, operators, and newlines. The operators are strings such as `&quot;+&quot;` and `&quot;&gt;&quot;` representing the corresponding CSS operators, or interpolated SassScript. Newlines are also newline strings; these aren't semantically relevant, but they do affect formatting.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Array&lt;SimpleSequence, String|Array&lt;Sass::Tree::Node, String&gt;&gt;]"
+  name: members
+  rw: R
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: An operator-separated sequence of {SimpleSequence simple selector sequences}.
+constants: []
+
+full_name: Sass::Selector::Sequence
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: add_sources!
+- !ruby/object:RI::MethodSummary 
+  name: contains_parent_ref?
+- !ruby/object:RI::MethodSummary 
+  name: do_extend
+- !ruby/object:RI::MethodSummary 
+  name: filename=
+- !ruby/object:RI::MethodSummary 
+  name: inspect
+- !ruby/object:RI::MethodSummary 
+  name: line=
+- !ruby/object:RI::MethodSummary 
+  name: resolve_parent_refs
+- !ruby/object:RI::MethodSummary 
+  name: subjectless
+- !ruby/object:RI::MethodSummary 
+  name: superselector?
+- !ruby/object:RI::MethodSummary 
+  name: to_s
+- !ruby/object:RI::MethodSummary 
+  name: unify
+name: Sequence
+superclass: AbstractSequence

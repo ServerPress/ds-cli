@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A hash that will be associated with this rule in the CSS document if the {file:SASS_REFERENCE.md#debug_info-option `:debug_info` option} is enabled. This data is used by e.g. [the FireSass Firebug extension](https://addons.mozilla.org/en-US/firefox/addon/103988).
+- !ruby/struct:SM::Flow::P 
+  body: "@return [{#to_s =&gt; #to_s}]"
+full_name: Sass::Tree::RuleNode#debug_info
+is_singleton: false
+name: debug_info
+params: ()
+visibility: public

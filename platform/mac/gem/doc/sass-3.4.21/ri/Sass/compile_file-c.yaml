@@ -1,0 +1,26 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Compile a file on disk to CSS.
+- !ruby/struct:SM::Flow::P 
+  body: "@raise [Sass::SyntaxError] if there's an error in the document @raise [Encoding::UndefinedConversionError] if the source encoding"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  cannot be converted to UTF-8\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@raise [ArgumentError] if the document uses an unknown encoding with `@charset`"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload compile_file(filename, options = {})"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  Return the compiled CSS rather than writing it to a file.\n\n  @param filename [String] The path to the Sass, SCSS, or CSS file on disk.\n  @param options [{Symbol =&gt; Object}] An options hash;\n    see {file:SASS_REFERENCE.md#sass_options the Sass options documentation}\n  @return [String] The compiled CSS.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload compile_file(filename, css_filename, options = {})"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  Write the compiled CSS to a file.\n\n  @param filename [String] The path to the Sass, SCSS, or CSS file on disk.\n  @param options [{Symbol =&gt; Object}] An options hash;\n    see {file:SASS_REFERENCE.md#sass_options the Sass options documentation}\n  @param css_filename [String] The location to which to write the compiled CSS.\n"
+full_name: Sass::compile_file
+is_singleton: true
+name: compile_file
+params: (filename, *args)
+visibility: public

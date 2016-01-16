@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>watch (Sass::Plugin::Compiler)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/plugin/compiler.rb, line 291</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">watch</span>(<span class="ruby-identifier">individual_files</span> = [], <span class="ruby-identifier">options</span> = {})
+      <span class="ruby-identifier">options</span>, <span class="ruby-identifier">individual_files</span> = <span class="ruby-identifier">individual_files</span>, [] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">individual_files</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+      <span class="ruby-identifier">update_stylesheets</span>(<span class="ruby-identifier">individual_files</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:skip_initial_update</span>]
+
+      <span class="ruby-identifier">directories</span> = <span class="ruby-identifier">watched_paths</span>
+      <span class="ruby-identifier">individual_files</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span>(<span class="ruby-identifier">source</span>, <span class="ruby-identifier">_</span>, <span class="ruby-identifier">_</span>)<span class="ruby-operator">|</span>
+        <span class="ruby-identifier">source</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-identifier">source</span>)
+        <span class="ruby-ivar">@watched_files</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">realpath</span>(<span class="ruby-identifier">source</span>).<span class="ruby-identifier">to_s</span>
+        <span class="ruby-identifier">directories</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">source</span>)
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">directories</span> = <span class="ruby-identifier">remove_redundant_directories</span>(<span class="ruby-identifier">directories</span>)
+
+      <span class="ruby-comment cmt"># A Listen version prior to 2.0 will write a test file to a directory to</span>
+      <span class="ruby-comment cmt"># see if a watcher supports watching that directory. That breaks horribly</span>
+      <span class="ruby-comment cmt"># on read-only directories, so we filter those out.</span>
+      <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">listen_geq_2?</span>
+        <span class="ruby-identifier">directories</span> = <span class="ruby-identifier">directories</span>.<span class="ruby-identifier">select</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">d</span><span class="ruby-operator">|</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">d</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">writable?</span>(<span class="ruby-identifier">d</span>)}
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-comment cmt"># TODO: Keep better track of what depends on what</span>
+      <span class="ruby-comment cmt"># so we don't have to run a global update every time anything changes.</span>
+      <span class="ruby-comment cmt"># XXX The :additional_watch_paths option exists for Compass to use until</span>
+      <span class="ruby-comment cmt"># a deprecated feature is removed. It may be removed without warning.</span>
+      <span class="ruby-identifier">listener_args</span> = <span class="ruby-identifier">directories</span> <span class="ruby-operator">+</span>
+                      <span class="ruby-constant">Array</span>(<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:additional_watch_paths</span>]) <span class="ruby-operator">+</span>
+                      [{<span class="ruby-identifier">:relative_paths</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>}]
+
+      <span class="ruby-comment cmt"># The native windows listener is much slower than the polling option, according to</span>
+      <span class="ruby-comment cmt"># https://github.com/nex3/sass/commit/a3031856b22bc834a5417dedecb038b7be9b9e3e</span>
+      <span class="ruby-identifier">poll</span> = <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:poll</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">windows?</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">poll</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">listen_geq_2?</span>
+        <span class="ruby-comment cmt"># In Listen 2.0.0 and on, :force_polling is an option. In earlier</span>
+        <span class="ruby-comment cmt"># versions, it's a method on the listener (called below).</span>
+        <span class="ruby-identifier">listener_args</span>.<span class="ruby-identifier">last</span>[<span class="ruby-identifier">:force_polling</span>] = <span class="ruby-keyword kw">true</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">listener</span> = <span class="ruby-identifier">create_listener</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">listener_args</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">modified</span>, <span class="ruby-identifier">added</span>, <span class="ruby-identifier">removed</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">on_file_changed</span>(<span class="ruby-identifier">individual_files</span>, <span class="ruby-identifier">modified</span>, <span class="ruby-identifier">added</span>, <span class="ruby-identifier">removed</span>)
+        <span class="ruby-keyword kw">yield</span>(<span class="ruby-identifier">modified</span>, <span class="ruby-identifier">added</span>, <span class="ruby-identifier">removed</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">poll</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">listen_geq_2?</span>
+        <span class="ruby-comment cmt"># In Listen 2.0.0 and on, :force_polling is an option (set above). In</span>
+        <span class="ruby-comment cmt"># earlier versions, it's a method on the listener.</span>
+        <span class="ruby-identifier">listener</span>.<span class="ruby-identifier">force_polling</span>(<span class="ruby-keyword kw">true</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">listen_to</span>(<span class="ruby-identifier">listener</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

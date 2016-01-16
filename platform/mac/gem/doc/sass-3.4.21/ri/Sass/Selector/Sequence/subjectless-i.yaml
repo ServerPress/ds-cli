@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Converts the subject operator &quot;!&quot;, if it exists, into a &quot;:has()&quot; selector.
+- !ruby/struct:SM::Flow::P 
+  body: "@retur [Sequence]"
+full_name: Sass::Selector::Sequence#subjectless
+is_singleton: false
+name: subjectless
+params: ()
+visibility: public

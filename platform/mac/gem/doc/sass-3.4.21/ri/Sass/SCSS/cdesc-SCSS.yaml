@@ -1,0 +1,44 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: expected
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: SCSS is the CSS syntax for Sass. It parses into the same syntax tree as Sass, and generates the same sort of output CSS.
+- !ruby/struct:SM::Flow::P 
+  body: This module contains code for the parsing of SCSS. The evaluation is handled by the broader {Sass} module.
+constants: 
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: Avoid allocating lots of new strings for `#tok`. This is important because `#tok` is called all the time.
+  name: NEWLINE
+  value: "\"\\n\""
+full_name: Sass::SCSS
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: catch_error
+- !ruby/object:RI::MethodSummary 
+  name: deprefix
+- !ruby/object:RI::MethodSummary 
+  name: err
+- !ruby/object:RI::MethodSummary 
+  name: expected
+- !ruby/object:RI::MethodSummary 
+  name: expr!
+- !ruby/object:RI::MethodSummary 
+  name: rethrow
+- !ruby/object:RI::MethodSummary 
+  name: throw_error
+- !ruby/object:RI::MethodSummary 
+  name: tok
+- !ruby/object:RI::MethodSummary 
+  name: tok!
+- !ruby/object:RI::MethodSummary 
+  name: tok?
+name: SCSS
+superclass: 

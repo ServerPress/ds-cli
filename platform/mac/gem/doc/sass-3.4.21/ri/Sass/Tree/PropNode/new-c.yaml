@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@param name [Array&lt;String, Sass::Script::Tree::Node&gt;] See \\{#name} @param value [Sass::Script::Tree::Node] See \\{#value} @param prop_syntax [Symbol] `:new` if this property uses `a: b`-style syntax,"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  `:old` if it uses `:a b`-style syntax\n"
+full_name: Sass::Tree::PropNode::new
+is_singleton: true
+name: new
+params: (name, value, prop_syntax)
+visibility: public

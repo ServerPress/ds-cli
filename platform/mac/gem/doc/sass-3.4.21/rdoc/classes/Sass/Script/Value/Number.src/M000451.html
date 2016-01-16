@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>inspect (Sass::Script::Value::Number)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/script/value/number.rb, line 281</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inspect</span>(<span class="ruby-identifier">opts</span> = {})
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">original</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">original</span>
+
+      <span class="ruby-identifier">value</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">round</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">value</span>)
+      <span class="ruby-identifier">str</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">to_s</span>
+
+      <span class="ruby-comment cmt"># Ruby will occasionally print in scientific notation if the number is</span>
+      <span class="ruby-comment cmt"># small enough. That's technically valid CSS, but it's not well-supported</span>
+      <span class="ruby-comment cmt"># and confusing.</span>
+      <span class="ruby-identifier">str</span> = (<span class="ruby-node">&quot;%0.#{self.class.precision}f&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">value</span>).<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/0*$/</span>, <span class="ruby-value str">''</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">str</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value str">'e'</span>)
+
+      <span class="ruby-comment cmt"># Sometimes numeric formatting will result in a decimal number with a trailing zero (x.0)</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">str</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/(.*)\.0$/</span>
+        <span class="ruby-identifier">str</span> = <span class="ruby-identifier">$1</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-comment cmt"># We omit a leading zero before the decimal point in compressed mode.</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@options</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:style</span>] <span class="ruby-operator">==</span> <span class="ruby-identifier">:compressed</span>
+        <span class="ruby-identifier">str</span>.<span class="ruby-identifier">sub!</span>(<span class="ruby-regexp re">/^(-)?0\./</span>, <span class="ruby-value str">'\1.'</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">unitless?</span> <span class="ruby-value">? </span><span class="ruby-identifier">str</span> <span class="ruby-operator">:</span> <span class="ruby-node">&quot;#{str}#{unit_str}&quot;</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

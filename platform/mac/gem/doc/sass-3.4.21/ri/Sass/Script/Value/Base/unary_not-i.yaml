@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: The SassScript `==` operation. **Note that this returns a {Sass::Script::Value::Bool} object, not a Ruby boolean**.
+- !ruby/struct:SM::Flow::P 
+  body: "@param other [Value] The right-hand side of the operator @return [Sass::Script::Value::Bool] True if this value is the same as the other,"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  false otherwise\n"
+full_name: Sass::Script::Value::Base#unary_not
+is_singleton: false
+name: unary_not
+params: ()
+visibility: public

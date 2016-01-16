@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>catch_error (Sass::SCSS)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/scss/parser.rb, line 1130</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">catch_error</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+        <span class="ruby-identifier">old_throw_error</span>, <span class="ruby-ivar">@throw_error</span> = <span class="ruby-ivar">@throw_error</span>, <span class="ruby-keyword kw">true</span>
+        <span class="ruby-identifier">pos</span> = <span class="ruby-ivar">@scanner</span>.<span class="ruby-identifier">pos</span>
+        <span class="ruby-identifier">line</span> = <span class="ruby-ivar">@line</span>
+        <span class="ruby-identifier">offset</span> = <span class="ruby-ivar">@offset</span>
+        <span class="ruby-identifier">expected</span> = <span class="ruby-ivar">@expected</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">catch</span>(<span class="ruby-identifier">:_sass_parser_error</span>) {<span class="ruby-keyword kw">yield</span>; <span class="ruby-keyword kw">false</span>}
+          <span class="ruby-ivar">@scanner</span>.<span class="ruby-identifier">pos</span> = <span class="ruby-identifier">pos</span>
+          <span class="ruby-ivar">@line</span> = <span class="ruby-identifier">line</span>
+          <span class="ruby-ivar">@offset</span> = <span class="ruby-identifier">offset</span>
+          <span class="ruby-ivar">@expected</span> = <span class="ruby-identifier">expected</span>
+          {<span class="ruby-identifier">:pos</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">pos</span>, <span class="ruby-identifier">:line</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">line</span>, <span class="ruby-identifier">:expected</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@expected</span>, <span class="ruby-identifier">:block</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">block</span>}
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">ensure</span>
+        <span class="ruby-ivar">@throw_error</span> = <span class="ruby-identifier">old_throw_error</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

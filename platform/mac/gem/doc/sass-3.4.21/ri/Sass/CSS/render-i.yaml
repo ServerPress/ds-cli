@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Converts the CSS template into Sass or SCSS code.
+- !ruby/struct:SM::Flow::P 
+  body: "@param fmt [Symbol] `:sass` or `:scss`, designating the format to return. @return [String] The resulting Sass or SCSS code @raise [Sass::SyntaxError] if there's an error parsing the CSS template"
+full_name: Sass::CSS#render
+is_singleton: false
+name: render
+params: (fmt = :sass)
+visibility: public

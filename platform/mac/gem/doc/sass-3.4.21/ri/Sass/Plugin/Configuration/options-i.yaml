@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: An options hash. See {file:SASS_REFERENCE.md#sass_options the Sass options documentation}.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [{Symbol =&gt; Object}]"
+full_name: Sass::Plugin::Configuration#options
+is_singleton: false
+name: options
+params: ()
+visibility: public

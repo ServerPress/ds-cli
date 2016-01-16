@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>css_import? (Sass::Tree::ImportNode)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/tree/import_node.rb, line 34</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">css_import?</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@imported_filename</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\.css$/</span>
+          <span class="ruby-ivar">@imported_filename</span>
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">imported_file</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">imported_file</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/\.css$/</span>
+          <span class="ruby-identifier">imported_file</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

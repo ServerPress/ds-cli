@@ -1,0 +1,18 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns whether or not a given CSS file is out of date and needs to be regenerated.
+- !ruby/struct:SM::Flow::P 
+  body: "@param css_file [String] The location of the CSS file to check. @param template_file [String] The location of the Sass or SCSS template"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  that is compiled to `css_file`.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Boolean] Whether the stylesheet needs to be updated."
+full_name: Sass::Plugin::StalenessChecker#stylesheet_needs_update?
+is_singleton: false
+name: stylesheet_needs_update?
+params: (css_file, template_file, importer = nil)
+visibility: public

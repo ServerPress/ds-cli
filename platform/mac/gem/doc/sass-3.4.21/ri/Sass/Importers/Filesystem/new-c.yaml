@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Creates a new filesystem importer that imports files relative to a given path.
+- !ruby/struct:SM::Flow::P 
+  body: "@param root [String] The root path."
+- !ruby/struct:SM::Flow::VERB 
+  body: "  This importer will import files relative to this path.\n"
+full_name: Sass::Importers::Filesystem::new
+is_singleton: true
+name: new
+params: (root)
+visibility: public

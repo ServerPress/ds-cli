@@ -1,0 +1,22 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns the separator of a list. If the list doesn't have a separator due to having fewer than two elements, returns `space`.
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  list-separator(1px 2px 3px) =&gt; space\n  list-separator(1px, 2px, 3px) =&gt; comma\n  list-separator('foo') =&gt; space\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload list_separator($list)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $list [Sass::Script::Value::Base]\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Script::Value::String] `comma` or `space`"
+full_name: Sass::Script::Functions#list_separator
+is_singleton: false
+name: list_separator
+params: (list)
+visibility: public

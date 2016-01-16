@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: If the importer is based on files on the local filesystem this method should return folders which should be watched for changes.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Array&lt;String&gt;] List of absolute paths of directories to watch"
+full_name: Sass::Importers::Base#directories_to_watch
+is_singleton: false
+name: directories_to_watch
+params: ()
+visibility: public

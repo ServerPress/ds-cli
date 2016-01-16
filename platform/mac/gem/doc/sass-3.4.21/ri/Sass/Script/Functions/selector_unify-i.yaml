@@ -1,0 +1,22 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Unifies two selectors into a single selector that matches only elements matched by both input selectors. Returns `null` if there is no such selector.
+- !ruby/struct:SM::Flow::P 
+  body: Like the selector unification done for `@extend`, this doesn't guarantee that the output selector will match <b>all</b> elements matched by both input selectors. For example, if `.a .b` is unified with `.x .y`, `.a .x .b.y, .x .a .b.y` will be returned, but `.a.x .b.y` will not. This avoids exponential output size while matching all elements that are likely to exist in practice.
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  selector-unify(&quot;.a&quot;, &quot;.b&quot;) =&gt; .a.b\n  selector-unify(&quot;.a .b&quot;, &quot;.x .y&quot;) =&gt; .a .x .b.y, .x .a .b.y\n  selector-unify(&quot;.a.b&quot;, &quot;.b.c&quot;) =&gt; .a.b.c\n  selector-unify(&quot;#a&quot;, &quot;#b&quot;) =&gt; null\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload selector_unify($selector1, $selector2)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $selector1 [Sass::Script::Value::String, Sass::Script::Value::List]\n    The first selector to be unified. This can be either a\n    string, a list of strings, or a list of lists of strings as\n    returned by `&amp;`.\n  @param $selector2 [Sass::Script::Value::String, Sass::Script::Value::List]\n    The second selector to be unified. This can be either a\n    string, a list of strings, or a list of lists of strings as\n    returned by `&amp;`.\n  @return [Sass::Script::Value::List, Sass::Script::Value::Null]\n    A list of lists of strings representing the result of the\n    unification, or null if no unification exists. This is in\n    the same format as a selector returned by `&amp;`.\n"
+full_name: Sass::Script::Functions#selector_unify
+is_singleton: false
+name: selector_unify
+params: (selector1, selector2)
+visibility: public

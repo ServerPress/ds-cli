@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: The line number of the parser's current position.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Fixnum]"
+full_name: Sass::Script::Parser#line
+is_singleton: false
+name: line
+params: ()
+visibility: public

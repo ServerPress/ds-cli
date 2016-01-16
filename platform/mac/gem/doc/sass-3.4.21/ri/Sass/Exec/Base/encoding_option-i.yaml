@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Set an option for specifying `Encoding.default_external`.
+- !ruby/struct:SM::Flow::P 
+  body: "@param opts [OptionParser]"
+full_name: Sass::Exec::Base#encoding_option
+is_singleton: false
+name: encoding_option
+params: (opts)
+visibility: protected

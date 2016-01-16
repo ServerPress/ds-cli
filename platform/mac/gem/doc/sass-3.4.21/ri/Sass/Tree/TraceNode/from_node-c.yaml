@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Initializes this node from an existing node. @param name [String] The name of the trace entry to add. @param node [Node] The node to copy information from. @return [TraceNode]
+full_name: Sass::Tree::TraceNode::from_node
+is_singleton: true
+name: from_node
+params: (name, node)
+visibility: public

@@ -1,0 +1,24 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Makes a color less saturated. Takes a color and a number between 0% and 100%, and returns a color with the saturation decreased by that value.
+- !ruby/struct:SM::Flow::P 
+  body: "@see #saturate @example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  desaturate(hsl(120, 30%, 90%), 20%) =&gt; hsl(120, 10%, 90%)\n  desaturate(#855, 20%) =&gt; #726b6b\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload desaturate($color, $amount)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $color [Sass::Script::Value::Color]\n  @param $amount [Sass::Script::Value::Number] The amount to decrease the\n    saturation by, between `0%` and `100%`\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Script::Value::Color] @raise [ArgumentError] if `$amount` is out of bounds, or either parameter"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  is the wrong type\n"
+full_name: Sass::Script::Functions#desaturate
+is_singleton: false
+name: desaturate
+params: (color, amount)
+visibility: public

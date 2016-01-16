@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Sass::Script::Tree::Node</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Sass::Script::Tree::Node</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../../files/lib/sass/script/tree/node_rb.html">
+                lib/sass/script/tree/node.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+The abstract superclass for SassScript parse tree nodes.
+</p>
+<p>
+Use \{<a href="Node.html#M000522">perform</a>} to evaluate a parse tree.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000528">_perform</a>&nbsp;&nbsp;
+      <a href="#M000523">children</a>&nbsp;&nbsp;
+      <a href="#M000527">dasherize</a>&nbsp;&nbsp;
+      <a href="#M000525">deep_copy</a>&nbsp;&nbsp;
+      <a href="#M000526">force_division!</a>&nbsp;&nbsp;
+      <a href="#M000521">options=</a>&nbsp;&nbsp;
+      <a href="#M000529">opts</a>&nbsp;&nbsp;
+      <a href="#M000522">perform</a>&nbsp;&nbsp;
+      <a href="#M000524">to_sass</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">filename</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+The file name of the document on which this node appeared.
+
+<p>
+@return [String]
+</p>
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">line</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+The line of the document on which this node appeared.
+
+<p>
+@return [Fixnum]
+</p>
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">options</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc">
+The options hash for this node.
+
+<p>
+@return [{Symbol =&gt; Object}]
+</p>
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">source_range</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+The source range in the document on which this node appeared.
+
+<p>
+@return [<a href="../../Source/Range.html">Sass::Source::Range</a>]
+</p>
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000523" class="method-detail">
+        <a name="M000523"></a>
+
+        <div class="method-heading">
+          <a href="Node.src/M000523.html" target="Code" class="method-signature"
+            onclick="popupCode('Node.src/M000523.html');return false;">
+          <span class="method-name">children</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns all child nodes of this node.
+</p>
+<p>
+@return [Array&lt;<a href="Node.html">Node</a>&gt;]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000525" class="method-detail">
+        <a name="M000525"></a>
+
+        <div class="method-heading">
+          <a href="Node.src/M000525.html" target="Code" class="method-signature"
+            onclick="popupCode('Node.src/M000525.html');return false;">
+          <span class="method-name">deep_copy</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a deep clone of this node. The child nodes are cloned, but options
+are not.
+</p>
+<p>
+@return [<a href="Node.html">Node</a>]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000526" class="method-detail">
+        <a name="M000526"></a>
+
+        <div class="method-heading">
+          <a href="Node.src/M000526.html" target="Code" class="method-signature"
+            onclick="popupCode('Node.src/M000526.html');return false;">
+          <span class="method-name">force_division!</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Forces any division operations with number literals in this expression to
+do real division, rather than returning strings.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000521" class="method-detail">
+        <a name="M000521"></a>
+
+        <div class="method-heading">
+          <a href="Node.src/M000521.html" target="Code" class="method-signature"
+            onclick="popupCode('Node.src/M000521.html');return false;">
+          <span class="method-name">options=</span><span class="method-args">(options)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Sets the options hash for this node, as well as for all child nodes. See
+{file:SASS_REFERENCE.md#sass_options the <a
+href="../../../Sass.html">Sass</a> options documentation}.
+</p>
+<p>
+@param options [{Symbol =&gt; Object}] The options
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000522" class="method-detail">
+        <a name="M000522"></a>
+
+        <div class="method-heading">
+          <a href="Node.src/M000522.html" target="Code" class="method-signature"
+            onclick="popupCode('Node.src/M000522.html');return false;">
+          <span class="method-name">perform</span><span class="method-args">(environment)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Evaluates the node.
+</p>
+<p>
+\{<a href="Node.html#M000522">perform</a>} shouldn&#8216;t be overridden
+directly; instead, override \{_<a href="Node.html#M000522">perform</a>}.
+</p>
+<p>
+@param environment [<a href="../../Environment.html">Sass::Environment</a>]
+The environment in which to evaluate the SassScript @return [<a
+href="../Value.html">Sass::Script::Value</a>] The SassScript object that is
+the value of the SassScript
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000524" class="method-detail">
+        <a name="M000524"></a>
+
+        <div class="method-heading">
+          <a href="Node.src/M000524.html" target="Code" class="method-signature"
+            onclick="popupCode('Node.src/M000524.html');return false;">
+          <span class="method-name">to_sass</span><span class="method-args">(opts = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the text of this SassScript expression.
+</p>
+<p>
+@options <a href="Node.html#M000529">opts</a> :quote [String]
+</p>
+<pre>
+  The preferred quote style for quoted strings. If `:none`, strings are
+  always emitted unquoted.
+</pre>
+<p>
+@return [String]
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Protected Instance methods</h3>
+
+      <div id="method-M000528" class="method-detail">
+        <a name="M000528"></a>
+
+        <div class="method-heading">
+          <a href="Node.src/M000528.html" target="Code" class="method-signature"
+            onclick="popupCode('Node.src/M000528.html');return false;">
+          <span class="method-name">_perform</span><span class="method-args">(environment)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Evaluates this node. Note that all {<a
+href="../Value.html">Sass::Script::Value</a>} objects created within this
+method should have their \{options} attribute set, probably via \{<a
+href="Node.html#M000529">opts</a>}.
+</p>
+<p>
+@param environment [<a href="../../Environment.html">Sass::Environment</a>]
+The environment in which to evaluate the SassScript @return [<a
+href="../Value.html">Sass::Script::Value</a>] The SassScript object that is
+the value of the SassScript @see <a href="Node.html#M000522">perform</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000527" class="method-detail">
+        <a name="M000527"></a>
+
+        <div class="method-heading">
+          <a href="Node.src/M000527.html" target="Code" class="method-signature"
+            onclick="popupCode('Node.src/M000527.html');return false;">
+          <span class="method-name">dasherize</span><span class="method-args">(s, opts)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Converts underscores to dashes if the :<a
+href="Node.html#M000527">dasherize</a> option is set.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000529" class="method-detail">
+        <a name="M000529"></a>
+
+        <div class="method-heading">
+          <a href="Node.src/M000529.html" target="Code" class="method-signature"
+            onclick="popupCode('Node.src/M000529.html');return false;">
+          <span class="method-name">opts</span><span class="method-args">(value)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Sets the \{options} field on the given value and returns it.
+</p>
+<p>
+@param value [<a href="../Value.html">Sass::Script::Value</a>] @return [<a
+href="../Value.html">Sass::Script::Value</a>]
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

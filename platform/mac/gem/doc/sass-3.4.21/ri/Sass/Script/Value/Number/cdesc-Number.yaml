@@ -1,0 +1,127 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: A list of units in the denominator of the number. For example, `1px*em/in*cm` would return `[&quot;in&quot;, &quot;cm&quot;]` @return [Array&lt;String&gt;]
+  name: denominator_units
+  rw: R
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: A list of units in the numerator of the number. For example, `1px*em/in*cm` would return `[&quot;px&quot;, &quot;em&quot;]` @return [Array&lt;String&gt;]
+  name: numerator_units
+  rw: R
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The original representation of this number. For example, although the result of `1px/2px` is `0.5`, the value of `#original` is `&quot;1px/2px&quot;`.
+  - !ruby/struct:SM::Flow::P 
+    body: "This is only non-nil when the original value should be used as the CSS value, as in `font: 1px/2px`."
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Boolean, nil]"
+  name: original
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The Ruby value of the number.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Numeric]"
+  name: value
+  rw: R
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: epsilon
+- !ruby/object:RI::MethodSummary 
+  name: new
+- !ruby/object:RI::MethodSummary 
+  name: precision
+- !ruby/object:RI::MethodSummary 
+  name: precision=
+- !ruby/object:RI::MethodSummary 
+  name: precision_factor
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A SassScript object representing a number. SassScript numbers can have decimal values, and can also have units. For example, `12`, `1px`, and `10.45em` are all valid values.
+- !ruby/struct:SM::Flow::P 
+  body: Numbers can also have more complex units, such as `1px*em/in`. These cannot be inputted directly in Sass code at the moment.
+constants: 
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: Used so we don't allocate two new arrays for each new number.
+  name: NO_UNITS
+  value: "[]"
+- !ruby/object:RI::Constant 
+  comment: 
+  name: OPERATIONS
+  value: "[:+, :-, :<=, :<, :>, :>=, :%]"
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: A hash from each known unit to the set of units that it's mutually convertible with.
+  name: MUTUALLY_CONVERTIBLE
+  value: "{}"
+- !ruby/object:RI::Constant 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: A two-dimensional hash from two units to the conversion ratio between them. Multiply `X` by `CONVERSION_TABLE[X][Y]` to convert it to `Y`.
+  name: CONVERSION_TABLE
+  value: "{}"
+full_name: Sass::Script::Value::Number
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: coerce
+- !ruby/object:RI::MethodSummary 
+  name: comparable_to?
+- !ruby/object:RI::MethodSummary 
+  name: div
+- !ruby/object:RI::MethodSummary 
+  name: eq
+- !ruby/object:RI::MethodSummary 
+  name: eql?
+- !ruby/object:RI::MethodSummary 
+  name: gt
+- !ruby/object:RI::MethodSummary 
+  name: gte
+- !ruby/object:RI::MethodSummary 
+  name: hash
+- !ruby/object:RI::MethodSummary 
+  name: inspect
+- !ruby/object:RI::MethodSummary 
+  name: int?
+- !ruby/object:RI::MethodSummary 
+  name: is_unit?
+- !ruby/object:RI::MethodSummary 
+  name: legal_units?
+- !ruby/object:RI::MethodSummary 
+  name: lt
+- !ruby/object:RI::MethodSummary 
+  name: lte
+- !ruby/object:RI::MethodSummary 
+  name: minus
+- !ruby/object:RI::MethodSummary 
+  name: mod
+- !ruby/object:RI::MethodSummary 
+  name: plus
+- !ruby/object:RI::MethodSummary 
+  name: times
+- !ruby/object:RI::MethodSummary 
+  name: to_i
+- !ruby/object:RI::MethodSummary 
+  name: to_s
+- !ruby/object:RI::MethodSummary 
+  name: to_sass
+- !ruby/object:RI::MethodSummary 
+  name: unary_minus
+- !ruby/object:RI::MethodSummary 
+  name: unary_plus
+- !ruby/object:RI::MethodSummary 
+  name: unit_str
+- !ruby/object:RI::MethodSummary 
+  name: unitless?
+name: Number
+superclass: Base

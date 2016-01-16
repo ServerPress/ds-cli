@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns `path` relative to `from`.
+- !ruby/struct:SM::Flow::P 
+  body: This is like `Pathname#relative_path_from` except it accepts both strings and pathnames, it handles Windows path separators correctly, and it throws an error rather than crashing if the paths use different encodings (https://github.com/ruby/ruby/pull/713).
+- !ruby/struct:SM::Flow::P 
+  body: "@param path [String, Pathname] @param from [String, Pathname] @return [Pathname?]"
+full_name: Sass::Util#relative_path_from
+is_singleton: false
+name: relative_path_from
+params: (path, from)
+visibility: public

@@ -1,0 +1,24 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Check whether a variable with the given name exists in the current scope or in the global scope.
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  $a-false-value: false;\n  variable-exists(a-false-value) =&gt; true\n\n  variable-exists(nonexistent) =&gt; false\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload variable_exists($name)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $name [Sass::Script::Value::String] The name of the variable to\n    check. The name should not include the `$`.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Script::Value::Bool] Whether the variable is defined in"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  the current scope.\n"
+full_name: Sass::Script::Functions#variable_exists
+is_singleton: false
+name: variable_exists
+params: (name)
+visibility: public

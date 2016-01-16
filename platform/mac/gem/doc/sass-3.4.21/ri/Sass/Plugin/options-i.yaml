@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: There's a small speedup by not using method missing for frequently delegated methods.
+full_name: Sass::Plugin#options
+is_singleton: false
+name: options
+params: ()
+visibility: public

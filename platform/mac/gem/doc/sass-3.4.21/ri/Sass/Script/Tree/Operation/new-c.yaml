@@ -1,0 +1,22 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@param operand1 [Sass::Script::Tree::Node] The parse-tree node"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  for the right-hand side of the operator\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@param operand2 [Sass::Script::Tree::Node] The parse-tree node"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  for the left-hand side of the operator\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@param operator [Symbol] The operator to perform."
+- !ruby/struct:SM::Flow::VERB 
+  body: "  This should be one of the binary operator names in {Sass::Script::Lexer::OPERATORS}\n"
+full_name: Sass::Script::Tree::Operation::new
+is_singleton: true
+name: new
+params: (operand1, operand2, operator)
+visibility: public

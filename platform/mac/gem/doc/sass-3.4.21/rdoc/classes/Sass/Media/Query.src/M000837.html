@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>merge (Sass::Media::Query)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/media.rb, line 123</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">merge</span>(<span class="ruby-identifier">other</span>)
+      <span class="ruby-identifier">m1</span>, <span class="ruby-identifier">t1</span> = <span class="ruby-identifier">resolved_modifier</span>.<span class="ruby-identifier">downcase</span>, <span class="ruby-identifier">resolved_type</span>.<span class="ruby-identifier">downcase</span>
+      <span class="ruby-identifier">m2</span>, <span class="ruby-identifier">t2</span> = <span class="ruby-identifier">other</span>.<span class="ruby-identifier">resolved_modifier</span>.<span class="ruby-identifier">downcase</span>, <span class="ruby-identifier">other</span>.<span class="ruby-identifier">resolved_type</span>.<span class="ruby-identifier">downcase</span>
+      <span class="ruby-identifier">t1</span> = <span class="ruby-identifier">t2</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">t1</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">t2</span> = <span class="ruby-identifier">t1</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">t2</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">m1</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'not'</span>) <span class="ruby-operator">^</span> (<span class="ruby-identifier">m2</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'not'</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">t1</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">t2</span>
+        <span class="ruby-identifier">type</span> = <span class="ruby-identifier">m1</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'not'</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">t2</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">t1</span>
+        <span class="ruby-identifier">mod</span> = <span class="ruby-identifier">m1</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'not'</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">m2</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">m1</span>
+      <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">m1</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'not'</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">m2</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'not'</span>
+        <span class="ruby-comment cmt"># CSS has no way of representing &quot;neither screen nor print&quot;</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">t1</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">t2</span>
+        <span class="ruby-identifier">type</span> = <span class="ruby-identifier">t1</span>
+        <span class="ruby-identifier">mod</span> = <span class="ruby-value str">'not'</span>
+      <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">t1</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">t2</span>
+        <span class="ruby-keyword kw">return</span>
+      <span class="ruby-keyword kw">else</span> <span class="ruby-comment cmt"># t1 == t2, neither m1 nor m2 are &quot;not&quot;</span>
+        <span class="ruby-identifier">type</span> = <span class="ruby-identifier">t1</span>
+        <span class="ruby-identifier">mod</span> = <span class="ruby-identifier">m1</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-value">? </span><span class="ruby-identifier">m2</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">m1</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-constant">Query</span>.<span class="ruby-identifier">new</span>([<span class="ruby-identifier">mod</span>], [<span class="ruby-identifier">type</span>], <span class="ruby-identifier">other</span>.<span class="ruby-identifier">expressions</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">expressions</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

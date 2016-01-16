@@ -23,6 +23,8 @@ mkdir ~/npm-cache;export npm_config_cache="~/npm-cache"
 mkdir ~/npm;export npm_config_prefix="~/npm"
 npm install -g grunt-cli
 npm install -g gulp
+export GEM_HOME="~/gem";gem install sass
+
 
 
 

@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Sass::Script::Tree::ListLiteral#_perform
+is_singleton: false
+name: _perform
+params: (environment)
+visibility: protected

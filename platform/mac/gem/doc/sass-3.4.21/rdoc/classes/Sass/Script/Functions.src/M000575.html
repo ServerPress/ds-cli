@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>str_slice (Sass::Script::Functions)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/script/functions.rb, line 1556</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">str_slice</span>(<span class="ruby-identifier">string</span>, <span class="ruby-identifier">start_at</span>, <span class="ruby-identifier">end_at</span> = <span class="ruby-keyword kw">nil</span>)
+      <span class="ruby-identifier">assert_type</span> <span class="ruby-identifier">string</span>, <span class="ruby-identifier">:String</span>, <span class="ruby-identifier">:string</span>
+      <span class="ruby-identifier">assert_unit</span> <span class="ruby-identifier">start_at</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-value str">&quot;start-at&quot;</span>
+
+      <span class="ruby-identifier">end_at</span> = <span class="ruby-identifier">number</span>(<span class="ruby-value">-1</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">end_at</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">assert_unit</span> <span class="ruby-identifier">end_at</span>, <span class="ruby-keyword kw">nil</span>, <span class="ruby-value str">&quot;end-at&quot;</span>
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Script</span><span class="ruby-operator">::</span><span class="ruby-constant">Value</span><span class="ruby-operator">::</span><span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;&quot;</span>, <span class="ruby-identifier">string</span>.<span class="ruby-identifier">type</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">end_at</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+      <span class="ruby-identifier">s</span> = <span class="ruby-identifier">start_at</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">start_at</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">start_at</span>.<span class="ruby-identifier">value</span>
+      <span class="ruby-identifier">e</span> = <span class="ruby-identifier">end_at</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">end_at</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">end_at</span>.<span class="ruby-identifier">value</span>
+      <span class="ruby-identifier">s</span> = <span class="ruby-identifier">string</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">s</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">s</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span>
+      <span class="ruby-identifier">s</span> = <span class="ruby-value">0</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">s</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span>
+      <span class="ruby-identifier">e</span> = <span class="ruby-identifier">string</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">e</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span>
+      <span class="ruby-identifier">e</span> = <span class="ruby-value">0</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">s</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span>
+      <span class="ruby-identifier">extracted</span> = <span class="ruby-identifier">string</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">slice</span>(<span class="ruby-identifier">s</span><span class="ruby-operator">..</span><span class="ruby-identifier">e</span>)
+      <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Script</span><span class="ruby-operator">::</span><span class="ruby-constant">Value</span><span class="ruby-operator">::</span><span class="ruby-constant">String</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">extracted</span> <span class="ruby-operator">||</span> <span class="ruby-value str">&quot;&quot;</span>, <span class="ruby-identifier">string</span>.<span class="ruby-identifier">type</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

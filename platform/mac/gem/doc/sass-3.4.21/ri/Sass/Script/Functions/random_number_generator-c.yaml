@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Get Sass's internal random number generator.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Random]"
+full_name: Sass::Script::Functions::random_number_generator
+is_singleton: true
+name: random_number_generator
+params: ()
+visibility: public

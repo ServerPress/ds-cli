@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>visit_prop (Sass::Tree::Visitors::Convert)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/tree/visitors/convert.rb, line 223</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">visit_prop</span>(<span class="ruby-identifier">node</span>)
+    <span class="ruby-identifier">res</span> = <span class="ruby-identifier">tab_str</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">declaration</span>(<span class="ruby-ivar">@options</span>, <span class="ruby-ivar">@format</span>)
+    <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">res</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">semi</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;\n&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">empty?</span>
+    <span class="ruby-identifier">res</span> <span class="ruby-operator">+</span> <span class="ruby-keyword kw">yield</span>.<span class="ruby-identifier">rstrip</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">semi</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;\n&quot;</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,36 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: Sets the imported file.
+  name: imported_file
+  rw: W
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The name of the imported file as it appears in the Sass document.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [String]"
+  name: imported_filename
+  rw: R
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A static node that wraps the {Sass::Tree} for an `@import`ed file. It doesn't have a functional purpose other than to add the `@import`ed file to the backtrace if an error occurs.
+constants: []
+
+full_name: Sass::Tree::ImportNode
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: css_import?
+- !ruby/object:RI::MethodSummary 
+  name: imported_file
+- !ruby/object:RI::MethodSummary 
+  name: invisible?
+name: ImportNode
+superclass: RootNode

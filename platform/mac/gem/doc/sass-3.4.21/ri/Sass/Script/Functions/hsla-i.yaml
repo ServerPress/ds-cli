@@ -1,0 +1,22 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Creates a {Sass::Script::Value::Color Color} from hue, saturation, lightness, and alpha values. Uses the algorithm from the [CSS3 spec][].
+- !ruby/struct:SM::Flow::P 
+  body: "[CSS3 spec]: http://www.w3.org/TR/css3-color/#hsl-color"
+- !ruby/struct:SM::Flow::P 
+  body: "@see #hsl @overload hsla($hue, $saturation, $lightness, $alpha)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $hue [Sass::Script::Value::Number] The hue of the color. Should be\n    between 0 and 360 degrees, inclusive\n  @param $saturation [Sass::Script::Value::Number] The saturation of the\n    color. Must be between `0%` and `100%`, inclusive\n  @param $lightness [Sass::Script::Value::Number] The lightness of the\n    color. Must be between `0%` and `100%`, inclusive\n  @param $alpha [Sass::Script::Value::Number] The opacity of the color. Must\n    be between 0 and 1, inclusive\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Script::Value::Color] @raise [ArgumentError] if `$saturation`, `$lightness`, or `$alpha` are out"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  of bounds or any parameter is the wrong type\n"
+full_name: Sass::Script::Functions#hsla
+is_singleton: false
+name: hsla
+params: (hue, saturation, lightness, alpha)
+visibility: public

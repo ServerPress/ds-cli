@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns whether there's a {Parent} selector anywhere in this sequence.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Boolean]"
+full_name: Sass::Selector::CommaSequence#contains_parent_ref?
+is_singleton: false
+name: contains_parent_ref?
+params: ()
+visibility: public

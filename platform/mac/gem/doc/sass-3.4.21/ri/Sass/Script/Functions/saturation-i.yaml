@@ -1,0 +1,24 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns the saturation component of a color. See [the CSS3 HSL specification][hsl]. Calculated from RGB where necessary via [this algorithm][rgb-to-hsl].
+- !ruby/struct:SM::Flow::P 
+  body: "[hsl]: http://en.wikipedia.org/wiki/HSL_and_HSV#Conversion_from_RGB_to_HSL_or_HSV [rgb-to-hsl]: http://en.wikipedia.org/wiki/HSL_and_HSV#Conversion_from_RGB_to_HSL_or_HSV"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload saturation($color)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $color [Sass::Script::Value::Color]\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Script::Value::Number] The saturation component, between 0%"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  and 100%\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@raise [ArgumentError] if `$color` isn't a color"
+full_name: Sass::Script::Functions#saturation
+is_singleton: false
+name: saturation
+params: (color)
+visibility: public

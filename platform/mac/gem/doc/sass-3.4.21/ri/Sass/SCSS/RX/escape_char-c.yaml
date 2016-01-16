@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Escapes a single character for a CSS identifier.
+- !ruby/struct:SM::Flow::P 
+  body: "@param c [String] The character to escape. Should have length 1 @return [String] The escaped character @private"
+full_name: Sass::SCSS::RX::escape_char
+is_singleton: true
+name: escape_char
+params: (c)
+visibility: public

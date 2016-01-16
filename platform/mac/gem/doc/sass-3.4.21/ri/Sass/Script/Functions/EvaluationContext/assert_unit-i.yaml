@@ -1,0 +1,22 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Asserts that the unit of the number is as expected.
+- !ruby/struct:SM::Flow::P 
+  body: "@example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  assert_unit number, &quot;px&quot;\n  assert_unit number, nil\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@param number [Sass::Script::Value::Number] The number to be validated. @param unit [::String]"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  The unit that the number must have.\n  If nil, the number must be unitless.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@param name [::String] The name of the parameter being validated. @raise [ArgumentError] if number is not of the correct unit or is not a number."
+full_name: Sass::Script::Functions::EvaluationContext#assert_unit
+is_singleton: false
+name: assert_unit
+params: (number, unit, name = nil)
+visibility: public

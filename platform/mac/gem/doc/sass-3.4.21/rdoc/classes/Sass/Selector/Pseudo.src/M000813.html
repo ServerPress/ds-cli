@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>superselector? (Sass::Selector::Pseudo)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/selector/pseudo.rb, line 149</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">superselector?</span>(<span class="ruby-identifier">their_sseq</span>, <span class="ruby-identifier">parents</span> = [])
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">normalized_name</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'matches'</span>, <span class="ruby-value str">'any'</span>
+          <span class="ruby-comment cmt"># :matches can be a superselector of another selector in one of two</span>
+          <span class="ruby-comment cmt"># ways. Either its constituent selectors can be a superset of those of</span>
+          <span class="ruby-comment cmt"># another :matches in the other selector, or any of its constituent</span>
+          <span class="ruby-comment cmt"># selectors can individually be a superselector of the other selector.</span>
+          (<span class="ruby-identifier">their_sseq</span>.<span class="ruby-identifier">selector_pseudo_classes</span>[<span class="ruby-identifier">normalized_name</span>] <span class="ruby-operator">||</span> []).<span class="ruby-identifier">any?</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">their_sel</span><span class="ruby-operator">|</span>
+            <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">their_sel</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Pseudo</span>)
+            <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">their_sel</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">name</span>
+            <span class="ruby-identifier">selector</span>.<span class="ruby-identifier">superselector?</span>(<span class="ruby-identifier">their_sel</span>.<span class="ruby-identifier">selector</span>)
+          <span class="ruby-keyword kw">end</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">selector</span>.<span class="ruby-identifier">members</span>.<span class="ruby-identifier">any?</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">our_seq</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">their_seq</span> = <span class="ruby-constant">Sequence</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">parents</span> <span class="ruby-operator">+</span> [<span class="ruby-identifier">their_sseq</span>])
+            <span class="ruby-identifier">our_seq</span>.<span class="ruby-identifier">superselector?</span>(<span class="ruby-identifier">their_seq</span>)
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'has'</span>, <span class="ruby-value str">'host'</span>, <span class="ruby-value str">'host-context'</span>
+          <span class="ruby-comment cmt"># Like :matches, :has (et al) can be a superselector of another</span>
+          <span class="ruby-comment cmt"># selector if its constituent selectors are a superset of those of</span>
+          <span class="ruby-comment cmt"># another :has in the other selector. However, the :matches other case</span>
+          <span class="ruby-comment cmt"># doesn't work, because :has refers to nested elements.</span>
+          (<span class="ruby-identifier">their_sseq</span>.<span class="ruby-identifier">selector_pseudo_classes</span>[<span class="ruby-identifier">normalized_name</span>] <span class="ruby-operator">||</span> []).<span class="ruby-identifier">any?</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">their_sel</span><span class="ruby-operator">|</span>
+            <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">their_sel</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Pseudo</span>)
+            <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">their_sel</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">name</span>
+            <span class="ruby-identifier">selector</span>.<span class="ruby-identifier">superselector?</span>(<span class="ruby-identifier">their_sel</span>.<span class="ruby-identifier">selector</span>)
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'not'</span>
+          <span class="ruby-identifier">selector</span>.<span class="ruby-identifier">members</span>.<span class="ruby-identifier">all?</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">our_seq</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">their_sseq</span>.<span class="ruby-identifier">members</span>.<span class="ruby-identifier">any?</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">their_sel</span><span class="ruby-operator">|</span>
+              <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">their_sel</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Element</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">their_sel</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Id</span>)
+                <span class="ruby-comment cmt"># `:not(a)` is a superselector of `h1` and `:not(#foo)` is a</span>
+                <span class="ruby-comment cmt"># superselector of `#bar`.</span>
+                <span class="ruby-identifier">our_sseq</span> = <span class="ruby-identifier">our_seq</span>.<span class="ruby-identifier">members</span>.<span class="ruby-identifier">last</span>
+                <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">our_sseq</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">SimpleSequence</span>)
+                <span class="ruby-identifier">our_sseq</span>.<span class="ruby-identifier">members</span>.<span class="ruby-identifier">any?</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">our_sel</span><span class="ruby-operator">|</span>
+                  <span class="ruby-identifier">our_sel</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">their_sel</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">our_sel</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">their_sel</span>
+                <span class="ruby-keyword kw">end</span>
+              <span class="ruby-keyword kw">else</span>
+                <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">their_sel</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Pseudo</span>)
+                <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">their_sel</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">name</span>
+                <span class="ruby-comment cmt"># :not(X) is a superselector of :not(Y) exactly when Y is a</span>
+                <span class="ruby-comment cmt"># superselector of X.</span>
+                <span class="ruby-identifier">their_sel</span>.<span class="ruby-identifier">selector</span>.<span class="ruby-identifier">superselector?</span>(<span class="ruby-constant">CommaSequence</span>.<span class="ruby-identifier">new</span>([<span class="ruby-identifier">our_seq</span>]))
+              <span class="ruby-keyword kw">end</span>
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'current'</span>
+          (<span class="ruby-identifier">their_sseq</span>.<span class="ruby-identifier">selector_pseudo_classes</span>[<span class="ruby-value str">'current'</span>] <span class="ruby-operator">||</span> []).<span class="ruby-identifier">any?</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">their_current</span><span class="ruby-operator">|</span>
+            <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">their_current</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">name</span>
+            <span class="ruby-comment cmt"># Explicitly don't check for nested superselector relationships</span>
+            <span class="ruby-comment cmt"># here. :current(.foo) isn't always a superselector of</span>
+            <span class="ruby-comment cmt"># :current(.foo.bar), since it matches the *innermost* ancestor of</span>
+            <span class="ruby-comment cmt"># the current element that matches the selector. For example:</span>
+            <span class="ruby-comment cmt">#</span>
+            <span class="ruby-comment cmt">#     &lt;div class=&quot;foo bar&quot;&gt;</span>
+            <span class="ruby-comment cmt">#       &lt;p class=&quot;foo&quot;&gt;</span>
+            <span class="ruby-comment cmt">#         &lt;span&gt;current element&lt;/span&gt;</span>
+            <span class="ruby-comment cmt">#       &lt;/p&gt;</span>
+            <span class="ruby-comment cmt">#     &lt;/div&gt;</span>
+            <span class="ruby-comment cmt">#</span>
+            <span class="ruby-comment cmt"># Here :current(.foo) would match the p element and *not* the div</span>
+            <span class="ruby-comment cmt"># element, whereas :current(.foo.bar) would match the div and not</span>
+            <span class="ruby-comment cmt"># the p.</span>
+            <span class="ruby-identifier">selector</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">their_current</span>.<span class="ruby-identifier">selector</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'nth-child'</span>, <span class="ruby-value str">'nth-last-child'</span>
+          <span class="ruby-identifier">their_sseq</span>.<span class="ruby-identifier">members</span>.<span class="ruby-identifier">any?</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">their_sel</span><span class="ruby-operator">|</span>
+            <span class="ruby-comment cmt"># This misses a few edge cases. For example, `:nth-child(n of X)`</span>
+            <span class="ruby-comment cmt"># is a superselector of `X`, and `:nth-child(2n of X)` is a</span>
+            <span class="ruby-comment cmt"># superselector of `:nth-child(4n of X)`. These seem rare enough</span>
+            <span class="ruby-comment cmt"># not to be worth worrying about, though.</span>
+            <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">their_sel</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Pseudo</span>)
+            <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">their_sel</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">name</span>
+            <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">their_sel</span>.<span class="ruby-identifier">arg</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">arg</span>
+            <span class="ruby-identifier">selector</span>.<span class="ruby-identifier">superselector?</span>(<span class="ruby-identifier">their_sel</span>.<span class="ruby-identifier">selector</span>)
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">throw</span> <span class="ruby-node">&quot;[BUG] Unknown selector pseudo class #{name}&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

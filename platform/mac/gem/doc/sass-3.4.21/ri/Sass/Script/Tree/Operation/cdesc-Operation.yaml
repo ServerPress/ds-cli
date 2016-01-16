@@ -1,0 +1,38 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  name: operand1
+  rw: R
+- !ruby/object:RI::Attribute 
+  comment: 
+  name: operand2
+  rw: R
+- !ruby/object:RI::Attribute 
+  comment: 
+  name: operator
+  rw: R
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A SassScript parse node representing a binary operation, such as `$a + $b` or `&quot;foo&quot; + 1`.
+constants: []
+
+full_name: Sass::Script::Tree::Operation
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: _perform
+- !ruby/object:RI::MethodSummary 
+  name: children
+- !ruby/object:RI::MethodSummary 
+  name: deep_copy
+- !ruby/object:RI::MethodSummary 
+  name: inspect
+- !ruby/object:RI::MethodSummary 
+  name: to_sass
+name: Operation
+superclass: Node

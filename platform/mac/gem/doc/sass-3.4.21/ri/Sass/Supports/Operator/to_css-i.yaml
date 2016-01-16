@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Sass::Supports::Operator#to_css
+is_singleton: false
+name: to_css
+params: ()
+visibility: public

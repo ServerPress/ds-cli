@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Same as `Kernel.puts`, but doesn't print anything if the `--quiet` option is set.
+- !ruby/struct:SM::Flow::P 
+  body: "@param args [Array] Passed on to `Kernel.puts`"
+full_name: Sass::Exec::Base#puts
+is_singleton: false
+name: puts
+params: (*args)
+visibility: protected

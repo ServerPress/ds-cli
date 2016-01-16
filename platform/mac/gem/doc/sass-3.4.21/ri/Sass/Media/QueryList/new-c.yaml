@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@param queries [Array&lt;Query&gt;] See \\{#queries}"
+full_name: Sass::Media::QueryList::new
+is_singleton: true
+name: new
+params: (queries)
+visibility: public

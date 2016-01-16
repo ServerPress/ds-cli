@@ -1,0 +1,24 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Gets the green component of a color. Calculated from HSL where necessary via [this algorithm][hsl-to-rgb].
+- !ruby/struct:SM::Flow::P 
+  body: "[hsl-to-rgb]: http://www.w3.org/TR/css3-color/#hsl-color"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload green($color)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $color [Sass::Script::Value::Color]\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Script::Value::Number] The green component, between 0 and"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  255 inclusive\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@raise [ArgumentError] if `$color` isn't a color"
+full_name: Sass::Script::Functions#green
+is_singleton: false
+name: green
+params: (color)
+visibility: public

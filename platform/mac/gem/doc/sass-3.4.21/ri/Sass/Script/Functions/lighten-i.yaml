@@ -1,0 +1,24 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Makes a color lighter. Takes a color and a number between `0%` and `100%`, and returns a color with the lightness increased by that amount.
+- !ruby/struct:SM::Flow::P 
+  body: "@see #darken @example"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  lighten(hsl(0, 0%, 0%), 30%) =&gt; hsl(0, 0, 30)\n  lighten(#800, 20%) =&gt; #e00\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@overload lighten($color, $amount)"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  @param $color [Sass::Script::Value::Color]\n  @param $amount [Sass::Script::Value::Number] The amount to increase the\n    lightness by, between `0%` and `100%`\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Sass::Script::Value::Color] @raise [ArgumentError] if `$amount` is out of bounds, or either parameter"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  is the wrong type\n"
+full_name: Sass::Script::Functions#lighten
+is_singleton: false
+name: lighten
+params: (color, amount)
+visibility: public

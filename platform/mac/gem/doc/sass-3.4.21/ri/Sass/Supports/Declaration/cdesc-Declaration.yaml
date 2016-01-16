@@ -1,0 +1,56 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Sass::Script::Tree::Node] The feature name."
+  name: name
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: "@!attribute resolved_name"
+  - !ruby/struct:SM::Flow::VERB 
+    body: "  The name of the feature after any SassScript has been resolved.\n  Only set once \\{Tree::Visitors::Perform} has been run.\n\n  @return [String]\n"
+  name: resolved_name
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The value of the feature after any SassScript has been resolved. Only set once \{Tree::Visitors::Perform} has been run.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [String]"
+  name: resolved_value
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The feature value.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Sass::Script::Tree::Node]"
+  name: value
+  rw: RW
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "A declaration condition (e.g. `(feature: value)`)."
+constants: []
+
+full_name: Sass::Supports::Declaration
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: deep_copy
+- !ruby/object:RI::MethodSummary 
+  name: options=
+- !ruby/object:RI::MethodSummary 
+  name: perform
+- !ruby/object:RI::MethodSummary 
+  name: to_css
+- !ruby/object:RI::MethodSummary 
+  name: to_src
+name: Declaration
+superclass: Condition

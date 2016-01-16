@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>visit_directive (Sass::Tree::Visitors::Cssize)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/tree/visitors/cssize.rb, line 223</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">visit_directive</span>(<span class="ruby-identifier">node</span>)
+    <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">node</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">has_children</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">parent</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Tree</span><span class="ruby-operator">::</span><span class="ruby-constant">RuleNode</span>)
+      <span class="ruby-comment cmt"># @keyframes shouldn't include the rule nodes, so we manually create a</span>
+      <span class="ruby-comment cmt"># bubble that doesn't have the parent's contents for them.</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">normalized_name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'@keyframes'</span> <span class="ruby-operator">?</span> <span class="ruby-constant">Bubble</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">node</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">bubble</span>(<span class="ruby-identifier">node</span>)
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">yield</span>
+
+    <span class="ruby-comment cmt"># Since we don't know if the mere presence of an unknown directive may be</span>
+    <span class="ruby-comment cmt"># important, we should keep an empty version around even if all the contents</span>
+    <span class="ruby-comment cmt"># are removed via @at-root. However, if the contents are just bubbled out,</span>
+    <span class="ruby-comment cmt"># we don't need to do so.</span>
+    <span class="ruby-identifier">directive_exists</span> = <span class="ruby-identifier">node</span>.<span class="ruby-identifier">children</span>.<span class="ruby-identifier">any?</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">child</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Bubble</span>)
+      <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">child</span>.<span class="ruby-identifier">node</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Tree</span><span class="ruby-operator">::</span><span class="ruby-constant">DirectiveNode</span>)
+      <span class="ruby-identifier">child</span>.<span class="ruby-identifier">node</span>.<span class="ruby-identifier">resolved_value</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">resolved_value</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-comment cmt"># We know empty @keyframes directives do nothing.</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">directive_exists</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">node</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'@keyframes'</span>
+      []
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-identifier">empty_node</span> = <span class="ruby-identifier">node</span>.<span class="ruby-identifier">dup</span>
+      <span class="ruby-identifier">empty_node</span>.<span class="ruby-identifier">children</span> = []
+      [<span class="ruby-identifier">empty_node</span>]
+    <span class="ruby-keyword kw">end</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">debubble</span>(<span class="ruby-identifier">node</span>.<span class="ruby-identifier">children</span>, <span class="ruby-identifier">node</span>)
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

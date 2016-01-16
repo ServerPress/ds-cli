@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns the minimum of `val1` and `val2`. We use this over \{Array.min} to avoid unnecessary garbage collection.
+full_name: Sass::Util#min
+is_singleton: false
+name: min
+params: (val1, val2)
+visibility: public

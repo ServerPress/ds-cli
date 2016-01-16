@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns whether or not the given directive is excluded by this node. `directive` may be &quot;rule&quot;, which indicates whether normal CSS rules should be excluded.
+- !ruby/struct:SM::Flow::P 
+  body: "@param directive [String] @return [Boolean]"
+full_name: Sass::Tree::AtRootNode#exclude?
+is_singleton: false
+name: exclude?
+params: (directive)
+visibility: public

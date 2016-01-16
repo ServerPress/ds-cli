@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Sass::Tree::MediaNode</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Sass::Tree::MediaNode</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/sass/tree/media_node_rb.html">
+                lib/sass/tree/media_node.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="DirectiveNode.html">
+                DirectiveNode
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+A static node representing a `@media` rule. `@media` rules behave
+differently from other directives in that when they&#8216;re nested within
+rules, they bubble up to top-level.
+</p>
+<p>
+@see <a href="../Tree.html">Sass::Tree</a>
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000254">invisible?</a>&nbsp;&nbsp;
+      <a href="#M000252">name</a>&nbsp;&nbsp;
+      <a href="#M000250">new</a>&nbsp;&nbsp;
+      <a href="#M000253">resolved_value</a>&nbsp;&nbsp;
+      <a href="#M000251">value</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">query</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+The media query for this rule, interspersed with {<a
+href="../Script/Tree/Node.html">Sass::Script::Tree::Node</a>}s representing
+`#{}`-interpolation. Any adjacent strings will be merged together.
+
+<p>
+@return [Array&lt;String, <a
+href="../Script/Tree/Node.html">Sass::Script::Tree::Node</a>&gt;]
+</p>
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">resolved_query</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+The media query for this rule, without any unresolved interpolation.
+It&#8216;s only set once {<a
+href="Visitors/Perform.html">Tree::Visitors::Perform</a>} has been run.
+
+<p>
+@return [<a href="../Media/QueryList.html">Sass::Media::QueryList</a>]
+</p>
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000250" class="method-detail">
+        <a name="M000250"></a>
+
+        <div class="method-heading">
+          <a href="MediaNode.src/M000250.html" target="Code" class="method-signature"
+            onclick="popupCode('MediaNode.src/M000250.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(query)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+@param query [Array&lt;String, <a
+href="../Script/Tree/Node.html">Sass::Script::Tree::Node</a>&gt;] See
+\{query}
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000254" class="method-detail">
+        <a name="M000254"></a>
+
+        <div class="method-heading">
+          <a href="MediaNode.src/M000254.html" target="Code" class="method-signature"
+            onclick="popupCode('MediaNode.src/M000254.html');return false;">
+          <span class="method-name">invisible?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+True when the directive has no visible children.
+</p>
+<p>
+@return [Boolean]
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000252" class="method-detail">
+        <a name="M000252"></a>
+
+        <div class="method-heading">
+          <a href="MediaNode.src/M000252.html" target="Code" class="method-signature"
+            onclick="popupCode('MediaNode.src/M000252.html');return false;">
+          <span class="method-name">name</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+@see <a href="DirectiveNode.html#M000286">DirectiveNode#name</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000253" class="method-detail">
+        <a name="M000253"></a>
+
+        <div class="method-heading">
+          <a href="MediaNode.src/M000253.html" target="Code" class="method-signature"
+            onclick="popupCode('MediaNode.src/M000253.html');return false;">
+          <span class="method-name">resolved_value</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+@see DirectiveNode#resolved_value
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000251" class="method-detail">
+        <a name="M000251"></a>
+
+        <div class="method-heading">
+          <a href="MediaNode.src/M000251.html" target="Code" class="method-signature"
+            onclick="popupCode('MediaNode.src/M000251.html');return false;">
+          <span class="method-name">value</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+@see DirectiveNode#value
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

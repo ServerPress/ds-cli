@@ -1,0 +1,14 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: env
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@api private @comment"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  rubocop:disable MethodLength\n"
+full_name: Sass::Tree::Visitors::Perform::perform_arguments
+is_singleton: true
+name: perform_arguments
+params: (callable, args, splat, environment) {|env| ...}
+visibility: public

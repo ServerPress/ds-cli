@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@param imported_filename [String] The name of the imported file"
+full_name: Sass::Tree::ImportNode::new
+is_singleton: true
+name: new
+params: (imported_filename)
+visibility: public

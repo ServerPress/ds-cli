@@ -1,0 +1,24 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Returns the time the given Sass file was last modified.
+- !ruby/struct:SM::Flow::P 
+  body: If the given file has been deleted or the time can't be accessed for some other reason, this should return nil.
+- !ruby/struct:SM::Flow::P 
+  body: "@param uri [String] The URI of the file to check."
+- !ruby/struct:SM::Flow::VERB 
+  body: "  Comes from a `:filename` option set on an engine returned by this importer.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@param options [{Symbol =&gt; Object}] Options for the Sass file"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  containing the `@import` currently being checked.\n"
+- !ruby/struct:SM::Flow::P 
+  body: "@return [Time, nil]"
+full_name: Sass::Importers::Base#mtime
+is_singleton: false
+name: mtime
+params: (uri, options)
+visibility: public

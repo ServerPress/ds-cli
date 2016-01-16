@@ -1,0 +1,12 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: "@see Base#retrieve"
+full_name: Sass::CacheStores::Memory#retrieve
+is_singleton: false
+name: retrieve
+params: (key, sha)
+visibility: public

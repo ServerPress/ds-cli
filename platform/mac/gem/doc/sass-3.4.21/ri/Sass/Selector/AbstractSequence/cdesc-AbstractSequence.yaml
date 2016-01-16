@@ -1,0 +1,51 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The name of the file in which this selector was declared.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [String, nil]"
+  name: filename
+  rw: R
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The line of the Sass template on which this selector was declared.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Fixnum]"
+  name: line
+  rw: R
+class_methods: []
+
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: The abstract parent class of the various selector sequence classes.
+- !ruby/struct:SM::Flow::P 
+  body: All subclasses should implement a `members` method that returns an array of object that respond to `#line=` and `#filename=`, as well as a `to_s` method that returns the string representation of the selector.
+constants: []
+
+full_name: Sass::Selector::AbstractSequence
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: ==
+- !ruby/object:RI::MethodSummary 
+  name: _specificity
+- !ruby/object:RI::MethodSummary 
+  name: eql?
+- !ruby/object:RI::MethodSummary 
+  name: filename=
+- !ruby/object:RI::MethodSummary 
+  name: has_placeholder?
+- !ruby/object:RI::MethodSummary 
+  name: hash
+- !ruby/object:RI::MethodSummary 
+  name: line=
+- !ruby/object:RI::MethodSummary 
+  name: specificity
+- !ruby/object:RI::MethodSummary 
+  name: to_s
+name: AbstractSequence
+superclass: Object

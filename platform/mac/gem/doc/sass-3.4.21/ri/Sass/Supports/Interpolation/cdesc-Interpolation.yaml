@@ -1,0 +1,42 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The value of the expression after it's been resolved. Only set once \{Tree::Visitors::Perform} has been run.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [String]"
+  name: resolved_value
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The SassScript expression in the interpolation.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Sass::Script::Tree::Node]"
+  name: value
+  rw: RW
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: An interpolation condition (e.g. `#{$var}`).
+constants: []
+
+full_name: Sass::Supports::Interpolation
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: deep_copy
+- !ruby/object:RI::MethodSummary 
+  name: options=
+- !ruby/object:RI::MethodSummary 
+  name: perform
+- !ruby/object:RI::MethodSummary 
+  name: to_css
+- !ruby/object:RI::MethodSummary 
+  name: to_src
+name: Interpolation
+superclass: Condition

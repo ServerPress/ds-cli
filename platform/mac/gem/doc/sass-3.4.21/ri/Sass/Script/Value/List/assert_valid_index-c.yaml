@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Asserts an index is within the list.
+- !ruby/struct:SM::Flow::P 
+  body: "@private"
+- !ruby/struct:SM::Flow::P 
+  body: "@param list [Sass::Script::Value::List] The list for which the index should be checked. @param n [Sass::Script::Value::Number] The index being checked."
+full_name: Sass::Script::Value::List::assert_valid_index
+is_singleton: true
+name: assert_valid_index
+params: (list, n)
+visibility: public

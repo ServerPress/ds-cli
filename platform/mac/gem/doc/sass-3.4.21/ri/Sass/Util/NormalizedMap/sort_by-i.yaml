@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: k, v
+comment: 
+full_name: Sass::Util::NormalizedMap#sort_by
+is_singleton: false
+name: sort_by
+params: () {|k, v| ...}
+visibility: public

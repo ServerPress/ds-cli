@@ -1,0 +1,10 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+full_name: Sass::BaseEnvironment::inherited_hash_reader
+is_singleton: true
+name: inherited_hash_reader
+params: (name)
+visibility: public

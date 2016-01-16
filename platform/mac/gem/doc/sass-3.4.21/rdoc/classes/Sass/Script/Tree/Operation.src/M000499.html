@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>_perform (Sass::Script::Tree::Operation)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/sass/script/tree/operation.rb, line 63</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_perform</span>(<span class="ruby-identifier">environment</span>)
+      <span class="ruby-identifier">value1</span> = <span class="ruby-ivar">@operand1</span>.<span class="ruby-identifier">perform</span>(<span class="ruby-identifier">environment</span>)
+
+      <span class="ruby-comment cmt"># Special-case :and and :or to support short-circuiting.</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@operator</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:and</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">value1</span>.<span class="ruby-identifier">to_bool</span> <span class="ruby-value">? </span><span class="ruby-ivar">@operand2</span>.<span class="ruby-identifier">perform</span>(<span class="ruby-identifier">environment</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">value1</span>
+      <span class="ruby-keyword kw">elsif</span> <span class="ruby-ivar">@operator</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:or</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">value1</span>.<span class="ruby-identifier">to_bool</span> <span class="ruby-value">? </span><span class="ruby-identifier">value1</span> <span class="ruby-operator">:</span> <span class="ruby-ivar">@operand2</span>.<span class="ruby-identifier">perform</span>(<span class="ruby-identifier">environment</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">value2</span> = <span class="ruby-ivar">@operand2</span>.<span class="ruby-identifier">perform</span>(<span class="ruby-identifier">environment</span>)
+
+      <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">value1</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Script</span><span class="ruby-operator">::</span><span class="ruby-constant">Value</span><span class="ruby-operator">::</span><span class="ruby-constant">Null</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">value2</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Script</span><span class="ruby-operator">::</span><span class="ruby-constant">Value</span><span class="ruby-operator">::</span><span class="ruby-constant">Null</span>)) <span class="ruby-operator">&amp;&amp;</span>
+          <span class="ruby-ivar">@operator</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">:eq</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@operator</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">:neq</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">SyntaxError</span>.<span class="ruby-identifier">new</span>(
+          <span class="ruby-node">&quot;Invalid null operation: \&quot;#{value1.inspect} #{@operator} #{value2.inspect}\&quot;.&quot;</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">begin</span>
+        <span class="ruby-identifier">result</span> = <span class="ruby-identifier">opts</span>(<span class="ruby-identifier">value1</span>.<span class="ruby-identifier">send</span>(<span class="ruby-ivar">@operator</span>, <span class="ruby-identifier">value2</span>))
+      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">NoMethodError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-identifier">e</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@operator</span>.<span class="ruby-identifier">to_s</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">SyntaxError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Undefined operation: \&quot;#{value1} #{@operator} #{value2}\&quot;.&quot;</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> (<span class="ruby-ivar">@operator</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:eq</span> <span class="ruby-operator">||</span> <span class="ruby-ivar">@operator</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:neq</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">value1</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Script</span><span class="ruby-operator">::</span><span class="ruby-constant">Value</span><span class="ruby-operator">::</span><span class="ruby-constant">Number</span>) <span class="ruby-operator">&amp;&amp;</span>
+         <span class="ruby-identifier">value2</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Script</span><span class="ruby-operator">::</span><span class="ruby-constant">Value</span><span class="ruby-operator">::</span><span class="ruby-constant">Number</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">value1</span>.<span class="ruby-identifier">unitless?</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">value2</span>.<span class="ruby-identifier">unitless?</span> <span class="ruby-operator">&amp;&amp;</span>
+         <span class="ruby-identifier">result</span> <span class="ruby-operator">==</span> (<span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@operator</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:eq</span>
+                      <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Script</span><span class="ruby-operator">::</span><span class="ruby-constant">Value</span><span class="ruby-operator">::</span><span class="ruby-constant">Bool</span><span class="ruby-operator">::</span><span class="ruby-constant">TRUE</span>
+                    <span class="ruby-keyword kw">else</span>
+                      <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Script</span><span class="ruby-operator">::</span><span class="ruby-constant">Value</span><span class="ruby-operator">::</span><span class="ruby-constant">Bool</span><span class="ruby-operator">::</span><span class="ruby-constant">FALSE</span>
+                    <span class="ruby-keyword kw">end</span>)
+
+        <span class="ruby-identifier">operation</span> = <span class="ruby-node">&quot;#{value1.to_sass} #{@operator == :eq ? '==' : '!='} #{value2.to_sass}&quot;</span>
+        <span class="ruby-identifier">future_value</span> = <span class="ruby-ivar">@operator</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:neq</span>
+        <span class="ruby-constant">Sass</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">sass_warn</span> <span class="ruby-value str">&quot;DEPRECATION WARNING on line \#{line}\#{\&quot; of \#{filename}\&quot; if filename}:\nThe result of `\#{operation}` will be `\#{future_value}` in future releases of Sass.\nUnitless numbers will no longer be equal to the same numbers with units.\n&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">result</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,27 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: []
+
+class_methods: []
+
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A namespace for nodes in the Sass parse tree.
+- !ruby/struct:SM::Flow::P 
+  body: "The Sass parse tree has three states: dynamic, static Sass, and static CSS."
+- !ruby/struct:SM::Flow::P 
+  body: When it's first parsed, a Sass document is in the dynamic state. It has nodes for mixin definitions and `@for` loops and so forth, in addition to nodes for CSS rules and properties. Nodes that only appear in this state are called **dynamic nodes**.
+- !ruby/struct:SM::Flow::P 
+  body: "{Tree::Visitors::Perform} creates a static Sass tree, which is different. It still has nodes for CSS rules and properties but it doesn't have any dynamic-generation-related nodes. The nodes in this state are in a similar structure to the Sass document: rules and properties are nested beneath one another, although the {Tree::RuleNode} selectors are already in their final state. Nodes that can be in this state or in the dynamic state are called **static nodes**; nodes that can only be in this state are called **solely static nodes**."
+- !ruby/struct:SM::Flow::P 
+  body: "{Tree::Visitors::Cssize} is then used to create a static CSS tree. This is like a static Sass tree, but the structure exactly mirrors that of the generated CSS. Rules and properties can't be nested beneath one another in this state."
+- !ruby/struct:SM::Flow::P 
+  body: Finally, {Tree::Visitors::ToCss} can be called on a static CSS tree to get the actual CSS code as a string.
+constants: []
+
+full_name: Sass::Tree
+includes: []
+
+instance_methods: []
+
+name: Tree
+superclass: 

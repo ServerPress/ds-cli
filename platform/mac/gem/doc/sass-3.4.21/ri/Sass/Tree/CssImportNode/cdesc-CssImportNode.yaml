@@ -1,0 +1,64 @@
+--- !ruby/object:RI::ClassDescription 
+attributes: 
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The media query for this rule, interspersed with {Sass::Script::Tree::Node}s representing `#{}`-interpolation. Any adjacent strings will be merged together.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Array&lt;String, Sass::Script::Tree::Node&gt;]"
+  name: query
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The media query for this rule, without any unresolved interpolation. It's only set once {Tree::Visitors::Perform} has been run.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Sass::Media::QueryList]"
+  name: resolved_query
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The text of the URI being imported after any interpolated SassScript has been resolved. Only set once {Tree::Visitors::Perform} has been run.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [String]"
+  name: resolved_uri
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The supports condition for this import.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [Sass::Supports::Condition]"
+  name: supports_condition
+  rw: RW
+- !ruby/object:RI::Attribute 
+  comment: 
+  - !ruby/struct:SM::Flow::P 
+    body: The URI being imported, either as a plain string or an interpolated script string.
+  - !ruby/struct:SM::Flow::P 
+    body: "@return [String, Sass::Script::Tree::Node]"
+  name: uri
+  rw: RW
+class_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: new
+- !ruby/object:RI::MethodSummary 
+  name: resolved
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: A node representing an `@import` rule that's importing plain CSS.
+- !ruby/struct:SM::Flow::P 
+  body: "@see Sass::Tree"
+constants: []
+
+full_name: Sass::Tree::CssImportNode
+includes: []
+
+instance_methods: 
+- !ruby/object:RI::MethodSummary 
+  name: resolved_value
+- !ruby/object:RI::MethodSummary 
+  name: value
+name: CssImportNode
+superclass: DirectiveNode

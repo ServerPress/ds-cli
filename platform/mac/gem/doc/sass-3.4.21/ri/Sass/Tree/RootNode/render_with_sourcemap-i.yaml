@@ -1,0 +1,16 @@
+--- !ruby/object:RI::MethodDescription 
+aliases: []
+
+block_params: 
+comment: 
+- !ruby/struct:SM::Flow::P 
+  body: Runs the dynamic Sass code and computes the CSS for the tree, along with the sourcemap.
+- !ruby/struct:SM::Flow::P 
+  body: "@return [(String, Sass::Source::Map)] The compiled CSS, as well as"
+- !ruby/struct:SM::Flow::VERB 
+  body: "  the source map. @see #render\n"
+full_name: Sass::Tree::RootNode#render_with_sourcemap
+is_singleton: false
+name: render_with_sourcemap
+params: ()
+visibility: public
