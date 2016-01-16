@@ -565,7 +565,9 @@ git-for-each-ref(1) Manual Page
 <div class="sectionbody">
 <div class="verseblock">
 <pre class="content"><em>git for-each-ref</em> [--count=&lt;count&gt;] [--shell|--perl|--python|--tcl]
-                   [(--sort=&lt;key&gt;)&#8230;] [--format=&lt;format&gt;] [&lt;pattern&gt;&#8230;]</pre>
+                   [(--sort=&lt;key&gt;)&#8230;] [--format=&lt;format&gt;] [&lt;pattern&gt;&#8230;]
+                   [--points-at &lt;object&gt;] [(--merged | --no-merged) [&lt;object&gt;]]
+                   [--contains [&lt;object&gt;]]</pre>
 <div class="attribution">
 </div></div>
 </div>
@@ -653,6 +655,41 @@ host language allowing their direct evaluation in that language.</p></div>
         placeholders are quoted as string literals suitable for
         the specified host language.  This is meant to produce
         a scriptlet that can directly be `eval`ed.
+</p>
+</dd>
+<dt class="hdlist1">
+--points-at &lt;object&gt;
+</dt>
+<dd>
+<p>
+        Only list refs which points at the given object.
+</p>
+</dd>
+<dt class="hdlist1">
+--merged [&lt;object&gt;]
+</dt>
+<dd>
+<p>
+        Only list refs whose tips are reachable from the
+        specified commit (HEAD if not specified).
+</p>
+</dd>
+<dt class="hdlist1">
+--no-merged [&lt;object&gt;]
+</dt>
+<dd>
+<p>
+        Only list refs whose tips are not reachable from the
+        specified commit (HEAD if not specified).
+</p>
+</dd>
+<dt class="hdlist1">
+--contains [&lt;object&gt;]
+</dt>
+<dd>
+<p>
+        Only list tags which contain the specified commit (HEAD if not
+        specified).
 </p>
 </dd>
 </dl></div>
@@ -745,6 +782,22 @@ color
         are described in <tt>color.branch.*</tt>.
 </p>
 </dd>
+<dt class="hdlist1">
+align
+</dt>
+<dd>
+<p>
+        Left-, middle-, or right-align the content between
+        %(align:&#8230;) and %(end). The "align:" is followed by <tt>&lt;width&gt;</tt>
+        and <tt>&lt;position&gt;</tt> in any order separated by a comma, where the
+        <tt>&lt;position&gt;</tt> is either left, right or middle, default being
+        left and <tt>&lt;width&gt;</tt> is the total length of the content with
+        alignment. If the contents length is more than the width then
+        no alignment is performed. If used with <em>--quote</em> everything
+        in between %(align:&#8230;) and %(end) is quoted, but if nested
+        then only the topmost level performs quoting.
+</p>
+</dd>
 </dl></div>
 <div class="paragraph"><p>In addition to the above, for commit and tag objects, the header
 field names (<tt>tree</tt>, <tt>parent</tt>, <tt>object</tt>, <tt>type</tt>, and <tt>tag</tt>) can
@@ -756,17 +809,19 @@ and <tt>date</tt> to extract the named component.</p></div>
 Its first line is <tt>contents:subject</tt>, where subject is the concatenation
 of all lines of the commit message up to the first blank line.  The next
 line is <em>contents:body</em>, where body is all of the lines after the first
-blank line.  Finally, the optional GPG signature is <tt>contents:signature</tt>.</p></div>
+blank line.  The optional GPG signature is <tt>contents:signature</tt>.  The
+first <tt>N</tt> lines of the message is obtained using <tt>contents:lines=N</tt>.</p></div>
 <div class="paragraph"><p>For sorting purposes, fields with numeric values sort in numeric
 order (<tt>objectsize</tt>, <tt>authordate</tt>, <tt>committerdate</tt>, <tt>taggerdate</tt>).
 All other fields are used to sort in their byte-value order.</p></div>
+<div class="paragraph"><p>There is also an option to sort by versions, this can be done by using
+the fieldname <tt>version:refname</tt> or its alias <tt>v:refname</tt>.</p></div>
 <div class="paragraph"><p>In any case, a field name that refers to a field inapplicable to
 the object referred by the ref does not cause an error.  It
 returns an empty string instead.</p></div>
 <div class="paragraph"><p>As a special case for the date-type fields, you may specify a format for
-the date by adding one of <tt>:default</tt>, <tt>:relative</tt>, <tt>:short</tt>, <tt>:local</tt>,
-<tt>:iso8601</tt>, <tt>:rfc2822</tt> or <tt>:raw</tt> to the end of the fieldname; e.g.
-<tt>%(taggerdate:relative)</tt>.</p></div>
+the date by adding <tt>:</tt> followed by date format name (see the
+values the <tt>--date</tt> option to <a href=":git-rev-list.html">:git-rev-list(1)</a> takes).</p></div>
 </div>
 </div>
 <div class="sect1">
@@ -870,7 +925,7 @@ eval "$eval"</tt></pre>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-10-16 22:40:05 BST
+Last updated 2016-01-04 22:08:04 GMT
 </div>
 </div>
 </body>

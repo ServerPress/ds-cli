@@ -2920,6 +2920,14 @@ credential.&lt;url&gt;.*
 </p>
 </dd>
 <dt class="hdlist1">
+credentialCache.ignoreSIGHUP
+</dt>
+<dd>
+<p>
+        Tell git-credential-cache&#8212;daemon to ignore SIGHUP, instead of quitting.
+</p>
+</dd>
+<dt class="hdlist1">
 diff.autoRefreshIndex
 </dt>
 <dd>
@@ -4726,9 +4734,7 @@ log.date
 <p>
         Set the default date-time mode for the <em>log</em> command.
         Setting a value for log.date is similar to using <em>git log</em>'s
-        <tt>--date</tt> option.  Possible values are <tt>relative</tt>, <tt>local</tt>,
-        <tt>default</tt>, <tt>iso</tt>, <tt>rfc</tt>, and <tt>short</tt>; see <a href="git-log.html">git-log(1)</a>
-        for details.
+        <tt>--date</tt> option.  See <a href="git-log.html">git-log(1)</a> for details.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -5620,6 +5626,25 @@ push.gpgSign
 </p>
 </dd>
 <dt class="hdlist1">
+push.recurseSubmodules
+</dt>
+<dd>
+<p>
+        Make sure all submodule commits used by the revisions to be pushed
+        are available on a remote-tracking branch. If the value is <em>check</em>
+        then Git will verify that all submodule commits that changed in the
+        revisions to be pushed are available on at least one remote of the
+        submodule. If any commits are missing, the push will be aborted and
+        exit with non-zero status. If the value is <em>on-demand</em> then all
+        submodules that changed in the revisions to be pushed will be
+        pushed. If on-demand was not able to push all necessary revisions
+        it will also be aborted and exit with non-zero status. If the value
+        is <em>no</em> then default behavior of ignoring submodules when pushing
+        is retained. You may override this configuration at time of push by
+        specifying <em>--recurse-submodules=check|on-demand|no</em>.
+</p>
+</dd>
+<dt class="hdlist1">
 rebase.stat
 </dt>
 <dd>
@@ -6309,6 +6334,26 @@ status.submoduleSummary
 </p>
 </dd>
 <dt class="hdlist1">
+stash.showPatch
+</dt>
+<dd>
+<p>
+        If this is set to true, the <tt>git stash show</tt> command without an
+        option will show the stash in patch form.  Defaults to false.
+        See description of <em>show</em> command in <a href="git-stash.html">git-stash(1)</a>.
+</p>
+</dd>
+<dt class="hdlist1">
+stash.showStat
+</dt>
+<dd>
+<p>
+        If this is set to true, the <tt>git stash show</tt> command without an
+        option will show diffstat of the stash.  Defaults to true.
+        See description of <em>show</em> command in <a href="git-stash.html">git-stash(1)</a>.
+</p>
+</dd>
+<dt class="hdlist1">
 submodule.&lt;name&gt;.path
 </dt>
 <dt class="hdlist1">
@@ -6426,6 +6471,14 @@ transfer.hideRefs
 explicitly exposing it, even if an earlier entry marked it as hidden.
 If you have multiple hideRefs values, later entries override earlier ones
 (and entries in more-specific config files override less-specific ones).</p></div>
+<div class="paragraph"><p>If a namespace is in use, the namespace prefix is stripped from each
+reference before it is matched against <tt>transfer.hiderefs</tt> patterns.
+For example, if <tt>refs/heads/master</tt> is specified in <tt>transfer.hideRefs</tt> and
+the current namespace is <tt>foo</tt>, then <tt>refs/namespaces/foo/refs/heads/master</tt>
+is omitted from the advertisements but <tt>refs/heads/master</tt> and
+<tt>refs/namespaces/bar/refs/heads/master</tt> are still advertised as so-called
+"have" lines. In order to match refs before stripping, add a <tt>^</tt> in front of
+the ref name. If you combine <tt>!</tt> and <tt>^</tt>, <tt>!</tt> must be specified first.</p></div>
 </dd>
 <dt class="hdlist1">
 transfer.unpackLimit
@@ -6604,7 +6657,7 @@ web.browser
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-10-16 22:40:05 BST
+Last updated 2016-01-04 22:08:04 GMT
 </div>
 </div>
 </body>

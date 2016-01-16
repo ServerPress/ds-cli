@@ -1122,6 +1122,9 @@ credential.<url>.*::
 	example.com. See linkgit:gitcredentials[7] for details on how URLs are
 	matched.
 
+credentialCache.ignoreSIGHUP::
+	Tell git-credential-cache--daemon to ignore SIGHUP, instead of quitting.
+
 include::diff-config.txt[]
 
 difftool.<tool>.path::
@@ -1829,9 +1832,7 @@ log.abbrevCommit::
 log.date::
 	Set the default date-time mode for the 'log' command.
 	Setting a value for log.date is similar to using 'git log''s
-	`--date` option.  Possible values are `relative`, `local`,
-	`default`, `iso`, `rfc`, and `short`; see linkgit:git-log[1]
-	for details.
+	`--date` option.  See linkgit:git-log[1] for details.
 
 log.decorate::
 	Print out the ref names of any commits that are shown by the log
@@ -2228,6 +2229,20 @@ push.gpgSign::
 	override a value from a lower-priority config file. An explicit
 	command-line flag always overrides this config option.
 
+push.recurseSubmodules::
+	Make sure all submodule commits used by the revisions to be pushed
+	are available on a remote-tracking branch. If the value is 'check'
+	then Git will verify that all submodule commits that changed in the
+	revisions to be pushed are available on at least one remote of the
+	submodule. If any commits are missing, the push will be aborted and
+	exit with non-zero status. If the value is 'on-demand' then all
+	submodules that changed in the revisions to be pushed will be
+	pushed. If on-demand was not able to push all necessary revisions
+	it will also be aborted and exit with non-zero status. If the value
+	is 'no' then default behavior of ignoring submodules when pushing
+	is retained. You may override this configuration at time of push by
+	specifying '--recurse-submodules=check|on-demand|no'.
+
 rebase.stat::
 	Whether to show a diffstat of what changed upstream since the last
 	rebase. False by default.
@@ -2593,6 +2608,16 @@ status.submoduleSummary::
 	submodule summary' command, which shows a similar output but does
 	not honor these settings.
 
+stash.showPatch::
+	If this is set to true, the `git stash show` command without an
+	option will show the stash in patch form.  Defaults to false.
+	See description of 'show' command in linkgit:git-stash[1].
+
+stash.showStat::
+	If this is set to true, the `git stash show` command without an
+	option will show diffstat of the stash.  Defaults to true.
+	See description of 'show' command in linkgit:git-stash[1].
+
 submodule.<name>.path::
 submodule.<name>.url::
 	The path within this project and URL for a submodule. These
@@ -2665,6 +2690,15 @@ You may also include a `!` in front of the ref name to negate the entry,
 explicitly exposing it, even if an earlier entry marked it as hidden.
 If you have multiple hideRefs values, later entries override earlier ones
 (and entries in more-specific config files override less-specific ones).
++
+If a namespace is in use, the namespace prefix is stripped from each
+reference before it is matched against `transfer.hiderefs` patterns.
+For example, if `refs/heads/master` is specified in `transfer.hideRefs` and
+the current namespace is `foo`, then `refs/namespaces/foo/refs/heads/master`
+is omitted from the advertisements but `refs/heads/master` and
+`refs/namespaces/bar/refs/heads/master` are still advertised as so-called
+"have" lines. In order to match refs before stripping, add a `^` in front of
+the ref name. If you combine `!` and `^`, `!` must be specified first.
 
 transfer.unpackLimit::
 	When `fetch.unpackLimit` or `receive.unpackLimit` are

@@ -991,6 +991,8 @@ differences.  You may want to append <tt>|[^[:space:]]</tt> to your regular
 expression to make sure that it matches all non-whitespace characters.
 A match that contains a newline is silently truncated(!) at the
 newline.</p></div>
+<div class="paragraph"><p>For example, <tt>--word-diff-regex=.</tt> will treat each character as a word
+and, correspondingly, show differences character by character.</p></div>
 <div class="paragraph"><p>The regex can also be set via a diff driver or configuration option, see
 <a href="gitattributes.html">gitattributes(1)</a> or <a href="git-config.html">git-config(1)</a>.  Giving it explicitly
 overrides any diff driver or configuration setting.  Diff drivers
@@ -2167,7 +2169,7 @@ always have the special all-zero sha1.</td>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-10-16 22:40:05 BST
+Last updated 2016-01-04 22:08:04 GMT
 </div>
 </div>
 </body>

@@ -601,6 +601,17 @@ produces in the caller in order to process it.</p></div>
         corresponds to the member .env.
 </p>
 </dd>
+<dt class="hdlist1">
+<tt>child_process_clear</tt>
+</dt>
+<dd>
+<p>
+        Release the memory associated with the struct child_process.
+        Most users of the run-command API don&#8217;t need to call this
+        function explicitly because <tt>start_command</tt> invokes it on
+        failure and <tt>finish_command</tt> calls it automatically already.
+</p>
+</dd>
 </dl></div>
 <div class="paragraph"><p>The functions above do the following:</p></div>
 <div class="olist arabic"><ol class="arabic">
@@ -967,7 +978,7 @@ It must not change the program&#8217;s state that the caller of the
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-10-16 22:40:05 BST
+Last updated 2016-01-04 22:08:04 GMT
 </div>
 </div>
 </body>

@@ -568,7 +568,8 @@ git-tag(1) Manual Page
         &lt;tagname&gt; [&lt;commit&gt; | &lt;object&gt;]
 <em>git tag</em> -d &lt;tagname&gt;&#8230;
 <em>git tag</em> [-n[&lt;num&gt;]] -l [--contains &lt;commit&gt;] [--points-at &lt;object&gt;]
-        [--column[=&lt;options&gt;] | --no-column] [--create-reflog] [&lt;pattern&gt;&#8230;]
+        [--column[=&lt;options&gt;] | --no-column] [--create-reflog] [--sort=&lt;key&gt;]
+        [--format=&lt;format&gt;] [--[no-]merged [&lt;commit&gt;]] [&lt;pattern&gt;&#8230;]
 <em>git tag</em> -v &lt;tagname&gt;&#8230;</pre>
 <div class="attribution">
 </div></div>
@@ -702,17 +703,19 @@ lightweight tags by default.</p></div>
 </p>
 </dd>
 <dt class="hdlist1">
---sort=&lt;type&gt;
+--sort=&lt;key&gt;
 </dt>
 <dd>
 <p>
-        Sort in a specific order. Supported type is "refname"
-        (lexicographic order), "version:refname" or "v:refname" (tag
+        Sort based on the key given.  Prefix <tt>-</tt> to sort in
+        descending order of the value. You may use the --sort=&lt;key&gt; option
+        multiple times, in which case the last key becomes the primary
+        key. Also supports "version:refname" or "v:refname" (tag
         names are treated as versions). The "version:refname" sort
         order can also be affected by the
-        "versionsort.prereleaseSuffix" configuration variable. Prepend
-        "-" to reverse sort order. When this option is not given, the
-        sort order defaults to the value configured for the <em>tag.sort</em>
+        "versionsort.prereleaseSuffix" configuration variable.
+        The keys supported are the same as those in <tt>git for-each-ref</tt>.
+        Sort order defaults to the value configured for the <em>tag.sort</em>
         variable if it exists, or lexicographic order otherwise. See
         <a href="git-config.html">git-config(1)</a>.
 </p>
@@ -818,6 +821,27 @@ lightweight tags by default.</p></div>
 <p>
         The object that the new tag will refer to, usually a commit.
         Defaults to HEAD.
+</p>
+</dd>
+<dt class="hdlist1">
+&lt;format&gt;
+</dt>
+<dd>
+<p>
+        A string that interpolates <tt>%(fieldname)</tt> from the object
+        pointed at by a ref being shown.  The format is the same as
+        that of <a href="git-for-each-ref.html">git-for-each-ref(1)</a>.  When unspecified,
+        defaults to <tt>%(refname:short)</tt>.
+</p>
+</dd>
+<dt class="hdlist1">
+--[no-]merged [&lt;commit&gt;]
+</dt>
+<dd>
+<p>
+        Only list tags whose tips are reachable, or not reachable
+        if <em>--no-merged</em> is used, from the specified commit (<em>HEAD</em>
+        if not specified).
 </p>
 </dd>
 </dl></div>
@@ -1042,7 +1066,7 @@ ISO 8601
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-10-16 22:40:05 BST
+Last updated 2016-01-04 22:08:04 GMT
 </div>
 </div>
 </body>

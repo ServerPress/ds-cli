@@ -1,201 +1,191 @@
-2016/01/09 17:11:05 Starting cygwin install, version 2.873
-2016/01/09 17:11:05 User has backup/restore rights
-2016/01/09 17:11:05 io_stream_cygfile: fopen(/etc/setup/setup.rc) failed 2 No such file or directory
-2016/01/09 17:11:05 Current Directory: C:\Users\scarroll\Downloads
-2016/01/09 17:11:05 Could not open service McShield for query, start and stop. McAfee may not be installed, or we don't have access.
-2016/01/09 17:11:13 source: network install
-2016/01/09 17:11:32 root: C:\cygwin system
-2016/01/09 17:11:36 Selected local directory: C:\Users\scarroll\Downloads
-2016/01/09 17:11:38 net: Direct
-2016/01/09 17:12:21 site: http://cygwin.mirror.constant.com/
-2016/01/09 17:12:26 io_stream_cygfile: fopen(/etc/setup/installed.db) failed 2 No such file or directory
-2016/01/09 17:12:27 io_stream_cygfile: fopen(/etc/setup/timestamp) failed 2 No such file or directory
-2016/01/09 17:13:46 Adding required dependency bzip2: Selecting version 1.0.6-2 for installation.
-2016/01/09 17:13:46 Adding required dependency ca-certificates: Selecting version 2.6-1 for installation.
-2016/01/09 17:13:46 Adding required dependency groff: Selecting version 1.22.3-1 for installation.
-2016/01/09 17:13:46 Adding required dependency less: Selecting version 481-1 for installation.
-2016/01/09 17:13:46 Adding required dependency libargp: Selecting version 20110921-2 for installation.
-2016/01/09 17:13:46 Adding required dependency libattr1: Selecting version 2.4.46-1 for installation.
-2016/01/09 17:13:46 Adding required dependency libblkid1: Selecting version 2.25.2-2 for installation.
-2016/01/09 17:13:46 Adding required dependency libbz2_1: Selecting version 1.0.6-2 for installation.
-2016/01/09 17:13:46 Adding required dependency libffi6: Selecting version 3.2.1-1 for installation.
-2016/01/09 17:13:46 Adding required dependency libgcc1: Selecting version 4.9.3-1 for installation.
-2016/01/09 17:13:46 Adding required dependency libgdbm4: Selecting version 1.8.3-20 for installation.
-2016/01/09 17:13:46 Adding required dependency libgmp10: Selecting version 6.1.0-3p1 for installation.
-2016/01/09 17:13:46 Adding required dependency libiconv: Selecting version 1.14-3 for installation.
-2016/01/09 17:13:46 Adding required dependency libiconv2: Selecting version 1.14-3 for installation.
-2016/01/09 17:13:46 Adding required dependency libintl8: Selecting version 0.19.5.1-2 for installation.
-2016/01/09 17:13:46 Adding required dependency liblzma5: Selecting version 5.2.2-1 for installation.
-2016/01/09 17:13:46 Adding required dependency libmpfr4: Selecting version 3.1.3-1 for installation.
-2016/01/09 17:13:46 Adding required dependency libncursesw10: Selecting version 6.0-1.20151017 for installation.
-2016/01/09 17:13:46 Adding required dependency libp11-kit0: Selecting version 0.22.1-1 for installation.
-2016/01/09 17:13:46 Adding required dependency libpcre1: Selecting version 8.37-2 for installation.
-2016/01/09 17:13:46 Adding required dependency libpipeline1: Selecting version 1.4.0-1 for installation.
-2016/01/09 17:13:46 Adding required dependency libsmartcols1: Selecting version 2.25.2-2 for installation.
-2016/01/09 17:13:46 Adding required dependency libstdc++6: Selecting version 4.9.3-1 for installation.
-2016/01/09 17:13:46 Adding required dependency libtasn1_6: Selecting version 4.5-1 for installation.
-2016/01/09 17:13:46 Adding required dependency libuuid1: Selecting version 2.25.2-2 for installation.
-2016/01/09 17:13:46 Adding required dependency lynx: Selecting version 2.8.7-1 for installation.
-2016/01/09 17:13:46 Adding required dependency p11-kit: Selecting version 0.22.1-1 for installation.
-2016/01/09 17:13:46 Adding required dependency p11-kit-trust: Selecting version 0.22.1-1 for installation.
-2016/01/09 17:13:46 Adding required dependency popt: Selecting version 1.16-1 for installation.
-2016/01/09 17:13:46 Adding required dependency xz: Selecting version 5.2.2-1 for installation.
-2016/01/09 17:13:46 Adding required dependency zlib0: Selecting version 1.2.8-3 for installation.
-2016/01/09 17:13:46 Adding required dependency _update-info-dir: Selecting version 01469-1 for installation.
-2016/01/09 17:13:47 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/_autorebase/_autorebase-001002-1.tar.xz
-2016/01/09 17:13:47 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/_update-info-dir/_update-info-dir-01469-1.tar.bz2
-2016/01/09 17:13:47 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/alternatives/alternatives-1.3.30c-10.tar.bz2
-2016/01/09 17:13:48 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/base-cygwin/base-cygwin-3.8-1.tar.xz
-2016/01/09 17:13:48 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/base-files/base-files-4.2-4.tar.xz
-2016/01/09 17:13:50 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/bash/bash-4.3.42-4.tar.xz
-2016/01/09 17:13:52 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/bzip2/bzip2-1.0.6-2.tar.bz2
-2016/01/09 17:13:53 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ca-certificates/ca-certificates-2.6-1.tar.xz
-2016/01/09 17:13:55 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/coreutils/coreutils-8.24-3.tar.xz
-2016/01/09 17:13:56 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygutils/cygutils-1.4.15-2.tar.xz
-2016/01/09 17:13:59 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin/cygwin-2.3.1-1.tar.xz
-2016/01/09 17:14:00 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/dash/dash-0.5.8-3.tar.xz
-2016/01/09 17:14:00 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/editrights/editrights-1.03-1.tar.xz
-2016/01/09 17:14:01 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/file/file-5.24-1.tar.xz
-2016/01/09 17:14:03 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/findutils/findutils-4.5.12-1.tar.xz
-2016/01/09 17:14:05 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gawk/gawk-4.1.3-1.tar.xz
-2016/01/09 17:14:05 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/getent/getent-2.18.90-4.tar.xz
-2016/01/09 17:14:06 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/grep/grep-2.21-2.tar.xz
-2016/01/09 17:14:10 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/groff/groff-1.22.3-1.tar.xz
-2016/01/09 17:14:11 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gzip/gzip-1.6-1.tar.xz
-2016/01/09 17:14:11 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/hostname/hostname-3.13-1.tar.bz2
-2016/01/09 17:14:12 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/texinfo/info/info-6.0-1.tar.xz
-2016/01/09 17:14:12 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ipc-utils/ipc-utils-1.0-1.tar.bz2
-2016/01/09 17:14:13 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/less/less-481-1.tar.xz
-2016/01/09 17:14:14 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libargp/libargp-20110921-2.tar.bz2
-2016/01/09 17:14:14 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/attr/libattr1/libattr1-2.4.46-1.tar.bz2
-2016/01/09 17:14:15 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/libblkid1/libblkid1-2.25.2-2.tar.xz
-2016/01/09 17:14:15 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/bzip2/libbz2_1/libbz2_1-1.0.6-2.tar.bz2
-2016/01/09 17:14:16 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libffi/libffi6/libffi6-3.2.1-1.tar.xz
-2016/01/09 17:14:16 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libgcc1/libgcc1-4.9.3-1.tar.xz
-2016/01/09 17:14:16 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gdbm/libgdbm4/libgdbm4-1.8.3-20.tar.bz2
-2016/01/09 17:14:17 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gmp/libgmp10/libgmp10-6.1.0-3p1.tar.xz
-2016/01/09 17:14:18 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libiconv/libiconv-1.14-3.tar.xz
-2016/01/09 17:14:20 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libiconv/libiconv2/libiconv2-1.14-3.tar.xz
-2016/01/09 17:14:20 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gettext/libintl8/libintl8-0.19.5.1-2.tar.xz
-2016/01/09 17:14:21 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/xz/liblzma5/liblzma5-5.2.2-1.tar.xz
-2016/01/09 17:14:22 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mpfr/libmpfr4/libmpfr4-3.1.3-1.tar.xz
-2016/01/09 17:14:22 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ncurses/libncursesw10/libncursesw10-6.0-1.20151017.tar.xz
-2016/01/09 17:14:24 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/openssl/libopenssl100/libopenssl100-1.0.2e-1.tar.xz
-2016/01/09 17:14:25 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/p11-kit/libp11-kit0/libp11-kit0-0.22.1-1.tar.xz
-2016/01/09 17:14:26 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pcre/libpcre1/libpcre1-8.37-2.tar.xz
-2016/01/09 17:14:26 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libpipeline/libpipeline1/libpipeline1-1.4.0-1.tar.xz
-2016/01/09 17:14:27 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/readline/libreadline7/libreadline7-6.3.8-1.tar.xz
-2016/01/09 17:14:27 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/libsmartcols1/libsmartcols1-2.25.2-2.tar.xz
-2016/01/09 17:14:28 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libstdc++6/libstdc++6-4.9.3-1.tar.xz
-2016/01/09 17:14:28 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libtasn1/libtasn1_6/libtasn1_6-4.5-1.tar.xz
-2016/01/09 17:14:29 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/libuuid1/libuuid1-2.25.2-2.tar.xz
-2016/01/09 17:14:29 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/login/login-1.11-1.tar.xz
-2016/01/09 17:14:31 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/lynx/lynx-2.8.7-1.tar.bz2
-2016/01/09 17:14:33 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/man-db/man-db-2.7.4-1.tar.xz
-2016/01/09 17:14:34 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mintty/mintty-2.2.2-0.tar.xz
-2016/01/09 17:14:36 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/openssl/openssl-1.0.2e-1.tar.xz
-2016/01/09 17:14:37 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/p11-kit/p11-kit-0.22.1-1.tar.xz
-2016/01/09 17:14:37 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/p11-kit/p11-kit-trust/p11-kit-trust-0.22.1-1.tar.xz
-2016/01/09 17:14:38 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/popt/popt-1.16-1.tar.xz
-2016/01/09 17:14:39 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/rebase/rebase-4.4.1-1.tar.bz2
-2016/01/09 17:14:39 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/run/run-1.3.4-2.tar.xz
-2016/01/09 17:14:40 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/sed/sed-4.2.2-3.tar.bz2
-2016/01/09 17:14:42 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/tar/tar-1.28-1.tar.xz
-2016/01/09 17:14:42 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ncurses/terminfo/terminfo-6.0-1.20151017.tar.xz
-2016/01/09 17:14:44 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/tzcode/tzcode-2015g-1.tar.xz
-2016/01/09 17:14:45 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/util-linux-2.25.2-2.tar.xz
-2016/01/09 17:14:47 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/vim/vim-minimal/vim-minimal-7.4.891-1.tar.xz
-2016/01/09 17:14:47 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/which/which-2.20-2.tar.bz2
-2016/01/09 17:14:48 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/xz/xz-5.2.2-1.tar.xz
-2016/01/09 17:14:49 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/zlib/zlib0/zlib0-1.2.8-3.tar.xz
-2016/01/09 17:14:50 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/_autorebase/_autorebase-001002-1.tar.xz
-2016/01/09 17:14:50 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/_update-info-dir/_update-info-dir-01469-1.tar.bz2
-2016/01/09 17:14:50 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/alternatives/alternatives-1.3.30c-10.tar.bz2
-2016/01/09 17:14:51 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/base-cygwin/base-cygwin-3.8-1.tar.xz
-2016/01/09 17:14:51 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/base-files/base-files-4.2-4.tar.xz
-2016/01/09 17:14:51 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/bash/bash-4.3.42-4.tar.xz
-2016/01/09 17:14:52 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/bzip2/bzip2-1.0.6-2.tar.bz2
-2016/01/09 17:14:52 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ca-certificates/ca-certificates-2.6-1.tar.xz
-2016/01/09 17:14:52 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/coreutils/coreutils-8.24-3.tar.xz
-2016/01/09 17:14:55 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygutils/cygutils-1.4.15-2.tar.xz
-2016/01/09 17:14:55 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin/cygwin-2.3.1-1.tar.xz
-2016/01/09 17:14:56 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/dash/dash-0.5.8-3.tar.xz
-2016/01/09 17:14:56 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/editrights/editrights-1.03-1.tar.xz
-2016/01/09 17:14:56 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/file/file-5.24-1.tar.xz
-2016/01/09 17:14:56 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/findutils/findutils-4.5.12-1.tar.xz
-2016/01/09 17:14:57 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gawk/gawk-4.1.3-1.tar.xz
-2016/01/09 17:14:57 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/getent/getent-2.18.90-4.tar.xz
-2016/01/09 17:14:57 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/grep/grep-2.21-2.tar.xz
-2016/01/09 17:14:57 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/groff/groff-1.22.3-1.tar.xz
-2016/01/09 17:15:01 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gzip/gzip-1.6-1.tar.xz
-2016/01/09 17:15:01 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/hostname/hostname-3.13-1.tar.bz2
-2016/01/09 17:15:01 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/texinfo/info/info-6.0-1.tar.xz
-2016/01/09 17:15:02 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ipc-utils/ipc-utils-1.0-1.tar.bz2
-2016/01/09 17:15:02 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/less/less-481-1.tar.xz
-2016/01/09 17:15:02 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libargp/libargp-20110921-2.tar.bz2
-2016/01/09 17:15:02 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/attr/libattr1/libattr1-2.4.46-1.tar.bz2
-2016/01/09 17:15:02 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/libblkid1/libblkid1-2.25.2-2.tar.xz
-2016/01/09 17:15:02 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/bzip2/libbz2_1/libbz2_1-1.0.6-2.tar.bz2
-2016/01/09 17:15:02 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libffi/libffi6/libffi6-3.2.1-1.tar.xz
-2016/01/09 17:15:02 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libgcc1/libgcc1-4.9.3-1.tar.xz
-2016/01/09 17:15:02 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gdbm/libgdbm4/libgdbm4-1.8.3-20.tar.bz2
-2016/01/09 17:15:02 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gmp/libgmp10/libgmp10-6.1.0-3p1.tar.xz
-2016/01/09 17:15:02 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libiconv/libiconv-1.14-3.tar.xz
-2016/01/09 17:15:02 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libiconv/libiconv2/libiconv2-1.14-3.tar.xz
-2016/01/09 17:15:02 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gettext/libintl8/libintl8-0.19.5.1-2.tar.xz
-2016/01/09 17:15:02 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/xz/liblzma5/liblzma5-5.2.2-1.tar.xz
-2016/01/09 17:15:02 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mpfr/libmpfr4/libmpfr4-3.1.3-1.tar.xz
-2016/01/09 17:15:02 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ncurses/libncursesw10/libncursesw10-6.0-1.20151017.tar.xz
-2016/01/09 17:15:02 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/openssl/libopenssl100/libopenssl100-1.0.2e-1.tar.xz
-2016/01/09 17:15:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/p11-kit/libp11-kit0/libp11-kit0-0.22.1-1.tar.xz
-2016/01/09 17:15:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pcre/libpcre1/libpcre1-8.37-2.tar.xz
-2016/01/09 17:15:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libpipeline/libpipeline1/libpipeline1-1.4.0-1.tar.xz
-2016/01/09 17:15:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/readline/libreadline7/libreadline7-6.3.8-1.tar.xz
-2016/01/09 17:15:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/libsmartcols1/libsmartcols1-2.25.2-2.tar.xz
-2016/01/09 17:15:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libstdc++6/libstdc++6-4.9.3-1.tar.xz
-2016/01/09 17:15:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libtasn1/libtasn1_6/libtasn1_6-4.5-1.tar.xz
-2016/01/09 17:15:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/libuuid1/libuuid1-2.25.2-2.tar.xz
-2016/01/09 17:15:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/login/login-1.11-1.tar.xz
-2016/01/09 17:15:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/lynx/lynx-2.8.7-1.tar.bz2
-2016/01/09 17:15:04 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/man-db/man-db-2.7.4-1.tar.xz
-2016/01/09 17:15:05 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mintty/mintty-2.2.2-0.tar.xz
-2016/01/09 17:15:05 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/openssl/openssl-1.0.2e-1.tar.xz
-2016/01/09 17:15:06 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/p11-kit/p11-kit-0.22.1-1.tar.xz
-2016/01/09 17:15:06 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/p11-kit/p11-kit-trust/p11-kit-trust-0.22.1-1.tar.xz
-2016/01/09 17:15:06 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/popt/popt-1.16-1.tar.xz
-2016/01/09 17:15:06 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/rebase/rebase-4.4.1-1.tar.bz2
-2016/01/09 17:15:06 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/run/run-1.3.4-2.tar.xz
-2016/01/09 17:15:06 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/sed/sed-4.2.2-3.tar.bz2
-2016/01/09 17:15:07 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/tar/tar-1.28-1.tar.xz
-2016/01/09 17:15:07 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ncurses/terminfo/terminfo-6.0-1.20151017.tar.xz
-2016/01/09 17:15:08 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/tzcode/tzcode-2015g-1.tar.xz
-2016/01/09 17:15:14 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/util-linux-2.25.2-2.tar.xz
-2016/01/09 17:15:15 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/vim/vim-minimal/vim-minimal-7.4.891-1.tar.xz
-2016/01/09 17:15:15 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/which/which-2.20-2.tar.bz2
-2016/01/09 17:15:16 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/xz/xz-5.2.2-1.tar.xz
-2016/01/09 17:15:16 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/zlib/zlib0/zlib0-1.2.8-3.tar.xz
-2016/01/09 17:15:16 Changing gid back to original
-2016/01/09 17:15:16 running: C:\cygwin\bin\dash.exe "/etc/postinstall/0p_000_autorebase.dash"
-2016/01/09 17:15:20 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/000-cygwin-post-install.sh"
-2016/01/09 17:15:20 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/update-info-dir.sh"
-2016/01/09 17:15:20 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/coreutils.sh"
-2016/01/09 17:15:20 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/bash.sh"
-2016/01/09 17:15:21 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/base-files-mketc.sh"
-2016/01/09 17:15:21 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/base-files-profile.sh"
-2016/01/09 17:15:22 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/ca-certificates.sh"
-2016/01/09 17:15:23 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/lynx.sh"
-2016/01/09 17:15:23 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/man-db.sh"
-2016/01/09 17:15:23 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/mintty.sh"
-2016/01/09 17:15:23 Changing gid to Administrators
-2016/01/09 17:15:25 note: Installation Complete
-2016/01/09 17:15:25 Ending cygwin install
-2016/01/09 18:01:41 Starting cygwin install, version 2.873
-2016/01/09 18:01:41 User has backup/restore rights
-2016/01/09 18:01:41 Current Directory: C:\Users\scarroll\Downloads
-2016/01/09 18:01:41 Could not open service McShield for query, start and stop. McAfee may not be installed, or we don't have access.
-2016/01/09 18:01:44 source: network install
-2016/01/09 18:01:45 root: C:\cygwin system
-2016/01/09 18:01:45 Selected local directory: C:\Users\scarroll\Downloads
-2016/01/09 18:01:46 net: Direct
-2016/01/09 18:01:48 site: http://cygwin.mirror.constant.com/
-2016/01/09 18:10:36 Ending cygwin install
+2016/01/15 11:48:18 Starting cygwin install, version 2.873
+2016/01/15 11:48:18 User has backup/restore rights
+2016/01/15 11:48:18 io_stream_cygfile: fopen(/etc/setup/setup.rc) failed 2 No such file or directory
+2016/01/15 11:48:18 Current Directory: C:\Users\scarroll\Downloads
+2016/01/15 11:48:18 Could not open service McShield for query, start and stop. McAfee may not be installed, or we don't have access.
+2016/01/15 11:48:24 source: network install
+2016/01/15 11:48:26 root: C:\cygwin system
+2016/01/15 11:48:27 Selected local directory: C:\Users\scarroll\Downloads
+2016/01/15 11:48:28 net: Direct
+2016/01/15 11:48:33 site: http://cygwin.mirror.constant.com/
+2016/01/15 11:48:38 io_stream_cygfile: fopen(/etc/setup/installed.db) failed 2 No such file or directory
+2016/01/15 11:48:38 io_stream_cygfile: fopen(/etc/setup/timestamp) failed 2 No such file or directory
+2016/01/15 11:48:46 Adding required dependency bzip2: Selecting version 1.0.6-2 for installation.
+2016/01/15 11:48:46 Adding required dependency ca-certificates: Selecting version 2.6-1 for installation.
+2016/01/15 11:48:46 Adding required dependency groff: Selecting version 1.22.3-1 for installation.
+2016/01/15 11:48:46 Adding required dependency less: Selecting version 481-1 for installation.
+2016/01/15 11:48:46 Adding required dependency libargp: Selecting version 20110921-2 for installation.
+2016/01/15 11:48:46 Adding required dependency libattr1: Selecting version 2.4.46-1 for installation.
+2016/01/15 11:48:46 Adding required dependency libblkid1: Selecting version 2.25.2-2 for installation.
+2016/01/15 11:48:46 Adding required dependency libbz2_1: Selecting version 1.0.6-2 for installation.
+2016/01/15 11:48:46 Adding required dependency libffi6: Selecting version 3.2.1-1 for installation.
+2016/01/15 11:48:46 Adding required dependency libgcc1: Selecting version 4.9.3-1 for installation.
+2016/01/15 11:48:46 Adding required dependency libgdbm4: Selecting version 1.8.3-20 for installation.
+2016/01/15 11:48:46 Adding required dependency libgmp10: Selecting version 6.1.0-3p1 for installation.
+2016/01/15 11:48:46 Adding required dependency libiconv: Selecting version 1.14-3 for installation.
+2016/01/15 11:48:46 Adding required dependency libiconv2: Selecting version 1.14-3 for installation.
+2016/01/15 11:48:46 Adding required dependency libintl8: Selecting version 0.19.5.1-2 for installation.
+2016/01/15 11:48:46 Adding required dependency liblzma5: Selecting version 5.2.2-1 for installation.
+2016/01/15 11:48:46 Adding required dependency libmpfr4: Selecting version 3.1.3-1 for installation.
+2016/01/15 11:48:46 Adding required dependency libncursesw10: Selecting version 6.0-1.20151017 for installation.
+2016/01/15 11:48:46 Adding required dependency libp11-kit0: Selecting version 0.22.1-1 for installation.
+2016/01/15 11:48:46 Adding required dependency libpcre1: Selecting version 8.37-2 for installation.
+2016/01/15 11:48:46 Adding required dependency libpipeline1: Selecting version 1.4.0-1 for installation.
+2016/01/15 11:48:46 Adding required dependency libsmartcols1: Selecting version 2.25.2-2 for installation.
+2016/01/15 11:48:46 Adding required dependency libstdc++6: Selecting version 4.9.3-1 for installation.
+2016/01/15 11:48:46 Adding required dependency libtasn1_6: Selecting version 4.5-1 for installation.
+2016/01/15 11:48:46 Adding required dependency libuuid1: Selecting version 2.25.2-2 for installation.
+2016/01/15 11:48:46 Adding required dependency lynx: Selecting version 2.8.7-1 for installation.
+2016/01/15 11:48:46 Adding required dependency p11-kit: Selecting version 0.22.1-1 for installation.
+2016/01/15 11:48:46 Adding required dependency p11-kit-trust: Selecting version 0.22.1-1 for installation.
+2016/01/15 11:48:46 Adding required dependency popt: Selecting version 1.16-1 for installation.
+2016/01/15 11:48:46 Adding required dependency xz: Selecting version 5.2.2-1 for installation.
+2016/01/15 11:48:46 Adding required dependency zlib0: Selecting version 1.2.8-3 for installation.
+2016/01/15 11:48:46 Adding required dependency _update-info-dir: Selecting version 01471-1 for installation.
+2016/01/15 11:48:46 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/_autorebase/_autorebase-001002-1.tar.xz
+2016/01/15 11:48:46 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/_update-info-dir/_update-info-dir-01471-1.tar.bz2
+2016/01/15 11:48:47 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/alternatives/alternatives-1.3.30c-10.tar.bz2
+2016/01/15 11:48:47 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/base-cygwin/base-cygwin-3.8-1.tar.xz
+2016/01/15 11:48:48 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/base-files/base-files-4.2-4.tar.xz
+2016/01/15 11:48:50 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/bash/bash-4.3.42-4.tar.xz
+2016/01/15 11:48:51 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/bzip2/bzip2-1.0.6-2.tar.bz2
+2016/01/15 11:48:53 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ca-certificates/ca-certificates-2.6-1.tar.xz
+2016/01/15 11:48:55 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/coreutils/coreutils-8.24-3.tar.xz
+2016/01/15 11:48:56 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygutils/cygutils-1.4.15-2.tar.xz
+2016/01/15 11:48:58 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin/cygwin-2.3.1-1.tar.xz
+2016/01/15 11:48:59 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/dash/dash-0.5.8-3.tar.xz
+2016/01/15 11:48:59 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/editrights/editrights-1.03-1.tar.xz
+2016/01/15 11:49:00 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/file/file-5.25-1.tar.xz
+2016/01/15 11:49:02 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/findutils/findutils-4.5.12-1.tar.xz
+2016/01/15 11:49:04 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gawk/gawk-4.1.3-1.tar.xz
+2016/01/15 11:49:04 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/getent/getent-2.18.90-4.tar.xz
+2016/01/15 11:49:05 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/grep/grep-2.21-2.tar.xz
+2016/01/15 11:49:08 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/groff/groff-1.22.3-1.tar.xz
+2016/01/15 11:49:09 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gzip/gzip-1.6-1.tar.xz
+2016/01/15 11:49:09 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/hostname/hostname-3.13-1.tar.bz2
+2016/01/15 11:49:11 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/texinfo/info/info-6.0-1.tar.xz
+2016/01/15 11:49:11 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ipc-utils/ipc-utils-1.0-1.tar.bz2
+2016/01/15 11:49:12 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/less/less-481-1.tar.xz
+2016/01/15 11:49:12 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libargp/libargp-20110921-2.tar.bz2
+2016/01/15 11:49:13 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/attr/libattr1/libattr1-2.4.46-1.tar.bz2
+2016/01/15 11:49:13 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/libblkid1/libblkid1-2.25.2-2.tar.xz
+2016/01/15 11:49:14 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/bzip2/libbz2_1/libbz2_1-1.0.6-2.tar.bz2
+2016/01/15 11:49:14 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libffi/libffi6/libffi6-3.2.1-1.tar.xz
+2016/01/15 11:49:15 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libgcc1/libgcc1-4.9.3-1.tar.xz
+2016/01/15 11:49:15 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gdbm/libgdbm4/libgdbm4-1.8.3-20.tar.bz2
+2016/01/15 11:49:16 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gmp/libgmp10/libgmp10-6.1.0-3p1.tar.xz
+2016/01/15 11:49:17 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libiconv/libiconv-1.14-3.tar.xz
+2016/01/15 11:49:18 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libiconv/libiconv2/libiconv2-1.14-3.tar.xz
+2016/01/15 11:49:19 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gettext/libintl8/libintl8-0.19.5.1-2.tar.xz
+2016/01/15 11:49:19 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/xz/liblzma5/liblzma5-5.2.2-1.tar.xz
+2016/01/15 11:49:20 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mpfr/libmpfr4/libmpfr4-3.1.3-1.tar.xz
+2016/01/15 11:49:21 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ncurses/libncursesw10/libncursesw10-6.0-1.20151017.tar.xz
+2016/01/15 11:49:23 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/openssl/libopenssl100/libopenssl100-1.0.2e-1.tar.xz
+2016/01/15 11:49:23 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/p11-kit/libp11-kit0/libp11-kit0-0.22.1-1.tar.xz
+2016/01/15 11:49:24 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pcre/libpcre1/libpcre1-8.37-2.tar.xz
+2016/01/15 11:49:24 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libpipeline/libpipeline1/libpipeline1-1.4.0-1.tar.xz
+2016/01/15 11:49:25 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/readline/libreadline7/libreadline7-6.3.8-1.tar.xz
+2016/01/15 11:49:26 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/libsmartcols1/libsmartcols1-2.25.2-2.tar.xz
+2016/01/15 11:49:27 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libstdc++6/libstdc++6-4.9.3-1.tar.xz
+2016/01/15 11:49:27 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libtasn1/libtasn1_6/libtasn1_6-4.5-1.tar.xz
+2016/01/15 11:49:27 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/libuuid1/libuuid1-2.25.2-2.tar.xz
+2016/01/15 11:49:28 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/login/login-1.11-1.tar.xz
+2016/01/15 11:49:30 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/lynx/lynx-2.8.7-1.tar.bz2
+2016/01/15 11:49:32 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/man-db/man-db-2.7.4-1.tar.xz
+2016/01/15 11:49:33 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mintty/mintty-2.2.2-0.tar.xz
+2016/01/15 11:49:35 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/openssl/openssl-1.0.2e-1.tar.xz
+2016/01/15 11:49:35 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/p11-kit/p11-kit-0.22.1-1.tar.xz
+2016/01/15 11:49:36 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/p11-kit/p11-kit-trust/p11-kit-trust-0.22.1-1.tar.xz
+2016/01/15 11:49:36 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/popt/popt-1.16-1.tar.xz
+2016/01/15 11:49:37 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/rebase/rebase-4.4.1-1.tar.bz2
+2016/01/15 11:49:38 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/run/run-1.3.4-2.tar.xz
+2016/01/15 11:49:39 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/sed/sed-4.2.2-3.tar.bz2
+2016/01/15 11:49:41 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/tar/tar-1.28-1.tar.xz
+2016/01/15 11:49:41 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ncurses/terminfo/terminfo-6.0-1.20151017.tar.xz
+2016/01/15 11:49:42 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/tzcode/tzcode-2015g-1.tar.xz
+2016/01/15 11:49:44 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/util-linux-2.25.2-2.tar.xz
+2016/01/15 11:49:46 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/vim/vim-minimal/vim-minimal-7.4.891-1.tar.xz
+2016/01/15 11:49:46 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/which/which-2.20-2.tar.bz2
+2016/01/15 11:49:47 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/xz/xz-5.2.2-1.tar.xz
+2016/01/15 11:49:48 Downloaded C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/zlib/zlib0/zlib0-1.2.8-3.tar.xz
+2016/01/15 11:49:51 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/_autorebase/_autorebase-001002-1.tar.xz
+2016/01/15 11:49:51 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/_update-info-dir/_update-info-dir-01471-1.tar.bz2
+2016/01/15 11:49:51 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/alternatives/alternatives-1.3.30c-10.tar.bz2
+2016/01/15 11:49:51 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/base-cygwin/base-cygwin-3.8-1.tar.xz
+2016/01/15 11:49:51 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/base-files/base-files-4.2-4.tar.xz
+2016/01/15 11:49:52 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/bash/bash-4.3.42-4.tar.xz
+2016/01/15 11:49:53 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/bzip2/bzip2-1.0.6-2.tar.bz2
+2016/01/15 11:49:53 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ca-certificates/ca-certificates-2.6-1.tar.xz
+2016/01/15 11:49:53 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/coreutils/coreutils-8.24-3.tar.xz
+2016/01/15 11:49:55 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygutils/cygutils-1.4.15-2.tar.xz
+2016/01/15 11:49:55 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/cygwin/cygwin-2.3.1-1.tar.xz
+2016/01/15 11:49:56 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/dash/dash-0.5.8-3.tar.xz
+2016/01/15 11:49:56 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/editrights/editrights-1.03-1.tar.xz
+2016/01/15 11:49:56 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/file/file-5.25-1.tar.xz
+2016/01/15 11:49:57 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/findutils/findutils-4.5.12-1.tar.xz
+2016/01/15 11:49:57 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gawk/gawk-4.1.3-1.tar.xz
+2016/01/15 11:49:58 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/getent/getent-2.18.90-4.tar.xz
+2016/01/15 11:49:58 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/grep/grep-2.21-2.tar.xz
+2016/01/15 11:49:58 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/groff/groff-1.22.3-1.tar.xz
+2016/01/15 11:50:02 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gzip/gzip-1.6-1.tar.xz
+2016/01/15 11:50:02 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/hostname/hostname-3.13-1.tar.bz2
+2016/01/15 11:50:02 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/texinfo/info/info-6.0-1.tar.xz
+2016/01/15 11:50:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ipc-utils/ipc-utils-1.0-1.tar.bz2
+2016/01/15 11:50:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/less/less-481-1.tar.xz
+2016/01/15 11:50:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libargp/libargp-20110921-2.tar.bz2
+2016/01/15 11:50:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/attr/libattr1/libattr1-2.4.46-1.tar.bz2
+2016/01/15 11:50:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/libblkid1/libblkid1-2.25.2-2.tar.xz
+2016/01/15 11:50:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/bzip2/libbz2_1/libbz2_1-1.0.6-2.tar.bz2
+2016/01/15 11:50:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libffi/libffi6/libffi6-3.2.1-1.tar.xz
+2016/01/15 11:50:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libgcc1/libgcc1-4.9.3-1.tar.xz
+2016/01/15 11:50:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gdbm/libgdbm4/libgdbm4-1.8.3-20.tar.bz2
+2016/01/15 11:50:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gmp/libgmp10/libgmp10-6.1.0-3p1.tar.xz
+2016/01/15 11:50:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libiconv/libiconv-1.14-3.tar.xz
+2016/01/15 11:50:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libiconv/libiconv2/libiconv2-1.14-3.tar.xz
+2016/01/15 11:50:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gettext/libintl8/libintl8-0.19.5.1-2.tar.xz
+2016/01/15 11:50:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/xz/liblzma5/liblzma5-5.2.2-1.tar.xz
+2016/01/15 11:50:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mpfr/libmpfr4/libmpfr4-3.1.3-1.tar.xz
+2016/01/15 11:50:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ncurses/libncursesw10/libncursesw10-6.0-1.20151017.tar.xz
+2016/01/15 11:50:03 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/openssl/libopenssl100/libopenssl100-1.0.2e-1.tar.xz
+2016/01/15 11:50:04 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/p11-kit/libp11-kit0/libp11-kit0-0.22.1-1.tar.xz
+2016/01/15 11:50:04 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/pcre/libpcre1/libpcre1-8.37-2.tar.xz
+2016/01/15 11:50:04 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libpipeline/libpipeline1/libpipeline1-1.4.0-1.tar.xz
+2016/01/15 11:50:04 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/readline/libreadline7/libreadline7-6.3.8-1.tar.xz
+2016/01/15 11:50:04 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/libsmartcols1/libsmartcols1-2.25.2-2.tar.xz
+2016/01/15 11:50:04 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/gcc/libstdc++6/libstdc++6-4.9.3-1.tar.xz
+2016/01/15 11:50:04 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/libtasn1/libtasn1_6/libtasn1_6-4.5-1.tar.xz
+2016/01/15 11:50:04 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/libuuid1/libuuid1-2.25.2-2.tar.xz
+2016/01/15 11:50:04 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/login/login-1.11-1.tar.xz
+2016/01/15 11:50:04 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/lynx/lynx-2.8.7-1.tar.bz2
+2016/01/15 11:50:05 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/man-db/man-db-2.7.4-1.tar.xz
+2016/01/15 11:50:06 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/mintty/mintty-2.2.2-0.tar.xz
+2016/01/15 11:50:06 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/openssl/openssl-1.0.2e-1.tar.xz
+2016/01/15 11:50:07 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/p11-kit/p11-kit-0.22.1-1.tar.xz
+2016/01/15 11:50:07 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/p11-kit/p11-kit-trust/p11-kit-trust-0.22.1-1.tar.xz
+2016/01/15 11:50:07 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/popt/popt-1.16-1.tar.xz
+2016/01/15 11:50:07 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/rebase/rebase-4.4.1-1.tar.bz2
+2016/01/15 11:50:07 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/run/run-1.3.4-2.tar.xz
+2016/01/15 11:50:07 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/sed/sed-4.2.2-3.tar.bz2
+2016/01/15 11:50:08 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/tar/tar-1.28-1.tar.xz
+2016/01/15 11:50:08 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/ncurses/terminfo/terminfo-6.0-1.20151017.tar.xz
+2016/01/15 11:50:08 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/tzcode/tzcode-2015g-1.tar.xz
+2016/01/15 11:50:15 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/util-linux/util-linux-2.25.2-2.tar.xz
+2016/01/15 11:50:16 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/vim/vim-minimal/vim-minimal-7.4.891-1.tar.xz
+2016/01/15 11:50:16 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/which/which-2.20-2.tar.bz2
+2016/01/15 11:50:16 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/xz/xz-5.2.2-1.tar.xz
+2016/01/15 11:50:17 Extracting from file://C:\Users\scarroll\Downloads/http%3a%2f%2fcygwin.mirror.constant.com%2f/x86/release/zlib/zlib0/zlib0-1.2.8-3.tar.xz
+2016/01/15 11:50:17 Changing gid back to original
+2016/01/15 11:50:17 running: C:\cygwin\bin\dash.exe "/etc/postinstall/0p_000_autorebase.dash"
+2016/01/15 11:50:21 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/000-cygwin-post-install.sh"
+2016/01/15 11:50:22 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/update-info-dir.sh"
+2016/01/15 11:50:22 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/coreutils.sh"
+2016/01/15 11:50:22 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/bash.sh"
+2016/01/15 11:50:22 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/base-files-mketc.sh"
+2016/01/15 11:50:23 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/base-files-profile.sh"
+2016/01/15 11:50:23 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/ca-certificates.sh"
+2016/01/15 11:50:24 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/lynx.sh"
+2016/01/15 11:50:25 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/man-db.sh"
+2016/01/15 11:50:25 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/mintty.sh"
+2016/01/15 11:50:25 Changing gid to Administrators
+2016/01/15 11:53:31 note: Installation Complete
+2016/01/15 11:53:31 Ending cygwin install

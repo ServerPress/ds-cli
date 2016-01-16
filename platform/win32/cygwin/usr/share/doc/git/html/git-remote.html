@@ -570,6 +570,7 @@ git-remote(1) Manual Page
 <em>git remote remove</em> &lt;name&gt;
 <em>git remote set-head</em> &lt;name&gt; (-a | --auto | -d | --delete | &lt;branch&gt;)
 <em>git remote set-branches</em> [--add] &lt;name&gt; &lt;branch&gt;&#8230;
+<em>git remote get-url</em> [--push] [--all] &lt;name&gt;
 <em>git remote set-url</em> [--push] &lt;name&gt; &lt;newurl&gt; [&lt;oldurl&gt;]
 <em>git remote set-url --add</em> [--push] &lt;name&gt; &lt;newurl&gt;
 <em>git remote set-url --delete</em> [--push] &lt;name&gt; &lt;url&gt;
@@ -705,6 +706,17 @@ after the initial setup for a remote.
 <tt>-t</tt> option on the <em>git remote add</em> command line.</p></div>
 <div class="paragraph"><p>With <tt>--add</tt>, instead of replacing the list of currently tracked
 branches, adds to that list.</p></div>
+</dd>
+<dt class="hdlist1">
+<em>get-url</em>
+</dt>
+<dd>
+<p>
+Retrieves the URLs for a remote. Configurations for <tt>insteadOf</tt> and
+<tt>pushInsteadOf</tt> are expanded here. By default, only the first URL is listed.
+</p>
+<div class="paragraph"><p>With <em>--push</em>, push URLs are queried rather than fetch URLs.</p></div>
+<div class="paragraph"><p>With <em>--all</em>, all URLs for the remote will be listed.</p></div>
 </dd>
 <dt class="hdlist1">
 <em>set-url</em>
@@ -844,7 +856,7 @@ $ git merge origin</tt></pre>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-10-16 22:40:05 BST
+Last updated 2016-01-04 22:08:04 GMT
 </div>
 </div>
 </body>

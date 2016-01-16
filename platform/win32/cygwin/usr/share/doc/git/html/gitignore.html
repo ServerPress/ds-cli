@@ -674,12 +674,12 @@ Trailing spaces are ignored unless they are quoted with backslash
 <p>
 An optional prefix "<tt>!</tt>" which negates the pattern; any
    matching file excluded by a previous pattern will become
-   included again. It is not possible to re-include a file if a parent
-   directory of that file is excluded. Git doesn&#8217;t list excluded
-   directories for performance reasons, so any patterns on contained
-   files have no effect, no matter where they are defined.
+   included again.
    Put a backslash ("<tt>\</tt>") in front of the first "<tt>!</tt>" for patterns
    that begin with a literal "<tt>!</tt>", for example, "<tt>\!important!.txt</tt>".
+   It is possible to re-include a file if a parent directory of that
+   file is excluded if certain conditions are met. See section NOTES
+   for detail.
 </p>
 </li>
 <li>
@@ -760,6 +760,34 @@ Other consecutive asterisks are considered invalid.
 not tracked by Git remain untracked.</p></div>
 <div class="paragraph"><p>To stop tracking a file that is currently tracked, use
 <em>git rm --cached</em>.</p></div>
+<div class="paragraph"><p>To re-include files or directories when their parent directory is
+excluded, the following conditions must be met:</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+The rules to exclude a directory and re-include a subset back must
+   be in the same .gitignore file.
+</p>
+</li>
+<li>
+<p>
+The directory part in the re-include rules must be literal (i.e. no
+   wildcards)
+</p>
+</li>
+<li>
+<p>
+The rules to exclude the parent directory must not end with a
+   trailing slash.
+</p>
+</li>
+<li>
+<p>
+The rules to exclude the parent directory must have at least one
+   slash.
+</p>
+</li>
+</ul></div>
 </div>
 </div>
 <div class="sect1">
@@ -835,7 +863,7 @@ everything within <tt>foo/bar</tt>):</p></div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-10-16 22:40:05 BST
+Last updated 2016-01-04 22:08:04 GMT
 </div>
 </div>
 </body>

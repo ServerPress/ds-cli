@@ -627,7 +627,7 @@ be named.
 If <tt>git push [&lt;repository&gt;]</tt> without any <tt>&lt;refspec&gt;</tt> argument is set to
 update some ref at the destination with <tt>&lt;src&gt;</tt> with
 <tt>remote.&lt;repository&gt;.push</tt> configuration variable, <tt>:&lt;dst&gt;</tt> part can
-be omitted---such a push will update a ref that <tt>&lt;src&gt;</tt> normally updates
+be omitted&#8212;such a push will update a ref that <tt>&lt;src&gt;</tt> normally updates
 without any <tt>&lt;refspec&gt;</tt> on the command line.  Otherwise, missing
 <tt>:&lt;dst&gt;</tt> means to update the same ref as the <tt>&lt;src&gt;</tt>.</p></div>
 <div class="paragraph"><p>The object referenced by &lt;src&gt; is used to update the &lt;dst&gt; reference
@@ -922,19 +922,25 @@ origin +master</tt> to force a push to the <tt>master</tt> branch). See the
 </p>
 </dd>
 <dt class="hdlist1">
---recurse-submodules=check|on-demand
+--no-recurse-submodules
+</dt>
+<dt class="hdlist1">
+--recurse-submodules=check|on-demand|no
 </dt>
 <dd>
 <p>
-        Make sure all submodule commits used by the revisions to be
-        pushed are available on a remote-tracking branch. If <em>check</em> is
-        used Git will verify that all submodule commits that changed in
-        the revisions to be pushed are available on at least one remote
-        of the submodule. If any commits are missing the push will be
-        aborted and exit with non-zero status. If <em>on-demand</em> is used
-        all submodules that changed in the revisions to be pushed will
-        be pushed. If on-demand was not able to push all necessary
-        revisions it will also be aborted and exit with non-zero status.
+        May be used to make sure all submodule commits used by the
+        revisions to be pushed are available on a remote-tracking branch.
+        If <em>check</em> is used Git will verify that all submodule commits that
+        changed in the revisions to be pushed are available on at least one
+        remote of the submodule. If any commits are missing the push will
+        be aborted and exit with non-zero status. If <em>on-demand</em> is used
+        all submodules that changed in the revisions to be pushed will be
+        pushed. If on-demand was not able to push all necessary revisions
+        it will also be aborted and exit with non-zero status. A value of
+        <em>no</em> or using <em>--no-recurse-submodules</em> can be used to override the
+        push.recurseSubmodules configuration variable when no submodule
+        recursion is required.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -1564,7 +1570,7 @@ a <tt>git gc</tt> command on the origin repository.</p></div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-10-16 22:40:05 BST
+Last updated 2016-01-04 22:08:04 GMT
 </div>
 </div>
 </body>

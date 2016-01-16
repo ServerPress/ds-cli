@@ -565,7 +565,7 @@ git-check-ignore(1) Manual Page
 <div class="sectionbody">
 <div class="verseblock">
 <pre class="content"><em>git check-ignore</em> [options] pathname&#8230;
-<em>git check-ignore</em> [options] --stdin &lt; &lt;list-of-paths&gt;</pre>
+<em>git check-ignore</em> [options] --stdin</pre>
 <div class="attribution">
 </div></div>
 </div>
@@ -574,10 +574,9 @@ git-check-ignore(1) Manual Page
 <h2 id="_description">DESCRIPTION</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>For each pathname given via the command-line or from a file via
-<tt>--stdin</tt>, show the pattern from .gitignore (or other input files to
-the exclude mechanism) that decides if the pathname is excluded or
-included.  Later patterns within a file take precedence over earlier
-ones.</p></div>
+<tt>--stdin</tt>, check whether the file is excluded by .gitignore (or other
+input files to the exclude mechanism) and output the path if it is
+excluded.</p></div>
 <div class="paragraph"><p>By default, tracked files are not shown at all since they are not
 subject to exclude rules; but see &#8216;--no-index&#8217;.</p></div>
 </div>
@@ -601,7 +600,8 @@ subject to exclude rules; but see &#8216;--no-index&#8217;.</p></div>
 <dd>
 <p>
         Also output details about the matching pattern (if any)
-        for each given pathname.
+        for each given pathname. For precedence rules within and
+        between exclude sources, see <a href="gitignore.html">gitignore(5)</a>.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -609,7 +609,8 @@ subject to exclude rules; but see &#8216;--no-index&#8217;.</p></div>
 </dt>
 <dd>
 <p>
-        Read file names from stdin instead of from the command-line.
+        Read pathnames from the standard input, one per line,
+        instead of from the command-line.
 </p>
 </dd>
 <dt class="hdlist1">
@@ -732,7 +733,7 @@ buffer.</p></div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-10-16 22:40:05 BST
+Last updated 2016-01-04 22:08:04 GMT
 </div>
 </div>
 </body>

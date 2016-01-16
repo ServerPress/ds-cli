@@ -598,7 +598,8 @@ however, these conflicts are resolved favouring lines from <tt>&lt;current-file&
 lines from <tt>&lt;other-file&gt;</tt>, or lines from both respectively.  The length of the
 conflict markers can be given with the <tt>--marker-size</tt> option.</p></div>
 <div class="paragraph"><p>The exit value of this program is negative on error, and the number of
-conflicts otherwise. If the merge was clean, the exit value is 0.</p></div>
+conflicts otherwise (truncated to 127 if there are more than that many
+conflicts). If the merge was clean, the exit value is 0.</p></div>
 <div class="paragraph"><p><em>git merge-file</em> is designed to be a minimal clone of RCS <em>merge</em>; that is, it
 implements all of RCS <em>merge</em>'s functionality which is needed by
 <a href="git.html">git(1)</a>.</p></div>
@@ -699,7 +700,7 @@ implements all of RCS <em>merge</em>'s functionality which is needed by
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-10-16 22:40:05 BST
+Last updated 2016-01-04 22:08:04 GMT
 </div>
 </div>
 </body>
