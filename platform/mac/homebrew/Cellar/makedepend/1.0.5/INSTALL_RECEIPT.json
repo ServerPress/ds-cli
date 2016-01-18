@@ -1,1 +1,1 @@
-{"stdlib":null,"HEAD":"83925a9cb18aa2d7898c4abaffb88a281b532365","compiler":"clang","used_options":[],"built_as_bottle":true,"source":{"tap":"Homebrew/homebrew","spec":"stable"},"unused_options":[],"time":1452581215,"poured_from_bottle":true}
+{"HEAD":"83925a9cb18aa2d7898c4abaffb88a281b532365","stdlib":null,"source":{"spec":"stable","tap":"Homebrew/homebrew"},"unused_options":[],"poured_from_bottle":true,"source_modified_time":0,"compiler":"clang","built_as_bottle":true,"used_options":[],"time":1453093978}
