@@ -188,7 +188,7 @@ struct _sigcommune
   __extension__ union
   {
     int _si_fd;
-    void *_si_pipe_fhandler;
+    int64_t _si_pipe_unique_id;
     char *_si_str;
   };
 };
@@ -314,14 +314,6 @@ enum
 #define SIGEV_SIGNAL SIGEV_SIGNAL
 #define SIGEV_NONE   SIGEV_NONE
 #define SIGEV_THREAD SIGEV_THREAD
-
-#if __WORDSIZE == 64
-typedef __uint64_t sigset_t;
-#else
-/* FIXME: We should probably raise the # of signals for 32 bit as well.
-          Unfortunately this is an ABI change so requires some forethought. */
-typedef __uint32_t sigset_t;
-#endif
 
 typedef void (*_sig_func_ptr)(int);
 
