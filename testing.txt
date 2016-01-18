@@ -1,0 +1,12 @@
+The following example commands will test functionality, ssl conductivity, and should not yield any warnings or errors:
+
+wget https://wordpress.org/latest.zip
+curl https://wordpress.org/latest.zip
+composer diagnose
+wp-cli
+wordshell --checkrequirements --debug
+npm -v
+nodejs -v
+node-sass -v
+git clone https://github.com/serverpress/bypass-login
+svn co https://plugins.svn.wordpress.org/desktopserver desktopserver
