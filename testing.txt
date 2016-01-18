@@ -8,5 +8,7 @@ wordshell --checkrequirements --debug
 npm -v
 nodejs -v
 node-sass -v
+sqlite3 --version
 git clone https://github.com/serverpress/bypass-login
 svn co https://plugins.svn.wordpress.org/desktopserver desktopserver
+
