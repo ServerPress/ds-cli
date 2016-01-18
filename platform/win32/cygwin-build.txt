@@ -11,14 +11,14 @@ apt-cyg install curl
 apt-cyg install lftp
 apt-cyg install w3m
 apt-cyg install links
-apt-cya install patch
+cd /usr/bin;ln -s ./links elinks
+apt-cyg install patch
 apt-cyg install subversion
 apt-cyg install git
-cd /usr/bin;ln -s ./links elinks
-apt-cyg install zip
 apt-cyg install unzip
+apt-cyg install zip
 echo "db_home: /%H" >> /etc/nsswitch.conf
 https://nodejs.org/dist/v4.2.4/node-v4.2.4-x86.msi
 npm install -g grunt-cli
 npm install -g gulp
-apt-cyg install ruby-ssass
+npm install -g node-sass
