@@ -208,3 +208,13 @@
 2016/01/17 21:55:42 Changing gid to Administrators
 2016/01/17 21:56:23 note: Nothing needed to be installed
 2016/01/17 21:56:23 Ending cygwin install
+2016/01/18 12:40:05 Starting cygwin install, version 2.873
+2016/01/18 12:40:05 User has backup/restore rights
+2016/01/18 12:40:05 Current Directory: C:\WINDOWS\SysWOW64
+2016/01/18 12:40:05 Could not open service McShield for query, start and stop. McAfee may not be installed, or we don't have access.
+2016/01/18 12:40:10 source: network install
+2016/01/18 12:40:11 root: C:\cygwin system
+2016/01/18 12:40:12 Selected local directory: C:\WINDOWS\SysWOW64
+2016/01/18 12:40:12 net: Direct
+2016/01/18 12:40:14 site: http://cygwin.mirror.constant.com/
+2016/01/18 12:41:37 Ending cygwin install

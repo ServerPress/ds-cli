@@ -17,6 +17,7 @@ apt-cyg install subversion
 apt-cyg install git
 apt-cyg install unzip
 apt-cyg install zip
+apt-cyg install sqlite3
 echo "db_home: /%H" >> /etc/nsswitch.conf
 https://nodejs.org/dist/v4.2.4/node-v4.2.4-x86.msi
 npm install -g grunt-cli

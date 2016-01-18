@@ -1,15 +1,15 @@
-2016/01/17 21:55:08 Starting cygwin install, version 2.873
-2016/01/17 21:55:08 User has backup/restore rights
-2016/01/17 21:55:08 Current Directory: C:\WINDOWS\SysWOW64
-2016/01/17 21:55:08 Could not open service McShield for query, start and stop. McAfee may not be installed, or we don't have access.
-2016/01/17 21:55:16 source: network install
-2016/01/17 21:55:17 root: C:\cygwin system
-2016/01/17 21:55:17 Selected local directory: C:\WINDOWS\SysWOW64
-2016/01/17 21:55:19 net: Direct
+2016/01/18 12:40:05 Starting cygwin install, version 2.873
+2016/01/18 12:40:05 User has backup/restore rights
+2016/01/18 12:40:05 Current Directory: C:\WINDOWS\SysWOW64
+2016/01/18 12:40:05 Could not open service McShield for query, start and stop. McAfee may not be installed, or we don't have access.
+2016/01/18 12:40:10 source: network install
+2016/01/18 12:40:11 root: C:\cygwin system
+2016/01/18 12:40:12 Selected local directory: C:\WINDOWS\SysWOW64
+2016/01/18 12:40:12 net: Direct
 Loaded cached mirror list
 get_url_to_membuf http://cygwin.com/mirrors.lst
 getUrlToStream http://cygwin.com/mirrors.lst
-2016/01/17 21:55:25 site: http://cygwin.mirror.constant.com/
+2016/01/18 12:40:14 site: http://cygwin.mirror.constant.com/
 get_url_to_membuf http://cygwin.mirror.constant.com/x86/setup.xz.sig
 getUrlToStream http://cygwin.mirror.constant.com/x86/setup.xz.sig
 getUrlToStream failed!
@@ -23,25 +23,4 @@ getUrlToStream http://cygwin.mirror.constant.com/x86/setup.bz2.sig
 get_url_to_membuf http://cygwin.mirror.constant.com/x86/setup.bz2
 getUrlToStream http://cygwin.mirror.constant.com/x86/setup.bz2
 .ini setup_version is 2.873, our setup_version is 2.873
-2016/01/17 21:55:40 Changing gid back to original
-Visited: 66 nodes out of 7675 while creating dependency order.
-Dependency order of packages: base-cygwin cygwin dash _autorebase _update-info-dir libiconv2 libintl8 alternatives libattr1 libgcc1 libgmp10 libstdc++6 terminfo libncursesw10 libreadline7 tzcode coreutils bash findutils sed base-files libbz2_1 bzip2 libffi6 libp11-kit0 libtasn1_6 p11-kit p11-kit-trust ca-certificates popt cygutils editrights zlib0 file libmpfr4 gawk libargp getent libpcre1 grep groff gzip hostname info ipc-utils less libuuid1 libblkid1 libgdbm4 libiconv liblzma5 libopenssl100 libpipeline1 libsmartcols1 login lynx util-linux man-db mintty openssl rebase run xz tar vim-minimal which 
-2016/01/17 21:55:40 running: C:\cygwin\bin\dash.exe "/etc/postinstall/0p_000_autorebase.dash"
-cat: /var/lib/rebase/dynpath.d/*: No such file or directory
-Updating package information in /var/cache/rebase/rebase_pkg.
-Updating rebase information for installed dynamic objects in /var/cache/rebase/rebase_lst.
-Updating rebase information for installed executables in /var/cache/rebase/rebase_exe.
-removing /var/cache/rebase/rebase_dyn
-creating empty /var/cache/rebase/rebase_dyn
-Updating rebase information for user-defined dynamic objects /var/cache/rebase/rebase_user.
-Updating rebase information for user-defined executables /var/cache/rebase/rebase_user_exe.
-Rebasing with list /var/cache/rebase/rebase_all, built from /var/cache/rebase/rebase_lst /var/cache/rebase/rebase_dyn /var/cache/rebase/rebase_user.
-2016/01/17 21:55:42 running: C:\cygwin\bin\bash.exe --norc --noprofile "/etc/postinstall/base-files-mketc.sh"
-Directory /cygdrive/c/Windows/SysWOW64/drivers/etc does not exist; exiting
-If directory name is garbage you need to update your cygwin package
-2016/01/17 21:55:42 abnormal exit: exit code=1
-2016/01/17 21:55:42 Changing gid to Administrators
-Program directory for program link: C:\ProgramData\Microsoft\Windows\Start Menu\Programs
-Desktop directory for desktop link: C:\Users\Public\Desktop
-2016/01/17 21:56:23 note: Nothing needed to be installed
-2016/01/17 21:56:23 Ending cygwin install
+2016/01/18 12:41:37 Ending cygwin install
