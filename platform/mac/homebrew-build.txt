@@ -15,7 +15,10 @@ brew install elinks
 brew install svn
 brew install homebrew/versions/node4-lts
 cd /usr/local/bin;ln -s /usr/bin/curl
+cd /usr/local/bin;ln -s ../Cellar/sqlite/3.10.0/bin/sqlite3 sqlite3
 cd /usr/local/bin;rm npm;ln -s ../lib/node_modules/npm/bin/npm-cli.js npm
+cd /usr/local/lib;ln -s ../Cellar/sqlite/3.10.0/lib/libsqlite3.dylib libsqlite3.dylib
+cd /usr/local/lib;ln -s ../Cellar/sqlite/3.10.0/lib/libsqlite3.0.dylib libsqlite3.0.dylib
 cd /usr/local/lib;ln -s ../Cellar/readline/6.3.8/lib/libreadline.6.3.dylib libreadline.6.dylib
 cd /usr/local/lib;ln -s ../Cellar/subversion/1.9.3/libexec/serf/lib/libserf-1.dylib libserf-1.dylib
 echo ca_certificate = /Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/etc/openssl/cert.pem >> /usr/local/etc/wgetrc
