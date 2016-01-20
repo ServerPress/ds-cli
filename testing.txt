@@ -9,6 +9,7 @@ node -v
 npm -v
 node-sass -v
 sqlite3 --version
+phpunit --version
 git clone https://github.com/serverpress/bypass-login
 svn co https://plugins.svn.wordpress.org/desktopserver desktopserver
 
