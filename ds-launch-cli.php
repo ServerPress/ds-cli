@@ -17,6 +17,9 @@ function ds_launch_cli( $cwd ) {
 		// Windows
 
 		$launch = $ds_runtime->ds_plugins_dir . "/ds-cli/platform/win32/boot.bat ";
+		if ( strpos( $cwd, ':' ) === 1 ) {
+			$launch .= substr( $cwd, 0, 2) . " &";
+		}
 		$launch .= "cd \"" . $cwd . "\" &";
 		$launch .= "del %USERPROFILE%\\.bash_history &";
 		$launch .= "c:\\xampplite\\ds-plugins\\ds-cli\\platform\\win32\\cygwin\\bin\\mintty";
