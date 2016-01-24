@@ -38,8 +38,8 @@ conf="$GIT_DIR/gitweb/httpd.conf"
 # if installed, it doesn't need further configuration (module_path)
 test -z "$httpd" && httpd='lighttpd -f'
 
-# Default is /usr/local/Cellar/git/2.7.0/share/gitweb
-test -z "$root" && root='/usr/local/Cellar/git/2.7.0/share/gitweb'
+# Default is /Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/git/2.7.0/share/gitweb
+test -z "$root" && root='/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/git/2.7.0/share/gitweb'
 
 # any untaken local port will do...
 test -z "$port" && port=1234

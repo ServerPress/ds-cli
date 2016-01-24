@@ -18,7 +18,7 @@ our @EXPORT_OK = @EXPORT;
 
 sub __bootstrap_locale_messages {
 	our $TEXTDOMAIN = 'git';
-	our $TEXTDOMAINDIR = $ENV{GIT_TEXTDOMAINDIR} || '/usr/local/Cellar/git/2.7.0/share/locale';
+	our $TEXTDOMAINDIR = $ENV{GIT_TEXTDOMAINDIR} || '/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/git/2.7.0/share/locale';
 
 	require POSIX;
 	POSIX->import(qw(setlocale));

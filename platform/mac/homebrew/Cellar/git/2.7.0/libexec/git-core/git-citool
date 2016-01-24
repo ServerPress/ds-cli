@@ -4,6 +4,6 @@ if test "z$*" = zversion ||
 then
 	echo 'git-gui version 0.20.0'
 else
-	libdir="${GIT_GUI_LIB_DIR:-/usr/local/Cellar/git/2.7.0/share/git-gui/lib}"
+	libdir="${GIT_GUI_LIB_DIR:-/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/git/2.7.0/share/git-gui/lib}"
 	exec "$libdir/Git Gui.app/Contents/MacOS/Wish" "$0" "$@"
 fi

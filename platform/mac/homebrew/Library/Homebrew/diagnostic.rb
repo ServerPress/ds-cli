@@ -1044,6 +1044,7 @@ module Homebrew
       end
 
       def check_for_autoconf
+        return unless MacOS::Xcode.installed?
         return unless MacOS::Xcode.provides_autotools?
 
         autoconf = which("autoconf")
@@ -1205,8 +1206,9 @@ module Homebrew
       end
 
       def check_for_non_prefixed_findutils
+        gnubin = "#{Formulary.factory("findutils").prefix}/libexec/gnubin"
         default_names = Tab.for_name("findutils").with? "default-names"
-        if default_names then <<-EOS.undent
+        if paths.include?(gnubin) || default_names then <<-EOS.undent
           Putting non-prefixed findutils in your path can cause python builds to fail.
           EOS
         end

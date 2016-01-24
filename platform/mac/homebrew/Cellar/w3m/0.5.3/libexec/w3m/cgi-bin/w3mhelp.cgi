@@ -5,7 +5,7 @@ if ( $^O =~ /^(ms)?(dos|win(32|nt)?)/i ) {
   $CYGPATH = 1;
 }
 
-$prefix = "/usr/local/Cellar/w3m/0.5.3";
+$prefix = "/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/w3m/0.5.3";
 $datarootdir = "${prefix}/share";
 $helpdir = "${datarootdir}/w3m";
 if ($CYGPATH) {

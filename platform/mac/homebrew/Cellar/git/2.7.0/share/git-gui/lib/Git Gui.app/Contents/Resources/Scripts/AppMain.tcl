@@ -1,8 +1,8 @@
-set gitexecdir {/usr/local/Cellar/git/2.7.0/libexec/git-core}
+set gitexecdir {/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/git/2.7.0/libexec/git-core}
 if { [info exists ::env(GIT_GUI_LIB_DIR) ] } {
 	set gitguilib $::env(GIT_GUI_LIB_DIR)
 } else {
-	set gitguilib {/usr/local/Cellar/git/2.7.0/share/git-gui/lib}
+	set gitguilib {/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/git/2.7.0/share/git-gui/lib}
 }
 
 set env(PATH) "$gitexecdir:$env(PATH)"

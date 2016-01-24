@@ -109,8 +109,8 @@ extern "C" {
 
 #if !(defined(VMS) || defined(__VMS)) /* VMS uses logical names instead */
 #if defined(HEADER_CRYPTLIB_H) && !defined(OPENSSLDIR)
-#define ENGINESDIR "/usr/local/Cellar/openssl/1.0.2e_1/lib/engines"
-#define OPENSSLDIR "/usr/local/etc/openssl"
+#define ENGINESDIR "/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/openssl/1.0.2e_1/lib/engines"
+#define OPENSSLDIR "/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/etc/openssl"
 #endif
 #endif
 

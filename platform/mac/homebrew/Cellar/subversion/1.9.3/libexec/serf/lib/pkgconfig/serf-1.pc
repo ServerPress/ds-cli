@@ -1,7 +1,7 @@
 SERF_MAJOR_VERSION=1
-prefix=/usr/local/Cellar/subversion/1.9.3/libexec/serf
+prefix=/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/subversion/1.9.3/libexec/serf
 exec_prefix=${prefix}
-libdir=/usr/local/Cellar/subversion/1.9.3/libexec/serf/lib
+libdir=/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/subversion/1.9.3/libexec/serf/lib
 includedir=${prefix}/include/serf-1
 
 Name: serf

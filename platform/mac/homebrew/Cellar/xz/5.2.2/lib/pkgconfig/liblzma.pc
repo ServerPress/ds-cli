@@ -5,10 +5,10 @@
 # You can do whatever you want with this file.
 #
 
-prefix=/usr/local/Cellar/xz/5.2.2
-exec_prefix=/usr/local/Cellar/xz/5.2.2
-libdir=/usr/local/Cellar/xz/5.2.2/lib
-includedir=/usr/local/Cellar/xz/5.2.2/include
+prefix=/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/xz/5.2.2
+exec_prefix=/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/xz/5.2.2
+libdir=/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/xz/5.2.2/lib
+includedir=/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/xz/5.2.2/include
 
 Name: liblzma
 Description: General purpose data compression library

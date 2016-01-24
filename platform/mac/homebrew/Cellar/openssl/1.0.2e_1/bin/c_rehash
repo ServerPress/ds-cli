@@ -3,8 +3,8 @@
 # Perl c_rehash script, scan all files in a directory
 # and add symbolic links to their hash values.
 
-my $dir = "/usr/local/etc/openssl";
-my $prefix = "/usr/local/Cellar/openssl/1.0.2e_1";
+my $dir = "/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/etc/openssl";
+my $prefix = "/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/openssl/1.0.2e_1";
 
 my $openssl = $ENV{OPENSSL} || "openssl";
 my $pwd;

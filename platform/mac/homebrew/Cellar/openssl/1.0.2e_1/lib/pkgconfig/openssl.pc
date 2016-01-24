@@ -1,4 +1,4 @@
-prefix=/usr/local/Cellar/openssl/1.0.2e_1
+prefix=/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/openssl/1.0.2e_1
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

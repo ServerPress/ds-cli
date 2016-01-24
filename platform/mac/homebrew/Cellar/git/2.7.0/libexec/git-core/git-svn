@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-use lib (split(/:/, $ENV{GITPERLLIB} || "/usr/local/Cellar/git/2.7.0/lib/perl5/site_perl"));
+use lib (split(/:/, $ENV{GITPERLLIB} || "/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/git/2.7.0/lib/perl5/site_perl"));
 # Copyright (C) 2006, Eric Wong <normalperson@yhbt.net>
 # License: GPL v2 or later
 use 5.008;

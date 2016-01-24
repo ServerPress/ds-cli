@@ -1,4 +1,4 @@
-prefix=/usr/local/Cellar/libatomic_ops/7.4.2
+prefix=/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/libatomic_ops/7.4.2
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

@@ -52,7 +52,7 @@ catch {rename send {}} ; # What an evil concept...
 if { [info exists ::env(GIT_GUI_LIB_DIR) ] } {
 	set oguilib $::env(GIT_GUI_LIB_DIR)
 } else {
-	set oguilib {/usr/local/Cellar/git/2.7.0/share/git-gui/lib}
+	set oguilib {/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/git/2.7.0/share/git-gui/lib}
 }
 set oguirel {}
 if {$oguirel eq {1}} {
