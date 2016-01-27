@@ -5,7 +5,10 @@ curl https://wordpress.org/latest.zip
 composer diagnose
 ## Note issue: https://github.com/composer/composer/issues/4839#issuecomment-175289919
 mkdir test; cd test;echo "{ \"name\": \"test:testing\" }" > composer.json
+composer install
 wp
+mysql --version
+php --version
 wordshell --checkrequirements --debug
 node -v
 npm -v

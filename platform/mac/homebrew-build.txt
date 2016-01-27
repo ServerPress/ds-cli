@@ -20,10 +20,10 @@ brew install elinks
 brew install svn
 brew install homebrew/versions/node4-lts
 cd "$DS_CLI/platform/mac/homebrew/bin";ln -s /usr/bin/curl
-cd "$DS_CLI/platform/mac/homebrew/bin";ln -s ../Cellar/sqlite/3.10.0/bin/sqlite3 sqlite3
 cd "$DS_CLI/platform/mac/homebrew/bin";rm npm;ln -s ../lib/node_modules/npm/bin/npm-cli.js npm
-cd "$DS_CLI/platform/mac/homebrew/lib";ln -s ../Cellar/sqlite/3.10.0/lib/libsqlite3.dylib libsqlite3.dylib
-cd "$DS_CLI/platform/mac/homebrew/lib";ln -s ../Cellar/sqlite/3.10.0/lib/libsqlite3.0.dylib libsqlite3.0.dylib
+cd "$DS_CLI/platform/mac/homebrew/bin";ln -s ../Cellar/sqlite/3.10.2/bin/sqlite3 sqlite3
+cd "$DS_CLI/platform/mac/homebrew/lib";ln -s ../Cellar/sqlite/3.10.2/lib/libsqlite3.dylib libsqlite3.dylib
+cd "$DS_CLI/platform/mac/homebrew/lib";ln -s ../Cellar/sqlite/3.10.2/lib/libsqlite3.0.dylib libsqlite3.0.dylib
 cd "$DS_CLI/platform/mac/homebrew/lib";ln -s ../Cellar/readline/6.3.8/lib/libreadline.6.3.dylib libreadline.6.dylib
 cd "$DS_CLI/platform/mac/homebrew/lib";ln -s ../Cellar/subversion/1.9.3/libexec/serf/lib/libserf-1.dylib libserf-1.dylib
 
