@@ -48,7 +48,6 @@ if ( $ds_runtime->last_ui_event !== false ) {
 		global $ds_cli_exec;
 		$ds_cli_exec = $bash;
 		$ds_runtime->do_action( 'pre_ds_cli_exec' );
-		trace( $ds_cli_exec );
 		exec( $ds_cli_exec );
 	}
 	$ds_runtime->add_action( 'ds_cli_exec', 'ds_cli_exec' );
