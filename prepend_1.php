@@ -30,19 +30,25 @@ if ( $ds_runtime->last_ui_event !== false ) {
 
 		if ( false === $cwd ) {
 			if ( $ds_cli_site_path !== '' ) {
-				$bash = 'cd ' . $ds_cli_site_path . ';' . $bash;
+				$bash = 'cd "' . str_replace( "\\", "\\\\", $ds_cli_site_path ) . '";' . $bash;
 			}
 		}else{
-			$bash = 'cd ' . $cwd . ';' . $bash;
+			$bash = 'cd "' . str_replace( "\\", "\\\\", $cwd) . '";' . $bash;
 		}
 		if ( PHP_OS !== 'Darwin' ) {
-			$bash = $ds_runtime->ds_plugins_dir . "/ds-cli/platform/win32/boot.bat bash -- " . $bash; // Windows
+
+			// Windows
+			file_put_contents( "c:\\xampplite\\tmp\\ds_cli_exec.sh", $bash );
+			$bash = $ds_runtime->ds_plugins_dir . "/ds-cli/platform/win32/boot.bat bash -- c:\\xampplite\\tmp\\ds_cli_exec.sh";
 		}else{
-			$bash = $ds_runtime->ds_plugins_dir . "/ds-cli/platform/mac/boot.sh " . $bash;	// Mac
+
+			// Mac
+			$bash = "source " . $ds_runtime->ds_plugins_dir . "/ds-cli/platform/mac/boot.sh; " . $bash;
 		}
 		global $ds_cli_exec;
 		$ds_cli_exec = $bash;
 		$ds_runtime->do_action( 'pre_ds_cli_exec' );
+		trace( $ds_cli_exec );
 		exec( $ds_cli_exec );
 	}
 	$ds_runtime->add_action( 'ds_cli_exec', 'ds_cli_exec' );
