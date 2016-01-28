@@ -19,6 +19,7 @@ brew install w3m
 brew install elinks
 brew install svn
 brew install homebrew/versions/node4-lts
+cd "$DS_CLI/platform/mac/pre";ln -s /usr/bin/head
 cd "$DS_CLI/platform/mac/homebrew/bin";ln -s /usr/bin/curl
 cd "$DS_CLI/platform/mac/homebrew/bin";rm npm;ln -s ../lib/node_modules/npm/bin/npm-cli.js npm
 cd "$DS_CLI/platform/mac/homebrew/bin";ln -s ../Cellar/sqlite/3.10.2/bin/sqlite3 sqlite3
