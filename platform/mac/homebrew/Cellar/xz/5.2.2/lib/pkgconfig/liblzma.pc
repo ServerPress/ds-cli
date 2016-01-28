@@ -1,0 +1,19 @@
+#
+# Author: Lasse Collin
+#
+# This file has been put into the public domain.
+# You can do whatever you want with this file.
+#
+
+prefix=/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/xz/5.2.2
+exec_prefix=/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/xz/5.2.2
+libdir=/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/xz/5.2.2/lib
+includedir=/Applications/XAMPP/ds-plugins/ds-cli/platform/mac/homebrew/Cellar/xz/5.2.2/include
+
+Name: liblzma
+Description: General purpose data compression library
+URL: http://tukaani.org/xz/
+Version: 5.2.2
+Cflags: -I${includedir}
+Libs: -L${libdir} -llzma
+Libs.private: -D_THREAD_SAFE -pthread 

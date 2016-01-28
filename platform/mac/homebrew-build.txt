@@ -34,6 +34,7 @@ mkdir $DS_CLI/platform/mac/npm;export npm_config_prefix="$DS_CLI/platform/mac/np
 npm install -g grunt-cli
 npm install -g gulp
 npm install -g node-sass
+rm "$DS_CLI/platform/mac/homebrew/.gitignore"
 
 
 
