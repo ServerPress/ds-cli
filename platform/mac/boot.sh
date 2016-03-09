@@ -4,6 +4,7 @@
 #
 unset HISTFILE;
 export DS_CLI="/Applications/XAMPP/ds-plugins/ds-cli"
+export PHPRC=/Applications/XAMPP/xamppfiles/etc
 export SSL_CERT_FILE="$DS_CLI/platform/mac/homebrew/etc/openssl/cert.pem"
 export GIT_EXEC_PATH="$DS_CLI/platform/mac/homebrew/Cellar/git/2.7.0/libexec/git-core"
 export GIT_TEMPLATE_DIR="$DS_CLI/platform/mac/homebrew/Cellar/git/2.7.0/share/git-core/templates"
