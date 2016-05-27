@@ -9,7 +9,7 @@ Version: 1.0.0
 
 require __DIR__ . '/vendor/autoload.php';
 
-use Steveorevo\String;
+use Steveorevo\GString;
 use Steveorevo\WP_Hooks;
 include_once( 'ds-launch-cli.php' );
 
@@ -28,7 +28,7 @@ class DS_CLI extends WP_Hooks {
 		$this->enqueue_scripts();
 	}
 	private function enqueue_scripts() {
-		$url = new String( site_url() );
+		$url = new GString( site_url() );
 		$url = $url->getLeftMost( '.dev' )->concat( '.dev/ds-plugins/ds-cli' )->__toString();
 		wp_enqueue_style( 'serverpress', $url .  '/fontello/css/serverpress.css' );
 		wp_enqueue_style( 'sp-animation', $url .  '/fontello/css/animation.css' );
