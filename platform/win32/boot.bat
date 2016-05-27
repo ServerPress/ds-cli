@@ -2,6 +2,7 @@
 REM
 REM Boot native CLI
 REM
+SET DS_PLATFORM="Windows"
 SET DS_CLI=c:\xampplite\ds-plugins\ds-cli
 SET PHPRC=c:\xampplite\php
 SET npm_config_cache=%DS_CLI%\platform\win32\npm-cache
