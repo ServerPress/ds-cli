@@ -7,8 +7,17 @@
     "steveorevo/virtual-cli": "@dev",
     "steveorevo/gstring": "1.1.*",
     "steveorevo/wp-hooks": "1.*",
+    "steveorevo/sfx-stubs": "0.0.*",
     "phpunit/phpunit": "4.8.*",
     "wp-cli/wp-cli": "0.*",
     "composer/installers": "~1.0"
+  },
+  "scripts": {
+    "build-mac": [
+      "@composer update"
+    ],
+    "built-win": [
+      "@composer update"
+    ]
   }
 }
