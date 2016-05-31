@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "8b8daa466761605b8e2941bc5b3e72cd",
+    "hash": "528e46cc6bc70168e989333306ff6975",
     "content-hash": "484c1bcacab8f9cda31bf369bef8ca70",
     "packages": [
         {
@@ -1810,12 +1810,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Steveorevo/virtual-cli.git",
-                "reference": "3a49a2fb6bff630b1600103c7152cb492c8cfb10"
+                "reference": "fe60bacf185bb92ba04acd5389dc8b8c9f70cb28"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Steveorevo/virtual-cli/zipball/3a49a2fb6bff630b1600103c7152cb492c8cfb10",
-                "reference": "3a49a2fb6bff630b1600103c7152cb492c8cfb10",
+                "url": "https://api.github.com/repos/Steveorevo/virtual-cli/zipball/fe60bacf185bb92ba04acd5389dc8b8c9f70cb28",
+                "reference": "fe60bacf185bb92ba04acd5389dc8b8c9f70cb28",
                 "shasum": ""
             },
             "require": {
@@ -1846,7 +1846,7 @@
                 "console",
                 "terminal"
             ],
-            "time": "2016-05-12 01:25:05"
+            "time": "2016-05-31 06:35:20"
         },
         {
             "name": "steveorevo/wp-hooks",

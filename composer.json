@@ -2,7 +2,6 @@
   "name": "serverpress/ds-cli",
   "description": "DesktopServer command line interface for enhanced, cross-platform environment for professional WordPress developers.",
   "license": "GPL-2.0",
-  "type": "wordpress-plugin",
   "require": {
     "steveorevo/virtual-cli": "@dev",
     "steveorevo/gstring": "1.1.*",
