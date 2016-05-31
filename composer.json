@@ -13,11 +13,56 @@
     "composer/installers": "~1.0"
   },
   "scripts": {
-    "build-mac": [
-      "@composer update"
+    "build": [
+      "@build-all"
     ],
-    "built-win": [
-      "@composer update"
+    "build-all": [
+      "@build-mac",
+      "@build-win"
+    ],
+    "build-mac": [
+      "rm -rf ./builds/mac",
+      "rm -rf ./builds/ds-cli-mac",
+      "mkdir -p ./builds/mac/ds-cli",
+      "cp -a ./css ./builds/mac/ds-cli/",
+      "cp -a ./fontello ./builds/mac/ds-cli/",
+      "cp -a ./js ./builds/mac/ds-cli/",
+      "cp -a ./vendor ./builds/mac/ds-cli/",
+      "mkdir -p ./builds/mac/ds-cli/platform",
+      "cp -a ./platform/all ./builds/mac/ds-cli/platform/",
+      "cp -a ./platform/mac ./builds/mac/ds-cli/platform/",
+      "cp ./composer.json ./builds/mac/ds-cli",
+      "cp ./composer.lock ./builds/mac/ds-cli",
+      "cp ./*.php ./builds/mac/ds-cli",
+      "cp ./LICENSE ./builds/mac/ds-cli",
+      "cp ./README.md ./builds/mac/ds-cli",
+      "cp ./testing.txt ./builds/mac/ds-cli",
+      "cd ./builds/mac;rar a -df -s -m5 -ol -mdg -sfx../../vendor/steveorevo/sfx-stubs/src/mac.sfx ds-cli-mac ds-cli",
+      "mv ./builds/mac/ds-cli-mac.sfx ./builds/mac/ds-cli-mac",
+      "chmod +x ./builds/mac/ds-cli-mac",
+      "mv ./builds/mac/ds-cli-mac ./builds",
+      "rm -rf ./builds/mac"
+    ],
+    "build-win": [
+      "rm -rf ./builds/win",
+      "rm -rf ./builds/ds-cli-win.exe",
+      "mkdir -p ./builds/win/ds-cli",
+      "cp -a ./css ./builds/win/ds-cli/",
+      "cp -a ./fontello ./builds/win/ds-cli/",
+      "cp -a ./js ./builds/win/ds-cli/",
+      "cp -a ./vendor ./builds/win/ds-cli/",
+      "mkdir -p ./builds/win/ds-cli/platform",
+      "cp -a ./platform/all ./builds/win/ds-cli/platform/",
+      "cp -a ./platform/win32 ./builds/win/ds-cli/platform/",
+      "cp ./composer.json ./builds/win/ds-cli",
+      "cp ./composer.lock ./builds/win/ds-cli",
+      "cp ./*.php ./builds/win/ds-cli",
+      "cp ./LICENSE ./builds/win/ds-cli",
+      "cp ./README.md ./builds/win/ds-cli",
+      "cp ./testing.txt ./builds/win/ds-cli",
+      "cd ./builds/win;rar a -df -s -m5 -ol -mdg -sfx../../vendor/steveorevo/sfx-stubs/src/win.sfx ds-cli-win.exe ds-cli",
+      "mv ./builds/win/ds-cli-win.exe ./builds",
+      "rm -rf ./builds/win"
     ]
   }
 }
