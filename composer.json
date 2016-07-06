@@ -21,7 +21,7 @@
     ],
     "build-mac": [
       "rm -rf ./builds/mac",
-      "rm -rf ./builds/ds-cli-mac",
+      "rm -rf ./builds/ds-cli-mac.zip",
       "mkdir -p ./builds/mac/ds-cli",
       "cp -a ./css ./builds/mac/ds-cli/",
       "cp -a ./fontello ./builds/mac/ds-cli/",
@@ -36,15 +36,16 @@
       "cp ./LICENSE ./builds/mac/ds-cli",
       "cp ./README.md ./builds/mac/ds-cli",
       "cp ./testing.txt ./builds/mac/ds-cli",
-      "cd ./builds/mac;rar a -df -s -m5 -ol -mdg -sfx../../vendor/steveorevo/sfx-stubs/src/mac.sfx ds-cli-mac ds-cli",
-      "mv ./builds/mac/ds-cli-mac.sfx ./builds/mac/ds-cli-mac",
-      "chmod +x ./builds/mac/ds-cli-mac",
-      "mv ./builds/mac/ds-cli-mac ./builds",
-      "rm -rf ./builds/mac"
+      "cd ./builds/mac;rar a -df -s -m5 -ol -mdg -sfx../../vendor/steveorevo/sfx-stubs/src/mac.sfx ds-cli-mac.sfx ds-cli",
+      "mv ./builds/mac/ds-cli-mac.sfx ./builds",
+      "rm -rf ./builds/mac",
+      "chmod -x builds/ds-cli-mac.sfx",
+      "cd builds;zip ds-cli-mac.zip ds-cli-mac.sfx",
+      "rm -rf ./builds/ds-cli-mac.sfx"
     ],
     "build-win": [
       "rm -rf ./builds/win",
-      "rm -rf ./builds/ds-cli-win.exe",
+      "rm -rf ./builds/ds-cli-win.zip",
       "mkdir -p ./builds/win/ds-cli",
       "cp -a ./css ./builds/win/ds-cli/",
       "cp -a ./fontello ./builds/win/ds-cli/",
@@ -59,9 +60,12 @@
       "cp ./LICENSE ./builds/win/ds-cli",
       "cp ./README.md ./builds/win/ds-cli",
       "cp ./testing.txt ./builds/win/ds-cli",
-      "cd ./builds/win;rar a -df -s -m5 -ol -mdg -sfx../../vendor/steveorevo/sfx-stubs/src/win.sfx ds-cli-win.exe ds-cli",
-      "mv ./builds/win/ds-cli-win.exe ./builds",
-      "rm -rf ./builds/win"
+      "cd ./builds/win;rar a -df -s -m5 -ol -mdg -sfx../../vendor/steveorevo/sfx-stubs/src/win.sfx ds-cli-win.sfx ds-cli",
+      "mv ./builds/win/ds-cli-win.sfx ./builds",
+      "rm -rf ./builds/win",
+      "chmod -x builds/ds-cli-win.sfx",
+      "cd builds;zip ds-cli-win.zip ds-cli-win.sfx",
+      "rm -rf ./builds/ds-cli-win.sfx"
     ]
   }
 }
