@@ -7,7 +7,11 @@ Author: Stephen J. Carnam
 Version: 1.0.0
 */
 
-require __DIR__ . '/vendor/autoload.php';
+// #3: don't use autoloader for WP4.6 compatibility; instead do specific file includes
+//require __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/vendor/steveorevo/gstring/src/GStringIndexOutOfBoundsException.php';
+require_once __DIR__ . '/vendor/steveorevo/gstring/src/GString.php';
+require_once __DIR__ . '/vendor/steveorevo/wp-hooks/src/WP_Hooks.php';
 
 use Steveorevo\GString;
 use Steveorevo\WP_Hooks;
