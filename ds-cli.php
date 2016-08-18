@@ -1,27 +1,24 @@
+
 <?php
 /*
 Plugin Name: DS-CLI
-Plugin URI: https://serverpress.com/ds-cli
+Plugin URI: https://github.com/serverpress/ds-cli
 Description: DS-CLI is an enhanced, cross-platform, command line interface for professional WordPress developers. Users can easily start working with CLI tools such as WordShell or the included WP-CLI, Composer, Git, and PHPUnit. NodeJS and NPM are included to allow installation of GRUNT, Gulp, and other Node dependencies.
 Author: Stephen J. Carnam
-Version: 1.0.0
+Version: 1.1.3
 */
-
 // #3: don't use autoloader for WP4.6 compatibility; instead do specific file includes
 //require __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/vendor/steveorevo/gstring/src/GStringIndexOutOfBoundsException.php';
 require_once __DIR__ . '/vendor/steveorevo/gstring/src/GString.php';
 require_once __DIR__ . '/vendor/steveorevo/wp-hooks/src/WP_Hooks.php';
-
 use Steveorevo\GString;
 use Steveorevo\WP_Hooks;
 include_once( 'ds-launch-cli.php' );
-
 /**
  * Lets get started
  */
 class DS_CLI extends WP_Hooks {
-
 	/**
 	 * Include our admin interface icons from DS4 core
 	 */
@@ -42,8 +39,6 @@ class DS_CLI extends WP_Hooks {
 			'nonce' => wp_create_nonce( 'ds-cli-nonce' )
 		) );
 	}
-
-
 	/**
 	 * Include our CLI icon on the toolbar
 	 */
@@ -62,7 +57,6 @@ class DS_CLI extends WP_Hooks {
 		</style>
 		<?php
 	}
-
 	/**
 	 * Include icon when login and on front end
 	 */
@@ -71,15 +65,12 @@ class DS_CLI extends WP_Hooks {
 			$this->admin_print_styles();
 		}
 	}
-
 	/**
 	 * Add our Dev-CLI button to the interface button
 	 */
 	public function admin_bar_menu_180( WP_Admin_Bar $wp_admin_bar ) {
-
 		// Require that user have manage options
 		if ( ! current_user_can( 'manage_options' ) ) return;
-
 		// Add the DS-CLI admin bar button
 		$wp_admin_bar->add_menu(
 			array(
@@ -93,9 +84,6 @@ class DS_CLI extends WP_Hooks {
 			)
 		);
 	}
-
-
-
 	/**
 	 * Launch our CLI in the context of the given WordPress development site
 	 */
