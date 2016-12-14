@@ -56,9 +56,6 @@ if ( $ds_runtime->last_ui_event !== false ) {
 	 * Fix symbolic links on Windows core DS-CLI files when server starts and on site folders when created/imported.
 	 */
 	if ( PHP_OS !== 'Darwin' ) {
-		if ( $ds_runtime->last_ui_event->action === 'site_created' || $ds_runtime->last_ui_event->action === 'site_imported' ) {
-			ds_cli_exec( "symfix " . $ds_cli_site_path );
-		}
 		if ( $ds_runtime->last_ui_event->action === 'start_services' ) {
 			$cygwin = $ds_runtime->ds_plugins_dir . "/ds-cli/platform/win32/cygwin";
 			ds_cli_exec( "symfix " . $cygwin . "/etc" );
