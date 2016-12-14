@@ -3,7 +3,7 @@
   "description": "DesktopServer command line interface for enhanced, cross-platform environment for professional WordPress developers.",
   "license": "GPL-2.0",
   "require": {
-    "steveorevo/virtual-cli": "@dev",
+    "steveorevo/virtual-cli": "1.0.0",
     "steveorevo/gstring": "1.1.*",
     "steveorevo/wp-hooks": "1.*",
     "steveorevo/sfx-stubs": "0.0.*",
