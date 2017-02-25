@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d9e87924eae2faef2b25fb031463a5e5",
-    "content-hash": "a144fe96c93c11f2e3e73194d6e16e70",
+    "hash": "51f332f03f2af8ae56017b5e0dd93773",
+    "content-hash": "3a8c994eeb9fdc01a98b7d65420308c6",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -2725,20 +2725,20 @@
         },
         {
             "name": "wp-cli/wp-cli",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-cli/wp-cli.git",
-                "reference": "62d10c72aa1e77f7bf0a84dd495369c41fe12a2e"
+                "reference": "5a28b49f7e725c74f747620fb5b1d6060953abf1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/62d10c72aa1e77f7bf0a84dd495369c41fe12a2e",
-                "reference": "62d10c72aa1e77f7bf0a84dd495369c41fe12a2e",
+                "url": "https://api.github.com/repos/wp-cli/wp-cli/zipball/5a28b49f7e725c74f747620fb5b1d6060953abf1",
+                "reference": "5a28b49f7e725c74f747620fb5b1d6060953abf1",
                 "shasum": ""
             },
             "require": {
-                "composer/composer": "^1.0.0",
+                "composer/composer": "^1.2.0",
                 "composer/semver": "~1.0",
                 "mustache/mustache": "~2.4",
                 "mustangostang/spyc": "~0.5",
@@ -2788,7 +2788,7 @@
                 "cli",
                 "wordpress"
             ],
-            "time": "2016-11-29 19:33:53"
+            "time": "2017-02-01 14:20:12"
         }
     ],
     "packages-dev": [],
