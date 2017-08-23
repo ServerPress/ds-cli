@@ -1,1 +1,0 @@
-bash --rcfile $DS_CLI/platform/mac/boot.sh -i $DS_CLI/platform/all/wordshell "$@"
