@@ -1,4 +1,0 @@
-* Needs serious refactoring. Code is way too complicated
-  and nigh-on unmaintainable.  However, refactoring may
-  require coordinating API changes and release timing
-  with client foo-config packages.

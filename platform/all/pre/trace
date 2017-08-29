@@ -1,6 +1,0 @@
-#!/bin/bash
-#
-# Provide a CLI version of our trace utility.
-#
-
-php -r "@fclose(@fopen('http://127.0.0.1:8189/trace?m='.substr(rawurlencode(\"$@\"),0,2000),'r'));"
