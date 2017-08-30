@@ -15,22 +15,22 @@ function ds_launch_cli( $cwd ) {
 	 global $ds_runtime;
 	 if ( PHP_OS !== 'Darwin' ){
 	 	// Windows
+		$launch = getenv('DS_RUNTIME') . "\\bootstrap\\boot-win32.bat ";
+		if ( strpos( $cwd, ':' ) === 1 ) {
+			$launch .= substr( $cwd, 0, 2) . " &";
+		}
+		$launch .= "cd \"" . $cwd . "\" &";
+		$launch .= "del %USERPROFILE%\\.bash_history &";
+		$launch .= getenv("DS_RUNTIME") . "\\platform\\win32\\cygwin\\bin\\mintty";
 
-    // launch = $ds_runtime->ds_plugins_dir . "/ds-cli/platform/win32/boot.bat ";
-    // f ( strpos( $cwd, ':' ) === 1 ) {
-	 // 		$launch .= substr( $cwd, 0, 2) . " &";
-    //
-	// 	$launch .= "cd \"" . $cwd . "\" &";
-	// 	$launch .= "del %USERPROFILE%\\.bash_history &";
-	// 	$launch .= "c:\\xampplite\\ds-plugins\\ds-cli\\platform\\win32\\cygwin\\bin\\mintty";
-  //
-	// 	// Clean up user folder by hiding dot folders and files.
-	// 	$files = scandir( getenv('USERPROFILE') );
-	// 	foreach( $files as $dot ) {
-	// 		if ( substr( $dot, 0, 1 ) === '.' && $dot !== '.' && $dot !== '..' ) {
-	// 			exec( 'attrib +H "' . getenv('USERPROFILE') . "\\" . $dot . '"' );
-	// 		}
-	// 	}
+
+		// Clean up user folder by hiding dot folders and files.
+		$files = scandir( getenv('USERPROFILE') );
+		foreach( $files as $dot ) {
+			if ( substr( $dot, 0, 1 ) === '.' && $dot !== '.' && $dot !== '..' ) {
+				exec( 'attrib +H "' . getenv('USERPROFILE') . "\\" . $dot . '"' );
+			}
+		}
 	 } else{
 	 	// Macintosh
     $launch = "osascript -e '";
