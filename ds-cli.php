@@ -5,7 +5,7 @@ Plugin Name: DS-CLI
 Plugin URI: https://github.com/serverpress/ds-cli
 Description: DS-CLI is an enhanced, cross-platform, command line interface for professional WordPress developers. Users can easily start working with CLI tools such as WP-CLI, Composer, Git, NodeJS, and NPM that are apart of DesktopServer 3.9.X core.
 Author: Stephen J. Carnam
-Version: 2.0.0
+Version: 2.0.1
 */
 
 require_once getenv('DS_RUNTIME') . '/vendor/steveorevo/gstring/src/GStringIndexOutOfBoundsException.php';
@@ -30,7 +30,11 @@ class DS_CLI extends WP_Hooks {
 	}
 	private function enqueue_scripts() {
 		$url = new GString( site_url() );
-		$url = $url->getLeftMost( '.dev' )->concat( '.dev/ds-plugins/ds-cli' )->__toString();
+		$url = $url->concat( "/" );
+		$protocol = $url->getLeftMost("://")->concat( "://" )->__toString();
+		$domain = $url->delLeftMost( $protocol )->getLeftMost( "/" )->__toString();
+		$url = $protocol . $domain . '/ds-plugins/ds-cli';
+		
 		wp_enqueue_style( 'serverpress', $url .  '/fontello/css/serverpress.css' );
 		wp_enqueue_style( 'sp-animation', $url .  '/fontello/css/animation.css' );
 		wp_enqueue_script( 'ds-cli', $url . '/js/ds-cli.js', array( 'jquery' ) );
