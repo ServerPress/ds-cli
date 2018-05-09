@@ -98,4 +98,7 @@ class DS_CLI extends WP_Hooks {
 	}
 }
 global $ds_runtime;
-$ds_runtime->ds_cli = new DS_CLI();
+// only initialize when running under DesktopServer and localhost #10
+if ( isset( $ds_runtime) && defined( 'DESKTOPSERVER' ) && ( isset( $_SERVER['REMOTE_ADDR'] ) && '127.0.0.1' === $_SERVER['REMOTE_ADDR'] ) ) {
+    $ds_runtime->ds_cli = new DS_CLI();
+}
