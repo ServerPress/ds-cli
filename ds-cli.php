@@ -5,7 +5,7 @@ Plugin Name: DS-CLI
 Plugin URI: https://github.com/serverpress/ds-cli
 Description: DS-CLI is an enhanced, cross-platform, command line interface for professional WordPress developers. Users can easily start working with CLI tools such as WP-CLI, Composer, Git, NodeJS, and NPM that are apart of DesktopServer 3.9.X core.
 Author: Stephen J. Carnam
-Version: 2.0.1
+Version: 2.0.2
 */
 
 require_once getenv('DS_RUNTIME') . '/vendor/steveorevo/gstring/src/GStringIndexOutOfBoundsException.php';
