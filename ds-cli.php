@@ -7,9 +7,11 @@ Author: Stephen J. Carnam
 Version: 2.0.2
 */
 
-require_once getenv('DS_RUNTIME') . '/vendor/steveorevo/gstring/src/GStringIndexOutOfBoundsException.php';
-require_once getenv('DS_RUNTIME') . '/vendor/steveorevo/gstring/src/GString.php';
-require_once getenv('DS_RUNTIME') . '/vendor/steveorevo/wp-hooks/src/WP_Hooks.php';
+$vendor = getenv('DS_RUNTIME') || __DIR__;
+$vendor .= '/vendor/';
+require_once $vendor . 'steveorevo/gstring/src/GStringIndexOutOfBoundsException.php';
+require_once $vendor . 'steveorevo/gstring/src/GString.php';
+require_once $vendor . 'steveorevo/wp-hooks/src/WP_Hooks.php';
 use Steveorevo\GString;
 use Steveorevo\WP_Hooks;
 include_once( 'ds-launch-cli.php' );
