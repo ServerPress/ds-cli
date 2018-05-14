@@ -7,7 +7,10 @@ Author: Stephen J. Carnam
 Version: 2.0.3
 */
 
-$vendor = getenv('DS_RUNTIME') || __DIR__;
+$vendor = getenv('DS_RUNTIME');
+if (FALSE == $vendor) {
+	$vendor = __DIR__;
+}
 $vendor .= '/vendor/';
 require_once $vendor . 'steveorevo/gstring/src/GStringIndexOutOfBoundsException.php';
 require_once $vendor . 'steveorevo/gstring/src/GString.php';
