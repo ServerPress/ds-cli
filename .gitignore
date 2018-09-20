@@ -1,5 +1,4 @@
-vendor/
+vendor
 .DS_Store
 .idea
-.yardopts
-builds
+build

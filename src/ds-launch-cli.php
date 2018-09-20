@@ -12,17 +12,17 @@ if ( ! empty( $_REQUEST['domain'] ) ) {
  * @param $cwd The current working directory.
  */
 function ds_launch_cli( $cwd ) {
-	 global $ds_runtime;
-	 if ( PHP_OS !== 'Darwin' ){
-	 	// Windows
-		$launch = getenv('DS_RUNTIME') . "\\bootstrap\\boot-win32.bat ";
+	global $ds_runtime;
+	if ( PHP_OS !== 'Darwin' ){
+		// Windows
+
+		$launch = $ds_runtime->ds_plugins_dir . "/ds-cli/platform/win32/boot.bat ";
 		if ( strpos( $cwd, ':' ) === 1 ) {
 			$launch .= substr( $cwd, 0, 2) . " &";
 		}
 		$launch .= "cd \"" . $cwd . "\" &";
 		$launch .= "del %USERPROFILE%\\.bash_history &";
-		$launch .= getenv("DS_RUNTIME") . "\\platform\\win32\\cygwin\\bin\\mintty";
-
+		$launch .= "c:\\xampplite\\ds-plugins\\ds-cli\\platform\\win32\\cygwin\\bin\\mintty";
 
 		// Clean up user folder by hiding dot folders and files.
 		$files = scandir( getenv('USERPROFILE') );
@@ -31,18 +31,21 @@ function ds_launch_cli( $cwd ) {
 				exec( 'attrib +H "' . getenv('USERPROFILE') . "\\" . $dot . '"' );
 			}
 		}
-	 } else{
-	 	// Macintosh
-    $launch = "osascript -e '";
-    $launch .= "tell application \"Terminal\"\n";
-    $launch .= "  do script \"\n";
-    $launch .= "    source " . getenv('DS_RUNTIME') . "/bootstrap/boot-mac.sh cd \\\"$cwd\\\";clear;history -c";
-    $launch .= "  \"\n";
-    $launch .= "  activate\n";
-    $launch .= "end tell'\n";
-  }
+	} else{
+		// Macintosh
+		$launch = $ds_runtime->ds_plugins_dir . "/ds-cli/platform/mac/boot.sh ";
+		$launch .= "osascript -e '";
+		$launch .= "tell application \"Terminal\"\n";
+		$launch .= "  do script \"\n";
+		$launch .= "    source " . $ds_runtime->ds_plugins_dir . "/ds-cli/platform/mac/boot.sh" . "\n";
+		$launch .= "    cd \\\"" . $cwd . "\\\"\n";
+		$launch .= "    clear;history -c\"\n";
+		$launch .= "  activate\n";
+		$launch .= "end tell\n";
+		$launch .= "'";
+	}
 	global $ds_launch_cli;
 	$ds_launch_cli = $launch;
 	$ds_runtime->do_action( 'pre_ds_launch_cli' );
-  exec( $ds_launch_cli );
+	exec( $ds_launch_cli );
 }

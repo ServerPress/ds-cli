@@ -2,23 +2,18 @@
 /*
 Plugin Name: DS-CLI
 Plugin URI: https://github.com/serverpress/ds-cli
-Description: DS-CLI is an enhanced, cross-platform, command line interface for professional WordPress developers. Users can easily start working with CLI tools such as WP-CLI, Composer, Git, NodeJS, and NPM that are apart of DesktopServer 3.9.X core.
+Description: DS-CLI is an enhanced, cross-platform, command line interface for professional WordPress developers. Users can easily start working with CLI tools such as WordShell or the included WP-CLI, Composer, Git, and PHPUnit. NodeJS and NPM are included to allow installation of GRUNT, Gulp, and other Node dependencies.
 Author: Stephen J. Carnam
-Version: 2.0.3
+Version: 1.1.3a
 */
-
-$vendor = getenv('DS_RUNTIME');
-if (FALSE == $vendor) {
-	$vendor = __DIR__;
-}
-$vendor .= '/vendor/';
-require_once $vendor . 'steveorevo/gstring/src/GStringIndexOutOfBoundsException.php';
-require_once $vendor . 'steveorevo/gstring/src/GString.php';
-require_once $vendor . 'steveorevo/wp-hooks/src/WP_Hooks.php';
+// #3: don't use autoloader for WP4.6 compatibility; instead do specific file includes
+//require __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/vendor/steveorevo/gstring/src/GStringIndexOutOfBoundsException.php';
+require_once __DIR__ . '/vendor/steveorevo/gstring/src/GString.php';
+require_once __DIR__ . '/vendor/steveorevo/wp-hooks/src/WP_Hooks.php';
 use Steveorevo\GString;
 use Steveorevo\WP_Hooks;
 include_once( 'ds-launch-cli.php' );
-
 /**
  * Lets get started
  */
@@ -38,7 +33,6 @@ class DS_CLI extends WP_Hooks {
 		$protocol = $url->getLeftMost("://")->concat( "://" )->__toString();
 		$domain = $url->delLeftMost( $protocol )->getLeftMost( "/" )->__toString();
 		$url = $protocol . $domain . '/ds-plugins/ds-cli';
-		
 		wp_enqueue_style( 'serverpress', $url .  '/fontello/css/serverpress.css' );
 		wp_enqueue_style( 'sp-animation', $url .  '/fontello/css/animation.css' );
 		wp_enqueue_script( 'ds-cli', $url . '/js/ds-cli.js', array( 'jquery' ) );
@@ -102,7 +96,4 @@ class DS_CLI extends WP_Hooks {
 	}
 }
 global $ds_runtime;
-// only initialize when running under DesktopServer and localhost #10
-if ( isset( $ds_runtime) && defined( 'DESKTOPSERVER' ) && ( isset( $_SERVER['REMOTE_ADDR'] ) && '127.0.0.1' === $_SERVER['REMOTE_ADDR'] ) ) {
-    $ds_runtime->ds_cli = new DS_CLI();
-}
+$ds_runtime->ds_cli = new DS_CLI();
