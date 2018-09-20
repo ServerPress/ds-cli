@@ -33,6 +33,8 @@ mkdir .\vendor\composer
 wget https://github.com/composer/composer/releases/download/1.7.2/composer.phar -P ./vendor/composer
 mkdir .\vendor\wp-cli
 wget https://raw.github.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -P ./vendor/wp-cli
+mkdir .\vendor\phpunit
+wget https://phar.phpunit.de/phpunit-7.phar -P ./vendor/phpunit
 
 :: Create build folder
 
@@ -43,5 +45,6 @@ xcopy /ceiqy .\vendor\nodejs\node-v8.12.0-win-x86 .\build\ds-cli\platform\win32\
 mkdir .\build\ds-cli\platform\all
 xcopy /ceiqy .\vendor\composer .\build\ds-cli\platform\all
 xcopy /ceiqy .\vendor\wp-cli .\build\ds-cli\platform\all
-xcopy /ceiqy .\src .\build
+xcopy /ceiqy .\vendor\phpunit .\build\ds-cli\platform\all
+xcopy /ceiqy .\src .\build\ds-cli
 
