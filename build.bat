@@ -13,8 +13,8 @@
 if exist .\vendor rmdir /q /s .\vendor
 mkdir .\vendor\cygwin
 cmd /c "PowerShell (New-Object System.Net.WebClient).DownloadFile('http://cygwin.com/setup-x86.exe', './vendor/cygwin/setup-x86.exe');"
-.\vendor\cygwin\setup-x86.exe -B -l %cd%\vendor\cygwin\ -v -q -d -n -N -s http://cygwin.mirror.constant.com -P wget
-set PATH=c:\cygwin\bin;%PATH%
+.\vendor\cygwin\setup-x86.exe -B -R %cd%\vendor\cygwin -l %cd%\vendor\ -v -q -d -n -N -s http://cygwin.mirror.constant.com -P wget
+set PATH=%cd%\vendor\cygwin\bin;%PATH%
 wget rawgit.com/transcode-open/apt-cyg/master/apt-cyg -P ./vendor/cygwin
 install ./vendor/cygwin/apt-cyg /bin
 bash apt-cyg install nano
@@ -38,7 +38,7 @@ wget https://raw.github.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -P ./vendor/
 
 if exist .\build rmdir /q /s .\build
 mkdir .\build\ds-cli\platform\win32\cygwin
-xcopy /ceiqy c:\cygwin .\build\ds-cli\platform\win32\cygwin
+xcopy /ceiqy .\vendor\cygwin .\build\ds-cli\platform\win32\cygwin
 xcopy /ceiqy .\vendor\nodejs\node-v8.12.0-win-x86 .\build\ds-cli\platform\win32\nodejs
 mkdir .\build\ds-cli\platform\all
 xcopy /ceiqy .\vendor\composer .\build\ds-cli\platform\all
