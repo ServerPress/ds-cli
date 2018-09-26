@@ -17,7 +17,6 @@ tar -xvf ./vendor/homebrew.tar --strip 1 -C ./vendor/homebrew
 ./vendor/homebrew/bin/brew install wget
 export PATH="$PWD/vendor/homebrew/bin:$PATH"
 brew install lftp
-brew install subversion
 mkdir -p ./vendor/nodejs
 wget https://nodejs.org/dist/v8.12.0/node-v8.12.0-darwin-x64.tar.gz -P ./vendor
 tar -xzf ./vendor/node-v8.12.0-darwin-x64.tar.gz --strip 1 -C ./vendor/nodejs
