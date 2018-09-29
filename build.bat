@@ -15,7 +15,7 @@ mkdir .\vendor\cygwin
 cmd /c "PowerShell (New-Object System.Net.WebClient).DownloadFile('http://cygwin.com/setup-x86.exe', './vendor/cygwin/setup-x86.exe');"
 .\vendor\cygwin\setup-x86.exe -B -R %cd%\vendor\cygwin -l %cd%\vendor\ -v -q -d -n -N -s http://cygwin.mirror.constant.com -P wget
 set PATH=%cd%\vendor\cygwin\bin;%PATH%
-wget rawgit.com/transcode-open/apt-cyg/master/apt-cyg -P ./vendor/cygwin
+wget https://rawgit.com/transcode-open/apt-cyg/master/apt-cyg -P ./vendor/cygwin
 install ./vendor/cygwin/apt-cyg /bin
 bash apt-cyg install nano
 bash apt-cyg install ncurses
