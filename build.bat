@@ -26,6 +26,7 @@ bash apt-cyg install git
 bash apt-cyg install unzip
 bash apt-cyg install zip
 bash apt-cyg install sqlite3
+bash apt-cyg install p7zip
 mkdir .\vendor\nodejs
 wget https://nodejs.org/dist/v8.12.0/node-v8.12.0-win-x86.zip -P ./vendor/nodejs
 unzip -q -o ./vendor/nodejs/node-v8.12.0-win-x86.zip -d ./vendor/nodejs
