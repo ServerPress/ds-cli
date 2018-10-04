@@ -9,7 +9,6 @@ mkdir test; cd test;echo "{ \"name\": \"test:testing\" }" > composer.json
 composer install
 mysql --version
 php --version
-wordshell --checkrequirements --debug
 node -v
 npm -v
 node-sass -v
