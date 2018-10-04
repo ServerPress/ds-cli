@@ -38,4 +38,5 @@ mkdir -p ./build/ds-cli/platform/all
 rsync -a ./vendor/composer/ ./build/ds-cli/platform/all
 rsync -a ./vendor/phpunit/ ./build/ds-cli/platform/all
 rsync -a ./vendor/wp-cli/ ./build/ds-cli/platform/all
-rsync -a ./src ./build/ds-cli
+rsync -a ./src/ ./build/ds-cli
+
