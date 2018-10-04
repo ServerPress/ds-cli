@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+php -c $DS_CLI/platform/mac/pre $DS_CLI/platform/all/wp-cli.phar "$@"
