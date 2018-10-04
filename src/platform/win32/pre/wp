@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+$DS_CLI/platform/win32/pre/wp.bat "$@"
