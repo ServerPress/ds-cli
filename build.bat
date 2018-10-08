@@ -42,10 +42,14 @@ wget https://phar.phpunit.de/phpunit-7.phar -P ./vendor/phpunit
 if exist .\build rmdir /q /s .\build
 mkdir .\build\ds-cli\platform\win32\cygwin
 xcopy /ceiqy .\vendor\cygwin .\build\ds-cli\platform\win32\cygwin
-bash 7z a ./build/ds-cli/platform/win32/nodejs.7z ./vendor/nodejs/node-v8.12.0-win-x86/*
+mkdir .\build\ds-cli\platform\win32\nodejs
+xcopy /ceiqy .\vendor\nodejs\node-v8.12.0-win-x86 .\build\ds-cli\platform\win32\nodejs
 mkdir .\build\ds-cli\platform\all
 xcopy /ceiqy .\vendor\composer .\build\ds-cli\platform\all
 xcopy /ceiqy .\vendor\wp-cli .\build\ds-cli\platform\all
 xcopy /ceiqy .\vendor\phpunit .\build\ds-cli\platform\all
 xcopy /ceiqy .\src .\build\ds-cli
+cd build
+bash -c "zip -r ds-cli-win.zip ./ds-cli"
+cd ..
 
