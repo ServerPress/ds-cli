@@ -33,7 +33,7 @@ wget https://phar.phpunit.de/phpunit-7.phar -P ./vendor/phpunit
 [[ -e './build' ]] || rm -rf ./build
 mkdir -p ./build/ds-cli/platform/mac/homebrew
 rsync -a ./vendor/homebrew/ ./build/ds-cli/platform/mac/homebrew
-7z a ./build/ds-cli/platform/mac/nodejs.7z ./vendor/nodejs/*
+./vendor/homebrew/Cellar/p7zip/16.02_1/lib/p7zip/7z a ./build/ds-cli/platform/mac/nodejs.7z ./vendor/nodejs/*
 mkdir -p ./build/ds-cli/platform/all
 rsync -a ./vendor/composer/ ./build/ds-cli/platform/all
 rsync -a ./vendor/phpunit/ ./build/ds-cli/platform/all
