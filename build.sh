@@ -27,6 +27,15 @@ mkdir -p ./vendor/wp-cli
 wget https://raw.github.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -P ./vendor/wp-cli
 mkdir -p ./vendor/phpunit
 wget https://phar.phpunit.de/phpunit-7.phar -P ./vendor/phpunit
+mkdir .\vendor\steveorevo
+wget https://github.com/Steveorevo/GString/archive/1.1.0.zip -P ./vendor/steveorevo/gstring-temp
+unzip -q -o ./vendor/steveorevo/gstring-temp/1.1.0.zip -d ./vendor/steveorevo
+mv ./vendor/steveorevo/GString-1.1.0 ./vendor/steveorevo/gstring
+rm -rf ./vendor/steveorevo/gstring-temp
+wget https://github.com/Steveorevo/wp-hooks/archive/1.1.0.zip -P ./vendor/steveorevo/wp-hooks-temp
+unzip -q -o ./vendor/steveorevo/wp-hooks-temp/1.1.0.zip -d ./vendor/steveorevo
+mv ./vendor/steveorevo/wp-hooks-1.1.0 ./vendor/steveorevo/wp-hooks
+rm -rf ./vendor/steveorevo/wp-hooks-temp
 
 # Create build folder
 
@@ -38,6 +47,8 @@ rsync -a ./vendor/composer/ ./build/ds-cli/platform/all
 rsync -a ./vendor/phpunit/ ./build/ds-cli/platform/all
 rsync -a ./vendor/wp-cli/ ./build/ds-cli/platform/all
 rsync -a ./src/ ./build/ds-cli
+mkdir ./build/ds-cli/vendor/steveorevo
+rsync -a ./vendor/steveorevo/ ./builds/ds-cli/vendor/steveorevo
 cd build
 zip -r ds-cli-mac.zip ./ds-cli
 cd ..
