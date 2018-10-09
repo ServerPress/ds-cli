@@ -40,4 +40,4 @@ GOTO RUN
 :USE_PEAR_PATH
 set PHPBIN=%PHP_PEAR_PHP_BIN%
 :RUN
-"%PHPBIN%" "%DS_CLI%\platform\all\phpunit-7" %*
+"%PHPBIN%" "%DS_CLI%\platform\all\phpunit-7.phar" %*
