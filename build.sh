@@ -27,7 +27,7 @@ mkdir -p ./vendor/wp-cli
 wget https://raw.github.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -P ./vendor/wp-cli
 mkdir -p ./vendor/phpunit
 wget https://phar.phpunit.de/phpunit-7.phar -P ./vendor/phpunit
-mkdir .\vendor\steveorevo
+mkdir ./vendor/steveorevo
 wget https://github.com/Steveorevo/GString/archive/1.1.0.zip -P ./vendor/steveorevo/gstring-temp
 unzip -q -o ./vendor/steveorevo/gstring-temp/1.1.0.zip -d ./vendor/steveorevo
 mv ./vendor/steveorevo/GString-1.1.0 ./vendor/steveorevo/gstring
