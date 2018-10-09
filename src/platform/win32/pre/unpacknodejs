@@ -1,3 +1,0 @@
-#!/bin/bash
-mkdir -p $DS_CLI/platform/win32/nodejs
-7z x $DS_CLI/platform/win32/nodejs.7z -o$DS_CLI/platform/win32/nodejs
