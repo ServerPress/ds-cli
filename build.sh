@@ -47,8 +47,8 @@ rsync -a ./vendor/composer/ ./build/ds-cli/platform/all
 rsync -a ./vendor/phpunit/ ./build/ds-cli/platform/all
 rsync -a ./vendor/wp-cli/ ./build/ds-cli/platform/all
 rsync -a ./src/ ./build/ds-cli
-mkdir ./build/ds-cli/vendor/steveorevo
-rsync -a ./vendor/steveorevo/ ./builds/ds-cli/vendor/steveorevo
+mkdir -p ./build/ds-cli/vendor/steveorevo
+rsync -a ./vendor/steveorevo/ ./build/ds-cli/vendor/steveorevo
 cd build
 zip -r ds-cli-mac.zip ./ds-cli
 cd ..
