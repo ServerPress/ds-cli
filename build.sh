@@ -42,6 +42,8 @@ rm -rf ./vendor/steveorevo/wp-hooks-temp
 [[ -e './build' ]] || rm -rf ./build
 mkdir -p ./build/ds-cli/platform/mac/homebrew
 rsync -a ./vendor/homebrew/ ./build/ds-cli/platform/mac/homebrew
+mkdir -p ./build/ds-cli/platform/mac/nodejs
+rsync -a ./vendor/nodejs/ ./build/ds-cli/platform/mac/nodejs
 mkdir -p ./build/ds-cli/platform/all
 rsync -a ./vendor/composer/ ./build/ds-cli/platform/all
 rsync -a ./vendor/phpunit/ ./build/ds-cli/platform/all
