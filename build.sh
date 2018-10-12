@@ -52,5 +52,5 @@ rsync -a ./src/ ./build/ds-cli
 mkdir -p ./build/ds-cli/vendor/steveorevo
 rsync -a ./vendor/steveorevo/ ./build/ds-cli/vendor/steveorevo
 cd build
-zip -r ds-cli-mac.zip ./ds-cli
+zip -r -y ds-cli-mac.zip ./ds-cli
 cd ..
