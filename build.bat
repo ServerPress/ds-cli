@@ -50,7 +50,7 @@ rm -rf ./vendor/steveorevo/wp-hooks-temp
 
 if exist .\build rmdir /q /s .\build
 mkdir .\build\ds-cli\platform\win32\cygwin
-xcopy /ceiqy .\vendor\cygwin .\build\ds-cli\platform\win32\cygwin
+bash -c "rsync -a ./vendor/cygwin/ ./build/ds-cli/platform/win32/cygwin"
 mkdir .\build\ds-cli\platform\win32\nodejs
 xcopy /ceiqy .\vendor\nodejs\node-v8.12.0-win-x86 .\build\ds-cli\platform\win32\nodejs
 mkdir .\build\ds-cli\platform\all
@@ -61,6 +61,6 @@ xcopy /ceiqy .\src .\build\ds-cli
 mkdir .\build\ds-cli\vendor\steveorevo
 xcopy /ceiqy .\vendor\steveorevo .\build\ds-cli\vendor\steveorevo
 cd build
-bash -c "zip -r ds-cli-win.zip ./ds-cli"
+bash -c "zip -r -y -9 ds-cli-win.zip ./ds-cli"
 cd ..
 
