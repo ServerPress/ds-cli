@@ -55,7 +55,7 @@ if exist .\build rmdir /q /s .\build
 mkdir .\build\ds-cli\platform\win32\cygwin
 xcopy /cheiqy .\vendor\cygwin .\build\ds-cli\platform\win32\cygwin
 mkdir .\build\ds-cli\platform\win32\symfix
-xcopy /ceiqy .\vendor\serverpress\symfix .\build\ds-cli\platform\win32\symfix"
+xcopy /ceiqy .\vendor\serverpress\symfix .\build\ds-cli\platform\win32\symfix
 .\vendor\serverpress\symfix\symfix -u .\build\ds-cli\platform\win32\cygwin
 mkdir .\build\ds-cli\platform\win32\nodejs
 xcopy /ceiqy .\vendor\nodejs\node-v8.12.0-win-x86 .\build\ds-cli\platform\win32\nodejs
