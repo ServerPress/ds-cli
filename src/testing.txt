@@ -11,7 +11,6 @@ mysql --version
 php --version
 node -v
 npm -v
-node-sass -v
 sqlite3 --version
 phpunit --version
 git clone https://github.com/serverpress/bypass-login
