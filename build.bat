@@ -45,12 +45,18 @@ wget https://github.com/Steveorevo/wp-hooks/archive/1.1.0.zip -P ./vendor/steveo
 unzip -q -o ./vendor/steveorevo/wp-hooks-temp/1.1.0.zip -d ./vendor/steveorevo
 mv ./vendor/steveorevo/wp-hooks-1.1.0 ./vendor/steveorevo/wp-hooks
 rm -rf ./vendor/steveorevo/wp-hooks-temp
+wget https://github.com/ServerPress/symfix/releases/download/1.0.1/symfix.zip -P ./vendor/serverpress/symfix-temp
+unzip -q -o ./vendor/serverpress/symfix-temp/symfix.zip -d ./vendor/serverpress
+rm -rf ./vendor/serverpress/symfix-temp
 
 :: Create build folder
 
 if exist .\build rmdir /q /s .\build
 mkdir .\build\ds-cli\platform\win32\cygwin
-bash -c "rsync -a ./vendor/cygwin/ ./build/ds-cli/platform/win32/cygwin"
+xcopy /cheiqy .\vendor\cygwin .\build\ds-cli\platform\win32\cygwin
+mkdir .\build\ds-cli\platform\win32\symfix
+xcopy /ceiqy .\vendor\serverpress\symfix .\build\ds-cli\platform\win32\symfix"
+.\vendor\serverpress\symfix\symfix -u .\build\ds-cli\platform\win32\cygwin
 mkdir .\build\ds-cli\platform\win32\nodejs
 xcopy /ceiqy .\vendor\nodejs\node-v8.12.0-win-x86 .\build\ds-cli\platform\win32\nodejs
 mkdir .\build\ds-cli\platform\all
@@ -63,4 +69,3 @@ xcopy /ceiqy .\vendor\steveorevo .\build\ds-cli\vendor\steveorevo
 cd build
 bash -c "zip -r -y -9 ds-cli-win.zip ./ds-cli"
 cd ..
-
