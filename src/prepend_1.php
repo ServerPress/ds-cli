@@ -94,9 +94,8 @@ function ds_cli_localhost_scripts() {
 	echo '<script src="http://localhost/ds-plugins/ds-cli/js/localhost.js" rel="stylesheet"></script>';
 }
 
-$ds_runtime->add_action( 'list_domain', 'ds_cli_list_domain_link' );
-function ds_cli_list_domain_link( $domain ) {
-	echo '<div class="ds-site-actions-container">';
-	echo '<a href="http://localhost/ds-plugins/ds-cli/ds-launch-cli.php" data-domain="'.$domain.'" class="ds-cli ds-action">DS CLI</a>';
-	echo '</div>';
+$ds_runtime->add_action( 'domain_button_group_after', 'ds_cli_domain_button_group_after', 90 );
+function ds_cli_domain_button_group_after( $domain )
+{
+	echo '<a href="http://localhost/ds-plugins/ds-cli/ds-launch-cli.php" data-domain="', $domain, '" class="btn btn-info dds-action ds-cli">DS CLI</a>';
 }
