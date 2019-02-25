@@ -49,6 +49,7 @@ rsync -a ./vendor/composer/ ./build/ds-cli/platform/all
 rsync -a ./vendor/phpunit/ ./build/ds-cli/platform/all
 rsync -a ./vendor/wp-cli/ ./build/ds-cli/platform/all
 rsync -a ./src/ ./build/ds-cli
+rm -rf ./build/ds-cli/platform/win32
 mkdir -p ./build/ds-cli/vendor/steveorevo
 rsync -a ./vendor/steveorevo/ ./build/ds-cli/vendor/steveorevo
 cd build

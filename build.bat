@@ -64,6 +64,7 @@ xcopy /ceiqy .\vendor\composer .\build\ds-cli\platform\all
 xcopy /ceiqy .\vendor\wp-cli .\build\ds-cli\platform\all
 xcopy /ceiqy .\vendor\phpunit .\build\ds-cli\platform\all
 xcopy /ceiqy .\src .\build\ds-cli
+rm -rf ./build/ds-cli/platform/mac
 mkdir .\build\ds-cli\vendor\steveorevo
 xcopy /ceiqy .\vendor\steveorevo .\build\ds-cli\vendor\steveorevo
 cd build
