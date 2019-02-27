@@ -36,6 +36,13 @@ wget https://github.com/Steveorevo/wp-hooks/archive/1.1.0.zip -P ./vendor/steveo
 unzip -q -o ./vendor/steveorevo/wp-hooks-temp/1.1.0.zip -d ./vendor/steveorevo
 mv ./vendor/steveorevo/wp-hooks-1.1.0 ./vendor/steveorevo/wp-hooks
 rm -rf ./vendor/steveorevo/wp-hooks-temp
+wget https://github.com/Steveorevo/mysql2json/releases/download/1.0.0/mysql2json.zip -P ./vendor/steveorevo
+unzip -q -o ./vendor/steveorevo/mysql2json.zip -d ./vendor/steveorevo
+wget https://github.com/Steveorevo/json2mysql/releases/download/1.0.0/json2mysql.zip -P ./vendor/steveorevo
+unzip -q -o ./vendor/steveorevo/json2mysql.zip -d ./vendor/steveorevo
+rm -rf ./vendor/steveorevo/mysql2json.zip
+rm -rf ./vendor/steveorevo/json2mysql.zip
+rm -rf ./vendor/steveorevo/__MACOSX
 
 # Create build folder
 
@@ -44,7 +51,7 @@ mkdir -p ./build/ds-cli/platform/mac/homebrew
 rsync -a ./vendor/homebrew/ ./build/ds-cli/platform/mac/homebrew
 mkdir -p ./build/ds-cli/platform/mac/nodejs
 rsync -a ./vendor/nodejs/ ./build/ds-cli/platform/mac/nodejs
-mkdir -p ./build/ds-cli/platform/all
+mkdir -p ./build/ds-cli/platform/all/pre
 rsync -a ./vendor/composer/ ./build/ds-cli/platform/all
 rsync -a ./vendor/phpunit/ ./build/ds-cli/platform/all
 rsync -a ./vendor/wp-cli/ ./build/ds-cli/platform/all
@@ -52,6 +59,8 @@ rsync -a ./src/ ./build/ds-cli
 rm -rf ./build/ds-cli/platform/win32
 mkdir -p ./build/ds-cli/vendor/steveorevo
 rsync -a ./vendor/steveorevo/ ./build/ds-cli/vendor/steveorevo
+cd build/ds-cli/platform/all/pre;ln -s ../../../vendor/steveorevo/mysql2json/bin/mysql2json ./mysql2json;cd ../../../../..
+cd build/ds-cli/platform/all/pre;ln -s ../../../vendor/steveorevo/json2mysql/bin/json2mysql ./json2mysql;cd ../../../../..
 cd build
 zip -r -y ds-cli-mac.zip ./ds-cli
 cd ..

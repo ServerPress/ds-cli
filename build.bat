@@ -48,6 +48,13 @@ rm -rf ./vendor/steveorevo/wp-hooks-temp
 wget https://github.com/ServerPress/symfix/releases/download/1.0.1/symfix.zip -P ./vendor/serverpress/symfix-temp
 unzip -q -o ./vendor/serverpress/symfix-temp/symfix.zip -d ./vendor/serverpress
 rm -rf ./vendor/serverpress/symfix-temp
+wget https://github.com/Steveorevo/mysql2json/releases/download/1.0.0/mysql2json.zip -P ./vendor/steveorevo
+unzip -q -o ./vendor/steveorevo/mysql2json.zip -d ./vendor/steveorevo
+wget https://github.com/Steveorevo/json2mysql/releases/download/1.0.0/json2mysql.zip -P ./vendor/steveorevo
+unzip -q -o ./vendor/steveorevo/json2mysql.zip -d ./vendor/steveorevo
+rm -rf ./vendor/steveorevo/mysql2json.zip
+rm -rf ./vendor/steveorevo/json2mysql.zip
+rm -rf ./vendor/steveorevo/__MACOSX
 
 :: Create build folder
 
@@ -67,6 +74,9 @@ xcopy /ceiqy .\src .\build\ds-cli
 rm -rf ./build/ds-cli/platform/mac
 mkdir .\build\ds-cli\vendor\steveorevo
 xcopy /ceiqy .\vendor\steveorevo .\build\ds-cli\vendor\steveorevo
+cd build/ds-cli/platform/all/pre&ln -s ../../../vendor/steveorevo/mysql2json/bin/mysql2json ./mysql2json&cd ../../../../..
+cd build/ds-cli/platform/all/pre&ln -s ../../../vendor/steveorevo/json2mysql/bin/json2mysql ./json2mysql&cd ../../../../..
+.\vendor\serverpress\symfix\symfix -u .\build\ds-cli\platform\win32\cygwin
 cd build
 bash -c "zip -r -y -9 ds-cli-win.zip ./ds-cli"
 cd ..
