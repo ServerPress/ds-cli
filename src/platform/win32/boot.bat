@@ -4,7 +4,7 @@ REM Boot native CLI
 REM
 SET DS_PLATFORM="Windows"
 SET DS_CLI=c:\xampplite\ds-plugins\ds-cli
-SET PHPRC=c:\xampplite\php
+SET PHPRC=%DS_CLI%\platform\win32\pre
 SET npm_config_cache=%DS_CLI%\platform\win32\npm-cache
 SET npm_config_prefix=%DS_CLI%\platform\win32\npm
 SET COMPOSER_HOME=%DS_CLI%\platform\win32\composer
