@@ -24,7 +24,7 @@ tar -xzf ./vendor/node-v8.12.0-darwin-x64.tar.gz --strip 1 -C ./vendor/nodejs
 mkdir -p ./vendor/composer
 wget https://github.com/composer/composer/releases/download/1.7.2/composer.phar -P ./vendor/composer
 mkdir -p ./vendor/wp-cli
-wget https://raw.github.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -P ./vendor/wp-cli
+wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -P ./vendor/wp-cli
 mkdir -p ./vendor/phpunit
 wget https://phar.phpunit.de/phpunit-7.phar -P ./vendor/phpunit
 mkdir ./vendor/steveorevo
