@@ -4,6 +4,7 @@ Plugin Name: DS-CLI
 Plugin URI: https://github.com/serverpress/ds-cli
 Description: DS-CLI is an enhanced, cross-platform, command line interface for professional WordPress developers. Users can easily start working with CLI tools such as WordShell or the included WP-CLI, Composer, Git, and PHPUnit. NodeJS and NPM are included to allow installation of GRUNT, Gulp, and other Node dependencies.
 Author: Stephen J. Carnam
+Tags: must-use
 Version: 3.0.0
 */
 // #3: don't use autoloader for WP4.6 compatibility; instead do specific file includes
