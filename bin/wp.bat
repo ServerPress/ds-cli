@@ -1,0 +1,1 @@
+php -f wp-cli.phar %*
