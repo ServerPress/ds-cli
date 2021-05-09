@@ -4,7 +4,7 @@ DS-CLI is now a core runtime component of DesktopServer. This project is an esem
 To build the latest runtime:
 
 ## Buliding
-Ideally it would have been nice to use composer itself; but this presents two hurdles 1) chicken/egg scenario of composer obtaining composer and 2) the cross-platform bin definition composer uses to create .bat files and subsequent junctions within the vendor/bin directory is breaks when re-homing the vendor folder. Therefore, we the build script will obtain viable and portable .phar files where available and roll our own .bat launchers for windows compatibility.
+Ideally it would have been nice to use composer itself; but this presents two hurdles 1) chicken/egg scenario of composer obtaining composer and 2) the cross-platform binary definitions composer uses to create .bat files and subsequent junctions within the vendor/bin directory breaks when re-homing the vendor folder. Therefore, our build script will obtain viable and portable .phar files where available from trusted sources and roll our own .bat launchers for windows compatibility.
 
 1) Start a command line prompt (Terminal.app)
 2) Change directory to project (i.e. /Users/jsmith/Documents/ds-cli)
