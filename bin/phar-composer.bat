@@ -1,1 +1,0 @@
-php -f phar-composer %*
