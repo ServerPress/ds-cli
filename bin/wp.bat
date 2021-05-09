@@ -1,1 +1,1 @@
-php -f wp.phar %*
+php -f %~dp0wp.phar %*
