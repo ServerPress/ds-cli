@@ -1,1 +1,2 @@
-php --define phar.readonly=0 -f phar-composer.phar ""
+#!/bin/bash
+php --define phar.readonly=0 -f phar-composer.phar "$@"

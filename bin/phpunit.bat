@@ -1,1 +1,1 @@
-php -f phpunit %*
+php -f phpunit.phar %*

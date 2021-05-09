@@ -1,1 +1,1 @@
-php -f composer %*
+php -f composer.phar %*
