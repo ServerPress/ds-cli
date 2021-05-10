@@ -15,6 +15,12 @@
         }
     ],
     "scripts": {
+        "pre-install-cmd": [
+            "php src/cleanup.php"
+        ],
+        "pre-update-cmd": [
+            "php src/cleanup.php"
+        ],
         "post-install-cmd": [
             "php src/build.php"
         ],

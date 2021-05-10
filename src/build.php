@@ -43,6 +43,7 @@ foreach(new RecursiveIteratorIterator($vendor) as $file) {
 			if (file_exists($fname)) {
 				unlink($fname);
 			}
+			$cmd = "@echo off\n" . $cmd;
 			file_put_contents($fname, $cmd);
 		};
 	}

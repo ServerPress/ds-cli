@@ -1,1 +1,2 @@
-%~dp0..\vendor\wp-cli\wp-cli\bin\wp.bat %*
+@ECHO OFF
+php "%~dp0../php/boot-fs.php" %*
