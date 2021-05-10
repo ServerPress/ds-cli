@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '7dc596f6c1aa9278c840826f02445c58b429da5b',
+    'reference' => 'b782e1c44b33ca2f379d3aa428f4e0fcb63b8ccd',
     'name' => 'serverpress/ds-cli',
   ),
   'versions' => 
@@ -460,7 +460,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '7dc596f6c1aa9278c840826f02445c58b429da5b',
+      'reference' => 'b782e1c44b33ca2f379d3aa428f4e0fcb63b8ccd',
     ),
     'steveorevo/gstring' => 
     array (

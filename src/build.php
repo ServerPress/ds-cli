@@ -40,6 +40,9 @@ foreach(new RecursiveIteratorIterator($vendor) as $file) {
 				$cmd = "%~dp0" . $bin . " %*";
 			}
 			$fname = __DIR__ . "/../bin/" . $fname;
+			if (file_exists($fname)) {
+				unlink($fname);
+			}
 			file_put_contents($fname, $cmd);
 		};
 	}

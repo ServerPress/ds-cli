@@ -15,6 +15,9 @@
         }
     ],
     "scripts": {
+        "post-install-cmd": [
+            "php src/build.php"
+        ],
         "post-update-cmd": [
             "php src/build.php"
         ]
