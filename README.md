@@ -1,11 +1,8 @@
 # ds-cli
-DS-CLI is now a core runtime component of DesktopServer. This project is an esemble of the latest command line interface tools such as Composer, PHPUnit, WP-CLI, and other cross-platform components that are important to professional WordPress developers. 
+DS-CLI is now a core runtime component of DesktopServer. This project is an esemble of the latest command line interface tools such as Composer, PHPUnit, WP-CLI, and other cross-platform components that are important to professional WordPress developers. The vendor folder is intensionally included in this repo as it serves as part of the runtime delivery mechanism for DesktopServer.
 
-To build the latest runtime:
+The DS-CLI project includes it's own bin folder to ensure cross-platform access that is currently problematic using composer's built-in vendor/bin folder. In example, orphaned junctions on Windows, etc. see links below for status and details of known issues. 
 
-## Buliding
-Ideally it would have been nice to use composer itself; but this presents two hurdles 1) chicken/egg scenario of composer obtaining composer and 2) the cross-platform binary definitions composer uses to create .bat files and subsequent junctions within the vendor/bin directory breaks when re-homing the vendor folder. Therefore, our build script will obtain viable and portable .phar files where available from trusted sources and roll our own .bat launchers for windows compatibility.
+The DS-CLI project includes it's own bin builder that wraps binaries for proper cross-platform execution. Adding ds-cli/bin to your system path ensures proper access to the included command line interface utilities. 
 
-1) Start a command line prompt (Terminal.app)
-2) Change directory to project (i.e. /Users/jsmith/Documents/ds-cli)
-3) Execute ./build.sh
+https://github.com/composer/composer/issues/7256

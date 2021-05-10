@@ -1,0 +1,25 @@
+{
+    "name": "serverpress/ds-cli",
+    "description": "DS-CLI is a core runtime component of DesktopServer. It is an esemble of the latest command line interface tools such as Composer, PHPUnit, WP-CLI, and other cross-platform components that are important to professional WordPress developers. The vendor folder is intensionally included in this repo as it serves as part of the runtime delivery mechanism for DesktopServer.",
+    "require": {
+        "composer/composer": "^2.0",
+        "phpunit/phpunit": "^9.5",
+        "wp-cli/wp-cli": "^2.4",
+        "steveorevo/gstring": "^1.1"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Stephen J. Carnam",
+            "email": "steve@serverpress.com"
+        }
+    ],
+    "scripts": {
+        "post-update-cmd": [
+            "php src/build.php"
+        ]
+    },
+    "config": {
+        "bin-dir": "bin"
+    }
+}

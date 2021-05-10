@@ -1,0 +1,26 @@
+{
+  "name": "steveorevo/gstring",
+  "description": "Implements OOP String handling with useful parsing functions.",
+  "keywords": ["oop","string"],
+  "homepage": "https://github.com/Steveorevo/GString",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Stephen J. Carnam",
+      "email": "steve@steveorevo.com",
+      "homepage": "http://steveorevo.com",
+      "role": "developer"
+    },
+    {
+      "name": "Michael Scribellito",
+      "email": "mscribellito@gmail.com",
+      "homepage": "http://mscribellito.com",
+      "role": "developer"
+    }
+  ],
+  "require": {},
+  "autoload": {
+        "psr-4": {"Steveorevo\\": "src/"}
+    }
+}

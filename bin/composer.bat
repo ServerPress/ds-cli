@@ -1,1 +1,1 @@
-php -f %~dp0composer.phar %*
+php %~dp0../vendor/bin/composer %*

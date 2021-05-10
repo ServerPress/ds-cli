@@ -1,1 +1,1 @@
-php -f %~dp0phpunit.phar %*
+php %~dp0../vendor/phpunit %*

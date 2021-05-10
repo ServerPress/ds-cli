@@ -1,1 +1,1 @@
-./composer.phar
+../vendor/composer/composer/bin/composer
