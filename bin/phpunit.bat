@@ -1,2 +1,2 @@
 @echo off
-php %~dp0..\vendor\phpunit\phpunit\phpunit %*
+php %dp0../vendor/phpunit/phpunit/phpunit %*

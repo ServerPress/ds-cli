@@ -6,45 +6,61 @@
 
 require __DIR__ . '/../vendor/steveorevo/gstring/src/GString.php';
 require __DIR__ . '/../vendor/steveorevo/gstring/src/GStringIndexOutOfBoundsException.php';
+use Steveorevo\GString as GString;
 
 // Analyze list of all composer files from the vendor folder
 $vendor = new RecursiveDirectoryIterator(__DIR__ . "/../vendor/");
 foreach(new RecursiveIteratorIterator($vendor) as $file) {
 	if ($file->getFilename() == "composer.json") {
 
-		// Find bin definitions; we currently only support one per package
+		// Find bin definitions and write shell/bat script wrappers to invoke them
 		$obj = json_decode(file_get_contents($file->getRealPath()));
 		if (property_exists($obj, "bin")) {
 
-			// Favor batch file if present
-			$bin = array_filter($obj->bin, function($v) {
-				return (strpos($v, ".bat") > 0);
-			});
 
-			// Write out our proxy bin file that calls the right bin
-			if (empty($bin)) {
-				$bin = $obj->bin[0];
-				$fname = (new Steveorevo\GString($bin))->getRightMost("/") . ".bat";
-				$bin = ".." . (new Steveorevo\GString($file->getPath()))->delLeftMost('..') . "/" . $bin;
-				$bin = str_replace("/", "\\", $bin);
-
-				// Write out bat file that invokes PHP
-				$cmd = "php %~dp0" . $bin . " %*";
-			}else{
-				$bin = end($bin);
-				$fname = (new Steveorevo\GString($bin))->getRightMost("/")->__toString();
-				$bin = ".." . (new Steveorevo\GString($file->getPath()))->delLeftMost('..') . "/" . $bin;
-				$bin = str_replace("/", "\\", $bin);
-
-				// Write out bat file that calls existing bat file
-				$cmd = "%~dp0" . $bin . " %*";
+			// First cleanup existing binaries, this prevents writing to symlink destinations
+			foreach($obj->bin as $bin) {
+				$fname = __DIR__ . "/../bin/" . (new GString($bin))->getRightMost("/")->__toString();
+				@unlink($fname);
+				@unlink($fname . ".bat");				
 			}
-			$fname = __DIR__ . "/../bin/" . $fname;
-			if (file_exists($fname)) {
-				unlink($fname);
+
+			// Write out new binary proxy wrappers
+			foreach($obj->bin as $bin) {
+				$bin = ".." . (new GString($file->getPath()))->delLeftMost('..') . "/" . $bin;
+				$fname = __DIR__ . "/../bin/" . (new GString($bin))->getRightMost("/")->__toString();
+				if (false === strpos($fname, ".bat")) {
+					
+					// Create wrapper shell scripts for mac, linux, etc.
+					$content = "#!/bin/bash\n";
+					$content .= 'SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"' . "\n";
+					$content .= '$SCRIPT_DIR/' . $bin . ' "$@"';
+					file_put_contents($fname, $content);
+					chmod($fname, 0755);
+					
+					// Create wrapper bat scripts for Windows that invoke the php interpreter
+					$content = "@echo off\n";
+					$content .= "php %dp0" . $bin . " %*";
+					$fname .= ".bat";
+					file_put_contents($fname, $content);					
+				}
 			}
-			$cmd = "@echo off\n" . $cmd;
-			file_put_contents($fname, $cmd);
+
+			// Lastly write out any wrappers for existing bat files without interpreter
+			// Sometimes we have these of the same name and should favor using them (i.e. wp.bat)
+			foreach($obj->bin as $bin) {
+				$bin = ".." . (new GString($file->getPath()))->delLeftMost('..') . "/" . $bin;
+				$fname = __DIR__ . "/../bin/" . (new GString($bin))->getRightMost("/")->__toString();
+
+				if (strpos($fname, ".bat") > 0) {
+					
+					// For existing Windows bat scripts, skip the php interpreter
+					@unlink($fname); // remove any php wrapper we made prior
+					$content = "@echo off\n";
+					$content .= "%~dp0" . $bin . " %*";
+					file_put_contents($fname, $content);
+				}
+			}
 		};
 	}
 }

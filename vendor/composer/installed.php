@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'f03ab5909d995e7524b1865db8389cf9dc7c2404',
+    'reference' => '658e72b5decabe9500f369c19a8a2a202c51f059',
     'name' => 'serverpress/ds-cli',
   ),
   'versions' => 
@@ -434,7 +434,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'f03ab5909d995e7524b1865db8389cf9dc7c2404',
+      'reference' => '658e72b5decabe9500f369c19a8a2a202c51f059',
     ),
     'steveorevo/gstring' => 
     array (
