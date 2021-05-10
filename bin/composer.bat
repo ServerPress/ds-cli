@@ -1,1 +1,1 @@
-php %~dp0../vendor/bin/composer %*
+php %~dp0..\vendor\composer\composer\bin\composer %*

@@ -1,1 +1,1 @@
-php %~dp0../vendor/phpunit %*
+php %~dp0..\vendor\phpunit\phpunit\phpunit %*

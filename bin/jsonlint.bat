@@ -1,1 +1,1 @@
-php %~dp0../vendor/bin/jsonlint %*
+php %~dp0..\vendor\seld\jsonlint\bin\jsonlint %*

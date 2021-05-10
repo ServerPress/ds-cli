@@ -23,20 +23,23 @@ foreach(new RecursiveIteratorIterator($vendor) as $file) {
 
 			// Write out our proxy bin file that calls the right bin
 			if (empty($bin)) {
-				$bin = "../vendor/" . $obj->bin[0];
-				$name = (new Steveorevo\GString($bin))->getRightMost("/")->__toString() . ".bat";
+				$bin = $obj->bin[0];
+				$fname = (new Steveorevo\GString($bin))->getRightMost("/") . ".bat";
+				$bin = ".." . (new Steveorevo\GString($file->getPath()))->delLeftMost('..') . "/" . $bin;
+				$bin = str_replace("/", "\\", $bin);
 
 				// Write out bat file that invokes PHP
 				$cmd = "php %~dp0" . $bin . " %*";
-				$fname = __DIR__ . "/../bin/" . $name;
 			}else{
-				$bin = "../vendor/" . end($bin);
-				$name = (new Steveorevo\GString($bin))->getRightMost("/")->__toString();
+				$bin = end($bin);
+				$fname = (new Steveorevo\GString($bin))->getRightMost("/")->__toString();
+				$bin = ".." . (new Steveorevo\GString($file->getPath()))->delLeftMost('..') . "/" . $bin;
+				$bin = str_replace("/", "\\", $bin);
 
-				// Write out bat file that calls existing
+				// Write out bat file that calls existing bat file
 				$cmd = "%~dp0" . $bin . " %*";
-				$fname = __DIR__ . "/../bin/" . $name;
 			}
+			$fname = __DIR__ . "/../bin/" . $fname;
 			file_put_contents($fname, $cmd);
 		};
 	}

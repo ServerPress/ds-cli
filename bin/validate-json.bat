@@ -1,1 +1,1 @@
-php %~dp0../vendor/bin/validate-json %*
+php %~dp0..\vendor\justinrainbow\json-schema\bin\validate-json %*

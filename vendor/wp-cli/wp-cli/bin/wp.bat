@@ -1,1 +1,1 @@
-%~dp0../vendor/bin/wp.bat %*
+%~dp0..\vendor\wp-cli\wp-cli\bin\wp.bat %*
