@@ -40,7 +40,7 @@ foreach(new RecursiveIteratorIterator($vendor) as $file) {
 					
 					// Create wrapper bat scripts for Windows that invoke the php interpreter
 					$content = "@echo off\n";
-					$content .= "php %dp0" . $bin . " %*";
+					$content .= "php %~dp0" . $bin . " %*";
 					$fname .= ".bat";
 					file_put_contents($fname, $content);					
 				}
