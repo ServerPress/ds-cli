@@ -28,13 +28,19 @@ foreach(new RecursiveIteratorIterator($vendor) as $file) {
 			// Write out new binary proxy wrappers
 			foreach($obj->bin as $bin) {
 				$bin = ".." . (new GString($file->getPath()))->delLeftMost('..') . "/" . $bin;
-				$fname = __DIR__ . "/../bin/" . (new GString($bin))->getRightMost("/")->__toString();
+				$fname = __DIR__ . "/../bin/" . (new GString($bin))->getRightMost("/");
 				if (false === strpos($fname, ".bat")) {
 					
 					// Create wrapper shell scripts for mac, linux, etc.
 					$content = "#!/bin/bash\n";
-					$content .= 'SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"' . "\n";
-					$content .= '$SCRIPT_DIR/' . $bin . ' "$@"';
+
+					// Include support for cygwin
+					$content .= 'if [[ -z "${CYGWIN_HOME}" ]]; then' . "\n";
+					$content .= '  SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"' . "\n";
+					$content .= '  $SCRIPT_DIR/' . $bin . ' "$@"' . "\n";
+					$content .= 'else' . "\n";
+					$content .= '  ' . (new GString($bin))->getRightMost("/") . '.bat "$@"' . "\n";
+					$content .= 'fi';
 					file_put_contents($fname, $content);
 					chmod($fname, 0755);
 					

@@ -32,7 +32,7 @@ class InstalledVersions
     'aliases' => 
     array (
     ),
-    'reference' => '0c66f6109a5c480cb67c3b3434bd2879af969a3b',
+    'reference' => 'eee9f2eb078695b41934f57e73c5071fd9d483ce',
     'name' => 'serverpress/ds-cli',
   ),
   'versions' => 
@@ -460,7 +460,7 @@ class InstalledVersions
       'aliases' => 
       array (
       ),
-      'reference' => '0c66f6109a5c480cb67c3b3434bd2879af969a3b',
+      'reference' => 'eee9f2eb078695b41934f57e73c5071fd9d483ce',
     ),
     'steveorevo/gstring' => 
     array (
