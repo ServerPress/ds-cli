@@ -1,0 +1,7 @@
+#!/bin/bash
+if [[ -z "${CYGWIN_HOME}" ]]; then
+  SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+  $SCRIPT_DIR/../vendor/steveorevo/json2mysql/bin/json2mysql "$@"
+else
+  json2mysql.bat "$@"
+fi

@@ -1,0 +1,23 @@
+{
+    "name": "steveorevo/mysql2json",
+    "description": "MySQL2JSON is a database to JSON export tool with support for serialized PHP.",
+    "require": {
+        "steveorevo/gstring": "^1.1",
+        "league/climate": "^3.4"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+          "name": "Stephen J. Carnam",
+          "email": "steve@steveorevo.com",
+          "homepage": "http://steveorevo.com",
+          "role": "developer"
+        }
+      ],
+    "autoload": {
+        "psr-4": {"Steveorevo\\": "src/"}
+    },
+    "bin": [
+      "bin/mysql2json"
+    ]
+}

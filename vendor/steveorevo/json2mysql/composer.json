@@ -1,0 +1,23 @@
+{
+    "name": "steveorevo/json2mysql",
+    "description": "JSON2MySQL is a JSON import tool with support for PHP serialization.",
+    "require": {
+        "steveorevo/gstring": "^1.1",
+        "league/climate": "^3.4"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+          "name": "Stephen J. Carnam",
+          "email": "steve@steveorevo.com",
+          "homepage": "http://steveorevo.com",
+          "role": "developer"
+        }
+      ],
+    "autoload": {
+        "psr-4": {"Steveorevo\\": "src/"}
+    },
+    "bin": [
+      "bin/json2mysql"
+    ]
+}

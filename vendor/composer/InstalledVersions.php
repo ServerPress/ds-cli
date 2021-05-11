@@ -32,7 +32,7 @@ class InstalledVersions
     'aliases' => 
     array (
     ),
-    'reference' => 'eee9f2eb078695b41934f57e73c5071fd9d483ce',
+    'reference' => 'a4a8b885612835825f88b91a984817bb0af7c776',
     'name' => 'serverpress/ds-cli',
   ),
   'versions' => 
@@ -108,6 +108,15 @@ class InstalledVersions
       array (
       ),
       'reference' => '2ba9c8c862ecd5510ed16c6340aa9f6eadb4f31b',
+    ),
+    'league/climate' => 
+    array (
+      'pretty_version' => '3.7.0',
+      'version' => '3.7.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '5c717c3032c5118be7ad2395dbe0813d9894e8c7',
     ),
     'mustache/mustache' => 
     array (
@@ -435,6 +444,15 @@ class InstalledVersions
       ),
       'reference' => 'c6c1022351a901512170118436c764e473f6de8c',
     ),
+    'seld/cli-prompt' => 
+    array (
+      'pretty_version' => '1.0.4',
+      'version' => '1.0.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'b8dfcf02094b8c03b40322c229493bb2884423c5',
+    ),
     'seld/jsonlint' => 
     array (
       'pretty_version' => '1.8.3',
@@ -460,7 +478,7 @@ class InstalledVersions
       'aliases' => 
       array (
       ),
-      'reference' => 'eee9f2eb078695b41934f57e73c5071fd9d483ce',
+      'reference' => 'a4a8b885612835825f88b91a984817bb0af7c776',
     ),
     'steveorevo/gstring' => 
     array (
@@ -470,6 +488,24 @@ class InstalledVersions
       array (
       ),
       'reference' => 'd02ea3384e7c0df92892c868f258d246f64d48d7',
+    ),
+    'steveorevo/json2mysql' => 
+    array (
+      'pretty_version' => '1.1.2',
+      'version' => '1.1.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '4891c24e87ad4eaec7068a5706d7e63927ae9950',
+    ),
+    'steveorevo/mysql2json' => 
+    array (
+      'pretty_version' => '1.1.2',
+      'version' => '1.1.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '3a30bc71e430bddeede0aad422dd8295ed5da0dd',
     ),
     'symfony/console' => 
     array (

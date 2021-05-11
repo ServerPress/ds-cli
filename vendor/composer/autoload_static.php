@@ -47,6 +47,7 @@ class ComposerStaticInit55b3f019ca74cee38959c63ba63cf8d5
             'Steveorevo\\' => 11,
             'Seld\\PharUtils\\' => 15,
             'Seld\\JsonLint\\' => 14,
+            'Seld\\CliPrompt\\' => 15,
         ),
         'R' => 
         array (
@@ -62,6 +63,10 @@ class ComposerStaticInit55b3f019ca74cee38959c63ba63cf8d5
         'M' => 
         array (
             'Mustangostang\\' => 14,
+        ),
+        'L' => 
+        array (
+            'League\\CLImate\\' => 15,
         ),
         'J' => 
         array (
@@ -145,6 +150,8 @@ class ComposerStaticInit55b3f019ca74cee38959c63ba63cf8d5
         'Steveorevo\\' => 
         array (
             0 => __DIR__ . '/..' . '/steveorevo/gstring/src',
+            1 => __DIR__ . '/..' . '/steveorevo/json2mysql/src',
+            2 => __DIR__ . '/..' . '/steveorevo/mysql2json/src',
         ),
         'Seld\\PharUtils\\' => 
         array (
@@ -153,6 +160,10 @@ class ComposerStaticInit55b3f019ca74cee38959c63ba63cf8d5
         'Seld\\JsonLint\\' => 
         array (
             0 => __DIR__ . '/..' . '/seld/jsonlint/src/Seld/JsonLint',
+        ),
+        'Seld\\CliPrompt\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/seld/cli-prompt/src',
         ),
         'React\\Promise\\' => 
         array (
@@ -177,6 +188,10 @@ class ComposerStaticInit55b3f019ca74cee38959c63ba63cf8d5
         'Mustangostang\\' => 
         array (
             0 => __DIR__ . '/..' . '/wp-cli/mustangostang-spyc/src',
+        ),
+        'League\\CLImate\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/climate/src',
         ),
         'JsonSchema\\' => 
         array (

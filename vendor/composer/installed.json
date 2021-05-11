@@ -631,6 +631,74 @@
             "install-path": "../justinrainbow/json-schema"
         },
         {
+            "name": "league/climate",
+            "version": "3.7.0",
+            "version_normalized": "3.7.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/climate.git",
+                "reference": "5c717c3032c5118be7ad2395dbe0813d9894e8c7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/climate/zipball/5c717c3032c5118be7ad2395dbe0813d9894e8c7",
+                "reference": "5c717c3032c5118be7ad2395dbe0813d9894e8c7",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.3 || ^8.0",
+                "psr/log": "^1.0",
+                "seld/cli-prompt": "^1.0"
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "^1.4",
+                "mockery/mockery": "^1.4.2",
+                "phpunit/phpunit": "^9.5.0"
+            },
+            "suggest": {
+                "ext-mbstring": "If ext-mbstring is not available you MUST install symfony/polyfill-mbstring"
+            },
+            "time": "2021-01-10T20:18:52+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "League\\CLImate\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Joe Tannenbaum",
+                    "email": "hey@joe.codes",
+                    "homepage": "http://joe.codes/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Craig Duncan",
+                    "email": "git@duncanc.co.uk",
+                    "homepage": "https://github.com/duncan3dc",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP's best friend for the terminal. CLImate allows you to easily output colored text, special formats, and more.",
+            "keywords": [
+                "cli",
+                "colors",
+                "command",
+                "php",
+                "terminal"
+            ],
+            "support": {
+                "issues": "https://github.com/thephpleague/climate/issues",
+                "source": "https://github.com/thephpleague/climate/tree/3.7.0"
+            },
+            "install-path": "../league/climate"
+        },
+        {
             "name": "mustache/mustache",
             "version": "v2.13.0",
             "version_normalized": "2.13.0.0",
@@ -2829,6 +2897,64 @@
             "install-path": "../sebastian/version"
         },
         {
+            "name": "seld/cli-prompt",
+            "version": "1.0.4",
+            "version_normalized": "1.0.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Seldaek/cli-prompt.git",
+                "reference": "b8dfcf02094b8c03b40322c229493bb2884423c5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Seldaek/cli-prompt/zipball/b8dfcf02094b8c03b40322c229493bb2884423c5",
+                "reference": "b8dfcf02094b8c03b40322c229493bb2884423c5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpstan/phpstan": "^0.12.63"
+            },
+            "time": "2020-12-15T21:32:01+00:00",
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Seld\\CliPrompt\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be"
+                }
+            ],
+            "description": "Allows you to prompt for user input on the command line, and optionally hide the characters they type",
+            "keywords": [
+                "cli",
+                "console",
+                "hidden",
+                "input",
+                "prompt"
+            ],
+            "support": {
+                "issues": "https://github.com/Seldaek/cli-prompt/issues",
+                "source": "https://github.com/Seldaek/cli-prompt/tree/1.0.4"
+            },
+            "install-path": "../seld/cli-prompt"
+        },
+        {
             "name": "seld/jsonlint",
             "version": "1.8.3",
             "version_normalized": "1.8.3.0",
@@ -2997,6 +3123,102 @@
                 "source": "https://github.com/Steveorevo/GString/tree/1.1.0"
             },
             "install-path": "../steveorevo/gstring"
+        },
+        {
+            "name": "steveorevo/json2mysql",
+            "version": "1.1.2",
+            "version_normalized": "1.1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Steveorevo/json2mysql.git",
+                "reference": "4891c24e87ad4eaec7068a5706d7e63927ae9950"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Steveorevo/json2mysql/zipball/4891c24e87ad4eaec7068a5706d7e63927ae9950",
+                "reference": "4891c24e87ad4eaec7068a5706d7e63927ae9950",
+                "shasum": ""
+            },
+            "require": {
+                "league/climate": "^3.4",
+                "steveorevo/gstring": "^1.1"
+            },
+            "time": "2021-05-11T22:29:03+00:00",
+            "bin": [
+                "bin/json2mysql"
+            ],
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Steveorevo\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen J. Carnam",
+                    "email": "steve@steveorevo.com",
+                    "homepage": "http://steveorevo.com",
+                    "role": "developer"
+                }
+            ],
+            "description": "JSON2MySQL is a JSON import tool with support for PHP serialization.",
+            "support": {
+                "source": "https://github.com/Steveorevo/json2mysql/tree/1.1.2",
+                "issues": "https://github.com/Steveorevo/json2mysql/issues"
+            },
+            "install-path": "../steveorevo/json2mysql"
+        },
+        {
+            "name": "steveorevo/mysql2json",
+            "version": "1.1.2",
+            "version_normalized": "1.1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Steveorevo/mysql2json.git",
+                "reference": "3a30bc71e430bddeede0aad422dd8295ed5da0dd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Steveorevo/mysql2json/zipball/3a30bc71e430bddeede0aad422dd8295ed5da0dd",
+                "reference": "3a30bc71e430bddeede0aad422dd8295ed5da0dd",
+                "shasum": ""
+            },
+            "require": {
+                "league/climate": "^3.4",
+                "steveorevo/gstring": "^1.1"
+            },
+            "time": "2021-05-11T22:29:17+00:00",
+            "bin": [
+                "bin/mysql2json"
+            ],
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Steveorevo\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stephen J. Carnam",
+                    "email": "steve@steveorevo.com",
+                    "homepage": "http://steveorevo.com",
+                    "role": "developer"
+                }
+            ],
+            "description": "MySQL2JSON is a database to JSON export tool with support for serialized PHP.",
+            "support": {
+                "source": "https://github.com/Steveorevo/mysql2json/tree/1.1.2",
+                "issues": "https://github.com/Steveorevo/mysql2json/issues"
+            },
+            "install-path": "../steveorevo/mysql2json"
         },
         {
             "name": "symfony/console",

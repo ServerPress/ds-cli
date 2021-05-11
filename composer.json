@@ -1,13 +1,23 @@
 {
     "name": "serverpress/ds-cli",
     "description": "DS-CLI is a core runtime component of DesktopServer. It is an esemble of the latest command line interface tools such as Composer, PHPUnit, WP-CLI, and other cross-platform components that are important to professional WordPress developers. The vendor folder is intensionally included in this repo as it serves as part of the runtime delivery mechanism for DesktopServer.",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/Steveorevo/mysql2json.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Steveorevo/json2mysql.git"
+        }
+    ],
     "require": {
         "composer/composer": "^2.0",
         "phpunit/phpunit": "^9.5",
         "wp-cli/wp-cli": "^2.4",
         "steveorevo/gstring": "^1.1",
-        "steveorevo/mysq2json": "master",
-        "steveorevo/json2mysql": "master"
+        "steveorevo/mysql2json": "^1.1",
+        "steveorevo/json2mysql": "^1.1"
     },
     "license": "MIT",
     "authors": [
