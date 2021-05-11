@@ -1,0 +1,3 @@
+#!/bin/bash
+export DYLD_LIBRARY_PATH="$DS_XAMPPFILES/lib":$DYLD_LIBRARY_PATH
+$DS_XAMPPFILES/bin/php "$@"

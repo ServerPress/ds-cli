@@ -16,16 +16,17 @@
     ],
     "scripts": {
         "pre-install-cmd": [
-            "php src/cleanup.php"
+            "php src/cleanup.php",
+            "cp src/php bin/php"
         ],
         "pre-update-cmd": [
-            "php src/cleanup.php"
+            "@pre-install-cmd"
         ],
         "post-install-cmd": [
             "php src/build.php"
         ],
         "post-update-cmd": [
-            "php src/build.php"
+            "@post-install-cmd"
         ]
     },
     "config": {
