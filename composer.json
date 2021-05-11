@@ -5,7 +5,9 @@
         "composer/composer": "^2.0",
         "phpunit/phpunit": "^9.5",
         "wp-cli/wp-cli": "^2.4",
-        "steveorevo/gstring": "^1.1"
+        "steveorevo/gstring": "^1.1",
+        "steveorevo/mysq2json": "master",
+        "steveorevo/json2mysql": "master"
     },
     "license": "MIT",
     "authors": [
