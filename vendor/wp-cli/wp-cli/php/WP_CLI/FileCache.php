@@ -13,8 +13,10 @@
 
 namespace WP_CLI;
 
+use DateTime;
+use Exception;
 use Symfony\Component\Finder\Finder;
-use WP_CLI\Utils;
+use WP_CLI;
 
 /**
  * Reads/writes to a filesystem cache
@@ -97,7 +99,7 @@ class FileCache {
 			return false;
 		}
 
-		// use ttl param or global ttl
+		// Use ttl param or global ttl.
 		if ( null === $ttl ) {
 			$ttl = $this->ttl;
 		} elseif ( $this->ttl > 0 ) {
@@ -219,22 +221,22 @@ class FileCache {
 		$ttl      = $this->ttl;
 		$max_size = $this->max_size;
 
-		// unlink expired files
+		// Unlink expired files.
 		if ( $ttl > 0 ) {
 			try {
-				$expire = new \DateTime();
-			} catch ( \Exception $e ) {
-				\WP_CLI::error( $e->getMessage() );
-			}
-			$expire->modify( '-' . $ttl . ' seconds' );
+				$expire = new DateTime();
+				$expire->modify( '-' . $ttl . ' seconds' );
 
-			$finder = $this->get_finder()->date( 'until ' . $expire->format( 'Y-m-d H:i:s' ) );
-			foreach ( $finder as $file ) {
-				unlink( $file->getRealPath() );
+				$finder = $this->get_finder()->date( 'until ' . $expire->format( 'Y-m-d H:i:s' ) );
+				foreach ( $finder as $file ) {
+					unlink( $file->getRealPath() );
+				}
+			} catch ( Exception $e ) {
+				WP_CLI::error( $e->getMessage() );
 			}
 		}
 
-		// unlink older files if max cache size is exceeded
+		// Unlink older files if max cache size is exceeded.
 		if ( $max_size > 0 ) {
 			$files = array_reverse( iterator_to_array( $this->get_finder()->sortByAccessedTime()->getIterator() ) );
 			$total = 0;
@@ -283,7 +285,7 @@ class FileCache {
 		/** @var Finder $finder */
 		$finder = $this->get_finder()->sortByName();
 
-		$files_to_delete = array();
+		$files_to_delete = [];
 
 		foreach ( $finder as $file ) {
 			$pieces    = explode( '-', $file->getBasename( $file->getExtension() ) );
@@ -321,8 +323,12 @@ class FileCache {
 			}
 
 			if ( ! @mkdir( $dir, 0777, true ) ) {
-				$error = error_get_last();
-				\WP_CLI::warning( sprintf( "Failed to create directory '%s': %s.", $dir, $error['message'] ) );
+				$message = "Failed to create directory '{$dir}'";
+				$error   = error_get_last();
+				if ( is_array( $error ) && array_key_exists( 'message', $error ) ) {
+					$message .= ": {$error['message']}";
+				}
+				WP_CLI::warning( "{$message}." );
 				return false;
 			}
 		}

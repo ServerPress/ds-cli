@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'a4a8b885612835825f88b91a984817bb0af7c776',
+    'reference' => '62cfef7c822ec6364030cc2010c63138e089ebc2',
     'name' => 'serverpress/ds-cli',
   ),
   'versions' => 
@@ -22,12 +22,12 @@
     ),
     'composer/composer' => 
     array (
-      'pretty_version' => '2.0.13',
-      'version' => '2.0.13.0',
+      'pretty_version' => '2.0.14',
+      'version' => '2.0.14.0',
       'aliases' => 
       array (
       ),
-      'reference' => '986e8b86b7b570632ad0a905c3726c33dd4c0efb',
+      'reference' => '92b2ccbef65292ba9f2004271ef47c7231e2eed5',
     ),
     'composer/metadata-minifier' => 
     array (
@@ -40,12 +40,12 @@
     ),
     'composer/semver' => 
     array (
-      'pretty_version' => '3.2.4',
-      'version' => '3.2.4.0',
+      'pretty_version' => '3.2.5',
+      'version' => '3.2.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'a02fdf930a3c1c3ed3a49b5f63859c0c20e10464',
+      'reference' => '31f3ea725711245195f62e54ffa402d8ef2fdba9',
     ),
     'composer/spdx-licenses' => 
     array (
@@ -58,12 +58,12 @@
     ),
     'composer/xdebug-handler' => 
     array (
-      'pretty_version' => '1.4.6',
-      'version' => '1.4.6.0',
+      'pretty_version' => '2.0.1',
+      'version' => '2.0.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f27e06cd9675801df441b3656569b328e04aa37c',
+      'reference' => '964adcdd3a28bf9ed5d9ac6450064e0d71ed7496',
     ),
     'doctrine/instantiator' => 
     array (
@@ -452,7 +452,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'a4a8b885612835825f88b91a984817bb0af7c776',
+      'reference' => '62cfef7c822ec6364030cc2010c63138e089ebc2',
     ),
     'steveorevo/gstring' => 
     array (
@@ -465,30 +465,30 @@
     ),
     'steveorevo/json2mysql' => 
     array (
-      'pretty_version' => '1.1.2',
-      'version' => '1.1.2.0',
+      'pretty_version' => '2.0.0',
+      'version' => '2.0.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '4891c24e87ad4eaec7068a5706d7e63927ae9950',
+      'reference' => '3e9befc5d524bca2b297d3aa86d8deee961d8a49',
     ),
     'steveorevo/mysql2json' => 
     array (
-      'pretty_version' => '1.1.2',
-      'version' => '1.1.2.0',
+      'pretty_version' => '2.0.0',
+      'version' => '2.0.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '3a30bc71e430bddeede0aad422dd8295ed5da0dd',
+      'reference' => '61ac165592e50f7810ff553fa4c5530cf665f6be',
     ),
     'symfony/console' => 
     array (
-      'pretty_version' => 'v5.2.7',
-      'version' => '5.2.7.0',
+      'pretty_version' => 'v5.2.8',
+      'version' => '5.2.8.0',
       'aliases' => 
       array (
       ),
-      'reference' => '90374b8ed059325b49a29b55b3f8bb4062c87629',
+      'reference' => '864568fdc0208b3eba3638b6000b69d2386e6768',
     ),
     'symfony/filesystem' => 
     array (
@@ -501,12 +501,12 @@
     ),
     'symfony/finder' => 
     array (
-      'pretty_version' => 'v5.2.4',
-      'version' => '5.2.4.0',
+      'pretty_version' => 'v5.2.9',
+      'version' => '5.2.9.0',
       'aliases' => 
       array (
       ),
-      'reference' => '0d639a0943822626290d169965804f79400e6a04',
+      'reference' => 'ccccb9d48ca42757dd12f2ca4bf857a4e217d90d',
     ),
     'symfony/polyfill-ctype' => 
     array (
@@ -582,12 +582,12 @@
     ),
     'symfony/string' => 
     array (
-      'pretty_version' => 'v5.2.6',
-      'version' => '5.2.6.0',
+      'pretty_version' => 'v5.2.8',
+      'version' => '5.2.8.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ad0bd91bce2054103f5eaa18ebeba8d3bc2a0572',
+      'reference' => '01b35eb64cac8467c3f94cd0ce2d0d376bb7d1db',
     ),
     'theseer/tokenizer' => 
     array (
@@ -627,12 +627,12 @@
     ),
     'wp-cli/wp-cli' => 
     array (
-      'pretty_version' => 'v2.4.1',
-      'version' => '2.4.1.0',
+      'pretty_version' => 'v2.5.0',
+      'version' => '2.5.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ceb18598e79befa9b2a37a51efbb34910628988b',
+      'reference' => '0bcf0c54f4d35685211d435e25219cc7acbe6d48',
     ),
   ),
 );

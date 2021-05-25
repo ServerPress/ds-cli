@@ -1,7 +1,8 @@
 <?php
 
-use WP_CLI\Utils;
+use cli\Shell;
 use WP_CLI\Dispatcher;
+use WP_CLI\Utils;
 
 class Help_Command extends WP_CLI_Command {
 
@@ -46,8 +47,8 @@ class Help_Command extends WP_CLI_Command {
 
 		$out .= self::parse_reference_links( $command->get_longdesc() );
 
-		// definition lists
-		$out = preg_replace_callback( '/([^\n]+)\n: (.+?)(\n\n|$)/s', array( __CLASS__, 'rewrap_param_desc' ), $out );
+		// Definition lists.
+		$out = preg_replace_callback( '/([^\n]+)\n: (.+?)(\n\n|$)/s', [ __CLASS__, 'rewrap_param_desc' ], $out );
 
 		// Ensure lines with no leading whitespace that aren't section headers are indented.
 		$out = preg_replace( '/^((?! |\t|##).)/m', "\t$1", $out );
@@ -57,7 +58,7 @@ class Help_Command extends WP_CLI_Command {
 		// Need to de-tab for wordwrapping to work properly.
 		$out = str_replace( "\t", $tab, $out );
 
-		$wordwrap_width = \cli\Shell::columns();
+		$wordwrap_width = Shell::columns();
 
 		// Wordwrap with indent.
 		$out = preg_replace_callback(
@@ -87,7 +88,7 @@ class Help_Command extends WP_CLI_Command {
 			$out = str_replace( $subcommands_header, $subcommands, $out );
 		}
 
-		// section headers
+		// Section headers.
 		$out = preg_replace( '/^## ([A-Z ]+)/m', WP_CLI::colorize( '%9\1%n' ), $out );
 
 		self::pass_through_pager( $out );
@@ -122,22 +123,22 @@ class Help_Command extends WP_CLI_Command {
 
 		// For Windows 7 need to set code page to something other than Unicode (65001) to get around "Not enough memory." error with `more.com` on PHP 7.1+.
 		if ( 'more' === $pager && defined( 'PHP_WINDOWS_VERSION_MAJOR' ) && PHP_WINDOWS_VERSION_MAJOR < 10 && function_exists( 'sapi_windows_cp_set' ) ) {
-			// Note will also apply to Windows 8 (see http://msdn.microsoft.com/en-us/library/windows/desktop/ms724832.aspx) but probably harmless anyway.
+			// Note will also apply to Windows 8 (see https://msdn.microsoft.com/en-us/library/windows/desktop/ms724832.aspx) but probably harmless anyway.
 			$cp = getenv( 'WP_CLI_WINDOWS_CODE_PAGE' ) ?: 1252; // Code page 1252 is the most used so probably the most compat.
 			// phpcs:ignore PHPCompatibility.FunctionUse.NewFunctions -- Wrapped in function_exists() call.
 			sapi_windows_cp_set( $cp ); // `sapi_windows_cp_set()` introduced PHP 7.1.
 		}
 
-		// convert string to file handle
+		// Convert string to file handle.
 		$fd = fopen( 'php://temp', 'r+b' );
 		fwrite( $fd, $out );
 		rewind( $fd );
 
-		$descriptorspec = array(
+		$descriptorspec = [
 			0 => $fd,
 			1 => STDOUT,
 			2 => STDERR,
-		);
+		];
 
 		return proc_close( Utils\proc_open_compat( $pager, $descriptorspec, $pipes ) );
 	}
@@ -145,10 +146,10 @@ class Help_Command extends WP_CLI_Command {
 	private static function get_initial_markdown( $command ) {
 		$name = implode( ' ', Dispatcher\get_path( $command ) );
 
-		$binding = array(
+		$binding = [
 			'name'      => $name,
 			'shortdesc' => $command->get_shortdesc(),
-		);
+		];
 
 		$binding['synopsis'] = "$name " . $command->get_synopsis();
 
@@ -165,7 +166,7 @@ class Help_Command extends WP_CLI_Command {
 	}
 
 	private static function render_subcommands( $command ) {
-		$subcommands = array();
+		$subcommands = [];
 		foreach ( $command->get_subcommands() as $subcommand ) {
 
 			if ( WP_CLI::get_runner()->is_command_disabled( $subcommand ) ) {
@@ -177,7 +178,7 @@ class Help_Command extends WP_CLI_Command {
 
 		$max_len = self::get_max_len( array_keys( $subcommands ) );
 
-		$lines = array();
+		$lines = [];
 		foreach ( $subcommands as $name => $desc ) {
 			$lines[] = str_pad( $name, $max_len ) . "\t\t\t" . $desc;
 		}
@@ -214,7 +215,7 @@ class Help_Command extends WP_CLI_Command {
 
 		// Fires if it has description text at the head of `$longdesc`.
 		if ( $description ) {
-			$links   = array(); // An array of URLs from the description.
+			$links   = []; // An array of URLs from the description.
 			$pattern = '/\[.+?\]\((https?:\/\/.+?)\)/';
 			$newdesc = preg_replace_callback(
 				$pattern,

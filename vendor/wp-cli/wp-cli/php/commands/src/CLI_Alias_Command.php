@@ -5,6 +5,8 @@
  */
 
 use Mustangostang\Spyc;
+use WP_CLI\ExitException;
+use WP_CLI\Utils;
 
 /**
  * Retrieves, sets and updates aliases for WordPress Installations.
@@ -161,12 +163,12 @@ class CLI_Alias_Command extends WP_CLI_Command {
 
 		$config = ( ! empty( $assoc_args['config'] ) ? $assoc_args['config'] : 'global' );
 
-		list( $config_path, $aliases ) = $this->get_aliases_data( $config, '' );
+		list( $config_path, $aliases ) = $this->get_aliases_data( $config, '', true );
 
 		$this->validate_config_file( $config_path );
 
 		$alias    = $args[0];
-		$grouping = WP_CLI\Utils\get_flag_value( $assoc_args, 'grouping' );
+		$grouping = Utils\get_flag_value( $assoc_args, 'grouping' );
 
 		$this->validate_input( $assoc_args, $grouping );
 
@@ -276,9 +278,9 @@ class CLI_Alias_Command extends WP_CLI_Command {
 
 		$config   = ( ! empty( $assoc_args['config'] ) ? $assoc_args['config'] : '' );
 		$alias    = $args[0];
-		$grouping = WP_CLI\Utils\get_flag_value( $assoc_args, 'grouping' );
+		$grouping = Utils\get_flag_value( $assoc_args, 'grouping' );
 
-		list( $config_path, $aliases ) = $this->get_aliases_data( $config, $alias );
+		list( $config_path, $aliases ) = $this->get_aliases_data( $config, $alias, true );
 
 		$this->validate_config_file( $config_path );
 
@@ -300,14 +302,17 @@ class CLI_Alias_Command extends WP_CLI_Command {
 	/**
 	 * Get config path and aliases data based on config type.
 	 *
-	 * @param string $config Type of config to get data from.
-	 * @param string $alias  Alias to be used for Add/Update/Delete.
+	 * @param string $config             Type of config to get data from.
+	 * @param string $alias              Alias to be used for Add/Update/Delete.
+	 * @param bool   $create_config_file Optional. If a config file doesn't exist,
+	 *                                   should it be created? Defaults to false.
 	 *
 	 * @return array Config Path and Aliases in it.
+	 * @throws ExitException
 	 */
-	private function get_aliases_data( $config, $alias ) {
+	private function get_aliases_data( $config, $alias, $create_config_file = false ) {
 
-		$global_config_path = WP_CLI::get_runner()->get_global_config_path();
+		$global_config_path = WP_CLI::get_runner()->get_global_config_path( $create_config_file );
 		$global_aliases     = Spyc::YAMLLoad( $global_config_path );
 
 		$project_config_path = WP_CLI::get_runner()->get_project_config_path();
@@ -335,7 +340,7 @@ class CLI_Alias_Command extends WP_CLI_Command {
 			}
 		}
 
-		return array( $config_path, $aliases );
+		return [ $config_path, $aliases ];
 
 	}
 
@@ -357,7 +362,7 @@ class CLI_Alias_Command extends WP_CLI_Command {
 	 *
 	 * @param array  $aliases     Current aliases data.
 	 * @param string $alias       Name of alias.
-	 * @param array  $key_args    Associative arguments.
+	 * @param array  $assoc_args  Associative arguments.
 	 * @param bool   $is_grouping Check if its a grouping operation.
 	 * @param string $grouping    Grouping value.
 	 * @param bool   $is_update   Is this an update operation?
@@ -367,7 +372,7 @@ class CLI_Alias_Command extends WP_CLI_Command {
 	private function build_aliases( $aliases, $alias, $assoc_args, $is_grouping, $grouping = '', $is_update = false ) {
 
 		if ( $is_grouping ) {
-			$valid_assoc_args = array( 'config', 'grouping' );
+			$valid_assoc_args = [ 'config', 'grouping' ];
 			$invalid_args     = array_diff( array_keys( $assoc_args ), $valid_assoc_args );
 
 			// Check for invalid args.
@@ -414,7 +419,7 @@ class CLI_Alias_Command extends WP_CLI_Command {
 	 * @param array  $assoc_args Arguments array.
 	 * @param string $grouping   Grouping argument value.
 	 *
-	 * @throws WP_CLI\ExitException
+	 * @throws ExitException
 	 */
 	private function validate_input( $assoc_args, $grouping ) {
 		// Check if valid arguments were passed.
@@ -441,7 +446,7 @@ class CLI_Alias_Command extends WP_CLI_Command {
 	 * @param array  $assoc_args Arguments array.
 	 * @param string $grouping   Grouping argument value.
 	 *
-	 * @throws WP_CLI\ExitException
+	 * @throws ExitException
 	 */
 	private function validate_alias_type( $aliases, $alias, $assoc_args, $grouping ) {
 

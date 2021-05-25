@@ -12,7 +12,7 @@ foreach ([__DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php
 }
 
 class MySQL2JSON {
-  public $version = "1.1.2"; // TODO: obtain via composer
+  public $version = "2.0.0"; // TODO: obtain via composer
   public $climate = NULL;
   public $dbNames = [];
   public $tables = [];
@@ -49,6 +49,12 @@ class MySQL2JSON {
         'prefix'      => 'l',
         'longPrefix'  => 'list',
         'description' => 'list databases & tables available for export',
+        'noValue'     => true,
+      ],
+      'exclude' => [
+        'prefix'      => 'x',
+        'longPrefix'  => 'exclude',
+        'description' => 'excludes rows with _transient_ in option_name column (WordPress)',
         'noValue'     => true,
       ],
       'output' => [
@@ -183,36 +189,43 @@ class MySQL2JSON {
     // Dump data for the given tables
     for ($i = 0; $i < count($objDB->tables); $i++) {
       $name = $objDB->tables[$i]->name;
+      $columns = &$objDB->tables[$i]->columns;
       $r = $this->db->query("SELECT * FROM $name;");
       if ($r->num_rows > 0) {
-        $data = [];
         while($row = $r->fetch_assoc()) {
-
-          // Check row for serialized data in string
-          foreach ((object)$row as $k => $v) {
-            for ($c = 0; $c < count($objDB->tables[$i]->columns); $c++) {
-              if ($k == $objDB->tables[$i]->columns[$c]->name) {
-                break;
+          
+          // Check for exclude transients flag
+          $skip = false;
+          if ($this->climate->arguments->defined('exclude')) {
+            if (array_key_exists('option_name', $row)) {
+              if (false !== strpos($row['option_name'], '_transient_')) {
+                $skip = true;
               }
             }
-
-            // Update data-type to object and unserialize data
-            if (true === $this->is_serialized($v)) {
-              $objDB->tables[$i]->columns[$c]->json_type = 'object';
-              (object)$row[$k] = unserialize($v);
-            }
           }
+          
+          // Skip transients
+          if (false == $skip) {
 
-          array_push($objDB->tables[$i]->data, (object)$row);
+            // Check serialized data, update column data-type to object
+            foreach($columns as &$col) {
+              if ($this->is_serialized($row[$col->name])) {
+                $col->json_type = 'object';
+                $row[$col->name] = unserialize( $this->fix_serialized($row[$col->name]));
+              }
+            }
+            array_push($objDB->tables[$i]->data, $row);
+          }
         }
       }
+      $r->free_result();
       if (! $this->climate->arguments->defined('quiet')) {
         echo "Exported table: " . $name . "\n";
       }
     }
     $this->db->close();
     $output = $this->climate->arguments->get('output');
-    if (NULL === $output) {
+    if ('' == $output) {
       $output = getcwd() . "/" . $database . ".json";
     }
     file_put_contents($output, json_encode($objDB, JSON_PRETTY_PRINT));
@@ -220,6 +233,41 @@ class MySQL2JSON {
       echo "File export complete: $output\n";
     }
     exit();
+  }
+
+/**
+ * Takes serialized PHP and converts objects that would otherwise become
+ * __PHP_Incomplete_Class definitions and converts them to a stdClass 
+ * object; allowing access to private and public property data.
+ *
+ * @param  string $data serialized PHP data
+ * @return string data converted to stdClass with all properties
+ */
+  function fix_serialized($data) {
+
+    // Convert objects to 'stdClass'
+    $data = preg_replace( '/^O:\d+:"[^"]++"/', 'O:8:"stdClass"', $data );
+
+    // Make private and protected properties public (replace null*null, and nullAnull)
+    $data = preg_replace_callback( 
+        '/:\d+:"\0.*?\0([^"]+)"/',
+
+        // Recalculate new key-length
+        function($matches) {
+          $prop = '';
+          if (false !== strpos($matches[0], ":\"\0*")){
+              $prop = '*|';
+          }elseif (false !== strpos($matches[0], ":\"\0A")){
+              $prop = 'A|';
+          }
+          $prop .= $matches[1];
+          return ":" . strlen( $prop ) . ":\"" . $prop . "\"";
+        },
+        $data
+    );
+
+    // Return the corrected serialized data
+    return $data;
   }
 
   /**
@@ -308,10 +356,7 @@ class MySQL2JSON {
     $user = $this->climate->arguments->get('user');
     $password = $this->climate->arguments->get('password');
     $this->db = new mysqli($host, $user, $password, $database);
-    if (!$this->db->set_charset("utf8")) {
-      printf("Error loading character set utf8: %s\n", $this->db->error);
-      exit();
-    }
+
     if ($this->db->connect_error) {
       die('Connection failed: ' . $this->db->connect_error);
     }

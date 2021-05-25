@@ -1,5 +1,20 @@
 Feature: Global flags
 
+  @require-wp-5.5
+  Scenario: Setting the URL
+    Given a WP installation
+
+    When I run `wp --url=localhost:8001 eval 'echo json_encode( $_SERVER );'`
+    Then STDOUT should be JSON containing:
+      """
+      {
+        "HTTP_HOST": "localhost:8001",
+        "SERVER_NAME": "localhost",
+        "SERVER_PORT": 8001
+      }
+      """
+
+  @less-than-wp-5.5
   Scenario: Setting the URL
     Given a WP installation
 
@@ -43,6 +58,7 @@ Feature: Global flags
       Error: 'non-existing-command' is not a registered wp command. See 'wp help' for available commands.
       """
 
+  @less-than-php-8
   Scenario: Debug run
     Given a WP installation
 

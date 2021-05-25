@@ -2,6 +2,8 @@
 /**
  * A modified version of wp-settings.php, tailored for CLI use.
  *
+ * Note: This is not being used anymore from WordPress 4.6-alpha-37575 onwards.
+ *
  * @phpcs:disable WordPress.WP.GlobalVariablesOverride -- Setting the globals is the point of this file.
  * @phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound -- These are WP native constants which are needed.
  * @phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- All hook calls in this file are to WP native hooks.
@@ -52,7 +54,7 @@ ini_set( 'magic_quotes_sybase', 0 );
 // phpc:enable PHPCompatibility.IniDirectives.RemovedIniDirectives,WordPress.PHP.IniSet
 
 // WordPress calculates offsets from UTC.
-// phpcs:ignore WordPress.WP.TimezoneChange.timezone_change_date_default_timezone_set
+// phpcs:ignore WordPress.DateTime.RestrictedFunctions.timezone_change_date_default_timezone_set
 date_default_timezone_set( 'UTC' );
 
 // Turn register_globals off.
@@ -168,7 +170,7 @@ if ( SHORTINIT ) {
 require_once ABSPATH . WPINC . '/l10n.php';
 
 // WP-CLI: Permit Utils\wp_not_installed() to run on < WP 4.0
-apply_filters( 'nocache_headers', array() );
+apply_filters( 'nocache_headers', [] );
 
 // Run the installer if WordPress is not installed.
 wp_not_installed();
@@ -266,7 +268,7 @@ wp_plugin_directory_constants();
 
 $symlinked_plugins_supported = function_exists( 'wp_register_plugin_realpath' );
 if ( $symlinked_plugins_supported ) {
-	$GLOBALS['wp_plugin_paths'] = array();
+	$GLOBALS['wp_plugin_paths'] = [];
 }
 
 // Load must-use plugins.
@@ -334,6 +336,13 @@ do_action( 'plugins_loaded' );
 
 // Define constants which affect functionality if not already defined.
 wp_functionality_constants();
+
+if ( ! function_exists( 'get_magic_quotes_gpc' ) ) {
+	// Provide compat fallback for newer PHP version (7.4+) on older WordPress core versions.
+	function get_magic_quotes_gpc() {
+		return false;
+	}
+}
 
 // Add magic quotes and set up $_REQUEST ( $_GET + $_POST )
 wp_magic_quotes();
@@ -452,7 +461,7 @@ if ( is_multisite() && ! defined( 'WP_INSTALLING' ) ) {
  * AJAX requests should use wp-admin/admin-ajax.php. admin-ajax.php can handle requests for
  * users not logged in.
  *
- * @link http://codex.wordpress.org/AJAX_in_Plugins
+ * @link https://codex.wordpress.org/AJAX_in_Plugins
  *
  * @since 3.0.0
  */

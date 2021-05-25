@@ -4,11 +4,16 @@
 
 namespace WP_CLI\Utils;
 
+use ReflectionClass;
+use ReflectionParameter;
+use WP_CLI;
+use WP_CLI\UpgraderSkin;
+
 function wp_not_installed() {
 	global $wpdb, $table_prefix;
 	if ( ! is_blog_installed() && ! defined( 'WP_INSTALLING' ) ) {
 		$tables         = $wpdb->get_col( "SHOW TABLES LIKE '%_options'" );
-		$found_prefixes = array();
+		$found_prefixes = [];
 		if ( count( $tables ) ) {
 			foreach ( $tables as $table ) {
 				$maybe_prefix = substr( $table, 0, - strlen( 'options' ) );
@@ -20,13 +25,13 @@ function wp_not_installed() {
 		if ( count( $found_prefixes ) ) {
 			$prefix_list   = implode( ', ', $found_prefixes );
 			$install_label = count( $found_prefixes ) > 1 ? 'installations' : 'installation';
-			\WP_CLI::error(
+			WP_CLI::error(
 				"The site you have requested is not installed.\n" .
 				"Your table prefix is '{$table_prefix}'. Found {$install_label} with table prefix: {$prefix_list}.\n" .
 				'Or, run `wp core install` to create database tables.'
 			);
 		} else {
-			\WP_CLI::error(
+			WP_CLI::error(
 				"The site you have requested is not installed.\n" .
 				'Run `wp core install` to create database tables.'
 			);
@@ -36,7 +41,7 @@ function wp_not_installed() {
 
 // phpcs:disable WordPress.PHP.IniSet -- Intentional & correct usage.
 function wp_debug_mode() {
-	if ( \WP_CLI::get_config( 'debug' ) ) {
+	if ( WP_CLI::get_config( 'debug' ) ) {
 		if ( ! defined( 'WP_DEBUG' ) ) {
 			define( 'WP_DEBUG', true );
 		}
@@ -87,7 +92,7 @@ function wp_die_handler( $message ) {
 
 	$message = wp_clean_error_message( $message );
 
-	\WP_CLI::error( $message );
+	WP_CLI::error( $message );
 }
 
 /**
@@ -103,10 +108,10 @@ function wp_clean_error_message( $message ) {
 		$message .= ' ' . $matches[1];
 	}
 
-	$search_replace = array(
+	$search_replace = [
 		'<code>'  => '`',
 		'</code>' => '`',
-	);
+	];
 	$message        = str_replace( array_keys( $search_replace ), array_values( $search_replace ), $message );
 	$message        = namespace\strip_tags( $message );
 	$message        = html_entity_decode( $message, ENT_COMPAT, 'UTF-8' );
@@ -115,7 +120,7 @@ function wp_clean_error_message( $message ) {
 }
 
 function wp_redirect_handler( $url ) {
-	\WP_CLI::warning( 'Some code is trying to do a URL redirect. Backtrace:' );
+	WP_CLI::warning( 'Some code is trying to do a URL redirect. Backtrace:' );
 
 	ob_start();
 	debug_print_backtrace();
@@ -130,12 +135,33 @@ function maybe_require( $since, $path ) {
 	}
 }
 
-function get_upgrader( $class ) {
+function get_upgrader( $class, $insecure = false ) {
 	if ( ! class_exists( '\WP_Upgrader' ) ) {
 		require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 	}
 
-	return new $class( new \WP_CLI\UpgraderSkin() );
+	$uses_insecure_flag = false;
+
+	$reflection = new ReflectionClass( $class );
+	if ( $reflection ) {
+		$constructor = $reflection->getConstructor();
+		if ( $constructor ) {
+			$arguments = $constructor->getParameters();
+			/** @var ReflectionParameter $argument */
+			foreach ( $arguments as $argument ) {
+				if ( 'insecure' === $argument->name ) {
+					$uses_insecure_flag = true;
+					break;
+				}
+			}
+		}
+	}
+
+	if ( $uses_insecure_flag ) {
+		return new $class( new UpgraderSkin(), $insecure );
+	} else {
+		return new $class( new UpgraderSkin() );
+	}
 }
 
 /**
@@ -154,7 +180,7 @@ function get_plugin_name( $basename ) {
 function is_plugin_skipped( $file ) {
 	$name = get_plugin_name( str_replace( WP_PLUGIN_DIR . '/', '', $file ) );
 
-	$skipped_plugins = \WP_CLI::get_runner()->config['skip-plugins'];
+	$skipped_plugins = WP_CLI::get_runner()->config['skip-plugins'];
 	if ( true === $skipped_plugins ) {
 		return true;
 	}
@@ -173,7 +199,7 @@ function get_theme_name( $path ) {
 function is_theme_skipped( $path ) {
 	$name = get_theme_name( $path );
 
-	$skipped_themes = \WP_CLI::get_runner()->config['skip-themes'];
+	$skipped_themes = WP_CLI::get_runner()->config['skip-themes'];
 	if ( true === $skipped_themes ) {
 		return true;
 	}
@@ -192,7 +218,7 @@ function is_theme_skipped( $path ) {
 function wp_register_unused_sidebar() {
 
 	register_sidebar(
-		array(
+		[
 			'name'          => __( 'Inactive Widgets' ),
 			'id'            => 'wp_inactive_widgets',
 			'class'         => 'inactive-sidebar',
@@ -201,7 +227,7 @@ function wp_register_unused_sidebar() {
 			'after_widget'  => '',
 			'before_title'  => '',
 			'after_title'   => '',
-		)
+		]
 	);
 
 }
@@ -223,7 +249,7 @@ function wp_get_cache_type() {
 		if ( isset( $wp_object_cache->m ) && $wp_object_cache->m instanceof \Memcached ) {
 			$message = 'Memcached';
 
-			// Test for Memcache PECL extension memcached object cache (http://wordpress.org/extend/plugins/memcached/)
+			// Test for Memcache PECL extension memcached object cache (https://wordpress.org/extend/plugins/memcached/)
 		} elseif ( isset( $wp_object_cache->mc ) ) {
 			$is_memcache = true;
 			foreach ( $wp_object_cache->mc as $bucket ) {
@@ -236,20 +262,24 @@ function wp_get_cache_type() {
 				$message = 'Memcache';
 			}
 
-			// Test for Xcache object cache (http://plugins.svn.wordpress.org/xcache/trunk/object-cache.php)
+			// Test for Xcache object cache (https://plugins.svn.wordpress.org/xcache/trunk/object-cache.php)
 		} elseif ( $wp_object_cache instanceof \XCache_Object_Cache ) {
 			$message = 'Xcache';
 
-			// Test for WinCache object cache (http://wordpress.org/extend/plugins/wincache-object-cache-backend/)
+			// Test for WinCache object cache (https://wordpress.org/extend/plugins/wincache-object-cache-backend/)
 		} elseif ( class_exists( 'WinCache_Object_Cache' ) ) {
 			$message = 'WinCache';
 
-			// Test for APC object cache (http://wordpress.org/extend/plugins/apc/)
+			// Test for APC object cache (https://wordpress.org/extend/plugins/apc/)
 		} elseif ( class_exists( 'APC_Object_Cache' ) ) {
 			$message = 'APC';
 
-			// Test for Redis Object Cache (https://github.com/alleyinteractive/wp-redis)
+			// Test for WP Redis (https://wordpress.org/plugins/wp-redis/)
 		} elseif ( isset( $wp_object_cache->redis ) && $wp_object_cache->redis instanceof \Redis ) {
+			$message = 'Redis';
+
+			// Test for Redis Object Cache (https://wordpress.org/plugins/redis-cache/)
+		} elseif ( method_exists( $wp_object_cache, 'redis_instance' ) && method_exists( $wp_object_cache, 'redis_status' ) ) {
 			$message = 'Redis';
 
 			// Test for WP LCache Object cache (https://github.com/lcache/wp-lcache)
@@ -286,7 +316,7 @@ function wp_get_cache_type() {
 function wp_clear_object_cache() {
 	global $wpdb, $wp_object_cache;
 
-	$wpdb->queries = array();
+	$wpdb->queries = [];
 
 	if ( ! is_object( $wp_object_cache ) ) {
 		return;
@@ -294,17 +324,17 @@ function wp_clear_object_cache() {
 
 	// The following are Memcached (Redux) plugin specific (see https://core.trac.wordpress.org/ticket/31463).
 	if ( isset( $wp_object_cache->group_ops ) ) {
-		$wp_object_cache->group_ops = array();
+		$wp_object_cache->group_ops = [];
 	}
 	if ( isset( $wp_object_cache->stats ) ) {
-		$wp_object_cache->stats = array();
+		$wp_object_cache->stats = [];
 	}
 	if ( isset( $wp_object_cache->memcache_debug ) ) {
-		$wp_object_cache->memcache_debug = array();
+		$wp_object_cache->memcache_debug = [];
 	}
 	// Used by `WP_Object_Cache` also.
 	if ( isset( $wp_object_cache->cache ) ) {
-		$wp_object_cache->cache = array();
+		$wp_object_cache->cache = [];
 	}
 }
 
@@ -315,16 +345,16 @@ function wp_clear_object_cache() {
  *
  * @param array $args Provided table names, or tables with wildcards.
  * @param array $assoc_args Optional flags for groups of tables (e.g. --network)
- * @return array $tables
+ * @return array
  */
-function wp_get_table_names( $args, $assoc_args = array() ) {
+function wp_get_table_names( $args, $assoc_args = [] ) {
 	global $wpdb;
 
-	$tables = array();
+	$tables = [];
 
 	// Abort if incompatible args supplied.
 	if ( get_flag_value( $assoc_args, 'base-tables-only' ) && get_flag_value( $assoc_args, 'views-only' ) ) {
-		\WP_CLI::error( 'You cannot supply --base-tables-only and --views-only at the same time.' );
+		WP_CLI::error( 'You cannot supply --base-tables-only and --views-only at the same time.' );
 	}
 
 	// Pre-load tables SQL query with Views restriction if needed.
@@ -359,9 +389,9 @@ function wp_get_table_names( $args, $assoc_args = array() ) {
 
 		// Note: BC change 1.5.0, taking scope into consideration for network also.
 		if ( get_flag_value( $assoc_args, 'network' ) && is_multisite() ) {
-			$network_global_scope = in_array( $scope, array( 'all', 'global', 'ms_global' ), true ) ? ( 'all' === $scope ? 'global' : $scope ) : '';
+			$network_global_scope = in_array( $scope, [ 'all', 'global', 'ms_global' ], true ) ? ( 'all' === $scope ? 'global' : $scope ) : '';
 			$wp_tables            = array_values( $wpdb->tables( $network_global_scope ) );
-			if ( in_array( $scope, array( 'all', 'blog' ), true ) ) {
+			if ( in_array( $scope, [ 'all', 'blog' ], true ) ) {
 				// Do directly for compat with old WP versions. Note: private, deleted, archived sites are not excluded.
 				$blog_ids = $wpdb->get_col( "SELECT blog_id FROM $wpdb->blogs WHERE site_id = $wpdb->siteid" );
 				foreach ( $blog_ids as $blog_id ) {
@@ -374,7 +404,7 @@ function wp_get_table_names( $args, $assoc_args = array() ) {
 
 		if ( ! global_terms_enabled() ) {
 			// Only include sitecategories when it's actually enabled.
-			$wp_tables = array_values( array_diff( $wp_tables, array( $wpdb->sitecategories ) ) );
+			$wp_tables = array_values( array_diff( $wp_tables, [ $wpdb->sitecategories ] ) );
 		}
 
 		// Note: BC change 1.5.0, tables are sorted (via TABLES view).
@@ -391,7 +421,7 @@ function wp_get_table_names( $args, $assoc_args = array() ) {
 
 	// Filter by `$args`.
 	if ( $args ) {
-		$args_tables = array();
+		$args_tables = [];
 		foreach ( $args as $arg ) {
 			if ( false !== strpos( $arg, '*' ) || false !== strpos( $arg, '?' ) ) {
 				$args_tables = array_merge(
@@ -410,7 +440,7 @@ function wp_get_table_names( $args, $assoc_args = array() ) {
 		$args_tables = array_values( array_unique( $args_tables ) );
 		$tables      = array_values( array_intersect( $tables, $args_tables ) );
 		if ( empty( $tables ) ) {
-			\WP_CLI::error( sprintf( "Couldn't find any tables matching: %s", implode( ' ', $args ) ) );
+			WP_CLI::error( sprintf( "Couldn't find any tables matching: %s", implode( ' ', $args ) ) );
 		}
 	}
 

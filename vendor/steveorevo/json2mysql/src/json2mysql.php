@@ -12,12 +12,14 @@ foreach ([__DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php
 }
 
 class JSON2MySQL {
-  public $version = "1.1.2"; // TODO: obtain via composer
+  public $version = "2.0.0"; // TODO: obtain via composer
   public $climate = NULL;
   public $jsonDB = NULL;
   public $dbNames = [];
   public $dbName = "";
   public $db;
+
+  const SEPARATOR = "\f~\v";
 
   /**
    * Create our JSON2MySQL object
@@ -177,11 +179,7 @@ class JSON2MySQL {
             $v = $row[$col['name']];
             if (NULL !== $v) {
               if ($col['json_type'] === 'string' || $col['json_type'] === 'object') {
-                if (is_object($v) || is_array($v)) {
-                  $vals = $vals . '"' . str_replace("\r", '\r', str_replace("\n", '\n', addslashes(serialize($v)))) . '",';
-                }else{
-                  $vals = $vals . '"' . str_replace("\r", '\r', str_replace("\n", '\n', addslashes($v))) . '",';
-                }
+                  $vals = $vals . '"' . mysqli_real_escape_string($this->db, serialize($v)) . '",';
               }else{
                 if ($col['json_type'] === 'number') {
                   $vals = $vals . strval($v) . ',';
@@ -203,6 +201,7 @@ class JSON2MySQL {
           if ($this->db->query($sql) !== TRUE) {
             echo "Error, insert into table: " . $table['name'] . "\n";
             echo $sql . "\n";
+            var_dump($this->db);
             exit();
           }
           if (! $this->climate->arguments->defined('quiet')) {
@@ -282,6 +281,133 @@ class JSON2MySQL {
     if ($this->dbName == '') {
       $this->dbName = $this->jsonDB['name'];
     }
+
+    // Get array of paths to __PHP_Incomplete_Class_Name 
+    $paths = $this->get_ic_paths($this->jsonDB);
+
+    // Generate mirror classes and object instances for each __PHP_Incomplete_Class_Name
+    foreach($paths as $p) {
+      $data = $this->get_leaf($this->jsonDB, $p);
+      $mirror = $this->generate_ic_mirror($data);
+      $this->replace_leaf($this->jsonDB, $p, $mirror);
+    }
+  } 
+
+  /**
+   * Replace the leaf within a multi-dimensional array at the given path
+   * with a PHP object.
+   *
+   * @param string $data The given array
+   * @param string $path The path (keys divided by separators) to the element
+   * @param object $obj The object to set the given leaf key to
+   */
+  function replace_leaf(&$data, $path, $obj) {
+    $path = substr($path, strlen(JSON2MySQL::SEPARATOR));
+    $leafs = explode(JSON2MySQL::SEPARATOR, $path);
+    // $code = "\$data";
+    // foreach($leafs as $p) {
+    //   $code .= "['$p']";
+    // }
+    // $code .= " = \$obj;";
+
+    // eval($code);
+
+    $i = 0;
+    $result[$i] = &$data;
+    foreach($leafs as $p) {
+        $i++;
+        $result[$i] = &$result[$i-1][$p];
+    }
+    $result[$i] = $obj;
+  }
+
+  /**
+   * Get the leaf within a multi-dimensional array given a path.
+   * 
+   * @param string $data The given array
+   * @param string $path The path (keys divided by separators) to the element
+   */
+  function get_leaf($data, $path) {
+    $path = substr($path, strlen(JSON2MySQL::SEPARATOR));
+    $leafs = explode(JSON2MySQL::SEPARATOR, $path);
+    $i = 0;
+    $result[$i] = $data;
+    foreach($leafs as $p) {
+        $i++;
+        $result[$i] = $result[$i-1][$p];
+    }
+    return $result[$i];
+  }
+
+  /**
+   * Generate a mirror class given an array with the __PHP_Incomplete_Class_Name key
+   * definition. The class will have the missing class name and all of it's public
+   * protected, and private property values in addition to a setter within the 
+   * constructor. 
+   */
+  function generate_ic_mirror($data) {
+
+    // Define the mirror class
+    $code = "if (! class_exists('${data['__PHP_Incomplete_Class_Name']}')) {\n";
+    $code .= "  class ${data['__PHP_Incomplete_Class_Name']} {\n";
+    $con = "";
+    $i = 0;
+
+    // Define the mirror class' properties
+    $values = [];
+    foreach($data as $k=>$v) {
+        if ($k != '__PHP_Incomplete_Class_Name') {
+            $prefix = substr($k, 0, 2);
+            $name = substr($k, 2);
+            if ($prefix == "*|") {
+                $code .= "    protected $" . $name . " = null;\n";
+            }elseif ($prefix == "A|") {
+                $code .= "    private $" . $name . " = null;\n";
+            }else{
+                $name = $k;
+                $code .= "    public $" . $name . " = null;\n";
+            }
+            $con .= "      \$this->" . $name . " = \$fn_args[$i];\n";
+            $values[$i] = $v;
+            $i++;
+        }
+    }
+    $code .="\n";
+    $code .= "    function __construct(\$fn_args) {\n";
+    $code .=        $con;
+    $code .= "    }\n";
+    $code .= "  }\n";
+    $code .= "}\n";
+    eval($code);
+    $mirror = new $data['__PHP_Incomplete_Class_Name']($values);
+    return $mirror;
+  }
+
+  /**
+   * Get an array of paths to __PHP_Incomplete_Class_Name values
+   */
+  function get_ic_paths($data) {
+    $all = [];
+    function find_ic_recursive(array $array, $path = null, &$all = []) {
+        foreach ($array as $k => $v) {
+            if (!is_array($v)) {
+                if ($k === '__PHP_Incomplete_Class_Name') {
+                  array_push($all, $path);
+                }
+            }
+            else {
+                // directory node -- recurse
+                find_ic_recursive($v, $path . JSON2MySQL::SEPARATOR . $k, $all);
+            }
+        }
+    }
+    find_ic_recursive($data, null, $all);
+
+    // Sort list with longest paths we need to resolve first
+    usort($all, function($a, $b) {
+        return strlen($b) - strlen($a);
+    });
+    return $all;
   }
 
   /**
@@ -320,10 +446,6 @@ class JSON2MySQL {
     $user = $this->climate->arguments->get('user');
     $password = $this->climate->arguments->get('password');
     $this->db = new mysqli($host, $user, $password, $database);
-    if (!$this->db->set_charset("utf8")) {
-      printf("Error loading character set utf8: %s\n", $this->db->error);
-      exit();
-    }
     if ($this->db->connect_error) {
       die('Connection failed: ' . $this->db->connect_error);
     }

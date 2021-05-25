@@ -7,7 +7,7 @@ Feature: Bootstrap WP-CLI
     And I run `rm -rf {PACKAGE_PATH}/composer.json`
     And I run `rm -rf {PACKAGE_PATH}/composer.lock`
 
-  @require-opcache-save-comments
+  @less-than-php-7.4 @require-opcache-save-comments
   Scenario: Basic Composer stack
     Given an empty directory
     And a composer.json file:
@@ -253,6 +253,17 @@ Feature: Bootstrap WP-CLI
       Success: WP-Override-Eval
       """
 
+  Scenario: Define constant before running a command
+
+    Given a WP installation
+
+    # Expect a warning from WP core for PHP 8+.
+    When I try `wp --exec="define( 'WP_ADMIN', true );" eval "echo WP_ADMIN;"`
+    Then STDOUT should contain:
+      """
+      1
+      """
+
   @require-php-5.6
   Scenario: Composer stack with both WordPress and wp-cli as dependencies (command line)
     Given a WP installation with Composer
@@ -265,7 +276,7 @@ Feature: Bootstrap WP-CLI
       WP CLI Site with both WordPress and wp-cli as Composer dependencies
       """
 
-  @require-php-5.6
+  @require-php-5.6 @broken
   Scenario: Composer stack with both WordPress and wp-cli as dependencies (web)
     Given a WP installation with Composer
     And a dependency on current wp-cli
@@ -415,3 +426,8 @@ Feature: Bootstrap WP-CLI
       Success:
       """
     And the return code should be 0
+
+  Scenario: Allow disabling ini_set()
+    Given an empty directory
+    When I try `{INVOKE_WP_CLI_WITH_PHP_ARGS--ddisable_functions=ini_set} cli info`
+    Then the return code should be 0

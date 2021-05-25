@@ -1,5 +1,6 @@
 Feature: `wp cli` tasks
 
+  @less-than-php-8
   Scenario: Ability to detect a WP-CLI registered command
     Given a WP installation
 
@@ -35,7 +36,7 @@ Feature: `wp cli` tasks
     When I run `wp cli param-dump --with-values | grep -o '"current":' | uniq -c | tr -d ' '`
     Then STDOUT should be:
       """
-      17"current":
+      18"current":
       """
     And STDERR should be empty
     And the return code should be 0

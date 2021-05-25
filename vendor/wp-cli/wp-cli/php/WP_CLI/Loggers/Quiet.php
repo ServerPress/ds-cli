@@ -2,6 +2,8 @@
 
 namespace WP_CLI\Loggers;
 
+use WP_CLI;
+
 /**
  * Quiet logger only logs errors.
  */
@@ -13,7 +15,7 @@ class Quiet extends Base {
 	 * @param string $message Message to write.
 	 */
 	public function info( $message ) {
-		// nothing
+		// Nothing.
 	}
 
 	/**
@@ -22,7 +24,7 @@ class Quiet extends Base {
 	 * @param string $message Message to write.
 	 */
 	public function success( $message ) {
-		// nothing
+		// Nothing.
 	}
 
 	/**
@@ -31,7 +33,7 @@ class Quiet extends Base {
 	 * @param string $message Message to write.
 	 */
 	public function warning( $message ) {
-		// nothing
+		// Nothing.
 	}
 
 	/**
@@ -40,18 +42,18 @@ class Quiet extends Base {
 	 * @param string $message Message to write.
 	 */
 	public function error( $message ) {
-		$this->write( STDERR, \WP_CLI::colorize( "%RError:%n $message\n" ) );
+		$this->write( STDERR, WP_CLI::colorize( "%RError:%n $message\n" ) );
 	}
 
 	/**
-	 * Similar to error( $message ), but outputs $message in a red box
+	 * Similar to error( $message ), but outputs $message in a red box.
 	 *
-	 * @param  array $message Message to write.
+	 * @param  array $message_lines Message to write.
 	 */
 	public function error_multi_line( $message_lines ) {
 		$message = implode( "\n", $message_lines );
 
-		$this->write( STDERR, \WP_CLI::colorize( "%RError:%n\n$message\n" ) );
-		$this->write( STDERR, \WP_CLI::colorize( "%R---------%n\n\n" ) );
+		$this->write( STDERR, WP_CLI::colorize( "%RError:%n\n$message\n" ) );
+		$this->write( STDERR, WP_CLI::colorize( "%R---------%n\n\n" ) );
 	}
 }

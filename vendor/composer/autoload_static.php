@@ -241,7 +241,7 @@ class ComposerStaticInit55b3f019ca74cee38959c63ba63cf8d5
         ),
         'W' => 
         array (
-            'WP_CLI' => 
+            'WP_CLI\\' => 
             array (
                 0 => __DIR__ . '/..' . '/wp-cli/wp-cli/php',
             ),
@@ -893,6 +893,8 @@ class ComposerStaticInit55b3f019ca74cee38959c63ba63cf8d5
         'TheSeer\\Tokenizer\\XMLSerializer' => __DIR__ . '/..' . '/theseer/tokenizer/src/XMLSerializer.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
+        'WP_CLI' => __DIR__ . '/..' . '/wp-cli/wp-cli/php/class-wp-cli.php',
+        'WP_CLI_Command' => __DIR__ . '/..' . '/wp-cli/wp-cli/php/class-wp-cli-command.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

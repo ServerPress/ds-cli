@@ -3,6 +3,7 @@
 namespace WP_CLI;
 
 use WP_CLI\Bootstrap\BootstrapState;
+use WP_CLI\Bootstrap\BootstrapStep;
 
 /**
  * Get the list of ordered steps that need to be processed to bootstrap WP-CLI.
@@ -13,7 +14,8 @@ use WP_CLI\Bootstrap\BootstrapState;
  * @return string[]
  */
 function get_bootstrap_steps() {
-	return array(
+	return [
+		'WP_CLI\Bootstrap\DeclareFallbackFunctions',
 		'WP_CLI\Bootstrap\LoadUtilityFunctions',
 		'WP_CLI\Bootstrap\LoadDispatcher',
 		'WP_CLI\Bootstrap\DeclareMainClass',
@@ -23,13 +25,14 @@ function get_bootstrap_steps() {
 		'WP_CLI\Bootstrap\InitializeColorization',
 		'WP_CLI\Bootstrap\InitializeLogger',
 		'WP_CLI\Bootstrap\DefineProtectedCommands',
+		'WP_CLI\Bootstrap\LoadExecCommand',
 		'WP_CLI\Bootstrap\LoadRequiredCommand',
 		'WP_CLI\Bootstrap\IncludePackageAutoloader',
 		'WP_CLI\Bootstrap\IncludeFallbackAutoloader',
 		'WP_CLI\Bootstrap\RegisterFrameworkCommands',
 		'WP_CLI\Bootstrap\RegisterDeferredCommands',
 		'WP_CLI\Bootstrap\LaunchRunner',
-	);
+	];
 }
 
 /**
@@ -69,7 +72,7 @@ function bootstrap() {
 	$state = initialize_bootstrap_state();
 
 	foreach ( get_bootstrap_steps() as $step ) {
-		/** @var \WP_CLI\Bootstrap\BootstrapStep $step_instance */
+		/** @var BootstrapStep $step_instance */
 		$step_instance = new $step();
 		$state         = $step_instance->process( $state );
 	}
