@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "74cf7467d1b034e5e7de6ae6ebd5ef1c",
+    "content-hash": "c4a39177e44bf3e55b04f12744cae5fc",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -2988,16 +2988,16 @@
         },
         {
             "name": "steveorevo/json2mysql",
-            "version": "2.0.0",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Steveorevo/json2mysql.git",
-                "reference": "3e9befc5d524bca2b297d3aa86d8deee961d8a49"
+                "reference": "03c249b04a59f6629fd8fabdc651e58aadbc76a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Steveorevo/json2mysql/zipball/3e9befc5d524bca2b297d3aa86d8deee961d8a49",
-                "reference": "3e9befc5d524bca2b297d3aa86d8deee961d8a49",
+                "url": "https://api.github.com/repos/Steveorevo/json2mysql/zipball/03c249b04a59f6629fd8fabdc651e58aadbc76a4",
+                "reference": "03c249b04a59f6629fd8fabdc651e58aadbc76a4",
                 "shasum": ""
             },
             "require": {
@@ -3026,23 +3026,23 @@
             ],
             "description": "JSON2MySQL is a JSON import tool with support for PHP serialization.",
             "support": {
-                "source": "https://github.com/Steveorevo/json2mysql/tree/2.0.0",
+                "source": "https://github.com/Steveorevo/json2mysql/tree/2.1.0",
                 "issues": "https://github.com/Steveorevo/json2mysql/issues"
             },
-            "time": "2021-05-25T03:48:09+00:00"
+            "time": "2021-05-26T03:24:31+00:00"
         },
         {
             "name": "steveorevo/mysql2json",
-            "version": "2.0.0",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Steveorevo/mysql2json.git",
-                "reference": "61ac165592e50f7810ff553fa4c5530cf665f6be"
+                "reference": "4705792104282700bdb9a7d649298db9838f5058"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Steveorevo/mysql2json/zipball/61ac165592e50f7810ff553fa4c5530cf665f6be",
-                "reference": "61ac165592e50f7810ff553fa4c5530cf665f6be",
+                "url": "https://api.github.com/repos/Steveorevo/mysql2json/zipball/4705792104282700bdb9a7d649298db9838f5058",
+                "reference": "4705792104282700bdb9a7d649298db9838f5058",
                 "shasum": ""
             },
             "require": {
@@ -3071,10 +3071,10 @@
             ],
             "description": "MySQL2JSON is a database to JSON export tool with support for serialized PHP.",
             "support": {
-                "source": "https://github.com/Steveorevo/mysql2json/tree/2.0.0",
+                "source": "https://github.com/Steveorevo/mysql2json/tree/2.1.0",
                 "issues": "https://github.com/Steveorevo/mysql2json/issues"
             },
-            "time": "2021-05-25T01:22:52+00:00"
+            "time": "2021-05-26T03:22:46+00:00"
         },
         {
             "name": "symfony/console",

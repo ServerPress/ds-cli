@@ -12,7 +12,7 @@ foreach ([__DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php
 }
 
 class JSON2MySQL {
-  public $version = "2.0.0"; // TODO: obtain via composer
+  public $version = "2.1.0"; // TODO: obtain via composer
   public $climate = NULL;
   public $jsonDB = NULL;
   public $dbNames = [];
@@ -65,6 +65,12 @@ class JSON2MySQL {
         'longPrefix'  => 'port',
         'description' => 'the TCP/IP port number to connect to',
         'castTo'      => 'int',
+      ],
+      'skip_create' => [
+        'prefix'      => 's',
+        'longPrefix'  => 'skip',
+        'description' => 'skip dropping/creating of existing database',
+        'noValue'     => true,
       ],
       'tables' => [
         'prefix'       => 't',
@@ -119,36 +125,42 @@ class JSON2MySQL {
     // Prompt for database overwrite
     if (! $this->climate->arguments->defined('quiet')) {
       if (FALSE !== in_array($this->dbName, $this->dbNames)) {
-        $input = $this->climate->confirm("Database " . $this->dbName . " exists. Overwrite (destroy) existing?");
-        if (!$input->confirmed()) {
-            exit();
+        if (! $this->climate->arguments->defined('skip_create')) {
+          $input = $this->climate->confirm("Database " . $this->dbName . " exists. Use --skip_create option to preserve database. Overwrite (destroy) existing?");
+          if (!$input->confirmed()) {
+              exit();
+          }
         }
       }
     }
 
-    // Create (drop any existing) database definition
     $this->connectToDB();
-    $sql = "DROP DATABASE IF EXISTS `" . $this->dbName . "`;\n";
-    if ($this->db->query($sql) !== TRUE) {
-        echo "Error, dropping database: " . $this->db->error;
-        exit();
-    }
-    $create = $this->jsonDB['create'];
-    
-    if ($this->jsonDB['name'] != $this->dbName) {
-      $create = str_replace($this->jsonDB['name'], $this->dbName, $create);
-    }
-    $sql =  $create . ";\n";
-    if ($this->db->query($sql) !== TRUE) {
-      echo "Error, creating database: " . $this->db->error;
-      exit();
-    }else{
-      $sql = "USE `" . $this->dbName . "`;\n";
+
+    // Create (drop any existing) database definition
+    if (! $this->climate->arguments->defined('skip_create')) {
+      $sql = "DROP DATABASE IF EXISTS `" . $this->dbName . "`;\n";
       if ($this->db->query($sql) !== TRUE) {
-        echo "Error, using database: " . $this->db->error;
-        exit();
+          echo "Error, dropping database: " . $this->db->error;
+          exit();
       }
+      $create = $this->jsonDB['create'];
+      
+      if ($this->jsonDB['name'] != $this->dbName) {
+        $create = str_replace($this->jsonDB['name'], $this->dbName, $create);
+      }
+      $sql =  $create . ";\n";
+      if ($this->db->query($sql) !== TRUE) {
+        echo "Error, creating database: " . $this->db->error;
+        exit();
+      } 
     }
+
+    // Always use specified database
+    $sql = "USE `" . $this->dbName . "`;\n";
+    if ($this->db->query($sql) !== TRUE) {
+      echo "Error, using database: " . $this->db->error;
+      exit();
+    } 
 
     // Create tables and import data
     foreach($this->jsonDB['tables'] as $table) {
@@ -179,7 +191,11 @@ class JSON2MySQL {
             $v = $row[$col['name']];
             if (NULL !== $v) {
               if ($col['json_type'] === 'string' || $col['json_type'] === 'object') {
+                if ($col['json_type'] === 'string' || gettype($v) == 'string') {
+                  $vals = $vals . '"' . mysqli_real_escape_string($this->db, $v) . '",';
+                }else{
                   $vals = $vals . '"' . mysqli_real_escape_string($this->db, serialize($v)) . '",';
+                }
               }else{
                 if ($col['json_type'] === 'number') {
                   $vals = $vals . strval($v) . ',';
@@ -282,14 +298,20 @@ class JSON2MySQL {
       $this->dbName = $this->jsonDB['name'];
     }
 
-    // Get array of paths to __PHP_Incomplete_Class_Name 
-    $paths = $this->get_ic_paths($this->jsonDB);
-
     // Generate mirror classes and object instances for each __PHP_Incomplete_Class_Name
+    $paths = $this->get_paths($this->jsonDB, '__PHP_Incomplete_Class_Name');
     foreach($paths as $p) {
       $data = $this->get_leaf($this->jsonDB, $p);
       $mirror = $this->generate_ic_mirror($data);
       $this->replace_leaf($this->jsonDB, $p, $mirror);
+    }
+
+    // Ensure each object with __PHP_stdClass property is stored as an stdClass
+    $paths = $this->get_paths($this->jsonDB, '__PHP_stdClass');
+    foreach($paths as $p) {
+      $data = $this->get_leaf($this->jsonDB, $p);
+      unset($data['__PHP_stdClass']);
+      $this->replace_leaf($this->jsonDB, $p, $data, true);
     }
   } 
 
@@ -300,17 +322,11 @@ class JSON2MySQL {
    * @param string $data The given array
    * @param string $path The path (keys divided by separators) to the element
    * @param object $obj The object to set the given leaf key to
+   * @param boolean $as_object Cast the new leaf as a stdClass or associative array (default);
    */
-  function replace_leaf(&$data, $path, $obj) {
+  function replace_leaf(&$data, $path, $obj, $as_object = false) {
     $path = substr($path, strlen(JSON2MySQL::SEPARATOR));
     $leafs = explode(JSON2MySQL::SEPARATOR, $path);
-    // $code = "\$data";
-    // foreach($leafs as $p) {
-    //   $code .= "['$p']";
-    // }
-    // $code .= " = \$obj;";
-
-    // eval($code);
 
     $i = 0;
     $result[$i] = &$data;
@@ -318,7 +334,11 @@ class JSON2MySQL {
         $i++;
         $result[$i] = &$result[$i-1][$p];
     }
-    $result[$i] = $obj;
+    if ($as_object) {
+      $result[$i] = (object) $obj;
+    }else{
+      $result[$i] = $obj;
+    }
   }
 
   /**
@@ -384,29 +404,34 @@ class JSON2MySQL {
   }
 
   /**
-   * Get an array of paths to __PHP_Incomplete_Class_Name values
+   * Get an array of paths to the given key 
    */
-  function get_ic_paths($data) {
+  function get_paths($data, $key) {
     $all = [];
-    function find_ic_recursive(array $array, $path = null, &$all = []) {
-        foreach ($array as $k => $v) {
-            if (!is_array($v)) {
-                if ($k === '__PHP_Incomplete_Class_Name') {
-                  array_push($all, $path);
-                }
-            }
-            else {
-                // directory node -- recurse
-                find_ic_recursive($v, $path . JSON2MySQL::SEPARATOR . $k, $all);
-            }
-        }
-    }
-    find_ic_recursive($data, null, $all);
+    $all = $this->find_path_recursive($data, null, $all, $key);
 
     // Sort list with longest paths we need to resolve first
     usort($all, function($a, $b) {
         return strlen($b) - strlen($a);
     });
+    return $all;
+  }
+
+  /**
+   * Find path recursively 
+   */
+  function find_path_recursive(array $array, $path = null, &$all = [], $key) {
+    foreach ($array as $k => $v) {
+        if (!is_array($v)) {
+            if ($k === $key) {
+              array_push($all, $path);
+            }
+        }
+        else {
+            // directory node -- recurse
+            $all = $this->find_path_recursive($v, $path . JSON2MySQL::SEPARATOR . $k, $all, $key);
+        }
+    }
     return $all;
   }
 

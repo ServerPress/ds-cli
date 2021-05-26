@@ -12,32 +12,34 @@ Type mysql2json --help
 
 ```
 MySQL2JSON is a database to JSON export tool with support for serialized PHP.
-Version 1.0.0
+Version 2.1.0
 
-Usage: mysql2json [-?, --help] [-h host, --hose host (default: localhost)] [-l, --list] [-o output, --output output] [-p password, --password password] [-P port, --port port] [-q quiet, --quiet quiet] [-t tables, --tables tables] [-u user, --user user (default: root)] [-v, --version] [database]
+Usage: mysql2json [-x, --exclude] [-?, --help] [-h host, --hose host (default: localhost)] [-l, --list] [-o output, --output output] [-p password, --password password] [-P port, --port port] [-q, --quiet] [-t tables, --tables tables] [-u user, --user user (default: root)] [-v, --version] [database]
 
 Optional Arguments:
-	-?, --help
-		print this help
-	-h host, --hose host (default: localhost)
-		host name or IP address (default: localhost)
-	-l, --list
-		list databases & tables available for export
-	-o output, --output output
-		path & file (default is db name in current folder)
-	-p password, --password password
-		password to connect with (default is none)
-	-P port, --port port
-		the TCP/IP port number to connect to
-	-t tables, --tables tables
-		a comma delimited list of tables (default empty for all)
-	-u user, --user user (default: root)
-		username to connect as (default: root)
-	-q quiet, --quiet quiet
-		quiet (no output)
-	-v, --version
-		output version number
-	database
-		the database to export
+        -?, --help
+                print this help
+        -h host, --hose host (default: localhost)
+                host name or IP address (default: localhost)
+        -l, --list
+                list databases & tables available for export
+        -x, --exclude
+                excludes rows with _transient_ in option_name column (WordPress)
+        -o output, --output output
+                path & file (default is db name in current folder)
+        -p password, --password password
+                password to connect with (default is none)
+        -P port, --port port
+                the TCP/IP port number to connect to
+        -t tables, --tables tables
+                a comma delimited list of tables (default empty for all)
+        -u user, --user user (default: root)
+                username to connect as (default: root)
+        -q, --quiet
+                quiet (no output)
+        -v, --version
+                output version number
+        database
+                the database to export
 ```
   

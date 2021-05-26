@@ -32,7 +32,7 @@ class InstalledVersions
     'aliases' => 
     array (
     ),
-    'reference' => '62cfef7c822ec6364030cc2010c63138e089ebc2',
+    'reference' => '895a65b798d4ddba2143b3c52fe2f05f7ac059c4',
     'name' => 'serverpress/ds-cli',
   ),
   'versions' => 
@@ -478,7 +478,7 @@ class InstalledVersions
       'aliases' => 
       array (
       ),
-      'reference' => '62cfef7c822ec6364030cc2010c63138e089ebc2',
+      'reference' => '895a65b798d4ddba2143b3c52fe2f05f7ac059c4',
     ),
     'steveorevo/gstring' => 
     array (
@@ -491,21 +491,21 @@ class InstalledVersions
     ),
     'steveorevo/json2mysql' => 
     array (
-      'pretty_version' => '2.0.0',
-      'version' => '2.0.0.0',
+      'pretty_version' => '2.1.0',
+      'version' => '2.1.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '3e9befc5d524bca2b297d3aa86d8deee961d8a49',
+      'reference' => '03c249b04a59f6629fd8fabdc651e58aadbc76a4',
     ),
     'steveorevo/mysql2json' => 
     array (
-      'pretty_version' => '2.0.0',
-      'version' => '2.0.0.0',
+      'pretty_version' => '2.1.0',
+      'version' => '2.1.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '61ac165592e50f7810ff553fa4c5530cf665f6be',
+      'reference' => '4705792104282700bdb9a7d649298db9838f5058',
     ),
     'symfony/console' => 
     array (
@@ -838,12 +838,26 @@ class InstalledVersions
     /**
      * Returns the raw installed.php data for custom implementations
      *
+     * @deprecated Use getAllRawData() instead which returns all datasets for all autoloaders present in the process. getRawData only returns the first dataset loaded, which may not be what you expect.
      * @return array[]
      * @psalm-return array{root: array{name: string, version: string, reference: string, pretty_version: string, aliases: string[]}, versions: array<string, array{pretty_version?: string, version?: string, aliases?: string[], reference?: string, replaced?: string[], provided?: string[]}>}
      */
     public static function getRawData()
     {
+        @trigger_error('getRawData only returns the first dataset loaded, which may not be what you expect. Use getAllRawData() instead which returns all datasets for all autoloaders present in the process.', E_USER_DEPRECATED);
+
         return self::$installed;
+    }
+
+    /**
+     * Returns the raw data of all installed.php which are currently loaded for custom implementations
+     *
+     * @return array[]
+     * @psalm-return list<array{root: array{name: string, version: string, reference: string, pretty_version: string, aliases: string[]}, versions: array<string, array{pretty_version?: string, version?: string, aliases?: string[], reference?: string, replaced?: string[], provided?: string[]}>}>
+     */
+    public static function getAllRawData()
+    {
+        return self::getInstalled();
     }
 
     /**

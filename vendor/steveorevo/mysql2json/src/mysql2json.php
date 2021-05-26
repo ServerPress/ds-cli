@@ -10,9 +10,12 @@ foreach ([__DIR__ . '/../../../autoload.php', __DIR__ . '/../vendor/autoload.php
       break;
   }
 }
+class __PHP_stdClass {
+  public $__PHP_stdClass = true;
+}
 
 class MySQL2JSON {
-  public $version = "2.0.0"; // TODO: obtain via composer
+  public $version = "2.1.0"; // TODO: obtain via composer
   public $climate = NULL;
   public $dbNames = [];
   public $tables = [];
@@ -211,7 +214,7 @@ class MySQL2JSON {
             foreach($columns as &$col) {
               if ($this->is_serialized($row[$col->name])) {
                 $col->json_type = 'object';
-                $row[$col->name] = unserialize( $this->fix_serialized($row[$col->name]));
+                $row[$col->name] = (object) unserialize($this->fix_serialized($row[$col->name]));
               }
             }
             array_push($objDB->tables[$i]->data, $row);
@@ -245,10 +248,10 @@ class MySQL2JSON {
  */
   function fix_serialized($data) {
 
-    // Convert objects to 'stdClass'
-    $data = preg_replace( '/^O:\d+:"[^"]++"/', 'O:8:"stdClass"', $data );
+    // Convert existing 'stdClass' to '__PHP_stdClass' to distinguish it from arrays
+    $data = str_replace('O:8:"stdClass"', 'O:14:"__PHP_stdClass"', $data);
 
-    // Make private and protected properties public (replace null*null, and nullAnull)
+    // Make __PHP_Incomplete_Class private and protected properties public (replace null*null, and nullAnull)
     $data = preg_replace_callback( 
         '/:\d+:"\0.*?\0([^"]+)"/',
 

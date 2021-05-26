@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '62cfef7c822ec6364030cc2010c63138e089ebc2',
+    'reference' => '895a65b798d4ddba2143b3c52fe2f05f7ac059c4',
     'name' => 'serverpress/ds-cli',
   ),
   'versions' => 
@@ -452,7 +452,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '62cfef7c822ec6364030cc2010c63138e089ebc2',
+      'reference' => '895a65b798d4ddba2143b3c52fe2f05f7ac059c4',
     ),
     'steveorevo/gstring' => 
     array (
@@ -465,21 +465,21 @@
     ),
     'steveorevo/json2mysql' => 
     array (
-      'pretty_version' => '2.0.0',
-      'version' => '2.0.0.0',
+      'pretty_version' => '2.1.0',
+      'version' => '2.1.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '3e9befc5d524bca2b297d3aa86d8deee961d8a49',
+      'reference' => '03c249b04a59f6629fd8fabdc651e58aadbc76a4',
     ),
     'steveorevo/mysql2json' => 
     array (
-      'pretty_version' => '2.0.0',
-      'version' => '2.0.0.0',
+      'pretty_version' => '2.1.0',
+      'version' => '2.1.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '61ac165592e50f7810ff553fa4c5530cf665f6be',
+      'reference' => '4705792104282700bdb9a7d649298db9838f5058',
     ),
     'symfony/console' => 
     array (

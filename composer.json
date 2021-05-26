@@ -16,8 +16,8 @@
         "phpunit/phpunit": "^9.5",
         "wp-cli/wp-cli": "^2.4",
         "steveorevo/gstring": "^1.1",
-        "steveorevo/mysql2json": "^2.0",
-        "steveorevo/json2mysql": "^2.0"
+        "steveorevo/mysql2json": "^2.1",
+        "steveorevo/json2mysql": "^2.1"
     },
     "license": "MIT",
     "authors": [
