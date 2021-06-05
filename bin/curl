@@ -1,6 +1,8 @@
 #!/bin/bash
-if [[ -z "${CYGWIN_HOME}" ]]; then
-  /usr/bin/curl "$@"
+if [[ -z "${CYGWIN_HOME}" ]];
+then
+  export DYLD_LIBRARY_PATH="$DS_XAMPPFILES/lib":$DYLD_LIBRARY_PATH
+  $DS_XAMPPFILES/bin/curl "$@"
 else
-  $CYGWIN_HOME/bin/curl "$@"
+  $DS_XAMPPFILES/apache/bin/curl "$@"
 fi
