@@ -1,0 +1,6 @@
+#!/bin/bash
+if [[ -z "${CYGWIN_HOME}" ]]; then
+  /usr/bin/curl "$@"
+else
+  $CYGWIN_HOME/bin/curl "$@"
+fi
