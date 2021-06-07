@@ -85,7 +85,7 @@ class BinaryInstaller
             }
 
             if ($this->binCompat === "auto") {
-                if (Platform::isWindows()) {
+                if (Platform::isWindows() || Platform::isWindowsSubsystemForLinux()) {
                     $this->installFullBinaries($binPath, $link, $bin, $package);
                 } else {
                     $this->installSymlinkBinaries($binPath, $link);
@@ -206,6 +206,7 @@ class BinaryInstaller
                     $proxyCode = "#!/usr/bin/env php";
                 }
                 $binPathExported = var_export($binPath, true);
+
                 return $proxyCode . "\n" . <<<PROXY
 <?php
 

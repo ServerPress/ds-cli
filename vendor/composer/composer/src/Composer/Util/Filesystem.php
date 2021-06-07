@@ -12,6 +12,7 @@
 
 namespace Composer\Util;
 
+use React\Promise\PromiseInterface;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use Symfony\Component\Filesystem\Exception\IOException;
@@ -23,7 +24,7 @@ use Symfony\Component\Finder\Finder;
  */
 class Filesystem
 {
-    /** @var ProcessExecutor */
+    /** @var ?ProcessExecutor */
     private $processExecutor;
 
     public function __construct(ProcessExecutor $executor = null)
@@ -96,6 +97,77 @@ class Filesystem
      */
     public function removeDirectory($directory)
     {
+        $edgeCaseResult = $this->removeEdgeCases($directory);
+        if ($edgeCaseResult !== null) {
+            return $edgeCaseResult;
+        }
+
+        if (Platform::isWindows()) {
+            $cmd = sprintf('rmdir /S /Q %s', ProcessExecutor::escape(realpath($directory)));
+        } else {
+            $cmd = sprintf('rm -rf %s', ProcessExecutor::escape($directory));
+        }
+
+        $result = $this->getProcess()->execute($cmd, $output) === 0;
+
+        // clear stat cache because external processes aren't tracked by the php stat cache
+        clearstatcache();
+
+        if ($result && !is_dir($directory)) {
+            return true;
+        }
+
+        return $this->removeDirectoryPhp($directory);
+    }
+
+    /**
+     * Recursively remove a directory asynchronously
+     *
+     * Uses the process component if proc_open is enabled on the PHP
+     * installation.
+     *
+     * @param  string            $directory
+     * @throws \RuntimeException
+     * @return PromiseInterface
+     */
+    public function removeDirectoryAsync($directory)
+    {
+        $edgeCaseResult = $this->removeEdgeCases($directory);
+        if ($edgeCaseResult !== null) {
+            return \React\Promise\resolve($edgeCaseResult);
+        }
+
+        if (Platform::isWindows()) {
+            $cmd = sprintf('rmdir /S /Q %s', ProcessExecutor::escape(realpath($directory)));
+        } else {
+            $cmd = sprintf('rm -rf %s', ProcessExecutor::escape($directory));
+        }
+
+        $promise = $this->getProcess()->executeAsync($cmd);
+
+        $self = $this;
+
+        return $promise->then(function ($process) use ($directory, $self) {
+            // clear stat cache because external processes aren't tracked by the php stat cache
+            clearstatcache();
+
+            if ($process->isSuccessful()) {
+                if (!is_dir($directory)) {
+                    return \React\Promise\resolve(true);
+                }
+            }
+
+            return \React\Promise\resolve($self->removeDirectoryPhp($directory));
+        });
+    }
+
+    /**
+     * @param string $directory
+     *
+     * @return bool|null Returns null, when no edge case was hit. Otherwise a bool whether removal was successfull
+     */
+    private function removeEdgeCases($directory)
+    {
         if ($this->isSymlinkedDirectory($directory)) {
             return $this->unlinkSymlinkedDirectory($directory);
         }
@@ -120,22 +192,7 @@ class Filesystem
             return $this->removeDirectoryPhp($directory);
         }
 
-        if (Platform::isWindows()) {
-            $cmd = sprintf('rmdir /S /Q %s', ProcessExecutor::escape(realpath($directory)));
-        } else {
-            $cmd = sprintf('rm -rf %s', ProcessExecutor::escape($directory));
-        }
-
-        $result = $this->getProcess()->execute($cmd, $output) === 0;
-
-        // clear stat cache because external processes aren't tracked by the php stat cache
-        clearstatcache();
-
-        if ($result && !is_dir($directory)) {
-            return true;
-        }
-
-        return $this->removeDirectoryPhp($directory);
+        return null;
     }
 
     /**
@@ -512,7 +569,7 @@ class Filesystem
      * And other possible unforeseen disasters, see https://github.com/composer/composer/pull/9422
      *
      * @param  string $path
-     * @return bool
+     * @return string
      */
     public static function trimTrailingSlash($path)
     {
@@ -541,6 +598,33 @@ class Filesystem
         }
 
         return preg_replace('{^file://}i', '', $path);
+    }
+
+    /**
+     * Cross-platform safe version of is_readable()
+     *
+     * This will also check for readability by reading the file as is_readable can not be trusted on network-mounts
+     * and \\wsl$ paths. See https://github.com/composer/composer/issues/8231 and https://bugs.php.net/bug.php?id=68926
+     *
+     * @param  string $path
+     * @return bool
+     */
+    public static function isReadable($path)
+    {
+        if (is_readable($path)) {
+            return true;
+        }
+
+        if (is_file($path)) {
+            return false !== Silencer::call('file_get_contents', $path, false, null, 0, 1);
+        }
+
+        if (is_dir($path)) {
+            return false !== Silencer::call('opendir', $path);
+        }
+
+        // assume false otherwise
+        return false;
     }
 
     protected function directorySize($directory)

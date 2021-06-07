@@ -2,6 +2,19 @@
 
 All notable changes of the PHPUnit 9.5 release series are documented in this file using the [Keep a CHANGELOG](https://keepachangelog.com/) principles.
 
+## [9.5.5] - 2021-06-05
+
+### Changed
+
+* The test result cache (the storage for which is implemented in `PHPUnit\Runner\DefaultTestResultCache`) no longer uses PHP's `serialize()` and `unserialize()` function for persistence. It now uses a versioned JSON format instead that is independent of PHP implementation details (see [#3581](https://github.com/sebastianbergmann/phpunit/issues/3581) and [#4662](https://github.com/sebastianbergmann/phpunit/pull/4662) for examples why this is a problem). When PHPUnit tries to load the test result cache from a file that does not exist, or from a file that does not contain data in JSON format, or from a file that contains data in a JSON format version other than the one used by the currently running PHPUnit version, then this is considered to be a "cache miss". An empty `DefaultTestResultCache` object is created in this case. This should also prevent PHPUnit from crashing when trying to load a test result cache file created by a different version of PHPUnit (see [#4580](https://github.com/sebastianbergmann/phpunit/issues/4580) for example).
+
+### Fixed
+
+* [#4632](https://github.com/sebastianbergmann/phpunit/issues/4632): TestDox result printer does not handle repeated test execution correctly
+* [#4678](https://github.com/sebastianbergmann/phpunit/pull/4678): Stubbed methods with `iterable` return types should return empty array by default
+* [#4692](https://github.com/sebastianbergmann/phpunit/issues/4692): Annotations in single-line doc-comments are not handled correctly
+* [#4694](https://github.com/sebastianbergmann/phpunit/issues/4694): `TestCase::getMockFromWsdl()` does not work with PHP 8.1-dev
+
 ## [9.5.4] - 2021-03-23
 
 ### Fixed
@@ -41,6 +54,7 @@ All notable changes of the PHPUnit 9.5 release series are documented in this fil
 
 * [#4535](https://github.com/sebastianbergmann/phpunit/issues/4535): `getMockFromWsdl()` does not handle methods that do not have parameters correctly
 
+[9.5.5]: https://github.com/sebastianbergmann/phpunit/compare/9.5.4...9.5.5
 [9.5.4]: https://github.com/sebastianbergmann/phpunit/compare/9.5.3...9.5.4
 [9.5.3]: https://github.com/sebastianbergmann/phpunit/compare/9.5.2...9.5.3
 [9.5.2]: https://github.com/sebastianbergmann/phpunit/compare/9.5.1...9.5.2

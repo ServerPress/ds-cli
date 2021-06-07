@@ -17,7 +17,6 @@ use Composer\DependencyResolver\Request;
 use Composer\Installer;
 use Composer\IO\IOInterface;
 use Composer\Package\Loader\RootPackageLoader;
-use Composer\Package\RootPackage;
 use Composer\Plugin\CommandEvent;
 use Composer\Plugin\PluginEvents;
 use Composer\Package\Version\VersionParser;
@@ -47,7 +46,8 @@ class UpdateCommand extends BaseCommand
                 new InputArgument('packages', InputArgument::IS_ARRAY | InputArgument::OPTIONAL, 'Packages that should be updated, if not provided all packages are.'),
                 new InputOption('with', null, InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED, 'Temporary version constraint to add, e.g. foo/bar:1.0.0 or foo/bar=1.0.0'),
                 new InputOption('prefer-source', null, InputOption::VALUE_NONE, 'Forces installation from package sources when possible, including VCS information.'),
-                new InputOption('prefer-dist', null, InputOption::VALUE_NONE, 'Forces installation from package dist even for dev versions.'),
+                new InputOption('prefer-dist', null, InputOption::VALUE_NONE, 'Forces installation from package dist (default behavior).'),
+                new InputOption('prefer-install', null, InputOption::VALUE_REQUIRED, 'Forces installation from package dist|source|auto (auto chooses source for dev versions, dist for the rest).'),
                 new InputOption('dry-run', null, InputOption::VALUE_NONE, 'Outputs the operations but will not execute anything (implicitly enables --verbose).'),
                 new InputOption('dev', null, InputOption::VALUE_NONE, 'DEPRECATED: Enables installation of require-dev packages (enabled by default, only present for BC).'),
                 new InputOption('no-dev', null, InputOption::VALUE_NONE, 'Disables installation of require-dev packages.'),
@@ -155,9 +155,7 @@ EOT
         }
         $rootPackage->setRequires($rootRequires);
         $rootPackage->setDevRequires($rootDevRequires);
-        if ($rootPackage instanceof RootPackage) {
-            $rootPackage->setReferences(RootPackageLoader::extractReferences($reqs, $rootPackage->getReferences()));
-        }
+        $rootPackage->setReferences(RootPackageLoader::extractReferences($reqs, $rootPackage->getReferences()));
         $rootPackage->setStabilityFlags(RootPackageLoader::extractStabilityFlags($reqs, $rootPackage->getMinimumStability(), $rootPackage->getStabilityFlags()));
 
         if ($input->getOption('interactive')) {

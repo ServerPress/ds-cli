@@ -175,6 +175,10 @@ class JSON2MySQL {
       }
       if (FALSE === $bSkip) {
         $sql = $table['create'];
+
+        // Strict mode compatibility 
+        $sql = str_replace("NOT NULL DEFAULT '0000-00-00 00:00:00'","NOT NULL DEFAULT '1000-01-01 00:00:00'", $sql);
+        
         if ($this->db->query($sql) !== TRUE) {
           echo "Error, creating table: " . $this->db->error;
           exit();

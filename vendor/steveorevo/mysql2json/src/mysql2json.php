@@ -147,7 +147,11 @@ class MySQL2JSON {
         $row = $r->fetch_assoc();
         $table = new stdClass();
         $table->name = $name;
-        $table->create = $row["Create Table"];
+
+        // Strict mode compatibility 
+        $sql = $row["Create Table"];
+        $sql = str_replace("NOT NULL DEFAULT '0000-00-00 00:00:00'","NOT NULL DEFAULT '1000-01-01 00:00:00'", $sql);
+        $table->create = $sql;
         $table->columns = [];
         $table->data = [];
         array_push($objDB->tables, $table);
