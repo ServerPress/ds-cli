@@ -1,0 +1,7 @@
+#!/bin/bash
+if [[ -z "${CYGWIN_HOME}" ]]; then
+  SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+  $SCRIPT_DIR/../vendor/gettext/languages/bin/export-plural-rules "$@"
+else
+  export-plural-rules.bat "$@"
+fi

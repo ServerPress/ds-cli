@@ -14,6 +14,7 @@
     "require": {
         "composer/composer": "^2.0",
         "phpunit/phpunit": "^9.5",
+        "wp-cli/wp-cli-bundle": "^2.5.0",
         "steveorevo/gstring": "^1.1",
         "steveorevo/mysql2json": "^2.1.2",
         "steveorevo/json2mysql": "^2.1.2"

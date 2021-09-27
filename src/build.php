@@ -70,3 +70,4 @@ foreach(new RecursiveIteratorIterator($vendor) as $file) {
 		};
 	}
 }
+
