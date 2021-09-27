@@ -23,13 +23,13 @@ class CompositeRepository implements RepositoryInterface
 {
     /**
      * List of repositories
-     * @var array
+     * @var RepositoryInterface[]
      */
     private $repositories;
 
     /**
      * Constructor
-     * @param array $repositories
+     * @param RepositoryInterface[] $repositories
      */
     public function __construct(array $repositories)
     {
@@ -169,14 +169,16 @@ class CompositeRepository implements RepositoryInterface
     public function removePackage(PackageInterface $package)
     {
         foreach ($this->repositories as $repository) {
-            /* @var $repository RepositoryInterface */
-            $repository->removePackage($package);
+            if ($repository instanceof WritableRepositoryInterface) {
+                $repository->removePackage($package);
+            }
         }
     }
 
     /**
      * {@inheritdoc}
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         $total = 0;

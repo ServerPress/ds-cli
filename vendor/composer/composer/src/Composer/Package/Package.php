@@ -22,43 +22,68 @@ use Composer\Util\ComposerMirror;
  */
 class Package extends BasePackage
 {
+    /** @var string */
     protected $type;
+    /** @var ?string */
     protected $targetDir;
+    /** @var 'source'|'dist'|null */
     protected $installationSource;
+    /** @var ?string */
     protected $sourceType;
+    /** @var ?string */
     protected $sourceUrl;
+    /** @var ?string */
     protected $sourceReference;
+    /** @var ?array */
     protected $sourceMirrors;
+    /** @var ?string */
     protected $distType;
+    /** @var ?string */
     protected $distUrl;
+    /** @var ?string */
     protected $distReference;
+    /** @var ?string */
     protected $distSha1Checksum;
+    /** @var ?array */
     protected $distMirrors;
+    /** @var string */
     protected $version;
+    /** @var string */
     protected $prettyVersion;
+    /** @var ?\DateTime */
     protected $releaseDate;
+    /** @var mixed[] */
     protected $extra = array();
+    /** @var string[] */
     protected $binaries = array();
+    /** @var bool */
     protected $dev;
+    /** @var string */
     protected $stability;
+    /** @var ?string */
     protected $notificationUrl;
 
-    /** @var Link[] */
+    /** @var array<string, Link> */
     protected $requires = array();
-    /** @var Link[] */
+    /** @var array<string, Link> */
     protected $conflicts = array();
-    /** @var Link[] */
+    /** @var array<string, Link> */
     protected $provides = array();
-    /** @var Link[] */
+    /** @var array<string, Link> */
     protected $replaces = array();
-    /** @var Link[] */
+    /** @var array<string, Link> */
     protected $devRequires = array();
+    /** @var array<string, string> */
     protected $suggests = array();
+    /** @var array{psr-0?: array<string, string|string[]>, psr-4?: array<string, string|string[]>, classmap?: list<string>, files?: list<string>} */
     protected $autoload = array();
+    /** @var array{psr-0?: array<string, string|string[]>, psr-4?: array<string, string|string[]>, classmap?: list<string>, files?: list<string>} */
     protected $devAutoload = array();
+    /** @var string[] */
     protected $includePaths = array();
+    /** @var bool */
     protected $isDefaultBranch = false;
-    /** @var array */
+    /** @var mixed[] */
     protected $transportOptions = array();
 
     /**
@@ -392,7 +417,7 @@ class Package extends BasePackage
     /**
      * Set the required packages
      *
-     * @param Link[] $requires A set of package links
+     * @param array<string, Link> $requires A set of package links
      */
     public function setRequires(array $requires)
     {
@@ -410,7 +435,7 @@ class Package extends BasePackage
     /**
      * Set the conflicting packages
      *
-     * @param Link[] $conflicts A set of package links
+     * @param array<string, Link> $conflicts A set of package links
      */
     public function setConflicts(array $conflicts)
     {
@@ -419,6 +444,7 @@ class Package extends BasePackage
 
     /**
      * {@inheritDoc}
+     * @return array<string, Link>
      */
     public function getConflicts()
     {
@@ -428,7 +454,7 @@ class Package extends BasePackage
     /**
      * Set the provided virtual packages
      *
-     * @param Link[] $provides A set of package links
+     * @param array<string, Link> $provides A set of package links
      */
     public function setProvides(array $provides)
     {
@@ -437,6 +463,7 @@ class Package extends BasePackage
 
     /**
      * {@inheritDoc}
+     * @return array<string, Link>
      */
     public function getProvides()
     {
@@ -446,7 +473,7 @@ class Package extends BasePackage
     /**
      * Set the packages this one replaces
      *
-     * @param Link[] $replaces A set of package links
+     * @param array<string, Link> $replaces A set of package links
      */
     public function setReplaces(array $replaces)
     {
@@ -455,6 +482,7 @@ class Package extends BasePackage
 
     /**
      * {@inheritDoc}
+     * @return array<string, Link>
      */
     public function getReplaces()
     {
@@ -464,7 +492,7 @@ class Package extends BasePackage
     /**
      * Set the recommended packages
      *
-     * @param Link[] $devRequires A set of package links
+     * @param array<string, Link> $devRequires A set of package links
      */
     public function setDevRequires(array $devRequires)
     {
@@ -482,7 +510,7 @@ class Package extends BasePackage
     /**
      * Set the suggested packages
      *
-     * @param array $suggests A set of package names/comments
+     * @param array<string, string> $suggests A set of package names/comments
      */
     public function setSuggests(array $suggests)
     {
@@ -594,7 +622,10 @@ class Package extends BasePackage
 
         // only bitbucket, github and gitlab have auto generated dist URLs that easily allow replacing the reference in the dist URL
         // TODO generalize this a bit for self-managed/on-prem versions? Some kind of replace token in dist urls which allow this?
-        if (preg_match('{^https?://(?:(?:www\.)?bitbucket\.org|(api\.)?github\.com|(?:www\.)?gitlab\.com)/}i', $this->getDistUrl())) {
+        if (
+            $this->getDistUrl() !== null
+            && preg_match('{^https?://(?:(?:www\.)?bitbucket\.org|(api\.)?github\.com|(?:www\.)?gitlab\.com)/}i', $this->getDistUrl())
+        ) {
             $this->setDistReference($reference);
             $this->setDistUrl(preg_replace('{(?<=/|sha=)[a-f0-9]{40}(?=/|$)}i', $reference, $this->getDistUrl()));
         } elseif ($this->getDistReference()) { // update the dist reference if there was one, but if none was provided ignore it

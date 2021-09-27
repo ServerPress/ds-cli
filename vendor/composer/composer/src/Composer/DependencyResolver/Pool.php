@@ -30,7 +30,9 @@ class Pool implements \Countable
     protected $packages = array();
     /** @var array<string, BasePackage[]> */
     protected $packageByName = array();
+    /** @var VersionParser */
     protected $versionParser;
+    /** @var array<string, array<string, BasePackage[]>> */
     protected $providerCache = array();
     /** @var BasePackage[] */
     protected $unacceptableFixedOrLockedPackages;
@@ -79,6 +81,7 @@ class Pool implements \Countable
     /**
      * Returns how many packages have been loaded into the pool
      */
+    #[\ReturnTypeWillChange]
     public function count()
     {
         return \count($this->packages);
@@ -201,7 +204,7 @@ class Pool implements \Countable
         $str = "Pool:\n";
 
         foreach ($this->packages as $package) {
-            $str .= '- '.str_pad($package->id, 6, ' ', STR_PAD_LEFT).': '.$package->getName()."\n";
+            $str .= '- '.str_pad((string) $package->id, 6, ' ', STR_PAD_LEFT).': '.$package->getName()."\n";
         }
 
         return $str;

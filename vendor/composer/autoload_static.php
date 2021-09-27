@@ -13,13 +13,11 @@ class ComposerStaticInit55b3f019ca74cee38959c63ba63cf8d5
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
-        'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
-        '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+        '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
+        'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         'ad155f8f1cf0d418fe49e248db8c661b' => __DIR__ . '/..' . '/react/promise/src/functions_include.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
-        '3937806105cc8e221b8fa8db5b70d2f2' => __DIR__ . '/..' . '/wp-cli/mustangostang-spyc/includes/functions.php',
-        'be01b9b16925dcb22165c40b46681ac6' => __DIR__ . '/..' . '/wp-cli/php-cli-tools/lib/cli/cli.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -60,10 +58,6 @@ class ComposerStaticInit55b3f019ca74cee38959c63ba63cf8d5
             'Psr\\Container\\' => 14,
             'Prophecy\\' => 9,
             'PhpParser\\' => 10,
-        ),
-        'M' => 
-        array (
-            'Mustangostang\\' => 14,
         ),
         'L' => 
         array (
@@ -186,10 +180,6 @@ class ComposerStaticInit55b3f019ca74cee38959c63ba63cf8d5
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
         ),
-        'Mustangostang\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/wp-cli/mustangostang-spyc/src',
-        ),
         'League\\CLImate\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/climate/src',
@@ -229,37 +219,6 @@ class ComposerStaticInit55b3f019ca74cee38959c63ba63cf8d5
         'Composer\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/composer/src/Composer',
-        ),
-    );
-
-    public static $prefixesPsr0 = array (
-        'c' => 
-        array (
-            'cli' => 
-            array (
-                0 => __DIR__ . '/..' . '/wp-cli/php-cli-tools/lib',
-            ),
-        ),
-        'W' => 
-        array (
-            'WP_CLI\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/wp-cli/wp-cli/php',
-            ),
-        ),
-        'R' => 
-        array (
-            'Requests' => 
-            array (
-                0 => __DIR__ . '/..' . '/rmccue/requests/library',
-            ),
-        ),
-        'M' => 
-        array (
-            'Mustache' => 
-            array (
-                0 => __DIR__ . '/..' . '/mustache/mustache/src',
-            ),
         ),
     );
 
@@ -868,8 +827,10 @@ class ComposerStaticInit55b3f019ca74cee38959c63ba63cf8d5
         'SebastianBergmann\\Timer\\Timer' => __DIR__ . '/..' . '/phpunit/php-timer/src/Timer.php',
         'SebastianBergmann\\Type\\CallableType' => __DIR__ . '/..' . '/sebastian/type/src/CallableType.php',
         'SebastianBergmann\\Type\\Exception' => __DIR__ . '/..' . '/sebastian/type/src/exception/Exception.php',
+        'SebastianBergmann\\Type\\FalseType' => __DIR__ . '/..' . '/sebastian/type/src/FalseType.php',
         'SebastianBergmann\\Type\\GenericObjectType' => __DIR__ . '/..' . '/sebastian/type/src/GenericObjectType.php',
         'SebastianBergmann\\Type\\IterableType' => __DIR__ . '/..' . '/sebastian/type/src/IterableType.php',
+        'SebastianBergmann\\Type\\LogicException' => __DIR__ . '/..' . '/sebastian/type/src/exception/LogicException.php',
         'SebastianBergmann\\Type\\MixedType' => __DIR__ . '/..' . '/sebastian/type/src/MixedType.php',
         'SebastianBergmann\\Type\\NullType' => __DIR__ . '/..' . '/sebastian/type/src/NullType.php',
         'SebastianBergmann\\Type\\ObjectType' => __DIR__ . '/..' . '/sebastian/type/src/ObjectType.php',
@@ -894,8 +855,6 @@ class ComposerStaticInit55b3f019ca74cee38959c63ba63cf8d5
         'TheSeer\\Tokenizer\\XMLSerializer' => __DIR__ . '/..' . '/theseer/tokenizer/src/XMLSerializer.php',
         'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
         'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
-        'WP_CLI' => __DIR__ . '/..' . '/wp-cli/wp-cli/php/class-wp-cli.php',
-        'WP_CLI_Command' => __DIR__ . '/..' . '/wp-cli/wp-cli/php/class-wp-cli-command.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -903,7 +862,6 @@ class ComposerStaticInit55b3f019ca74cee38959c63ba63cf8d5
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit55b3f019ca74cee38959c63ba63cf8d5::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit55b3f019ca74cee38959c63ba63cf8d5::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit55b3f019ca74cee38959c63ba63cf8d5::$prefixesPsr0;
             $loader->classMap = ComposerStaticInit55b3f019ca74cee38959c63ba63cf8d5::$classMap;
 
         }, null, ClassLoader::class);

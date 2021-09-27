@@ -152,7 +152,7 @@ class Installer
     protected $suggestedPackagesReporter;
 
     /**
-     * @var RepositoryInterface
+     * @var ?RepositoryInterface
      */
     protected $additionalFixedRepository;
 
@@ -180,6 +180,7 @@ class Installer
         $this->installationManager = $installationManager;
         $this->eventDispatcher = $eventDispatcher;
         $this->autoloadGenerator = $autoloadGenerator;
+        $this->suggestedPackagesReporter = new SuggestedPackagesReporter($this->io);
 
         $this->writeLock = $config->get('lock');
     }
@@ -237,10 +238,6 @@ class Installer
         $this->downloadManager->setPreferDist($this->preferDist);
 
         $localRepo = $this->repositoryManager->getLocalRepository();
-
-        if (!$this->suggestedPackagesReporter) {
-            $this->suggestedPackagesReporter = new SuggestedPackagesReporter($this->io);
-        }
 
         try {
             if ($this->update) {
@@ -1131,6 +1128,7 @@ class Installer
      *
      * @param  bool      $runScripts
      * @return Installer
+     * @deprecated Use setRunScripts(false) on the EventDispatcher instance being injected instead
      */
     public function setRunScripts($runScripts = true)
     {

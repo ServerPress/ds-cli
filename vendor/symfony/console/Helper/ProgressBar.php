@@ -206,7 +206,7 @@ final class ProgressBar
 
     public function getBarOffset(): float
     {
-        return floor($this->max ? $this->percent * $this->barWidth : (null === $this->redrawFreq ? min(5, $this->barWidth / 15) * $this->writeCount : $this->step) % $this->barWidth);
+        return floor($this->max ? $this->percent * $this->barWidth : (null === $this->redrawFreq ? (int) (min(5, $this->barWidth / 15) * $this->writeCount) : $this->step) % $this->barWidth);
     }
 
     public function getEstimated(): float
@@ -280,7 +280,7 @@ final class ProgressBar
     /**
      * Sets the redraw frequency.
      *
-     * @param int|float $freq The frequency in steps
+     * @param int|null $freq The frequency in steps
      */
     public function setRedrawFrequency(?int $freq)
     {
@@ -482,8 +482,10 @@ final class ProgressBar
                     }
                     $this->output->clear($lineCount);
                 } else {
-                    if ($this->formatLineCount > 0) {
-                        $this->cursor->moveUp($this->formatLineCount);
+                    for ($i = 0; $i < $this->formatLineCount; ++$i) {
+                        $this->cursor->moveToColumn(1);
+                        $this->cursor->clearLine();
+                        $this->cursor->moveUp();
                     }
 
                     $this->cursor->moveToColumn(1);

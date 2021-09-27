@@ -118,7 +118,7 @@ class GitLab
         }
 
         $this->io->writeError(sprintf('A token will be created and stored in "%s", your password will never be stored', $this->config->getAuthConfigSource()->getName()));
-        $this->io->writeError('To revoke access to this token you can visit '.$scheme.'://'.$originUrl.'/profile/applications');
+        $this->io->writeError('To revoke access to this token you can visit '.$scheme.'://'.$originUrl.'/-/profile/personal_access_tokens');
 
         $attemptCounter = 0;
 
@@ -172,7 +172,7 @@ class GitLab
             'username' => $username,
             'password' => $password,
             'grant_type' => 'password',
-        ), null, '&');
+        ), '', '&');
         $options = array(
             'retry-auth-failure' => false,
             'http' => array(

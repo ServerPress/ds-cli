@@ -177,17 +177,19 @@ EOT
 
         $finder = new ExecutableFinder;
         $hasSystemUnzip = (bool) $finder->find('unzip');
-        if (Platform::isWindows()) {
-            $hasSystem7zip = (bool) $finder->find('7z', null, array('C:\Program Files\7-Zip'));
-            $windows7z = ', ' . ($hasSystem7zip ? '<comment>7-Zip present</comment>' : '<comment>7-Zip not available</comment>');
-        } else {
-            $windows7z = '';
+        $bin7zip = '';
+        if ($hasSystem7zip = (bool) $finder->find('7z', null, array('C:\Program Files\7-Zip'))) {
+            $bin7zip = '7z';
+        }
+        if (!Platform::isWindows() && !$hasSystem7zip && $hasSystem7zip = (bool) $finder->find('7zz')) {
+            $bin7zip = '7zz';
         }
 
         $io->write(
             'zip: ' . (extension_loaded('zip') ? '<comment>extension present</comment>' : '<comment>extension not loaded</comment>')
             . ', ' . ($hasSystemUnzip ? '<comment>unzip present</comment>' : '<comment>unzip not available</comment>')
-            . $windows7z
+            . ', ' . ($hasSystem7zip ? '<comment>7-Zip present ('.$bin7zip.')</comment>' : '<comment>7-Zip not available</comment>')
+            . (($hasSystem7zip || $hasSystemUnzip) && !function_exists('proc_open') ? ', <warning>proc_open is disabled or not present, unzip/7-z will not be usable</warning>' : '')
         );
 
         return $this->exitCode;
@@ -219,6 +221,10 @@ EOT
 
     private function checkGit()
     {
+        if (!function_exists('proc_open')) {
+            return '<comment>proc_open is not available, git cannot be used</comment>';
+        }
+
         $this->process->execute('git config color.ui', $output);
         if (strtolower(trim($output)) === 'always') {
             return '<comment>Your git color.ui setting is set to always, this is known to create issues. Use "git config --global color.ui true" to set it correctly.</comment>';
@@ -298,9 +304,11 @@ EOT
         try {
             $url = $domain === 'github.com' ? 'https://api.'.$domain.'/' : 'https://'.$domain.'/api/v3/';
 
-            return $this->httpDownloader->get($url, array(
+            $this->httpDownloader->get($url, array(
                 'retry-auth-failure' => false,
-            )) ? true : 'Unexpected error';
+            ));
+
+            return true;
         } catch (\Exception $e) {
             if ($e instanceof TransportException && $e->getCode() === 401) {
                 return '<comment>The oauth token for '.$domain.' seems invalid, run "composer config --global --unset github-oauth.'.$domain.'" to remove it</comment>';
@@ -413,7 +421,7 @@ EOT
     }
 
     /**
-     * @param bool|string|\Exception $result
+     * @param bool|string|string[]|\Exception $result
      */
     private function outputResult($result)
     {

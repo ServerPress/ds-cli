@@ -25,8 +25,11 @@ use ZipArchive;
  */
 class ZipDownloader extends ArchiveDownloader
 {
+    /** @var array<int, array{0: string, 1: string}> */
     private static $unzipCommands;
+    /** @var bool */
     private static $hasZipArchive;
+    /** @var bool */
     private static $isWindows;
 
     /** @var ZipArchive|null */
@@ -46,6 +49,18 @@ class ZipDownloader extends ArchiveDownloader
             if ($cmd = $finder->find('unzip')) {
                 self::$unzipCommands[] = array('unzip', ProcessExecutor::escape($cmd).' -qq %s -d %s');
             }
+            if (!Platform::isWindows() && ($cmd = $finder->find('7z'))) { // 7z linux/macOS support is only used if unzip is not present
+                self::$unzipCommands[] = array('7z', ProcessExecutor::escape($cmd).' x -bb0 -y %s -o%s');
+            }
+            if (!Platform::isWindows() && ($cmd = $finder->find('7zz'))) { // 7zz linux/macOS support is only used if unzip is not present
+                self::$unzipCommands[] = array('7zz', ProcessExecutor::escape($cmd).' x -bb0 -y %s -o%s');
+            }
+        }
+
+        $procOpenMissing = false;
+        if (!function_exists('proc_open')) {
+            self::$unzipCommands = array();
+            $procOpenMissing = true;
         }
 
         if (null === self::$hasZipArchive) {
@@ -55,7 +70,11 @@ class ZipDownloader extends ArchiveDownloader
         if (!self::$hasZipArchive && !self::$unzipCommands) {
             // php.ini path is added to the error message to help users find the correct file
             $iniMessage = IniHelper::getMessage();
-            $error = "The zip extension and unzip/7z commands are both missing, skipping.\n" . $iniMessage;
+            if ($procOpenMissing) {
+                $error = "The zip extension is missing and unzip/7z commands cannot be called as proc_open is disabled, skipping.\n" . $iniMessage;
+            } else {
+                $error = "The zip extension and unzip/7z commands are both missing, skipping.\n" . $iniMessage;
+            }
 
             throw new \RuntimeException($error);
         }
@@ -64,9 +83,15 @@ class ZipDownloader extends ArchiveDownloader
             self::$isWindows = Platform::isWindows();
 
             if (!self::$isWindows && !self::$unzipCommands) {
-                $this->io->writeError("<warning>As there is no 'unzip' nor '7z' command installed zip files are being unpacked using the PHP zip extension.</warning>");
-                $this->io->writeError("<warning>This may cause invalid reports of corrupted archives. Besides, any UNIX permissions (e.g. executable) defined in the archives will be lost.</warning>");
-                $this->io->writeError("<warning>Installing 'unzip' or '7z' may remediate them.</warning>");
+                if ($procOpenMissing) {
+                    $this->io->writeError("<warning>proc_open is disabled so 'unzip' and '7z' commands cannot be used, zip files are being unpacked using the PHP zip extension.</warning>");
+                    $this->io->writeError("<warning>This may cause invalid reports of corrupted archives. Besides, any UNIX permissions (e.g. executable) defined in the archives will be lost.</warning>");
+                    $this->io->writeError("<warning>Enabling proc_open and installing 'unzip' or '7z' may remediate them.</warning>");
+                } else {
+                    $this->io->writeError("<warning>As there is no 'unzip' nor '7z' command installed zip files are being unpacked using the PHP zip extension.</warning>");
+                    $this->io->writeError("<warning>This may cause invalid reports of corrupted archives. Besides, any UNIX permissions (e.g. executable) defined in the archives will be lost.</warning>");
+                    $this->io->writeError("<warning>Installing 'unzip' or '7z' may remediate them.</warning>");
+                }
             }
         }
 
@@ -93,6 +118,12 @@ class ZipDownloader extends ArchiveDownloader
 
         $commandSpec = reset(self::$unzipCommands);
         $command = sprintf($commandSpec[1], ProcessExecutor::escape($file), ProcessExecutor::escape($path));
+        // normalize separators to backslashes to avoid problems with 7-zip on windows
+        // see https://github.com/composer/composer/issues/10058
+        if (Platform::isWindows()) {
+            $command = sprintf($commandSpec[1], ProcessExecutor::escape(strtr($file, '/', '\\')), ProcessExecutor::escape(strtr($path, '/', '\\')));
+        }
+
         $executable = $commandSpec[0];
 
         $self = $this;

@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ -z "${CYGWIN_HOME}" ]];
+if [[ -z "${CYGWIN_HOME}" ]]; 
 then
   export DYLD_LIBRARY_PATH="$DS_XAMPPFILES/lib":$DYLD_LIBRARY_PATH
   $DS_XAMPPFILES/bin/php "$@"

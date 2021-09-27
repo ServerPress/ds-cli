@@ -610,8 +610,10 @@ return array(
     'SebastianBergmann\\Timer\\Timer' => $vendorDir . '/phpunit/php-timer/src/Timer.php',
     'SebastianBergmann\\Type\\CallableType' => $vendorDir . '/sebastian/type/src/CallableType.php',
     'SebastianBergmann\\Type\\Exception' => $vendorDir . '/sebastian/type/src/exception/Exception.php',
+    'SebastianBergmann\\Type\\FalseType' => $vendorDir . '/sebastian/type/src/FalseType.php',
     'SebastianBergmann\\Type\\GenericObjectType' => $vendorDir . '/sebastian/type/src/GenericObjectType.php',
     'SebastianBergmann\\Type\\IterableType' => $vendorDir . '/sebastian/type/src/IterableType.php',
+    'SebastianBergmann\\Type\\LogicException' => $vendorDir . '/sebastian/type/src/exception/LogicException.php',
     'SebastianBergmann\\Type\\MixedType' => $vendorDir . '/sebastian/type/src/MixedType.php',
     'SebastianBergmann\\Type\\NullType' => $vendorDir . '/sebastian/type/src/NullType.php',
     'SebastianBergmann\\Type\\ObjectType' => $vendorDir . '/sebastian/type/src/ObjectType.php',
@@ -636,6 +638,4 @@ return array(
     'TheSeer\\Tokenizer\\XMLSerializer' => $vendorDir . '/theseer/tokenizer/src/XMLSerializer.php',
     'UnhandledMatchError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
     'ValueError' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
-    'WP_CLI' => $vendorDir . '/wp-cli/wp-cli/php/class-wp-cli.php',
-    'WP_CLI_Command' => $vendorDir . '/wp-cli/wp-cli/php/class-wp-cli-command.php',
 );

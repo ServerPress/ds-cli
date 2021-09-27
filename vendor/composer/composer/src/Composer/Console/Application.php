@@ -56,6 +56,7 @@ class Application extends BaseApplication
      */
     protected $io;
 
+    /** @var string */
     private static $logo = '   ______
   / ____/___  ____ ___  ____  ____  ________  _____
  / /   / __ \/ __ `__ \/ __ \/ __ \/ ___/ _ \/ ___/
@@ -64,7 +65,9 @@ class Application extends BaseApplication
                     /_/
 ';
 
+    /** @var bool */
     private $hasPluginCommands = false;
+    /** @var bool */
     private $disablePluginsByDefault = false;
 
     /**
@@ -77,8 +80,8 @@ class Application extends BaseApplication
         static $shutdownRegistered = false;
 
         if (function_exists('ini_set') && extension_loaded('xdebug')) {
-            ini_set('xdebug.show_exception_trace', false);
-            ini_set('xdebug.scream', false);
+            ini_set('xdebug.show_exception_trace', '0');
+            ini_set('xdebug.scream', '0');
         }
 
         if (function_exists('date_default_timezone_set') && function_exists('date_default_timezone_get')) {
@@ -139,6 +142,8 @@ class Application extends BaseApplication
         $io = $this->io = new ConsoleIO($input, $output, new HelperSet(array(
             new QuestionHelper(),
         )));
+
+        // Register error handler again to pass it the IO instance
         ErrorHandler::register($io);
 
         if ($input->hasParameterOption('--no-cache')) {
@@ -184,7 +189,17 @@ class Application extends BaseApplication
             }
         }
 
-        if (!$this->disablePluginsByDefault && !$this->hasPluginCommands && 'global' !== $commandName) {
+        // avoid loading plugins/initializing the Composer instance earlier than necessary if no plugin command is needed
+        // if showing the version, we never need plugin commands
+        $mayNeedPluginCommand = false === $input->hasParameterOption(array('--version', '-V'))
+            && (
+                // not a composer command, so try loading plugin ones
+                false === $commandName
+                // list command requires plugin commands to show them
+                || in_array($commandName, array('', 'list'), true)
+            );
+
+        if ($mayNeedPluginCommand && !$this->disablePluginsByDefault && !$this->hasPluginCommands && 'global' !== $commandName) {
             try {
                 foreach ($this->getPluginCommands() as $command) {
                     if ($this->has($command->getName())) {
@@ -403,7 +418,8 @@ class Application extends BaseApplication
      * @param  bool                    $required
      * @param  bool|null               $disablePlugins
      * @throws JsonValidationException
-     * @return \Composer\Composer
+     * @throws \InvalidArgumentException
+     * @return ?\Composer\Composer If $required is true then the return value is guaranteed
      */
     public function getComposer($required = true, $disablePlugins = null)
     {
@@ -417,12 +433,16 @@ class Application extends BaseApplication
             } catch (\InvalidArgumentException $e) {
                 if ($required) {
                     $this->io->writeError($e->getMessage());
-                    exit(1);
+                    // TODO composer 2.3 simplify to $this->areExceptionsCaught()
+                    if (!method_exists($this, 'areExceptionsCaught') || $this->areExceptionsCaught()) {
+                        exit(1);
+                    }
+                    throw $e;
                 }
             } catch (JsonValidationException $e) {
-                $errors = ' - ' . implode(PHP_EOL . ' - ', $e->getErrors());
-                $message = $e->getMessage() . ':' . PHP_EOL . $errors;
-                throw new JsonValidationException($message);
+                if ($required) {
+                    throw $e;
+                }
             }
         }
 
@@ -435,7 +455,7 @@ class Application extends BaseApplication
     public function resetComposer()
     {
         $this->composer = null;
-        if ($this->getIO() && method_exists($this->getIO(), 'resetAuthentications')) {
+        if (method_exists($this->getIO(), 'resetAuthentications')) {
             $this->getIO()->resetAuthentications();
         }
     }

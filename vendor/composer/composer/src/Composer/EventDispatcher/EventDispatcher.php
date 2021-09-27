@@ -53,6 +53,8 @@ class EventDispatcher
     protected $process;
     /** @var array<string, array<int, array<callable|string>>> */
     protected $listeners = array();
+    /** @var bool */
+    protected $runScripts = true;
     /** @var list<string> */
     private $eventStack;
 
@@ -69,6 +71,18 @@ class EventDispatcher
         $this->io = $io;
         $this->process = $process ?: new ProcessExecutor($io);
         $this->eventStack = array();
+    }
+
+    /**
+     * Set whether script handlers are active or not
+     *
+     * @param bool $runScripts
+     */
+    public function setRunScripts($runScripts = true)
+    {
+        $this->runScripts = (bool) $runScripts;
+
+        return $this;
     }
 
     /**
@@ -265,8 +279,8 @@ class EventDispatcher
                         }
                         // match somename (not in quote, and not a qualified path) and if it is not a valid path from CWD then try to find it
                         // in $PATH. This allows support for `@php foo` where foo is a binary name found in PATH but not an actual relative path
-                        preg_match('{^[^\'"\s/\\\\]+}', $pathAndArgs, $match);
-                        if (!file_exists($match[0])) {
+                        $matched = preg_match('{^[^\'"\s/\\\\]+}', $pathAndArgs, $match);
+                        if ($matched && !file_exists($match[0])) {
                             $finder = new ExecutableFinder;
                             if ($pathToExec = $finder->find($match[0])) {
                                 $pathAndArgs = $pathToExec . substr($pathAndArgs, strlen($match[0]));
@@ -421,7 +435,7 @@ class EventDispatcher
      */
     protected function getListeners(Event $event)
     {
-        $scriptListeners = $this->getScriptListeners($event);
+        $scriptListeners = $this->runScripts ? $this->getScriptListeners($event) : array();
 
         if (!isset($this->listeners[$event->getName()][0])) {
             $this->listeners[$event->getName()][0] = array();

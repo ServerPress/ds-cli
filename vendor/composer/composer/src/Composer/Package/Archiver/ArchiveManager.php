@@ -16,6 +16,7 @@ use Composer\Downloader\DownloadManager;
 use Composer\Package\RootPackageInterface;
 use Composer\Util\Filesystem;
 use Composer\Util\Loop;
+use Composer\Util\SyncHelper;
 use Composer\Json\JsonFile;
 use Composer\Package\CompletePackageInterface;
 
@@ -87,7 +88,7 @@ class ArchiveManager
         }
         $nameParts = array($baseName);
 
-        if (preg_match('{^[a-f0-9]{40}$}', $package->getDistReference())) {
+        if (null !== $package->getDistReference() && preg_match('{^[a-f0-9]{40}$}', $package->getDistReference())) {
             array_push($nameParts, $package->getDistReference(), $package->getDistType());
         } else {
             array_push($nameParts, $package->getPrettyVersion(), $package->getDistReference());
@@ -149,8 +150,9 @@ class ArchiveManager
             try {
                 // Download sources
                 $promise = $this->downloadManager->download($package, $sourcePath);
-                $this->loop->wait(array($promise));
-                $this->downloadManager->install($package, $sourcePath);
+                SyncHelper::await($this->loop, $promise);
+                $promise = $this->downloadManager->install($package, $sourcePath);
+                SyncHelper::await($this->loop, $promise);
             } catch (\Exception $e) {
                 $filesystem->removeDirectory($sourcePath);
                 throw  $e;

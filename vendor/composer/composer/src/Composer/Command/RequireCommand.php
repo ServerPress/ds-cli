@@ -38,10 +38,15 @@ use Composer\Util\Silencer;
  */
 class RequireCommand extends InitCommand
 {
+    /** @var bool */
     private $newlyCreated;
+    /** @var bool */
     private $firstRequire;
+    /** @var JsonFile */
     private $json;
+    /** @var string */
     private $file;
+    /** @var string */
     private $composerBackup;
     /** @var string file name */
     private $lock;
@@ -311,6 +316,7 @@ EOT
         // Update packages
         $this->resetComposer();
         $composer = $this->getComposer(true, $input->getOption('no-plugins'));
+        $composer->getEventDispatcher()->setRunScripts(!$input->getOption('no-scripts'));
 
         if ($input->getOption('dry-run')) {
             $rootPackage = $composer->getPackage();
@@ -319,7 +325,7 @@ EOT
                 'require-dev' => $rootPackage->getDevRequires(),
             );
             $loader = new ArrayLoader();
-            $newLinks = $loader->parseLinks($rootPackage->getName(), $rootPackage->getPrettyVersion(), BasePackage::$supportedLinkTypes[$requireKey]['description'], $requirements);
+            $newLinks = $loader->parseLinks($rootPackage->getName(), $rootPackage->getPrettyVersion(), BasePackage::$supportedLinkTypes[$requireKey]['method'], $requirements);
             $links[$requireKey] = array_merge($links[$requireKey], $newLinks);
             foreach ($requirements as $package => $constraint) {
                 unset($links[$removeKey][$package]);
@@ -362,7 +368,6 @@ EOT
             ->setPreferSource($preferSource)
             ->setPreferDist($preferDist)
             ->setDevMode($updateDevMode)
-            ->setRunScripts(!$input->getOption('no-scripts'))
             ->setOptimizeAutoloader($optimize)
             ->setClassMapAuthoritative($authoritative)
             ->setApcuAutoloader($apcu, $apcuPrefix)

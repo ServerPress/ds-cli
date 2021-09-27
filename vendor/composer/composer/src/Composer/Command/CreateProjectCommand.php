@@ -25,7 +25,7 @@ use Composer\Package\AliasPackage;
 use Composer\Repository\RepositoryFactory;
 use Composer\Repository\CompositeRepository;
 use Composer\Repository\PlatformRepository;
-use Composer\Repository\InstalledFilesystemRepository;
+use Composer\Repository\InstalledArrayRepository;
 use Composer\Repository\RepositorySet;
 use Composer\Script\ScriptEvents;
 use Composer\Util\Silencer;
@@ -183,6 +183,7 @@ EOT
         }
 
         $composer = Factory::create($io, null, $disablePlugins);
+        $composer->getEventDispatcher()->setRunScripts(!$noScripts);
 
         // add the repository to the composer.json and use it for the install run later
         if ($repositories !== null && $addRepository) {
@@ -208,10 +209,8 @@ EOT
         $process = new ProcessExecutor($io);
         $fs = new Filesystem($process);
 
-        if ($noScripts === false) {
-            // dispatch event
-            $composer->getEventDispatcher()->dispatchScript(ScriptEvents::POST_ROOT_PACKAGE_INSTALL, $installDevPackages);
-        }
+        // dispatch event
+        $composer->getEventDispatcher()->dispatchScript(ScriptEvents::POST_ROOT_PACKAGE_INSTALL, $installDevPackages);
 
         // use the new config including the newly installed project
         $config = $composer->getConfig();
@@ -225,7 +224,6 @@ EOT
             $installer->setPreferSource($preferSource)
                 ->setPreferDist($preferDist)
                 ->setDevMode($installDevPackages)
-                ->setRunScripts(!$noScripts)
                 ->setIgnorePlatformRequirements($ignorePlatformReqs)
                 ->setSuggestedPackagesReporter($this->suggestedPackagesReporter)
                 ->setOptimizeAutoloader($config->get('optimize-autoloader'))
@@ -290,10 +288,8 @@ EOT
             }
         }
 
-        if ($noScripts === false) {
-            // dispatch event
-            $composer->getEventDispatcher()->dispatchScript(ScriptEvents::POST_CREATE_PROJECT_CMD, $installDevPackages);
-        }
+        // dispatch event
+        $composer->getEventDispatcher()->dispatchScript(ScriptEvents::POST_CREATE_PROJECT_CMD, $installDevPackages);
 
         chdir($oldCwd);
         $vendorComposerDir = $config->get('vendor-dir').'/composer';
@@ -443,7 +439,7 @@ EOT
         $im = $composer->getInstallationManager();
         $im->setOutputProgress(!$noProgress);
         $im->addInstaller($projectInstaller);
-        $im->execute(new InstalledFilesystemRepository(new JsonFile('php://memory')), array(new InstallOperation($package)));
+        $im->execute(new InstalledArrayRepository(), array(new InstallOperation($package)));
         $im->notifyInstalls($io);
 
         // collect suggestions

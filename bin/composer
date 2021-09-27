@@ -1,6 +1,5 @@
 #!/bin/bash
-if [[ -z "${CYGWIN_HOME}" ]];
-then
+if [[ -z "${CYGWIN_HOME}" ]]; then
   SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
   $SCRIPT_DIR/../vendor/composer/composer/bin/composer "$@"
 else
